@@ -7,6 +7,6 @@ public class Cantiere {
 	Date dataChiusura;
 	
 	public Cantiere(){
-		//TODO
+		System.out.println("da fare");
 	}
 }
