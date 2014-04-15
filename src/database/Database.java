@@ -53,6 +53,9 @@ public class Database {
 		try{
 			con = DriverManager.getConnection(url);
 			System.out.println("Connection done");
+			
+			cmd = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			
 		}
 		catch(SQLException e){
 			throw new JavaDBException(2);
@@ -80,6 +83,8 @@ public class Database {
 		// Get a connection
 		try{
 			con = DriverManager.getConnection(url);
+			cmd = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			
 			ResultSet table = con.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
 			if(!table.next()){		// se non ci sono le tabelle
 				System.out.println("tabelle non esistenti!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -107,12 +112,7 @@ public class Database {
 	 */
 	public static ResultSet interrogate(String qry) throws JavaDBException{
 		a = true;
-		// Create a Statement object to query the db
-		try {
-			cmd = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-		} catch (SQLException e) {
-			throw new JavaDBException(3);
-		}
+		
 		// Query and save the results in a ResultSet object
 		try {
 			res = cmd.executeQuery(qry);
@@ -132,11 +132,6 @@ public class Database {
 	 */
 	public static void update(String qry) throws JavaDBException {
 		a = false;
-		try {
-			cmd = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-		} catch (SQLException e) {
-			throw new JavaDBException(3);
-		}
 		try {
 			cmd.executeUpdate(qry);
 		} catch (SQLException e) {

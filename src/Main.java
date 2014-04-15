@@ -13,7 +13,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		//ParcoMacchine pm=new ParcoMacchine();
 		Database db=new Database();
-		db.connect();
+		//db.connect();
 		db.initDB();
 		db.disconnect();
 	}
