@@ -86,7 +86,7 @@ public class Database {
 				InitDB idb = new InitDB();
 				idb.createTables();
 				
-				idb.insertIntoTables();
+				idb.popola();
 			}
 				
 			System.out.println("Connection done");

@@ -22,20 +22,9 @@ public class InitDB {
 	 * @throws JavaDBException the java db exception
 	 */
 	public void createTables() throws JavaDBException{
-		String qry = "create table APP.Macchina ( " +
-				"I integer not null generated always as identity(start with 1, increment by 1), " +
-				"Codice integer not null unique, " +
-				"Produttore  varchar(20) notnull, " +
-				"Modello varchar(20) not null, " +
-				"Tipo ENUM('Gru','Camion','Escavatore','Ruspa')" +
-				"CapacitaMax integer, " +
-				"PortataMax integer, " +
-				"AltezzaMax integer, " +
-				"LunghezzaMax integer, " +
-				"ProfonditaMax integer, " +
-				"RotazioneMax integer, ";
-		Database.update(qry);
-		qry = "create table APP.Cantiere ( " +
+		System.out.println("Query1");
+		
+		String qry = "create table APP.Cantiere ( " +
 				"I integer not null generated always as identity(start with 1, increment by 1), " +
 				"Codice integer not null unique, " +
 				"Name varchar(30) not null, " +
@@ -44,6 +33,24 @@ public class InitDB {
 				"Indirizzo varchar(50) not null, " +
 				"primary key (I))";
 		Database.update(qry);
+		System.out.println("Query2");
+		
+		qry = "create table APP.Macchina ( " +
+				"I integer not null generated always as identity(start with 1, increment by 1), " +
+				"Codice integer not null unique, " +
+				"Produttore  varchar(20) notnull, " +
+				"Modello varchar(20) not null, " +
+				"Tipo ENUM('Gru','Camion','Escavatore','Ruspa'), " +
+				"CapacitaMax integer, " +
+				"PortataMax integer, " +
+				"AltezzaMax integer, " +
+				"LunghezzaMax integer, " +
+				"ProfonditaMax integer, " +
+				"RotazioneMax integer, " +
+				"primary key (I))";
+		Database.update(qry);
+
+		
 		qry = "create table APP.Prenotazione ( " +
 				"I integer not null generated always as identity(start with 1, increment by 1), " +
 				"CodiceMacchina integer not null references APP.Macchina(Codice), " +
@@ -54,6 +61,14 @@ public class InitDB {
 		Database.update(qry);
 	}
 	
+	
+	public void popola()throws JavaDBException{
+		String qry = "Insert into APP.Macchina (Codice,Produttore,Modello,Tipo,CapacitaMax,PortataMax,AltezzaMax)"+
+				"Values(111,Kramer Allrad,580,Ruspa,2900,50,250)";
+		Database.update(qry);
+		
+		
+	}
 
 	
 	/**
