@@ -69,22 +69,10 @@ public class Database {
 	 * Controlla se esistono le tabelle nel DB.
 	 *
 	 * @throws JavaDBException the java db exception
+	 * @throws SQLException 
 	 */
-	public static void initDB() throws JavaDBException{
-		driver = "org.apache.derby.jdbc.EmbeddedDriver";
-		try {
-			Class.forName(driver);
-		}
-		catch(Exception e){
-			throw new JavaDBException(1);
-		}
-		// Create the connection string
-		String url = "jdbc:derby:MyDB;create=true";
-		// Get a connection
-		try{
-			con = DriverManager.getConnection(url);
-			cmd = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			
+	public static void initDB() throws JavaDBException, SQLException{
+		
 			ResultSet table = con.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
 			if(!table.next()){		// se non ci sono le tabelle
 				System.out.println("tabelle non esistenti!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -93,12 +81,7 @@ public class Database {
 				
 				idb.popola();
 			}
-				
-			System.out.println("Connection done");
-		}
-		catch(SQLException e){
-			throw new JavaDBException(2);
-		}
+
 	}
 	
 	
