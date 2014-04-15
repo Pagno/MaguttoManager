@@ -102,6 +102,12 @@ public class Database {
 	}
 	
 	
+	public static void popola() throws JavaDBException{
+		InitDB idb = new InitDB();
+		
+		idb.popola();
+	}
+	
 	
 	/**
 	 * Interrogazione al DB.
