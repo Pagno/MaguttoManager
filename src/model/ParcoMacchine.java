@@ -102,8 +102,4 @@ public class ParcoMacchine{
 	    	}
 	    }		
 	}
-	
-	public void ciao(){
-		System.out.print("ciao");
-	}
 }
