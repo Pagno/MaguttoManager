@@ -25,5 +25,8 @@ public class ParcoCantieri{
 		}
 	
 	}
+	public void eccheccazzo(){
+		System.out.println("ECCHECCAZZO");
+	}
 	
 }
