@@ -1,6 +1,9 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.xml.crypto.Data;
+
+
 import database.Database;
 import database.JavaDBException;
 import model.ParcoMacchine;
@@ -21,11 +24,12 @@ public class Main {
 		String qry="SELECT * FROM APP.Macchina";
 		ResultSet res = Database.interrogate(qry);
 		while (res.next()) {
-			System.out.println(res.getString("Produttore")+" - "+res.getInt("PortataMax"));
+			System.out.println(res.getInt("Codice")+res.getString("Produttore")+" - "+res.getInt("PortataMax"));
 		}
 		
-		
+		//Database.initDB();
 		Database.disconnect();
+		//Manager man=new Manager();
 	}
 
 }

@@ -23,7 +23,7 @@ public class InitDB {
 	 */
 	public void createTables() throws JavaDBException{
 		String qry = "create table APP.Macchina ( " +
-				"Codice integer  generated always as identity(start with 100, increment by 1) primary key, " +
+				"Codice integer  primary key, " +
 				"Produttore  varchar(20) not null, " +
 				"Modello varchar(20) not null, " +
 				"Tipo varchar(10) not null check (Tipo like 'Gru' or Tipo like 'Camion' or Tipo like 'Ruspa' or Tipo like 'Escavatore'), " +
@@ -37,15 +37,15 @@ public class InitDB {
 
 		
 		qry = "create table APP.Cantiere ( " +
-				"Codice integer  generated always as identity(start with 100, increment by 1) primary key, " +
+				"Codice integer  primary key, " +
 				"Name varchar(30) not null, " +
 				"DataApertura date not null, " +
 				"DataChiusura date not null, " +
 				"Indirizzo varchar(50) not null)";
 		Database.update(qry);
 
-		qry = "create table APP.Prenotazione ( " +
-				"Id integer generated always as identity(start with 1, increment by 1) primary key, " +
+		qry = "create table APP.Associazione ( " +
+				"Id integer primary key, " +
 				"CodiceMacchina integer references APP.Macchina(Codice), " +
 				"CodiceCantiere integer references APP.Cantiere(Codice), " +
 				"DataInizio date not null, " +
@@ -55,9 +55,9 @@ public class InitDB {
 	
 	
 	public void popola()throws JavaDBException{
-		String qry = "insert into APP.Macchina (Produttore,Modello,Tipo,CapacitaMax,PortataMax,AltezzaMax)"+
-				//"values('Wacker Neuson','901s','Ruspa',907,35,237)" ;
-				"values('Kramer Allrad','350','Ruspa',640,17,225)";
+		String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,CapacitaMax,PortataMax,AltezzaMax)"+
+				"values(101,'Wacker Neuson','901s','Ruspa',907,35,237)" ;
+				//"values(100,'Kramer Allrad','350','Ruspa',640,17,225)";
 		Database.update(qry);
 		
 		
