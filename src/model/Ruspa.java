@@ -15,7 +15,7 @@ public class Ruspa extends Macchina{
 	}
 	
 	//GET
-	public int getCapacitaMassima(){		return this.capacitaMax;	}
+	public int getCapacitaMassima(){	return this.capacitaMax; }
 	public int getPortataMassima(){		return this.portataMax;	}
 	public int getAltezzaMassima(){		return this.altezzaMax;	}
 	

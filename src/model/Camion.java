@@ -15,7 +15,7 @@ public class Camion extends Macchina {
 	
 	
 	//GET
-	public int getCapacitaMassima(){		return this.capacitaMax;	}
+	public int getCapacitaMassima(){	return this.capacitaMax; }
 	public int getPortataMassima(){		return this.portataMax;	}
 	public int getLunghezzaMassima(){		return this.lunghezza;	}
 	
@@ -24,4 +24,5 @@ public class Camion extends Macchina {
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	public void setLunghezzaMassima(int lunghezza){		this.lunghezza=lunghezza;	}
+
 }
