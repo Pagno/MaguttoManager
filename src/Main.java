@@ -17,7 +17,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		//ParcoMacchine pm=new ParcoMacchine();
 		Database.connect();
-		Database.popola();
+		//Database.popola();
 		String qry="SELECT * FROM APP.Macchina";
 		ResultSet res = Database.interrogate(qry);
 		while (res.next()) {

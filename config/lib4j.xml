@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+
+  <Appenders>
+    <Console name="STDOUT">
+      <Layout type="PatternLayout" pattern="%m MDC%X%n"/>
+    </Console>
+    <File type="File" name="File" fileName="log/Manager.log">	
+      <PatternLayout pattern="%C{1}.%M %m %ex%n"/>
+    </File>
+  </Appenders>
+ 
+  <Loggers>
+    <Logger name="manager" level="debug">
+      <AppenderRef ref="File" level="info"/>
+    </Logger>
+ 
+  </Loggers>
+ 
+</Configuration>

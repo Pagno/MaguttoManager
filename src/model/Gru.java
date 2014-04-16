@@ -6,6 +6,9 @@ public class Gru extends Macchina{
 	private int portataMax;
 	private int angoloRotazione;
 	
-	public Gru(){}
+	public Gru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+		
+		
+	}
 	
 }
