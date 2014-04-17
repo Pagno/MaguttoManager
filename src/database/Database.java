@@ -12,7 +12,7 @@ import java.sql.Statement;
  * 
  * @author Mauro
  */
-public class Database {
+public class Database implements DatabaseInterface{
 	
 	/** The driver. */
 	public static String driver = null;
@@ -32,20 +32,24 @@ public class Database {
 	/** The a. */
 	static boolean a;
 
+	public Database(){
+		
+	}
 	
 	/**
 	 * Connessione al DB.
 	 *
-	 * @throws JavaDBException the java db exception
+	 * @throws DBException the java db exception
 	 */
-	public static void connect() throws JavaDBException{
+	@Override
+	public void connect() throws DBException{
 		// Load the driver derby
 		driver = "org.apache.derby.jdbc.EmbeddedDriver";
 		try {
 			Class.forName(driver);
 		}
 		catch(Exception e){
-			throw new JavaDBException(1);
+			throw new DBException(1);
 		}
 		// Create the connection string
 		String url = "jdbc:derby:MyDB;create=true";
@@ -58,7 +62,7 @@ public class Database {
 			
 		}
 		catch(SQLException e){
-			throw new JavaDBException(2);
+			throw new DBException(2);
 		}
 	}
 	
@@ -68,27 +72,18 @@ public class Database {
 	/**
 	 * Controlla se esistono le tabelle nel DB.
 	 *
-	 * @throws JavaDBException the java db exception
+	 * @throws DBException the java db exception
 	 * @throws SQLException 
 	 */
-	public static void initDB() throws JavaDBException, SQLException{
+	@Override
+	public boolean isEmpty() throws DBException, SQLException{
 		
 			ResultSet table = con.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
 			if(!table.next()){		// se non ci sono le tabelle
-				System.out.println("tabelle non esistenti!!!!!!!!!!!!!!!!!!!!!!!!!");
-				InitDB idb = new InitDB();
-				idb.createTables();
-				
-				idb.popola();
+				return true;
 			}
+			else return false;
 
-	}
-	
-	
-	public static void popola() throws JavaDBException{
-		InitDB idb = new InitDB();
-		
-		idb.popola();
 	}
 	
 	
@@ -97,16 +92,17 @@ public class Database {
 	 *
 	 * @param qry the qry
 	 * @return the result set
-	 * @throws JavaDBException the java db exception
+	 * @throws DBException the java db exception
 	 */
-	public static ResultSet interrogate(String qry) throws JavaDBException{
+	@Override
+	public ResultSet interrogate(String qry) throws DBException{
 		a = true;
 		
 		// Query and save the results in a ResultSet object
 		try {
 			res = cmd.executeQuery(qry);
 		} catch (SQLException e) {
-			throw new JavaDBException(4);	
+			throw new DBException(4);	
 		}
 		return res;
 	}
@@ -117,14 +113,15 @@ public class Database {
 	 * Update table into DB.
 	 *
 	 * @param qry the qry
-	 * @throws JavaDBException the java db exception
+	 * @throws DBException the java db exception
 	 */
-	public static void update(String qry) throws JavaDBException {
+	@Override
+	public void update(String qry) throws DBException {
 		a = false;
 		try {
 			cmd.executeUpdate(qry);
 		} catch (SQLException e) {
-			throw new JavaDBException(5);
+			throw new DBException(5);
 		}
 	}
 	
@@ -133,28 +130,36 @@ public class Database {
 	/**
 	 * Disconnect from DB.
 	 *
-	 * @throws JavaDBException the java db exception
+	 * @throws DBException the java db exception
 	 */
-	public static void disconnect() throws JavaDBException {
+	@Override
+	public void disconnect() throws DBException {
 		if(a==true){		// if it is a query
 			try {
 				res.close();
 			} 
 			catch (SQLException e) {
-				throw new JavaDBException(6);
+				throw new DBException(6);
 			}
 		} 
 		try {
 			cmd.close();
 		} catch (SQLException e) {
-			throw new JavaDBException(7);
+			throw new DBException(7);
 		}
 		try {
 			con.close();
 			System.out.println("Disconnection done");
 		} catch (SQLException e) {
-			throw new JavaDBException(8);
+			throw new DBException(8);
 		}
+	}
+
+
+	@Override
+	public void emptyTable(String tableName) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

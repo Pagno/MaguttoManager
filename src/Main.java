@@ -3,23 +3,26 @@ import java.sql.SQLException;
 
 import javax.xml.crypto.Data;
 
+import model.ModelConnector;
+
 
 import database.Database;
-import database.JavaDBException;
-import model.ParcoMacchine;
+import database.DBException;
 
 
 public class Main {
 
 	/**
 	 * @param args
-	 * @throws JavaDBException 
+	 * @throws DBException 
 	 * @throws SQLException 
 	 */
-	public static void main(String[] args) throws JavaDBException, SQLException {
+	public static void main(String[] args) throws DBException, SQLException {
 		// TODO Auto-generated method stub
 		//ParcoMacchine pm=new ParcoMacchine();
-		Database.connect();
+		ModelConnector m=new ModelConnector();
+		m.downloadDati();
+		/*Database.connect();
 		//Database.popola();
 		String qry="SELECT * FROM APP.Macchina";
 		ResultSet res = Database.interrogate(qry);
@@ -29,7 +32,7 @@ public class Main {
 		
 		//Database.initDB();
 		Database.disconnect();
-		//Manager man=new Manager();
+		//Manager man=new Manager();*/
 	}
 
 }

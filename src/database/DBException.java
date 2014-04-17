@@ -6,7 +6,7 @@ package database;
  * 
  * @author Mauro
  */
-public class JavaDBException extends Exception {
+public class DBException extends Exception {
 
 	/** The error code. */
 	int errorCode;
@@ -15,7 +15,7 @@ public class JavaDBException extends Exception {
 	/**
 	 * Istanzia una nuova eccezione java db.
 	 */
-	public JavaDBException() {
+	public DBException() {
 		super();
 	}
 	
@@ -24,7 +24,7 @@ public class JavaDBException extends Exception {
 	 *
 	 * @param errorCode il codice errore
 	 */
-	public JavaDBException(int errorCode){
+	public DBException(int errorCode){
 		exceptionDBManager(errorCode);
 	}
 	

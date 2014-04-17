@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ParcoCantieri{
+class ParcoCantieri{
 	
 	ArrayList<Cantiere> listaCantieri;
 	

@@ -1,7 +1,7 @@
 package model;
 import java.util.*;
 
-public class Associazione implements Cloneable {
+class Associazione implements Cloneable {
 	private Integer ID;
 	private Macchina macchina;
 	private Cantiere cantiere;

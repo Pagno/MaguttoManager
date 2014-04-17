@@ -1,6 +1,6 @@
 package model;
 import java.util.*;
-public class Cantiere {
+class Cantiere {
 	private String nomeCantiere;
 	private String indirizzo;
 	private Date dataApertura;
