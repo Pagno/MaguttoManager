@@ -16,9 +16,9 @@ class Gru extends Macchina{
 	}
 	
 	//GET
-	public int getLunghezzaMassima(){		return this.lunghezza;	}
+	public int getLunghezza(){		return this.lunghezza;	}
 	public int getPortataMassima(){		return this.portataMax;	}
-	public int getAltezzaMassima(){		return this.altezza;	}
+	public int getAltezza(){		return this.altezza;	}
 	public int getAngoloRotazione(){		return this.angoloRotazione;	}
 	
 	

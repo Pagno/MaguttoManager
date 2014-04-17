@@ -60,6 +60,9 @@ public class DBException extends Exception {
 		case 8: 
 			System.out.println("Errore chiusura Connessione");
 			break;
+		case 9: 
+			System.out.println("Errore cancellazione tabella");
+			break;	
 		case 20: 
 			System.out.println("Istanza non ritornata");
 			break;	

@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.SQLException;
-
 import database.DBException;
 import database.Database;
 import database.DatabaseInterface;
@@ -68,20 +66,68 @@ public class ModelConnector implements ModelInterface {
 		catch (DBException e) {
 			e.printStackTrace();
 		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void uploadDati() {
 		try {
 			db.connect();
-			//POPOLARE IL DATABASE ALLA CHIUSURA
-			/*String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,CapacitaMax,PortataMax,AltezzaMax)"+
-					"values(101,'Wacker Neuson','901s','Ruspa',907,35,237)" ;
-					//"values(100,'Kramer Allrad','350','Ruspa',640,17,225)";
-			db.update(qry);*/
+			//POPOLARE IL DATABASE
+			db.emptyTable("Associazione");
+			db.emptyTable("Macchina");
+			db.emptyTable("Cantiere");
+			
+			for(Cantiere item:pc.getListaCantieri()){
+				String qry = "insert into APP.Cantiere (Codice,Nome,DataApertura,DataChiusura,Indirizzo)"+
+						"values(" + item.getCodice() + "," + item.getNomeCantiere() + "," + 
+						item.getDataApertura() + "," + item.getDataChiusura() + 
+						"," + item.getIndirizzo() + ")" ;
+				db.update(qry);
+			}
+			
+			for(Macchina item:pm.getListaMacchine()){
+				if(item instanceof Camion){
+					Camion temp=(Camion) item;
+					String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,CapacitaMax,PortataMax,LunghezzaMax)"+
+							"values(" + temp.getCodice() + "," + temp.getProduttore() + "," + 
+							temp.getModello() + ",'Camion'," + temp.getCapacitaMassima() + 
+							"," + temp.getPortataMassima() + "," + temp.getLunghezza() + ")" ;
+					db.update(qry);
+				}
+				else if(item instanceof Escavatore){
+					Escavatore temp=(Escavatore) item;
+					String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,CapacitaMax,PortataMax,AltezzaMax,ProfonditaMax)"+
+							"values(" + temp.getCodice() + "," + temp.getProduttore() + "," + 
+							temp.getModello() + ",'Escavatore'," + temp.getCapacitaMassima() + 
+							"," + temp.getPortataMassima() + "," + temp.getAltezzaMassima() + 
+							"," + temp.getProfonditaMassima() + ")" ;
+					db.update(qry);
+				}
+				else if(item instanceof Gru){
+					Gru temp=(Gru) item;
+					String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,PortataMax,AltezzaMax,LunghezzaMax,RotazioneMax)"+
+							"values(" + temp.getCodice() + "," + temp.getProduttore() + 
+							"," + temp.getModello() + ",'Gru'," +  temp.getPortataMassima() + "," + temp.getAltezza() + 
+							"," + temp.getLunghezza() + temp.getAngoloRotazione() + "," + ")" ;
+					db.update(qry);
+				}
+				else if(item instanceof Ruspa){
+					Ruspa temp=(Ruspa) item;
+					String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,CapacitaMax,PortataMax,AltezzaMax)"+
+							"values(" + temp.getCodice() + "," + temp.getProduttore() + "," + 
+							temp.getModello() + ",'Ruspa'," + temp.getCapacitaMassima() + 
+							"," + temp.getPortataMassima() + "," + temp.getAltezzaMassima() + ")" ;
+					db.update(qry);
+				}
+			}
+			for(Associazione item:ea.getElencoAssociazioni()){
+				String qry = "insert into APP.Associazione (Id,CodiceMacchina,CodiceCantiere,DataInizio,DataFine)"+
+						"values(" + item.getID() + "," + item.getMacchina().getCodice() + "," + 
+						item.getCantiere().getCodice() + "," + item.getDataInizio() + 
+						"," + item.getDataFine() + ")" ;
+				db.update(qry);
+			}
+			
 			db.disconnect();
 		} 
 		catch (DBException e) {

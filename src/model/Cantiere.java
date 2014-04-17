@@ -1,12 +1,14 @@
 package model;
 import java.util.*;
 class Cantiere {
+	private Integer codice;
 	private String nomeCantiere;
 	private String indirizzo;
 	private Date dataApertura;
 	private Date dataChiusura;
 
-	public Cantiere(String nomeCantiere,String indirizzo,Date dataApertura,Date dataChiusura ){
+	public Cantiere(Integer codice,String nomeCantiere,String indirizzo,Date dataApertura,Date dataChiusura ){
+		this.setCodice(codice);
 		this.nomeCantiere=nomeCantiere;
 		this.indirizzo=indirizzo;
 		this.dataApertura=dataApertura;
@@ -45,6 +47,14 @@ class Cantiere {
 		this.dataChiusura = dataChiusura;
 	}
 
+	public Integer getCodice() {
+		return codice;
+	}
 
+	public void setCodice(Integer codice) {
+		this.codice = codice;
+	}
+
+	
 
 }

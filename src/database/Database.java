@@ -76,14 +76,17 @@ public class Database implements DatabaseInterface{
 	 * @throws SQLException 
 	 */
 	@Override
-	public boolean isEmpty() throws DBException, SQLException{
-		
+	public boolean isEmpty() throws DBException{
+		try{
 			ResultSet table = con.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
 			if(!table.next()){		// se non ci sono le tabelle
 				return true;
 			}
 			else return false;
-
+			}
+		catch(SQLException e){
+			throw new DBException(3);
+		}
 	}
 	
 	
@@ -157,9 +160,13 @@ public class Database implements DatabaseInterface{
 
 
 	@Override
-	public void emptyTable(String tableName) {
-		// TODO Auto-generated method stub
-		
+	public void emptyTable(String tableName) throws DBException{
+		String qry = "delete table APP." + tableName;
+		try {
+			cmd.executeUpdate(qry);
+		} catch (SQLException e) {
+			throw new DBException(9);
+		}
 	}
 	
 	

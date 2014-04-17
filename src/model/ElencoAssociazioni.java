@@ -24,4 +24,8 @@ class ElencoAssociazioni {
 		}
 	}
 	
+	public ArrayList<Associazione> getElencoAssociazioni(){
+		return elencoAssociazioni;
+	}
+	
 }

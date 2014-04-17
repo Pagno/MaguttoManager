@@ -12,8 +12,8 @@ class ParcoCantieri{
 		listaCantieri=new ArrayList<Cantiere>();
 	}
 	
-	public void aggiungiCantiere(String nomeCantiere,String indirizzo,Date dataApertura,Date dataChiusura){
-		this.listaCantieri.add(new Cantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura));
+	public void aggiungiCantiere(Integer codice,String nomeCantiere,String indirizzo,Date dataApertura,Date dataChiusura){
+		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura));
 	}
 	
 	public void rimuoviCantiere(String nomeCantiere){
@@ -24,6 +24,9 @@ class ParcoCantieri{
 			}
 		}
 	
+	}
+	public ArrayList<Cantiere> getListaCantieri(){
+		    return listaCantieri;
 	}
 	
 }

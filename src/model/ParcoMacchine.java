@@ -5,39 +5,39 @@ import java.util.Iterator;
 
 class ParcoMacchine{
 	
-	ArrayList<Macchina> macchine;
+	private ArrayList<Macchina> listaMacchine;
 	
 	
 	public ParcoMacchine(){
-		macchine=new ArrayList<Macchina>();
+		listaMacchine=new ArrayList<Macchina>();
 	}
 	
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		int codice = 0;
 		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
-		macchine.add(gru);
+		listaMacchine.add(gru);
 	}
 	
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
 		int codice=0;
 		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
-		macchine.add(cm);
+		listaMacchine.add(cm);
 	}
 	
 	public void aggiungiRuspa(String produttore, String Modello,int capacita,int portata,int altezza){
 		int codice=0;
 		Ruspa ruspa= new Ruspa(codice, produttore, Modello,capacita,portata,altezza);
-		macchine.add(ruspa);
+		listaMacchine.add(ruspa);
 	}
 
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
 		int codice=0;
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
-		macchine.add(escavatore);
+		listaMacchine.add(escavatore);
 	}
 	
 	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
-		Iterator<Macchina> itr = macchine.iterator();
+		Iterator<Macchina> itr = listaMacchine.iterator();
 	    while (itr.hasNext()) {
 	      if(itr.next() instanceof Gru && itr.next().getCodice()==codice){
 	    	  Gru g=(Gru)itr.next();
@@ -52,7 +52,7 @@ class ParcoMacchine{
 	}
 	
 	public void modificaRuspa(int codice, String produttore, String Modello,int capacita,int portata,int altezza){
-		Iterator<Macchina> itr = macchine.iterator();
+		Iterator<Macchina> itr = listaMacchine.iterator();
 	    while (itr.hasNext()) {
 	      if(itr.next() instanceof Ruspa && itr.next().getCodice()==codice){
 	    	  Ruspa g=(Ruspa)itr.next();
@@ -66,7 +66,7 @@ class ParcoMacchine{
 	}
 	
 	public void modificaCamion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
-		Iterator<Macchina> itr = macchine.iterator();
+		Iterator<Macchina> itr = listaMacchine.iterator();
 	    while (itr.hasNext()) {
 	      if(itr.next() instanceof Camion && itr.next().getCodice()==codice){
 	    	  Camion g=(Camion)itr.next();
@@ -74,13 +74,13 @@ class ParcoMacchine{
 	    	  g.setModello(Modello);
 	    	  g.setCapacitaMassima(capacita);
 	    	  g.setPortataMassima( portata);
-	    	  g.setLunghezzaMassima(lunghezza);
+	    	  g.setLunghezza(lunghezza);
 	      }
 	    }
 	}
 	
 	public void modificaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita) {
-		Iterator<Macchina> itr = macchine.iterator();
+		Iterator<Macchina> itr = listaMacchine.iterator();
 	    while (itr.hasNext()) {
 	      if(itr.next() instanceof Escavatore && itr.next().getCodice()==codice){
 	    	  Escavatore g=(Escavatore)itr.next();
@@ -95,11 +95,15 @@ class ParcoMacchine{
 	}
 	
 	public void eliminaMacchina(int codice){
-		Iterator<Macchina> itr = macchine.iterator();
+		Iterator<Macchina> itr = listaMacchine.iterator();
 	    while (itr.hasNext()) {
 	    	if(itr.next().getCodice()==codice){
 		    	 itr.remove();
 	    	}
 	    }		
+	}
+	
+	public ArrayList<Macchina> getListaMacchine(){
+		return this.listaMacchine;
 	}
 }
