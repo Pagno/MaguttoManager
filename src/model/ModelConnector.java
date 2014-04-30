@@ -142,7 +142,6 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}*/
 	}
-	//afafafas
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
