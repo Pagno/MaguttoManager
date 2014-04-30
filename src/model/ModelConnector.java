@@ -8,12 +8,18 @@ public class ModelConnector implements ModelInterface {
 	
 	private ParcoCantieri pc;
 	private ModelGru mg;
+	private ModelCamion mc;
+	private ModelRuspa mr;
+	private ModelEscavatore me;
 	private ElencoAssociazioni ea;
 	private DatabaseInterface db;
 	
 	private void inizializza() {
 		pc = new ParcoCantieri();
 		mg = new ModelGru();
+		mc = new ModelCamion();
+		mr = new ModelRuspa();
+		me = new ModelEscavatore();
 		ea = new ElencoAssociazioni();
 	}
 
@@ -140,21 +146,48 @@ public class ModelConnector implements ModelInterface {
 	}
 	
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
-		int codice = 0;
-		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
-		listaMacchine.add(gru);
+		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
 	@Override
 	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
-		// TODO Auto-generated method stub
+		mg.modificaGru(codice, produttore, modello, rotazione, portata, lunghezza, altezza);
 		
 	}
 
 	@Override
 	public boolean eliminaMacchina(int codice) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void aggiungiCamion(String produttore, String Modello, int capacita,	int portata, int lunghezza) {
+		mc.aggiungiCamion(produttore, Modello, capacita, portata, lunghezza);
+	}
+
+	@Override
+	public void modificaCamion(int codice, String produttore, String Modello,int capacita, int portata, int lunghezza) {
+		mc.modificaCamion(codice, produttore, Modello, capacita, portata, lunghezza);
+	}
+
+	@Override
+	public void aggiungiRuspa(String produttore, String Modello, int capacita,int portata, int altezza) {
+		mr.aggiungiRuspa(produttore, Modello, capacita, portata, altezza);
+	}
+
+	@Override
+	public void modificaRuspa(int codice, String produttore, String Modello,int capacita, int portata, int altezza) {
+		mr.modificaRuspa(codice, produttore, Modello, capacita, portata, altezza);
+	}
+
+	@Override
+	public void aggiungiEscavatore(String produttore, String Modello,int capacita, int portata, int altezza, int profondita) {
+		me.aggiungiEscavatore(produttore, Modello, capacita, portata, altezza, profondita);
+	}
+
+	@Override
+	public void modificaEscavatore(int codice, String produttore,String Modello, int capacita, int portata, int altezza,int profondita) {
+		me.modificaEscavatore(codice, produttore, Modello, capacita, portata, altezza, profondita);		
 	}
 	
 }
