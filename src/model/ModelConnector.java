@@ -6,7 +6,6 @@ import database.DatabaseInterface;
 
 public class ModelConnector implements ModelInterface {
 	
-	private ParcoCantieri pc;
 	private ModelGru mg;
 	private ModelCamion mc;
 	private ModelRuspa mr;
@@ -15,7 +14,6 @@ public class ModelConnector implements ModelInterface {
 	private DatabaseInterface db;
 	
 	private void inizializza() {
-		pc = new ParcoCantieri();
 		mg = new ModelGru();
 		mc = new ModelCamion();
 		mr = new ModelRuspa();
@@ -80,7 +78,7 @@ public class ModelConnector implements ModelInterface {
 	}
 	@Override
 	public void storeData() {
-		try {
+		/*try {
 			db.connect();
 			//POPOLARE IL DATABASE
 			db.emptyTable("Associazione");
@@ -142,7 +140,7 @@ public class ModelConnector implements ModelInterface {
 		} 
 		catch (DBException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
