@@ -16,4 +16,5 @@ abstract class Macchina {
 	public String getModello(){		return this.modello;	}
 	public void setProduttore(String produttore){		this.produttore=produttore;	}
 	public void setModello(String Modello){		this.modello=Modello;	}
+	//PROVA
 }
