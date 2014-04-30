@@ -11,12 +11,7 @@ class ParcoMacchine{
 	public ParcoMacchine(){
 		listaMacchine=new ArrayList<Macchina>();
 	}
-	
-	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
-		int codice = 0;
-		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
-		listaMacchine.add(gru);
-	}
+
 	
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
 		int codice=0;
@@ -35,21 +30,7 @@ class ParcoMacchine{
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaMacchine.add(escavatore);
 	}
-	
-	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
-		Iterator<Macchina> itr = listaMacchine.iterator();
-	    while (itr.hasNext()) {
-	      if(itr.next() instanceof Gru && itr.next().getCodice()==codice){
-	    	  Gru g=(Gru)itr.next();
-	    	  g.setProduttore(produttore);
-	    	  g.setModello(modello);
-	    	  g.setLunghezzaMassima(lunghezza);
-	    	  g.setPortataMassima( portata);
-	    	  g.setAltezzaMassima( altezza);
-	    	  g.setAngoloRotazione(rotazione);
-	      }
-	    }
-	}
+
 	
 	public void modificaRuspa(int codice, String produttore, String Modello,int capacita,int portata,int altezza){
 		Iterator<Macchina> itr = listaMacchine.iterator();

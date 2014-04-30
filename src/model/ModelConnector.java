@@ -7,22 +7,23 @@ import database.DatabaseInterface;
 public class ModelConnector implements ModelInterface {
 	
 	private ParcoCantieri pc;
-	private ParcoMacchine pm;
+	private ModelGru mg;
 	private ElencoAssociazioni ea;
 	private DatabaseInterface db;
 	
 	private void inizializza() {
 		pc = new ParcoCantieri();
-		pm = new ParcoMacchine();
+		mg = new ModelGru();
 		ea = new ElencoAssociazioni();
 	}
 
 	public ModelConnector(DatabaseInterface data){
 		db=data;
+		refreshData();
 	}
 	
 	@Override
-	public void downloadDati() {
+	public void refreshData() {
 		inizializza();
 		
 		try {
@@ -71,9 +72,8 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}
 	}
-
 	@Override
-	public void uploadDati() {
+	public void storeData() {
 		try {
 			db.connect();
 			//POPOLARE IL DATABASE
@@ -138,5 +138,11 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+		int codice = 0;
+		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
+		listaMacchine.add(gru);
+	}
+	
 }

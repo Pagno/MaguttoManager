@@ -22,7 +22,6 @@ public class Main {
 		//ParcoMacchine pm=new ParcoMacchine();
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
-		m.downloadDati();
 		/*Database.connect();
 		//Database.popola();
 		String qry="SELECT * FROM APP.Macchina";

@@ -4,28 +4,32 @@ import java.util.Date;
 
 class ElencoAssociazioni {
 	
-	ArrayList<Associazione> elencoAssociazioni;
+	ArrayList<Associazione> elencoAssociazioniGru;
+	ArrayList<Associazione> elencoAssociazioniRuspa;
 	
 	public ElencoAssociazioni(){
-		elencoAssociazioni=new ArrayList<Associazione>();
+		elencoAssociazioniGru=new ArrayList<Associazione>();
 	}
 	
 	public void inserisciAssociazione(Integer ID, Macchina macchina,Cantiere cantiere, Date dataInizio, Date dataFine){
 		Associazione a=new Associazione(ID, macchina, cantiere, dataInizio, dataFine);
-		elencoAssociazioni.add(a);
+		
+		
+		if(macchina instanceof Gru)	
+			elencoAssociazioniGru.add(a);
 	}
 	
 	public void eliminaAssociazione(Integer ID){
-		for (Associazione item:elencoAssociazioni){
+		for (Associazione item:elencoAssociazioniGru){
 			if(item.getID()==ID){
-				elencoAssociazioni.remove(item);
+				elencoAssociazioniGru.remove(item);
 				break;
 			}
 		}
 	}
 	
 	public ArrayList<Associazione> getElencoAssociazioni(){
-		return elencoAssociazioni;
+		return elencoAssociazioniGru;
 	}
 	
 }
