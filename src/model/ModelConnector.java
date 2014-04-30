@@ -17,10 +17,14 @@ public class ModelConnector implements ModelInterface {
 		ea = new ElencoAssociazioni();
 	}
 
+	public ModelConnector(DatabaseInterface data){
+		db=data;
+	}
+	
 	@Override
 	public void downloadDati() {
 		inizializza();
-		db = new Database();
+		
 		try {
 			db.connect();
 			if(db.isEmpty()){

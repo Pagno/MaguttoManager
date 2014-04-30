@@ -20,7 +20,8 @@ public class Main {
 	public static void main(String[] args) throws DBException, SQLException {
 		// TODO Auto-generated method stub
 		//ParcoMacchine pm=new ParcoMacchine();
-		ModelConnector m=new ModelConnector();
+		Database db=new Database();
+		ModelConnector m=new ModelConnector(db);
 		m.downloadDati();
 		/*Database.connect();
 		//Database.popola();
