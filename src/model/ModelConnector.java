@@ -144,5 +144,17 @@ public class ModelConnector implements ModelInterface {
 		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
 		listaMacchine.add(gru);
 	}
+
+	@Override
+	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean eliminaMacchina(int codice) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

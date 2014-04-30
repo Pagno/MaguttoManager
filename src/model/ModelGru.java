@@ -6,7 +6,6 @@ import java.util.Iterator;
 class ModelGru {
 	private ArrayList<Gru> listaGru;
 	
-	
 	public ModelGru(){
 		listaGru=new ArrayList<Gru>();
 	}
