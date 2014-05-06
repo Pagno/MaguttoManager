@@ -3,6 +3,8 @@ import java.sql.SQLException;
 
 import javax.xml.crypto.Data;
 
+import view.viewPrincipale;
+
 import model.ModelConnector;
 
 
@@ -22,6 +24,7 @@ public class Main {
 		//ParcoMacchine pm=new ParcoMacchine();
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
+		viewPrincipale vp=new viewPrincipale();
 		/*Database.connect();
 		//Database.popola();
 		String qry="SELECT * FROM APP.Macchina";
