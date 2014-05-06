@@ -1,6 +1,11 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import javax.xml.crypto.Data;
 
 import view.viewPrincipale;
@@ -18,13 +23,33 @@ public class Main {
 	 * @param args
 	 * @throws DBException 
 	 * @throws SQLException 
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws DBException, SQLException {
+	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// TODO Auto-generated method stub
 		//ParcoMacchine pm=new ParcoMacchine();
+
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		    	
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+		
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
 		viewPrincipale vp=new viewPrincipale();
+		
+		
+		Thread.sleep(1000);
+		Object[] v1={"Matteo", "Pagnoncelli","niente", new Integer(5), new Boolean(false)};   
+		vp.modelTable.addData(v1);
+		
 		/*Database.connect();
 		//Database.popola();
 		String qry="SELECT * FROM APP.Macchina";

@@ -24,6 +24,7 @@ public class viewPrincipale extends JFrame {
 	private JTable table;
 	private JPanel leftMenu;
 	private JScrollPane scrollpane;
+	public MyTableModel modelTable;
 
 	/**
 	 * Create xthe frame.
@@ -42,7 +43,7 @@ public class viewPrincipale extends JFrame {
 		leftMenu();
 		
 		
-		MyTableModel modelTable =new MyTableModel();
+		modelTable =new MyTableModel();
 		table = new JTable(modelTable);
 		table.setPreferredScrollableViewportSize( 
 		table.getPreferredSize()); 
@@ -72,15 +73,35 @@ public class viewPrincipale extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
-		
-		JMenu mnAggiungi = new JMenu("Aggiungi");
-		menuBar.add(mnAggiungi);
-		
-		JMenuItem mntmGru = new JMenuItem("Gru");
-		mnAggiungi.add(mntmGru);
+		//MENUBAR
+		JMenu menuFile = new JMenu("File");
+		JMenu menuAggiungi = new JMenu("Aggiungi");
 		
 		
+		//FILE
+		JMenuItem itemFileCarica = new JMenuItem("Carica");
+		menuFile.add(itemFileCarica);
+		JMenuItem itemFileSalva = new JMenuItem("Salva");
+		menuFile.add(itemFileSalva);
+		JMenuItem itemFileEsci = new JMenuItem("Esci");
+		menuFile.add(itemFileEsci);
+		
+
+		
+		//AGGIUNGI
+		JMenuItem itemAddGru = new JMenuItem("Gru");
+		menuAggiungi.add(itemAddGru);
+		JMenuItem iteAddRuspa = new JMenuItem("Ruspa");
+		menuAggiungi.add(iteAddRuspa);
+		JMenuItem itemAddEscavatore = new JMenuItem("Escavatore");
+		menuAggiungi.add(itemAddEscavatore);
+		JMenuItem iteAddCamion = new JMenuItem("Camion");
+		menuAggiungi.add(iteAddCamion);
+		
+		
+
+		menuBar.add(menuFile);
+		menuBar.add(menuAggiungi);
 	}
+	
 }
