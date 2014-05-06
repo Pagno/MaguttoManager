@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-class ModelEscavatore {
+class ModelEscavatore extends ModelMacchina{
 	private ArrayList<Escavatore> listaEscavatori;
 	
 	public ModelEscavatore(){
@@ -12,7 +12,12 @@ class ModelEscavatore {
 	}
 	
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
-		int codice=0;
+		incrementaCodice();
+		Escavatore escavatore= new Escavatore(getCodice(),produttore, Modello,capacita,portata,altezza,profondita);
+		listaEscavatori.add(escavatore);
+	}
+	public void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
+		aggiornaCodice(codice);
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
 	}
@@ -40,5 +45,8 @@ class ModelEscavatore {
 	    	}
 	    }
 		return false;		
+	}
+	public ArrayList<Escavatore> getLista(){
+		return listaEscavatori;
 	}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-class ModelRuspa {
+class ModelRuspa extends ModelMacchina{
 	private ArrayList<Ruspa> listaRuspe;
 	
 	
@@ -14,7 +14,13 @@ class ModelRuspa {
 	
 	
 	public void aggiungiRuspa(String produttore, String Modello,int capacita,int portata,int altezza){
-		int codice=0;
+		incrementaCodice();
+		Ruspa ruspa= new Ruspa(getCodice(), produttore, Modello,capacita,portata,altezza);
+		listaRuspe.add(ruspa);
+	}
+	
+	public void caricaRuspa(int codice,String produttore, String Modello,int capacita,int portata,int altezza){
+		aggiornaCodice(codice);
 		Ruspa ruspa= new Ruspa(codice, produttore, Modello,capacita,portata,altezza);
 		listaRuspe.add(ruspa);
 	}
@@ -41,5 +47,8 @@ class ModelRuspa {
 	    	}
 	    }
 		return false;		
+	}
+	public ArrayList<Ruspa> getLista(){
+		return listaRuspe;
 	}
 }

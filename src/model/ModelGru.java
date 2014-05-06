@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-class ModelGru {
+class ModelGru extends ModelMacchina{
 	private ArrayList<Gru> listaGru;
 	
 	public ModelGru(){
@@ -13,7 +13,12 @@ class ModelGru {
 	
 	
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
-		int codice = 0;
+		incrementaCodice();
+		Gru gru=new Gru(getCodice(),produttore,modello, rotazione, portata,lunghezza,altezza);
+		listaGru.add(gru);
+	}
+	public void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+		aggiornaCodice(codice);
 		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
 		listaGru.add(gru);
 	}
@@ -42,5 +47,8 @@ class ModelGru {
 	    	}
 	    }
 		return false;		
+	}
+	public ArrayList<Gru> getLista(){
+		return listaGru;
 	}
 }
