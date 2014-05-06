@@ -24,10 +24,11 @@ public class viewPrincipale extends JFrame {
 	private JTable table;
 	private JPanel leftMenu;
 	private JScrollPane scrollpane;
-	public MyTableModel modelTable;
+	private MyTableModel modelTable;
 
 	/**
 	 * Create xthe frame.
+	 * @throws InterruptedException 
 	 */
 	public viewPrincipale() {
 		setTitle("MaguttoManager");
@@ -53,6 +54,15 @@ public class viewPrincipale extends JFrame {
 
 		contentPane.add(scrollpane, BorderLayout.CENTER);
 		setVisible(true);
+		
+
+
+		
+	}
+	public void add(){
+		Object[] v1={"Matteo", "Pagnoncelli","niente", new Integer(5), new Boolean(false)};   
+		modelTable.addData(v1);
+		table.repaint();
 	}
 	
 	private void leftMenu(){

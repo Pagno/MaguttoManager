@@ -22,8 +22,7 @@ public class Main {
 	/**
 	 * @param args
 	 * @throws DBException 
-	 * @throws SQLException 
-	 * @throws InterruptedException 
+	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// TODO Auto-generated method stub
@@ -33,7 +32,7 @@ public class Main {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		    	
 		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
+		            //UIManager.setLookAndFeel(info.getClassName());
 		            break;
 		        }
 		    }
@@ -44,11 +43,8 @@ public class Main {
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
 		viewPrincipale vp=new viewPrincipale();
-		
-		
 		Thread.sleep(1000);
-		Object[] v1={"Matteo", "Pagnoncelli","niente", new Integer(5), new Boolean(false)};   
-		vp.modelTable.addData(v1);
+		vp.add();
 		
 		/*Database.connect();
 		//Database.popola();
