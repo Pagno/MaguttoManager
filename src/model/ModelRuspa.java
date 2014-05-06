@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 class ModelRuspa {
 	private ArrayList<Ruspa> listaRuspe;
 	

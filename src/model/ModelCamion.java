@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 class ModelCamion {
 	private ArrayList<Camion> listaCamion;
 	

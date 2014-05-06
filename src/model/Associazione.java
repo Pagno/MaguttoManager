@@ -1,6 +1,7 @@
 package model;
 import java.util.*;
 
+
 class Associazione implements Cloneable {
 	private Integer ID;
 	private Macchina macchina;

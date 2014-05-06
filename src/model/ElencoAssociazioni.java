@@ -2,34 +2,39 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-class ElencoAssociazioni {
+
+class AssociazioniGru{
 	
-	ArrayList<Associazione> elencoAssociazioniGru;
-	ArrayList<Associazione> elencoAssociazioniRuspa;
+	ArrayList<Associazione> associazioni;
+	private static int codice=0;
 	
-	public ElencoAssociazioni(){
-		elencoAssociazioniGru=new ArrayList<Associazione>();
+	public AssociazioniGru(){
+		associazioni=new ArrayList<Associazione>();
 	}
 	
-	public void inserisciAssociazione(Integer ID, Macchina macchina,Cantiere cantiere, Date dataInizio, Date dataFine){
-		Associazione a=new Associazione(ID, macchina, cantiere, dataInizio, dataFine);
-		
-		
-		if(macchina instanceof Gru)	
-			elencoAssociazioniGru.add(a);
+	public boolean inserisciAssociazione(Integer ID, Macchina macchina,Cantiere cantiere, Date dataInizio, Date dataFine){
+		if(macchina instanceof Gru)	{
+			codice++;
+			Integer codice=new Integer(12);
+			Associazione a=new Associazione(codice, macchina, cantiere, dataInizio, dataFine);
+			associazioni.add(a);
+			return true;
+		}
+		return false;
 	}
 	
-	public void eliminaAssociazione(Integer ID){
-		for (Associazione item:elencoAssociazioniGru){
+	public boolean eliminaAssociazione(Integer ID){
+		for (Associazione item:associazioni){
 			if(item.getID()==ID){
-				elencoAssociazioniGru.remove(item);
-				break;
+				associazioni.remove(item);
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public ArrayList<Associazione> getElencoAssociazioni(){
-		return elencoAssociazioniGru;
+		return associazioni;
 	}
 	
 }
