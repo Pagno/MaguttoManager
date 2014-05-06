@@ -1,18 +1,11 @@
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.synth.SynthLookAndFeel;
-import javax.xml.crypto.Data;
 
 import view.viewPrincipale;
-
 import model.ModelConnector;
-
-
 import database.Database;
 import database.DBException;
 
@@ -32,7 +25,7 @@ public class Main {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		    	
 		        if ("Nimbus".equals(info.getName())) {
-		            //UIManager.setLookAndFeel(info.getClassName());
+		            UIManager.setLookAndFeel(info.getClassName());
 		            break;
 		        }
 		    }
@@ -43,8 +36,6 @@ public class Main {
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
 		viewPrincipale vp=new viewPrincipale();
-		Thread.sleep(1000);
-		vp.add();
 		
 		/*Database.connect();
 		//Database.popola();

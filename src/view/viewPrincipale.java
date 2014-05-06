@@ -54,7 +54,7 @@ public class viewPrincipale extends JFrame {
 
 		contentPane.add(scrollpane, BorderLayout.CENTER);
 		setVisible(true);
-		
+		add();
 
 
 		
