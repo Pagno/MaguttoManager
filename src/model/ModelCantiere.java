@@ -3,12 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-class ParcoCantieri{
+class ModelCantiere{
 	
 	ArrayList<Cantiere> listaCantieri;
 	
 	
-	public ParcoCantieri(){
+	public ModelCantiere(){
 		listaCantieri=new ArrayList<Cantiere>();
 	}
 	
@@ -25,7 +25,7 @@ class ParcoCantieri{
 		}
 	
 	}
-	public ArrayList<Cantiere> getListaCantieri(){
+	public ArrayList<Cantiere> getLista(){
 		    return listaCantieri;
 	}
 	
