@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-class ModelCamion {
+class ModelCamion extends ModelMacchina{
 	private ArrayList<Camion> listaCamion;
 	
 	public ModelCamion(){
@@ -12,7 +12,12 @@ class ModelCamion {
 	}
 	
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
-		int codice=0;
+		incrementaCodice();
+		Camion cm= new Camion(getCodice(),produttore,Modello,capacita,portata,lunghezza);
+		listaCamion.add(cm);
+	}
+	public void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
+		aggiornaCodice(codice);
 		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
 	}
@@ -37,5 +42,8 @@ class ModelCamion {
 	    	}
 	    }
 		return false;		
+	}
+	public ArrayList<Camion> getLista(){
+		return listaCamion;
 	}
 }
