@@ -14,6 +14,7 @@ public class MyTableModel extends AbstractTableModel {
             "Sport",
             "# of Years",
             "Vegetarian"};
+	
 	private Object[] v1={"Kathy", "Smith","Snowboarding", new Integer(5), new Boolean(false)};   
 	private Object[] v2={"John", "Doe","Rowing", new Integer(3), new Boolean(true)};    	
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
@@ -39,7 +40,9 @@ public class MyTableModel extends AbstractTableModel {
     public void addData(Object[] obj){
     	data.add(obj);
     }
-    
+    public void resetData(ArrayList<Object[]> d){
+    	data=d;
+    }
     
 	@Override
 	public int getColumnCount() {
@@ -60,5 +63,8 @@ public class MyTableModel extends AbstractTableModel {
 	public Object getValueAt(int arg0, int arg1) {
 		// TODO Auto-generated method stub
 		return data.get(arg0)[arg1];
+	}
+	public void removeRow(int row){
+		data.remove(row);
 	}
 }

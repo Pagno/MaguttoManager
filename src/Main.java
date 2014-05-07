@@ -4,6 +4,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.VisualizzaCtr;
+
 import view.viewPrincipale;
 import model.ModelConnector;
 import database.Database;
@@ -35,7 +37,8 @@ public class Main {
 		
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
-		viewPrincipale vp=new viewPrincipale();
+		VisualizzaCtr vis=new VisualizzaCtr(m);
+		viewPrincipale vp=new viewPrincipale(vis);
 		
 		/*Database.connect();
 		//Database.popola();
