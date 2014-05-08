@@ -9,13 +9,22 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import view.viewPrincipale;
+
 import model.ModelConnector;
 
 public class VisualizzaCtr implements ActionListener,ListSelectionListener{
 
-	ModelConnector model;
+	private ModelConnector model;
+	private viewPrincipale view;
+	
 	public VisualizzaCtr(ModelConnector m){
 			model=m;
+			view =new viewPrincipale(m);
+			view.addButtonGruListener(this);
+			view.addButtonRuspaListener(this);
+			view.addButtonCamionListener(this);
+			view.addButtonEscavatoreListener(this);
 	}
 	
 	@Override
@@ -24,7 +33,9 @@ public class VisualizzaCtr implements ActionListener,ListSelectionListener{
 		Object source = e.getSource();
 		
 		if(source instanceof JButton){
-			
+			Object[] v1={"Mauro", "Valota","Correre", new Integer(5), new Boolean(false)}; 
+            System.out.println("Bottone premuto");
+			view.addData(v1);
 		}
 	}
 

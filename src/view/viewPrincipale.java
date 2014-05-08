@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
-import controller.VisualizzaCtr;
+import model.ModelInterface;
 
 public class viewPrincipale extends JFrame {
 
@@ -23,19 +24,18 @@ public class viewPrincipale extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 6003480805602305099L;
-	private JPanel contentPane;
-	private static JTable table;
-	private JPanel leftMenu;
+	private JPanel contentPane,leftMenu;
+	private JTable table;
 	private JScrollPane scrollpane;
 	private MyTableModel dataModel;
-	private VisualizzaCtr controller;
-
+	private ModelInterface model;
+	private JButton btnViewGru,btnViewRuspa,btnViewCamion,btnViewEscavatore;
 	/**
 	 * Create xthe frame.
 	 * @throws InterruptedException 
 	 */
-	public viewPrincipale(VisualizzaCtr ctr) {
-		controller=ctr;
+	public viewPrincipale(ModelInterface m) {
+		model=m;
 		
 		
 		setTitle("MaguttoManager");
@@ -57,29 +57,22 @@ public class viewPrincipale extends JFrame {
 
 		table.setPreferredScrollableViewportSize( 
 		table.getPreferredSize()); 
-		table.getSelectionModel().addListSelectionListener(controller);
 		
 		scrollpane = new JScrollPane(table); 
 		contentPane.add(scrollpane, BorderLayout.CENTER);
 		setVisible(true);
-		add();
 
 
 		
-	}
-	public void add(){
-		Object[] v1={"Matteo", "Pagnoncelli","niente", new Integer(5), new Boolean(false)};   
-		dataModel.addData(v1);
-		table.repaint();
 	}
 	
 	private void leftMenu(){
 		leftMenu =new JPanel();
 		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
-		JButton btnViewGru = new JButton("Gru");btnViewGru.addActionListener(controller);
-		JButton btnViewRuspa = new JButton("Ruspa");btnViewRuspa.setAlignmentY(Component.CENTER_ALIGNMENT);
-		JButton btnViewCamion = new JButton("Camion");btnViewCamion.setAlignmentY(Component.CENTER_ALIGNMENT);
-		JButton btnViewEscavatore = new JButton("Escavatore");btnViewEscavatore.setAlignmentY(Component.CENTER_ALIGNMENT);
+		btnViewGru = new JButton("Gru");//btnViewGru.setAlignmentY(Component.CENTER_ALIGNMENT);
+		btnViewRuspa = new JButton("Ruspa");//btnViewRuspa.setAlignmentY(Component.CENTER_ALIGNMENT);
+		btnViewCamion = new JButton("Camion");//btnViewCamion.setAlignmentY(Component.CENTER_ALIGNMENT);
+		btnViewEscavatore = new JButton("Escavatore");//btnViewEscavatore.setAlignmentY(Component.CENTER_ALIGNMENT);
 		leftMenu.add(btnViewGru);
 		leftMenu.add(btnViewRuspa);
 		leftMenu.add(btnViewCamion);
@@ -122,18 +115,14 @@ public class viewPrincipale extends JFrame {
 		menuBar.add(menuAggiungi);
 	}
 	
-	public static int getSingOrdSelected(){
-		DefaultTableModel model = (DefaultTableModel)table.getModel();
-		int indexRow = table.getSelectedRow();						// posizione della riga selezionata
-		int a = (Integer) model.getValueAt(indexRow, 0);					// estraggo il valore I
-		System.out.println(a);
-		model.removeRow(indexRow);
-		table.repaint();
-		return a;
-	}
+	public void addButtonGruListener(ActionListener act){		btnViewGru.addActionListener(act);}
+	public void addButtonRuspaListener(ActionListener act){		btnViewRuspa.addActionListener(act);}
+	public void addButtonCamionListener(ActionListener act){		btnViewCamion.addActionListener(act);}
+	public void addButtonEscavatoreListener(ActionListener act){		btnViewEscavatore.addActionListener(act);}
+	
 	
 	public void addData(Object[] obj){
-    	dataModel.addData(obj);
-    	table.repaint();
+    	if(dataModel.addData(obj)); //table.repaint();
+    	
     }
 }

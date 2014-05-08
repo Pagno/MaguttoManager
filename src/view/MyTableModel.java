@@ -3,12 +3,18 @@ package view;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.RepaintManager;
 import javax.swing.table.AbstractTableModel;
 
 public class MyTableModel extends AbstractTableModel { 
  
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String[] columnNames={"First Name",
             "Last Name",
             "Sport",
@@ -36,10 +42,15 @@ public class MyTableModel extends AbstractTableModel {
     	//v.add(new ArrayList<Object>());
     	data.add(v1);data.add(v2);
     }
-    		
-    public void addData(Object[] obj){
+    
+    public boolean addData(Object[] obj){
+        System.out.println("Dati inseriti - "+obj[0]);
     	data.add(obj);
+    	fireTableDataChanged();
+    	
+    	return true;
     }
+    
     public void resetData(ArrayList<Object[]> d){
     	data=d;
     }
