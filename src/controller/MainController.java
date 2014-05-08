@@ -9,34 +9,49 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import view.InserimentoGru;
 import view.viewPrincipale;
 
 import model.ModelConnector;
 
-public class VisualizzaCtr implements ActionListener,ListSelectionListener{
+public class MainController implements ListSelectionListener{
 
 	private ModelConnector model;
 	private viewPrincipale view;
 	
-	public VisualizzaCtr(ModelConnector m){
+	public MainController(ModelConnector m){
 			model=m;
 			view =new viewPrincipale(m);
-			view.addButtonGruListener(this);
-			view.addButtonRuspaListener(this);
+			view.addButtonGruListener(VisualizzaElencoGru());
+			view.addAggiungiGruListener(VisualizzaInserimentoGru());
+			/*view.addButtonRuspaListener(this);
 			view.addButtonCamionListener(this);
-			view.addButtonEscavatoreListener(this);
+			view.addButtonEscavatoreListener(this);*/
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object source = e.getSource();
+	public ActionListener VisualizzaInserimentoGru(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				InserimentoGru ins=new InserimentoGru(view);
+				InsertController ctr=new InsertController(model, ins);
+				ins.setInsertButtonListeners(ctr.InsertGruListener());
+			}
+		};
 		
-		if(source instanceof JButton){
-			Object[] v1={"Mauro", "Valota","Correre", new Integer(5), new Boolean(false)}; 
-            System.out.println("Bottone premuto");
-			view.addData(v1);
-		}
+	}
+	
+ 	public ActionListener VisualizzaElencoGru(){
+		return new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Object[] v1={"Mauro", "Valota","Correre", new Integer(5), new Boolean(false)}; 
+	            System.out.println("Bottone premuto");
+				view.addData(v1);				
+			}
+			
+		};
 	}
 
 	@Override

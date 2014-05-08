@@ -30,6 +30,7 @@ public class viewPrincipale extends JFrame {
 	private MyTableModel dataModel;
 	private ModelInterface model;
 	private JButton btnViewGru,btnViewRuspa,btnViewCamion,btnViewEscavatore;
+	private JMenuItem itemAddGru,itemAddRuspa,itemAddEscavatore,itemAddCamion;
 	/**
 	 * Create xthe frame.
 	 * @throws InterruptedException 
@@ -100,14 +101,14 @@ public class viewPrincipale extends JFrame {
 
 		
 		//AGGIUNGI
-		JMenuItem itemAddGru = new JMenuItem("Gru");
-		menuAggiungi.add(itemAddGru);
-		JMenuItem iteAddRuspa = new JMenuItem("Ruspa");
-		menuAggiungi.add(iteAddRuspa);
-		JMenuItem itemAddEscavatore = new JMenuItem("Escavatore");
-		menuAggiungi.add(itemAddEscavatore);
-		JMenuItem iteAddCamion = new JMenuItem("Camion");
-		menuAggiungi.add(iteAddCamion);
+		itemAddGru = new JMenuItem("Gru");
+		menuAggiungi.add(itemAddGru);menuAggiungi.addSeparator();
+		itemAddRuspa = new JMenuItem("Ruspa");
+		menuAggiungi.add(itemAddRuspa);menuAggiungi.addSeparator();
+		itemAddEscavatore = new JMenuItem("Escavatore");
+		menuAggiungi.add(itemAddEscavatore);menuAggiungi.addSeparator();
+		itemAddCamion = new JMenuItem("Camion");
+		menuAggiungi.add(itemAddCamion);
 		
 		
 
@@ -121,8 +122,14 @@ public class viewPrincipale extends JFrame {
 	public void addButtonEscavatoreListener(ActionListener act){		btnViewEscavatore.addActionListener(act);}
 	
 	
+	//
+	public void addAggiungiGruListener(ActionListener act){		itemAddGru.addActionListener(act);}
+	public void addAggiungiRuspaListener(ActionListener act){		itemAddRuspa.addActionListener(act);}
+	public void addAggiungiCamionListener(ActionListener act){		itemAddCamion.addActionListener(act);}
+	public void addAggiungiEscavatoreListener(ActionListener act){		itemAddEscavatore.addActionListener(act);}
+	
+	
 	public void addData(Object[] obj){
-    	if(dataModel.addData(obj)); //table.repaint();
-    	
+    	dataModel.addData(obj);
     }
 }

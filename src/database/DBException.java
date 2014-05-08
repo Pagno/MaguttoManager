@@ -4,7 +4,7 @@ package database;
 /**
  * Classe che rappresenta le eccezioni che possono essere sollevate dal database.
  * 
- * @author Mauro
+ * 
  */
 public class DBException extends Exception {
 
@@ -12,8 +12,9 @@ public class DBException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/** The error code. */
-	int errorCode;
+	
+	/** Codice errore generato*/
+	private int errorCode;
 	
 	
 	/**
