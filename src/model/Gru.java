@@ -28,4 +28,8 @@ class Gru extends Macchina{
 	public void setAltezzaMassima(int altezza){		this.altezza=altezza;	}
 	public void setAngoloRotazione(int rotazione){	this.angoloRotazione=rotazione;	}
 	
+	public String toString(){
+		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getLunghezza() + " " + this.getPortataMassima() + " " + this.getAltezza() + " " + this.getAngoloRotazione();
+	}
+	
 }

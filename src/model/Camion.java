@@ -24,5 +24,9 @@ class Camion extends Macchina {
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	public void setLunghezza(int lunghezza){		this.lunghezza=lunghezza;	}
+	
+	public String toString(){
+		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getLunghezza();
+	}
 
 }

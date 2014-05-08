@@ -16,7 +16,7 @@ class ModelEscavatore extends ModelMacchina{
 		Escavatore escavatore= new Escavatore(getCodice(),produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
 	}
-	public void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
+	void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
 		aggiornaCodice(codice);
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
@@ -68,5 +68,13 @@ class ModelEscavatore extends ModelMacchina{
 			}
 		}
 		return null;
+	}
+	
+	public String toString(){
+		String tmp = "";
+		for(Escavatore item:listaEscavatori){
+			tmp = tmp + item.toString() + "\n";
+		}
+		return tmp;
 	}
 }

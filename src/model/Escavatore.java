@@ -30,4 +30,8 @@ class Escavatore extends Macchina{
 	public void setProfonditaMassima(int profondita){		this.profonditaMax=profondita;	}
 	public void setAltezzaMassima(int altezza){		this.altezzaMax=altezza;	}
 	
+	public String toString(){
+		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getAltezzaMassima() + " " + this.getProfonditaMassima();
+	}
+	
 }

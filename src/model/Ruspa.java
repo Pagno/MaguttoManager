@@ -25,4 +25,8 @@ class Ruspa extends Macchina{
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	public void setAltezzaMassima(int altezza){		this.altezzaMax=altezza;	}
 	
+	public String toString(){
+		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getAltezzaMassima();
+	}
+	
 }

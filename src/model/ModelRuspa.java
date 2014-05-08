@@ -19,7 +19,7 @@ class ModelRuspa extends ModelMacchina{
 		listaRuspe.add(ruspa);
 	}
 	
-	public void caricaRuspa(int codice,String produttore, String Modello,int capacita,int portata,int altezza){
+	void caricaRuspa(int codice,String produttore, String Modello,int capacita,int portata,int altezza){
 		aggiornaCodice(codice);
 		Ruspa ruspa= new Ruspa(codice, produttore, Modello,capacita,portata,altezza);
 		listaRuspe.add(ruspa);
@@ -71,4 +71,13 @@ class ModelRuspa extends ModelMacchina{
 		}
 		return null;
 	}
+	
+	public String toString(){
+		String tmp = "";
+		for(Ruspa item:listaRuspe){
+			tmp = tmp + item.toString() + "\n";
+		}
+		return tmp;
+	}
+	
 }

@@ -17,7 +17,7 @@ class ModelGru extends ModelMacchina{
 		Gru gru=new Gru(getCodice(),produttore,modello, rotazione, portata,lunghezza,altezza);
 		listaGru.add(gru);
 	}
-	public void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+	void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		aggiornaCodice(codice);
 		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
 		listaGru.add(gru);
@@ -69,5 +69,13 @@ class ModelGru extends ModelMacchina{
 			}
 		}
 		return null;
+	}
+	
+	public String toString(){
+		String tmp = "";
+		for(Gru item:listaGru){
+			tmp = tmp + item.toString() + "\n";
+		}
+		return tmp;
 	}
 }

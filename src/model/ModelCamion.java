@@ -16,7 +16,7 @@ class ModelCamion extends ModelMacchina{
 		Camion cm= new Camion(getCodice(),produttore,Modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
 	}
-	public void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
+	void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
 		aggiornaCodice(codice);
 		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
@@ -66,5 +66,13 @@ class ModelCamion extends ModelMacchina{
 			}
 		}
 		return null;
+	}
+	
+	public String toString(){
+		String tmp = "";
+		for(Camion item:listaCamion){
+			tmp = tmp + item.toString() + "\n";
+		}
+		return tmp;
 	}
 }

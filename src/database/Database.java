@@ -10,24 +10,26 @@ import java.sql.Statement;
 /**
  * Classe che gestisce le connessioni, le interrogazioni, le modifiche e le disconnessioni al database.
  * 
+ * @author Mauro
  */
 public class Database implements DatabaseInterface{
 	
-	/** Driver. */
+	/** The driver. */
 	public static String driver = null;
 	
-	/** Connessione. */
+	/** The con. */
 	public static Connection con = null;
 	
-	/** Risultati query. */
+	/** The res. */
 	public static ResultSet res = null;
 	
 	/** The cmd. */
 	public static Statement cmd = null;
 	
-	/** Stringa della query. */
+	/** The query. */
 	public static String query = null;
 	
+	/** The a. */
 	static boolean a;
 
 	public Database(){
@@ -35,7 +37,7 @@ public class Database implements DatabaseInterface{
 	}
 	
 	/**
-	 * Crea una connesione al DB.
+	 * Connessione al DB.
 	 *
 	 * @throws DBException the java db exception
 	 */
@@ -68,12 +70,10 @@ public class Database implements DatabaseInterface{
 	
 	
 	/**
-	 * 
-	 * Controlla se il database è vuoti.
-	 *
-	 * @return ritorna true se il database è vuoto, false altrimenti
+	 * Controlla se esistono le tabelle nel DB.
 	 *
 	 * @throws DBException the java db exception
+	 * @throws SQLException 
 	 */
 	@Override
 	public boolean isEmpty() throws DBException{
@@ -91,12 +91,10 @@ public class Database implements DatabaseInterface{
 	
 	
 	/**
-	 * Effettua una interrogazione al DB.
+	 * Interrogazione al DB.
 	 *
-	 * @param qry Query di interrogazione del database
-	 * 
-	 * @return Ritorna i risultati della query di interrogazione
-	 * 
+	 * @param qry the qry
+	 * @return the result set
 	 * @throws DBException the java db exception
 	 */
 	@Override
@@ -115,10 +113,9 @@ public class Database implements DatabaseInterface{
 	
 	
 	/**
-	 * Aggiorna  DB.
+	 * Update table into DB.
 	 *
-	 * @param qry Query di aggiornamento del database
-	 * 
+	 * @param qry the qry
 	 * @throws DBException the java db exception
 	 */
 	@Override
@@ -134,7 +131,7 @@ public class Database implements DatabaseInterface{
 	
 	
 	/**
-	 * Disconnessione dal DB.
+	 * Disconnect from DB.
 	 *
 	 * @throws DBException the java db exception
 	 */
@@ -161,16 +158,10 @@ public class Database implements DatabaseInterface{
 		}
 	}
 
-	/**
-	 * Elimina tutti i record presenti in una tabella
-	 * 
-	 * @param tableName nome della tabella che si vuole svuotare
-	 *
-	 * @throws DBException the java db exception
-	 */
+
 	@Override
 	public void emptyTable(String tableName) throws DBException{
-		String qry = "delete table APP." + tableName;
+		String qry = "delete from APP." + tableName;
 		try {
 			cmd.executeUpdate(qry);
 		} catch (SQLException e) {

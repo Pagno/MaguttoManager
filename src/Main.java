@@ -4,28 +4,22 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import controller.MainController;
+import controller.VisualizzaCtr;
 
-import view.MainView;
+import view.viewPrincipale;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
 
-/**
- * Classe di partenza che contiene il main.
- * 
- * @author Mauro Valota
- * @author Pagnoncelli Matteo
- */
+
 public class Main {
 
 	/**
-	 * 
-	 * The main method
-	 * 
-	 * @param args the arguments
+	 * @param args
+	 * @throws DBException 
+	 * @throws SQLException
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// TODO Auto-generated method stub
 		//ParcoMacchine pm=new ParcoMacchine();
 
@@ -43,7 +37,7 @@ public class Main {
 		
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
-		MainController vis=new MainController(m);
+		VisualizzaCtr vis=new VisualizzaCtr(m);
 		
 		/*Database.connect();
 		//Database.popola();
