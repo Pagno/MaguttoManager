@@ -33,6 +33,7 @@ class ModelCamion extends ModelMacchina{
 	      }
 	    }
 	}
+	
 	public boolean eliminaCamion(int codice){
 		Iterator<Camion> itr = listaCamion.iterator();
 	    while (itr.hasNext()) {
@@ -43,7 +44,27 @@ class ModelCamion extends ModelMacchina{
 	    }
 		return false;		
 	}
+	
 	public ArrayList<Camion> getLista(){
 		return listaCamion;
+	}
+	
+	public boolean isCamion(Integer codice){
+		Iterator<Camion> itr = listaCamion.iterator();
+	    while (itr.hasNext()) {
+	    	if(itr.next().getCodice()==codice){
+		    	 return true;
+	    	}
+	    }
+		return false;	
+	}
+	
+	public Camion getCamion(Integer codice){
+		for(Camion item:listaCamion){
+			if(item.getCodice()==codice){
+				return item;
+			}
+		}
+		return null;
 	}
 }

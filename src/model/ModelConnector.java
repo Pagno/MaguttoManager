@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import database.DBException;
-import database.Database;
 import database.DatabaseInterface;
 
 public class ModelConnector implements ModelInterface {
@@ -18,6 +17,7 @@ public class ModelConnector implements ModelInterface {
 	private DatabaseInterface db;
 
 	private void inizializza() {
+		ModelMacchina.initCodice();
 		mg = new ModelGru();
 		mc = new ModelCamion();
 		mr = new ModelRuspa();
@@ -81,6 +81,7 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}
 	}
+	
 	@Override
 	public void storeData() {
 		try {
@@ -142,6 +143,7 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}
 	}
+	
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
@@ -149,12 +151,24 @@ public class ModelConnector implements ModelInterface {
 	@Override
 	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
 		mg.modificaGru(codice, produttore, modello, rotazione, portata, lunghezza, altezza);
-
 	}
 
 	@Override
-	public boolean eliminaMacchina(int codice) {
-		return false;
+	public boolean eliminaMacchina(int mCode) {
+		boolean found=false;
+		if(mc.isCamion(mCode)){
+			found = mc.eliminaCamion(mCode);
+		}
+		if((!found) && me.isEscavatore(mCode)){
+			found = me.eliminaEscavatore(mCode);
+		}
+		if((!found) && mg.isGru(mCode)){
+			found = mg.eliminaGru(mCode);
+		}
+		if((!found) && mr.isRuspa(mCode)){
+			found = mr.eliminaRuspa(mCode);
+		}
+		return found;
 	}
 
 	@Override
@@ -188,11 +202,18 @@ public class ModelConnector implements ModelInterface {
 	}
 
 	private void loadDB(){
+		
 		//carica le macchine
 		loadCamion();
 		loadEscavatori();
 		loadRuspe();
 		loadGru();
+		
+		//carica i cantieri
+		loadCantieri();
+		
+		//carica le associazioni
+		loadAssociazioni();
 
 	}
 
@@ -270,6 +291,60 @@ public class ModelConnector implements ModelInterface {
 		}
 
 
+	}
+	
+	private void loadCantieri(){
+		//carica i cantieri
+		try {
+			db.connect();
+			String qry="select * from APP.Cantiere";
+			ResultSet res=db.interrogate(qry);
+			while(res.next()){
+				lc.caricaCantiere(res.getInt("Codice"), res.getString("Name"), res.getString("Indirizzo"), res.getDate("DataApertura"), res.getDate("DataChiusura"));
+			}
+			db.disconnect();
+		} catch (DBException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+	
+	private void loadAssociazioni(){
+		//carica le associazioni
+		try {
+			db.connect();
+			String qry="select * from APP.Associazione";
+			ResultSet res=db.interrogate(qry);
+			while(res.next()){
+				ea.caricaAssociazione(res.getInt("Id"), getMacchina(res.getInt("CodiceMacchina")), lc.getCantiere(res.getInt("CodiceCantiere")), res.getDate("DataInizio"), res.getDate("DataFine"));
+			}
+			db.disconnect();
+		} catch (DBException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+
+	}
+	
+	private Macchina getMacchina(Integer mCode){
+		if(mc.isCamion(mCode)){
+			return mc.getCamion(mCode);
+		}
+		if(me.isEscavatore(mCode)){
+			return me.getEscavatore(mCode);
+		}
+		if(mg.isGru(mCode)){
+			return mg.getGru(mCode);
+		}
+		if(mr.isRuspa(mCode)){
+			return mr.getRuspa(mCode);
+		}
+		return null;
 	}
 
 }

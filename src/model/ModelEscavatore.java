@@ -46,7 +46,27 @@ class ModelEscavatore extends ModelMacchina{
 	    }
 		return false;		
 	}
+	
 	public ArrayList<Escavatore> getLista(){
 		return listaEscavatori;
+	}
+	
+	public boolean isEscavatore(Integer codice){
+		Iterator<Escavatore> itr = listaEscavatori.iterator();
+	    while (itr.hasNext()) {
+	    	if(itr.next().getCodice()==codice){
+		    	 return true;
+	    	}
+	    }
+		return false;	
+	}
+	
+	public Escavatore getEscavatore(Integer codice){
+		for(Escavatore item:listaEscavatori){
+			if(item.getCodice()==codice){
+				return item;
+			}
+		}
+		return null;
 	}
 }

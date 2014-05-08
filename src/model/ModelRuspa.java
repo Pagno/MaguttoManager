@@ -48,7 +48,27 @@ class ModelRuspa extends ModelMacchina{
 	    }
 		return false;		
 	}
+	
 	public ArrayList<Ruspa> getLista(){
 		return listaRuspe;
+	}
+	
+	public boolean isRuspa(Integer codice){
+		Iterator<Ruspa> itr = listaRuspe.iterator();
+	    while (itr.hasNext()) {
+	    	if(itr.next().getCodice()==codice){
+		    	 return true;
+	    	}
+	    }
+		return false;	
+	}
+	
+	public Ruspa getRuspa(Integer codice){
+		for(Ruspa item:listaRuspe){
+			if(item.getCodice()==codice){
+				return item;
+			}
+		}
+		return null;
 	}
 }

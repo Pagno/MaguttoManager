@@ -51,4 +51,23 @@ class ModelGru extends ModelMacchina{
 	public ArrayList<Gru> getLista(){
 		return listaGru;
 	}
+	
+	public boolean isGru(Integer codice){
+		Iterator<Gru> itr = listaGru.iterator();
+	    while (itr.hasNext()) {
+	    	if(itr.next().getCodice()==codice){
+		    	 return true;
+	    	}
+	    }
+		return false;	
+	}
+	
+	public Gru getGru(Integer codice){
+		for(Gru item:listaGru){
+			if(item.getCodice()==codice){
+				return item;
+			}
+		}
+		return null;
+	}
 }
