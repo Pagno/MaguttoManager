@@ -18,7 +18,7 @@ import javax.swing.JButton;
 
 import model.ModelInterface;
 
-public class viewPrincipale extends JFrame {
+public class MainView extends JFrame {
 
 	/**
 	 * 
@@ -31,11 +31,12 @@ public class viewPrincipale extends JFrame {
 	private ModelInterface model;
 	private JButton btnViewGru,btnViewRuspa,btnViewCamion,btnViewEscavatore;
 	private JMenuItem itemAddGru,itemAddRuspa,itemAddEscavatore,itemAddCamion;
+	private JMenuItem itemEditGru,itemEditRuspa,itemEditEscavatore,itemEditCamion;
 	/**
 	 * Create xthe frame.
 	 * @throws InterruptedException 
 	 */
-	public viewPrincipale(ModelInterface m) {
+	public MainView(ModelInterface m) {
 		model=m;
 		
 		
@@ -88,6 +89,7 @@ public class viewPrincipale extends JFrame {
 		//MENUBAR
 		JMenu menuFile = new JMenu("File");
 		JMenu menuAggiungi = new JMenu("Aggiungi");
+		JMenu menuModifica = new JMenu("Modifica");
 		
 		
 		//FILE
@@ -111,23 +113,40 @@ public class viewPrincipale extends JFrame {
 		menuAggiungi.add(itemAddCamion);
 		
 		
-
+		
+		//MODIFICA
+		itemEditGru = new JMenuItem("Gru");
+		menuModifica.add(itemEditGru);menuModifica.addSeparator();
+		itemEditRuspa = new JMenuItem("Ruspa");
+		menuModifica.add(itemEditRuspa);menuModifica.addSeparator();
+		itemEditEscavatore = new JMenuItem("Escavatore");
+		menuModifica.add(itemEditEscavatore);menuModifica.addSeparator();
+		itemEditCamion = new JMenuItem("Camion");
+		menuModifica.add(itemEditCamion);
+		
+		
 		menuBar.add(menuFile);
 		menuBar.add(menuAggiungi);
+		menuBar.add(menuModifica);
 	}
 	
-	public void addButtonGruListener(ActionListener act){		btnViewGru.addActionListener(act);}
-	public void addButtonRuspaListener(ActionListener act){		btnViewRuspa.addActionListener(act);}
+	public void addButtonGruListener(ActionListener act){			btnViewGru.addActionListener(act);}
+	public void addButtonRuspaListener(ActionListener act){			btnViewRuspa.addActionListener(act);}
 	public void addButtonCamionListener(ActionListener act){		btnViewCamion.addActionListener(act);}
-	public void addButtonEscavatoreListener(ActionListener act){		btnViewEscavatore.addActionListener(act);}
+	public void addButtonEscavatoreListener(ActionListener act){	btnViewEscavatore.addActionListener(act);}
 	
 	
 	//
-	public void addAggiungiGruListener(ActionListener act){		itemAddGru.addActionListener(act);}
+	public void addAggiungiGruListener(ActionListener act){			itemAddGru.addActionListener(act);}
 	public void addAggiungiRuspaListener(ActionListener act){		itemAddRuspa.addActionListener(act);}
 	public void addAggiungiCamionListener(ActionListener act){		itemAddCamion.addActionListener(act);}
-	public void addAggiungiEscavatoreListener(ActionListener act){		itemAddEscavatore.addActionListener(act);}
+	public void addAggiungiEscavatoreListener(ActionListener act){	itemAddEscavatore.addActionListener(act);}
 	
+	//
+	public void addModificaGruListener(ActionListener act){			itemEditGru.addActionListener(act);}
+	public void addModificaRuspaListener(ActionListener act){		itemEditRuspa.addActionListener(act);}
+	public void addModificaCamionListener(ActionListener act){		itemEditCamion.addActionListener(act);}
+	public void addModificaEscavatoreListener(ActionListener act){	itemEditEscavatore.addActionListener(act);}
 	
 	public void addData(Object[] obj){
     	dataModel.addData(obj);

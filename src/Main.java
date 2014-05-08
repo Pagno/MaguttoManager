@@ -6,7 +6,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.MainController;
 
-import view.viewPrincipale;
+import view.MainView;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;

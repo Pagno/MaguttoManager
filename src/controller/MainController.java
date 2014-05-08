@@ -10,20 +10,21 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import view.InserimentoGru;
-import view.viewPrincipale;
+import view.MainView;
 
 import model.ModelConnector;
 
 public class MainController implements ListSelectionListener{
 
 	private ModelConnector model;
-	private viewPrincipale view;
+	private MainView view;
 	
 	public MainController(ModelConnector m){
 			model=m;
-			view =new viewPrincipale(m);
+			view =new MainView(m);
 			view.addButtonGruListener(VisualizzaElencoGru());
 			view.addAggiungiGruListener(VisualizzaInserimentoGru());
+			view.addModificaGruListener(VisualizzaModificaGru());
 			/*view.addButtonRuspaListener(this);
 			view.addButtonCamionListener(this);
 			view.addButtonEscavatoreListener(this);*/
@@ -54,6 +55,21 @@ public class MainController implements ListSelectionListener{
 		};
 	}
 
+	public ActionListener VisualizzaModificaGru(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Object[] v1={"Mauro", "Valota",123,321, 765,567}; 
+	            
+				InserimentoGru ins=new InserimentoGru(view,v1);
+				InsertController ctr=new InsertController(model, ins);
+				ins.setInsertButtonListeners(ctr.InsertGruListener());
+			}
+		};
+		
+	}
+ 	
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
