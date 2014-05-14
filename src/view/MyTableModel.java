@@ -1,9 +1,6 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Vector;
-
-import javax.swing.RepaintManager;
 import javax.swing.table.AbstractTableModel;
 
 public class MyTableModel extends AbstractTableModel { 
