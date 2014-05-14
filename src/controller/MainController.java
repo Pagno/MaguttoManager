@@ -17,27 +17,38 @@ import model.ModelConnector;
 public class MainController implements ListSelectionListener {
 
 	private ModelConnector model;
-	private MainView view;
+	private MainView mainView;
 
 	public MainController(ModelConnector m) {
 		model = m;
-		view = new MainView(m);
-		view.addButtonGruListener(VisualizzaElencoGru());
-		view.addAggiungiGruListener(VisualizzaInserimentoGru());
-		view.addModificaGruListener(VisualizzaModificaGru());
+		mainView = new MainView(m);
+		mainView.addButtonGruListener(VisualizzaElencoGru());
+		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
+		mainView.addModificaGruListener(VisualizzaModificaGru());
+		mainView.addExitListener(ExitManager());
 		/*
 		 * view.addButtonRuspaListener(this);
 		 * view.addButtonCamionListener(this);
 		 * view.addButtonEscavatoreListener(this);
 		 */
 	}
-
+	public ActionListener ExitManager(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.storeData();
+				mainView.dispose();
+				model.pubblicaContenuto();
+			}
+		};
+	}
+	
 	public ActionListener VisualizzaInserimentoGru() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				InserimentoGru ins = new InserimentoGru(view);
+				InserimentoGru ins = new InserimentoGru(mainView);
 				InsertController ctr = new InsertController(model, ins);
 				ins.setInsertButtonListeners(ctr.InsertGruListener());
 			}
@@ -52,7 +63,7 @@ public class MainController implements ListSelectionListener {
 				Object[] v1 = { "Mauro", "Valota", "Correre", new Integer(5),
 						new Boolean(false) };
 				System.out.println("Bottone premuto");
-				view.addData(v1);
+				mainView.addData(v1);
 			}
 
 		};
@@ -65,7 +76,7 @@ public class MainController implements ListSelectionListener {
 				// TODO Auto-generated method stub
 				Object[] v1 = { "Mauro", "Valota", 123, 321, 765, 567 };
 
-				InserimentoGru ins = new InserimentoGru(view, v1);
+				InserimentoGru ins = new InserimentoGru(mainView, v1);
 				InsertController ctr = new InsertController(model, ins);
 				ins.setInsertButtonListeners(ctr.InsertGruListener());
 			}

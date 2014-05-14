@@ -1,12 +1,12 @@
 import java.sql.SQLException;
 import java.text.ParseException;
+
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import controller.VisualizzaCtr;
-
-import view.viewPrincipale;
+import controller.MainController;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
@@ -34,10 +34,10 @@ public class Main {
 		} catch (Exception e) {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
-		
+
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
-		VisualizzaCtr vis=new VisualizzaCtr(m);
+		MainController vis=new MainController(m);
 
 		
 		/*Database.connect();

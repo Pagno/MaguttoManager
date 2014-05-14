@@ -34,7 +34,7 @@ public class MainView extends JFrame {
 			itemAddCamion;
 	private JMenuItem itemEditGru, itemEditRuspa, itemEditEscavatore,
 			itemEditCamion;
-
+	private JMenuItem itemFileEsci;
 	/**
 	 * Create xthe frame.
 	 * 
@@ -94,7 +94,7 @@ public class MainView extends JFrame {
 		menuFile.add(itemFileCarica);
 		JMenuItem itemFileSalva = new JMenuItem("Salva");
 		menuFile.add(itemFileSalva);
-		JMenuItem itemFileEsci = new JMenuItem("Esci");
+		itemFileEsci = new JMenuItem("Esci");
 		menuFile.add(itemFileEsci);
 
 		// AGGIUNGI
@@ -127,7 +127,9 @@ public class MainView extends JFrame {
 		menuBar.add(menuAggiungi);
 		menuBar.add(menuModifica);
 	}
-
+	public void addExitListener(ActionListener act){
+		itemFileEsci.addActionListener(act);
+	}
 	public void addButtonGruListener(ActionListener act) {
 		btnViewGru.addActionListener(act);
 	}

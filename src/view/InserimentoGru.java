@@ -51,8 +51,8 @@ public class InserimentoGru extends JDialog {
 		lblAngoloRotazione = new JLabel("Angolo Rotazione:");
 		lblLunghezza = new JLabel("Lunghezza:");
 		lblMetri = new JLabel("metri");
-		lblMetri2 = new JLabel("metri");
-		lblTon = new JLabel("Tonellate");
+		lblMetri2 = new JLabel("metri	");
+		lblTon = new JLabel("Kg");
 		lblAngolo = new JLabel("Gradi");
 
 		txtProduttore = new JTextField();

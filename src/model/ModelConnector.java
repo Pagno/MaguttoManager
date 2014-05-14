@@ -64,6 +64,7 @@ public class ModelConnector implements ModelInterface {
 				System.out.println("DB creato");
 			}
 			else{
+				//db.disconnect();
 				//Tabelle esistenti, carico il DB
 				loadDB();
 			}
@@ -77,6 +78,7 @@ public class ModelConnector implements ModelInterface {
 	@Override
 	public void storeData() {
 		try {
+			System.out.println("Salvataggio Dati.");
 			db.connect();
 			//POPOLARE IL DATABASE
 			db.emptyTable("Associazione");
@@ -111,7 +113,7 @@ public class ModelConnector implements ModelInterface {
 				String qry = "insert into APP.Macchina (Codice,Produttore,Modello,Tipo,PortataMax,AltezzaMax,LunghezzaMax,RotazioneMax)"+
 						"values(" + item.getCodice() + ",'" + item.getProduttore() + 
 						"','" + item.getModello() + "','Gru'," +  item.getPortataMassima() + "," + item.getAltezza() + 
-						"," + item.getLunghezza() + item.getAngoloRotazione() + "," + ")" ;
+						"," + item.getLunghezza() + "," + item.getAngoloRotazione() + ")" ;
 				db.update(qry);
 			}
 			for(Ruspa item:mr.getLista()){
@@ -136,15 +138,6 @@ public class ModelConnector implements ModelInterface {
 		}
 	}
 
-	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
-		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
-	}
-
-	@Override
-	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
-		mg.modificaGru(codice, produttore, modello, rotazione, portata, lunghezza, altezza);
-	}
-
 	@Override
 	public boolean eliminaMacchina(int mCode) {
 		boolean found=false;
@@ -163,6 +156,14 @@ public class ModelConnector implements ModelInterface {
 		return found;
 	}
 
+	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
+	}
+
+	@Override
+	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
+		mg.modificaGru(codice, produttore, modello, rotazione, portata, lunghezza, altezza);
+	}
 	@Override
 	public void aggiungiCamion(String produttore, String Modello, int capacita,	int portata, int lunghezza) {
 		mc.aggiungiCamion(produttore, Modello, capacita, portata, lunghezza);
@@ -242,13 +243,13 @@ public class ModelConnector implements ModelInterface {
 	private void loadCamion(){
 		//carica i camion
 		try {
-			db.connect();
+			//db.connect();
 			String qry="select * from APP.Macchina where Tipo='Camion'";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
 				mc.caricaCamion(res.getInt("Codice"),res.getString("Produttore"), res.getString("Modello"), res.getInt("CapacitaMax"), res.getInt("PortataMax"), res.getInt("LunghezzaMax"));
 			}
-			db.disconnect();
+			//db.disconnect();
 		} catch (DBException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -261,13 +262,13 @@ public class ModelConnector implements ModelInterface {
 	private void loadEscavatori(){
 		//carica gli escavatori
 		try {
-			db.connect();
+			//db.connect();
 			String qry="select * from APP.Macchina where Tipo='Escavatore'";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
 				me.caricaEscavatore(res.getInt("Codice"), res.getString("Produttore"), res.getString("Modello"), res.getInt("CapacitaMax"), res.getInt("PortataMax"), res.getInt("AltezzaMax"), res.getInt("ProfonditaMax"));
 			}
-			db.disconnect();
+			//db.disconnect();
 		} catch (DBException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -280,13 +281,13 @@ public class ModelConnector implements ModelInterface {
 	private void loadRuspe(){
 		//carica le ruspe
 		try {
-			db.connect();
+			//db.connect();
 			String qry="select * from APP.Macchina where Tipo='Ruspa'";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
 				mr.caricaRuspa(res.getInt("Codice"), res.getString("Produttore"), res.getString("Modello"), res.getInt("CapacitaMax"), res.getInt("PortataMax"), res.getInt("AltezzaMax"));
 			}
-			db.disconnect();
+			//db.disconnect();
 		} catch (DBException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -299,13 +300,13 @@ public class ModelConnector implements ModelInterface {
 	private void loadGru(){
 		//carica le gru
 		try {
-			db.connect();
+			//db.connect();
 			String qry="select * from APP.Macchina where Tipo='Gru'";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
 				mg.caricaGru(res.getInt("Codice"), res.getString("Produttore"), res.getString("Modello"), res.getInt("RotazioneMax"), res.getInt("PortataMax"), res.getInt("LunghezzaMax"), res.getInt("AltezzaMax"));
 			}
-			db.disconnect();
+			//db.disconnect();
 		} catch (DBException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -318,13 +319,13 @@ public class ModelConnector implements ModelInterface {
 	private void loadCantieri(){
 		//carica i cantieri
 		try {
-			db.connect();
+			//db.connect();
 			String qry="select * from APP.Cantiere";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
 				lc.caricaCantiere(res.getInt("Codice"), res.getString("Nome"), res.getString("Indirizzo"), convertToDate(res.getString("DataApertura")), convertToDate(res.getString("DataChiusura")));
 			}
-			db.disconnect();
+			//db.disconnect();
 		} catch (DBException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -337,13 +338,13 @@ public class ModelConnector implements ModelInterface {
 	private void loadAssociazioni(){
 		//carica le associazioni
 		try {
-			db.connect();
+			//db.connect();
 			String qry="select * from APP.Associazione";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
 				ea.caricaAssociazione(res.getInt("Id"), getMacchina(res.getInt("CodiceMacchina")), lc.getCantiere(res.getInt("CodiceCantiere")), convertToDate(res.getString("DataInizio")), convertToDate(res.getString("DataFine")));
 			}
-			db.disconnect();
+			//db.disconnect();
 		} catch (DBException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -408,9 +409,9 @@ public class ModelConnector implements ModelInterface {
 		System.out.println("---ESCAVATORI---------------");
 		System.out.println(me.toString());
 		System.out.println("---RUSPE--------------------");
-		System.out.println(mg.toString());
-		System.out.println("---GRU----------------------");
 		System.out.println(mr.toString());
+		System.out.println("---GRU----------------------");
+		System.out.println(mg.toString());
 		System.out.println("---CANTIERI-----------------");
 		System.out.println(lc.toString());
 		System.out.println("---ASSOCIAZIONI-------------");
