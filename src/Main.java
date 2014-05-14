@@ -38,6 +38,7 @@ public class Main {
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
 		VisualizzaCtr vis=new VisualizzaCtr(m);
+
 		
 		/*Database.connect();
 		//Database.popola();

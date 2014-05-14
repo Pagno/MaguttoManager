@@ -73,7 +73,7 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void storeData() {
 		try {
@@ -135,7 +135,7 @@ public class ModelConnector implements ModelInterface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
@@ -222,18 +222,18 @@ public class ModelConnector implements ModelInterface {
 	public boolean eliminaAssociazione(int codice) {
 		return ea.eliminaAssociazione(codice);
 	}
-	
+
 	private void loadDB(){
-		
+
 		//carica le macchine
 		loadCamion();
 		loadEscavatori();
 		loadRuspe();
 		loadGru();
-		
+
 		//carica i cantieri
 		loadCantieri();
-		
+
 		//carica le associazioni
 		loadAssociazioni();
 
@@ -257,7 +257,7 @@ public class ModelConnector implements ModelInterface {
 
 
 	}
-	
+
 	private void loadEscavatori(){
 		//carica gli escavatori
 		try {
@@ -276,7 +276,7 @@ public class ModelConnector implements ModelInterface {
 
 
 	}
-	
+
 	private void loadRuspe(){
 		//carica le ruspe
 		try {
@@ -295,7 +295,7 @@ public class ModelConnector implements ModelInterface {
 
 
 	}
-	
+
 	private void loadGru(){
 		//carica le gru
 		try {
@@ -314,7 +314,7 @@ public class ModelConnector implements ModelInterface {
 
 
 	}
-	
+
 	private void loadCantieri(){
 		//carica i cantieri
 		try {
@@ -333,7 +333,7 @@ public class ModelConnector implements ModelInterface {
 
 
 	}
-	
+
 	private void loadAssociazioni(){
 		//carica le associazioni
 		try {
@@ -349,10 +349,10 @@ public class ModelConnector implements ModelInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 
 	}
-	
+
 	private Macchina getMacchina(Integer mCode){
 		if(mc.isCamion(mCode)){
 			return mc.getCamion(mCode);
@@ -368,7 +368,7 @@ public class ModelConnector implements ModelInterface {
 		}
 		return null;
 	}
-	
+
 	private GregorianCalendar convertToDate(String datestr){
 		String year = datestr.substring(0,4);
 		String month = datestr.substring(5,7);
@@ -390,7 +390,7 @@ public class ModelConnector implements ModelInterface {
 		int dint=Integer.parseInt(day);
 		return new GregorianCalendar(yint,mint,dint);
 	}
-	
+
 	private void inizializza() {
 		ModelMacchina.initCodice();
 		mg = new ModelGru();
@@ -400,7 +400,7 @@ public class ModelConnector implements ModelInterface {
 		ea = new ElencoAssociazioni();
 		lc = new ModelCantiere();
 	}
-	
+
 	//da rimuovere
 	public void pubblicaContenuto(){
 		System.out.println("---CAMION-------------------");
@@ -417,6 +417,6 @@ public class ModelConnector implements ModelInterface {
 		System.out.println(ea.toString());
 	}
 
-	
+
 
 }

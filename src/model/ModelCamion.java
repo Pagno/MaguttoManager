@@ -6,11 +6,11 @@ import java.util.Iterator;
 
 class ModelCamion extends ModelMacchina{
 	private ArrayList<Camion> listaCamion;
-	
+
 	public ModelCamion(){
 		listaCamion=new ArrayList<Camion>();
 	}
-	
+
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
 		incrementaCodice();
 		Camion cm= new Camion(getCodice(),produttore,Modello,capacita,portata,lunghezza);
@@ -33,7 +33,7 @@ class ModelCamion extends ModelMacchina{
 	      }
 	    }
 	}
-	
+
 	public boolean eliminaCamion(int codice){
 		Iterator<Camion> itr = listaCamion.iterator();
 	    while (itr.hasNext()) {
@@ -44,11 +44,11 @@ class ModelCamion extends ModelMacchina{
 	    }
 		return false;		
 	}
-	
+
 	public ArrayList<Camion> getLista(){
 		return listaCamion;
 	}
-	
+
 	public boolean isCamion(Integer codice){
 		Iterator<Camion> itr = listaCamion.iterator();
 	    while (itr.hasNext()) {
@@ -58,7 +58,7 @@ class ModelCamion extends ModelMacchina{
 	    }
 		return false;	
 	}
-	
+
 	public Camion getCamion(Integer codice){
 		for(Camion item:listaCamion){
 			if(item.getCodice()==codice){
@@ -67,7 +67,7 @@ class ModelCamion extends ModelMacchina{
 		}
 		return null;
 	}
-	
+
 	public String toString(){
 		String tmp = "";
 		for(Camion item:listaCamion){

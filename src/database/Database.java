@@ -13,29 +13,29 @@ import java.sql.Statement;
  * @author Mauro
  */
 public class Database implements DatabaseInterface{
-	
+
 	/** The driver. */
 	public static String driver = null;
-	
+
 	/** The con. */
 	public static Connection con = null;
-	
+
 	/** The res. */
 	public static ResultSet res = null;
-	
+
 	/** The cmd. */
 	public static Statement cmd = null;
-	
+
 	/** The query. */
 	public static String query = null;
-	
+
 	/** The a. */
 	static boolean a;
 
 	public Database(){
-		
+
 	}
-	
+
 	/**
 	 * Connessione al DB.
 	 *
@@ -57,18 +57,18 @@ public class Database implements DatabaseInterface{
 		try{
 			con = DriverManager.getConnection(url);
 			System.out.println("Connection done");
-			
+
 			cmd = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			
+
 		}
 		catch(SQLException e){
 			throw new DBException(2);
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Controlla se esistono le tabelle nel DB.
 	 *
@@ -88,8 +88,8 @@ public class Database implements DatabaseInterface{
 			throw new DBException(3);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Interrogazione al DB.
 	 *
@@ -100,7 +100,7 @@ public class Database implements DatabaseInterface{
 	@Override
 	public ResultSet interrogate(String qry) throws DBException{
 		a = true;
-		
+
 		// Query and save the results in a ResultSet object
 		try {
 			res = cmd.executeQuery(qry);
@@ -109,9 +109,9 @@ public class Database implements DatabaseInterface{
 		}
 		return res;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Update table into DB.
 	 *
@@ -127,9 +127,9 @@ public class Database implements DatabaseInterface{
 			throw new DBException(5);
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Disconnect from DB.
 	 *
@@ -168,6 +168,6 @@ public class Database implements DatabaseInterface{
 			throw new DBException(9);
 		}
 	}
-	
-	
+
+
 }
