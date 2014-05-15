@@ -4,11 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Observable;
+import java.util.Observer;
 
 import database.DBException;
 import database.DatabaseInterface;
 
-public class ModelConnector implements ModelInterface {
+public class ModelConnector extends Observable implements ModelInterface{
 
 	private ModelGru mg;
 	private ModelCamion mc;
@@ -418,6 +420,11 @@ public class ModelConnector implements ModelInterface {
 		System.out.println(ea.toString());
 	}
 
+	
 
-
+	//Prova
+	public void setTableObserver(Observer observer){
+		deleteObservers();
+		addObserver(observer);
+	}
 }

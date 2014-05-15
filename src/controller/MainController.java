@@ -23,8 +23,12 @@ public class MainController implements ListSelectionListener {
 		model = m;
 		mainView = new MainView(m);
 		mainView.addButtonGruListener(VisualizzaElencoGru());
+		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
+		
+		
 		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
 		mainView.addModificaGruListener(VisualizzaModificaGru());
+		
 		mainView.addExitListener(ExitManager());
 		/*
 		 * view.addButtonRuspaListener(this);
@@ -38,7 +42,6 @@ public class MainController implements ListSelectionListener {
 			public void actionPerformed(ActionEvent e) {
 				model.storeData();
 				mainView.dispose();
-				model.pubblicaContenuto();
 			}
 		};
 	}
@@ -62,13 +65,26 @@ public class MainController implements ListSelectionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				Object[] v1 = { "Mauro", "Valota", "Correre", new Integer(5),
 						new Boolean(false) };
-				System.out.println("Bottone premuto");
 				mainView.addData(v1);
 			}
 
 		};
 	}
+	
+	private boolean a=false;
+	public ActionListener VisualizzaElencoRuspe() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(a==false){
+					mainView.change();a=true;
+				}else{
+					mainView.change2();a=false;
+				}
+			}
 
+		};
+	}
 	public ActionListener VisualizzaModificaGru() {
 		return new ActionListener() {
 			@Override

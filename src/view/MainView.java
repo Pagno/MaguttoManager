@@ -27,7 +27,7 @@ public class MainView extends JFrame {
 	private JPanel contentPane, leftMenu;
 	private JTable table;
 	private JScrollPane scrollpane;
-	private MyTableModel dataModel;
+	private MyTableModel dataModel,dataModel2;
 	private ModelInterface model;
 	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore;
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
@@ -57,15 +57,24 @@ public class MainView extends JFrame {
 		dataModel = new MyTableModel();
 		table = new JTable();
 		table.setModel(dataModel);
-
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 
+		
+		dataModel2 = new MyTableModel();
 		scrollpane = new JScrollPane(table);
 		contentPane.add(scrollpane, BorderLayout.CENTER);
 		setVisible(true);
 
 	}
-
+	
+	public void change(){
+		table.setModel(dataModel2);
+		dataModel2.fireTableDataChanged();
+	}
+	public void change2(){
+		table.setModel(dataModel);
+		dataModel2.fireTableDataChanged();
+	}
 	private void leftMenu() {
 		leftMenu = new JPanel();
 		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
@@ -133,7 +142,6 @@ public class MainView extends JFrame {
 	public void addButtonGruListener(ActionListener act) {
 		btnViewGru.addActionListener(act);
 	}
-
 	public void addButtonRuspaListener(ActionListener act) {
 		btnViewRuspa.addActionListener(act);
 	}
