@@ -1,6 +1,8 @@
 package model;
 
-public abstract class ModelMacchina {
+import java.util.Observable;
+
+public abstract class ModelMacchina extends Observable{
 	private static int codice;
 	protected void aggiornaCodice(int code){
 		if(codice<code){

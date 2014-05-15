@@ -1,28 +1,26 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.table.AbstractTableModel;
 
-public class MyTableModel extends AbstractTableModel { 
- 
-	
-	
+public class MyTableModel extends AbstractTableModel implements Observer{ 
+ 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String[] columnNames={"First Name",
-            "Last Name",
-            "Sport",
-            "# of Years",
-            "Vegetarian"};
+	private String[] columnNames;
+	
 	
 	private Object[] v1={"Kathy", "Smith","Snowboarding", new Integer(5), new Boolean(false)};   
 	private Object[] v2={"John", "Doe","Rowing", new Integer(3), new Boolean(true)};    	
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
 			//new ArrayList<Object>("Kathy","Smith","Snowboarding", new Integer(5),new Boolean(false))};
-    private Object[][] data1={
+    private Object[][] data1;/*={
             {"Kathy", "Smith",
                 "Snowboarding", new Integer(5), new Boolean(false)},
                {"John", "Doe",
@@ -34,17 +32,16 @@ public class MyTableModel extends AbstractTableModel {
                {"Joe", "Brown",
                 "Pool", new Integer(10), new Boolean(false)}
                };//same as before...
-    		
-    public MyTableModel(){
+    		*/
+    public MyTableModel(String[] column){
+    	columnNames=column;
     	//v.add(new ArrayList<Object>());
-    	data.add(v1);data.add(v2);
+    	//data.add(v1);data.add(v2);
     }
     
     public boolean addData(Object[] obj){
-        System.out.println("Dati inseriti - "+obj[0]);
     	data.add(obj);
     	fireTableDataChanged();
-    	
     	return true;
     }
     
@@ -69,10 +66,15 @@ public class MyTableModel extends AbstractTableModel {
     }
 	@Override
 	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		return data.get(arg0)[arg1];
+		return data.get(arg0)[arg1+1];
 	}
 	public void removeRow(int row){
 		data.remove(row);
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		addData((Object[])arg1);
 	}
 }

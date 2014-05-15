@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -21,7 +23,9 @@ public class MainController implements ListSelectionListener {
 
 	public MainController(ModelConnector m) {
 		model = m;
-		mainView = new MainView(m);
+		mainView = new MainView();
+		setObserver();
+		model.refreshData();
 		mainView.addButtonGruListener(VisualizzaElencoGru());
 		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
 		
@@ -30,12 +34,19 @@ public class MainController implements ListSelectionListener {
 		mainView.addModificaGruListener(VisualizzaModificaGru());
 		
 		mainView.addExitListener(ExitManager());
+		mainView.addWindowClosingListener(chiusuraProgramma());
 		/*
 		 * view.addButtonRuspaListener(this);
 		 * view.addButtonCamionListener(this);
 		 * view.addButtonEscavatoreListener(this);
 		 */
 	}
+	private void setObserver(){
+		model.addGruObserver(mainView.dataModelGru);
+		model.addRuspaObserver(mainView.dataModelGru);		
+	}
+	
+	
 	public ActionListener ExitManager(){
 		return new ActionListener() {
 			@Override
@@ -45,7 +56,15 @@ public class MainController implements ListSelectionListener {
 			}
 		};
 	}
-	
+
+	public WindowAdapter chiusuraProgramma(){
+		return new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				model.storeData();
+			}
+		};
+	}
 	public ActionListener VisualizzaInserimentoGru() {
 		return new ActionListener() {
 			@Override
@@ -63,10 +82,10 @@ public class MainController implements ListSelectionListener {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Object[] v1 = { "Mauro", "Valota", "Correre", new Integer(5),
+				/*Object[] v1 = { "Mauro", "Valota", "Correre", new Integer(5),
 						new Boolean(false) };
 				mainView.addData(v1);
-			}
+			*/}
 
 		};
 	}
@@ -120,5 +139,4 @@ public class MainController implements ListSelectionListener {
 			System.out.println(lsm.getLeadSelectionIndex());
 		}
 	}
-
 }

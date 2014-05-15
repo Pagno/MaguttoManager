@@ -16,12 +16,18 @@ class ModelRuspa extends ModelMacchina{
 	public void aggiungiRuspa(String produttore, String Modello,int capacita,int portata,int altezza){
 		incrementaCodice();
 		Ruspa ruspa= new Ruspa(getCodice(), produttore, Modello,capacita,portata,altezza);
+		Object[] v1 = { ruspa.getCodice(),produttore, Modello, altezza,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 		listaRuspe.add(ruspa);
 	}
 	
 	void caricaRuspa(int codice,String produttore, String Modello,int capacita,int portata,int altezza){
 		aggiornaCodice(codice);
 		Ruspa ruspa= new Ruspa(codice, produttore, Modello,capacita,portata,altezza);
+		Object[] v1 = { ruspa.getCodice(),produttore, Modello, altezza,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 		listaRuspe.add(ruspa);
 	}
 	

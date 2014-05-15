@@ -22,12 +22,25 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	public ModelConnector(DatabaseInterface data){
 		db=data;
-		refreshData();
+		inizializza();
+		//refreshData();
 	}
-
+	
+	public void addGruObserver(Observer observer){
+		mg.addObserver(observer);
+	}
+	public void addRuspaObserver(Observer observer){
+		mr.addObserver(observer);
+	}
+	public void addCamionObserver(Observer observer){
+		mc.addObserver(observer);
+	}
+	public void addEscavatoreObserver(Observer observer){
+		me.addObserver(observer);
+	}
+	
 	@Override
 	public void refreshData() {
-		inizializza();
 
 		try {
 			db.connect();
@@ -418,13 +431,5 @@ public class ModelConnector extends Observable implements ModelInterface{
 		System.out.println(lc.toString());
 		System.out.println("---ASSOCIAZIONI-------------");
 		System.out.println(ea.toString());
-	}
-
-	
-
-	//Prova
-	public void setTableObserver(Observer observer){
-		deleteObservers();
-		addObserver(observer);
 	}
 }

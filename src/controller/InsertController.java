@@ -36,7 +36,6 @@ public class InsertController {
 							Integer.parseInt(dialog.getPortataMassima()),
 							Integer.parseInt(dialog.getLunghezza()),
 							Integer.parseInt(dialog.getAltezza()));
-					JOptionPane.showMessageDialog(null, "ciao");
 					dialog.dispose();
 				} catch (NumberFormatException exc) {
 					JOptionPane

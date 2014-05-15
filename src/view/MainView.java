@@ -17,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 
 import model.ModelInterface;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainView extends JFrame {
 
@@ -27,21 +29,20 @@ public class MainView extends JFrame {
 	private JPanel contentPane, leftMenu;
 	private JTable table;
 	private JScrollPane scrollpane;
-	private MyTableModel dataModel,dataModel2;
-	private ModelInterface model;
+	public MyTableModel dataModelGru,dataModelRuspa;
 	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore;
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
 			itemAddCamion;
 	private JMenuItem itemEditGru, itemEditRuspa, itemEditEscavatore,
 			itemEditCamion;
 	private JMenuItem itemFileEsci;
+	
 	/**
-	 * Create xthe frame.
+	 * Create the frame.
 	 * 
 	 * @throws InterruptedException
 	 */
-	public MainView(ModelInterface m) {
-		model = m;
+	public MainView() {
 
 		setTitle("MaguttoManager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,26 +55,31 @@ public class MainView extends JFrame {
 		menu();
 		leftMenu();
 
-		dataModel = new MyTableModel();
+		
+		String[] columnNamesGru={"Produttore","Modello","Lunghezza Braccio","Altezza Gancio","Portata Massima","Angolo Rotazione"};
+		dataModelGru = new MyTableModel(columnNamesGru);
 		table = new JTable();
-		table.setModel(dataModel);
+		table.setModel(dataModelGru);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 
 		
-		dataModel2 = new MyTableModel();
+		String[] columnNamesRuspa={"Produttore","Modello","Altezza Scarico","Capacità","Portata Massima"};
+		dataModelRuspa = new MyTableModel(columnNamesRuspa);
 		scrollpane = new JScrollPane(table);
 		contentPane.add(scrollpane, BorderLayout.CENTER);
 		setVisible(true);
 
 	}
-	
+	public void addWindowClosingListener(WindowAdapter e){
+		addWindowListener(e);
+	}
 	public void change(){
-		table.setModel(dataModel2);
-		dataModel2.fireTableDataChanged();
+		table.setModel(dataModelRuspa);
+		dataModelRuspa.fireTableDataChanged();
 	}
 	public void change2(){
-		table.setModel(dataModel);
-		dataModel2.fireTableDataChanged();
+		table.setModel(dataModelGru);
+		dataModelRuspa.fireTableDataChanged();
 	}
 	private void leftMenu() {
 		leftMenu = new JPanel();
@@ -189,6 +195,6 @@ public class MainView extends JFrame {
 	}
 
 	public void addData(Object[] obj) {
-		dataModel.addData(obj);
+		dataModelGru.addData(obj);
 	}
 }
