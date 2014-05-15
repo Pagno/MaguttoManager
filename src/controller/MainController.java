@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import view.InserimentoGru;
+import view.InserimentoRuspa;
 import view.MainView;
 
 import model.ModelConnector;
@@ -32,6 +33,8 @@ public class MainController implements ListSelectionListener {
 		
 		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
 		mainView.addModificaGruListener(VisualizzaModificaGru());
+
+		mainView.addAggiungiRuspaListener(VisualizzaInserimentoRuspa());
 		
 		mainView.addExitListener(ExitManager());
 		mainView.addWindowClosingListener(chiusuraProgramma());
@@ -71,13 +74,22 @@ public class MainController implements ListSelectionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				InserimentoGru ins = new InserimentoGru(mainView);
-				InsertController ctr = new InsertController(model, ins);
-				ins.setInsertButtonListeners(ctr.InsertGruListener());
+				InsertController ctr = new InsertController(model);
+				ins.setInsertButtonListeners(ctr.InsertGruListener(ins));
 			}
 		};
-
 	}
-
+	public ActionListener VisualizzaInserimentoRuspa() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				InserimentoRuspa ins = new InserimentoRuspa(mainView);
+				InsertController ctr = new InsertController(model);
+				ins.setInsertButtonListeners(ctr.InsertRuspaListener(ins));
+			}
+		};
+	}
 	public ActionListener VisualizzaElencoGru() {
 		return new ActionListener() {
 			@Override
@@ -101,7 +113,6 @@ public class MainController implements ListSelectionListener {
 					mainView.change2();a=false;
 				}
 			}
-
 		};
 	}
 	public ActionListener VisualizzaModificaGru() {
@@ -112,11 +123,10 @@ public class MainController implements ListSelectionListener {
 				Object[] v1 = { "Mauro", "Valota", 123, 321, 765, 567 };
 
 				InserimentoGru ins = new InserimentoGru(mainView, v1);
-				InsertController ctr = new InsertController(model, ins);
-				ins.setInsertButtonListeners(ctr.InsertGruListener());
+				InsertController ctr = new InsertController(model);
+				ins.setInsertButtonListeners(ctr.InsertGruListener(ins));
 			}
 		};
-
 	}
 
 	@Override
