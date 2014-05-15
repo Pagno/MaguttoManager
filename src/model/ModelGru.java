@@ -53,7 +53,6 @@ class ModelGru extends ModelMacchina{
 		}
 		return false;		
 	}
-
 	public ArrayList<Gru> getLista(){
 		return listaGru;
 	}
