@@ -14,14 +14,22 @@ class ModelGru extends ModelMacchina{
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		incrementaCodice();
 		Gru gru=new Gru(getCodice(),produttore,modello, rotazione, portata,lunghezza,altezza);
-		System.out.println("Aggiunta Gru.");
-
 		listaGru.add(gru);
+		
+
+		Object[] v1={gru.getCodice(),produttore,modello,lunghezza,altezza,portata,rotazione};
+		setChanged();
+		notifyObservers(v1);
 	}
 	void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		aggiornaCodice(codice);
 		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
 		listaGru.add(gru);
+		
+
+		Object[] v1={gru.getCodice(),produttore,modello,lunghezza,altezza,portata,rotazione};
+		setChanged();
+		notifyObservers(v1);
 	}
 
 	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){

@@ -3,52 +3,55 @@ package model;
 import java.util.ArrayList;
 
 
-class ModelEscavatore extends ModelMacchina{
-	private ArrayList<Escavatore> listaEscavatori;
+class ModelGru extends ModelMacchina{
+	private ArrayList<Gru> listaGru;
 
-	public ModelEscavatore(){
-		listaEscavatori=new ArrayList<Escavatore>();
+	public ModelGru(){
+		listaGru=new ArrayList<Gru>();
 	}
 
-	public void aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
+
+	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		incrementaCodice();
-		Escavatore escavatore= new Escavatore(getCodice(),produttore, Modello,capacita,portata,altezza,profondita);
-		listaEscavatori.add(escavatore);
+		Gru gru=new Gru(getCodice(),produttore,modello, rotazione, portata,lunghezza,altezza);
+		System.out.println("Aggiunta Gru.");
+
+		listaGru.add(gru);
 	}
-	void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
+	void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		aggiornaCodice(codice);
-		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
-		listaEscavatori.add(escavatore);
+		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
+		listaGru.add(gru);
 	}
 
-	public void modificaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita) {
-		for(Escavatore item:listaEscavatori){
+	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+		for(Gru item:listaGru){
 			if(item.getCodice()==codice){
 				item.setProduttore(produttore);
-				item.setModello(Modello);
-				item.setCapacitaMassima(capacita);
+				item.setModello(modello);
+				item.setLunghezzaMassima(lunghezza);
 				item.setPortataMassima( portata);
-				item.setProfonditaMassima(profondita);
-				item.setAltezzaMassima(altezza);
+				item.setAltezzaMassima( altezza);
+				item.setAngoloRotazione(rotazione);
 			}
 		}
 	}
 
-	public boolean eliminaEscavatore(int codice){
-		for(Escavatore item:listaEscavatori){
+	public boolean eliminaGru(int codice){
+		for(Gru item:listaGru){
 			if(item.getCodice()==codice){
-				return listaEscavatori.remove(item);
+				return listaGru.remove(item);
 			}
 		}
 		return false;		
 	}
 
-	public ArrayList<Escavatore> getLista(){
-		return listaEscavatori;
+	public ArrayList<Gru> getLista(){
+		return listaGru;
 	}
 
-	public boolean isEscavatore(Integer codice){
-		for(Escavatore item:listaEscavatori){
+	public boolean isGru(Integer codice){
+		for(Gru item:listaGru){
 			if(item.getCodice()==codice){
 				return true;
 			}
@@ -56,8 +59,8 @@ class ModelEscavatore extends ModelMacchina{
 		return false;	
 	}
 
-	public Escavatore getEscavatore(Integer codice){
-		for(Escavatore item:listaEscavatori){
+	public Gru getGru(Integer codice){
+		for(Gru item:listaGru){
 			if(item.getCodice()==codice){
 				return item;
 			}
@@ -67,7 +70,7 @@ class ModelEscavatore extends ModelMacchina{
 
 	public String toString(){
 		String tmp = "";
-		for(Escavatore item:listaEscavatori){
+		for(Gru item:listaGru){
 			tmp = tmp + item.toString() + "\n";
 		}
 		return tmp;

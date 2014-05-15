@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 ----------------------------------------------------------------
-Thu May 15 12:07:51 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0145-ff5a-2f16-0000025dec98 
+Thu May 15 12:20:24 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0145-ff65-ab57-000002639538 
 on database directory /home/matteo/git/MaguttoManager/MyDB  with class loader sun.misc.Launcher$AppClassLoader@cb5608 
 Loaded from file:/home/matteo/git/MaguttoManager/lib/derby.jar
-=======
-----------------------------------------------------------------
-Thu May 15 11:31:58 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0145-ff39-546c-000000ac3100 
-on database directory C:\Users\Mauro\git\MaguttoManager\MyDB  with class loader sun.misc.Launcher$AppClassLoader@107077e 
-Loaded from file:/C:/Users/Mauro/git/MaguttoManager/lib/derby.jar
->>>>>>> branch 'master' of https://github.com/Pagno/MaguttoManager.git
 java.vendor=Oracle Corporation
-<<<<<<< HEAD
 java.runtime.version=1.7.0_51-b31
 user.dir=/home/matteo/git/MaguttoManager
 derby.system.home=null
@@ -131,9 +122,9 @@ ERROR XSDB2: Unknown container format at container null : 0
 ------------  END SHUTDOWN ERROR STACK -------------
 
 ----------------------------------------------------------------
-Thu May 15 12:07:52 CEST 2014:
-Shutting down instance a816c00e-0145-ff5a-2f16-0000025dec98 on database directory /home/matteo/git/MaguttoManager/MyDB with class loader sun.misc.Launcher$AppClassLoader@cb5608 
-Thu May 15 12:07:52 CEST 2014 Thread[main,5,main] Cleanup action starting
+Thu May 15 12:20:25 CEST 2014:
+Shutting down instance a816c00e-0145-ff65-ab57-000002639538 on database directory /home/matteo/git/MaguttoManager/MyDB with class loader sun.misc.Launcher$AppClassLoader@cb5608 
+Thu May 15 12:20:25 CEST 2014 Thread[main,5,main] Cleanup action starting
 java.sql.SQLException: Failed to start database 'MyDB' with class loader sun.misc.Launcher$AppClassLoader@cb5608, see the next exception for details.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
@@ -375,15 +366,10 @@ ERROR XSDB2: Unknown container format at container null : 0
 ============= end nested exception, level (3) ===========
 Cleanup action completed
 ----------------------------------------------------------------
-Thu May 15 12:07:54 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance 601a400f-0145-ff5a-2f16-0000025dec98 
+Thu May 15 12:20:29 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance 601a400f-0145-ff65-ab57-000002639538 
 on database directory /home/matteo/git/MaguttoManager/MyDB  with class loader sun.misc.Launcher$AppClassLoader@cb5608 
 Loaded from file:/home/matteo/git/MaguttoManager/lib/derby.jar
-----------------------------------------------------------------
-Thu May 15 11:31:58 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0145-ff39-546c-000000ac3100 
-on database directory C:\Users\Mauro\git\MaguttoManager\MyDB  with class loader sun.misc.Launcher$AppClassLoader@107077e 
-Loaded from file:/C:/Users/Mauro/git/MaguttoManager/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_51-b31
 user.dir=/home/matteo/git/MaguttoManager
@@ -553,9 +539,9 @@ ERROR XSDB2: Unknown container format at container null : 0
 ------------  END SHUTDOWN ERROR STACK -------------
 
 ----------------------------------------------------------------
-Thu May 15 12:07:54 CEST 2014:
-Shutting down instance 601a400f-0145-ff5a-2f16-0000025dec98 on database directory /home/matteo/git/MaguttoManager/MyDB with class loader sun.misc.Launcher$AppClassLoader@cb5608 
-Thu May 15 12:07:54 CEST 2014 Thread[AWT-EventQueue-0,6,main] Cleanup action starting
+Thu May 15 12:20:29 CEST 2014:
+Shutting down instance 601a400f-0145-ff65-ab57-000002639538 on database directory /home/matteo/git/MaguttoManager/MyDB with class loader sun.misc.Launcher$AppClassLoader@cb5608 
+Thu May 15 12:20:29 CEST 2014 Thread[AWT-EventQueue-0,6,main] Cleanup action starting
 java.sql.SQLException: Failed to start database 'MyDB' with class loader sun.misc.Launcher$AppClassLoader@cb5608, see the next exception for details.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
@@ -896,13 +882,3 @@ ERROR XSDB2: Unknown container format at container null : 0
 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
 ============= end nested exception, level (3) ===========
 Cleanup action completed
-=======
-java.runtime.version=1.7.0_55-b14
-user.dir=C:\Users\Mauro\git\MaguttoManager
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
->>>>>>> branch 'master' of https://github.com/Pagno/MaguttoManager.git
-java.runtime.version=1.7.0_55-b14
-user.dir=C:\Users\Mauro\git\MaguttoManager
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
