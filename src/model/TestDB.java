@@ -20,12 +20,12 @@ public class TestDB {
 		mc.pubblicaContenuto();
 		mc.storeData();*/
 		
-		/*Database db=new Database();
+		Database db=new Database();
 		ModelConnector mc=new ModelConnector(db);
 		mc.refreshData();
 		mc.pubblicaContenuto();
 		mc.storeData();
-	*/}
+	}
 
 
 }

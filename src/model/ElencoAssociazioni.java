@@ -2,6 +2,7 @@ package model;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Iterator;
 
 
 class ElencoAssociazioni{
