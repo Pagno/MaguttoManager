@@ -1,9 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ----------------------------------------------------------------
 Thu May 15 13:44:47 CEST 2014:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0145-ffb2-ea9a-000002608238 
 on database directory /home/matteo/git/MaguttoManager/MyDB  with class loader sun.misc.Launcher$AppClassLoader@cb5608 
 Loaded from file:/home/matteo/git/MaguttoManager/lib/derby.jar
+=======
+----------------------------------------------------------------
+Thu May 15 11:31:58 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0145-ff39-546c-000000ac3100 
+on database directory C:\Users\Mauro\git\MaguttoManager\MyDB  with class loader sun.misc.Launcher$AppClassLoader@107077e 
+Loaded from file:/C:/Users/Mauro/git/MaguttoManager/lib/derby.jar
+>>>>>>> branch 'master' of https://github.com/Pagno/MaguttoManager.git
 =======
 ----------------------------------------------------------------
 Thu May 15 11:31:58 CEST 2014:
