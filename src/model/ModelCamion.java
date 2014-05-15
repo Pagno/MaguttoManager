@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 class ModelCamion extends ModelMacchina{
@@ -22,26 +21,23 @@ class ModelCamion extends ModelMacchina{
 		listaCamion.add(cm);
 	}
 	public void modificaCamion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
-		Iterator<Camion> itr = listaCamion.iterator();
-	    while (itr.hasNext()) {
-	      if(itr.next().getCodice()==codice){
-	    	  itr.next().setProduttore(produttore);
-	    	  itr.next().setModello(Modello);
-	    	  itr.next().setCapacitaMassima(capacita);
-	    	  itr.next().setPortataMassima( portata);
-	    	  itr.next().setLunghezza(lunghezza);
-	      }
-	    }
+		for(Camion item:listaCamion){
+			if(item.getCodice()==codice){
+				item.setProduttore(produttore);
+				item.setModello(Modello);
+				item.setCapacitaMassima(capacita);
+				item.setPortataMassima( portata);
+				item.setLunghezza(lunghezza);
+			}
+		}
 	}
 
 	public boolean eliminaCamion(int codice){
-		Iterator<Camion> itr = listaCamion.iterator();
-	    while (itr.hasNext()) {
-	    	if(itr.next().getCodice()==codice){
-		    	 itr.remove();
-		    	 return true;
-	    	}
-	    }
+		for(Camion item:listaCamion){
+			if(item.getCodice()==codice){
+				return listaCamion.remove(item);
+			}
+		}
 		return false;		
 	}
 
@@ -50,12 +46,11 @@ class ModelCamion extends ModelMacchina{
 	}
 
 	public boolean isCamion(Integer codice){
-		Iterator<Camion> itr = listaCamion.iterator();
-	    while (itr.hasNext()) {
-	    	if(itr.next().getCodice()==codice){
-		    	 return true;
-	    	}
-	    }
+		for(Camion item:listaCamion){
+			if(item.getCodice()==codice){
+				return true;
+			}
+		}
 		return false;	
 	}
 
