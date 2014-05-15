@@ -14,11 +14,15 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.WindowConstants;
 
 public class InserimentoGru extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1364300169692664613L;
+
+	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtProduttore, txtModello, txtLunghezza, txtAltezza,
 			txtPortataMax, txtAngoloRotazione;
@@ -32,12 +36,20 @@ public class InserimentoGru extends JDialog {
 	 */
 	public InserimentoGru(JFrame view, Object[] obj) {
 		this(view);
-		txtProduttore.setText((String) obj[0]);
 		setTitle("Modifica Gru");
+		setTextBox(obj);
 	}
-
+	private void setTextBox( Object[] v){
+		txtProduttore.setText(v[1].toString());
+		txtModello.setText(v[2].toString());
+		txtLunghezza.setText(v[3].toString());
+		txtAltezza.setText(v[4].toString());
+		txtPortataMax.setText(v[5].toString());
+		txtAngoloRotazione.setText(v[6].toString());
+	}
 	public InserimentoGru(JFrame view) {
 		super(view);
+		setTitle("Aggiungi nuova Gru");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());

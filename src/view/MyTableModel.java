@@ -15,28 +15,10 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 
 	private String[] columnNames;
 	
-	
-	private Object[] v1={"Kathy", "Smith","Snowboarding", new Integer(5), new Boolean(false)};   
-	private Object[] v2={"John", "Doe","Rowing", new Integer(3), new Boolean(true)};    	
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
-			//new ArrayList<Object>("Kathy","Smith","Snowboarding", new Integer(5),new Boolean(false))};
-    private Object[][] data1;/*={
-            {"Kathy", "Smith",
-                "Snowboarding", new Integer(5), new Boolean(false)},
-               {"John", "Doe",
-                "Rowing", new Integer(3), new Boolean(true)},
-               {"Sue", "Black",
-                "Knitting", new Integer(2), new Boolean(false)},
-               {"Jane", "White",
-                "Speed reading", new Integer(20), new Boolean(true)},
-               {"Joe", "Brown",
-                "Pool", new Integer(10), new Boolean(false)}
-               };//same as before...
-    		*/
+			
     public MyTableModel(String[] column){
     	columnNames=column;
-    	//v.add(new ArrayList<Object>());
-    	//data.add(v1);data.add(v2);
     }
     
     public boolean addData(Object[] obj){
@@ -74,7 +56,20 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		addData((Object[])arg1);
+		boolean trovato=false;
+		for(int i=0;i<data.size()-1;i++){
+			if(data.get(i)[0]==((Object[])arg1)[0]){
+				data.set(i,(Object[])arg1);
+				fireTableDataChanged();
+				trovato=true;
+			}
+		}
+		if(trovato==false){
+			addData((Object[])arg1);
+		}
+	}
+	
+	public Object[] getRowData(int row){
+		return data.get(row);
 	}
 }

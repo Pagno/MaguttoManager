@@ -73,12 +73,12 @@ public class MainView extends JFrame {
 	public void addWindowClosingListener(WindowAdapter e){
 		addWindowListener(e);
 	}
-	public void change(){
-		table.setModel(dataModelRuspa);
+	public void showGru(){
+		table.setModel(dataModelGru);
 		dataModelRuspa.fireTableDataChanged();
 	}
-	public void change2(){
-		table.setModel(dataModelGru);
+	public void showRuspa(){
+		table.setModel(dataModelRuspa);
 		dataModelRuspa.fireTableDataChanged();
 	}
 	private void leftMenu() {
@@ -95,6 +95,10 @@ public class MainView extends JFrame {
 		contentPane.add(leftMenu, BorderLayout.WEST);
 	}
 
+	public Object[] getSelectedData(){
+		return table.getSelectedRow()==-1?null:((MyTableModel)table.getModel()).getRowData(table.getSelectedRow());
+	}
+	
 	private void menu() {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

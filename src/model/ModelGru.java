@@ -43,6 +43,9 @@ class ModelGru extends ModelMacchina{
 				item.setAngoloRotazione(rotazione);
 			}
 		}
+		Object[] v1={codice,produttore,modello,lunghezza,altezza,portata,rotazione};
+		setChanged();
+		notifyObservers(v1);
 	}
 
 	public boolean eliminaGru(int codice){
