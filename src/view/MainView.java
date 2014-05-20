@@ -1,13 +1,11 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.BoxLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -16,9 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
-import model.ModelInterface;
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class MainView extends JFrame {
 
@@ -29,12 +25,11 @@ public class MainView extends JFrame {
 	private JPanel contentPane, leftMenu;
 	private JTable table;
 	private JScrollPane scrollpane;
-	public MyTableModel dataModelGru,dataModelRuspa;
-	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore;
+	public MyTableModel dataModelGru,dataModelRuspa,dataModelCamion,dataModelEscavatore;
+	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,editBtn,deleteBtn;
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
 			itemAddCamion;
-	private JMenuItem itemEditGru, itemEditRuspa, itemEditEscavatore,
-			itemEditCamion;
+	private JMenuItem itemAddCantiere, itemCollegaMacchina;
 	private JMenuItem itemFileEsci;
 	
 	/**
@@ -55,39 +50,50 @@ public class MainView extends JFrame {
 		menu();
 		leftMenu();
 
-		
+		//SET UP THE DATA MODEL
 		String[] columnNamesGru={"Produttore","Modello","Lunghezza Braccio","Altezza Gancio","Portata Massima","Angolo Rotazione"};
 		dataModelGru = new MyTableModel(columnNamesGru);
+		String[] columnNamesRuspa={"Produttore","Modello","Altezza Scarico","Capacità","Portata Massima"};
+		dataModelRuspa = new MyTableModel(columnNamesRuspa);
+		String[] columnNamesCamion={"Produttore","Modello","Lunghezza","Capacita","Portata Massima"};
+		dataModelCamion = new MyTableModel(columnNamesCamion);
+		String[] columnNamesEscavatore={"Produttore","Modello","Altezza Scarico","Profondita Scavo","Capacità","Portata Massima"};
+		dataModelEscavatore = new MyTableModel(columnNamesEscavatore);
+		
+		
 		table = new JTable();
 		table.setModel(dataModelGru);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 
 		
-		String[] columnNamesRuspa={"Produttore","Modello","Altezza Scarico","Capacità","Portata Massima"};
-		dataModelRuspa = new MyTableModel(columnNamesRuspa);
+		
+		
+		
+		
 		scrollpane = new JScrollPane(table);
-		contentPane.add(scrollpane, BorderLayout.CENTER);
-		setVisible(true);
-
+		JPanel center=new JPanel();
+		center.setLayout(new BorderLayout(0, 0));
+		editBtn =new JButton("Modifica");
+		deleteBtn=new JButton("Elimina");
+		center.add(scrollpane, BorderLayout.CENTER);
+		JPanel southPanel =new JPanel();
+		southPanel.add(editBtn);
+		southPanel.add(deleteBtn);
+		center.add(southPanel,BorderLayout.SOUTH);
+		contentPane.add(center, BorderLayout.CENTER);
+		
 	}
 	public void addWindowClosingListener(WindowAdapter e){
 		addWindowListener(e);
 	}
-	public void showGru(){
-		table.setModel(dataModelGru);
-		dataModelRuspa.fireTableDataChanged();
-	}
-	public void showRuspa(){
-		table.setModel(dataModelRuspa);
-		dataModelRuspa.fireTableDataChanged();
-	}
+
 	private void leftMenu() {
 		leftMenu = new JPanel();
 		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
-		btnViewGru = new JButton("Gru");// btnViewGru.setAlignmentY(Component.CENTER_ALIGNMENT);
-		btnViewRuspa = new JButton("Ruspa");// btnViewRuspa.setAlignmentY(Component.CENTER_ALIGNMENT);
-		btnViewCamion = new JButton("Camion");// btnViewCamion.setAlignmentY(Component.CENTER_ALIGNMENT);
-		btnViewEscavatore = new JButton("Escavatore");// btnViewEscavatore.setAlignmentY(Component.CENTER_ALIGNMENT);
+		btnViewGru = new JButton("Gru");
+		btnViewRuspa = new JButton("Ruspa");
+		btnViewCamion = new JButton("Camion");
+		btnViewEscavatore = new JButton("Escavatore");
 		leftMenu.add(btnViewGru);
 		leftMenu.add(btnViewRuspa);
 		leftMenu.add(btnViewCamion);
@@ -105,8 +111,8 @@ public class MainView extends JFrame {
 
 		// MENUBAR
 		JMenu menuFile = new JMenu("File");
-		JMenu menuAggiungi = new JMenu("Aggiungi");
-		JMenu menuModifica = new JMenu("Modifica");
+		JMenu menuMacchina = new JMenu("Macchine");
+		JMenu menuCantiere = new JMenu("Cantiere");
 
 		// FILE
 		JMenuItem itemFileCarica = new JMenuItem("Carica");
@@ -117,38 +123,35 @@ public class MainView extends JFrame {
 		menuFile.add(itemFileEsci);
 
 		// AGGIUNGI
-		itemAddGru = new JMenuItem("Gru");
-		menuAggiungi.add(itemAddGru);
-		menuAggiungi.addSeparator();
-		itemAddRuspa = new JMenuItem("Ruspa");
-		menuAggiungi.add(itemAddRuspa);
-		menuAggiungi.addSeparator();
-		itemAddEscavatore = new JMenuItem("Escavatore");
-		menuAggiungi.add(itemAddEscavatore);
-		menuAggiungi.addSeparator();
-		itemAddCamion = new JMenuItem("Camion");
-		menuAggiungi.add(itemAddCamion);
+		itemAddGru = new JMenuItem("Aggiungi Gru");
+		menuMacchina.add(itemAddGru);
+		menuMacchina.addSeparator();
+		itemAddRuspa = new JMenuItem("Aggiungi Ruspa");
+		menuMacchina.add(itemAddRuspa);
+		menuMacchina.addSeparator();
+		itemAddEscavatore = new JMenuItem("Aggiungi Escavatore");
+		menuMacchina.add(itemAddEscavatore);
+		menuMacchina.addSeparator();
+		itemAddCamion = new JMenuItem("Aggiungi Camion");
+		menuMacchina.add(itemAddCamion);
 
-		// MODIFICA
-		itemEditGru = new JMenuItem("Gru");
-		menuModifica.add(itemEditGru);
-		menuModifica.addSeparator();
-		itemEditRuspa = new JMenuItem("Ruspa");
-		menuModifica.add(itemEditRuspa);
-		menuModifica.addSeparator();
-		itemEditEscavatore = new JMenuItem("Escavatore");
-		menuModifica.add(itemEditEscavatore);
-		menuModifica.addSeparator();
-		itemEditCamion = new JMenuItem("Camion");
-		menuModifica.add(itemEditCamion);
-
+		// CANTIERE
+		itemAddCantiere = new JMenuItem("Aggiungi Cantiere");
+		menuCantiere.add(itemAddCantiere);
+		menuCantiere.addSeparator();
+		itemCollegaMacchina = new JMenuItem("Collega Macchina");
+		menuCantiere.add(itemCollegaMacchina);
+		
+		
 		menuBar.add(menuFile);
-		menuBar.add(menuAggiungi);
-		menuBar.add(menuModifica);
+		menuBar.add(menuMacchina);
+		menuBar.add(menuCantiere);
 	}
 	public void addExitListener(ActionListener act){
 		itemFileEsci.addActionListener(act);
 	}
+	
+	//VIEW LISTENER
 	public void addButtonGruListener(ActionListener act) {
 		btnViewGru.addActionListener(act);
 	}
@@ -159,12 +162,11 @@ public class MainView extends JFrame {
 	public void addButtonCamionListener(ActionListener act) {
 		btnViewCamion.addActionListener(act);
 	}
-
 	public void addButtonEscavatoreListener(ActionListener act) {
 		btnViewEscavatore.addActionListener(act);
 	}
 
-	//
+	//ADD LISTENER
 	public void addAggiungiGruListener(ActionListener act) {
 		itemAddGru.addActionListener(act);
 	}
@@ -176,29 +178,54 @@ public class MainView extends JFrame {
 	public void addAggiungiCamionListener(ActionListener act) {
 		itemAddCamion.addActionListener(act);
 	}
-
 	public void addAggiungiEscavatoreListener(ActionListener act) {
 		itemAddEscavatore.addActionListener(act);
 	}
 
-	//
-	public void addModificaGruListener(ActionListener act) {
-		itemEditGru.addActionListener(act);
+	
+	
+	//BOTTOM BUTTON
+	public void addModificaListener(ActionListener act) {
+		for( ActionListener al : editBtn.getActionListeners() ) {
+			editBtn.removeActionListener( al );
+	    }
+		editBtn.addActionListener(act);
 	}
-
-	public void addModificaRuspaListener(ActionListener act) {
-		itemEditRuspa.addActionListener(act);
+	public void addEliminaListener(ActionListener act) {
+		for( ActionListener al : deleteBtn.getActionListeners() ) {
+			deleteBtn.removeActionListener( al );
+	    }
+		deleteBtn.addActionListener(act);
 	}
+	
+	
+	
+	
 
-	public void addModificaCamionListener(ActionListener act) {
-		itemEditCamion.addActionListener(act);
+	
+	
+	//GESTIONE DEI TABLEMODEL
+	public void showGruData(){
+		table.setModel(dataModelGru);
+		dataModelRuspa.fireTableDataChanged();
 	}
-
-	public void addModificaEscavatoreListener(ActionListener act) {
-		itemEditEscavatore.addActionListener(act);
+	public void showRuspaData(){
+		table.setModel(dataModelRuspa);
+		dataModelRuspa.fireTableDataChanged();
 	}
-
+	public void showCamionData(){
+		table.setModel(dataModelRuspa);
+		dataModelRuspa.fireTableDataChanged();
+	}
+	public void showEscavatoreData(){
+		table.setModel(dataModelRuspa);
+		dataModelRuspa.fireTableDataChanged();
+	}
 	public void addData(Object[] obj) {
 		dataModelGru.addData(obj);
 	}
+	public void removeSelected(){
+		((MyTableModel)table.getModel()).removeData(table.getSelectedRow());
+	}
+	
 }

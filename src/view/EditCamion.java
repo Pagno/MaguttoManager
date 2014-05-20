@@ -14,42 +14,46 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.WindowConstants;
 
-public class InserimentoGru extends JDialog {
+public class EditCamion extends JDialog {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1364300169692664613L;
-
+	private static final long serialVersionUID = 8556951976345173917L;
 	
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtProduttore, txtModello, txtLunghezza, txtAltezza,
-			txtPortataMax, txtAngoloRotazione;
-	private JLabel lblProduttore, lblModello, lblLunghezza, lblAltezza,
-			lblPortataMax, lblAngoloRotazione, lblMetri, lblTon, lblMetri2,
-			lblAngolo;
+	private JTextField txtProduttore, txtModello, txtLunghezza,txtPortataMax, txtCapacita;
+	private JLabel lblProduttore, lblModello, lblLunghezza,
+			lblPortataMax, lblCapacita, lblMetri, lblTon,
+			lblCap;
 	private JButton okButton;
 
 	/**
 	 * Create the dialog.
 	 */
-	public InserimentoGru(JFrame view, Object[] obj) {
+	public EditCamion(JFrame view, Object[] obj) {
 		this(view);
-		setTitle("Modifica Gru");
+		setTitle("Modifica Camion");
 		setTextBox(obj);
+		okButton.setText("Modifica");
 	}
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
 		txtLunghezza.setText(v[3].toString());
-		txtAltezza.setText(v[4].toString());
+		txtCapacita.setText(v[4].toString());
 		txtPortataMax.setText(v[5].toString());
-		txtAngoloRotazione.setText(v[6].toString());
 	}
-	public InserimentoGru(JFrame view) {
+
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public EditCamion(JFrame view) {
 		super(view);
-		setTitle("Aggiungi nuova Gru");
+		setTitle("Aggiungi un nuovo Camion");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,27 +62,23 @@ public class InserimentoGru extends JDialog {
 
 		lblProduttore = new JLabel("Produttore:");
 		lblModello = new JLabel("Modello:");
-		lblAltezza = new JLabel("Altezza:");
-		lblPortataMax = new JLabel("Portata Massima:");
-		lblAngoloRotazione = new JLabel("Angolo Rotazione:");
 		lblLunghezza = new JLabel("Lunghezza:");
+		lblPortataMax = new JLabel("Portata Massima:");
+		lblCapacita = new JLabel("Capacita Massima:");
 		lblMetri = new JLabel("metri");
-		lblMetri2 = new JLabel("metri	");
 		lblTon = new JLabel("Kg");
-		lblAngolo = new JLabel("Gradi");
+		lblCap = new JLabel("metri cubi");
 
 		txtProduttore = new JTextField();
 		txtProduttore.setColumns(15);
 		txtModello = new JTextField();
 		txtModello.setColumns(15);
-		txtAltezza = new JTextField();
-		txtAltezza.setColumns(5);
-		txtPortataMax = new JTextField();
-		txtPortataMax.setColumns(5);
-		txtAngoloRotazione = new JTextField();
-		txtAngoloRotazione.setColumns(5);
 		txtLunghezza = new JTextField();
 		txtLunghezza.setColumns(5);
+		txtPortataMax = new JTextField();
+		txtPortataMax.setColumns(5);
+		txtCapacita = new JTextField();
+		txtCapacita.setColumns(5);
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -91,9 +91,8 @@ public class InserimentoGru extends JDialog {
 								.addComponent(lblProduttore)
 								.addComponent(lblModello)
 								.addComponent(lblLunghezza)
-								.addComponent(lblAltezza)
 								.addComponent(lblPortataMax)
-								.addComponent(lblAngoloRotazione))
+								.addComponent(lblCapacita))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtProduttore,
@@ -115,14 +114,6 @@ public class InserimentoGru extends JDialog {
 								.addGroup(
 										layout.createSequentialGroup()
 												.addComponent(
-														txtAltezza,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblMetri2))
-								.addGroup(
-										layout.createSequentialGroup()
-												.addComponent(
 														txtPortataMax,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
@@ -131,11 +122,11 @@ public class InserimentoGru extends JDialog {
 								.addGroup(
 										layout.createSequentialGroup()
 												.addComponent(
-														txtAngoloRotazione,
+														txtCapacita,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblAngolo))));
+												.addComponent(lblCap))));
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
 				.addGroup(
@@ -166,18 +157,6 @@ public class InserimentoGru extends JDialog {
 												.addComponent(lblMetri)))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAltezza)
-								.addGroup(
-										layout.createParallelGroup(
-												Alignment.LEADING)
-												.addComponent(
-														txtAltezza,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblMetri2)))
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblPortataMax)
 								.addGroup(
 										layout.createParallelGroup(
@@ -190,16 +169,16 @@ public class InserimentoGru extends JDialog {
 												.addComponent(lblTon)))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAngoloRotazione)
+								.addComponent(lblCapacita)
 								.addGroup(
 										layout.createParallelGroup(
 												Alignment.LEADING)
 												.addComponent(
-														txtAngoloRotazione,
+														txtCapacita,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblAngolo))));
+												.addComponent(lblCap))));
 
 		contentPanel.setLayout(layout);
 
@@ -218,10 +197,9 @@ public class InserimentoGru extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				txtProduttore.setText("");
 				txtModello.setText("");
-				txtAltezza.setText("");
 				txtLunghezza.setText("");
 				txtPortataMax.setText("");
-				txtAngoloRotazione.setText("");
+				txtCapacita.setText("");
 			}
 		});
 		okButton.setActionCommand("Reset");
@@ -253,16 +231,13 @@ public class InserimentoGru extends JDialog {
 		return txtModello.getText();
 	}
 
+
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
 
-	public String getAltezza() {
-		return txtAltezza.getText();
-	}
-
-	public String getAngoloRotazione() {
-		return txtAngoloRotazione.getText();
+	public String getCapacita() {
+		return txtCapacita.getText();
 	}
 
 	public String getPortataMassima() {

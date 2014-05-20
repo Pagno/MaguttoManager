@@ -26,9 +26,27 @@ public class MyTableModel extends AbstractTableModel implements Observer{
     	fireTableDataChanged();
     	return true;
     }
-    
+    public boolean removeData(int i){
+    	try{
+    		data.remove(i);
+    		fireTableDataChanged();
+    		return true;
+    	}catch(IndexOutOfBoundsException eroor){
+    		return false;
+    	}
+    }
+    public boolean remveData(Object[] data){
+    	if(this.data.remove(data)){
+    		fireTableDataChanged();
+    		return true;
+    	}
+    	return false;
+    }
     public void resetData(ArrayList<Object[]> d){
     	data=d;
+    }
+    public void resetData(){
+    	data=null;
     }
     
 	@Override
@@ -57,7 +75,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		boolean trovato=false;
-		for(int i=0;i<data.size()-1;i++){
+		for(int i=0;i<data.size();i++){
 			if(data.get(i)[0]==((Object[])arg1)[0]){
 				data.set(i,(Object[])arg1);
 				fireTableDataChanged();
@@ -67,6 +85,8 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 		if(trovato==false){
 			addData((Object[])arg1);
 		}
+
+		
 	}
 	
 	public Object[] getRowData(int row){

@@ -13,12 +13,20 @@ class ModelCamion extends ModelMacchina{
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
 		incrementaCodice();
 		Camion cm= new Camion(getCodice(),produttore,Modello,capacita,portata,lunghezza);
+		
 		listaCamion.add(cm);
+		Object[] v1={cm.getCodice(),produttore,Modello,lunghezza,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 	void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
 		aggiornaCodice(codice);
 		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
+
+		Object[] v1={cm.getCodice(),produttore,Modello,lunghezza,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 	public void modificaCamion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
 		for(Camion item:listaCamion){

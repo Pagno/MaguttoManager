@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.WindowConstants;
 
-public class InserimentoRuspa extends JDialog {
+public class EditRuspa extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtProduttore, txtModello, txtAltezza,
@@ -30,16 +30,24 @@ public class InserimentoRuspa extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public InserimentoRuspa(JFrame view, Object[] obj) {
+	public EditRuspa(JFrame view, Object[] obj) {
 		this(view);
-		txtProduttore.setText((String) obj[0]);
 		setTitle("Modifica Ruspa");
+		setTextBox(obj);
+		okButton.setText("Modifica");
+	}
+	private void setTextBox( Object[] v){
+		txtProduttore.setText(v[1].toString());
+		txtModello.setText(v[2].toString());
+		txtAltezza.setText(v[3].toString());
+		txtCapacita.setText(v[4].toString());
+		txtPortataMax.setText(v[5].toString());
 	}
 
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InserimentoRuspa(JFrame view) {
+	public EditRuspa(JFrame view) {
 		super(view);
 		setTitle("Aggiungi nuova Ruspa");
 		setResizable(true);

@@ -42,6 +42,10 @@ class ModelRuspa extends ModelMacchina{
 		    	item.setAltezzaMassima(altezza);
 			}
 		}
+
+		Object[] v1={codice,produttore,Modello,altezza,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 
 	public boolean eliminaRuspa(int codice){
