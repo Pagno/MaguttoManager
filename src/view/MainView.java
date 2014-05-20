@@ -158,7 +158,6 @@ public class MainView extends JFrame {
 	public void addButtonRuspaListener(ActionListener act) {
 		btnViewRuspa.addActionListener(act);
 	}
-
 	public void addButtonCamionListener(ActionListener act) {
 		btnViewCamion.addActionListener(act);
 	}
@@ -214,12 +213,12 @@ public class MainView extends JFrame {
 		dataModelRuspa.fireTableDataChanged();
 	}
 	public void showCamionData(){
-		table.setModel(dataModelRuspa);
-		dataModelRuspa.fireTableDataChanged();
+		table.setModel(dataModelCamion);
+		dataModelCamion.fireTableDataChanged();
 	}
 	public void showEscavatoreData(){
-		table.setModel(dataModelRuspa);
-		dataModelRuspa.fireTableDataChanged();
+		table.setModel(dataModelEscavatore);
+		dataModelEscavatore.fireTableDataChanged();
 	}
 	public void addData(Object[] obj) {
 		dataModelGru.addData(obj);

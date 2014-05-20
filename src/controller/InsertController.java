@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import view.EditCamion;
+import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import model.ModelInterface;
@@ -96,7 +97,32 @@ public class InsertController {
 			}
 		};
 	}
+	public ActionListener InsertEscavatoreListener(EditEscavatore d) {
+		final EditEscavatore dialog=d;
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					int capacita = Integer.parseInt(dialog.getCapacita());
+					int altezza = Integer.parseInt(dialog.getAltezza());
+					int portata = Integer.parseInt(dialog.getPortataMassima());
+					int profondita=Integer.parseInt(dialog.getProfondita());
 
+					model.aggiungiEscavatore(dialog.getProduttore(),dialog.getModello(), capacita, portata, altezza,profondita);
+					
+					
+					dialog.dispose();
+				} catch (NumberFormatException exc) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"I campi:\n - Capacità\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		};
+	}
 	
 	
 	//EDIT LISTENER
@@ -164,7 +190,32 @@ public class InsertController {
 					int lung = Integer.parseInt(dialog.getLunghezza());
 					int max = Integer.parseInt(dialog.getPortataMassima());
 
-					model.modificaGru(codice,dialog.getProduttore(),dialog.getModello(),cap,max,lung);
+					model.modificaCamion(codice,dialog.getProduttore(),dialog.getModello(),cap,max,lung);
+					
+					
+					dialog.dispose();
+				} catch (NumberFormatException exc) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"I campi:\n - Lunghezza\n - Altezza\n - Portata Massima\n - Angolo Rotazione\ndevono contenere numeri. ",
+									"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		};
+	}
+	public ActionListener EditEscavatoreListener( EditEscavatore d,final int codice) {
+		final EditEscavatore dialog=d;
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					int capacita= Integer.parseInt(dialog.getCapacita());
+					int altezza = Integer.parseInt(dialog.getAltezza());
+					int portata= Integer.parseInt(dialog.getPortataMassima());
+					int profondita =Integer.parseInt(dialog.getProfondita());
+					model.modificaEscavatore(codice, dialog.getProduttore(), dialog.getModello(), capacita, portata, altezza, profondita);
 					
 					
 					dialog.dispose();

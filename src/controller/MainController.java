@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 import view.EditCamion;
+import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import view.MainView;
@@ -27,10 +28,14 @@ public class MainController{
 		//INSERT LISTENER
 		mainView.addAggiungiRuspaListener(VisualizzaInserimentoRuspa());
 		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
+		mainView.addAggiungiCamionListener(VisualizzaInserimentoCamion());
+		mainView.addAggiungiEscavatoreListener(VisualizzaInserimentoEscavatore());
 		
 		//TABLE LISTENER
 		mainView.addButtonGruListener(VisualizzaElencoGru());
 		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
+		mainView.addButtonCamionListener(VisualizzaElencoCamion());
+		mainView.addButtonEscavatoreListener(VisualizzaElencoEscavatore());
 		
 		//EDIT LISTENER	
 		mainView.addModificaListener(VisualizzaModificaGruView());
@@ -50,7 +55,7 @@ public class MainController{
 		model.addGruObserver(mainView.dataModelGru);
 		model.addRuspaObserver(mainView.dataModelRuspa);
 		model.addCamionObserver(mainView.dataModelCamion);	
-		model.addEscavatoreObserver(mainView.dataModelCamion);		
+		model.addEscavatoreObserver(mainView.dataModelEscavatore);		
 	}
 	
 	
@@ -105,6 +110,17 @@ public class MainController{
 			}
 		};
 	}
+	public ActionListener VisualizzaInserimentoEscavatore() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				EditEscavatore ins = new EditEscavatore(mainView);
+				InsertController ctr = new InsertController(model);
+				ins.setInsertButtonListeners(ctr.InsertEscavatoreListener(ins));
+			}
+		};
+	}
 	
 	
 	
@@ -128,7 +144,24 @@ public class MainController{
 			}
 		};
 	}
-	
+	public ActionListener VisualizzaElencoCamion() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mainView.showCamionData();
+				mainView.addModificaListener(VisualizzaModificaCamionView());
+			}
+		};
+	}
+	public ActionListener VisualizzaElencoEscavatore() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mainView.showEscavatoreData();
+				mainView.addModificaListener(VisualizzaModificaEscavatoreView());
+			}
+		};
+	}
 	//EDIT
 	public ActionListener VisualizzaModificaGruView() {
 		return new ActionListener() {
@@ -161,7 +194,38 @@ public class MainController{
 			}
 		};
 	}
-	
+	public ActionListener VisualizzaModificaCamionView() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] v=mainView.getSelectedData();
+
+				if(v==null){
+					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+				}else{
+					EditCamion ins = new EditCamion(mainView, v);
+					InsertController ctr = new InsertController(model);
+					ins.setInsertButtonListeners(ctr.EditCamionListener(ins,(Integer)v[0]));
+				}
+			}
+		};
+	}
+	public ActionListener VisualizzaModificaEscavatoreView() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] v=mainView.getSelectedData();
+
+				if(v==null){
+					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+				}else{
+					EditEscavatore ins = new EditEscavatore(mainView, v);
+					InsertController ctr = new InsertController(model);
+					ins.setInsertButtonListeners(ctr.EditEscavatoreListener(ins,(Integer)v[0]));
+				}
+			}
+		};
+	}
 	//DELETE
 	public ActionListener EliminaMacchina(){
 		return new ActionListener() {

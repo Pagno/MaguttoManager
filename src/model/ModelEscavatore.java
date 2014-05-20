@@ -14,11 +14,20 @@ class ModelEscavatore extends ModelMacchina{
 		incrementaCodice();
 		Escavatore escavatore= new Escavatore(getCodice(),produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
+		
+		Object[] v1={escavatore.getCodice(),produttore,altezza,profondita,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 	void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
 		aggiornaCodice(codice);
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
+		
+
+		Object[] v1={escavatore.getCodice(),produttore,altezza,profondita,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 
 	public void modificaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita) {
