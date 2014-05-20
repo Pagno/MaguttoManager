@@ -23,7 +23,7 @@ public class EditCamion extends JDialog {
 	private static final long serialVersionUID = 8556951976345173917L;
 	
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtProduttore, txtModello, txtLunghezza,txtPortataMax, txtCapacita;
+	private JTextField txtProduttore, txtModello, txtLunghezza,txtPortata, txtCapacita;
 	private JLabel lblProduttore, lblModello, lblLunghezza,
 			lblPortataMax, lblCapacita, lblMetri, lblTon,
 			lblCap;
@@ -34,7 +34,7 @@ public class EditCamion extends JDialog {
 	 */
 	public EditCamion(JFrame view, Object[] obj) {
 		this(view);
-		setTitle("Modifica Camion");
+		setTitle("Modifica Cantiere");
 		setTextBox(obj);
 		okButton.setText("Modifica");
 	}
@@ -43,7 +43,7 @@ public class EditCamion extends JDialog {
 		txtModello.setText(v[2].toString());
 		txtLunghezza.setText(v[3].toString());
 		txtCapacita.setText(v[4].toString());
-		txtPortataMax.setText(v[5].toString());
+		txtPortata.setText(v[5].toString());
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class EditCamion extends JDialog {
 	 */
 	public EditCamion(JFrame view) {
 		super(view);
-		setTitle("Aggiungi un nuovo Camion");
+		setTitle("Aggiungi un nuovo Cantiere");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -73,8 +73,8 @@ public class EditCamion extends JDialog {
 		txtModello.setColumns(15);
 		txtLunghezza = new JTextField();
 		txtLunghezza.setColumns(5);
-		txtPortataMax = new JTextField();
-		txtPortataMax.setColumns(5);
+		txtPortata = new JTextField();
+		txtPortata.setColumns(5);
 		txtCapacita = new JTextField();
 		txtCapacita.setColumns(5);
 
@@ -112,7 +112,7 @@ public class EditCamion extends JDialog {
 								.addGroup(
 										layout.createSequentialGroup()
 												.addComponent(
-														txtPortataMax,
+														txtPortata,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
@@ -160,7 +160,7 @@ public class EditCamion extends JDialog {
 										layout.createParallelGroup(
 												Alignment.LEADING)
 												.addComponent(
-														txtPortataMax,
+														txtPortata,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
@@ -196,7 +196,7 @@ public class EditCamion extends JDialog {
 				txtProduttore.setText("");
 				txtModello.setText("");
 				txtLunghezza.setText("");
-				txtPortataMax.setText("");
+				txtPortata.setText("");
 				txtCapacita.setText("");
 			}
 		});
@@ -239,7 +239,7 @@ public class EditCamion extends JDialog {
 	}
 
 	public String getPortataMassima() {
-		return txtPortataMax.getText();
+		return txtPortata.getText();
 	}
 
 }

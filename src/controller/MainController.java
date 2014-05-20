@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 import view.EditCamion;
+import view.EditCantiere;
 import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
@@ -30,6 +31,7 @@ public class MainController{
 		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
 		mainView.addAggiungiCamionListener(VisualizzaInserimentoCamion());
 		mainView.addAggiungiEscavatoreListener(VisualizzaInserimentoEscavatore());
+		mainView.addAggiungiCantiereListener(VisualizzaInserimentoCantiere());
 		
 		//TABLE LISTENER
 		mainView.addButtonGruListener(VisualizzaElencoGru());
@@ -121,7 +123,18 @@ public class MainController{
 			}
 		};
 	}
-	
+	public ActionListener VisualizzaInserimentoCantiere() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				EditCantiere ins = new EditCantiere(mainView);
+				CantieriController ctr = new CantieriController(model);
+				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener(ins));
+				ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
+			}
+		};
+	}
 	
 	//VISUALIZZA ELENCO IN TABELLA
 	public ActionListener VisualizzaElencoGru() {

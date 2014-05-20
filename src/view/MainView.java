@@ -180,8 +180,9 @@ public class MainView extends JFrame {
 	public void addAggiungiEscavatoreListener(ActionListener act) {
 		itemAddEscavatore.addActionListener(act);
 	}
-
-	
+	public void addAggiungiCantiereListener(ActionListener act){
+		itemAddCantiere.addActionListener(act);
+	}
 	
 	//BOTTOM BUTTON
 	public void addModificaListener(ActionListener act) {
