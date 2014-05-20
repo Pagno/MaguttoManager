@@ -226,6 +226,7 @@ public class EditEscavatore extends JDialog {
 				txtModello.setText("");
 				txtAltezza.setText("");
 				txtPortataMax.setText("");
+				txtProfondita.setText("");
 				txtCapacita.setText("");
 			}
 		});

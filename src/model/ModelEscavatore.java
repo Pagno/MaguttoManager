@@ -15,7 +15,7 @@ class ModelEscavatore extends ModelMacchina{
 		Escavatore escavatore= new Escavatore(getCodice(),produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
 		
-		Object[] v1={escavatore.getCodice(),produttore,altezza,profondita,capacita,portata};
+		Object[] v1={escavatore.getCodice(),produttore,Modello,altezza,profondita,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
 	}
@@ -24,8 +24,7 @@ class ModelEscavatore extends ModelMacchina{
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
 		
-
-		Object[] v1={escavatore.getCodice(),produttore,altezza,profondita,capacita,portata};
+		Object[] v1={escavatore.getCodice(),produttore,Modello,altezza,profondita,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
 	}
@@ -41,6 +40,9 @@ class ModelEscavatore extends ModelMacchina{
 				item.setAltezzaMassima(altezza);
 			}
 		}
+		Object[] v1={codice,produttore,Modello,altezza,profondita,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 
 	public boolean eliminaEscavatore(int codice){

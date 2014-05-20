@@ -123,7 +123,7 @@ public class MainController{
 	}
 	
 	
-	
+	//VISUALIZZA ELENCO IN TABELLA
 	public ActionListener VisualizzaElencoGru() {
 		return new ActionListener() {
 			@Override
@@ -133,8 +133,6 @@ public class MainController{
 
 		};
 	}
-	
-
 	public ActionListener VisualizzaElencoRuspe() {
 		return new ActionListener() {
 			@Override

@@ -38,6 +38,9 @@ class ModelCamion extends ModelMacchina{
 				item.setLunghezza(lunghezza);
 			}
 		}
+		Object[] v1={codice,produttore,Modello,lunghezza,capacita,portata};
+		setChanged();
+		notifyObservers(v1);
 	}
 
 	public boolean eliminaCamion(int codice){

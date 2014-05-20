@@ -129,11 +129,11 @@ public class MainView extends JFrame {
 		itemAddRuspa = new JMenuItem("Aggiungi Ruspa");
 		menuMacchina.add(itemAddRuspa);
 		menuMacchina.addSeparator();
-		itemAddEscavatore = new JMenuItem("Aggiungi Escavatore");
-		menuMacchina.add(itemAddEscavatore);
-		menuMacchina.addSeparator();
 		itemAddCamion = new JMenuItem("Aggiungi Camion");
 		menuMacchina.add(itemAddCamion);
+		menuMacchina.addSeparator();
+		itemAddEscavatore = new JMenuItem("Aggiungi Escavatore");
+		menuMacchina.add(itemAddEscavatore);
 
 		// CANTIERE
 		itemAddCantiere = new JMenuItem("Aggiungi Cantiere");
@@ -220,9 +220,7 @@ public class MainView extends JFrame {
 		table.setModel(dataModelEscavatore);
 		dataModelEscavatore.fireTableDataChanged();
 	}
-	public void addData(Object[] obj) {
-		dataModelGru.addData(obj);
-	}
+
 	public void removeSelected(){
 		((MyTableModel)table.getModel()).removeData(table.getSelectedRow());
 	}
