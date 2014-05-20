@@ -2,9 +2,6 @@ package model;
 
 import database.Database;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 public class TestDB {
 	public static void main(String[] args) {
 		/*Database db=new Database();

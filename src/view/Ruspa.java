@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -14,11 +13,13 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.WindowConstants;
 
 public class Ruspa extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4397764415421091826L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtProduttore, txtModello, txtLunghezza, txtAltezza,
 			txtPortataMax, txtAngoloRotazione;

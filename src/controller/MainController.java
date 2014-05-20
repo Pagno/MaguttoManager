@@ -18,9 +18,9 @@ public class MainController{
 	private ModelConnector model;
 	private MainView mainView;
 
-	public MainController(ModelConnector m) {
+	public MainController(ModelConnector m,MainView mn) {
 		model = m;
-		mainView = new MainView();
+		mainView = mn;
 		setObserver();
 		model.refreshData();
 		mainView.setVisible(true);

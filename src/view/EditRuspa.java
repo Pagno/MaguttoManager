@@ -14,11 +14,13 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.WindowConstants;
 
 public class EditRuspa extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4043996596294833629L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtProduttore, txtModello, txtAltezza,
 			txtPortataMax, txtCapacita;

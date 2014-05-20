@@ -1,10 +1,10 @@
 import java.sql.SQLException;
 import java.text.ParseException;
-
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import view.MainView;
 
 import controller.MainController;
 import model.ModelConnector;
@@ -21,7 +21,6 @@ public class Main {
 	 */
 	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// TODO Auto-generated method stub
-		//ParcoMacchine pm=new ParcoMacchine();
 
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -37,20 +36,9 @@ public class Main {
 
 		Database db=new Database();
 		ModelConnector m=new ModelConnector(db);
-		MainController vis=new MainController(m);
+		MainView mainView = new MainView();
+		MainController vis=new MainController(m,mainView);
 
-		
-		/*Database.connect();
-		//Database.popola();
-		String qry="SELECT * FROM APP.Macchina";
-		ResultSet res = Database.interrogate(qry);
-		while (res.next()) {
-			System.out.println(res.getInt("Codice")+res.getString("Produttore")+" - "+res.getInt("PortataMax"));
-		}
-		
-		//Database.initDB();
-		Database.disconnect();
-		//Manager man=new Manager();*/
 	}
 
 }
