@@ -202,6 +202,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	@Override
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita, int portata, int altezza, int profondita) {
 		me.aggiungiEscavatore(produttore, Modello, capacita, portata, altezza, profondita);
+		
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -29,9 +28,10 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNome, txtIndirizzo;
-	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine;
+	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine,lblAssociazione;
 	private JButton okButton;
 	private JDateChooser dataInizio,dataFine;
+	private JButton addAssociazione;
 	/**
 	 * Create the dialog.
 	 */
@@ -52,7 +52,7 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	 */
 	public EditCantiere(JFrame view) {
 		super(view);
-		setTitle("Aggiungi un nuovo Camion");
+		setTitle("Aggiungi un nuovo Cantiere");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -63,6 +63,7 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		lblIndirizzo = new JLabel("Indirizzo Cantiere:");
 		lblDataInizio = new JLabel("Data Inizio:");
 		lblDataFine = new JLabel("Data Fine:");
+		lblAssociazione =new JLabel("Aggiungi Associazione.");
 		dataInizio = new JDateChooser();
 
 		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
@@ -79,6 +80,7 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		txtIndirizzo.setColumns(15);
 		//dc = new JTextField();
 		//dc.setColumns(5);
+		addAssociazione=new JButton("Add");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -91,13 +93,15 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 								.addComponent(lblNome)
 								.addComponent(lblIndirizzo)
 								.addComponent(lblDataInizio)
-								.addComponent(lblDataFine))
+								.addComponent(lblDataFine)
+								.addComponent(lblAssociazione))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtNome)
 								.addComponent(txtIndirizzo)
 								.addComponent(dataInizio)
-								.addComponent(dataFine)));
+								.addComponent(dataFine)
+								.addComponent(addAssociazione)));
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
 				.addGroup(
@@ -125,6 +129,13 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblDataFine)
 								.addComponent(dataFine,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+				.addGroup(		
+						layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblAssociazione)
+								.addComponent(addAssociazione,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)));
@@ -179,16 +190,6 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	public String getIndirizzo() {
 		return txtIndirizzo.getText();
 	}
-	/*public GregorianCalendar getDataInizio(){
-		GregorianCalendar inizio=new GregorianCalendar();
-		inizio.setTime(dataInizio.getDate());
-		return inizio;
-	}
-	public GregorianCalendar getDataFine(){
-		GregorianCalendar fine=new GregorianCalendar();
-		fine.setTime(dataFine.getDate());
-		return fine;
-	}*/
 	public Date getDataInizio(){
 		return dataInizio.getDate();
 	}

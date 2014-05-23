@@ -14,7 +14,7 @@ class ModelEscavatore extends ModelMacchina{
 		incrementaCodice();
 		Escavatore escavatore= new Escavatore(getCodice(),produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
-		
+
 		Object[] v1={escavatore.getCodice(),produttore,Modello,altezza,profondita,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
@@ -23,7 +23,7 @@ class ModelEscavatore extends ModelMacchina{
 		aggiornaCodice(codice);
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);
-		
+
 		Object[] v1={escavatore.getCodice(),produttore,Modello,altezza,profondita,capacita,portata};
 		setChanged();
 		notifyObservers(v1);

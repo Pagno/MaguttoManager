@@ -25,7 +25,7 @@ public class MainController{
 		setObserver();
 		model.refreshData();
 		mainView.setVisible(true);
-		
+		//model.pubblicaContenuto();
 		//INSERT LISTENER
 		mainView.addAggiungiRuspaListener(VisualizzaInserimentoRuspa());
 		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
