@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue May 20 13:04:52 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0146-194e-2a95-0000021897d8 
+Tue May 20 19:32:32 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0146-1ab1-1950-00000217bb08 
 on database directory /home/matteo/git/MaguttoManager/MyDB  with class loader sun.misc.Launcher$AppClassLoader@cb5608 
 Loaded from file:/home/matteo/git/MaguttoManager/lib/derby.jar
 java.vendor=Oracle Corporation

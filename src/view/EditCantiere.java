@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,7 +20,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-public class EditCantiere extends JDialog {
+public class EditCantiere extends JDialog implements PropertyChangeListener{
 
 	/**
 	 * 
@@ -64,11 +65,10 @@ public class EditCantiere extends JDialog {
 		lblDataFine = new JLabel("Data Fine:");
 		dataInizio = new JDateChooser();
 
-		dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
+		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
 		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new TestDateEvaluator());
 		dataInizio.getJCalendar().setTodayButtonVisible(true);
 		dataInizio.getJCalendar().setNullDateButtonVisible(true);
-		
 		
 		
 		dataFine = new JDateChooser();
@@ -147,6 +147,7 @@ public class EditCantiere extends JDialog {
 				txtNome.setText("");
 				txtIndirizzo.setText("");
 				dataInizio.setDate(null);
+				dataFine.setDate(null);
 			}
 		});
 		okButton.setActionCommand("Reset");
@@ -164,6 +165,7 @@ public class EditCantiere extends JDialog {
 		buttonPane.add(chiudiBtn);
 
 		setVisible(true);
+		dataInizio.addPropertyChangeListener(this);
 	}
 
 	public void setInsertButtonListeners(ActionListener act) {
@@ -194,11 +196,20 @@ public class EditCantiere extends JDialog {
 		return dataFine.getDate();
 	}
 	public void setMinimaDataFine(Date d){
+		if(dataFine.getDate()==null || dataFine.getDate().before(d))
+			dataFine.setDate(null);
 		dataFine.setMinSelectableDate(d);
 	}
 	
 	public void setDataInizioChangedListener(PropertyChangeListener list){
 		dataInizio.addPropertyChangeListener(list);
 	}
-
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		if(dataInizio.getDate()==null)
+			System.out.println("Null");
+		setMinimaDataFine(getDataInizio());
+		
+	}
 }

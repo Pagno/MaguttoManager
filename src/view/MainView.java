@@ -139,7 +139,7 @@ public class MainView extends JFrame {
 		itemAddCantiere = new JMenuItem("Aggiungi Cantiere");
 		menuCantiere.add(itemAddCantiere);
 		menuCantiere.addSeparator();
-		itemCollegaMacchina = new JMenuItem("Collega Macchina");
+		itemCollegaMacchina = new JMenuItem("Nuova Associazione");
 		menuCantiere.add(itemCollegaMacchina);
 		
 		

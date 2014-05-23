@@ -27,15 +27,4 @@ public class CantieriController {
 			}};
 		
 	}
-	public PropertyChangeListener setDataInizioChangedListener(EditCantiere dialog){
-		final EditCantiere d=dialog;
-		return new PropertyChangeListener(){
-
-			@Override
-			public void propertyChange(PropertyChangeEvent arg0) {
-				d.setMinimaDataFine(d.getDataInizio());
-				
-			}};
-		
-	}
 }

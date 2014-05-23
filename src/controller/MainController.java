@@ -131,7 +131,7 @@ public class MainController{
 				EditCantiere ins = new EditCantiere(mainView);
 				CantieriController ctr = new CantieriController(model);
 				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener(ins));
-				ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
+				//ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
 			}
 		};
 	}
