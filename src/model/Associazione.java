@@ -106,4 +106,29 @@ class Associazione implements Cloneable {
 	public String toString(){
 		return this.getID() + " " + this.getMacchina().getCodice() + " " + this.getCantiere().getCodice() + " " + this.getStrDataInizio() + " " + this.getStrDataFine();
 	}
+	
+	public boolean equals(Object obj){
+		if(this==obj){
+			return true;
+		}
+		if(obj==null){
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Associazione a=(Associazione)obj;
+		if(this.ID==a.getID()){
+			if(this.cantiere.equals(a.getCantiere())){
+				if(this.macchina.equals(a.getMacchina())){
+					if(this.dataInizio.equals(a.getDataInizio())){
+						if(this.dataFine.equals(a.getDataFine())){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
