@@ -32,4 +32,18 @@ class Gru extends Macchina{
 		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getLunghezza() + " " + this.getPortataMassima() + " " + this.getAltezza() + " " + this.getAngoloRotazione();
 	}
 	
+	public boolean equals(Object obj){
+		if(!(super.equals(obj))){
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Gru g=(Gru)obj;
+		if((this.angoloRotazione==g.getAngoloRotazione()) &&(this.portataMax==g.getPortataMassima())&&(this.lunghezza==g.getLunghezza())&&(this.altezza==g.getAltezza())){
+			return true;
+		}
+		else return false;
+	}
+	
 }

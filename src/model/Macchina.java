@@ -5,10 +5,10 @@ abstract class Macchina {
 	private int codice;
 	private String produttore;
 	
-	public Macchina(int codice,String produttore,String Modello){
+	public Macchina(int codice,String produttore,String modello){
 		this.codice=codice;
 		this.produttore=produttore;
-		this.modello=Modello;
+		this.modello=modello;
 	}
 	
 	public int getCodice(){		return this.codice;	}
@@ -16,4 +16,25 @@ abstract class Macchina {
 	public String getModello(){		return this.modello;	}
 	public void setProduttore(String produttore){		this.produttore=produttore;	}
 	public void setModello(String Modello){		this.modello=Modello;	}
+	
+	public boolean equals(Object obj){
+		if(this==obj){
+			return true;
+		}
+		if(obj==null){
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Macchina m=(Macchina)obj;
+		if(this.codice==m.getCodice()){
+			if(this.produttore.equals(m.getProduttore())){
+				if(this.modello.equals(m.getModello())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

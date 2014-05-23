@@ -28,5 +28,19 @@ class Camion extends Macchina {
 	public String toString(){
 		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getLunghezza();
 	}
+	
+	public boolean equals(Object obj){
+		if(!(super.equals(obj))){
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Camion c=(Camion)obj;
+		if((this.capacitaMax==c.getCapacitaMassima()) &&(this.portataMax==c.getPortataMassima())&&(this.lunghezza==c.getLunghezza())){
+			return true;
+		}
+		else return false;
+	}
 
 }

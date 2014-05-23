@@ -104,5 +104,30 @@ class Cantiere {
 	public String toString(){
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura();
 	}
+	
+	public boolean equals(Object obj){
+		if(this==obj){
+			return true;
+		}
+		if(obj==null){
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Cantiere c=(Cantiere)obj;
+		if(this.codice==c.getCodice()){
+			if(this.indirizzo.equals(c.getIndirizzo())){
+				if(this.nomeCantiere.equals(c.getNomeCantiere())){
+					if(this.dataApertura.equals(c.getDataApertura())){
+						if(this.dataChiusura.equals(c.getDataChiusura())){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 }
