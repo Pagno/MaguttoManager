@@ -220,7 +220,6 @@ public class EditCamion extends JDialog {
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
-
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
@@ -229,7 +228,7 @@ public class EditCamion extends JDialog {
 		return txtModello.getText();
 	}
 
-
+	
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}

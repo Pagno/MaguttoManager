@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -16,6 +18,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import model.Associazione;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -212,5 +216,11 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 			System.out.println("Null");
 		setMinimaDataFine(getDataInizio());
 		
+	}
+	public ArrayList<Associazione> getAssociazioniList(){
+		return null;
+	}
+	public void setInsertAddAssociazioneListeners(ActionListener act) {
+		addAssociazione.addActionListener(act);
 	}
 }
