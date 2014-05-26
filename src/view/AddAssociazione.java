@@ -147,8 +147,14 @@ public class AddAssociazione extends JDialog {
 	public Date getDataInizio() {
 		return dataInizio.getDate();
 	}
+	public void setDataInizio(Date d) {
+		dataInizio.setDate(d);
+	}
 	public Date getDataFine() {
 		return dataFine.getDate();
+	}
+	public void setDataFine(Date d) {
+		dataFine.setDate(d);
 	}
 	class TableModel extends AbstractTableModel{
 

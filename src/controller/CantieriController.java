@@ -86,20 +86,20 @@ public class CantieriController {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
 				JDateChooser event=(JDateChooser)(arg0.getSource());
-				/*
-				if(ass.getDataInizio()!=null && dataFine.getDate()!=null && event.getName().equals("dataInizio")){
-					if(dataInizio.getDate().compareTo(dataFine.getDate())>0){
-						dataInizio.setDate(null);
+				
+				if(ass.getDataInizio()!=null && ass.getDataFine()!=null && event.getName().equals("dataInizio")){
+					if(ass.getDataInizio().compareTo(ass.getDataFine())>0){
+						ass.setDataInizio(null);
 						JOptionPane.showMessageDialog(null,"La data di inizio deve essere minore della data di fine.","Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				if(dataInizio.getDate()!=null && dataFine.getDate()!=null && event.getName().equals("dataFine")){
-					if(dataFine.getDate().compareTo(dataInizio.getDate())<0){
-						dataFine.setDate(null);
+				if(ass.getDataInizio()!=null && ass.getDataFine()!=null && event.getName().equals("dataFine")){
+					if(ass.getDataFine().compareTo(ass.getDataInizio())<0){
+						ass.setDataFine(null);
 						JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				*/
+				
 			}
 			
 		};
