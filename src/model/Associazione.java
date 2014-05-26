@@ -3,13 +3,13 @@ import java.util.*;
 
 
 public class Associazione implements Cloneable {
-	private Integer ID;
+	private int ID;
 	private Macchina macchina;
 	private Cantiere cantiere;
 	private GregorianCalendar dataInizio;
 	private GregorianCalendar dataFine;
 	
-	public Associazione(Integer ID, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public Associazione(int ID, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.ID=ID;
 		this.setMacchina(macchina);
 		this.setCantiere(cantiere);
@@ -29,7 +29,7 @@ public class Associazione implements Cloneable {
 		return this;
 	}
 	
-	public Integer getID(){
+	public int getID(){
 		return this.ID;
 	}
 

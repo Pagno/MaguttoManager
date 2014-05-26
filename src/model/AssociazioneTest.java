@@ -18,7 +18,7 @@ public class AssociazioneTest {
 	@Test
 	public void testAssociazione() {
 		//a=new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26));
-		assertSame(5,a.getID());
+		assertEquals(a.getID(),5);
 		assertEquals(a.getMacchina(),new Ruspa(4,"Caterpillar","Ruspone",100,100,100));
 		assertEquals(a.getCantiere(),new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)));
 		assertEquals(a.getDataInizio(),new GregorianCalendar(2014,5,23));
