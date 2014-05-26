@@ -40,4 +40,16 @@ public class CamionTest {
 		assertEquals(c.getLunghezza(),200);
 	}
 
+	@Test
+	public void testSetProduttore() {
+		c.setProduttore("Caterpillar");
+		assertEquals(c.getProduttore(),"Caterpillar");
+	}
+
+	@Test
+	public void testSetModello() {
+		c.setModello("Tir");
+		assertEquals(c.getModello(),"Tir");
+	}
+
 }
