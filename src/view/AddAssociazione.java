@@ -18,6 +18,7 @@ import model.Associazione;
 
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -109,6 +110,8 @@ public class AddAssociazione extends JDialog implements PropertyChangeListener {
 		dataInizio.setMinSelectableDate(inizio);
 		dataInizio.setMaxSelectableDate(fine);
 		dataInizio.setBounds(301, 22, 120, 25);
+		dataInizio.addPropertyChangeListener(this);
+		dataInizio.setName("dataInizio");
 		panel.add(dataInizio);
 
 		dataFine = new JDateChooser();
@@ -116,6 +119,8 @@ public class AddAssociazione extends JDialog implements PropertyChangeListener {
 		dataFine.setMaxSelectableDate(inizio);
 		dataFine.setMaxSelectableDate(fine);
 		dataFine.setBounds(421, 22, 120, 25);
+		dataFine.addPropertyChangeListener(this);
+		dataFine.setName("dataFine");
 		panel.add(dataFine);
 		
 		btnAggiungi = new JButton("Aggiungi");
@@ -139,9 +144,20 @@ public class AddAssociazione extends JDialog implements PropertyChangeListener {
 	
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
-		if(dataInizio.getDate()==null)
-			System.out.println("Null");
+		JDateChooser event=(JDateChooser)(arg0.getSource());
 		
+		if(dataInizio.getDate()!=null && dataFine.getDate()!=null && event.getName().equals("dataInizio")){
+			if(dataInizio.getDate().compareTo(dataFine.getDate())>0){
+				dataInizio.setDate(null);
+				JOptionPane.showMessageDialog(null,"La data di inizio deve essere minore della data di fine.","Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		if(dataInizio.getDate()!=null && dataFine.getDate()!=null && event.getName().equals("dataFine")){
+			if(dataFine.getDate().compareTo(dataInizio.getDate())<0){
+				dataFine.setDate(null);
+				JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 	
 	class TableModel extends AbstractTableModel{
