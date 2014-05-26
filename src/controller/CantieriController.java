@@ -86,7 +86,7 @@ public class CantieriController {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
 				JDateChooser event=(JDateChooser)(arg0.getSource());
-				
+				/*
 				if(ass.getDataInizio()!=null && dataFine.getDate()!=null && event.getName().equals("dataInizio")){
 					if(dataInizio.getDate().compareTo(dataFine.getDate())>0){
 						dataInizio.setDate(null);
@@ -99,7 +99,7 @@ public class CantieriController {
 						JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				
+				*/
 			}
 			
 		};
