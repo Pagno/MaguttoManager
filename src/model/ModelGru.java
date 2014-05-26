@@ -39,7 +39,7 @@ class ModelGru extends ModelMacchina{
 				item.setModello(modello);
 				item.setLunghezzaMassima(lunghezza);
 				item.setPortataMassima( portata);
-				item.setAltezzaMassima( altezza);
+				item.setAltezza( altezza);
 				item.setAngoloRotazione(rotazione);
 			}
 		}
