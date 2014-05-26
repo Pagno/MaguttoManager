@@ -2,9 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
+
+import com.toedter.calendar.JDateChooser;
 
 import model.ModelConnector;
 import view.AddAssociazione;
@@ -13,6 +17,7 @@ import view.EditCantiere;
 public class CantieriController {
 	private ModelConnector model;
 	private EditCantiere cantieriView;
+	private AddAssociazione ass;
 
 	public CantieriController(ModelConnector m,EditCantiere view) {
 		cantieriView=view;
@@ -55,7 +60,7 @@ public class CantieriController {
 				/*if(cantieriView.getDataInizio()==null || cantieriView.getDataFine()==null ){
 					JOptionPane.showMessageDialog(null,"Scelezionare prima Data Inizo e Data Fine Cantiere.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{*/
-					AddAssociazione ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
+					ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
 					ass.aggiungiAssoziazioneListenet(AddAssociazioniListener(ass));
 				//}
 			}
@@ -75,5 +80,28 @@ public class CantieriController {
 		};
 		
 	}
-	
+	public PropertyChangeListener checkAssociazioni(){
+		return new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				JDateChooser event=(JDateChooser)(arg0.getSource());
+				
+				if(ass.getDataInizio()!=null && dataFine.getDate()!=null && event.getName().equals("dataInizio")){
+					if(dataInizio.getDate().compareTo(dataFine.getDate())>0){
+						dataInizio.setDate(null);
+						JOptionPane.showMessageDialog(null,"La data di inizio deve essere minore della data di fine.","Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				if(dataInizio.getDate()!=null && dataFine.getDate()!=null && event.getName().equals("dataFine")){
+					if(dataFine.getDate().compareTo(dataInizio.getDate())<0){
+						dataFine.setDate(null);
+						JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				
+			}
+			
+		};
+	}
 }
