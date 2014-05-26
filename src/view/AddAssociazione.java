@@ -27,7 +27,7 @@ import javax.swing.table.AbstractTableModel;
 import com.toedter.calendar.JDateChooser;
 
 
-public class AddAssociazione extends JDialog implements PropertyChangeListener {
+public class AddAssociazione extends JDialog {
 
 	/**
 	 * 
@@ -142,6 +142,9 @@ public class AddAssociazione extends JDialog implements PropertyChangeListener {
 		tableModel.addData(data);
 	}
 	
+	public void addPropertyChangeListener(PropertyChangeListener evt){
+		dataFine.addPropertyChangeListener(evt);
+	}
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
 		JDateChooser event=(JDateChooser)(arg0.getSource());
