@@ -130,7 +130,7 @@ public class MainController{
 				// TODO Auto-generated method stub
 				EditCantiere ins = new EditCantiere(mainView);
 				CantieriController ctr = new CantieriController(model,ins);
-				ins.setInsertAddAssociazioneListeners(ctr.ViewAddAssocizioniListener());
+				ins.setInsertAddAssociazioneListeners(ctr.ViewAddAssociazioniListener());
 				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener());
 				//ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
 			}

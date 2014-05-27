@@ -1,6 +1,6 @@
 package model;
 
-abstract class Macchina {
+public abstract class Macchina {
 	private String modello;
 	private int codice;
 	private String produttore;

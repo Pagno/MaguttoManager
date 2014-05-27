@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -15,13 +16,16 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import model.Associazione;
+import model.Macchina;
 
 import javax.swing.AbstractAction;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -37,12 +41,12 @@ public class AddAssociazione extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	private JButton okButton,btnAggiungi;
-	private ArrayList<Associazione> lista;
 	private JTable table;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPane,listScroller;
 	private JList list;
 	private JLabel lblCantiere;
 	private TableModel tableModel;
+	private DefaultListModel listModel;
 	private JDateChooser dataInizio,dataFine;
 
 	/**
@@ -55,8 +59,7 @@ public class AddAssociazione extends JDialog {
 	 */
 	public AddAssociazione(JDialog view,String nomeCantiere,Date inizio,Date fine) {
 		super(view);
-		setSize(new Dimension(600, 310));
-		lista =new ArrayList<Associazione>();
+		setSize(new Dimension(790, 363));
 		contentPanel.setLayout(new BorderLayout());
 
 		JPanel buttonPane = new JPanel();
@@ -95,21 +98,26 @@ public class AddAssociazione extends JDialog {
 		
 		table = new JTable(tableModel);
 		scrollPane=new JScrollPane(table);
-		scrollPane.setBounds(12, 49, 171, 173);
+		scrollPane.setBounds(12, 49, 306, 233);
 		panel.add(scrollPane);
 
 		table.setPreferredScrollableViewportSize(scrollPane.getPreferredSize());
 		
+
+		listModel=new DefaultListModel();
+		list = new JList(listModel);
+		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		
-		list = new JList();
-		list.setBounds(301, 48, 160, 173);
-		panel.add(list);
+
+		listScroller = new JScrollPane(list);
+		listScroller.setBounds(462, 48, 314, 234);
+		panel.add(listScroller);
 
 		dataInizio = new JDateChooser();
 		dataInizio.setDateFormatString("dd-MM-yy");
 		dataInizio.setMinSelectableDate(inizio);
 		dataInizio.setMaxSelectableDate(fine);
-		dataInizio.setBounds(301, 22, 120, 25);
+		dataInizio.setBounds(548, 22, 120, 25);
 		dataInizio.setName("dataInizio");
 		panel.add(dataInizio);
 
@@ -117,45 +125,59 @@ public class AddAssociazione extends JDialog {
 		dataFine.setDateFormatString("dd-MM-yy");
 		dataFine.setMaxSelectableDate(inizio);
 		dataFine.setMaxSelectableDate(fine);
-		dataFine.setBounds(421, 22, 120, 25);
+		dataFine.setBounds(668, 22, 120, 25);
 		dataFine.setName("dataFine");
 		panel.add(dataFine);
 		
 		btnAggiungi = new JButton("Aggiungi");
-		btnAggiungi.setBounds(195, 97, 94, 25);
+		btnAggiungi.setBounds(330, 135, 120, 25);
 		panel.add(btnAggiungi);
 
 		setVisible(true);
 	}
-	public ArrayList<Associazione> getAssociazioni(){
-		return lista;
-	}
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
-	public void aggiungiAssoziazioneListenet(ActionListener act){
+	public void aggiungiAssoziazioneListener(ActionListener act){
 		btnAggiungi.addActionListener(act);
 	}
-	public void addData(Object[] data){
+	public void addData(String[] data){
 		tableModel.addData(data);
 	}
-	
+	public Macchina getListSlected(){
+		return (Macchina)list.getSelectedValue();
+	}
 	public void addPropertyChangeListener(PropertyChangeListener evt){
 		dataFine.addPropertyChangeListener(evt);
 		dataInizio.addPropertyChangeListener(evt);
 	}
-	public Date getDataInizio() {
-		return dataInizio.getDate();
+	public GregorianCalendar getDataInizio() {
+		if(dataInizio.getDate()==null)
+			return null;
+		GregorianCalendar gc=new GregorianCalendar();
+		gc.setTime(dataInizio.getDate());
+		return gc;
 	}
 	public void setDataInizio(Date d) {
 		dataInizio.setDate(d);
 	}
-	public Date getDataFine() {
-		return dataFine.getDate();
+	public GregorianCalendar getDataFine() {
+		if(dataFine.getDate()==null)
+			return null;
+		GregorianCalendar gc=new GregorianCalendar();
+		gc.setTime(dataFine.getDate());
+		return gc;
 	}
 	public void setDataFine(Date d) {
 		dataFine.setDate(d);
 	}
+	
+	public void aggiungiMacchinaALista(Macchina m){
+		listModel.addElement(m);
+	}
+	
+	
+	
 	class TableModel extends AbstractTableModel{
 
 		/**
@@ -165,7 +187,7 @@ public class AddAssociazione extends JDialog {
 
 		String[] columnsName = {"Macchina","dataInizio","dataFine"};
 
-		private ArrayList<Object[]> data=new ArrayList<Object[]>();
+		private ArrayList<String[]> data=new ArrayList<String[]>();
 		@Override
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -184,9 +206,9 @@ public class AddAssociazione extends JDialog {
 		@Override
 		public Object getValueAt(int arg0, int arg1) {
 			// TODO Auto-generated method stub
-			return data.get(arg0)[arg1];
+			return data.get(arg0)[arg1+1];
 		}
-	    public boolean addData(Object[] obj){
+	    public boolean addData(String[] obj){
 	    	data.add(obj);
 	    	fireTableDataChanged();
 	    	return true;

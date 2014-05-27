@@ -4,24 +4,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
 
+import model.Associazione;
 import model.ModelConnector;
+import model.Ruspa;
 import view.AddAssociazione;
 import view.EditCantiere;
 
 public class CantieriController {
 	private ModelConnector model;
 	private EditCantiere cantieriView;
-	private AddAssociazione ass;
-
+	private ArrayList<String[]> lista;
+	
 	public CantieriController(ModelConnector m,EditCantiere view) {
 		cantieriView=view;
-		model = m;		
+		model = m;	
+		lista=new ArrayList<String[]>();
 	}
 	public ActionListener InsertNuovoCantiereListener(){
 		return new ActionListener(){
@@ -47,9 +53,20 @@ public class CantieriController {
 				
 				System.out.println(nome+" - "+indirizzo+" - "+cantieriView.getDataInizio()+" - "+cantieriView.getDataFine());
 				cantieriView.dispose();
+				GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
+				GregorianCalendar fine=new GregorianCalendar();fine.setTime(cantieriView.getDataFine());
+				int cod=model.aggiungiCantiere(nome, indirizzo, inizio, fine);
+				for(String[] data:lista){
+
+					String[] tokens = data[2].split("/");
+					GregorianCalendar i=new GregorianCalendar(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]));
+					tokens = data[3].split("/");
+					GregorianCalendar f=new GregorianCalendar(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]));
+					model.aggiungiAssociazione(Integer.parseInt(data[0]), cod, i, f);
+				}
 			}};
 	}
-	public ActionListener ViewAddAssocizioniListener(){
+	public ActionListener ViewAddAssociazioniListener(){
 		return new ActionListener() {
 			
 			@Override
@@ -60,48 +77,71 @@ public class CantieriController {
 				/*if(cantieriView.getDataInizio()==null || cantieriView.getDataFine()==null ){
 					JOptionPane.showMessageDialog(null,"Scelezionare prima Data Inizo e Data Fine Cantiere.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{*/
-					ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
-					ass.aggiungiAssoziazioneListenet(AddAssociazioniListener(ass));
+					AddAssociazione ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
+					ass.aggiungiAssoziazioneListener(AddAssociazioniListener(ass));
+					ass.addPropertyChangeListener(checkAssociazioni(ass));
 				//}
 			}
 		};
 		
 	}
 	public ActionListener AddAssociazioniListener(AddAssociazione view){
-		final AddAssociazione viewAss=view;
+		final AddAssociazione ass=view;
 		return new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Object[] data={"Ruspa","a","b"};
-				viewAss.addData(data);
+				Ruspa r=(Ruspa)ass.getListSlected();
+				SimpleDateFormat df = new SimpleDateFormat();
+			    df.applyPattern("dd/MM/yyyy");
+			    
+				String[] data={Integer.toString(r.getCodice()),r.getProduttore()+" - "+r.getModello()
+						,df.format(ass.getDataInizio().getTime())
+						,df.format(ass.getDataFine().getTime())};
+				lista.add(data);
+				ass.addData(data);
 			}
 		};
 		
 	}
-	public PropertyChangeListener checkAssociazioni(){
+	
+	//CONTROLLO CORRETTEZZA DATE
+	public PropertyChangeListener checkAssociazioni(AddAssociazione view){
+		final AddAssociazione ass=view;
 		return new PropertyChangeListener(){
 
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
 				JDateChooser event=(JDateChooser)(arg0.getSource());
 				
-				if(ass.getDataInizio()!=null && ass.getDataFine()!=null && event.getName().equals("dataInizio")){
-					if(ass.getDataInizio().compareTo(ass.getDataFine())>0){
-						ass.setDataInizio(null);
-						JOptionPane.showMessageDialog(null,"La data di inizio deve essere minore della data di fine.","Error", JOptionPane.ERROR_MESSAGE);
+				boolean validate=true;
+				if(ass.getDataInizio()==null || ass.getDataFine()!=null ){
+					if(event.getName().equals("dataInizio")){
+						if(ass.getDataInizio().compareTo(ass.getDataFine())>0){
+							ass.setDataInizio(null);
+							validate=false;
+							JOptionPane.showMessageDialog(null,"La data di inizio deve essere minore della data di fine.","Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					if(event.getName().equals("dataFine")){
+						if(ass.getDataFine().compareTo(ass.getDataInizio())<0){
+							ass.setDataFine(null);
+							validate=false;
+							JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					if(validate==true){
+						ArrayList<Ruspa> ruspeDisp=model.elencoRuspeDisponibili(ass.getDataInizio(),ass.getDataFine());
+	
+						for(Ruspa r:ruspeDisp){
+							ass.aggiungiMacchinaALista(r);
+						}
 					}
 				}
-				if(ass.getDataInizio()!=null && ass.getDataFine()!=null && event.getName().equals("dataFine")){
-					if(ass.getDataFine().compareTo(ass.getDataInizio())<0){
-						ass.setDataFine(null);
-						JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				
 			}
 			
 		};
 	}
+
 }

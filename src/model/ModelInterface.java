@@ -26,7 +26,7 @@ public interface ModelInterface {
 	public boolean eliminaMacchina(int codice);
 	
 	//CANTIERE
-	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura);
+	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura);
 	public void modificaCantiere(int codice, String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura);
 	public boolean eliminaCantiere(int codice);
 	

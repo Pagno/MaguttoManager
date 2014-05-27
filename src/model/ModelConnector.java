@@ -2,7 +2,9 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
@@ -211,8 +213,8 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void aggiungiCantiere(String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura) {
-		lc.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura);
+	public int aggiungiCantiere(String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura) {
+		return lc.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura);
 	}
 
 	@Override
@@ -432,5 +434,22 @@ public class ModelConnector extends Observable implements ModelInterface{
 		System.out.println(lc.toString());
 		System.out.println("---ASSOCIAZIONI-------------");
 		System.out.println(ea.toString());
+	}
+	
+	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+		ArrayList<Ruspa> ru=new ArrayList<Ruspa>();
+		boolean disp;
+		for(Ruspa r:mr.getLista()){
+			disp=true;
+			for(Associazione item:ea.getElencoAssociazioni()){
+				if(item.getMacchina().equals(r)){
+					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+						disp=false;
+				}
+			}
+			if(disp==true)
+				ru.add(r);
+		}
+		return ru;
 	}
 }

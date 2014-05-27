@@ -1,6 +1,6 @@
 package model;
 
-class Ruspa extends Macchina{
+public class Ruspa extends Macchina{
 	private int capacitaMax;
 	private int portataMax;
 	private int altezzaMax;
