@@ -4,18 +4,23 @@ import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class AssociazioneTest {
-Associazione a;
+	Associazione a;
+
+    @Before
+    public void init(){
+    	a=new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26));
+    }
+    
 	@Test
 	public void testAssociazione() {
-		Ruspa r=new Ruspa(4,"Caterpillar","Ruspone",100,100,100) ;
-		Cantiere c=new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25));
-		a=new Associazione(5, r, c,new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26));
-		assertSame(5,a.getID());
-		assertEquals(a.getMacchina(),r);
-		assertEquals(a.getCantiere(),c);
+		//a=new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26));
+		assertEquals(a.getID(),5);
+		assertEquals(a.getMacchina(),new Ruspa(4,"Caterpillar","Ruspone",100,100,100));
+		assertEquals(a.getCantiere(),new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)));
 		assertEquals(a.getDataInizio(),new GregorianCalendar(2014,5,23));
 		assertEquals(a.getDataFine(),new GregorianCalendar(2014,5,26));
 	}
@@ -28,17 +33,20 @@ Associazione a;
 
 	@Test
 	public void testSetCantiere() {
-		fail("Not yet implemented");
+		a.setCantiere(new Cantiere(7,"IPB","Osio Sotto",new GregorianCalendar(2019,1,22),new GregorianCalendar(2020,7,13)));
+		assertEquals(a.getCantiere(),new Cantiere(7,"IPB","Osio Sotto",new GregorianCalendar(2019,1,22),new GregorianCalendar(2020,7,13)));
 	}
 
 	@Test
 	public void testSetDataInizio() {
-		fail("Not yet implemented");
+		a.setDataInizio(new GregorianCalendar(2018,5,25));
+		assertEquals(a.getDataInizio(),new GregorianCalendar(2018,5,25));
 	}
 
 	@Test
 	public void testSetDataFine() {
-		fail("Not yet implemented");
+		a.setDataFine(new GregorianCalendar(2021,6,2));
+		assertEquals(a.getDataFine(),new GregorianCalendar(2021,6,2));
 	}
 
 }

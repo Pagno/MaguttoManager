@@ -25,7 +25,7 @@ class Gru extends Macchina{
 	//SET
 	public void setLunghezzaMassima(int lunghezza){	this.lunghezza=lunghezza;	}
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
-	public void setAltezzaMassima(int altezza){		this.altezza=altezza;	}
+	public void setAltezza(int altezza){		this.altezza=altezza;	}
 	public void setAngoloRotazione(int rotazione){	this.angoloRotazione=rotazione;	}
 	
 	public String toString(){

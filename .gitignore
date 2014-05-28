@@ -3,6 +3,7 @@
 
 bin
 MyDB
+
 *.com
 *.class
 *.dll
