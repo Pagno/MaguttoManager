@@ -38,6 +38,7 @@ public class MainController{
 		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
 		mainView.addButtonCamionListener(VisualizzaElencoCamion());
 		mainView.addButtonEscavatoreListener(VisualizzaElencoEscavatore());
+		mainView.addButtonCantiereListener(VisualizzaElencoCantieri());
 		
 		//EDIT LISTENER	
 		mainView.addModificaListener(VisualizzaModificaGruView());
@@ -57,7 +58,8 @@ public class MainController{
 		model.addGruObserver(mainView.dataModelGru);
 		model.addRuspaObserver(mainView.dataModelRuspa);
 		model.addCamionObserver(mainView.dataModelCamion);	
-		model.addEscavatoreObserver(mainView.dataModelEscavatore);		
+		model.addEscavatoreObserver(mainView.dataModelEscavatore);	
+		model.addCantiereObserver(mainView.dataModelCantiere);		
 	}
 	
 	
@@ -152,6 +154,7 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showRuspaData();
+				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaRuspaView());
 			}
 		};
@@ -161,6 +164,7 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCamionData();
+				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaCamionView());
 			}
 		};
@@ -170,10 +174,21 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showEscavatoreData();
+				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaEscavatoreView());
 			}
 		};
 	}
+	public ActionListener VisualizzaElencoCantieri() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mainView.showCantiereData();
+				mainView.disableBtnModifica(true);
+			}
+		};
+	}
+	
 	//EDIT
 	public ActionListener VisualizzaModificaGruView() {
 		return new ActionListener() {

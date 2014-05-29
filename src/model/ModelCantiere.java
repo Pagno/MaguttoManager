@@ -1,9 +1,11 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Observable;
 
-class ModelCantiere{
+class ModelCantiere extends Observable{
 
 	private ArrayList<Cantiere> listaCantieri;
 	private Integer codice;
@@ -16,7 +18,16 @@ class ModelCantiere{
 	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		codice++;
 		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura));
+		
+
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("dd/MM/yyyy");
+		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+		setChanged();
+		notifyObservers(v1);
+		
 		return codice;
+		
 	}
 
 	void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
@@ -24,6 +35,13 @@ class ModelCantiere{
 			this.codice=codice;
 		}
 		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura));
+	
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("dd/MM/yyyy");
+		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+		setChanged();
+		notifyObservers(v1);
+	
 	}
 
 	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
@@ -33,6 +51,12 @@ class ModelCantiere{
 				item.setIndirizzo(indirizzo);
 				item.setDataApertura(dataApertura);
 				item.setDataChiusura(dataChiusura);
+				
+				SimpleDateFormat df = new SimpleDateFormat();
+			    df.applyPattern("dd/MM/yyyy");
+				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+				setChanged();
+				notifyObservers(v1);
 			}
 		}
 	}

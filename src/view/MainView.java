@@ -25,8 +25,8 @@ public class MainView extends JFrame {
 	private JPanel contentPane, leftMenu;
 	private JTable table;
 	private JScrollPane scrollpane;
-	public MyTableModel dataModelGru,dataModelRuspa,dataModelCamion,dataModelEscavatore;
-	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,editBtn,deleteBtn;
+	public MyTableModel dataModelGru,dataModelRuspa,dataModelCamion,dataModelEscavatore,dataModelCantiere;
+	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,btnViewCantiere,editBtn,deleteBtn;
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
 			itemAddCamion;
 	private JMenuItem itemAddCantiere, itemCollegaMacchina;
@@ -53,12 +53,14 @@ public class MainView extends JFrame {
 		//SET UP THE DATA MODEL
 		String[] columnNamesGru={"Produttore","Modello","Lunghezza Braccio","Altezza Gancio","Portata Massima","Angolo Rotazione"};
 		dataModelGru = new MyTableModel(columnNamesGru);
-		String[] columnNamesRuspa={"Produttore","Modello","Altezza Scarico","Capacità","Portata Massima"};
+		String[] columnNamesRuspa={"Produttore","Modello","Altezza Scarico","Capacit��","Portata Massima"};
 		dataModelRuspa = new MyTableModel(columnNamesRuspa);
 		String[] columnNamesCamion={"Produttore","Modello","Lunghezza","Capacita","Portata Massima"};
 		dataModelCamion = new MyTableModel(columnNamesCamion);
-		String[] columnNamesEscavatore={"Produttore","Modello","Altezza Scarico","Profondita Scavo","Capacità","Portata Massima"};
+		String[] columnNamesEscavatore={"Produttore","Modello","Altezza Scarico","Profondita Scavo","Capacit��","Portata Massima"};
 		dataModelEscavatore = new MyTableModel(columnNamesEscavatore);
+		String[] columnNamesCantiere={"Nome","Indirizzo","Data Apertura","Data Chiusura"};
+		dataModelCantiere = new MyTableModel(columnNamesCantiere);
 		
 		
 		table = new JTable();
@@ -94,10 +96,11 @@ public class MainView extends JFrame {
 		btnViewRuspa = new JButton("Ruspa");
 		btnViewCamion = new JButton("Camion");
 		btnViewEscavatore = new JButton("Escavatore");
+		btnViewCantiere = new JButton("Cantiere");
 		leftMenu.add(btnViewGru);
 		leftMenu.add(btnViewRuspa);
 		leftMenu.add(btnViewCamion);
-		leftMenu.add(btnViewEscavatore);
+		leftMenu.add(btnViewCantiere);
 		contentPane.add(leftMenu, BorderLayout.WEST);
 	}
 
@@ -164,6 +167,9 @@ public class MainView extends JFrame {
 	public void addButtonEscavatoreListener(ActionListener act) {
 		btnViewEscavatore.addActionListener(act);
 	}
+	public void addButtonCantiereListener(ActionListener act) {
+		btnViewCantiere.addActionListener(act);
+	}
 
 	//ADD LISTENER
 	public void addAggiungiGruListener(ActionListener act) {
@@ -221,7 +227,18 @@ public class MainView extends JFrame {
 		table.setModel(dataModelEscavatore);
 		dataModelEscavatore.fireTableDataChanged();
 	}
+	public void showCantiereData(){
+		table.setModel(dataModelCantiere);
+		dataModelCantiere.fireTableDataChanged();
+	}
 
+	
+	public void disableBtnModifica(boolean disable){
+		if(disable==true)
+			editBtn.disable();
+		else
+			editBtn.enable();
+	}
 	public void removeSelected(){
 		((MyTableModel)table.getModel()).removeData(table.getSelectedRow());
 	}

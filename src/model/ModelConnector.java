@@ -40,6 +40,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
+	public void addCantiereObserver(Observer observer){
+		lc.addObserver(observer);
+	}
+	
 	
 	@Override
 	public void refreshData() {
