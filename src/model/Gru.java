@@ -1,6 +1,6 @@
 package model;
 
-class Gru extends Macchina{
+public class Gru extends Macchina{
 	private int lunghezza;
 	private int altezza;
 	private int portataMax;

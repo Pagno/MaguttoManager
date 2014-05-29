@@ -437,7 +437,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 	
 	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
-		ArrayList<Ruspa> ru=new ArrayList<Ruspa>();
+		ArrayList<Ruspa> ruspe=new ArrayList<Ruspa>();
 		boolean disp;
 		for(Ruspa r:mr.getLista()){
 			disp=true;
@@ -448,8 +448,57 @@ public class ModelConnector extends Observable implements ModelInterface{
 				}
 			}
 			if(disp==true)
-				ru.add(r);
+				ruspe.add(r);
 		}
-		return ru;
+		return ruspe;
+	}
+	
+	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+		ArrayList<Gru> gru=new ArrayList<Gru>();
+		boolean disp;
+		for(Gru r:mg.getLista()){
+			disp=true;
+			for(Associazione item:ea.getElencoAssociazioni()){
+				if(item.getMacchina().equals(r)){
+					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+						disp=false;
+				}
+			}
+			if(disp==true)
+				gru.add(r);
+		}
+		return gru;
+	}
+	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+		ArrayList<Camion> camion=new ArrayList<Camion>();
+		boolean disp;
+		for(Camion r:mc.getLista()){
+			disp=true;
+			for(Associazione item:ea.getElencoAssociazioni()){
+				if(item.getMacchina().equals(r)){
+					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+						disp=false;
+				}
+			}
+			if(disp==true)
+				camion.add(r);
+		}
+		return camion;
+	}
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();
+		boolean disp;
+		for(Escavatore r:me.getLista()){
+			disp=true;
+			for(Associazione item:ea.getElencoAssociazioni()){
+				if(item.getMacchina().equals(r)){
+					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+						disp=false;
+				}
+			}
+			if(disp==true)
+				escavatore.add(r);
+		}
+		return escavatore;
 	}
 }

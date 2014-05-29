@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
 
 import model.Associazione;
+import model.Camion;
+import model.Escavatore;
+import model.Gru;
+import model.Macchina;
 import model.ModelConnector;
 import model.Ruspa;
 import view.AddAssociazione;
@@ -63,6 +68,7 @@ public class CantieriController {
 					tokens = data[3].split("/");
 					GregorianCalendar f=new GregorianCalendar(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]));
 					model.aggiungiAssociazione(Integer.parseInt(data[0]), cod, i, f);
+					System.out.println(data[0]+" - "+cod+" - "+data[2]+" - "+data[3]);
 				}
 			}};
 	}
@@ -80,11 +86,29 @@ public class CantieriController {
 					AddAssociazione ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
 					ass.aggiungiAssoziazioneListener(AddAssociazioniListener(ass));
 					ass.addPropertyChangeListener(checkAssociazioni(ass));
+					ass.aggiungiComboBoxListener(cambioTipoMacchina(ass));
+					ass.aggiungiRimuoviListener(btnRimuoviListener(ass));
 				//}
 			}
 		};
 		
 	}
+	public ActionListener btnRimuoviListener(final AddAssociazione view){
+		return new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Elimino la riga:"+view.getSelectedAssociazione());
+				System.out.println("Grandezza lista prima:"+lista.size());
+				lista.remove(view.getSelectedAssociazione());
+				view.rimuoviAssociazioneSelezionata();
+				System.out.println("Grandezza lista dopo:"+lista.size());
+			}
+		};
+		
+	}
+	
+	
 	public ActionListener AddAssociazioniListener(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new ActionListener() {
@@ -92,7 +116,7 @@ public class CantieriController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ruspa r=(Ruspa)ass.getListSlected();
+				Macchina r=(Macchina)ass.getListSlected();
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
 			    
@@ -105,7 +129,8 @@ public class CantieriController {
 		};
 		
 	}
-	
+	private boolean validate=false;
+	private String tipoMacchina="Ruspa";
 	//CONTROLLO CORRETTEZZA DATE
 	public PropertyChangeListener checkAssociazioni(AddAssociazione view){
 		final AddAssociazione ass=view;
@@ -115,13 +140,17 @@ public class CantieriController {
 			public void propertyChange(PropertyChangeEvent arg0) {
 				JDateChooser event=(JDateChooser)(arg0.getSource());
 				
-				boolean validate=true;
-				if(ass.getDataInizio()==null || ass.getDataFine()!=null ){
+
+				if(ass.getDataInizio()!=null && ass.getDataFine()!=null ){
+					
 					if(event.getName().equals("dataInizio")){
 						if(ass.getDataInizio().compareTo(ass.getDataFine())>0){
 							ass.setDataInizio(null);
 							validate=false;
 							JOptionPane.showMessageDialog(null,"La data di inizio deve essere minore della data di fine.","Error", JOptionPane.ERROR_MESSAGE);
+						}
+						else{
+							validate=true;
 						}
 					}
 					if(event.getName().equals("dataFine")){
@@ -130,18 +159,61 @@ public class CantieriController {
 							validate=false;
 							JOptionPane.showMessageDialog(null,"La data di fine deve essere maggiore della data di inizio.","Error", JOptionPane.ERROR_MESSAGE);
 						}
-					}
-					if(validate==true){
-						ArrayList<Ruspa> ruspeDisp=model.elencoRuspeDisponibili(ass.getDataInizio(),ass.getDataFine());
-	
-						for(Ruspa r:ruspeDisp){
-							ass.aggiungiMacchinaALista(r);
+						else{
+							validate=true;
 						}
 					}
+					if(validate==true){
+						aggiornaElencoMacchine(ass);
+					}
+				}
+				else{
+					validate=false;
 				}
 			}
 			
 		};
+	}
+	private ActionListener cambioTipoMacchina(AddAssociazione view){
+		final AddAssociazione ass=view;
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				tipoMacchina=((JComboBox)arg0.getSource()).getSelectedItem().toString();
+				if(validate==true)
+					aggiornaElencoMacchine(ass);
+				// TODO Auto-generated method stub
+				
+			}
+		};
+	}
+	
+	private void aggiornaElencoMacchine(AddAssociazione ass){
+		ass.clearList();
+		if(tipoMacchina.equals("Ruspa")){
+			ArrayList<Ruspa> ruspeDisp=model.elencoRuspeDisponibili(ass.getDataInizio(),ass.getDataFine());
+			for(Ruspa r:ruspeDisp){
+				ass.aggiungiMacchinaALista(r);
+			}
+		}
+		if(tipoMacchina.equals("Gru")){
+			ArrayList<Gru> gruDisp=model.elencoGruDisponibili(ass.getDataInizio(),ass.getDataFine());
+			for(Gru r:gruDisp){
+				ass.aggiungiMacchinaALista(r);
+			}
+		}
+		if(tipoMacchina.equals("Escavatore")){
+			ArrayList<Escavatore> escavatoreDisp=model.elencoEscavatoreDisponibili(ass.getDataInizio(),ass.getDataFine());
+			for(Escavatore r:escavatoreDisp){
+				ass.aggiungiMacchinaALista(r);
+			}
+		}
+		if(tipoMacchina.equals("Camion")){
+			ArrayList<Camion> camionDisp=model.elencoCamionDisponibili(ass.getDataInizio(),ass.getDataFine());
+			for(Camion r:camionDisp){
+				ass.aggiungiMacchinaALista(r);
+			}
+		}
 	}
 
 }

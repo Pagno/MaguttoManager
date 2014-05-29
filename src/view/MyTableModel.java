@@ -31,7 +31,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
     		data.remove(i);
     		fireTableDataChanged();
     		return true;
-    	}catch(IndexOutOfBoundsException eroor){
+    	}catch(IndexOutOfBoundsException error){
     		return false;
     	}
     }

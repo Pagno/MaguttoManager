@@ -30,8 +30,11 @@ import javax.swing.table.AbstractTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
-public class AddAssociazione extends JDialog {
+
+public class AddAssociazione extends JDialog{
 
 	/**
 	 * 
@@ -40,14 +43,16 @@ public class AddAssociazione extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
 
-	private JButton okButton,btnAggiungi;
+	private JButton okButton,btnAggiungi,btnRimuovi;
 	private JTable table;
 	private JScrollPane scrollPane,listScroller;
 	private JList list;
 	private JLabel lblCantiere;
 	private TableModel tableModel;
 	private DefaultListModel listModel;
+	private JComboBox tipoMacchina;
 	private JDateChooser dataInizio,dataFine;
+	
 
 	/**
 	 * Create the dialog.
@@ -68,6 +73,7 @@ public class AddAssociazione extends JDialog {
 
 		okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
+		okButton.addActionListener(okButtonListener());
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
@@ -132,6 +138,15 @@ public class AddAssociazione extends JDialog {
 		btnAggiungi = new JButton("Aggiungi");
 		btnAggiungi.setBounds(330, 135, 120, 25);
 		panel.add(btnAggiungi);
+		
+		tipoMacchina = new JComboBox();
+		tipoMacchina.setModel(new DefaultComboBoxModel(new String[] {"Ruspa", "Gru", "Camion", "Escavatore"}));
+		tipoMacchina.setBounds(418, 22, 126, 25);
+		panel.add(tipoMacchina);
+		
+		btnRimuovi = new JButton("Rimuovi");
+		btnRimuovi.setBounds(330, 177, 117, 25);
+		panel.add(btnRimuovi);
 
 		setVisible(true);
 	}
@@ -140,6 +155,34 @@ public class AddAssociazione extends JDialog {
 	}
 	public void aggiungiAssoziazioneListener(ActionListener act){
 		btnAggiungi.addActionListener(act);
+	}
+	public void aggiungiComboBoxListener(ActionListener act){
+		tipoMacchina.addActionListener(act);
+	}
+	public void aggiungiRimuoviListener(ActionListener act){
+		btnRimuovi.addActionListener(act);
+	}
+	public ActionListener okButtonListener(){
+		return new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+			
+		};
+	}
+	
+	
+	public void clearList(){
+		listModel.clear();
+	}
+	public int getSelectedAssociazione(){
+		return table.getSelectedRow();
+	}
+	public void rimuoviAssociazioneSelezionata(){
+		tableModel.removeData(table.getSelectedRow());
 	}
 	public void addData(String[] data){
 		tableModel.addData(data);
@@ -201,6 +244,15 @@ public class AddAssociazione extends JDialog {
 		}
 		public String getColumnName(int col) {
 	        return columnsName[col];
+	    }
+		public boolean removeData(int i){
+	    	try{
+	    		data.remove(i);
+	    		fireTableDataChanged();
+	    		return true;
+	    	}catch(IndexOutOfBoundsException error){
+	    		return false;
+	    	}
 	    }
 
 		@Override

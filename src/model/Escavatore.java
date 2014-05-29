@@ -1,6 +1,6 @@
 package model;
 
-class Escavatore extends Macchina{
+public class Escavatore extends Macchina{
 	private int capacitaMax;
 	private int profonditaMax;
 	private int portataMax;
