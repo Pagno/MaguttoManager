@@ -5,10 +5,17 @@ import java.util.ArrayList;
 
 class ModelRuspa extends ModelMacchina{
 	private ArrayList<Ruspa> listaRuspe;
+	private static ModelRuspa istanza;
 
-
-	public ModelRuspa(){
+	private ModelRuspa(){
 		listaRuspe=new ArrayList<Ruspa>();
+	}
+	
+	public static synchronized ModelRuspa getModelRuspa(){
+		if(istanza==null){
+			istanza=new ModelRuspa();
+		}
+		return istanza;
 	}
 
 

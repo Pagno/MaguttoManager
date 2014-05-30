@@ -7,10 +7,18 @@ class ElencoAssociazioni{
 
 	private ArrayList<Associazione> associazioni;
 	private int codice;
+	private static ElencoAssociazioni istanza;
 
-	public ElencoAssociazioni(){
+	private ElencoAssociazioni(){
 		associazioni=new ArrayList<Associazione>();
 		codice=0;
+	}
+	
+	public static synchronized ElencoAssociazioni getElencoAssociazioni(){
+		if(istanza==null){
+			istanza=new ElencoAssociazioni();
+		}
+		return istanza;
 	}
 
 	public void inserisciAssociazione(Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
@@ -48,7 +56,7 @@ class ElencoAssociazioni{
 		return false;
 	}
 
-	public ArrayList<Associazione> getElencoAssociazioni(){
+	public ArrayList<Associazione> getElencoAssociazioniList(){
 		return associazioni;
 	}
 

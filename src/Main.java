@@ -34,8 +34,8 @@ public class Main {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 
-		Database db=new Database();
-		ModelConnector m=new ModelConnector(db);
+		Database db=Database.getDatabase();
+		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
 		MainController vis=new MainController(m,mainView);
 

@@ -5,11 +5,18 @@ import java.util.ArrayList;
 
 class ModelGru extends ModelMacchina{
 	private ArrayList<Gru> listaGru;
+	private static ModelGru istanza;
 
-	public ModelGru(){
+	private ModelGru(){
 		listaGru=new ArrayList<Gru>();
 	}
 
+	public static synchronized ModelGru getModelGru(){
+		if(istanza==null){
+			istanza=new ModelGru();
+		}
+		return istanza;
+	}
 
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		incrementaCodice();

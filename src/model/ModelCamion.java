@@ -5,9 +5,17 @@ import java.util.ArrayList;
 
 class ModelCamion extends ModelMacchina{
 	private ArrayList<Camion> listaCamion;
+	private static ModelCamion istanza;
 
-	public ModelCamion(){
+	private ModelCamion(){
 		listaCamion=new ArrayList<Camion>();
+	}
+	
+	public static synchronized ModelCamion getModelCamion(){
+		if(istanza==null){
+			istanza=new ModelCamion();
+		}
+		return istanza;
 	}
 
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
