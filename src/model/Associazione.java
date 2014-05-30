@@ -1,4 +1,5 @@
 package model;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -46,6 +47,12 @@ public class Associazione implements Cloneable {
 	}
 	
 	public String getStrDataInizio() {
+		
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("yyyy-MM-dd");
+	    
+		return df.format(dataInizio.getTime());
+		/*System.out.println(data);
 		String year = (new Integer(dataInizio.get(Calendar.YEAR))).toString();
 		Integer temp=0;
 		if(dataInizio.get(Calendar.MONTH)==Calendar.JANUARY){temp=1;}
@@ -65,7 +72,7 @@ public class Associazione implements Cloneable {
 		temp = new Integer(dataInizio.get(Calendar.DAY_OF_MONTH));
 		String day = "0" + temp.toString();
 		day = day.substring(day.length()-2, day.length());
-		return year +"-"+ month +"-"+ day;
+		return year +"-"+ month +"-"+ day;*/
 	}
 
 	public void setDataInizio(GregorianCalendar dataInizio) {
@@ -77,6 +84,15 @@ public class Associazione implements Cloneable {
 	}
 	
 	public String getStrDataFine() {
+
+		
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("yyyy-MM-dd");
+	    
+		return df.format(dataFine.getTime());
+		
+		
+		/*
 		String year = (new Integer(dataFine.get(Calendar.YEAR))).toString();
 		Integer temp=0;
 		if(dataFine.get(Calendar.MONTH)==Calendar.JANUARY){temp=1;}
@@ -96,7 +112,7 @@ public class Associazione implements Cloneable {
 		temp = new Integer(dataFine.get(Calendar.DAY_OF_MONTH));
 		String day = "0" + temp.toString();
 		day = day.substring(day.length()-2, day.length());
-		return year +"-"+ month +"-"+ day;
+		return year +"-"+ month +"-"+ day;*/
 	}
 
 	public void setDataFine(GregorianCalendar dataFine) {

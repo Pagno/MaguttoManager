@@ -1,4 +1,5 @@
 package model;
+import java.text.SimpleDateFormat;
 import java.util.*;
 class Cantiere {
 	private int codice;
@@ -36,6 +37,13 @@ class Cantiere {
 	}
 	
 	public String getStrDataApertura() {
+
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("yyyy-MM-dd");
+	    
+		return df.format(dataApertura.getTime());
+		
+		/*
 		String year = (new Integer(dataApertura.get(Calendar.YEAR))).toString();
 		Integer temp=0;
 		if(dataApertura.get(Calendar.MONTH)==Calendar.JANUARY){temp=1;}
@@ -56,6 +64,7 @@ class Cantiere {
 		String day = "0" + temp.toString();
 		day = day.substring(day.length()-2, day.length());
 		return year +"-"+ month +"-"+ day;
+		*/
 	}
 
 	public void setDataApertura(GregorianCalendar dataApertura) {
@@ -67,6 +76,14 @@ class Cantiere {
 	}
 	
 	public String getStrDataChiusura() {
+		
+
+
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("yyyy-MM-dd");
+	    
+		return df.format(dataChiusura.getTime());
+		/*
 		String year = (new Integer(dataChiusura.get(Calendar.YEAR))).toString();
 		Integer temp=0;
 		if(dataChiusura.get(Calendar.MONTH)==Calendar.JANUARY){temp=1;}
@@ -86,7 +103,7 @@ class Cantiere {
 		temp = new Integer(dataChiusura.get(Calendar.DAY_OF_MONTH));
 		String day = "0" + temp.toString();
 		day = day.substring(day.length()-2, day.length());
-		return year +"-"+ month +"-"+ day;
+		return year +"-"+ month +"-"+ day;*/
 	}
 
 	public void setDataChiusura(GregorianCalendar dataChiusura) {

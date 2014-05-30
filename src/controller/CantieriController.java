@@ -56,7 +56,6 @@ public class CantieriController {
 				//cantieriView.getAssociazioniList();
 				
 				
-				System.out.println(nome+" - "+indirizzo+" - "+cantieriView.getDataInizio()+" - "+cantieriView.getDataFine());
 				cantieriView.dispose();
 				GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
 				GregorianCalendar fine=new GregorianCalendar();fine.setTime(cantieriView.getDataFine());
@@ -64,15 +63,16 @@ public class CantieriController {
 				for(String[] data:lista){
 
 					String[] tokens = data[2].split("/");
-					GregorianCalendar i=new GregorianCalendar(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]));
+					GregorianCalendar i=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
+					
+					
 					tokens = data[3].split("/");
-					GregorianCalendar f=new GregorianCalendar(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]));
+					GregorianCalendar f=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
 					model.aggiungiAssociazione(Integer.parseInt(data[0]), cod, i, f);
-					System.out.println(data[0]+" - "+cod+" - "+data[2]+" - "+data[3]);
 				}
 			}};
 	}
-	public ActionListener ViewAddAssociazioniListener(){
+	public ActionListener OpenViewAddAssociazioniListener(){
 		return new ActionListener() {
 			
 			@Override
@@ -93,16 +93,25 @@ public class CantieriController {
 		};
 		
 	}
+	
+
+	public ActionListener ChiudiViewAggiungiAssocizioni(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				lista.clear();
+			}
+		};		
+	}
+	
 	public ActionListener btnRimuoviListener(final AddAssociazione view){
 		return new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Elimino la riga:"+view.getSelectedAssociazione());
-				System.out.println("Grandezza lista prima:"+lista.size());
 				lista.remove(view.getSelectedAssociazione());
 				view.rimuoviAssociazioneSelezionata();
-				System.out.println("Grandezza lista dopo:"+lista.size());
 			}
 		};
 		

@@ -46,7 +46,6 @@ public class InsertController {
 			}
 		};
 	}
-
 	public ActionListener InsertRuspaListener(EditRuspa d) {
 		final EditRuspa dialog=d;
 		return new ActionListener() {
@@ -66,7 +65,7 @@ public class InsertController {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"I campi:\n - Capacità\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"I campi:\n - Capacit��\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
 									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -91,7 +90,7 @@ public class InsertController {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"I campi:\n - Capacità\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"I campi:\n - Capacit��\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
 									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -117,7 +116,7 @@ public class InsertController {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"I campi:\n - Capacità\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"I campi:\n - Capacit��\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
 									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}

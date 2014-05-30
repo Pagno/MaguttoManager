@@ -111,6 +111,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"values(" + item.getCodice() + ",'" + item.getNomeCantiere() + "','" + 
 						item.getStrDataApertura() + "','" + item.getStrDataChiusura() + 
 						"','" + item.getIndirizzo() + "')" ;
+				System.out.println(qry);
 				db.update(qry);
 			}
 
@@ -149,6 +150,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"values(" + item.getID() + "," + item.getMacchina().getCodice() + "," + 
 						item.getCantiere().getCodice() + ",'" + item.getStrDataInizio() + 
 						"','" + item.getStrDataFine() + "')" ;
+				System.out.println(qry);
 				db.update(qry);
 			}
 

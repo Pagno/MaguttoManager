@@ -43,7 +43,7 @@ public class AddAssociazione extends JDialog{
 	
 	private final JPanel contentPanel = new JPanel();
 
-	private JButton okButton,btnAggiungi,btnRimuovi;
+	private JButton okButton,btnAggiungi,btnRimuovi,chiudiBtn;
 	private JTable table;
 	private JScrollPane scrollPane,listScroller;
 	private JList list;
@@ -78,7 +78,7 @@ public class AddAssociazione extends JDialog{
 		getRootPane().setDefaultButton(okButton);
 
 
-		JButton chiudiBtn = new JButton("Chiudi");
+		chiudiBtn = new JButton("Chiudi");
 		chiudiBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -129,7 +129,7 @@ public class AddAssociazione extends JDialog{
 
 		dataFine = new JDateChooser();
 		dataFine.setDateFormatString("dd-MM-yy");
-		dataFine.setMaxSelectableDate(inizio);
+		dataFine.setMinSelectableDate(inizio);
 		dataFine.setMaxSelectableDate(fine);
 		dataFine.setBounds(668, 22, 120, 25);
 		dataFine.setName("dataFine");
@@ -152,6 +152,9 @@ public class AddAssociazione extends JDialog{
 	}
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
+	}
+	public void setChiudiButtonListeners(ActionListener act) {
+		chiudiBtn.addActionListener(act);
 	}
 	public void aggiungiAssoziazioneListener(ActionListener act){
 		btnAggiungi.addActionListener(act);

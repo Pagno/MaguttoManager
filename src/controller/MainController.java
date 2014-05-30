@@ -62,7 +62,6 @@ public class MainController{
 		model.addCantiereObserver(mainView.dataModelCantiere);		
 	}
 	
-	
 	public ActionListener ExitManager(){
 		return new ActionListener() {
 			@Override
@@ -132,7 +131,7 @@ public class MainController{
 				// TODO Auto-generated method stub
 				EditCantiere ins = new EditCantiere(mainView);
 				CantieriController ctr = new CantieriController(model,ins);
-				ins.setInsertAddAssociazioneListeners(ctr.ViewAddAssociazioniListener());
+				ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
 				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener());
 				//ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
 			}
