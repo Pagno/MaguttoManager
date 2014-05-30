@@ -92,4 +92,10 @@ class ModelGru extends ModelMacchina{
 		}
 		return tmp;
 	}
+	
+	static void resetForTest(){
+		if(istanza!=null){
+			istanza=null;
+		}
+	}
 }
