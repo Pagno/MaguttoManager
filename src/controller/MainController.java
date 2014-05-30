@@ -144,6 +144,9 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showGruData();
+				mainView.disableBtnModifica(false);
+				mainView.addModificaListener(VisualizzaModificaGruView());
+				mainView.addEliminaListener(EliminaMacchina());
 			}
 
 		};
@@ -155,6 +158,7 @@ public class MainController{
 				mainView.showRuspaData();
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaRuspaView());
+				mainView.addEliminaListener(EliminaMacchina());
 			}
 		};
 	}
@@ -165,6 +169,7 @@ public class MainController{
 				mainView.showCamionData();
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaCamionView());
+				mainView.addEliminaListener(EliminaMacchina());
 			}
 		};
 	}
@@ -175,6 +180,7 @@ public class MainController{
 				mainView.showEscavatoreData();
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaEscavatoreView());
+				mainView.addEliminaListener(EliminaMacchina());
 			}
 		};
 	}
@@ -184,6 +190,7 @@ public class MainController{
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCantiereData();
 				mainView.disableBtnModifica(true);
+				mainView.addEliminaListener(EliminaCantiere());
 			}
 		};
 	}
@@ -268,4 +275,21 @@ public class MainController{
 			}
 		};
 	}
+	public ActionListener EliminaCantiere(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] v=mainView.getSelectedData();
+
+				if(v==null){
+					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+				}else{
+					model.eliminaCantiere(Integer.parseInt(v[0].toString()));
+					System.out.println("Codice cantiere: "+v[0].toString());
+					mainView.removeSelected();
+				}
+			}
+		};
+	}
+	
 }

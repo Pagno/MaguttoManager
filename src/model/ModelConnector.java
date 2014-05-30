@@ -111,7 +111,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"values(" + item.getCodice() + ",'" + item.getNomeCantiere() + "','" + 
 						item.getStrDataApertura() + "','" + item.getStrDataChiusura() + 
 						"','" + item.getIndirizzo() + "')" ;
-				System.out.println(qry);
 				db.update(qry);
 			}
 
@@ -150,7 +149,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"values(" + item.getID() + "," + item.getMacchina().getCodice() + "," + 
 						item.getCantiere().getCodice() + ",'" + item.getStrDataInizio() + 
 						"','" + item.getStrDataFine() + "')" ;
-				System.out.println(qry);
 				db.update(qry);
 			}
 
@@ -230,6 +228,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	@Override
 	public boolean eliminaCantiere(int codice) {
+		for(Associazione item:ea.getElencoAssociazioni()){
+			if(item.getCantiere().getCodice()==codice)
+				eliminaAssociazione(item.getID());
+		}
 		return lc.rimuoviCantiere(codice);
 	}
 
@@ -247,7 +249,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public boolean eliminaAssociazione(int codice) {
 		return ea.eliminaAssociazione(codice);
 	}
-
+	
+	public boolean eliminaAssociazioniCantiere(int codiceCantiere) {
+		return ea.eliminaAssociazione(codiceCantiere);
+	}
 	private void loadDB(){
 
 		//carica le macchine

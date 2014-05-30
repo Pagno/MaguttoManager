@@ -234,10 +234,7 @@ public class MainView extends JFrame {
 
 	
 	public void disableBtnModifica(boolean disable){
-		if(disable==true)
-			editBtn.disable();
-		else
-			editBtn.enable();
+			editBtn.setEnabled(!disable);
 	}
 	public void removeSelected(){
 		((MyTableModel)table.getModel()).removeData(table.getSelectedRow());

@@ -6,15 +6,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
-
-import model.Associazione;
 import model.Camion;
 import model.Escavatore;
 import model.Gru;
