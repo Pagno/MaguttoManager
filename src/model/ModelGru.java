@@ -95,9 +95,7 @@ class ModelGru extends ModelMacchina{
 
 	//Metodi realizzati appositamente per il testing della classe.
 	
-	int getNextCodice(){
-		return getCodice()+1;
-	}
+
 	static void resetForTest(){
 		if(istanza!=null){
 			istanza=null;

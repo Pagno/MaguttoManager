@@ -28,7 +28,7 @@ public class ModelGruTest {
 		assertTrue(lista.contains(new Gru(11, "Vicaro", "OMV 168 A", 23, 1500, 20,26)));
 		assertTrue(lista.contains(new Gru(26, "Cattaneo", "CM 78A", 45, 2200, 28,27)));
 		ModelGru prova=ModelGru.getModelGru();
-		assertSame(mg,prova);;
+		assertSame(mg,prova);
 	}
 
 	@Test

@@ -18,4 +18,10 @@ public abstract class ModelMacchina extends Observable{
 	protected int getCodice(){
 		return codice;
 	}
+
+	//Metodi realizzati appositamente per il testing della classe.
+	
+	int getNextCodice(){
+		return getCodice()+1;
+	}
 }
