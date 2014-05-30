@@ -112,4 +112,15 @@ class ModelCantiere extends Observable{
 		return tmp;
 	}
 
+	//Metodi realizzati appositamente per il testing della classe.
+	
+		int getNextCodice(){
+			return codice+1;
+		}
+		
+		static void resetForTest(){
+			if(istanza!=null){
+				istanza=null;
+			}
+		}
 }

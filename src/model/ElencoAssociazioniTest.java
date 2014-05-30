@@ -60,7 +60,7 @@ public class ElencoAssociazioniTest {
 
 	@Test
 	public void testEliminaAssociazione() {
-		ea.eliminaAssociazione(4);
+		assertTrue(ea.eliminaAssociazione(4));
 		ArrayList<Associazione>lista=ea.getElencoAssociazioniList();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Associazione(4, new Camion(7,"Iveco","ICamion",97,96,95) , new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01)), new GregorianCalendar(2014,04,25), new GregorianCalendar(2015,11,13))));
