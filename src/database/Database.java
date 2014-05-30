@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * Classe che gestisce le connessioni, le interrogazioni, le modifiche e le disconnessioni al database.
@@ -32,8 +33,17 @@ public class Database implements DatabaseInterface{
 	/** The a. */
 	static boolean a;
 
-	public Database(){
+	private static Database istanza;
+	
+	private Database(){
 
+	}
+	
+	public static synchronized Database getDatabase(){
+		if(istanza==null){
+			istanza=new Database();
+		}
+		return istanza;
 	}
 
 	/**

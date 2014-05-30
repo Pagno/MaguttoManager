@@ -9,10 +9,18 @@ class ModelCantiere extends Observable{
 
 	private ArrayList<Cantiere> listaCantieri;
 	private Integer codice;
+	private static ModelCantiere istanza;
 
-	public ModelCantiere(){
+	private ModelCantiere(){
 		listaCantieri=new ArrayList<Cantiere>();
 		codice=0;
+	}
+	
+	public static synchronized ModelCantiere getModelCantiere(){
+		if(istanza==null){
+			istanza=new ModelCantiere();
+		}
+		return istanza;
 	}
 
 	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){

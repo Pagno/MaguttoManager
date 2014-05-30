@@ -5,9 +5,17 @@ import java.util.ArrayList;
 
 class ModelEscavatore extends ModelMacchina{
 	private ArrayList<Escavatore> listaEscavatori;
-
-	public ModelEscavatore(){
+	private static ModelEscavatore istanza;
+	
+	private ModelEscavatore(){
 		listaEscavatori=new ArrayList<Escavatore>();
+	}
+	
+	public static synchronized ModelEscavatore getModelEscavatore(){
+		if(istanza==null){
+			istanza=new ModelEscavatore();
+		}
+		return istanza;
 	}
 
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita){

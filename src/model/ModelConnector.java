@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,11 +20,19 @@ public class ModelConnector extends Observable implements ModelInterface{
 	private ModelCantiere lc;
 	private ElencoAssociazioni ea;
 	private DatabaseInterface db;
+	private static ModelConnector istanza;
 
-	public ModelConnector(DatabaseInterface data){
+	private ModelConnector(DatabaseInterface data){
 		db=data;
 		inizializza();
 		//refreshData();
+	}
+	
+	public static synchronized ModelConnector getModelConnector(DatabaseInterface data){
+		if(istanza==null){
+			istanza=new ModelConnector(data);
+		}
+		return istanza;
 	}
 	
 	public void addGruObserver(Observer observer){
@@ -144,7 +151,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"," + item.getPortataMassima() + "," + item.getAltezzaMassima() + ")" ;
 				db.update(qry);
 			}
-			for(Associazione item:ea.getElencoAssociazioni()){
+			for(Associazione item:ea.getElencoAssociazioniList()){
 				String qry = "insert into APP.Associazione (Id,CodiceMacchina,CodiceCantiere,DataInizio,DataFine)"+
 						"values(" + item.getID() + "," + item.getMacchina().getCodice() + "," + 
 						item.getCantiere().getCodice() + ",'" + item.getStrDataInizio() + 
@@ -416,12 +423,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	private void inizializza() {
 		ModelMacchina.initCodice();
-		mg = new ModelGru();
-		mc = new ModelCamion();
-		mr = new ModelRuspa();
-		me = new ModelEscavatore();
-		ea = new ElencoAssociazioni();
-		lc = new ModelCantiere();
+		mg = ModelGru.getModelGru();
+		mc = ModelCamion.getModelCamion();
+		mr = ModelRuspa.getModelRuspa();
+		me = ModelEscavatore.getModelEscavatore();
+		ea = ElencoAssociazioni.getElencoAssociazioni();
+		lc = ModelCantiere.getModelCantiere();
 	}
 
 	//da rimuovere
@@ -445,7 +452,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp;
 		for(Ruspa r:mr.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioni()){
+			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
 					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
 						disp=false;
@@ -462,7 +469,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp;
 		for(Gru r:mg.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioni()){
+			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
 					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
 						disp=false;
@@ -478,7 +485,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp;
 		for(Camion r:mc.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioni()){
+			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
 					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
 						disp=false;
@@ -494,7 +501,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp;
 		for(Escavatore r:me.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioni()){
+			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
 					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
 						disp=false;
