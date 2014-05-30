@@ -24,12 +24,12 @@ import view.EditCantiere;
 public class CantieriController {
 	private ModelConnector model;
 	private EditCantiere cantieriView;
-	private ArrayList<String[]> lista;
+	private ArrayList<Object[]> lista;
 	
 	public CantieriController(ModelConnector m,EditCantiere view) {
 		cantieriView=view;
 		model = m;	
-		lista=new ArrayList<String[]>();
+		lista=new ArrayList<Object[]>();
 	}
 	public ActionListener InsertNuovoCantiereListener(){
 		return new ActionListener(){
@@ -57,15 +57,9 @@ public class CantieriController {
 				GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
 				GregorianCalendar fine=new GregorianCalendar();fine.setTime(cantieriView.getDataFine());
 				int cod=model.aggiungiCantiere(nome, indirizzo, inizio, fine);
-				for(String[] data:lista){
+				for(Object[] data:lista){
 
-					String[] tokens = data[2].split("/");
-					GregorianCalendar i=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
-					
-					
-					tokens = data[3].split("/");
-					GregorianCalendar f=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
-					model.aggiungiAssociazione(Integer.parseInt(data[0]), cod, i, f);
+					model.aggiungiAssociazione((int)(data[0]), cod, (GregorianCalendar)data[1], (GregorianCalendar)data[2]);
 				}
 			}};
 	}
@@ -126,10 +120,11 @@ public class CantieriController {
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
 			    
+				Object[] list={r.getCodice(),ass.getDataInizio(),ass.getDataFine()};
+				lista.add(list);
 				String[] data={Integer.toString(r.getCodice()),r.getProduttore()+" - "+r.getModello()
 						,df.format(ass.getDataInizio().getTime())
 						,df.format(ass.getDataFine().getTime())};
-				lista.add(data);
 				ass.addData(data);
 			}
 		};

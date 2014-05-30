@@ -47,7 +47,6 @@ public class Associazione implements Cloneable {
 	}
 	
 	public String getStrDataInizio() {
-		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("yyyy-MM-dd");
 	    

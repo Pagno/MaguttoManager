@@ -2,6 +2,7 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -235,10 +236,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	@Override
 	public boolean eliminaCantiere(int codice) {
-		for(Associazione item:ea.getElencoAssociazioni()){
-			if(item.getCantiere().getCodice()==codice)
-				eliminaAssociazione(item.getID());
+		for(int i=0;i<ea.getElencoAssociazioniList().size();i++){
+			if(ea.getElencoAssociazioniList().get(i).getCantiere().getCodice()==codice)
+			eliminaAssociazione(ea.getElencoAssociazioniList().get(i).getID());
 		}
+
 		return lc.rimuoviCantiere(codice);
 	}
 
@@ -478,8 +480,16 @@ public class ModelConnector extends Observable implements ModelInterface{
 			disp=true;
 			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
-					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+					if((inizio.after(item.getDataInizio()) && inizio.before(item.getDataFine())) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0)
+							|| (inizio.compareTo(item.getDataInizio())<0 && fine.compareTo(item.getDataFine())>0))
 						disp=false;
+					
+					/*if(inizio.compareTo(item.getDataInizio())>0)
+						System.out.println("inizio after");
+					if(inizio.compareTo(item.getDataInizio())<0)
+						System.out.println("inizio before");
+					*/
+					
 				}
 			}
 			if(disp==true)
