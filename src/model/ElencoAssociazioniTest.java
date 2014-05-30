@@ -27,6 +27,8 @@ public class ElencoAssociazioniTest {
 		assertTrue(lista.contains(new Associazione(3, new Ruspa(3,"Yamaha","YRuspa",100,99,98) , new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)), new GregorianCalendar(2014,03,11), new GregorianCalendar(2014,12,01))));
 		assertTrue(lista.contains(new Associazione(4, new Camion(7,"Iveco","ICamion",97,96,95) , new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01)), new GregorianCalendar(2014,04,25), new GregorianCalendar(2015,11,13))));
 		assertTrue(lista.contains(new Associazione(9, new Escavatore(11,"Caterpillar","CEscavatore",94,93,92,91) , new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05)), new GregorianCalendar(2014,06,06), new GregorianCalendar(2017,01,29))));
+		ElencoAssociazioni prova=ElencoAssociazioni.getElencoAssociazioni();
+		assertSame(ea,prova);
 	}
 
 	@Test
