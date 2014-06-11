@@ -93,5 +93,13 @@ class ModelRuspa extends ModelMacchina{
 		}
 		return tmp;
 	}
+	
+	//Metodi realizzati appositamente per il testing della classe.
+	
 
+	static void resetForTest(){
+		if(istanza!=null){
+			istanza=null;
+		}
+	}
 }

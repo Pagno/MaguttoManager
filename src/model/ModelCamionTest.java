@@ -13,7 +13,6 @@ public class ModelCamionTest {
 	ModelCamion mc;
 	
 	@Before
-
 	public void init() {
 		ModelCamion.resetForTest();
 		mc=ModelCamion.getModelCamion();

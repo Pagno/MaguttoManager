@@ -90,5 +90,13 @@ class ModelEscavatore extends ModelMacchina{
 			tmp = tmp + item.toString() + "\n";
 		}
 		return tmp;
+	}	
+	//Metodi realizzati appositamente per il testing della classe.
+	
+
+	static void resetForTest(){
+		if(istanza!=null){
+			istanza=null;
+		}
 	}
 }

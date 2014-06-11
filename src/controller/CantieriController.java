@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
+
 import model.Camion;
 import model.Escavatore;
 import model.Gru;
@@ -23,15 +24,12 @@ import view.EditCantiere;
 
 public class CantieriController {
 	private ModelConnector model;
-	private EditCantiere cantieriView;
-	private ArrayList<Object[]> lista;
 	
-	public CantieriController(ModelConnector m,EditCantiere view) {
-		cantieriView=view;
-		model = m;	
-		lista=new ArrayList<Object[]>();
+	public CantieriController(ModelConnector m) {
+		model = m;
 	}
-	public ActionListener InsertNuovoCantiereListener(){
+	public ActionListener InsertNuovoCantiereListener(EditCantiere view){
+		final EditCantiere cantieriView=view;
 		return new ActionListener(){
 
 			@Override
@@ -46,24 +44,18 @@ public class CantieriController {
 				String indirizzo=cantieriView.getIndirizzo();
 				
 				//MEMORIZZO CANTIERE
-				//model.aggiungiCantiere(nome, indirizzo, dataInizio, dataFine);
-				// TODO Auto-generated method stub
-				
-				//MEMORIZZO LE ASSOCIAZIONI DI QUEL CANTIERE
-				//cantieriView.getAssociazioniList();
-				
-				
+				model.aggiungiCantiere(nome, indirizzo, dataInizio, dataFine);				
 				cantieriView.dispose();
-				GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
+				/*GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
 				GregorianCalendar fine=new GregorianCalendar();fine.setTime(cantieriView.getDataFine());
 				int cod=model.aggiungiCantiere(nome, indirizzo, inizio, fine);
 				for(Object[] data:lista){
 
 					model.aggiungiAssociazione((int)(data[0]), cod, (GregorianCalendar)data[1], (GregorianCalendar)data[2]);
-				}
+				}*/
 			}};
 	}
-	public ActionListener OpenViewAddAssociazioniListener(){
+	/*public ActionListener OpenViewAddAssociazioniListener(){
 		return new ActionListener() {
 			
 			@Override
@@ -73,7 +65,7 @@ public class CantieriController {
 				String nome=cantieriView.getNomeCantiere();
 				/*if(cantieriView.getDataInizio()==null || cantieriView.getDataFine()==null ){
 					JOptionPane.showMessageDialog(null,"Scelezionare prima Data Inizo e Data Fine Cantiere.","Error", JOptionPane.ERROR_MESSAGE);		
-				}else{*/
+				}else{
 					AddAssociazione ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
 					ass.aggiungiAssoziazioneListener(AddAssociazioniListener(ass));
 					ass.addPropertyChangeListener(checkAssociazioni(ass));
@@ -83,15 +75,19 @@ public class CantieriController {
 			}
 		};
 		
-	}
+	}*/
 	
-
-	public ActionListener ChiudiViewAggiungiAssocizioni(){
+	public ActionListener addAssociazioneListener(AddAssociazione v,final int codiceCantiere){
+		final AddAssociazione view=v;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				lista.clear();
+				ArrayList<Object[]> list=view.getAssociazioni();
+				
+				for(Object[] obj:list){
+					model.aggiungiAssociazione((int)obj[0], codiceCantiere,(GregorianCalendar)obj[2],(GregorianCalendar) obj[3]);
+				}
+				view.dispose();
 			}
 		};		
 	}
@@ -101,7 +97,6 @@ public class CantieriController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				lista.remove(view.getSelectedAssociazione());
 				view.rimuoviAssociazioneSelezionata();
 			}
 		};
@@ -109,23 +104,20 @@ public class CantieriController {
 	}
 	
 	
-	public ActionListener AddAssociazioniListener(AddAssociazione view){
+	public ActionListener addMacchinaListener(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Macchina r=(Macchina)ass.getListSlected();
-				SimpleDateFormat df = new SimpleDateFormat();
-			    df.applyPattern("dd/MM/yyyy");
+				Macchina r=(Macchina)ass.getListSelected();
+				
 			    
-				Object[] list={r.getCodice(),ass.getDataInizio(),ass.getDataFine()};
-				lista.add(list);
-				String[] data={Integer.toString(r.getCodice()),r.getProduttore()+" - "+r.getModello()
-						,df.format(ass.getDataInizio().getTime())
-						,df.format(ass.getDataFine().getTime())};
-				ass.addData(data);
+				Object[] list={r.getCodice(),r.getProduttore()+" - "+r.getModello()
+						,ass.getDataInizio(),ass.getDataFine()};
+				
+				ass.addData(list);
 			}
 		};
 		
@@ -175,7 +167,7 @@ public class CantieriController {
 			
 		};
 	}
-	private ActionListener cambioTipoMacchina(AddAssociazione view){
+	public ActionListener cambioTipoMacchina(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new ActionListener() {
 			@Override

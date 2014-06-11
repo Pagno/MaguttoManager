@@ -4,8 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import javax.swing.JOptionPane;
 
+import view.AddAssociazione;
 import view.EditCamion;
 import view.EditCantiere;
 import view.EditEscavatore;
@@ -32,7 +36,7 @@ public class MainController{
 		mainView.addAggiungiCamionListener(VisualizzaInserimentoCamion());
 		mainView.addAggiungiEscavatoreListener(VisualizzaInserimentoEscavatore());
 		mainView.addAggiungiCantiereListener(VisualizzaInserimentoCantiere());
-		
+		mainView.addBtnAddAssocizioneListener(AddAssociazioneView());
 		//TABLE LISTENER
 		mainView.addButtonGruListener(VisualizzaElencoGru());
 		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
@@ -130,9 +134,9 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				EditCantiere ins = new EditCantiere(mainView);
-				CantieriController ctr = new CantieriController(model,ins);
-				ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
-				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener());
+				CantieriController ctr = new CantieriController(model);
+				//ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
+				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener(ins));
 				//ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
 			}
 		};
@@ -147,6 +151,7 @@ public class MainController{
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaGruView());
 				mainView.addEliminaListener(EliminaMacchina());
+				mainView.setVisibleBtnModifica(false);
 			}
 
 		};
@@ -159,6 +164,7 @@ public class MainController{
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaRuspaView());
 				mainView.addEliminaListener(EliminaMacchina());
+				mainView.setVisibleBtnModifica(false);
 			}
 		};
 	}
@@ -181,6 +187,7 @@ public class MainController{
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaEscavatoreView());
 				mainView.addEliminaListener(EliminaMacchina());
+				mainView.setVisibleBtnModifica(false);
 			}
 		};
 	}
@@ -191,6 +198,7 @@ public class MainController{
 				mainView.showCantiereData();
 				mainView.disableBtnModifica(true);
 				mainView.addEliminaListener(EliminaCantiere());
+				mainView.setVisibleBtnModifica(true);
 			}
 		};
 	}
@@ -285,11 +293,34 @@ public class MainController{
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
 					model.eliminaCantiere(Integer.parseInt(v[0].toString()));
-					System.out.println("Codice cantiere: "+v[0].toString());
 					mainView.removeSelected();
 				}
 			}
 		};
 	}
-	
+	public ActionListener AddAssociazioneView(){
+		return new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Object[] data=mainView.getSelectedData();
+				String[] tokens = ((String)data[3]).split("/");
+				GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
+				tokens = ((String)data[4]).split("/");
+				GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
+				
+				
+				AddAssociazione ass = new AddAssociazione(mainView, data[1].toString(),d,d2);
+				CantieriController ctr = new CantieriController(model);
+				
+				ass.addMacchinaListener(ctr.addMacchinaListener(ass));
+				ass.addPropertyChangeListener(ctr.checkAssociazioni(ass));
+				ass.addComboBoxListener(ctr.cambioTipoMacchina(ass));
+				ass.addRimuoviListener(ctr.btnRimuoviListener(ass));
+				ass.setOkBtnListeners(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
+			}
+			
+		};
+	}
 }

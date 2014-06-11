@@ -21,6 +21,7 @@ import model.Macchina;
 
 import javax.swing.AbstractAction;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -63,7 +64,7 @@ public class AddAssociazione extends JDialog{
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public AddAssociazione(JDialog view,String nomeCantiere,Date inizio,Date fine) {
+	public AddAssociazione(JFrame view,String nomeCantiere,GregorianCalendar inizio,GregorianCalendar fine) {
 		super(view);
 		setSize(new Dimension(790, 363));
 		contentPanel.setLayout(new BorderLayout());
@@ -74,7 +75,6 @@ public class AddAssociazione extends JDialog{
 
 		okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
-		okButton.addActionListener(okButtonListener());
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
@@ -122,16 +122,16 @@ public class AddAssociazione extends JDialog{
 
 		dataInizio = new JDateChooser();
 		dataInizio.setDateFormatString("dd-MM-yy");
-		dataInizio.setMinSelectableDate(inizio);
-		dataInizio.setMaxSelectableDate(fine);
+		dataInizio.setMinSelectableDate(inizio.getTime());
+		dataInizio.setMaxSelectableDate(fine.getTime());
 		dataInizio.setBounds(548, 22, 120, 25);
 		dataInizio.setName("dataInizio");
 		panel.add(dataInizio);
 
 		dataFine = new JDateChooser();
 		dataFine.setDateFormatString("dd-MM-yy");
-		dataFine.setMinSelectableDate(inizio);
-		dataFine.setMaxSelectableDate(fine);
+		dataFine.setMinSelectableDate(inizio.getTime());
+		dataFine.setMaxSelectableDate(fine.getTime());
 		dataFine.setBounds(668, 22, 120, 25);
 		dataFine.setName("dataFine");
 		panel.add(dataFine);
@@ -151,33 +151,22 @@ public class AddAssociazione extends JDialog{
 
 		setVisible(true);
 	}
-	public void setInsertButtonListeners(ActionListener act) {
+
+	public void setOkBtnListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 	public void setChiudiButtonListeners(ActionListener act) {
 		chiudiBtn.addActionListener(act);
 	}
-	public void aggiungiAssoziazioneListener(ActionListener act){
+	public void addMacchinaListener(ActionListener act){
 		btnAggiungi.addActionListener(act);
 	}
-	public void aggiungiComboBoxListener(ActionListener act){
+	public void addComboBoxListener(ActionListener act){
 		tipoMacchina.addActionListener(act);
 	}
-	public void aggiungiRimuoviListener(ActionListener act){
+	public void addRimuoviListener(ActionListener act){
 		btnRimuovi.addActionListener(act);
 	}
-	public ActionListener okButtonListener(){
-		return new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				dispose();
-			}
-			
-		};
-	}
-	
 	
 	public void clearList(){
 		listModel.clear();
@@ -188,10 +177,13 @@ public class AddAssociazione extends JDialog{
 	public void rimuoviAssociazioneSelezionata(){
 		tableModel.removeData(table.getSelectedRow());
 	}
-	public void addData(String[] data){
+	public void addData(Object[] data){
 		tableModel.addData(data);
 	}
-	public Macchina getListSlected(){
+	public ArrayList<Object[]> getAssociazioni(){
+		return tableModel.getData();
+	}
+	public Macchina getListSelected(){
 		return (Macchina)list.getSelectedValue();
 	}
 	public void addPropertyChangeListener(PropertyChangeListener evt){
@@ -232,9 +224,9 @@ public class AddAssociazione extends JDialog{
 		 */
 		private static final long serialVersionUID = -6590327420669891637L;
 
-		String[] columnsName = {"Macchina","dataInizio","dataFine"};
+		private String[] columnsName = {"Macchina","dataInizio","dataFine"};
 
-		private ArrayList<String[]> data=new ArrayList<String[]>();
+		private ArrayList<Object[]> data=new ArrayList<Object[]>();
 		@Override
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
@@ -262,12 +254,20 @@ public class AddAssociazione extends JDialog{
 		@Override
 		public Object getValueAt(int arg0, int arg1) {
 			// TODO Auto-generated method stub
+			if(arg1==1 || arg1==2){
+				SimpleDateFormat df = new SimpleDateFormat();
+			    df.applyPattern("dd/MM/yyyy");
+			    return df.format(((GregorianCalendar)data.get(arg0)[arg1+1]).getTime());
+			}
 			return data.get(arg0)[arg1+1];
 		}
-	    public boolean addData(String[] obj){
+	    public boolean addData(Object[] obj){
 	    	data.add(obj);
 	    	fireTableDataChanged();
 	    	return true;
+	    }
+	    public ArrayList<Object[]> getData(){
+	    	return data;
 	    }
 	}
 }

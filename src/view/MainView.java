@@ -26,7 +26,7 @@ public class MainView extends JFrame {
 	private JTable table;
 	private JScrollPane scrollpane;
 	public MyTableModel dataModelGru,dataModelRuspa,dataModelCamion,dataModelEscavatore,dataModelCantiere;
-	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,btnViewCantiere,editBtn,deleteBtn;
+	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,btnViewCantiere,btnEdit,btnDelete,btnAddAssociazione;
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
 			itemAddCamion;
 	private JMenuItem itemAddCantiere, itemCollegaMacchina;
@@ -75,12 +75,16 @@ public class MainView extends JFrame {
 		scrollpane = new JScrollPane(table);
 		JPanel center=new JPanel();
 		center.setLayout(new BorderLayout(0, 0));
-		editBtn =new JButton("Modifica");
-		deleteBtn=new JButton("Elimina");
+		btnEdit =new JButton("Modifica");
+		btnDelete=new JButton("Elimina");
+		btnAddAssociazione =new JButton("Aggiungi Associazione");
+		btnAddAssociazione.setVisible(false);
+		
 		center.add(scrollpane, BorderLayout.CENTER);
 		JPanel southPanel =new JPanel();
-		southPanel.add(editBtn);
-		southPanel.add(deleteBtn);
+		southPanel.add(btnEdit);
+		southPanel.add(btnDelete);
+		southPanel.add(btnAddAssociazione);
 		center.add(southPanel,BorderLayout.SOUTH);
 		contentPane.add(center, BorderLayout.CENTER);
 		
@@ -175,11 +179,9 @@ public class MainView extends JFrame {
 	public void addAggiungiGruListener(ActionListener act) {
 		itemAddGru.addActionListener(act);
 	}
-
 	public void addAggiungiRuspaListener(ActionListener act) {
 		itemAddRuspa.addActionListener(act);
 	}
-
 	public void addAggiungiCamionListener(ActionListener act) {
 		itemAddCamion.addActionListener(act);
 	}
@@ -192,16 +194,22 @@ public class MainView extends JFrame {
 	
 	//BOTTOM BUTTON
 	public void addModificaListener(ActionListener act) {
-		for( ActionListener al : editBtn.getActionListeners() ) {
-			editBtn.removeActionListener( al );
+		for( ActionListener al : btnEdit.getActionListeners() ) {
+			btnEdit.removeActionListener( al );
 	    }
-		editBtn.addActionListener(act);
+		btnEdit.addActionListener(act);
 	}
 	public void addEliminaListener(ActionListener act) {
-		for( ActionListener al : deleteBtn.getActionListeners() ) {
-			deleteBtn.removeActionListener( al );
+		for( ActionListener al : btnDelete.getActionListeners() ) {
+			btnDelete.removeActionListener( al );
 	    }
-		deleteBtn.addActionListener(act);
+		btnDelete.addActionListener(act);
+	}
+	public void addBtnAddAssocizioneListener(ActionListener act) {
+		for( ActionListener al : btnAddAssociazione.getActionListeners() ) {
+			btnAddAssociazione.removeActionListener( al );
+	    }
+		btnAddAssociazione.addActionListener(act);
 	}
 	
 	
@@ -234,7 +242,10 @@ public class MainView extends JFrame {
 
 	
 	public void disableBtnModifica(boolean disable){
-			editBtn.setEnabled(!disable);
+		btnEdit.setEnabled(!disable);
+	}
+	public void setVisibleBtnModifica(boolean visible){
+		btnAddAssociazione.setVisible(visible);
 	}
 	public void removeSelected(){
 		((MyTableModel)table.getModel()).removeData(table.getSelectedRow());

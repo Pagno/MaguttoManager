@@ -32,10 +32,9 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNome, txtIndirizzo;
-	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine,lblAssociazione;
+	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine;
 	private JButton okButton;
 	private JDateChooser dataInizio,dataFine;
-	private JButton addAssociazione;
 	/**
 	 * Create the dialog.
 	 */
@@ -67,7 +66,6 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		lblIndirizzo = new JLabel("Indirizzo Cantiere:");
 		lblDataInizio = new JLabel("Data Inizio:");
 		lblDataFine = new JLabel("Data Fine:");
-		lblAssociazione =new JLabel("Aggiungi Associazione.");
 		dataInizio = new JDateChooser();
 
 		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
@@ -84,7 +82,6 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		txtIndirizzo.setColumns(15);
 		//dc = new JTextField();
 		//dc.setColumns(5);
-		addAssociazione=new JButton("Add");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -97,15 +94,13 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 								.addComponent(lblNome)
 								.addComponent(lblIndirizzo)
 								.addComponent(lblDataInizio)
-								.addComponent(lblDataFine)
-								.addComponent(lblAssociazione))
+								.addComponent(lblDataFine))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtNome)
 								.addComponent(txtIndirizzo)
 								.addComponent(dataInizio)
-								.addComponent(dataFine)
-								.addComponent(addAssociazione)));
+								.addComponent(dataFine)));
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
 				.addGroup(
@@ -133,13 +128,6 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblDataFine)
 								.addComponent(dataFine,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAssociazione)
-								.addComponent(addAssociazione,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)));
@@ -219,8 +207,5 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	}
 	public ArrayList<Associazione> getAssociazioniList(){
 		return null;
-	}
-	public void setInsertAddAssociazioneListeners(ActionListener act) {
-		addAssociazione.addActionListener(act);
 	}
 }
