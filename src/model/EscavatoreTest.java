@@ -2,15 +2,13 @@ package model;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class EscavatoreTest {
  
 	Escavatore e;
 	
-	@Before
-	public void init(){
+	public EscavatoreTest(){
 		e=new Escavatore(5,"Volvo","Prova",100,99,98,97);
 	}
 	

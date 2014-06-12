@@ -3,12 +3,11 @@ package model;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.Before;
 
 public class CamionTest {
 	Camion c;
-	@Before
-	public void init(){
+	
+	public CamionTest(){
 		c=new Camion(5,"Yamaha","Prova",100,99,98);
 	}
 

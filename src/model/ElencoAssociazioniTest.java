@@ -5,14 +5,13 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ElencoAssociazioniTest {
 
 	ElencoAssociazioni ea;
-	@Before
-	public void init(){
+	
+	public ElencoAssociazioniTest(){
 		ElencoAssociazioni.resetForTest();
 		ea=ElencoAssociazioni.getElencoAssociazioni();
 		ea.caricaAssociazione(3, new Ruspa(3,"Yamaha","YRuspa",100,99,98) , new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)), new GregorianCalendar(2014,03,11), new GregorianCalendar(2014,12,01));

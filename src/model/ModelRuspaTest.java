@@ -4,15 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ModelRuspaTest {
 
 	ModelRuspa mr;
 	
-	@Before
-	public void init() {
+	public ModelRuspaTest() {
 		ModelRuspa.resetForTest();
 		mr=ModelRuspa.getModelRuspa();
 		mr.caricaRuspa(5,"Caterpillar","Ruspona",1,5000,2);

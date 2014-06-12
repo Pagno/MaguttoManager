@@ -5,14 +5,12 @@ import static org.junit.Assert.*;
 import java.util.GregorianCalendar;
 
 import org.junit.Test;
-import org.junit.Before;
 
 public class CantiereTest {
 	
 	Cantiere c;
 	
-	@Before
-	public void init(){
+	public CantiereTest(){
 		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,12,31));
 	}
 

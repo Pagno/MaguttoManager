@@ -5,15 +5,13 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ModelCantiereTest {
 
 	ModelCantiere mc;
 	
-	@Before
-	public void init(){
+	public ModelCantiereTest(){
 		ModelCantiere.resetForTest();
 		mc=ModelCantiere.getModelCantiere();
 		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));

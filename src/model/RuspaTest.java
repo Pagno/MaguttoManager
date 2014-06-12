@@ -2,15 +2,13 @@ package model;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class RuspaTest {
 
 	Ruspa r;
 	
-	@Before
-	public void init(){
+	public RuspaTest(){
 		r=new Ruspa(5,"Caterpillar","Ruspona",100,99,98);
 	}
 	

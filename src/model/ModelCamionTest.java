@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ModelCamionTest {
@@ -12,8 +11,7 @@ public class ModelCamionTest {
 
 	ModelCamion mc;
 	
-	@Before
-	public void init() {
+	public ModelCamionTest() {
 		ModelCamion.resetForTest();
 		mc=ModelCamion.getModelCamion();
 		mc.caricaCamion(5, "Iveco", "Daily 35C10", 2000, 1340, 4);

@@ -3,23 +3,21 @@ package model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ModelGruTest {
 
-	
 	ModelGru mg;
-	@Before
-	public void init(){
+	
+	public ModelGruTest(){
 		ModelGru.resetForTest();
 		mg=ModelGru.getModelGru();
 		mg.caricaGru(3, "Raimondi", "MRT33+3", 360, 2000, 35,30);
 		mg.caricaGru(11, "Vicaro", "OMV 168 A", 23, 1500, 20,26);
 		mg.caricaGru(26, "Cattaneo", "CM 78A", 45, 2200, 28,27);
 	}
+	
 	@Test
 	public void testGetModelGru() {
 		ArrayList<Gru>lista=mg.getLista();

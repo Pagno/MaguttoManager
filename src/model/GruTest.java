@@ -2,15 +2,13 @@ package model;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class GruTest {
 	
 	Gru g;
 	
-	@Before
-	public void init(){
+	public GruTest(){
 		g=new Gru(5,"Volvo","Grattacielo",360,100,99,98);
 	}
 	

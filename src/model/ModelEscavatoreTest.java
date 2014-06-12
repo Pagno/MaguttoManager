@@ -4,15 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ModelEscavatoreTest {
 
 	ModelEscavatore mr;
 	
-	@Before
-	public void init() {
+	public ModelEscavatoreTest() {
 		ModelEscavatore.resetForTest();
 		mr=ModelEscavatore.getModelEscavatore();
 		mr.caricaEscavatore(5,"Liebherr","R9250",16,32,4,3);
