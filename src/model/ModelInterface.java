@@ -4,7 +4,7 @@ import java.util.GregorianCalendar;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface ModelInterface.
+ *   Interface ModelInterface.
  */
 public interface ModelInterface {
 	
@@ -22,25 +22,25 @@ public interface ModelInterface {
 	/**
 	 * Aggiungi gru.
 	 *
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param rotazione the rotazione
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
-	 * @param altezza the altezza
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param rotazione   rotazione
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
+	 * @param altezza   altezza
 	 */
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza);
 	
 	/**
 	 * Modifica gru.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param rotazione the rotazione
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
-	 * @param altezza the altezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param rotazione   rotazione
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
+	 * @param altezza   altezza
 	 */
 	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza);
 
@@ -48,23 +48,23 @@ public interface ModelInterface {
 	/**
 	 * Aggiungi camion.
 	 *
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
 	 */
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza);
 	
 	/**
 	 * Modifica camion.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
 	 */
 	public void modificaCamion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza);
 
@@ -72,23 +72,23 @@ public interface ModelInterface {
 	/**
 	 * Aggiungi ruspa.
 	 *
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
 	 */
 	public void aggiungiRuspa(String produttore, String Modello,int capacita,int portata,int altezza);
 	
 	/**
 	 * Modifica ruspa.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
 	 */
 	public void modificaRuspa(int codice, String produttore, String Modello,int capacita,int portata,int altezza);
 
@@ -96,25 +96,25 @@ public interface ModelInterface {
 	/**
 	 * Aggiungi escavatore.
 	 *
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
-	 * @param profondita the profondita
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
+	 * @param profondita   profondita
 	 */
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita);
 	
 	/**
 	 * Modifica escavatore.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
-	 * @param profondita the profondita
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
+	 * @param profondita   profondita
 	 */
 	public void modificaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita);
 	
@@ -122,7 +122,7 @@ public interface ModelInterface {
 	/**
 	 * Elimina macchina.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaMacchina(int codice);
@@ -131,29 +131,29 @@ public interface ModelInterface {
 	/**
 	 * Aggiungi cantiere.
 	 *
-	 * @param nomeCantiere the nome cantiere
-	 * @param indirizzo the indirizzo
-	 * @param dataApertura the data apertura
-	 * @param dataChiusura the data chiusura
-	 * @return the int
+	 * @param nomeCantiere   nome cantiere
+	 * @param indirizzo   indirizzo
+	 * @param dataApertura   data apertura
+	 * @param dataChiusura   data chiusura
+	 * @return   int
 	 */
 	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura);
 	
 	/**
 	 * Modifica cantiere.
 	 *
-	 * @param codice the codice
-	 * @param nomeCantiere the nome cantiere
-	 * @param indirizzo the indirizzo
-	 * @param dataApertura the data apertura
-	 * @param dataChiusura the data chiusura
+	 * @param codice   codice
+	 * @param nomeCantiere   nome cantiere
+	 * @param indirizzo   indirizzo
+	 * @param dataApertura   data apertura
+	 * @param dataChiusura   data chiusura
 	 */
 	public void modificaCantiere(int codice, String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura);
 	
 	/**
 	 * Elimina cantiere.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaCantiere(int codice);
@@ -162,28 +162,28 @@ public interface ModelInterface {
 	/**
 	 * Aggiungi associazione.
 	 *
-	 * @param codiceMacchina the codice macchina
-	 * @param codiceCantiere the codice cantiere
-	 * @param dataInizio the data inizio
-	 * @param dataFine the data fine
+	 * @param codiceMacchina   codice macchina
+	 * @param codiceCantiere   codice cantiere
+	 * @param dataInizio   data inizio
+	 * @param dataFine   data fine
 	 */
 	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine);
 	
 	/**
 	 * Modifica associazione.
 	 *
-	 * @param codice the codice
-	 * @param codiceMacchina the codice macchina
-	 * @param codiceCantiere the codice cantiere
-	 * @param dataInizio the data inizio
-	 * @param dataFine the data fine
+	 * @param codice   codice
+	 * @param codiceMacchina   codice macchina
+	 * @param codiceCantiere   codice cantiere
+	 * @param dataInizio   data inizio
+	 * @param dataFine   data fine
 	 */
 	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine);
 	
 	/**
 	 * Elimina associazione.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaAssociazione(int codice);

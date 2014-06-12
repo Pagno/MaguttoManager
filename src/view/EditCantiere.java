@@ -8,6 +8,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -25,56 +26,64 @@ import com.toedter.calendar.JDateChooser;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EditCantiere.
+ *   Class EditCantiere.
  */
 public class EditCantiere extends JDialog implements PropertyChangeListener{
 
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
 	
-	/** The content panel. */
+	/**   content panel. */
 	private final JPanel contentPanel = new JPanel();
 	
-	/** The txt indirizzo. */
+	/**   txt indirizzo. */
 	private JTextField txtNome, txtIndirizzo;
 	
-	/** The lbl data fine. */
+	/**   lbl data fine. */
 	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine;
 	
-	/** The ok button. */
+	/**   ok button. */
 	private JButton okButton;
 	
-	/** The data fine. */
+	/**   data fine. */
 	private JDateChooser dataInizio,dataFine;
 	
 	/**
-	 * Create the dialog.
+	 * Create   dialog.
 	 *
-	 * @param view the view
-	 * @param obj the obj
+	 * @param view   view
+	 * @param obj   obj
 	 */
 	public EditCantiere(JFrame view, Object[] obj) {
 		this(view);
-		setTitle("Modifica Camion");
+		setTitle("Modifica Cantiere");
 		setTextBox(obj);
 		okButton.setText("Modifica");
+		
 	}
 	
 	/**
-	 * Sets the text box.
+	 * Sets   text box.
 	 *
-	 * @param v the new text box
+	 * @param v   new text box
 	 */
 	private void setTextBox( Object[] v){
 		txtNome.setText(v[1].toString());
 		txtIndirizzo.setText(v[2].toString());
 		//dc.setText(v[3].toString());
+		String[] tokens = ((String)v[3]).split("/");
+		Date d=new Date(Integer.parseInt(tokens[2])-1900,Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
+		dataInizio.setDate(d);
+		
+		tokens = ((String)v[4]).split("/");
+		Date d2=new Date(Integer.parseInt(tokens[2])-1900,Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
+		dataFine.setDate(d2);
 	}
 
 	/**
-	 * Instantiates a new edits the cantiere.
+	 * Instantiates a new edits   cantiere.
 	 *
-	 * @param view the view
+	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
 	public EditCantiere(JFrame view) {
@@ -196,54 +205,54 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	}
 
 	/**
-	 * Sets the insert button listeners.
+	 * Sets   insert button listeners.
 	 *
-	 * @param act the new insert button listeners
+	 * @param act   new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets the nome cantiere.
+	 * Gets   nome cantiere.
 	 *
-	 * @return the nome cantiere
+	 * @return   nome cantiere
 	 */
 	public String getNomeCantiere() {
 		return txtNome.getText();
 	}
 
 	/**
-	 * Gets the indirizzo.
+	 * Gets   indirizzo.
 	 *
-	 * @return the indirizzo
+	 * @return   indirizzo
 	 */
 	public String getIndirizzo() {
 		return txtIndirizzo.getText();
 	}
 	
 	/**
-	 * Gets the data inizio.
+	 * Gets   data inizio.
 	 *
-	 * @return the data inizio
+	 * @return   data inizio
 	 */
 	public Date getDataInizio(){
 		return dataInizio.getDate();
 	}
 	
 	/**
-	 * Gets the data fine.
+	 * Gets   data fine.
 	 *
-	 * @return the data fine
+	 * @return   data fine
 	 */
 	public Date getDataFine(){
 		return dataFine.getDate();
 	}
 	
 	/**
-	 * Sets the minima data fine.
+	 * Sets   minima data fine.
 	 *
-	 * @param d the new minima data fine
+	 * @param d   new minima data fine
 	 */
 	public void setMinimaDataFine(Date d){
 		if(dataFine.getDate()==null || dataFine.getDate().before(d))
@@ -252,9 +261,9 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	}
 	
 	/**
-	 * Sets the data inizio changed listener.
+	 * Sets   data inizio changed listener.
 	 *
-	 * @param list the new data inizio changed listener
+	 * @param list   new data inizio changed listener
 	 */
 	public void setDataInizioChangedListener(PropertyChangeListener list){
 		dataInizio.addPropertyChangeListener(list);
@@ -273,9 +282,9 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	}
 	
 	/**
-	 * Gets the associazioni list.
+	 * Gets   associazioni list.
 	 *
-	 * @return the associazioni list
+	 * @return   associazioni list
 	 */
 	public ArrayList<Associazione> getAssociazioniList(){
 		return null;

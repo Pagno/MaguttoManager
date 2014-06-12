@@ -17,32 +17,32 @@ import javax.swing.JTextField;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EditEscavatore.
+ *   Class EditEscavatore.
  */
 public class EditEscavatore extends JDialog {
 
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
 	
-	/** The content panel. */
+	/**   content panel. */
 	private final JPanel contentPanel = new JPanel();
 	
-	/** The txt profondita. */
+	/**   txt profondita. */
 	private JTextField txtProduttore, txtModello, txtAltezza,txtPortataMax, txtCapacita,txtProfondita;
 	
-	/** The lbl cap. */
+	/**   lbl cap. */
 	private JLabel lblProduttore, lblModello, lblAltezza,lblProfondita,
 			lblPortataMax, lblCapacita, lblMetri, lblTon,lblMetri2,
 			lblCap;
 	
-	/** The ok button. */
+	/**   ok button. */
 	private JButton okButton;
 
 	/**
-	 * Create the dialog.
+	 * Create   dialog.
 	 *
-	 * @param view the view
-	 * @param obj the obj
+	 * @param view   view
+	 * @param obj   obj
 	 */
 	public EditEscavatore(JFrame view, Object[] obj) {
 		this(view);
@@ -52,9 +52,9 @@ public class EditEscavatore extends JDialog {
 	}
 	
 	/**
-	 * Sets the text box.
+	 * Sets   text box.
 	 *
-	 * @param v the new text box
+	 * @param v   new text box
 	 */
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
@@ -66,9 +66,9 @@ public class EditEscavatore extends JDialog {
 	}
 
 	/**
-	 * Instantiates a new edits the escavatore.
+	 * Instantiates a new edits   escavatore.
 	 *
-	 * @param view the view
+	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
 	public EditEscavatore(JFrame view) {
@@ -267,27 +267,27 @@ public class EditEscavatore extends JDialog {
 	}
 
 	/**
-	 * Sets the insert button listeners.
+	 * Sets   insert button listeners.
 	 *
-	 * @param act the new insert button listeners
+	 * @param act   new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets the produttore.
+	 * Gets   produttore.
 	 *
-	 * @return the produttore
+	 * @return   produttore
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets the modello.
+	 * Gets   modello.
 	 *
-	 * @return the modello
+	 * @return   modello
 	 */
 	public String getModello() {
 		return txtModello.getText();
@@ -295,36 +295,36 @@ public class EditEscavatore extends JDialog {
 
 
 	/**
-	 * Gets the altezza.
+	 * Gets   altezza.
 	 *
-	 * @return the altezza
+	 * @return   altezza
 	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
 	
 	/**
-	 * Gets the profondita.
+	 * Gets   profondita.
 	 *
-	 * @return the profondita
+	 * @return   profondita
 	 */
 	public String getProfondita() {
 		return txtProfondita.getText();
 	}
 	
 	/**
-	 * Gets the capacita.
+	 * Gets   capacita.
 	 *
-	 * @return the capacita
+	 * @return   capacita
 	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
 	/**
-	 * Gets the portata massima.
+	 * Gets   portata massima.
 	 *
-	 * @return the portata massima
+	 * @return   portata massima
 	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();

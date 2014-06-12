@@ -7,17 +7,17 @@ import java.util.Observable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelCantiere.
+ *   Class ModelCantiere.
  */
 class ModelCantiere extends Observable{
 
-	/** The lista cantieri. */
+	/**   lista cantieri. */
 	private ArrayList<Cantiere> listaCantieri;
 	
-	/** The codice. */
+	/**   codice. */
 	private Integer codice;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ModelCantiere istanza;
 
 	/**
@@ -29,9 +29,9 @@ class ModelCantiere extends Observable{
 	}
 	
 	/**
-	 * Gets the model cantiere.
+	 * Gets   model cantiere.
 	 *
-	 * @return the model cantiere
+	 * @return   model cantiere
 	 */
 	public static synchronized ModelCantiere getModelCantiere(){
 		if(istanza==null){
@@ -43,11 +43,11 @@ class ModelCantiere extends Observable{
 	/**
 	 * Aggiungi cantiere.
 	 *
-	 * @param nomeCantiere the nome cantiere
-	 * @param indirizzo the indirizzo
-	 * @param dataApertura the data apertura
-	 * @param dataChiusura the data chiusura
-	 * @return the int
+	 * @param nomeCantiere   nome cantiere
+	 * @param indirizzo   indirizzo
+	 * @param dataApertura   data apertura
+	 * @param dataChiusura   data chiusura
+	 * @return   int
 	 */
 	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		codice++;
@@ -67,11 +67,11 @@ class ModelCantiere extends Observable{
 	/**
 	 * Carica cantiere.
 	 *
-	 * @param codice the codice
-	 * @param nomeCantiere the nome cantiere
-	 * @param indirizzo the indirizzo
-	 * @param dataApertura the data apertura
-	 * @param dataChiusura the data chiusura
+	 * @param codice   codice
+	 * @param nomeCantiere   nome cantiere
+	 * @param indirizzo   indirizzo
+	 * @param dataApertura   data apertura
+	 * @param dataChiusura   data chiusura
 	 */
 	void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		if(this.codice<codice){
@@ -90,11 +90,11 @@ class ModelCantiere extends Observable{
 	/**
 	 * Modifica cantiere.
 	 *
-	 * @param codice the codice
-	 * @param nomeCantiere the nome cantiere
-	 * @param indirizzo the indirizzo
-	 * @param dataApertura the data apertura
-	 * @param dataChiusura the data chiusura
+	 * @param codice   codice
+	 * @param nomeCantiere   nome cantiere
+	 * @param indirizzo   indirizzo
+	 * @param dataApertura   data apertura
+	 * @param dataChiusura   data chiusura
 	 */
 	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		for(Cantiere item:listaCantieri){
@@ -116,7 +116,7 @@ class ModelCantiere extends Observable{
 	/**
 	 * Rimuovi cantiere.
 	 *
-	 * @param nomeCantiere the nome cantiere
+	 * @param nomeCantiere   nome cantiere
 	 * @return true, if successful
 	 */
 	public boolean rimuoviCantiere(String nomeCantiere){
@@ -133,7 +133,7 @@ class ModelCantiere extends Observable{
 	/**
 	 * Rimuovi cantiere.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean rimuoviCantiere(int codice){
@@ -148,19 +148,19 @@ class ModelCantiere extends Observable{
 	}
 
 	/**
-	 * Gets the lista.
+	 * Gets   lista.
 	 *
-	 * @return the lista
+	 * @return   lista
 	 */
 	public ArrayList<Cantiere> getLista(){
 		    return listaCantieri;
 	}
 
 	/**
-	 * Gets the cantiere.
+	 * Gets   cantiere.
 	 *
-	 * @param codice the codice
-	 * @return the cantiere
+	 * @param codice   codice
+	 * @return   cantiere
 	 */
 	public Cantiere getCantiere(Integer codice){
 		for(Cantiere item:listaCantieri){
@@ -185,9 +185,9 @@ class ModelCantiere extends Observable{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	/**
-	 * Gets the next codice.
+	 * Gets   next codice.
 	 *
-	 * @return the next codice
+	 * @return   next codice
 	 */
 	int getNextCodice(){
 		return codice+1;

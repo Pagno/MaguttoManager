@@ -6,11 +6,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GruTest.
+ *   Class GruTest.
  */
 public class GruTest {
 	
-	/** The g. */
+	/**   g. */
 	Gru g;
 	
 	/**

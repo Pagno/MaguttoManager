@@ -15,25 +15,25 @@ import java.sql.Statement;
  */
 public class Database implements DatabaseInterface{
 
-	/** The driver. */
+	/**   driver. */
 	public static String driver = null;
 
-	/** The con. */
+	/**   con. */
 	public static Connection con = null;
 
-	/** The res. */
+	/**   res. */
 	public static ResultSet res = null;
 
-	/** The cmd. */
+	/**   cmd. */
 	public static Statement cmd = null;
 
-	/** The query. */
+	/**   query. */
 	public static String query = null;
 
-	/** The a. */
+	/**   a. */
 	static boolean a;
 
-	/** The istanza. */
+	/**   istanza. */
 	private static Database istanza;
 	
 	/**
@@ -44,9 +44,9 @@ public class Database implements DatabaseInterface{
 	}
 	
 	/**
-	 * Gets the database.
+	 * Gets   database.
 	 *
-	 * @return the database
+	 * @return   database
 	 */
 	public static synchronized Database getDatabase(){
 		if(istanza==null){
@@ -58,11 +58,11 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Connessione al DB.
 	 *
-	 * @throws DBException the java db exception
+	 * @throws DBException   java db exception
 	 */
 	@Override
 	public void connect() throws DBException{
-		// Load the driver derby
+		// Load   driver derby
 		driver = "org.apache.derby.jdbc.EmbeddedDriver";
 		try {
 			Class.forName(driver);
@@ -70,7 +70,7 @@ public class Database implements DatabaseInterface{
 		catch(Exception e){
 			throw new DBException(1);
 		}
-		// Create the connection string
+		// Create   connection string
 		String url = "jdbc:derby:MyDB;create=true";
 		// Get a connection
 		try{
@@ -92,7 +92,7 @@ public class Database implements DatabaseInterface{
 	 * Controlla se esistono le tabelle nel DB.
 	 *
 	 * @return true, if is empty
-	 * @throws DBException the java db exception
+	 * @throws DBException   java db exception
 	 */
 	@Override
 	public boolean isEmpty() throws DBException{
@@ -112,15 +112,15 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Interrogazione al DB.
 	 *
-	 * @param qry the qry
-	 * @return the result set
-	 * @throws DBException the java db exception
+	 * @param qry   qry
+	 * @return   result set
+	 * @throws DBException   java db exception
 	 */
 	@Override
 	public ResultSet interrogate(String qry) throws DBException{
 		a = true;
 
-		// Query and save the results in a ResultSet object
+		// Query and save   results in a ResultSet object
 		try {
 			res = cmd.executeQuery(qry);
 		} catch (SQLException e) {
@@ -134,8 +134,8 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Update table into DB.
 	 *
-	 * @param qry the qry
-	 * @throws DBException the java db exception
+	 * @param qry   qry
+	 * @throws DBException   java db exception
 	 */
 	@Override
 	public void update(String qry) throws DBException {
@@ -152,7 +152,7 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Disconnect from DB.
 	 *
-	 * @throws DBException the java db exception
+	 * @throws DBException   java db exception
 	 */
 	@Override
 	public void disconnect() throws DBException {

@@ -8,32 +8,32 @@ import javax.swing.table.AbstractTableModel;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MyTableModel.
+ *   Class MyTableModel.
  */
 public class MyTableModel extends AbstractTableModel implements Observer{ 
  	
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** The column names. */
+	/**   column names. */
 	private String[] columnNames;
 	
-	/** The data. */
+	/**   data. */
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
 			
     /**
      * Instantiates a new my table model.
      *
-     * @param column the column
+     * @param column   column
      */
     public MyTableModel(String[] column){
     	columnNames=column;
     }
     
     /**
-     * Adds the data.
+     * Adds   data.
      *
-     * @param obj the obj
+     * @param obj   obj
      * @return true, if successful
      */
     public boolean addData(Object[] obj){
@@ -43,9 +43,9 @@ public class MyTableModel extends AbstractTableModel implements Observer{
     }
     
     /**
-     * Removes the data.
+     * Removes   data.
      *
-     * @param i the i
+     * @param i   i
      * @return true, if successful
      */
     public boolean removeData(int i){
@@ -61,7 +61,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
     /**
      * Remve data.
      *
-     * @param data the data
+     * @param data   data
      * @return true, if successful
      */
     public boolean remveData(Object[] data){
@@ -75,7 +75,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
     /**
      * Reset data.
      *
-     * @param d the d
+     * @param d   d
      */
     public void resetData(ArrayList<Object[]> d){
     	data=d;
@@ -123,9 +123,9 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 	}
 	
 	/**
-	 * Removes the row.
+	 * Removes   row.
 	 *
-	 * @param row the row
+	 * @param row   row
 	 */
 	public void removeRow(int row){
 		data.remove(row);
@@ -152,10 +152,10 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 	}
 	
 	/**
-	 * Gets the row data.
+	 * Gets   row data.
 	 *
-	 * @param row the row
-	 * @return the row data
+	 * @param row   row
+	 * @return   row data
 	 */
 	public Object[] getRowData(int row){
 		return data.get(row);

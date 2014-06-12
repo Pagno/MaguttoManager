@@ -9,11 +9,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelCantiereTest.
+ *   Class ModelCantiereTest.
  */
 public class ModelCantiereTest {
 
-	/** The mc. */
+	/**   mc. */
 	ModelCantiere mc;
 	
 	/**

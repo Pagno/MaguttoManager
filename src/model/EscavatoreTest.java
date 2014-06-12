@@ -6,11 +6,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EscavatoreTest.
+ *   Class EscavatoreTest.
  */
 public class EscavatoreTest {
  
-	/** The e. */
+	/**   e. */
 	Escavatore e;
 	
 	/**

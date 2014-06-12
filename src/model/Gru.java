@@ -2,32 +2,32 @@ package model;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Gru.
+ *   Class Gru.
  */
 public class Gru extends Macchina{
 	
-	/** The lunghezza. */
+	/**   lunghezza. */
 	private int lunghezza;
 	
-	/** The altezza. */
+	/**   altezza. */
 	private int altezza;
 	
-	/** The portata max. */
+	/**   portata max. */
 	private int portataMax;
 	
-	/** The angolo rotazione. */
+	/**   angolo rotazione. */
 	private int angoloRotazione;
 	
 	/**
 	 * Instantiates a new gru.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param rotazione the rotazione
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
-	 * @param altezza the altezza
+	 * @param codice   codice della Gru
+	 * @param produttore   produttore della Gru
+	 * @param modello   modello della Gru
+	 * @param rotazione   rotazione della Gru
+	 * @param portata   portata della Gru
+	 * @param lunghezza   lunghezza della Gru
+	 * @param altezza   altezza della Gru
 	 */
 	public Gru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		super(codice,produttore,modello);
@@ -40,60 +40,60 @@ public class Gru extends Macchina{
 	
 	//GET
 	/**
-	 * Gets the lunghezza.
+	 * Gets   lunghezza.
 	 *
-	 * @return the lunghezza
+	 * @return   lunghezza
 	 */
 	public int getLunghezza(){		return this.lunghezza;	}
 	
 	/**
-	 * Gets the portata massima.
+	 * Gets   portata massima.
 	 *
-	 * @return the portata massima
+	 * @return   portata massima
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets the altezza.
+	 * Gets   altezza.
 	 *
-	 * @return the altezza
+	 * @return   altezza
 	 */
 	public int getAltezza(){		return this.altezza;	}
 	
 	/**
-	 * Gets the angolo rotazione.
+	 * Gets   angolo rotazione.
 	 *
-	 * @return the angolo rotazione
+	 * @return   angolo rotazione
 	 */
 	public int getAngoloRotazione(){		return this.angoloRotazione;	}
 	
 	
 	//SET
 	/**
-	 * Sets the lunghezza massima.
+	 * Sets   lunghezza massima.
 	 *
-	 * @param lunghezza the new lunghezza massima
+	 * @param lunghezza   new lunghezza massima
 	 */
 	public void setLunghezzaMassima(int lunghezza){	this.lunghezza=lunghezza;	}
 	
 	/**
-	 * Sets the portata massima.
+	 * Sets   portata massima.
 	 *
-	 * @param portata the new portata massima
+	 * @param portata   new portata massima
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets the altezza.
+	 * Sets   altezza.
 	 *
-	 * @param altezza the new altezza
+	 * @param altezza   new altezza
 	 */
 	public void setAltezza(int altezza){		this.altezza=altezza;	}
 	
 	/**
-	 * Sets the angolo rotazione.
+	 * Sets   angolo rotazione.
 	 *
-	 * @param rotazione the new angolo rotazione
+	 * @param rotazione   new angolo rotazione
 	 */
 	public void setAngoloRotazione(int rotazione){	this.angoloRotazione=rotazione;	}
 	

@@ -9,11 +9,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ElencoAssociazioniTest.
+ *   Class ElencoAssociazioniTest.
  */
 public class ElencoAssociazioniTest {
 
-	/** The ea. */
+	/**   ea. */
 	ElencoAssociazioni ea;
 	
 	/**

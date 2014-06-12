@@ -4,33 +4,33 @@ import java.util.*;
 // TODO: Auto-generated Javadoc
 
 /**
- * The Class Cantiere.
+ *   Class Cantiere.
  */
 class Cantiere {
 	
-	/** The codice. */
+	/**   codice. */
 	private int codice;
 	
-	/** The nome cantiere. */
+	/**   nome cantiere. */
 	private String nomeCantiere;
 	
-	/** The indirizzo. */
+	/**   indirizzo. */
 	private String indirizzo;
 	
-	/** The data apertura. */
+	/**   data apertura. */
 	private GregorianCalendar dataApertura;
 	
-	/** The data chiusura. */
+	/**   data chiusura. */
 	private GregorianCalendar dataChiusura;
 
 	/**
 	 * Instantiates a new cantiere.
 	 *
-	 * @param codice the codice
-	 * @param nomeCantiere the nome cantiere
-	 * @param indirizzo the indirizzo
-	 * @param dataApertura the data apertura
-	 * @param dataChiusura the data chiusura
+	 * @param codice codice del Cantiere
+	 * @param nomeCantiere nome cantiere del Cantiere
+	 * @param indirizzo indirizzo del Cantiere
+	 * @param dataApertura data apertura del Cantiere
+	 * @param dataChiusura data chiusura del Cantiere
 	 */
 	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura ){
 		this.setCodice(codice);
@@ -41,54 +41,54 @@ class Cantiere {
 	}
 
 	/**
-	 * Gets the nome cantiere.
+	 * Gets nome cantiere.
 	 *
-	 * @return the nome cantiere
+	 * @return nome cantiere
 	 */
 	public String getNomeCantiere() {
 		return nomeCantiere;
 	}
 
 	/**
-	 * Sets the nome cantiere.
+	 * Sets nome cantiere.
 	 *
-	 * @param nomeCantiere the new nome cantiere
+	 * @param nomeCantiere new nome cantiere
 	 */
 	public void setNomeCantiere(String nomeCantiere) {
 		this.nomeCantiere = nomeCantiere;
 	}
 
 	/**
-	 * Gets the indirizzo.
+	 * Gets indirizzo.
 	 *
-	 * @return the indirizzo
+	 * @return indirizzo
 	 */
 	public String getIndirizzo() {
 		return indirizzo;
 	}
 
 	/**
-	 * Sets the indirizzo.
+	 * Sets indirizzo.
 	 *
-	 * @param indirizzo the new indirizzo
+	 * @param indirizzo new indirizzo
 	 */
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
 
 	/**
-	 * Gets the data apertura.
+	 * Gets   data apertura.
 	 *
-	 * @return the data apertura
+	 * @return   data apertura
 	 */
 	public GregorianCalendar getDataApertura() {
 		return dataApertura;
 	}
 	
 	/**
-	 * Gets the str data apertura.
+	 * Gets str data apertura.
 	 *
-	 * @return the str data apertura
+	 * @return str data apertura
 	 */
 	public String getStrDataApertura() {
 
@@ -122,27 +122,27 @@ class Cantiere {
 	}
 
 	/**
-	 * Sets the data apertura.
+	 * Sets data apertura.
 	 *
-	 * @param dataApertura the new data apertura
+	 * @param dataApertura new data apertura
 	 */
 	public void setDataApertura(GregorianCalendar dataApertura) {
 		this.dataApertura = dataApertura;
 	}
 
 	/**
-	 * Gets the data chiusura.
+	 * Gets data chiusura.
 	 *
-	 * @return the data chiusura
+	 * @return data chiusura
 	 */
 	public GregorianCalendar getDataChiusura() {
 		return dataChiusura;
 	}
 	
 	/**
-	 * Gets the str data chiusura.
+	 * Gets str data chiusura.
 	 *
-	 * @return the str data chiusura
+	 * @return str data chiusura
 	 */
 	public String getStrDataChiusura() {
 		
@@ -176,27 +176,27 @@ class Cantiere {
 	}
 
 	/**
-	 * Sets the data chiusura.
+	 * Sets data chiusura.
 	 *
-	 * @param dataChiusura the new data chiusura
+	 * @param dataChiusura new data chiusura
 	 */
 	public void setDataChiusura(GregorianCalendar dataChiusura) {
 		this.dataChiusura = dataChiusura;
 	}
 
 	/**
-	 * Gets the codice.
+	 * Gets codice.
 	 *
-	 * @return the codice
+	 * @return codice
 	 */
 	public int getCodice() {
 		return codice;
 	}
 
 	/**
-	 * Sets the codice.
+	 * Sets codice.
 	 *
-	 * @param codice the new codice
+	 * @param codice new codice
 	 */
 	public void setCodice(Integer codice) {
 		this.codice = codice;

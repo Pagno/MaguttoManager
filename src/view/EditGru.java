@@ -17,34 +17,34 @@ import javax.swing.JTextField;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EditGru.
+ *   Class EditGru.
  */
 public class EditGru extends JDialog {
 
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = -1364300169692664613L;
 
 	
-	/** The content panel. */
+	/**   content panel. */
 	private final JPanel contentPanel = new JPanel();
 	
-	/** The txt angolo rotazione. */
+	/**   txt angolo rotazione. */
 	private JTextField txtProduttore, txtModello, txtLunghezza, txtAltezza,
 			txtPortataMax, txtAngoloRotazione;
 	
-	/** The lbl angolo. */
+	/**   lbl angolo. */
 	private JLabel lblProduttore, lblModello, lblLunghezza, lblAltezza,
 			lblPortataMax, lblAngoloRotazione, lblMetri, lblTon, lblMetri2,
 			lblAngolo;
 	
-	/** The ok button. */
+	/**   ok button. */
 	private JButton okButton;
 
 	/**
-	 * Create the dialog.
+	 * Create   dialog.
 	 *
-	 * @param view the view
-	 * @param obj the obj
+	 * @param view   view
+	 * @param obj   obj
 	 */
 	public EditGru(JFrame view, Object[] obj) {
 		this(view);
@@ -53,9 +53,9 @@ public class EditGru extends JDialog {
 	}
 	
 	/**
-	 * Sets the text box.
+	 * Sets   text box.
 	 *
-	 * @param v the new text box
+	 * @param v   new text box
 	 */
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
@@ -67,9 +67,9 @@ public class EditGru extends JDialog {
 	}
 	
 	/**
-	 * Instantiates a new edits the gru.
+	 * Instantiates a new edits   gru.
 	 *
-	 * @param view the view
+	 * @param view   view
 	 */
 	public EditGru(JFrame view) {
 		super(view);
@@ -266,63 +266,63 @@ public class EditGru extends JDialog {
 	}
 
 	/**
-	 * Sets the insert button listeners.
+	 * Sets   insert button listeners.
 	 *
-	 * @param act the new insert button listeners
+	 * @param act   new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets the produttore.
+	 * Gets   produttore.
 	 *
-	 * @return the produttore
+	 * @return   produttore
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets the modello.
+	 * Gets   modello.
 	 *
-	 * @return the modello
+	 * @return   modello
 	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
 	/**
-	 * Gets the lunghezza.
+	 * Gets   lunghezza.
 	 *
-	 * @return the lunghezza
+	 * @return   lunghezza
 	 */
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
 
 	/**
-	 * Gets the altezza.
+	 * Gets   altezza.
 	 *
-	 * @return the altezza
+	 * @return   altezza
 	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
 
 	/**
-	 * Gets the angolo rotazione.
+	 * Gets   angolo rotazione.
 	 *
-	 * @return the angolo rotazione
+	 * @return   angolo rotazione
 	 */
 	public String getAngoloRotazione() {
 		return txtAngoloRotazione.getText();
 	}
 
 	/**
-	 * Gets the portata massima.
+	 * Gets   portata massima.
 	 *
-	 * @return the portata massima
+	 * @return   portata massima
 	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();

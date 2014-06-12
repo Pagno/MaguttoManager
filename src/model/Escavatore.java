@@ -2,33 +2,33 @@ package model;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Escavatore.
+ *   Class Escavatore.
  */
 public class Escavatore extends Macchina{
 	
-	/** The capacita max. */
+	/**   capacita max. */
 	private int capacitaMax;
 	
-	/** The profondita max. */
+	/**   profondita max. */
 	private int profonditaMax;
 	
-	/** The portata max. */
+	/**   portata max. */
 	private int portataMax;
 	
-	/** The altezza max. */
+	/**   altezza max. */
 	private int altezzaMax;
 	
 	
 	/**
 	 * Instantiates a new escavatore.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
-	 * @param profondita the profondita
+	 * @param codice codice dell'Escavatore
+	 * @param produttore produttore dell'Escavatore
+	 * @param Modello modello dell'Escavatore
+	 * @param capacita capacita dell'Escavatore
+	 * @param portata portata dell'Escavatore
+	 * @param altezza altezza dell'Escavatore
+	 * @param profondita profondita dell'Escavatore
 	 */
 	public Escavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita) {
 		super(codice, produttore, Modello);
@@ -42,60 +42,60 @@ public class Escavatore extends Macchina{
 	
 	//GET
 	/**
-	 * Gets the capacita massima.
+	 * Gets   capacita massima.
 	 *
-	 * @return the capacita massima
+	 * @return   capacita massima
 	 */
 	public int getCapacitaMassima(){		return this.capacitaMax;	}
 	
 	/**
-	 * Gets the portata massima.
+	 * Gets   portata massima.
 	 *
-	 * @return the portata massima
+	 * @return   portata massima
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets the altezza massima.
+	 * Gets   altezza massima.
 	 *
-	 * @return the altezza massima
+	 * @return   altezza massima
 	 */
 	public int getAltezzaMassima(){		return this.altezzaMax;	}
 	
 	/**
-	 * Gets the profondita massima.
+	 * Gets   profondita massima.
 	 *
-	 * @return the profondita massima
+	 * @return   profondita massima
 	 */
 	public int getProfonditaMassima(){		return this.profonditaMax;	}
 	
 	
 	//SET
 	/**
-	 * Sets the capacita massima.
+	 * Sets   capacita massima.
 	 *
-	 * @param capacita the new capacita massima
+	 * @param capacita   new capacita massima
 	 */
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	
 	/**
-	 * Sets the portata massima.
+	 * Sets   portata massima.
 	 *
-	 * @param portata the new portata massima
+	 * @param portata   new portata massima
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets the profondita massima.
+	 * Sets   profondita massima.
 	 *
-	 * @param profondita the new profondita massima
+	 * @param profondita   new profondita massima
 	 */
 	public void setProfonditaMassima(int profondita){		this.profonditaMax=profondita;	}
 	
 	/**
-	 * Sets the altezza massima.
+	 * Sets   altezza massima.
 	 *
-	 * @param altezza the new altezza massima
+	 * @param altezza   new altezza massima
 	 */
 	public void setAltezzaMassima(int altezza){		this.altezzaMax=altezza;	}
 	

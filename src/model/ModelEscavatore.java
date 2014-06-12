@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelEscavatore.
+ *   Class ModelEscavatore.
  */
 class ModelEscavatore extends ModelMacchina{
 	
-	/** The lista escavatori. */
+	/**   lista escavatori. */
 	private ArrayList<Escavatore> listaEscavatori;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ModelEscavatore istanza;
 	
 	/**
@@ -23,9 +23,9 @@ class ModelEscavatore extends ModelMacchina{
 	}
 	
 	/**
-	 * Gets the model escavatore.
+	 * Gets   model escavatore.
 	 *
-	 * @return the model escavatore
+	 * @return   model escavatore
 	 */
 	public static synchronized ModelEscavatore getModelEscavatore(){
 		if(istanza==null){
@@ -37,12 +37,12 @@ class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Aggiungi escavatore.
 	 *
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
-	 * @param profondita the profondita
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
+	 * @param profondita   profondita
 	 */
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
 		incrementaCodice();
@@ -57,13 +57,13 @@ class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Carica escavatore.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
-	 * @param profondita the profondita
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
+	 * @param profondita   profondita
 	 */
 	void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
 		aggiornaCodice(codice);
@@ -78,13 +78,13 @@ class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Modifica escavatore.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
-	 * @param profondita the profondita
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
+	 * @param profondita   profondita
 	 */
 	public void modificaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita) {
 		for(Escavatore item:listaEscavatori){
@@ -105,7 +105,7 @@ class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Elimina escavatore.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaEscavatore(int codice){
@@ -118,9 +118,9 @@ class ModelEscavatore extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the lista.
+	 * Gets   lista.
 	 *
-	 * @return the lista
+	 * @return   lista
 	 */
 	public ArrayList<Escavatore> getLista(){
 		return listaEscavatori;
@@ -129,7 +129,7 @@ class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Checks if is escavatore.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if is escavatore
 	 */
 	public boolean isEscavatore(Integer codice){
@@ -142,10 +142,10 @@ class ModelEscavatore extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the escavatore.
+	 * Gets   escavatore.
 	 *
-	 * @param codice the codice
-	 * @return the escavatore
+	 * @param codice   codice
+	 * @return   escavatore
 	 */
 	public Escavatore getEscavatore(Integer codice){
 		for(Escavatore item:listaEscavatori){

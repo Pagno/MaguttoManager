@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -29,10 +30,10 @@ import model.ModelConnector;
  */
 public class MainController{
 
-	/** The model. */
+	/**   model. */
 	private ModelConnector model;
 	
-	/** The main view. */
+	/**   main view. */
 	private MainView mainView;
 
 	/**
@@ -155,7 +156,7 @@ public class MainController{
 	/**
 	 * Gestisce la chiusura dell'applicazione
 	 *
-	 * @return the window adapter
+	 * @return   window adapter
 	 */
 	public WindowAdapter chiusuraProgramma(){
 		return new WindowAdapter() {
@@ -278,10 +279,10 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showGruData();
-				mainView.disableBtnModifica(false);
+				//mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaGruView());
 				mainView.addEliminaListener(EliminaMacchina());
-				mainView.setVisibleBtnModifica(false);
+				mainView.setVisibleBtnAssociazioni(false);
 			}
 
 		};
@@ -300,10 +301,10 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showRuspaData();
-				mainView.disableBtnModifica(false);
+				//mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaRuspaView());
 				mainView.addEliminaListener(EliminaMacchina());
-				mainView.setVisibleBtnModifica(false);
+				mainView.setVisibleBtnAssociazioni(false);
 			}
 		};
 	}
@@ -321,9 +322,10 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCamionData();
-				mainView.disableBtnModifica(false);
+				//mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaCamionView());
 				mainView.addEliminaListener(EliminaMacchina());
+				mainView.setVisibleBtnAssociazioni(false);
 			}
 		};
 	}
@@ -344,7 +346,7 @@ public class MainController{
 				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaEscavatoreView());
 				mainView.addEliminaListener(EliminaMacchina());
-				mainView.setVisibleBtnModifica(false);
+				mainView.setVisibleBtnAssociazioni(false);
 			}
 		};
 	}
@@ -362,9 +364,10 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCantiereData();
-				mainView.disableBtnModifica(true);
+				//mainView.disableBtnModifica(true);
 				mainView.addEliminaListener(EliminaCantiere());
-				mainView.setVisibleBtnModifica(true);
+				mainView.addModificaListener(VisualizzaModificaCantiereView());
+				mainView.setVisibleBtnAssociazioni(true);
 			}
 		};
 	}
@@ -467,6 +470,22 @@ public class MainController{
 			}
 		};
 	}
+	public ActionListener VisualizzaModificaCantiereView() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] v=mainView.getSelectedData();
+
+				if(v==null){
+					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+				}else{
+					EditCantiere ins = new EditCantiere(mainView, v);
+					CantieriController ctr = new CantieriController(model);
+					ins.setInsertButtonListeners(ctr.EditCantiereListener(ins,(Integer)v[0]));
+				}
+			}
+		};
+	}
 	//DELETE
 	/**
 	 * Elimina la macchina selezionata nella tabella.
@@ -530,10 +549,12 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object[] data=mainView.getSelectedData();
+				
 				String[] tokens = ((String)data[3]).split("/");
-				GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
+				GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
+
 				tokens = ((String)data[4]).split("/");
-				GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));
+				GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
 				
 				
 				AddAssociazione ass = new AddAssociazione(mainView, data[1].toString(),d,d2);

@@ -5,33 +5,33 @@ import java.util.*;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Associazione.
+ *   Class Associazione.
  */
 public class Associazione implements Cloneable {
 	
-	/** The id. */
+	/**   id. */
 	private int ID;
 	
-	/** The macchina. */
+	/**   macchina. */
 	private Macchina macchina;
 	
-	/** The cantiere. */
+	/**   cantiere. */
 	private Cantiere cantiere;
 	
-	/** The data inizio. */
+	/**   data inizio. */
 	private GregorianCalendar dataInizio;
 	
-	/** The data fine. */
+	/**   data fine. */
 	private GregorianCalendar dataFine;
 	
 	/**
 	 * Instantiates a new associazione.
 	 *
-	 * @param ID the id
-	 * @param macchina the macchina
-	 * @param cantiere the cantiere
-	 * @param dataInizio the data inizio
-	 * @param dataFine the data fine
+	 * @param ID id dell'Associazione
+	 * @param macchina riferimento alla Macchina da Associare
+	 * @param cantiere riferimento al Cantiere da Associare
+	 * @param dataInizio data inizio
+	 * @param dataFine data fine
 	 */
 	public Associazione(int ID, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.ID=ID;
@@ -42,18 +42,18 @@ public class Associazione implements Cloneable {
 	}
 
 	/**
-	 * Gets the macchina.
+	 * Gets   macchina.
 	 *
-	 * @return the macchina
+	 * @return macchina
 	 */
 	public Macchina getMacchina() {
 		return macchina;
 	}
 
 	/**
-	 * Sets the macchina.
+	 * Sets   macchina.
 	 *
-	 * @param macchina the new macchina
+	 * @param macchina   new macchina
 	 */
 	public void setMacchina(Macchina macchina) {
 		this.macchina = macchina;
@@ -67,45 +67,45 @@ public class Associazione implements Cloneable {
 	}
 	
 	/**
-	 * Gets the id.
+	 * Gets   id.
 	 *
-	 * @return the id
+	 * @return   id
 	 */
 	public int getID(){
 		return this.ID;
 	}
 
 	/**
-	 * Gets the cantiere.
+	 * Gets   cantiere.
 	 *
-	 * @return the cantiere
+	 * @return   cantiere
 	 */
 	public Cantiere getCantiere() {
 		return cantiere;
 	}
 
 	/**
-	 * Sets the cantiere.
+	 * Sets   cantiere.
 	 *
-	 * @param cantiere the new cantiere
+	 * @param cantiere   new cantiere
 	 */
 	public void setCantiere(Cantiere cantiere) {
 		this.cantiere = cantiere;
 	}
 	
 	/**
-	 * Gets the data inizio.
+	 * Gets   data inizio.
 	 *
-	 * @return the data inizio
+	 * @return   data inizio
 	 */
 	public GregorianCalendar getDataInizio() {
 		return dataInizio;
 	}
 	
 	/**
-	 * Gets the str data inizio.
+	 * Gets   str data inizio.
 	 *
-	 * @return the str data inizio
+	 * @return   str data inizio
 	 */
 	public String getStrDataInizio() {
 		SimpleDateFormat df = new SimpleDateFormat();
@@ -136,27 +136,27 @@ public class Associazione implements Cloneable {
 	}
 
 	/**
-	 * Sets the data inizio.
+	 * Sets   data inizio.
 	 *
-	 * @param dataInizio the new data inizio
+	 * @param dataInizio   new data inizio
 	 */
 	public void setDataInizio(GregorianCalendar dataInizio) {
 		this.dataInizio = dataInizio;
 	}
 
 	/**
-	 * Gets the data fine.
+	 * Gets   data fine.
 	 *
-	 * @return the data fine
+	 * @return   data fine
 	 */
 	public GregorianCalendar getDataFine() {
 		return dataFine;
 	}
 	
 	/**
-	 * Gets the str data fine.
+	 * Gets   str data fine.
 	 *
-	 * @return the str data fine
+	 * @return   str data fine
 	 */
 	public String getStrDataFine() {
 
@@ -191,9 +191,9 @@ public class Associazione implements Cloneable {
 	}
 
 	/**
-	 * Sets the data fine.
+	 * Sets   data fine.
 	 *
-	 * @param dataFine the new data fine
+	 * @param dataFine   new data fine
 	 */
 	public void setDataFine(GregorianCalendar dataFine) {
 		this.dataFine = dataFine;

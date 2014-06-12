@@ -38,51 +38,51 @@ import javax.swing.DefaultComboBoxModel;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class AddAssociazione.
+ *   Class AddAssociazione.
  */
 public class AddAssociazione extends JDialog{
 
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
 	
-	/** The content panel. */
+	/**   content panel. */
 	private final JPanel contentPanel = new JPanel();
 
-	/** The chiudi btn. */
+	/**   chiudi btn. */
 	private JButton okButton,btnAggiungi,btnRimuovi,chiudiBtn;
 	
-	/** The table. */
+	/**   table. */
 	private JTable table;
 	
-	/** The list scroller. */
+	/**   list scroller. */
 	private JScrollPane scrollPane,listScroller;
 	
-	/** The list. */
+	/**   list. */
 	private JList list;
 	
-	/** The lbl cantiere. */
+	/**   lbl cantiere. */
 	private JLabel lblCantiere;
 	
-	/** The table model. */
+	/**   table model. */
 	private TableModel tableModel;
 	
-	/** The list model. */
+	/**   list model. */
 	private DefaultListModel listModel;
 	
-	/** The tipo macchina. */
+	/**   tipo macchina. */
 	private JComboBox tipoMacchina;
 	
-	/** The data fine. */
+	/**   data fine. */
 	private JDateChooser dataInizio,dataFine;
 	
 
 	/**
-	 * Create the dialog.
+	 * Create   dialog.
 	 *
-	 * @param view the view
-	 * @param nomeCantiere the nome cantiere
-	 * @param inizio the inizio
-	 * @param fine the fine
+	 * @param view   view
+	 * @param nomeCantiere   nome cantiere
+	 * @param inizio   inizio
+	 * @param fine   fine
 	 */
 
 
@@ -178,45 +178,45 @@ public class AddAssociazione extends JDialog{
 	}
 
 	/**
-	 * Sets the ok btn listeners.
+	 * Sets   ok btn listeners.
 	 *
-	 * @param act the new ok btn listeners
+	 * @param act   new ok btn listeners
 	 */
 	public void setOkBtnListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 	
 	/**
-	 * Sets the chiudi button listeners.
+	 * Sets   chiudi button listeners.
 	 *
-	 * @param act the new chiudi button listeners
+	 * @param act   new chiudi button listeners
 	 */
 	public void setChiudiButtonListeners(ActionListener act) {
 		chiudiBtn.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the macchina listener.
+	 * Adds   macchina listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addMacchinaListener(ActionListener act){
 		btnAggiungi.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the combo box listener.
+	 * Adds   combo box listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addComboBoxListener(ActionListener act){
 		tipoMacchina.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the rimuovi listener.
+	 * Adds   rimuovi listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addRimuoviListener(ActionListener act){
 		btnRimuovi.addActionListener(act);
@@ -230,9 +230,9 @@ public class AddAssociazione extends JDialog{
 	}
 	
 	/**
-	 * Gets the selected associazione.
+	 * Gets   selected associazione.
 	 *
-	 * @return the selected associazione
+	 * @return   selected associazione
 	 */
 	public int getSelectedAssociazione(){
 		return table.getSelectedRow();
@@ -246,27 +246,27 @@ public class AddAssociazione extends JDialog{
 	}
 	
 	/**
-	 * Adds the data.
+	 * Adds   data.
 	 *
-	 * @param data the data
+	 * @param data   data
 	 */
 	public void addData(Object[] data){
 		tableModel.addData(data);
 	}
 	
 	/**
-	 * Gets the associazioni.
+	 * Gets   associazioni.
 	 *
-	 * @return the associazioni
+	 * @return   associazioni
 	 */
 	public ArrayList<Object[]> getAssociazioni(){
 		return tableModel.getData();
 	}
 	
 	/**
-	 * Gets the list selected.
+	 * Gets   list selected.
 	 *
-	 * @return the list selected
+	 * @return   list selected
 	 */
 	public Macchina getListSelected(){
 		return (Macchina)list.getSelectedValue();
@@ -281,9 +281,9 @@ public class AddAssociazione extends JDialog{
 	}
 	
 	/**
-	 * Gets the data inizio.
+	 * Gets   data inizio.
 	 *
-	 * @return the data inizio
+	 * @return   data inizio
 	 */
 	public GregorianCalendar getDataInizio() {
 		if(dataInizio.getDate()==null)
@@ -294,18 +294,18 @@ public class AddAssociazione extends JDialog{
 	}
 	
 	/**
-	 * Sets the data inizio.
+	 * Sets   data inizio.
 	 *
-	 * @param d the new data inizio
+	 * @param d   new data inizio
 	 */
 	public void setDataInizio(Date d) {
 		dataInizio.setDate(d);
 	}
 	
 	/**
-	 * Gets the data fine.
+	 * Gets   data fine.
 	 *
-	 * @return the data fine
+	 * @return   data fine
 	 */
 	public GregorianCalendar getDataFine() {
 		if(dataFine.getDate()==null)
@@ -316,9 +316,9 @@ public class AddAssociazione extends JDialog{
 	}
 	
 	/**
-	 * Sets the data fine.
+	 * Sets   data fine.
 	 *
-	 * @param d the new data fine
+	 * @param d   new data fine
 	 */
 	public void setDataFine(Date d) {
 		dataFine.setDate(d);
@@ -327,7 +327,7 @@ public class AddAssociazione extends JDialog{
 	/**
 	 * Aggiungi macchina a lista.
 	 *
-	 * @param m the m
+	 * @param m   m
 	 */
 	public void aggiungiMacchinaALista(Macchina m){
 		listModel.addElement(m);
@@ -336,17 +336,17 @@ public class AddAssociazione extends JDialog{
 	
 	
 	/**
-	 * The Class TableModel.
+	 *   Class TableModel.
 	 */
 	class TableModel extends AbstractTableModel{
 
-		/** The Constant serialVersionUID. */
+		/**   Constant serialVersionUID. */
 		private static final long serialVersionUID = -6590327420669891637L;
 
-		/** The columns name. */
+		/**   columns name. */
 		private String[] columnsName = {"Macchina","dataInizio","dataFine"};
 
-		/** The data. */
+		/**   data. */
 		private ArrayList<Object[]> data=new ArrayList<Object[]>();
 		
 		/* (non-Javadoc)
@@ -375,9 +375,9 @@ public class AddAssociazione extends JDialog{
 	    }
 		
 		/**
-		 * Removes the data.
+		 * Removes   data.
 		 *
-		 * @param i the i
+		 * @param i   i
 		 * @return true, if successful
 		 */
 		public boolean removeData(int i){
@@ -405,9 +405,9 @@ public class AddAssociazione extends JDialog{
 		}
 	    
     	/**
-    	 * Adds the data.
+    	 * Adds   data.
     	 *
-    	 * @param obj the obj
+    	 * @param obj   obj
     	 * @return true, if successful
     	 */
     	public boolean addData(Object[] obj){
@@ -417,9 +417,9 @@ public class AddAssociazione extends JDialog{
 	    }
 	    
     	/**
-    	 * Gets the data.
+    	 * Gets   data.
     	 *
-    	 * @return the data
+    	 * @return   data
     	 */
     	public ArrayList<Object[]> getData(){
 	    	return data;

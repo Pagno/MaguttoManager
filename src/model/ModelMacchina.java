@@ -4,17 +4,17 @@ import java.util.Observable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelMacchina.
+ *   Class ModelMacchina.
  */
 public abstract class ModelMacchina extends Observable{
 	
-	/** The codice. */
+	/**   codice. */
 	private static int codice;
 	
 	/**
 	 * Aggiorna codice.
 	 *
-	 * @param code the code
+	 * @param code   code
 	 */
 	protected void aggiornaCodice(int code){
 		if(codice<code){
@@ -30,16 +30,16 @@ public abstract class ModelMacchina extends Observable{
 	}
 	
 	/**
-	 * Inits the codice.
+	 * Inits   codice.
 	 */
 	protected static void initCodice(){
 		codice=0;
 	}
 	
 	/**
-	 * Gets the codice.
+	 * Gets   codice.
 	 *
-	 * @return the codice
+	 * @return   codice
 	 */
 	protected int getCodice(){
 		return codice;
@@ -48,9 +48,9 @@ public abstract class ModelMacchina extends Observable{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	/**
-	 * Gets the next codice.
+	 * Gets   next codice.
 	 *
-	 * @return the next codice
+	 * @return   next codice
 	 */
 	int getNextCodice(){
 		return getCodice()+1;

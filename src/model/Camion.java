@@ -2,28 +2,28 @@ package model;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Camion.
+ *   Class Camion.
  */
 public class Camion extends Macchina {
 	
-	/** The capacita max. */
+	/**   capacita max. */
 	private int capacitaMax;
 	
-	/** The portata max. */
+	/**   portata max. */
 	private int portataMax;
 	
-	/** The lunghezza. */
+	/**   lunghezza. */
 	private int lunghezza;
 
 	/**
 	 * Instantiates a new camion.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
+	 * @param codice codice del camion
+	 * @param produttore produttore del camion
+	 * @param Modello modello del camion
+	 * @param capacita capacita del camion
+	 * @param portata portata del camion
+	 * @param lunghezza lunghezza del camion
 	 */
 	public Camion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
 		super(codice,produttore,Modello);
@@ -36,46 +36,46 @@ public class Camion extends Macchina {
 	
 	//GET
 	/**
-	 * Gets the capacita massima.
+	 * Gets   capacita massima.
 	 *
-	 * @return the capacita massima
+	 * @return capacita massima
 	 */
 	public int getCapacitaMassima(){	return this.capacitaMax; }
 	
 	/**
-	 * Gets the portata massima.
+	 * Gets portata massima.
 	 *
-	 * @return the portata massima
+	 * @return portata massima
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets the lunghezza.
+	 * Gets lunghezza.
 	 *
-	 * @return the lunghezza
+	 * @return lunghezza
 	 */
 	public int getLunghezza(){		return this.lunghezza;	}
 	
 	
 	//SET
 	/**
-	 * Sets the capacita massima.
+	 * Sets capacita massima.
 	 *
-	 * @param capacita the new capacita massima
+	 * @param capacita new capacita massima
 	 */
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	
 	/**
-	 * Sets the portata massima.
+	 * Sets portata massima.
 	 *
-	 * @param portata the new portata massima
+	 * @param portata new portata massima
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets the lunghezza.
+	 * Sets lunghezza.
 	 *
-	 * @param lunghezza the new lunghezza
+	 * @param lunghezza new lunghezza
 	 */
 	public void setLunghezza(int lunghezza){		this.lunghezza=lunghezza;	}
 	

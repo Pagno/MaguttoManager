@@ -17,33 +17,33 @@ import javax.swing.JTextField;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EditRuspa.
+ *   Class EditRuspa.
  */
 public class EditRuspa extends JDialog {
 
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 4043996596294833629L;
 	
-	/** The content panel. */
+	/**   content panel. */
 	private final JPanel contentPanel = new JPanel();
 	
-	/** The txt capacita. */
+	/**   txt capacita. */
 	private JTextField txtProduttore, txtModello, txtAltezza,
 			txtPortataMax, txtCapacita;
 	
-	/** The lbl cap. */
+	/**   lbl cap. */
 	private JLabel lblProduttore, lblModello, lblAltezza,
 			lblPortataMax, lblCapacita, lblMetri, lblTon,
 			lblCap;
 	
-	/** The ok button. */
+	/**   ok button. */
 	private JButton okButton;
 
 	/**
-	 * Create the dialog.
+	 * Create   dialog.
 	 *
-	 * @param view the view
-	 * @param obj the obj
+	 * @param view   view
+	 * @param obj   obj
 	 */
 	public EditRuspa(JFrame view, Object[] obj) {
 		this(view);
@@ -53,9 +53,9 @@ public class EditRuspa extends JDialog {
 	}
 	
 	/**
-	 * Sets the text box.
+	 * Sets   text box.
 	 *
-	 * @param v the new text box
+	 * @param v   new text box
 	 */
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
@@ -66,9 +66,9 @@ public class EditRuspa extends JDialog {
 	}
 
 	/**
-	 * Instantiates a new edits the ruspa.
+	 * Instantiates a new edits   ruspa.
 	 *
-	 * @param view the view
+	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
 	public EditRuspa(JFrame view) {
@@ -240,27 +240,27 @@ public class EditRuspa extends JDialog {
 	}
 
 	/**
-	 * Sets the insert button listeners.
+	 * Sets   insert button listeners.
 	 *
-	 * @param act the new insert button listeners
+	 * @param act   new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets the produttore.
+	 * Gets   produttore.
 	 *
-	 * @return the produttore
+	 * @return   produttore
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets the modello.
+	 * Gets   modello.
 	 *
-	 * @return the modello
+	 * @return   modello
 	 */
 	public String getModello() {
 		return txtModello.getText();
@@ -268,27 +268,27 @@ public class EditRuspa extends JDialog {
 
 
 	/**
-	 * Gets the altezza.
+	 * Gets   altezza.
 	 *
-	 * @return the altezza
+	 * @return   altezza
 	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
 
 	/**
-	 * Gets the capacita.
+	 * Gets   capacita.
 	 *
-	 * @return the capacita
+	 * @return   capacita
 	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
 	/**
-	 * Gets the portata massima.
+	 * Gets   portata massima.
 	 *
-	 * @return the portata massima
+	 * @return   portata massima
 	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();

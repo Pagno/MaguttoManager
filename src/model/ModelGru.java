@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelGru.
+ *   Class ModelGru.
  */
 class ModelGru extends ModelMacchina{
 	
-	/** The lista gru. */
+	/**   lista gru. */
 	private ArrayList<Gru> listaGru;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ModelGru istanza;
 
 	/**
@@ -23,9 +23,9 @@ class ModelGru extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the model gru.
+	 * Gets   model gru.
 	 *
-	 * @return the model gru
+	 * @return   model gru
 	 */
 	public static synchronized ModelGru getModelGru(){
 		if(istanza==null){
@@ -37,12 +37,12 @@ class ModelGru extends ModelMacchina{
 	/**
 	 * Aggiungi gru.
 	 *
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param rotazione the rotazione
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
-	 * @param altezza the altezza
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param rotazione   rotazione
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
+	 * @param altezza   altezza
 	 */
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		incrementaCodice();
@@ -58,13 +58,13 @@ class ModelGru extends ModelMacchina{
 	/**
 	 * Carica gru.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param rotazione the rotazione
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
-	 * @param altezza the altezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param rotazione   rotazione
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
+	 * @param altezza   altezza
 	 */
 	void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		aggiornaCodice(codice);
@@ -80,13 +80,13 @@ class ModelGru extends ModelMacchina{
 	/**
 	 * Modifica gru.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param rotazione the rotazione
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
-	 * @param altezza the altezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param rotazione   rotazione
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
+	 * @param altezza   altezza
 	 */
 	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		for(Gru item:listaGru){
@@ -107,7 +107,7 @@ class ModelGru extends ModelMacchina{
 	/**
 	 * Elimina gru.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaGru(int codice){
@@ -120,9 +120,9 @@ class ModelGru extends ModelMacchina{
 	}
 	
 	/**
-	 * Gets the lista.
+	 * Gets   lista.
 	 *
-	 * @return the lista
+	 * @return   lista
 	 */
 	public ArrayList<Gru> getLista(){
 		return listaGru;
@@ -131,7 +131,7 @@ class ModelGru extends ModelMacchina{
 	/**
 	 * Checks if is gru.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if is gru
 	 */
 	public boolean isGru(Integer codice){
@@ -144,10 +144,10 @@ class ModelGru extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the gru.
+	 * Gets   gru.
 	 *
-	 * @param codice the codice
-	 * @return the gru
+	 * @param codice   codice
+	 * @return   gru
 	 */
 	public Gru getGru(Integer codice){
 		for(Gru item:listaGru){

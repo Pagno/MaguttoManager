@@ -17,40 +17,40 @@ import java.awt.event.WindowAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MainView.
+ *   Class MainView.
  */
 public class MainView extends JFrame {
 
-	/** The Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 6003480805602305099L;
 	
-	/** The left menu. */
+	/**   left menu. */
 	private JPanel contentPane, leftMenu;
 	
-	/** The table. */
+	/**   table. */
 	private JTable table;
 	
-	/** The scrollpane. */
+	/**   scrollpane. */
 	private JScrollPane scrollpane;
 	
-	/** The data model cantiere. */
+	/**   data model cantiere. */
 	public MyTableModel dataModelGru,dataModelRuspa,dataModelCamion,dataModelEscavatore,dataModelCantiere;
 	
-	/** The btn add associazione. */
+	/**   btn add associazione. */
 	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,btnViewCantiere,btnEdit,btnDelete,btnAddAssociazione;
 	
-	/** The item add camion. */
+	/**   item add camion. */
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
 			itemAddCamion;
 	
-	/** The item collega macchina. */
+	/**   item collega macchina. */
 	private JMenuItem itemAddCantiere, itemCollegaMacchina;
 	
-	/** The item file esci. */
+	/**   item file esci. */
 	private JMenuItem itemFileSalva,itemFileCarica,itemFileEsci;
 	
 	/**
-	 * Create the frame.
+	 * Create   frame.
 	 */
 	public MainView() {
 
@@ -65,7 +65,7 @@ public class MainView extends JFrame {
 		menu();
 		leftMenu();
 
-		//SET UP THE DATA MODEL
+		//SET UP   DATA MODEL
 		String[] columnNamesGru={"Produttore","Modello","Lunghezza Braccio","Altezza Gancio","Portata Massima","Angolo Rotazione"};
 		dataModelGru = new MyTableModel(columnNamesGru);
 		String[] columnNamesRuspa={"Produttore","Modello","Altezza Scarico","Capacita","Portata Massima"};
@@ -106,9 +106,9 @@ public class MainView extends JFrame {
 	}
 	
 	/**
-	 * Adds the window closing listener.
+	 * Adds   window closing listener.
 	 *
-	 * @param e the e
+	 * @param e   e
 	 */
 	public void addWindowClosingListener(WindowAdapter e){
 		addWindowListener(e);
@@ -128,14 +128,15 @@ public class MainView extends JFrame {
 		leftMenu.add(btnViewGru);
 		leftMenu.add(btnViewRuspa);
 		leftMenu.add(btnViewCamion);
+		leftMenu.add(btnViewEscavatore);
 		leftMenu.add(btnViewCantiere);
 		contentPane.add(leftMenu, BorderLayout.WEST);
 	}
 
 	/**
-	 * Gets the selected data.
+	 * Gets   selected data.
 	 *
-	 * @return the selected data
+	 * @return   selected data
 	 */
 	public Object[] getSelectedData(){
 		return table.getSelectedRow()==-1?null:((MyTableModel)table.getModel()).getRowData(table.getSelectedRow());
@@ -188,9 +189,9 @@ public class MainView extends JFrame {
 	}
 	
 	/**
-	 * Adds the exit listener.
+	 * Adds   exit listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addExitListener(ActionListener act){
 		itemFileEsci.addActionListener(act);
@@ -198,45 +199,45 @@ public class MainView extends JFrame {
 	
 	//VIEW LISTENER
 	/**
-	 * Adds the button gru listener.
+	 * Adds   button gru listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addButtonGruListener(ActionListener act) {
 		btnViewGru.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the button ruspa listener.
+	 * Adds   button ruspa listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addButtonRuspaListener(ActionListener act) {
 		btnViewRuspa.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the button camion listener.
+	 * Adds   button camion listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addButtonCamionListener(ActionListener act) {
 		btnViewCamion.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the button escavatore listener.
+	 * Adds   button escavatore listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addButtonEscavatoreListener(ActionListener act) {
 		btnViewEscavatore.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the button cantiere listener.
+	 * Adds   button cantiere listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addButtonCantiereListener(ActionListener act) {
 		btnViewCantiere.addActionListener(act);
@@ -244,45 +245,45 @@ public class MainView extends JFrame {
 
 	//MENU ADD LISTENER
 	/**
-	 * Adds the aggiungi gru listener.
+	 * Adds   aggiungi gru listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addAggiungiGruListener(ActionListener act) {
 		itemAddGru.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the aggiungi ruspa listener.
+	 * Adds   aggiungi ruspa listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addAggiungiRuspaListener(ActionListener act) {
 		itemAddRuspa.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the aggiungi camion listener.
+	 * Adds   aggiungi camion listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addAggiungiCamionListener(ActionListener act) {
 		itemAddCamion.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the aggiungi escavatore listener.
+	 * Adds   aggiungi escavatore listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addAggiungiEscavatoreListener(ActionListener act) {
 		itemAddEscavatore.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the aggiungi cantiere listener.
+	 * Adds   aggiungi cantiere listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addAggiungiCantiereListener(ActionListener act){
 		itemAddCantiere.addActionListener(act);
@@ -290,36 +291,36 @@ public class MainView extends JFrame {
 	
 	//MENU FILE LISTENER
 	/**
-	 * Adds the btn salva listener.
+	 * Adds   btn salva listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addBtnSalvaListener(ActionListener act){
 		itemFileSalva.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the btn carica listener.
+	 * Adds   btn carica listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addBtnCaricaListener(ActionListener act){
 		itemFileCarica.addActionListener(act);
 	}
 	
 	/**
-	 * Adds the btn esci listener.
+	 * Adds   btn esci listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addBtnEsciListener(ActionListener act){
 		itemFileEsci.addActionListener(act);
 	}
 	//BOTTOM BUTTON
 	/**
-	 * Adds the modifica listener.
+	 * Adds   modifica listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addModificaListener(ActionListener act) {
 		for( ActionListener al : btnEdit.getActionListeners() ) {
@@ -329,9 +330,9 @@ public class MainView extends JFrame {
 	}
 	
 	/**
-	 * Adds the elimina listener.
+	 * Adds   elimina listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addEliminaListener(ActionListener act) {
 		for( ActionListener al : btnDelete.getActionListeners() ) {
@@ -341,9 +342,9 @@ public class MainView extends JFrame {
 	}
 	
 	/**
-	 * Adds the btn add associzione listener.
+	 * Adds   btn add associzione listener.
 	 *
-	 * @param act the act
+	 * @param act   act
 	 */
 	public void addBtnAddAssocizioneListener(ActionListener act) {
 		for( ActionListener al : btnAddAssociazione.getActionListeners() ) {
@@ -403,23 +404,23 @@ public class MainView extends JFrame {
 	/**
 	 * Disable btn modifica.
 	 *
-	 * @param disable the disable
+	 * @param disable   disable
 	 */
 	public void disableBtnModifica(boolean disable){
 		btnEdit.setEnabled(!disable);
 	}
 	
 	/**
-	 * Sets the visible btn modifica.
+	 * Sets   visible btn modifica.
 	 *
-	 * @param visible the new visible btn modifica
+	 * @param visible   new visible btn modifica
 	 */
-	public void setVisibleBtnModifica(boolean visible){
+	public void setVisibleBtnAssociazioni(boolean visible){
 		btnAddAssociazione.setVisible(visible);
 	}
 	
 	/**
-	 * Removes the selected.
+	 * Removes   selected.
 	 */
 	public void removeSelected(){
 		((MyTableModel)table.getModel()).removeData(table.getSelectedRow());

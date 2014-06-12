@@ -12,38 +12,38 @@ import database.DatabaseInterface;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelConnector.
+ *   Class ModelConnector.
  */
 public class ModelConnector extends Observable implements ModelInterface{
 
-	/** The mg. */
+	/**   mg. */
 	private ModelGru mg;
 	
-	/** The mc. */
+	/**   mc. */
 	private ModelCamion mc;
 	
-	/** The mr. */
+	/**   mr. */
 	private ModelRuspa mr;
 	
-	/** The me. */
+	/**   me. */
 	private ModelEscavatore me;
 	
-	/** The lc. */
+	/**   lc. */
 	private ModelCantiere lc;
 	
-	/** The ea. */
+	/**   ea. */
 	private ElencoAssociazioni ea;
 	
-	/** The db. */
+	/**   db. */
 	private DatabaseInterface db;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ModelConnector istanza;
 
 	/**
 	 * Instantiates a new model connector.
 	 *
-	 * @param data the data
+	 * @param data   data
 	 */
 	private ModelConnector(DatabaseInterface data){
 		db=data;
@@ -52,10 +52,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 	
 	/**
-	 * Gets the model connector.
+	 * Gets   model connector.
 	 *
-	 * @param data the data
-	 * @return the model connector
+	 * @param data   data
+	 * @return   model connector
 	 */
 	public static synchronized ModelConnector getModelConnector(DatabaseInterface data){
 		if(istanza==null){
@@ -65,45 +65,45 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 	
 	/**
-	 * Adds the gru observer.
+	 * Adds   gru observer.
 	 *
-	 * @param observer the observer
+	 * @param observer   observer
 	 */
 	public void addGruObserver(Observer observer){
 		mg.addObserver(observer);
 	}
 	
 	/**
-	 * Adds the ruspa observer.
+	 * Adds   ruspa observer.
 	 *
-	 * @param observer the observer
+	 * @param observer   observer
 	 */
 	public void addRuspaObserver(Observer observer){
 		mr.addObserver(observer);
 	}
 	
 	/**
-	 * Adds the camion observer.
+	 * Adds   camion observer.
 	 *
-	 * @param observer the observer
+	 * @param observer   observer
 	 */
 	public void addCamionObserver(Observer observer){
 		mc.addObserver(observer);
 	}
 	
 	/**
-	 * Adds the escavatore observer.
+	 * Adds   escavatore observer.
 	 *
-	 * @param observer the observer
+	 * @param observer   observer
 	 */
 	public void addEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
 	
 	/**
-	 * Adds the cantiere observer.
+	 * Adds   cantiere observer.
 	 *
-	 * @param observer the observer
+	 * @param observer   observer
 	 */
 	public void addCantiereObserver(Observer observer){
 		lc.addObserver(observer);
@@ -377,7 +377,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Elimina associazioni cantiere.
 	 *
-	 * @param codiceCantiere the codice cantiere
+	 * @param codiceCantiere   codice cantiere
 	 * @return true, if successful
 	 */
 	public boolean eliminaAssociazioniCantiere(int codiceCantiere) {
@@ -536,10 +536,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	/**
-	 * Gets the macchina.
+	 * Gets   macchina.
 	 *
-	 * @param mCode the m code
-	 * @return the macchina
+	 * @param mCode   m code
+	 * @return   macchina
 	 */
 	private Macchina getMacchina(Integer mCode){
 		if(mc.isCamion(mCode)){
@@ -560,8 +560,8 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Convert to date.
 	 *
-	 * @param datestr the datestr
-	 * @return the gregorian calendar
+	 * @param datestr   datestr
+	 * @return   gregorian calendar
 	 */
 	private GregorianCalendar convertToDate(String datestr){
 		String year = datestr.substring(0,4);
@@ -620,9 +620,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Elenco ruspe disponibili.
 	 *
-	 * @param inizio the inizio
-	 * @param fine the fine
-	 * @return the array list
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
 	 */
 	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Ruspa> ruspe=new ArrayList<Ruspa>();
@@ -644,9 +644,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Elenco gru disponibili.
 	 *
-	 * @param inizio the inizio
-	 * @param fine the fine
-	 * @return the array list
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
 	 */
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Gru> gru=new ArrayList<Gru>();
@@ -676,9 +676,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Elenco camion disponibili.
 	 *
-	 * @param inizio the inizio
-	 * @param fine the fine
-	 * @return the array list
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
 	 */
 	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Camion> camion=new ArrayList<Camion>();
@@ -700,9 +700,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Elenco escavatore disponibili.
 	 *
-	 * @param inizio the inizio
-	 * @param fine the fine
-	 * @return the array list
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
 	 */
 	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();

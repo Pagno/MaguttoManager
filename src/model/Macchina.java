@@ -2,25 +2,25 @@ package model;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Macchina.
+ *   Class Macchina.
  */
 public abstract class Macchina {
 	
-	/** The modello. */
+	/**   modello. */
 	private String modello;
 	
-	/** The codice. */
+	/**   codice. */
 	private int codice;
 	
-	/** The produttore. */
+	/**   produttore. */
 	private String produttore;
 	
 	/**
 	 * Instantiates a new macchina.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param modello the modello
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param modello   modello
 	 */
 	public Macchina(int codice,String produttore,String modello){
 		this.codice=codice;
@@ -29,37 +29,37 @@ public abstract class Macchina {
 	}
 	
 	/**
-	 * Gets the codice.
+	 * Gets   codice.
 	 *
-	 * @return the codice
+	 * @return   codice
 	 */
 	public int getCodice(){		return this.codice;	}
 	
 	/**
-	 * Gets the produttore.
+	 * Gets   produttore.
 	 *
-	 * @return the produttore
+	 * @return   produttore
 	 */
 	public String getProduttore(){		return this.produttore;	}
 	
 	/**
-	 * Gets the modello.
+	 * Gets   modello.
 	 *
-	 * @return the modello
+	 * @return   modello
 	 */
 	public String getModello(){		return this.modello;	}
 	
 	/**
-	 * Sets the produttore.
+	 * Sets   produttore.
 	 *
-	 * @param produttore the new produttore
+	 * @param produttore   new produttore
 	 */
 	public void setProduttore(String produttore){		this.produttore=produttore;	}
 	
 	/**
-	 * Sets the modello.
+	 * Sets   modello.
 	 *
-	 * @param Modello the new modello
+	 * @param Modello   new modello
 	 */
 	public void setModello(String Modello){		this.modello=Modello;	}
 	

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelRuspa.
+ *   Class ModelRuspa.
  */
 class ModelRuspa extends ModelMacchina{
 	
-	/** The lista ruspe. */
+	/**   lista ruspe. */
 	private ArrayList<Ruspa> listaRuspe;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ModelRuspa istanza;
 
 	/**
@@ -23,9 +23,9 @@ class ModelRuspa extends ModelMacchina{
 	}
 	
 	/**
-	 * Gets the model ruspa.
+	 * Gets   model ruspa.
 	 *
-	 * @return the model ruspa
+	 * @return   model ruspa
 	 */
 	public static synchronized ModelRuspa getModelRuspa(){
 		if(istanza==null){
@@ -38,11 +38,11 @@ class ModelRuspa extends ModelMacchina{
 	/**
 	 * Aggiungi ruspa.
 	 *
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
 	 */
 	public void aggiungiRuspa(String produttore, String modello,int capacita,int portata,int altezza){
 		incrementaCodice();
@@ -57,12 +57,12 @@ class ModelRuspa extends ModelMacchina{
 	/**
 	 * Carica ruspa.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
 	 */
 	void caricaRuspa(int codice,String produttore, String modello,int capacita,int portata,int altezza){
 		aggiornaCodice(codice);
@@ -77,12 +77,12 @@ class ModelRuspa extends ModelMacchina{
 	/**
 	 * Modifica ruspa.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param altezza the altezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param altezza   altezza
 	 */
 	public void modificaRuspa(int codice, String produttore, String Modello,int capacita,int portata,int altezza){
 		for(Ruspa item:listaRuspe){
@@ -103,7 +103,7 @@ class ModelRuspa extends ModelMacchina{
 	/**
 	 * Elimina ruspa.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaRuspa(int codice){
@@ -116,9 +116,9 @@ class ModelRuspa extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the lista.
+	 * Gets   lista.
 	 *
-	 * @return the lista
+	 * @return   lista
 	 */
 	public ArrayList<Ruspa> getLista(){
 		return listaRuspe;
@@ -127,7 +127,7 @@ class ModelRuspa extends ModelMacchina{
 	/**
 	 * Checks if is ruspa.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if is ruspa
 	 */
 	public boolean isRuspa(Integer codice){
@@ -140,10 +140,10 @@ class ModelRuspa extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the ruspa.
+	 * Gets   ruspa.
 	 *
-	 * @param codice the codice
-	 * @return the ruspa
+	 * @param codice   codice
+	 * @return   ruspa
 	 */
 	public Ruspa getRuspa(Integer codice){
 		for(Ruspa item:listaRuspe){

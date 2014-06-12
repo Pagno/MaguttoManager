@@ -8,11 +8,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelRuspaTest.
+ *   Class ModelRuspaTest.
  */
 public class ModelRuspaTest {
 
-	/** The mr. */
+	/**   mr. */
 	ModelRuspa mr;
 	
 	/**

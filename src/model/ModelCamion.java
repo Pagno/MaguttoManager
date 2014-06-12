@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelCamion.
+ *   Class ModelCamion.
  */
 class ModelCamion extends ModelMacchina{
 	
-	/** The lista camion. */
+	/**   lista camion. */
 	private ArrayList<Camion> listaCamion;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ModelCamion istanza;
 
 	/**
@@ -23,9 +23,9 @@ class ModelCamion extends ModelMacchina{
 	}
 	
 	/**
-	 * Gets the model camion.
+	 * Gets   model camion.
 	 *
-	 * @return the model camion
+	 * @return   model camion
 	 */
 	public static synchronized ModelCamion getModelCamion(){
 		if(istanza==null){
@@ -37,11 +37,11 @@ class ModelCamion extends ModelMacchina{
 	/**
 	 * Aggiungi camion.
 	 *
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
 	 */
 	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
 		incrementaCodice();
@@ -56,12 +56,12 @@ class ModelCamion extends ModelMacchina{
 	/**
 	 * Carica camion.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
 	 */
 	void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
 		aggiornaCodice(codice);
@@ -76,12 +76,12 @@ class ModelCamion extends ModelMacchina{
 	/**
 	 * Modifica camion.
 	 *
-	 * @param codice the codice
-	 * @param produttore the produttore
-	 * @param Modello the modello
-	 * @param capacita the capacita
-	 * @param portata the portata
-	 * @param lunghezza the lunghezza
+	 * @param codice   codice
+	 * @param produttore   produttore
+	 * @param Modello   modello
+	 * @param capacita   capacita
+	 * @param portata   portata
+	 * @param lunghezza   lunghezza
 	 */
 	public void modificaCamion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
 		for(Camion item:listaCamion){
@@ -101,7 +101,7 @@ class ModelCamion extends ModelMacchina{
 	/**
 	 * Elimina camion.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if successful
 	 */
 	public boolean eliminaCamion(int codice){
@@ -114,9 +114,9 @@ class ModelCamion extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the lista.
+	 * Gets   lista.
 	 *
-	 * @return the lista
+	 * @return   lista
 	 */
 	public ArrayList<Camion> getLista(){
 		return listaCamion;
@@ -125,7 +125,7 @@ class ModelCamion extends ModelMacchina{
 	/**
 	 * Checks if is camion.
 	 *
-	 * @param codice the codice
+	 * @param codice   codice
 	 * @return true, if is camion
 	 */
 	public boolean isCamion(Integer codice){
@@ -138,10 +138,10 @@ class ModelCamion extends ModelMacchina{
 	}
 
 	/**
-	 * Gets the camion.
+	 * Gets   camion.
 	 *
-	 * @param codice the codice
-	 * @return the camion
+	 * @param codice   codice
+	 * @return   camion
 	 */
 	public Camion getCamion(Integer codice){
 		for(Camion item:listaCamion){

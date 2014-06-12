@@ -8,11 +8,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class CantiereTest.
+ *   Class CantiereTest.
  */
 public class CantiereTest {
 	
-	/** The c. */
+	/**   c. */
 	Cantiere c;
 	
 	/**

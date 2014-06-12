@@ -14,19 +14,19 @@ import database.DBException;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Main.
+ *   Class Main.
  */
 public class Main {
 
 	/**
-	 * The main method.
+	 *   main method.
 	 *
-	 * @param args the arguments
-	 * @throws DBException the DB exception
-	 * @throws SQLException the SQL exception
-	 * @throws UnsupportedLookAndFeelException the unsupported look and feel exception
-	 * @throws ParseException the parse exception
-	 * @throws InterruptedException the interrupted exception
+	 * @param args   arguments
+	 * @throws DBException   DB exception
+	 * @throws SQLException   SQL exception
+	 * @throws UnsupportedLookAndFeelException   unsupported look and feel exception
+	 * @throws ParseException   parse exception
+	 * @throws InterruptedException   interrupted exception
 	 */
 	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// TODO Auto-generated method stub
@@ -40,7 +40,7 @@ public class Main {
 		        }
 		    }
 		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		    // If Nimbus is not available, you can set   GUI to ano r look and feel.
 		}
 
 		Database db=Database.getDatabase();

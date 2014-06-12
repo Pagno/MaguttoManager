@@ -8,11 +8,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class AssociazioneTest.
+ *   Class AssociazioneTest.
  */
 public class AssociazioneTest {
 	
-	/** The a. */
+	/**   a. */
 	Associazione a;
 
     /**

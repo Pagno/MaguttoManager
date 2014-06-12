@@ -5,17 +5,17 @@ import java.util.GregorianCalendar;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ElencoAssociazioni.
+ *   Class ElencoAssociazioni.
  */
 class ElencoAssociazioni{
 
-	/** The associazioni. */
+	/**   associazioni. */
 	private ArrayList<Associazione> associazioni;
 	
-	/** The codice. */
+	/**   codice. */
 	private int codice;
 	
-	/** The istanza. */
+	/**   istanza. */
 	private static ElencoAssociazioni istanza;
 
 	/**
@@ -27,9 +27,9 @@ class ElencoAssociazioni{
 	}
 	
 	/**
-	 * Gets the elenco associazioni.
+	 * Gets   elenco associazioni.
 	 *
-	 * @return the elenco associazioni
+	 * @return   elenco associazioni
 	 */
 	public static synchronized ElencoAssociazioni getElencoAssociazioni(){
 		if(istanza==null){
@@ -41,10 +41,10 @@ class ElencoAssociazioni{
 	/**
 	 * Inserisci associazione.
 	 *
-	 * @param macchina the macchina
-	 * @param cantiere the cantiere
-	 * @param dataInizio the data inizio
-	 * @param dataFine the data fine
+	 * @param macchina   macchina
+	 * @param cantiere   cantiere
+	 * @param dataInizio   data inizio
+	 * @param dataFine   data fine
 	 */
 	public void inserisciAssociazione(Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 			codice++;
@@ -55,11 +55,11 @@ class ElencoAssociazioni{
 	/**
 	 * Carica associazione.
 	 *
-	 * @param codice the codice
-	 * @param macchina the macchina
-	 * @param cantiere the cantiere
-	 * @param dataInizio the data inizio
-	 * @param dataFine the data fine
+	 * @param codice   codice
+	 * @param macchina   macchina
+	 * @param cantiere   cantiere
+	 * @param dataInizio   data inizio
+	 * @param dataFine   data fine
 	 */
 	void caricaAssociazione(Integer codice, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		if (this.codice<codice){
@@ -72,11 +72,11 @@ class ElencoAssociazioni{
 	/**
 	 * Modifica associazione.
 	 *
-	 * @param codice the codice
-	 * @param macchina the macchina
-	 * @param cantiere the cantiere
-	 * @param dataInizio the data inizio
-	 * @param dataFine the data fine
+	 * @param codice   codice
+	 * @param macchina   macchina
+	 * @param cantiere   cantiere
+	 * @param dataInizio   data inizio
+	 * @param dataFine   data fine
 	 */
 	public void modificaAssociazione(Integer codice, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		for (Associazione item:associazioni){
@@ -92,7 +92,7 @@ class ElencoAssociazioni{
 	/**
 	 * Elimina associazione.
 	 *
-	 * @param ID the id
+	 * @param ID   id
 	 * @return true, if successful
 	 */
 	public boolean eliminaAssociazione(Integer ID){
@@ -106,9 +106,9 @@ class ElencoAssociazioni{
 	}
 
 	/**
-	 * Gets the elenco associazioni list.
+	 * Gets   elenco associazioni list.
 	 *
-	 * @return the elenco associazioni list
+	 * @return   elenco associazioni list
 	 */
 	public ArrayList<Associazione> getElencoAssociazioniList(){
 		return associazioni;
@@ -128,9 +128,9 @@ class ElencoAssociazioni{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	/**
-	 * Gets the next codice.
+	 * Gets   next codice.
 	 *
-	 * @return the next codice
+	 * @return   next codice
 	 */
 	int getNextCodice(){
 		return codice+1;

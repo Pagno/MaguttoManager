@@ -6,11 +6,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class RuspaTest.
+ *   Class RuspaTest.
  */
 public class RuspaTest {
 
-	/** The r. */
+	/**   r. */
 	Ruspa r;
 	
 	/**

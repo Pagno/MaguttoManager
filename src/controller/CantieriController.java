@@ -31,7 +31,7 @@ import view.EditCantiere;
  */
 public class CantieriController {
 	
-	/** The model. */
+	/**   model. */
 	private ModelConnector model;
 	
 	/**
@@ -81,6 +81,29 @@ public class CantieriController {
 				}*/
 			}};
 	}
+	public ActionListener EditCantiereListener(EditCantiere editCantiere,final int codice){
+		final EditCantiere cantieriView=editCantiere;
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GregorianCalendar dataInizio=new GregorianCalendar();
+				dataInizio.setTime(cantieriView.getDataInizio());
+				GregorianCalendar dataFine=new GregorianCalendar();
+				dataFine.setTime(cantieriView.getDataFine());
+				
+				
+				String nome=cantieriView.getNomeCantiere();
+				String indirizzo=cantieriView.getIndirizzo();
+				
+				//MEMORIZZO CANTIERE
+				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine);				
+				cantieriView.dispose();
+			}
+		};
+		
+	}
+	
+	
 	/*public ActionListener OpenViewAddAssociazioniListener(){
 		return new ActionListener() {
 			
@@ -150,10 +173,10 @@ public class CantieriController {
 	
 	
 	/**
-	 * Adds the macchina listener.
+	 * Adds   macchina listener.
 	 *
-	 * @param view the view
-	 * @return the action listener
+	 * @param view   view
+	 * @return   action listener
 	 */
 	public ActionListener addMacchinaListener(AddAssociazione view){
 		final AddAssociazione ass=view;
@@ -173,10 +196,10 @@ public class CantieriController {
 		
 	}
 	
-	/** The validate. */
+	/**   validate. */
 	private boolean validate=false;
 	
-	/** The tipo macchina. */
+	/**   tipo macchina. */
 	private String tipoMacchina="Ruspa";
 	//CONTROLLO CORRETTEZZA DATE
 	
@@ -259,7 +282,7 @@ public class CantieriController {
 	/**
 	 * Aggiorna elenco macchine.
 	 *
-	 * @param ass the ass
+	 * @param ass   ass
 	 */
 	private void aggiornaElencoMacchine(AddAssociazione ass){
 		ass.clearList();

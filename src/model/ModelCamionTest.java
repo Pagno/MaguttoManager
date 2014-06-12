@@ -8,12 +8,12 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelCamionTest.
+ *   Class ModelCamionTest.
  */
 public class ModelCamionTest {
 
 
-	/** The mc. */
+	/**   mc. */
 	ModelCamion mc;
 	
 	/**

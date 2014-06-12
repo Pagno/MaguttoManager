@@ -8,11 +8,11 @@ import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ModelEscavatoreTest.
+ *   Class ModelEscavatoreTest.
  */
 public class ModelEscavatoreTest {
 
-	/** The mr. */
+	/**   mr. */
 	ModelEscavatore mr;
 	
 	/**
