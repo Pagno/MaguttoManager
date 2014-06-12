@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -50,13 +49,17 @@ public class MainController{
 		//DELETE LISTENER
 		mainView.addEliminaListener(EliminaMacchina());	
 		
-		mainView.addExitListener(ExitManager());
+		//MENU FILE LISTENER
+		mainView.addBtnEsciListener(ExitManager());
+		mainView.addBtnCaricaListener(caricaDatiListener());
+		mainView.addBtnSalvaListener(salvaDatiListener());
 		mainView.addWindowClosingListener(chiusuraProgramma());
-		/*
-		 * view.addButtonRuspaListener(this);
-		 * view.addButtonCamionListener(this);
-		 * view.addButtonEscavatoreListener(this);
-		 */
+		
+		
+		//MENU FILE LISTENER
+		mainView.addBtnSalvaListener(salvaDatiListener());
+		
+
 	}
 	private void setObserver(){
 		model.addGruObserver(mainView.dataModelGru);
@@ -66,6 +69,7 @@ public class MainController{
 		model.addCantiereObserver(mainView.dataModelCantiere);		
 	}
 	
+	//MENU FILE LISTENER
 	public ActionListener ExitManager(){
 		return new ActionListener() {
 			@Override
@@ -75,7 +79,25 @@ public class MainController{
 			}
 		};
 	}
-
+	public ActionListener salvaDatiListener(){
+		return new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.storeData();
+			}
+			
+		};
+	}
+	public ActionListener caricaDatiListener(){
+		return new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.refreshData();
+			}
+			
+		};
+	}
+	
 	public WindowAdapter chiusuraProgramma(){
 		return new WindowAdapter() {
 			@Override
@@ -84,11 +106,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	//BTN VIEW LISTENER
 	public ActionListener VisualizzaInserimentoGru() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				EditGru ins = new EditGru(mainView);
 				InsertController ctr = new InsertController(model);
 				ins.setInsertButtonListeners(ctr.InsertGruListener(ins));
@@ -99,7 +122,6 @@ public class MainController{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				EditRuspa ins = new EditRuspa(mainView);
 				InsertController ctr = new InsertController(model);
 				ins.setInsertButtonListeners(ctr.InsertRuspaListener(ins));
@@ -110,7 +132,6 @@ public class MainController{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				EditCamion ins = new EditCamion(mainView);
 				InsertController ctr = new InsertController(model);
 				ins.setInsertButtonListeners(ctr.InsertCamionListener(ins));
@@ -121,7 +142,6 @@ public class MainController{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				EditEscavatore ins = new EditEscavatore(mainView);
 				InsertController ctr = new InsertController(model);
 				ins.setInsertButtonListeners(ctr.InsertEscavatoreListener(ins));
@@ -132,7 +152,6 @@ public class MainController{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				EditCantiere ins = new EditCantiere(mainView);
 				CantieriController ctr = new CantieriController(model);
 				//ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
@@ -303,7 +322,6 @@ public class MainController{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				Object[] data=mainView.getSelectedData();
 				String[] tokens = ((String)data[3]).split("/");
 				GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[0]));

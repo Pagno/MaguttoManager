@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -30,7 +29,7 @@ public class MainView extends JFrame {
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
 			itemAddCamion;
 	private JMenuItem itemAddCantiere, itemCollegaMacchina;
-	private JMenuItem itemFileEsci;
+	private JMenuItem itemFileSalva,itemFileCarica,itemFileEsci;
 	
 	/**
 	 * Create the frame.
@@ -122,9 +121,9 @@ public class MainView extends JFrame {
 		JMenu menuCantiere = new JMenu("Cantiere");
 
 		// FILE
-		JMenuItem itemFileCarica = new JMenuItem("Carica");
+		itemFileCarica = new JMenuItem("Carica");
 		menuFile.add(itemFileCarica);
-		JMenuItem itemFileSalva = new JMenuItem("Salva");
+		itemFileSalva = new JMenuItem("Salva");
 		menuFile.add(itemFileSalva);
 		itemFileEsci = new JMenuItem("Esci");
 		menuFile.add(itemFileEsci);
@@ -175,7 +174,7 @@ public class MainView extends JFrame {
 		btnViewCantiere.addActionListener(act);
 	}
 
-	//ADD LISTENER
+	//MENU ADD LISTENER
 	public void addAggiungiGruListener(ActionListener act) {
 		itemAddGru.addActionListener(act);
 	}
@@ -192,6 +191,16 @@ public class MainView extends JFrame {
 		itemAddCantiere.addActionListener(act);
 	}
 	
+	//MENU FILE LISTENER
+	public void addBtnSalvaListener(ActionListener act){
+		itemFileSalva.addActionListener(act);
+	}
+	public void addBtnCaricaListener(ActionListener act){
+		itemFileCarica.addActionListener(act);
+	}
+	public void addBtnEsciListener(ActionListener act){
+		itemFileEsci.addActionListener(act);
+	}
 	//BOTTOM BUTTON
 	public void addModificaListener(ActionListener act) {
 		for( ActionListener al : btnEdit.getActionListeners() ) {
