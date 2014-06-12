@@ -63,7 +63,7 @@ public class EditEscavatore extends JDialog {
 		lblModello = new JLabel("Modello:");
 		lblAltezza = new JLabel("Lunghezza:");
 		lblPortataMax = new JLabel("Portata Massima:");
-		lblProfondita = new JLabel("Profondità:");
+		lblProfondita = new JLabel("Profondita:");
 		lblCapacita = new JLabel("Capacita Massima:");
 		lblMetri = new JLabel("metri");
 		lblTon = new JLabel("Kg");

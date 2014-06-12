@@ -65,7 +65,7 @@ public class InsertController {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"I campi:\n - Capacit��\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
 									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -90,7 +90,7 @@ public class InsertController {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"I campi:\n - Capacit��\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
 									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -116,7 +116,7 @@ public class InsertController {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"I campi:\n - Capacit��\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+									"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
 									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}

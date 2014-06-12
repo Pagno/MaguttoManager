@@ -44,7 +44,7 @@ public class DBException extends Exception {
 			System.out.println("Errore nel caricamento del driver");
 			break;
 		case 2:	
-			System.out.println("Connessione fallita: database già connesso");
+			System.out.println("Connessione fallita: database gia connesso");
 			break;
 		case 3:
 			System.out.println("Errore creazione Statement");
