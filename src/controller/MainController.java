@@ -92,6 +92,11 @@ public class MainController{
 		return new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mainView.dataModelCamion.resetData();
+				mainView.dataModelRuspa.resetData();
+				mainView.dataModelEscavatore.resetData();
+				mainView.dataModelGru.resetData();
+				mainView.dataModelCantiere.resetData();
 				model.refreshData();
 			}
 			

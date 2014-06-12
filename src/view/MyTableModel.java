@@ -46,7 +46,8 @@ public class MyTableModel extends AbstractTableModel implements Observer{
     	data=d;
     }
     public void resetData(){
-    	data=null;
+    	data.clear();
+    	fireTableDataChanged();
     }
     
 	@Override

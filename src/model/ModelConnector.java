@@ -2,13 +2,11 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
-
 import database.DBException;
 import database.DatabaseInterface;
 
@@ -55,7 +53,13 @@ public class ModelConnector extends Observable implements ModelInterface{
 	
 	@Override
 	public void refreshData() {
-
+		mg.getLista().clear();
+		mc.getLista().clear();
+		mr.getLista().clear();
+		me.getLista().clear();
+		ea.getElencoAssociazioniList().clear();
+		lc.getLista().clear();
+		
 		try {
 			db.connect();
 			if(db.isEmpty()){
