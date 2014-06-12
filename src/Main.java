@@ -15,9 +15,12 @@ import database.DBException;
 public class Main {
 
 	/**
+	 * Classe di partenza che contiene il main.
+	 * 
 	 * @param args
 	 * @throws DBException 
 	 * @throws SQLException
+	 * 
 	 */
 	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// TODO Auto-generated method stub
