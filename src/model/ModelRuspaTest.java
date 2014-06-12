@@ -6,10 +6,18 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelRuspaTest.
+ */
 public class ModelRuspaTest {
 
+	/** The mr. */
 	ModelRuspa mr;
 	
+	/**
+	 * Instantiates a new model ruspa test.
+	 */
 	public ModelRuspaTest() {
 		ModelRuspa.resetForTest();
 		mr=ModelRuspa.getModelRuspa();
@@ -18,6 +26,9 @@ public class ModelRuspaTest {
 		mr.caricaRuspa(9, "Liebherr", "L524", 1, 2000, 2);
 	}
 	
+	/**
+	 * Test get model ruspa.
+	 */
 	@Test
 	public void testGetModelRuspa() {
 		ArrayList<Ruspa> lista=mr.getLista();
@@ -29,6 +40,9 @@ public class ModelRuspaTest {
 		assertSame(mr,prova);
 	}
 
+	/**
+	 * Test carica ruspa.
+	 */
 	@Test
 	public void testCaricaRuspa() {
 		assertEquals(mr.getNextCodice(),10);
@@ -39,6 +53,9 @@ public class ModelRuspaTest {
 		assertTrue(lista.contains(new Ruspa(19,"XCMG", "LW500KL", 3, 17000, 5)));
 	}
 	
+	/**
+	 * Test aggiungi ruspa.
+	 */
 	@Test
 	public void testAggiungiRuspa() {
 		assertEquals(mr.getNextCodice(),20);
@@ -50,6 +67,9 @@ public class ModelRuspaTest {
 	}
 
 
+	/**
+	 * Test modifica ruspa.
+	 */
 	@Test
 	public void testModificaRuspa() {
 		assertEquals(mr.getNextCodice(),21);
@@ -60,6 +80,9 @@ public class ModelRuspaTest {
 		assertTrue(lista.contains(new Ruspa(5,"XCMG", "LW500", 2, 2700, 3)));
 	}
 
+	/**
+	 * Test elimina ruspa.
+	 */
 	@Test
 	public void testEliminaRuspa() {
 		assertTrue(mr.eliminaRuspa(6));
@@ -68,12 +91,18 @@ public class ModelRuspaTest {
 		assertFalse(lista.contains(new Ruspa(6, "Hitachi", "ZW65", 2,3500, 3)));
 	}
 
+	/**
+	 * Test is ruspa.
+	 */
 	@Test
 	public void testIsRuspa() {
 		mr.caricaRuspa(8, "JCB", "411", 3, 8000, 3);
 		assertTrue(mr.isRuspa(8));
 	}
 
+	/**
+	 * Test get ruspa.
+	 */
 	@Test
 	public void testGetRuspa() {
 

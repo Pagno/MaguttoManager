@@ -15,22 +15,34 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EditEscavatore.
+ */
 public class EditEscavatore extends JDialog {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
 	
+	/** The content panel. */
 	private final JPanel contentPanel = new JPanel();
+	
+	/** The txt profondita. */
 	private JTextField txtProduttore, txtModello, txtAltezza,txtPortataMax, txtCapacita,txtProfondita;
+	
+	/** The lbl cap. */
 	private JLabel lblProduttore, lblModello, lblAltezza,lblProfondita,
 			lblPortataMax, lblCapacita, lblMetri, lblTon,lblMetri2,
 			lblCap;
+	
+	/** The ok button. */
 	private JButton okButton;
 
 	/**
 	 * Create the dialog.
+	 *
+	 * @param view the view
+	 * @param obj the obj
 	 */
 	public EditEscavatore(JFrame view, Object[] obj) {
 		this(view);
@@ -38,6 +50,12 @@ public class EditEscavatore extends JDialog {
 		setTextBox(obj);
 		okButton.setText("Modifica");
 	}
+	
+	/**
+	 * Sets the text box.
+	 *
+	 * @param v the new text box
+	 */
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
@@ -48,7 +66,10 @@ public class EditEscavatore extends JDialog {
 	}
 
 	/**
-	 * @wbp.parser.constructor
+	 * Instantiates a new edits the escavatore.
+	 *
+	 * @param view the view
+	 * @wbp.parser.constructor 
 	 */
 	public EditEscavatore(JFrame view) {
 		super(view);
@@ -245,29 +266,66 @@ public class EditEscavatore extends JDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Sets the insert button listeners.
+	 *
+	 * @param act the new insert button listeners
+	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
+	/**
+	 * Gets the produttore.
+	 *
+	 * @return the produttore
+	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
+	/**
+	 * Gets the modello.
+	 *
+	 * @return the modello
+	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
 
+	/**
+	 * Gets the altezza.
+	 *
+	 * @return the altezza
+	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
+	
+	/**
+	 * Gets the profondita.
+	 *
+	 * @return the profondita
+	 */
 	public String getProfondita() {
 		return txtProfondita.getText();
 	}
+	
+	/**
+	 * Gets the capacita.
+	 *
+	 * @return the capacita
+	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
+	/**
+	 * Gets the portata massima.
+	 *
+	 * @return the portata massima
+	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();
 	}

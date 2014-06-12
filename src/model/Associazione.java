@@ -3,13 +3,36 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Associazione.
+ */
 public class Associazione implements Cloneable {
+	
+	/** The id. */
 	private int ID;
+	
+	/** The macchina. */
 	private Macchina macchina;
+	
+	/** The cantiere. */
 	private Cantiere cantiere;
+	
+	/** The data inizio. */
 	private GregorianCalendar dataInizio;
+	
+	/** The data fine. */
 	private GregorianCalendar dataFine;
 	
+	/**
+	 * Instantiates a new associazione.
+	 *
+	 * @param ID the id
+	 * @param macchina the macchina
+	 * @param cantiere the cantiere
+	 * @param dataInizio the data inizio
+	 * @param dataFine the data fine
+	 */
 	public Associazione(int ID, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.ID=ID;
 		this.setMacchina(macchina);
@@ -18,34 +41,72 @@ public class Associazione implements Cloneable {
 		this.setDataFine(dataFine);
 	}
 
+	/**
+	 * Gets the macchina.
+	 *
+	 * @return the macchina
+	 */
 	public Macchina getMacchina() {
 		return macchina;
 	}
 
+	/**
+	 * Sets the macchina.
+	 *
+	 * @param macchina the new macchina
+	 */
 	public void setMacchina(Macchina macchina) {
 		this.macchina = macchina;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	public Associazione clone(){
 		return this;
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public int getID(){
 		return this.ID;
 	}
 
+	/**
+	 * Gets the cantiere.
+	 *
+	 * @return the cantiere
+	 */
 	public Cantiere getCantiere() {
 		return cantiere;
 	}
 
+	/**
+	 * Sets the cantiere.
+	 *
+	 * @param cantiere the new cantiere
+	 */
 	public void setCantiere(Cantiere cantiere) {
 		this.cantiere = cantiere;
 	}
 	
+	/**
+	 * Gets the data inizio.
+	 *
+	 * @return the data inizio
+	 */
 	public GregorianCalendar getDataInizio() {
 		return dataInizio;
 	}
 	
+	/**
+	 * Gets the str data inizio.
+	 *
+	 * @return the str data inizio
+	 */
 	public String getStrDataInizio() {
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("yyyy-MM-dd");
@@ -74,14 +135,29 @@ public class Associazione implements Cloneable {
 		return year +"-"+ month +"-"+ day;*/
 	}
 
+	/**
+	 * Sets the data inizio.
+	 *
+	 * @param dataInizio the new data inizio
+	 */
 	public void setDataInizio(GregorianCalendar dataInizio) {
 		this.dataInizio = dataInizio;
 	}
 
+	/**
+	 * Gets the data fine.
+	 *
+	 * @return the data fine
+	 */
 	public GregorianCalendar getDataFine() {
 		return dataFine;
 	}
 	
+	/**
+	 * Gets the str data fine.
+	 *
+	 * @return the str data fine
+	 */
 	public String getStrDataFine() {
 
 		
@@ -114,14 +190,25 @@ public class Associazione implements Cloneable {
 		return year +"-"+ month +"-"+ day;*/
 	}
 
+	/**
+	 * Sets the data fine.
+	 *
+	 * @param dataFine the new data fine
+	 */
 	public void setDataFine(GregorianCalendar dataFine) {
 		this.dataFine = dataFine;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return this.getID() + " " + this.getMacchina().getCodice() + " " + this.getCantiere().getCodice() + " " + this.getStrDataInizio() + " " + this.getStrDataFine();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj){
 		if(this==obj){
 			return true;

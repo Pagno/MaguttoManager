@@ -11,15 +11,31 @@ import view.EditGru;
 import view.EditRuspa;
 import model.ModelInterface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InsertController.
+ */
 public class InsertController {
 
+	/** The model. */
 	ModelInterface model;
 
+	/**
+	 * Instantiates a new insert controller.
+	 *
+	 * @param m the m
+	 */
 	public InsertController(ModelInterface m) {
 		model = m;
 	}
 	
 	//INSERT LISTENER
+	/**
+	 * Insert gru listener.
+	 *
+	 * @param d the d
+	 * @return the action listener
+	 */
 	public ActionListener InsertGruListener( EditGru d) {
 		final EditGru dialog=d;
 		return new ActionListener() {
@@ -46,6 +62,13 @@ public class InsertController {
 			}
 		};
 	}
+	
+	/**
+	 * Insert ruspa listener.
+	 *
+	 * @param d the d
+	 * @return the action listener
+	 */
 	public ActionListener InsertRuspaListener(EditRuspa d) {
 		final EditRuspa dialog=d;
 		return new ActionListener() {
@@ -71,6 +94,13 @@ public class InsertController {
 			}
 		};
 	}
+	
+	/**
+	 * Insert camion listener.
+	 *
+	 * @param d the d
+	 * @return the action listener
+	 */
 	public ActionListener InsertCamionListener(EditCamion d) {
 		final EditCamion dialog=d;
 		return new ActionListener() {
@@ -96,6 +126,13 @@ public class InsertController {
 			}
 		};
 	}
+	
+	/**
+	 * Insert escavatore listener.
+	 *
+	 * @param d the d
+	 * @return the action listener
+	 */
 	public ActionListener InsertEscavatoreListener(EditEscavatore d) {
 		final EditEscavatore dialog=d;
 		return new ActionListener() {
@@ -125,6 +162,13 @@ public class InsertController {
 	
 	
 	//EDIT LISTENER
+	/**
+	 * Edits the gru listener.
+	 *
+	 * @param d the d
+	 * @param codice the codice
+	 * @return the action listener
+	 */
 	public ActionListener EditGruListener( EditGru d,final int codice) {
 		final EditGru dialog=d;
 		return new ActionListener() {
@@ -152,6 +196,13 @@ public class InsertController {
 		};
 	}
 	
+	/**
+	 * Edits the ruspa listener.
+	 *
+	 * @param d the d
+	 * @param codice the codice
+	 * @return the action listener
+	 */
 	public ActionListener EditRuspaListener( EditRuspa d,final int codice) {
 		final EditRuspa dialog=d;
 		return new ActionListener() {
@@ -178,6 +229,13 @@ public class InsertController {
 		};
 	}
 	
+	/**
+	 * Edits the camion listener.
+	 *
+	 * @param d the d
+	 * @param codice the codice
+	 * @return the action listener
+	 */
 	public ActionListener EditCamionListener( EditCamion d,final int codice) {
 		final EditCamion dialog=d;
 		return new ActionListener() {
@@ -203,6 +261,14 @@ public class InsertController {
 			}
 		};
 	}
+	
+	/**
+	 * Edits the escavatore listener.
+	 *
+	 * @param d the d
+	 * @param codice the codice
+	 * @return the action listener
+	 */
 	public ActionListener EditEscavatoreListener( EditEscavatore d,final int codice) {
 		final EditEscavatore dialog=d;
 		return new ActionListener() {

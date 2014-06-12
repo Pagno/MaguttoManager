@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Thu Jun 12 10:05:39 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0146-8f1c-5d2e-000002f10248 
-on database directory /home/matteo/workspace/MaguttoManager/MyDB  with class loader sun.misc.Launcher$AppClassLoader@3b896429 
-Loaded from file:/home/matteo/workspace/MaguttoManager/lib/derby.jar
+Thu Jun 12 11:03:27 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0146-8f51-46fa-000000bf9a50 
+on database directory C:\Users\Mauro\git\MaguttoManager\MyDB  with class loader sun.misc.Launcher$AppClassLoader@107077e 
+Loaded from file:/C:/Users/Mauro/git/MaguttoManager/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_55-b14
-user.dir=/home/matteo/workspace/MaguttoManager
+user.dir=C:\Users\Mauro\git\MaguttoManager
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

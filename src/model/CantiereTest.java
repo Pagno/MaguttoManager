@@ -6,14 +6,25 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CantiereTest.
+ */
 public class CantiereTest {
 	
+	/** The c. */
 	Cantiere c;
 	
+	/**
+	 * Instantiates a new cantiere test.
+	 */
 	public CantiereTest(){
 		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,12,31));
 	}
 
+	/**
+	 * Test cantiere.
+	 */
 	@Test
 	public void testCantiere() {
 		assertEquals(c.getCodice(),11);
@@ -23,30 +34,45 @@ public class CantiereTest {
 		assertEquals(c.getDataChiusura(),new GregorianCalendar(2090,12,31));
 	}
 
+	/**
+	 * Test set nome cantiere.
+	 */
 	@Test
 	public void testSetNomeCantiere() {
 		c.setNomeCantiere("Grande Opera");
 		assertEquals(c.getNomeCantiere(),"Grande Opera");
 	}
 
+	/**
+	 * Test set indirizzo.
+	 */
 	@Test
 	public void testSetIndirizzo() {
 		c.setIndirizzo("Reggio Calabria");
 		assertEquals(c.getIndirizzo(),"Reggio Calabria");
 	}
 
+	/**
+	 * Test set data apertura.
+	 */
 	@Test
 	public void testSetDataApertura() {
 		c.setDataChiusura(new GregorianCalendar(2061,4,25));
 		assertEquals(c.getDataChiusura(),new GregorianCalendar(2061,4,25));
 	}
 
+	/**
+	 * Test set data chiusura.
+	 */
 	@Test
 	public void testSetDataChiusura() {
 		c.setDataChiusura(new GregorianCalendar(2091,5,5));
 		assertEquals(c.getDataChiusura(),new GregorianCalendar(2091,5,5));
 	}
 
+	/**
+	 * Test set codice.
+	 */
 	@Test
 	public void testSetCodice() {
 		c.setCodice(17);

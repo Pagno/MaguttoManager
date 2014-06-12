@@ -36,28 +36,53 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddAssociazione.
+ */
 public class AddAssociazione extends JDialog{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
 	
+	/** The content panel. */
 	private final JPanel contentPanel = new JPanel();
 
+	/** The chiudi btn. */
 	private JButton okButton,btnAggiungi,btnRimuovi,chiudiBtn;
+	
+	/** The table. */
 	private JTable table;
+	
+	/** The list scroller. */
 	private JScrollPane scrollPane,listScroller;
+	
+	/** The list. */
 	private JList list;
+	
+	/** The lbl cantiere. */
 	private JLabel lblCantiere;
+	
+	/** The table model. */
 	private TableModel tableModel;
+	
+	/** The list model. */
 	private DefaultListModel listModel;
+	
+	/** The tipo macchina. */
 	private JComboBox tipoMacchina;
+	
+	/** The data fine. */
 	private JDateChooser dataInizio,dataFine;
 	
 
 	/**
 	 * Create the dialog.
+	 *
+	 * @param view the view
+	 * @param nomeCantiere the nome cantiere
+	 * @param inizio the inizio
+	 * @param fine the fine
 	 */
 
 
@@ -152,44 +177,114 @@ public class AddAssociazione extends JDialog{
 		setVisible(true);
 	}
 
+	/**
+	 * Sets the ok btn listeners.
+	 *
+	 * @param act the new ok btn listeners
+	 */
 	public void setOkBtnListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
+	
+	/**
+	 * Sets the chiudi button listeners.
+	 *
+	 * @param act the new chiudi button listeners
+	 */
 	public void setChiudiButtonListeners(ActionListener act) {
 		chiudiBtn.addActionListener(act);
 	}
+	
+	/**
+	 * Adds the macchina listener.
+	 *
+	 * @param act the act
+	 */
 	public void addMacchinaListener(ActionListener act){
 		btnAggiungi.addActionListener(act);
 	}
+	
+	/**
+	 * Adds the combo box listener.
+	 *
+	 * @param act the act
+	 */
 	public void addComboBoxListener(ActionListener act){
 		tipoMacchina.addActionListener(act);
 	}
+	
+	/**
+	 * Adds the rimuovi listener.
+	 *
+	 * @param act the act
+	 */
 	public void addRimuoviListener(ActionListener act){
 		btnRimuovi.addActionListener(act);
 	}
 	
+	/**
+	 * Clear list.
+	 */
 	public void clearList(){
 		listModel.clear();
 	}
+	
+	/**
+	 * Gets the selected associazione.
+	 *
+	 * @return the selected associazione
+	 */
 	public int getSelectedAssociazione(){
 		return table.getSelectedRow();
 	}
+	
+	/**
+	 * Rimuovi associazione selezionata.
+	 */
 	public void rimuoviAssociazioneSelezionata(){
 		tableModel.removeData(table.getSelectedRow());
 	}
+	
+	/**
+	 * Adds the data.
+	 *
+	 * @param data the data
+	 */
 	public void addData(Object[] data){
 		tableModel.addData(data);
 	}
+	
+	/**
+	 * Gets the associazioni.
+	 *
+	 * @return the associazioni
+	 */
 	public ArrayList<Object[]> getAssociazioni(){
 		return tableModel.getData();
 	}
+	
+	/**
+	 * Gets the list selected.
+	 *
+	 * @return the list selected
+	 */
 	public Macchina getListSelected(){
 		return (Macchina)list.getSelectedValue();
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.Window#addPropertyChangeListener(java.beans.PropertyChangeListener)
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener evt){
 		dataFine.addPropertyChangeListener(evt);
 		dataInizio.addPropertyChangeListener(evt);
 	}
+	
+	/**
+	 * Gets the data inizio.
+	 *
+	 * @return the data inizio
+	 */
 	public GregorianCalendar getDataInizio() {
 		if(dataInizio.getDate()==null)
 			return null;
@@ -197,9 +292,21 @@ public class AddAssociazione extends JDialog{
 		gc.setTime(dataInizio.getDate());
 		return gc;
 	}
+	
+	/**
+	 * Sets the data inizio.
+	 *
+	 * @param d the new data inizio
+	 */
 	public void setDataInizio(Date d) {
 		dataInizio.setDate(d);
 	}
+	
+	/**
+	 * Gets the data fine.
+	 *
+	 * @return the data fine
+	 */
 	public GregorianCalendar getDataFine() {
 		if(dataFine.getDate()==null)
 			return null;
@@ -207,40 +314,72 @@ public class AddAssociazione extends JDialog{
 		gc.setTime(dataFine.getDate());
 		return gc;
 	}
+	
+	/**
+	 * Sets the data fine.
+	 *
+	 * @param d the new data fine
+	 */
 	public void setDataFine(Date d) {
 		dataFine.setDate(d);
 	}
 	
+	/**
+	 * Aggiungi macchina a lista.
+	 *
+	 * @param m the m
+	 */
 	public void aggiungiMacchinaALista(Macchina m){
 		listModel.addElement(m);
 	}
 	
 	
 	
+	/**
+	 * The Class TableModel.
+	 */
 	class TableModel extends AbstractTableModel{
 
-		/**
-		 * 
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -6590327420669891637L;
 
+		/** The columns name. */
 		private String[] columnsName = {"Macchina","dataInizio","dataFine"};
 
+		/** The data. */
 		private ArrayList<Object[]> data=new ArrayList<Object[]>();
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnCount()
+		 */
 		@Override
 		public int getColumnCount() {
 			// TODO Auto-generated method stub
 			return columnsName.length;
 		}
 
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getRowCount()
+		 */
 		@Override
 		public int getRowCount() {
 			// TODO Auto-generated method stub
 			return data.size();
 		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.AbstractTableModel#getColumnName(int)
+		 */
 		public String getColumnName(int col) {
 	        return columnsName[col];
 	    }
+		
+		/**
+		 * Removes the data.
+		 *
+		 * @param i the i
+		 * @return true, if successful
+		 */
 		public boolean removeData(int i){
 	    	try{
 	    		data.remove(i);
@@ -251,6 +390,9 @@ public class AddAssociazione extends JDialog{
 	    	}
 	    }
 
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getValueAt(int, int)
+		 */
 		@Override
 		public Object getValueAt(int arg0, int arg1) {
 			// TODO Auto-generated method stub
@@ -261,12 +403,25 @@ public class AddAssociazione extends JDialog{
 			}
 			return data.get(arg0)[arg1+1];
 		}
-	    public boolean addData(Object[] obj){
+	    
+    	/**
+    	 * Adds the data.
+    	 *
+    	 * @param obj the obj
+    	 * @return true, if successful
+    	 */
+    	public boolean addData(Object[] obj){
 	    	data.add(obj);
 	    	fireTableDataChanged();
 	    	return true;
 	    }
-	    public ArrayList<Object[]> getData(){
+	    
+    	/**
+    	 * Gets the data.
+    	 *
+    	 * @return the data
+    	 */
+    	public ArrayList<Object[]> getData(){
 	    	return data;
 	    }
 	}

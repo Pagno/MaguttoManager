@@ -15,30 +15,48 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EditGru.
+ */
 public class EditGru extends JDialog {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1364300169692664613L;
 
 	
+	/** The content panel. */
 	private final JPanel contentPanel = new JPanel();
+	
+	/** The txt angolo rotazione. */
 	private JTextField txtProduttore, txtModello, txtLunghezza, txtAltezza,
 			txtPortataMax, txtAngoloRotazione;
+	
+	/** The lbl angolo. */
 	private JLabel lblProduttore, lblModello, lblLunghezza, lblAltezza,
 			lblPortataMax, lblAngoloRotazione, lblMetri, lblTon, lblMetri2,
 			lblAngolo;
+	
+	/** The ok button. */
 	private JButton okButton;
 
 	/**
 	 * Create the dialog.
+	 *
+	 * @param view the view
+	 * @param obj the obj
 	 */
 	public EditGru(JFrame view, Object[] obj) {
 		this(view);
 		setTitle("Modifica Gru");
 		setTextBox(obj);
 	}
+	
+	/**
+	 * Sets the text box.
+	 *
+	 * @param v the new text box
+	 */
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
@@ -47,6 +65,12 @@ public class EditGru extends JDialog {
 		txtPortataMax.setText(v[5].toString());
 		txtAngoloRotazione.setText(v[6].toString());
 	}
+	
+	/**
+	 * Instantiates a new edits the gru.
+	 *
+	 * @param view the view
+	 */
 	public EditGru(JFrame view) {
 		super(view);
 		setTitle("Aggiungi nuova Gru");
@@ -241,30 +265,65 @@ public class EditGru extends JDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Sets the insert button listeners.
+	 *
+	 * @param act the new insert button listeners
+	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
+	/**
+	 * Gets the produttore.
+	 *
+	 * @return the produttore
+	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
+	/**
+	 * Gets the modello.
+	 *
+	 * @return the modello
+	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
+	/**
+	 * Gets the lunghezza.
+	 *
+	 * @return the lunghezza
+	 */
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
 
+	/**
+	 * Gets the altezza.
+	 *
+	 * @return the altezza
+	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
 
+	/**
+	 * Gets the angolo rotazione.
+	 *
+	 * @return the angolo rotazione
+	 */
 	public String getAngoloRotazione() {
 		return txtAngoloRotazione.getText();
 	}
 
+	/**
+	 * Gets the portata massima.
+	 *
+	 * @return the portata massima
+	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();
 	}

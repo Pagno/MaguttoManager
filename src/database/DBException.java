@@ -8,9 +8,7 @@ package database;
  */
 public class DBException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/** The error code. */
 	int errorCode;

@@ -17,11 +17,24 @@ import view.EditRuspa;
 import view.MainView;
 import model.ModelConnector;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainController.
+ */
 public class MainController{
 
+	/** The model. */
 	private ModelConnector model;
+	
+	/** The main view. */
 	private MainView mainView;
 
+	/**
+	 * Instantiates a new main controller.
+	 *
+	 * @param m the m
+	 * @param mn the mn
+	 */
 	public MainController(ModelConnector m,MainView mn) {
 		model = m;
 		mainView = mn;
@@ -61,6 +74,10 @@ public class MainController{
 		
 
 	}
+	
+	/**
+	 * Sets the observer.
+	 */
 	private void setObserver(){
 		model.addGruObserver(mainView.dataModelGru);
 		model.addRuspaObserver(mainView.dataModelRuspa);
@@ -70,6 +87,11 @@ public class MainController{
 	}
 	
 	//MENU FILE LISTENER
+	/**
+	 * Exit manager.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener ExitManager(){
 		return new ActionListener() {
 			@Override
@@ -79,6 +101,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Salva dati listener.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener salvaDatiListener(){
 		return new ActionListener(){
 			@Override
@@ -88,6 +116,12 @@ public class MainController{
 			
 		};
 	}
+	
+	/**
+	 * Carica dati listener.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener caricaDatiListener(){
 		return new ActionListener(){
 			@Override
@@ -103,6 +137,11 @@ public class MainController{
 		};
 	}
 	
+	/**
+	 * Chiusura programma.
+	 *
+	 * @return the window adapter
+	 */
 	public WindowAdapter chiusuraProgramma(){
 		return new WindowAdapter() {
 			@Override
@@ -113,6 +152,11 @@ public class MainController{
 	}
 	
 	//BTN VIEW LISTENER
+	/**
+	 * Visualizza inserimento gru.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaInserimentoGru() {
 		return new ActionListener() {
 			@Override
@@ -123,6 +167,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza inserimento ruspa.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaInserimentoRuspa() {
 		return new ActionListener() {
 			@Override
@@ -133,6 +183,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza inserimento camion.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaInserimentoCamion() {
 		return new ActionListener() {
 			@Override
@@ -143,6 +199,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza inserimento escavatore.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaInserimentoEscavatore() {
 		return new ActionListener() {
 			@Override
@@ -153,6 +215,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza inserimento cantiere.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaInserimentoCantiere() {
 		return new ActionListener() {
 			@Override
@@ -167,6 +235,11 @@ public class MainController{
 	}
 	
 	//VISUALIZZA ELENCO IN TABELLA
+	/**
+	 * Visualizza elenco gru.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaElencoGru() {
 		return new ActionListener() {
 			@Override
@@ -180,6 +253,12 @@ public class MainController{
 
 		};
 	}
+	
+	/**
+	 * Visualizza elenco ruspe.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaElencoRuspe() {
 		return new ActionListener() {
 			@Override
@@ -192,6 +271,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza elenco camion.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaElencoCamion() {
 		return new ActionListener() {
 			@Override
@@ -203,6 +288,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza elenco escavatore.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaElencoEscavatore() {
 		return new ActionListener() {
 			@Override
@@ -215,6 +306,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza elenco cantieri.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaElencoCantieri() {
 		return new ActionListener() {
 			@Override
@@ -228,6 +325,11 @@ public class MainController{
 	}
 	
 	//EDIT
+	/**
+	 * Visualizza modifica gru view.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaModificaGruView() {
 		return new ActionListener() {
 			@Override
@@ -243,6 +345,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza modifica ruspa view.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaModificaRuspaView() {
 		return new ActionListener() {
 			@Override
@@ -259,6 +367,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza modifica camion view.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaModificaCamionView() {
 		return new ActionListener() {
 			@Override
@@ -275,6 +389,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Visualizza modifica escavatore view.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener VisualizzaModificaEscavatoreView() {
 		return new ActionListener() {
 			@Override
@@ -292,6 +412,11 @@ public class MainController{
 		};
 	}
 	//DELETE
+	/**
+	 * Elimina macchina.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener EliminaMacchina(){
 		return new ActionListener() {
 			@Override
@@ -307,6 +432,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Elimina cantiere.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener EliminaCantiere(){
 		return new ActionListener() {
 			@Override
@@ -322,6 +453,12 @@ public class MainController{
 			}
 		};
 	}
+	
+	/**
+	 * Adds the associazione view.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener AddAssociazioneView(){
 		return new ActionListener(){
 
