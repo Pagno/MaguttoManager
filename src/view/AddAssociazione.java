@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -64,7 +66,7 @@ public class AddAssociazione extends JDialog{
 	private JLabel lblCantiere;
 	
 	/**   table model. */
-	private TableModel tableModel;
+	public TableModel tableModel;
 	
 	/**   list model. */
 	private DefaultListModel listModel;
@@ -91,6 +93,7 @@ public class AddAssociazione extends JDialog{
 	 */
 	public AddAssociazione(JFrame view,String nomeCantiere,GregorianCalendar inizio,GregorianCalendar fine) {
 		super(view);
+		setTitle("Modifica Associazioni");
 		setSize(new Dimension(790, 363));
 		contentPanel.setLayout(new BorderLayout());
 
@@ -100,6 +103,7 @@ public class AddAssociazione extends JDialog{
 
 		okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
+		okButton.addActionListener(okButtonListeners());
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
@@ -176,14 +180,19 @@ public class AddAssociazione extends JDialog{
 
 		setVisible(true);
 	}
-
+	
 	/**
 	 * Sets   ok btn listeners.
 	 *
 	 * @param act   new ok btn listeners
 	 */
-	public void setOkBtnListeners(ActionListener act) {
-		okButton.addActionListener(act);
+	private ActionListener okButtonListeners() {
+		return new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		};
 	}
 	
 	/**
@@ -200,7 +209,7 @@ public class AddAssociazione extends JDialog{
 	 *
 	 * @param act   act
 	 */
-	public void addMacchinaListener(ActionListener act){
+	public void addAggiungiAssociazioneListener(ActionListener act){
 		btnAggiungi.addActionListener(act);
 	}
 	
@@ -218,7 +227,7 @@ public class AddAssociazione extends JDialog{
 	 *
 	 * @param act   act
 	 */
-	public void addRimuoviListener(ActionListener act){
+	public void addRimuoviAssoziazioneListener(ActionListener act){
 		btnRimuovi.addActionListener(act);
 	}
 	
@@ -234,8 +243,8 @@ public class AddAssociazione extends JDialog{
 	 *
 	 * @return   selected associazione
 	 */
-	public int getSelectedAssociazione(){
-		return table.getSelectedRow();
+	public int getCodiceAssociazioneSelezionata(){
+		return (int)tableModel.getValueAt(table.getSelectedRow())[0];
 	}
 	
 	/**
@@ -338,7 +347,7 @@ public class AddAssociazione extends JDialog{
 	/**
 	 *   Class TableModel.
 	 */
-	class TableModel extends AbstractTableModel{
+	class TableModel extends AbstractTableModel implements Observer{
 
 		/**   Constant serialVersionUID. */
 		private static final long serialVersionUID = -6590327420669891637L;
@@ -403,7 +412,11 @@ public class AddAssociazione extends JDialog{
 			}
 			return data.get(arg0)[arg1+1];
 		}
-	    
+		public Object[] getValueAt(int arg0) {
+			// TODO Auto-generated method stub
+
+			return data.get(arg0);
+		}
     	/**
     	 * Adds   data.
     	 *
@@ -424,5 +437,24 @@ public class AddAssociazione extends JDialog{
     	public ArrayList<Object[]> getData(){
 	    	return data;
 	    }
+
+		@Override
+		public void update(Observable arg0, Object arg1) {
+			boolean trovato=false;
+			for(int i=0;i<data.size();i++){
+				if(data.get(i)[0]==((Object[])arg1)[0]){
+					data.set(i,(Object[])arg1);
+					fireTableDataChanged();
+					trovato=true;
+				}
+			}
+			if(trovato==false){
+				addData((Object[])arg1);
+			}
+
+			
+		}
+		
+		
 	}
 }

@@ -29,6 +29,7 @@ import view.EditCantiere;
  * ed alle associzioni ad essi legate
  * 
  */
+
 public class CantieriController {
 	
 	/**   model. */
@@ -103,28 +104,6 @@ public class CantieriController {
 		
 	}
 	
-	
-	/*public ActionListener OpenViewAddAssociazioniListener(){
-		return new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				String nome=cantieriView.getNomeCantiere();
-				/*if(cantieriView.getDataInizio()==null || cantieriView.getDataFine()==null ){
-					JOptionPane.showMessageDialog(null,"Scelezionare prima Data Inizo e Data Fine Cantiere.","Error", JOptionPane.ERROR_MESSAGE);		
-				}else{
-					AddAssociazione ass =new AddAssociazione(cantieriView,nome, cantieriView.getDataInizio(),cantieriView.getDataFine());
-					ass.aggiungiAssoziazioneListener(AddAssociazioniListener(ass));
-					ass.addPropertyChangeListener(checkAssociazioni(ass));
-					ass.aggiungiComboBoxListener(cambioTipoMacchina(ass));
-					ass.aggiungiRimuoviListener(btnRimuoviListener(ass));
-				//}
-			}
-		};
-		
-	}*/
-	
 	/**
 	 * Gestisce l'aggiunta di una <em>"Associazione"</em>.
 	 *
@@ -141,12 +120,10 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Object[]> list=view.getAssociazioni();
+				Macchina r=(Macchina)view.getListSelected();
 				
-				for(Object[] obj:list){
-					model.aggiungiAssociazione((int)obj[0], codiceCantiere,(GregorianCalendar)obj[2],(GregorianCalendar) obj[3]);
-				}
-				view.dispose();
+				model.aggiungiAssociazione(r.getCodice(), codiceCantiere,view.getDataInizio(),view.getDataFine());
+
 			}
 		};		
 	}
@@ -165,6 +142,7 @@ public class CantieriController {
 		return new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				model.eliminaAssociazione(addAssociazione.getCodiceAssociazioneSelezionata());
 				addAssociazione.rimuoviAssociazioneSelezionata();
 			}
 		};

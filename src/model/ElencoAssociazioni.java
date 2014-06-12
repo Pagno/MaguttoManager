@@ -1,13 +1,14 @@
 package model;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Observable;
 
 
 // TODO: Auto-generated Javadoc
 /**
  *   Class ElencoAssociazioni.
  */
-class ElencoAssociazioni{
+class ElencoAssociazioni extends Observable{
 
 	/**   associazioni. */
 	private ArrayList<Associazione> associazioni;
@@ -50,6 +51,11 @@ class ElencoAssociazioni{
 			codice++;
 			Associazione a=new Associazione(codice, macchina, cantiere, dataInizio, dataFine);
 			associazioni.add(a);
+			
+			Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
+					,dataInizio,dataFine};
+			setChanged();
+			notifyObservers(list);
 	}
 
 	/**
@@ -67,6 +73,11 @@ class ElencoAssociazioni{
 		}
 		Associazione a=new Associazione(codice, macchina, cantiere, dataInizio, dataFine);
 		associazioni.add(a);
+		
+		Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
+				,dataInizio,dataFine};
+		setChanged();
+		notifyObservers(list);
 	}
 
 	/**
@@ -87,6 +98,11 @@ class ElencoAssociazioni{
 				item.setDataFine(dataFine);
 			}
 		}
+		
+		Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
+				,dataInizio,dataFine};
+		setChanged();
+		notifyObservers(list);
 	}
 
 	/**
@@ -113,7 +129,20 @@ class ElencoAssociazioni{
 	public ArrayList<Associazione> getElencoAssociazioniList(){
 		return associazioni;
 	}
-
+	
+	/**
+	 *	
+	 * @param codiceCantiere codice del cantiere di cui si vuole conoscere le associazioni
+	 * @return   elenco associazioni list
+	 */	
+	public ArrayList<Associazione> getElencoAssociazioniList(int codiceCantiere){
+		ArrayList<Associazione> arr=new ArrayList<Associazione>();
+		for(Associazione a:associazioni){
+			if(a.getCantiere().getCodice()==codiceCantiere)
+				arr.add(a);
+		}
+		return arr;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

@@ -74,6 +74,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 	
 	/**
+	 * Adds   associazione observer.
+	 *
+	 * @param observer   observer
+	 */
+	public void addAssociazioniObserver(Observer observer){
+		ea.deleteObservers();
+		ea.addObserver(observer);
+	}
+	/**
 	 * Adds   ruspa observer.
 	 *
 	 * @param observer   observer
@@ -383,7 +392,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public boolean eliminaAssociazioniCantiere(int codiceCantiere) {
 		return ea.eliminaAssociazione(codiceCantiere);
 	}
-	
+	public ArrayList<Associazione> elencoAssociazioniCantiere(int codiceCantiere) {
+		return ea.getElencoAssociazioniList(codiceCantiere);
+	}
 	/**
 	 * Load db.
 	 */

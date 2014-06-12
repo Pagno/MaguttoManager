@@ -16,6 +16,7 @@ import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import view.MainView;
+import model.Associazione;
 import model.ModelConnector;
 
 // TODO: Auto-generated Javadoc
@@ -560,11 +561,18 @@ public class MainController{
 				AddAssociazione ass = new AddAssociazione(mainView, data[1].toString(),d,d2);
 				CantieriController ctr = new CantieriController(model);
 				
-				ass.addMacchinaListener(ctr.addMacchinaListener(ass));
+				ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
 				ass.addPropertyChangeListener(ctr.checkAssociazioni(ass));
 				ass.addComboBoxListener(ctr.cambioTipoMacchina(ass));
-				ass.addRimuoviListener(ctr.btnRimuoviListener(ass));
-				ass.setOkBtnListeners(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
+				ass.addRimuoviAssoziazioneListener(ctr.btnRimuoviListener(ass));
+				model.addAssociazioniObserver(ass.tableModel);
+				for(Associazione a:model.elencoAssociazioniCantiere((int) mainView.getSelectedData()[0])){
+					Object[] list={a.getID(),a.getMacchina().getProduttore()+" - "+a.getMacchina().getModello()
+							,a.getDataInizio(),a.getDataFine()};
+					
+					ass.addData(list);
+ 				}
+				
 			}
 			
 		};

@@ -83,16 +83,12 @@ public class MainView extends JFrame {
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 
 		
-		
-		
-		
-		
 		scrollpane = new JScrollPane(table);
 		JPanel center=new JPanel();
 		center.setLayout(new BorderLayout(0, 0));
 		btnEdit =new JButton("Modifica");
 		btnDelete=new JButton("Elimina");
-		btnAddAssociazione =new JButton("Aggiungi Associazione");
+		btnAddAssociazione =new JButton("Associazioni");
 		btnAddAssociazione.setVisible(false);
 		
 		center.add(scrollpane, BorderLayout.CENTER);
