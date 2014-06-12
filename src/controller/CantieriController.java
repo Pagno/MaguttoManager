@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -22,9 +21,13 @@ import model.Ruspa;
 import view.AddAssociazione;
 import view.EditCantiere;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class CantieriController.
+ * 
+ * Questa classe permette di gestire gli eventi,
+ * legati all'isnerimento di nuovi cantieri 
+ * ed alle associzioni ad essi legate
+ * 
  */
 public class CantieriController {
 	
@@ -32,22 +35,27 @@ public class CantieriController {
 	private ModelConnector model;
 	
 	/**
-	 * Instantiates a new cantieri controller.
+	 * Istanzia un nuovo controllore CantieriController.
 	 *
-	 * @param m the m
+	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
+	 * 
 	 */
-	public CantieriController(ModelConnector m) {
-		model = m;
+	public CantieriController(ModelConnector modelConnector) {
+		model = modelConnector;
 	}
 	
 	/**
-	 * Insert nuovo cantiere listener.
+	 * Gestisce l'inserimento di un nuovo <em>"Cantiere"</em>.
 	 *
-	 * @param view the view
-	 * @return the action listener
+	 * @param editCantiere view da cui leggere i dati del nuovo Cantiere
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener InsertNuovoCantiereListener(EditCantiere view){
-		final EditCantiere cantieriView=view;
+	public ActionListener InsertNuovoCantiereListener(EditCantiere editCantiere){
+		final EditCantiere cantieriView=editCantiere;
 		return new ActionListener(){
 
 			@Override
@@ -78,7 +86,6 @@ public class CantieriController {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 
 				String nome=cantieriView.getNomeCantiere();
 				/*if(cantieriView.getDataInizio()==null || cantieriView.getDataFine()==null ){
@@ -96,14 +103,18 @@ public class CantieriController {
 	}*/
 	
 	/**
-	 * Adds the associazione listener.
+	 * Gestisce l'aggiunta di una <em>"Associazione"</em>.
 	 *
-	 * @param v the v
-	 * @param codiceCantiere the codice cantiere
-	 * @return the action listener
+	 *@param addAssociazione view da cui leggere i dati dell'Associzione da inserire
+	 *@param codiceCantiere codice  del Cantiere 
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener addAssociazioneListener(AddAssociazione v,final int codiceCantiere){
-		final AddAssociazione view=v;
+	public ActionListener addAssociazioneListener(AddAssociazione addAssociazione,final int codiceCantiere){
+		final AddAssociazione view=addAssociazione;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -118,17 +129,20 @@ public class CantieriController {
 	}
 	
 	/**
-	 * Btn rimuovi listener.
+	 * Gestisce l'eliminaziozne delle Associzioni selezionate.
 	 *
-	 * @param view the view
-	 * @return the action listener
+	 *@param addAssociazione view da cui leggere i dati dell'Associazione da cancellare
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener btnRimuoviListener(final AddAssociazione view){
+	public ActionListener btnRimuoviListener(final AddAssociazione addAssociazione){
 		return new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				view.rimuoviAssociazioneSelezionata();
+				addAssociazione.rimuoviAssociazioneSelezionata();
 			}
 		};
 		
@@ -147,7 +161,6 @@ public class CantieriController {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				Macchina r=(Macchina)ass.getListSelected();
 				
 			    
@@ -166,14 +179,19 @@ public class CantieriController {
 	/** The tipo macchina. */
 	private String tipoMacchina="Ruspa";
 	//CONTROLLO CORRETTEZZA DATE
+	
 	/**
-	 * Check associazioni.
+	 * Controlla le Macchine disponibile per una nuova associzione.
 	 *
-	 * @param view the view
-	 * @return the property change listener
+	 * @param addAssociazione view da cui leggere i dati
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public PropertyChangeListener checkAssociazioni(AddAssociazione view){
-		final AddAssociazione ass=view;
+	public PropertyChangeListener checkAssociazioni(AddAssociazione addAssociazione){
+		final AddAssociazione ass=addAssociazione;
 		return new PropertyChangeListener(){
 
 			@Override
@@ -216,20 +234,23 @@ public class CantieriController {
 	}
 	
 	/**
-	 * Cambio tipo macchina.
+	 * Cambiare il tipo di macchina da aggiungere all'associazione.
 	 *
-	 * @param view the view
-	 * @return the action listener
+	 * @param addAssociazione view da cui leggere i dati
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener cambioTipoMacchina(AddAssociazione view){
-		final AddAssociazione ass=view;
+	public ActionListener cambioTipoMacchina(AddAssociazione addAssociazione){
+		final AddAssociazione ass=addAssociazione;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				tipoMacchina=((JComboBox)arg0.getSource()).getSelectedItem().toString();
 				if(validate==true)
 					aggiornaElencoMacchine(ass);
-				// TODO Auto-generated method stub
 				
 			}
 		};

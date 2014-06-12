@@ -11,9 +11,13 @@ import view.EditGru;
 import view.EditRuspa;
 import model.ModelInterface;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class InsertController.
+ * 
+ * Questa classe permette di gestire gli eventi,
+ * legati all'inserimento di nuovi macchinari 
+ * e alla modifica di quelli esistenti
+ * 
  */
 public class InsertController {
 
@@ -21,27 +25,31 @@ public class InsertController {
 	ModelInterface model;
 
 	/**
-	 * Instantiates a new insert controller.
+	 * Istanzia un nuovo controllore InsertController.
 	 *
-	 * @param m the m
+	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
+	 * 
 	 */
-	public InsertController(ModelInterface m) {
-		model = m;
+	public InsertController(ModelInterface modelConnector) {
+		model = modelConnector;
 	}
 	
 	//INSERT LISTENER
 	/**
-	 * Insert gru listener.
+	 * Gestisce l'inserimento di una nuova <em>"Gru"</em>.
 	 *
-	 * @param d the d
-	 * @return the action listener
+	 * @param editGru view da cui leggere i dati della nuova Gru
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener InsertGruListener( EditGru d) {
-		final EditGru dialog=d;
+	public ActionListener insertNewGruListener( EditGru editGru) {
+		final EditGru dialog=editGru;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int ang = Integer.parseInt(dialog.getAngoloRotazione());
 					int alt = Integer.parseInt(dialog.getAltezza());
@@ -64,17 +72,20 @@ public class InsertController {
 	}
 	
 	/**
-	 * Insert ruspa listener.
+	 * Gestisce l'inserimento di una nuova <em>"Ruspa"</em>.
 	 *
-	 * @param d the d
-	 * @return the action listener
+	 * @param editRuspa view da cui leggere i dati del nuovo Ruspa
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener InsertRuspaListener(EditRuspa d) {
-		final EditRuspa dialog=d;
+	public ActionListener insertNewRuspaListener(EditRuspa editRuspa) {
+		final EditRuspa dialog=editRuspa;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int capacita = Integer.parseInt(dialog.getCapacita());
 					int alt = Integer.parseInt(dialog.getAltezza());
@@ -96,17 +107,20 @@ public class InsertController {
 	}
 	
 	/**
-	 * Insert camion listener.
+	 * Gestisce l'inserimento di un nuovo <em>"Camion"</em>.
 	 *
-	 * @param d the d
-	 * @return the action listener
+	 * @param editCamion view da cui leggere i dati del nuovo Camion
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener InsertCamionListener(EditCamion d) {
-		final EditCamion dialog=d;
+	public ActionListener insertNewCamionListener(EditCamion editCamion) {
+		final EditCamion dialog=editCamion;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int capacita = Integer.parseInt(dialog.getCapacita());
 					int lunghezza = Integer.parseInt(dialog.getLunghezza());
@@ -128,17 +142,20 @@ public class InsertController {
 	}
 	
 	/**
-	 * Insert escavatore listener.
+	 * Gestisce l'inserimento di un nuovo <em>"Escavatore"</em>.
 	 *
-	 * @param d the d
-	 * @return the action listener
+	 * @param editEscavatore view da cui leggere i dati del nuovo Escavatore
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener InsertEscavatoreListener(EditEscavatore d) {
-		final EditEscavatore dialog=d;
+	public ActionListener insertNewEscavatoreListener(EditEscavatore editEscavatore) {
+		final EditEscavatore dialog=editEscavatore;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int capacita = Integer.parseInt(dialog.getCapacita());
 					int altezza = Integer.parseInt(dialog.getAltezza());
@@ -163,18 +180,21 @@ public class InsertController {
 	
 	//EDIT LISTENER
 	/**
-	 * Edits the gru listener.
+	 * Gestisce la modifica di una <em>"Gru"</em>.
 	 *
-	 * @param d the d
-	 * @param codice the codice
-	 * @return the action listener
+	 *@param editGru view da cui leggere i nuovi dati della Gru
+	 *@param codice codice  della Gru da modificare
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener EditGruListener( EditGru d,final int codice) {
-		final EditGru dialog=d;
+	public ActionListener EditGruListener( EditGru editGru,final int codice) {
+		final EditGru dialog=editGru;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int ang = Integer.parseInt(dialog.getAngoloRotazione());
 					int alt = Integer.parseInt(dialog.getAltezza());
@@ -197,18 +217,21 @@ public class InsertController {
 	}
 	
 	/**
-	 * Edits the ruspa listener.
+	 * Gestisce la modifica di una <em>"Ruspa"</em>.
 	 *
-	 * @param d the d
-	 * @param codice the codice
-	 * @return the action listener
+	 * @param editRuspa view da cui leggere i nuovi dati della Ruspa
+	 * @param codice codice  della Ruspa da modificare
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener EditRuspaListener( EditRuspa d,final int codice) {
-		final EditRuspa dialog=d;
+	public ActionListener EditRuspaListener( EditRuspa editRuspa,final int codice) {
+		final EditRuspa dialog=editRuspa;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int capacita = Integer.parseInt(dialog.getCapacita());
 					int alt = Integer.parseInt(dialog.getAltezza());
@@ -230,18 +253,21 @@ public class InsertController {
 	}
 	
 	/**
-	 * Edits the camion listener.
+	 * Gestisce la modifica di un <em>"Camion"</em>.
 	 *
-	 * @param d the d
-	 * @param codice the codice
-	 * @return the action listener
+	 * @param editCamion view da cui leggere i nuovi dati del Camion
+	 * @param codice codice  del Camion da modificare
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener EditCamionListener( EditCamion d,final int codice) {
-		final EditCamion dialog=d;
+	public ActionListener EditCamionListener( EditCamion editCamion,final int codice) {
+		final EditCamion dialog=editCamion;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int cap= Integer.parseInt(dialog.getCapacita());
 					int lung = Integer.parseInt(dialog.getLunghezza());
@@ -263,18 +289,21 @@ public class InsertController {
 	}
 	
 	/**
-	 * Edits the escavatore listener.
+	 * Gestisce la modifica di un <em>"Escavatore"</em>.
 	 *
-	 * @param d the d
-	 * @param codice the codice
-	 * @return the action listener
+	 * @param editEscavatore view da cui leggere i nuovi dati dell'escavatore
+	 * @param codice codice  dell'escavatore da modificare
+	 *
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
-	public ActionListener EditEscavatoreListener( EditEscavatore d,final int codice) {
-		final EditEscavatore dialog=d;
+	public ActionListener EditEscavatoreListener( EditEscavatore editEscavatore,final int codice) {
+		final EditEscavatore dialog=editEscavatore;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					int capacita= Integer.parseInt(dialog.getCapacita());
 					int altezza = Integer.parseInt(dialog.getAltezza());

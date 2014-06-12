@@ -19,7 +19,13 @@ import model.ModelConnector;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MainController.
+ * 
+ * Questa Classe permette di gestire gli eventi,
+ * legati all'interazione con le view,
+ * provenienti dalla View Principale.
+ * 
+ * @see MainView
+ * 
  */
 public class MainController{
 
@@ -30,14 +36,14 @@ public class MainController{
 	private MainView mainView;
 
 	/**
-	 * Instantiates a new main controller.
+	 * Istanzia un nuovo controllore MainController.
 	 *
-	 * @param m the m
-	 * @param mn the mn
+	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
+	 * @param view per registrare gli eventi generati dalla view
 	 */
-	public MainController(ModelConnector m,MainView mn) {
-		model = m;
-		mainView = mn;
+	public MainController(ModelConnector modelConnector,MainView view) {
+		model = modelConnector;
+		mainView = view;
 		setObserver();
 		model.refreshData();
 		mainView.setVisible(true);
@@ -76,7 +82,7 @@ public class MainController{
 	}
 	
 	/**
-	 * Sets the observer.
+	 * Imposta le classi observer della view.
 	 */
 	private void setObserver(){
 		model.addGruObserver(mainView.dataModelGru);
@@ -88,9 +94,12 @@ public class MainController{
 	
 	//MENU FILE LISTENER
 	/**
-	 * Exit manager.
+	 * Gestisce l'evento legato alla pressione del menu <em>"Esci"</em>.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener ExitManager(){
 		return new ActionListener() {
@@ -103,9 +112,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Salva dati listener.
+	 * Gestisce l'evento legato alla pressione del menu <em>"Salva"</em>.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener salvaDatiListener(){
 		return new ActionListener(){
@@ -118,9 +130,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Carica dati listener.
+	 * Gestisce l'evento legato alla pressione del menu <em>"Carica"</em>.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener caricaDatiListener(){
 		return new ActionListener(){
@@ -138,7 +153,7 @@ public class MainController{
 	}
 	
 	/**
-	 * Chiusura programma.
+	 * Gestisce la chiusura dell'applicazione
 	 *
 	 * @return the window adapter
 	 */
@@ -153,9 +168,12 @@ public class MainController{
 	
 	//BTN VIEW LISTENER
 	/**
-	 * Visualizza inserimento gru.
+	 * Visualizza la view per iniserire una nuova Gru.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaInserimentoGru() {
 		return new ActionListener() {
@@ -163,15 +181,18 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				EditGru ins = new EditGru(mainView);
 				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.InsertGruListener(ins));
+				ins.setInsertButtonListeners(ctr.insertNewGruListener(ins));
 			}
 		};
 	}
 	
 	/**
-	 * Visualizza inserimento ruspa.
+	 * Visualizza la view per iniserire una nuova Ruspa.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaInserimentoRuspa() {
 		return new ActionListener() {
@@ -179,15 +200,18 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				EditRuspa ins = new EditRuspa(mainView);
 				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.InsertRuspaListener(ins));
+				ins.setInsertButtonListeners(ctr.insertNewRuspaListener(ins));
 			}
 		};
 	}
 	
 	/**
-	 * Visualizza inserimento camion.
+	 * Visualizza la view per iniserire un nuovo Camion.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaInserimentoCamion() {
 		return new ActionListener() {
@@ -195,15 +219,18 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				EditCamion ins = new EditCamion(mainView);
 				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.InsertCamionListener(ins));
+				ins.setInsertButtonListeners(ctr.insertNewCamionListener(ins));
 			}
 		};
 	}
 	
 	/**
-	 * Visualizza inserimento escavatore.
+	 * Visualizza la view per iniserire un nuovo Escavatore.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaInserimentoEscavatore() {
 		return new ActionListener() {
@@ -211,15 +238,18 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				EditEscavatore ins = new EditEscavatore(mainView);
 				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.InsertEscavatoreListener(ins));
+				ins.setInsertButtonListeners(ctr.insertNewEscavatoreListener(ins));
 			}
 		};
 	}
 	
 	/**
-	 * Visualizza inserimento cantiere.
+	 * Visualizza la view per iniserire un nuovo Cantiere.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaInserimentoCantiere() {
 		return new ActionListener() {
@@ -236,9 +266,12 @@ public class MainController{
 	
 	//VISUALIZZA ELENCO IN TABELLA
 	/**
-	 * Visualizza elenco gru.
+	 * Visualizza l'elenco delle Gru inserite.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaElencoGru() {
 		return new ActionListener() {
@@ -255,9 +288,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Visualizza elenco ruspe.
+	 * Visualizza l'elenco delle Ruspe inserite.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaElencoRuspe() {
 		return new ActionListener() {
@@ -273,9 +309,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Visualizza elenco camion.
+	 * Visualizza l'elenco dei Csmion inseriti.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaElencoCamion() {
 		return new ActionListener() {
@@ -290,9 +329,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Visualizza elenco escavatore.
+	 * Visualizza l'elenco degli Escavatori inseriti.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaElencoEscavatore() {
 		return new ActionListener() {
@@ -308,9 +350,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Visualizza elenco cantieri.
+	 * Visualizza l'elenco dei Cantieri inseriti.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaElencoCantieri() {
 		return new ActionListener() {
@@ -326,9 +371,12 @@ public class MainController{
 	
 	//EDIT
 	/**
-	 * Visualizza modifica gru view.
+	 * Visualizza la view per modificare i dati di una Gru.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaModificaGruView() {
 		return new ActionListener() {
@@ -345,11 +393,13 @@ public class MainController{
 			}
 		};
 	}
-	
 	/**
-	 * Visualizza modifica ruspa view.
+	 * Visualizza la view per modificare i dati di una Ruspa.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaModificaRuspaView() {
 		return new ActionListener() {
@@ -369,9 +419,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Visualizza modifica camion view.
+	 * Visualizza la view per modificare i dati di un Camion.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaModificaCamionView() {
 		return new ActionListener() {
@@ -391,9 +444,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Visualizza modifica escavatore view.
+	 * Visualizza la view per modificare i dati di un Escavatore.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener VisualizzaModificaEscavatoreView() {
 		return new ActionListener() {
@@ -413,9 +469,12 @@ public class MainController{
 	}
 	//DELETE
 	/**
-	 * Elimina macchina.
+	 * Elimina la macchina selezionata nella tabella.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener EliminaMacchina(){
 		return new ActionListener() {
@@ -434,9 +493,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Elimina cantiere.
+	 * Elimina il cantiere selezionato nella tabella.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener EliminaCantiere(){
 		return new ActionListener() {
@@ -455,9 +517,12 @@ public class MainController{
 	}
 	
 	/**
-	 * Adds the associazione view.
+	 * Visualizza la view per aggiungere Associazioni ad un cantiere.
 	 *
-	 * @return the action listener
+	 * @return istanza classe ActionListener 
+	 * che implementa il metodo <strong>actionPerformed</strong>
+	 * contenente il comportamento legato all'evento generato.
+	 *
 	 */
 	public ActionListener AddAssociazioneView(){
 		return new ActionListener(){
