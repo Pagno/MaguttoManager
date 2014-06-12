@@ -10,23 +10,53 @@ import java.util.Observer;
 import database.DBException;
 import database.DatabaseInterface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelConnector.
+ */
 public class ModelConnector extends Observable implements ModelInterface{
 
+	/** The mg. */
 	private ModelGru mg;
+	
+	/** The mc. */
 	private ModelCamion mc;
+	
+	/** The mr. */
 	private ModelRuspa mr;
+	
+	/** The me. */
 	private ModelEscavatore me;
+	
+	/** The lc. */
 	private ModelCantiere lc;
+	
+	/** The ea. */
 	private ElencoAssociazioni ea;
+	
+	/** The db. */
 	private DatabaseInterface db;
+	
+	/** The istanza. */
 	private static ModelConnector istanza;
 
+	/**
+	 * Instantiates a new model connector.
+	 *
+	 * @param data the data
+	 */
 	private ModelConnector(DatabaseInterface data){
 		db=data;
 		inizializza();
 		//refreshData();
 	}
 	
+	/**
+	 * Gets the model connector.
+	 *
+	 * @param data the data
+	 * @return the model connector
+	 */
 	public static synchronized ModelConnector getModelConnector(DatabaseInterface data){
 		if(istanza==null){
 			istanza=new ModelConnector(data);
@@ -34,23 +64,55 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return istanza;
 	}
 	
+	/**
+	 * Adds the gru observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void addGruObserver(Observer observer){
 		mg.addObserver(observer);
 	}
+	
+	/**
+	 * Adds the ruspa observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void addRuspaObserver(Observer observer){
 		mr.addObserver(observer);
 	}
+	
+	/**
+	 * Adds the camion observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void addCamionObserver(Observer observer){
 		mc.addObserver(observer);
 	}
+	
+	/**
+	 * Adds the escavatore observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void addEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
+	
+	/**
+	 * Adds the cantiere observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void addCantiereObserver(Observer observer){
 		lc.addObserver(observer);
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#refreshData()
+	 */
 	@Override
 	public void refreshData() {
 		mg.getLista().clear();
@@ -108,6 +170,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#storeData()
+	 */
 	@Override
 	public void storeData() {
 		try {
@@ -171,6 +236,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#eliminaMacchina(int)
+	 */
 	@Override
 	public boolean eliminaMacchina(int mCode) {
 		boolean found=false;
@@ -189,55 +257,89 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return found;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiGru(java.lang.String, java.lang.String, int, int, int, int)
+	 */
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaGru(int, java.lang.String, java.lang.String, int, int, int, int)
+	 */
 	@Override
 	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
 		mg.modificaGru(codice, produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiCamion(java.lang.String, java.lang.String, int, int, int)
+	 */
 	@Override
 	public void aggiungiCamion(String produttore, String Modello, int capacita,	int portata, int lunghezza) {
 		mc.aggiungiCamion(produttore, Modello, capacita, portata, lunghezza);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaCamion(int, java.lang.String, java.lang.String, int, int, int)
+	 */
 	@Override
 	public void modificaCamion(int codice, String produttore, String Modello,int capacita, int portata, int lunghezza) {
 		mc.modificaCamion(codice, produttore, Modello, capacita, portata, lunghezza);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiRuspa(java.lang.String, java.lang.String, int, int, int)
+	 */
 	@Override
 	public void aggiungiRuspa(String produttore, String Modello, int capacita,int portata, int altezza) {
 		mr.aggiungiRuspa(produttore, Modello, capacita, portata, altezza);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaRuspa(int, java.lang.String, java.lang.String, int, int, int)
+	 */
 	@Override
 	public void modificaRuspa(int codice, String produttore, String Modello,int capacita, int portata, int altezza) {
 		mr.modificaRuspa(codice, produttore, Modello, capacita, portata, altezza);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiEscavatore(java.lang.String, java.lang.String, int, int, int, int)
+	 */
 	@Override
 	public void aggiungiEscavatore(String produttore, String Modello,int capacita, int portata, int altezza, int profondita) {
 		me.aggiungiEscavatore(produttore, Modello, capacita, portata, altezza, profondita);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaEscavatore(int, java.lang.String, java.lang.String, int, int, int, int)
+	 */
 	@Override
 	public void modificaEscavatore(int codice, String produttore,String Modello, int capacita, int portata, int altezza,int profondita) {
 		me.modificaEscavatore(codice, produttore, Modello, capacita, portata, altezza, profondita);		
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiCantiere(java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 */
 	@Override
 	public int aggiungiCantiere(String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura) {
 		return lc.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaCantiere(int, java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 */
 	@Override
 	public void modificaCantiere(int codice, String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura) {
 			lc.modificaCantiere(codice, nomeCantiere, indirizzo, dataApertura, dataChiusura);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#eliminaCantiere(int)
+	 */
 	@Override
 	public boolean eliminaCantiere(int codice) {
 		for(int i=0;i<ea.getElencoAssociazioniList().size();i++){
@@ -248,24 +350,43 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return lc.rimuoviCantiere(codice);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiAssociazione(java.lang.Integer, java.lang.Integer, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 */
 	@Override
 	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
 		ea.inserisciAssociazione(getMacchina(codiceMacchina), lc.getCantiere(codiceCantiere), dataInizio, dataFine);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaAssociazione(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 */
 	@Override
 	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
 		ea.modificaAssociazione(codice, getMacchina(codiceMacchina), lc.getCantiere(codiceCantiere), dataInizio, dataFine);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#eliminaAssociazione(int)
+	 */
 	@Override
 	public boolean eliminaAssociazione(int codice) {
 		return ea.eliminaAssociazione(codice);
 	}
 	
+	/**
+	 * Elimina associazioni cantiere.
+	 *
+	 * @param codiceCantiere the codice cantiere
+	 * @return true, if successful
+	 */
 	public boolean eliminaAssociazioniCantiere(int codiceCantiere) {
 		return ea.eliminaAssociazione(codiceCantiere);
 	}
+	
+	/**
+	 * Load db.
+	 */
 	private void loadDB(){
 
 		//carica le macchine
@@ -282,6 +403,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Load camion.
+	 */
 	private void loadCamion(){
 		//carica i camion
 		try {
@@ -301,6 +425,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Load escavatori.
+	 */
 	private void loadEscavatori(){
 		//carica gli escavatori
 		try {
@@ -320,6 +447,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Load ruspe.
+	 */
 	private void loadRuspe(){
 		//carica le ruspe
 		try {
@@ -339,6 +469,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Load gru.
+	 */
 	private void loadGru(){
 		//carica le gru
 		try {
@@ -358,6 +491,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Load cantieri.
+	 */
 	private void loadCantieri(){
 		//carica i cantieri
 		try {
@@ -377,6 +513,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Load associazioni.
+	 */
 	private void loadAssociazioni(){
 		//carica le associazioni
 		try {
@@ -396,6 +535,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 
+	/**
+	 * Gets the macchina.
+	 *
+	 * @param mCode the m code
+	 * @return the macchina
+	 */
 	private Macchina getMacchina(Integer mCode){
 		if(mc.isCamion(mCode)){
 			return mc.getCamion(mCode);
@@ -412,6 +557,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return null;
 	}
 
+	/**
+	 * Convert to date.
+	 *
+	 * @param datestr the datestr
+	 * @return the gregorian calendar
+	 */
 	private GregorianCalendar convertToDate(String datestr){
 		String year = datestr.substring(0,4);
 		String month = datestr.substring(5,7);
@@ -434,6 +585,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return new GregorianCalendar(yint,mint,dint);
 	}
 
+	/**
+	 * Inizializza.
+	 */
 	private void inizializza() {
 		ModelMacchina.initCodice();
 		mg = ModelGru.getModelGru();
@@ -445,6 +599,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	//da rimuovere
+	/**
+	 * Pubblica contenuto.
+	 */
 	public void pubblicaContenuto(){
 		System.out.println("---CAMION-------------------");
 		System.out.println(mc.toString());
@@ -460,6 +617,13 @@ public class ModelConnector extends Observable implements ModelInterface{
 		System.out.println(ea.toString());
 	}
 	
+	/**
+	 * Elenco ruspe disponibili.
+	 *
+	 * @param inizio the inizio
+	 * @param fine the fine
+	 * @return the array list
+	 */
 	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Ruspa> ruspe=new ArrayList<Ruspa>();
 		boolean disp;
@@ -477,6 +641,13 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return ruspe;
 	}
 	
+	/**
+	 * Elenco gru disponibili.
+	 *
+	 * @param inizio the inizio
+	 * @param fine the fine
+	 * @return the array list
+	 */
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Gru> gru=new ArrayList<Gru>();
 		boolean disp;
@@ -501,6 +672,14 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		return gru;
 	}
+	
+	/**
+	 * Elenco camion disponibili.
+	 *
+	 * @param inizio the inizio
+	 * @param fine the fine
+	 * @return the array list
+	 */
 	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Camion> camion=new ArrayList<Camion>();
 		boolean disp;
@@ -517,6 +696,14 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		return camion;
 	}
+	
+	/**
+	 * Elenco escavatore disponibili.
+	 *
+	 * @param inizio the inizio
+	 * @param fine the fine
+	 * @return the array list
+	 */
 	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();
 		boolean disp;

@@ -22,12 +22,30 @@ import model.Ruspa;
 import view.AddAssociazione;
 import view.EditCantiere;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CantieriController.
+ */
 public class CantieriController {
+	
+	/** The model. */
 	private ModelConnector model;
 	
+	/**
+	 * Instantiates a new cantieri controller.
+	 *
+	 * @param m the m
+	 */
 	public CantieriController(ModelConnector m) {
 		model = m;
 	}
+	
+	/**
+	 * Insert nuovo cantiere listener.
+	 *
+	 * @param view the view
+	 * @return the action listener
+	 */
 	public ActionListener InsertNuovoCantiereListener(EditCantiere view){
 		final EditCantiere cantieriView=view;
 		return new ActionListener(){
@@ -77,6 +95,13 @@ public class CantieriController {
 		
 	}*/
 	
+	/**
+	 * Adds the associazione listener.
+	 *
+	 * @param v the v
+	 * @param codiceCantiere the codice cantiere
+	 * @return the action listener
+	 */
 	public ActionListener addAssociazioneListener(AddAssociazione v,final int codiceCantiere){
 		final AddAssociazione view=v;
 		return new ActionListener() {
@@ -92,6 +117,12 @@ public class CantieriController {
 		};		
 	}
 	
+	/**
+	 * Btn rimuovi listener.
+	 *
+	 * @param view the view
+	 * @return the action listener
+	 */
 	public ActionListener btnRimuoviListener(final AddAssociazione view){
 		return new ActionListener(){
 			@Override
@@ -104,6 +135,12 @@ public class CantieriController {
 	}
 	
 	
+	/**
+	 * Adds the macchina listener.
+	 *
+	 * @param view the view
+	 * @return the action listener
+	 */
 	public ActionListener addMacchinaListener(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new ActionListener() {
@@ -122,9 +159,19 @@ public class CantieriController {
 		};
 		
 	}
+	
+	/** The validate. */
 	private boolean validate=false;
+	
+	/** The tipo macchina. */
 	private String tipoMacchina="Ruspa";
 	//CONTROLLO CORRETTEZZA DATE
+	/**
+	 * Check associazioni.
+	 *
+	 * @param view the view
+	 * @return the property change listener
+	 */
 	public PropertyChangeListener checkAssociazioni(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new PropertyChangeListener(){
@@ -167,6 +214,13 @@ public class CantieriController {
 			
 		};
 	}
+	
+	/**
+	 * Cambio tipo macchina.
+	 *
+	 * @param view the view
+	 * @return the action listener
+	 */
 	public ActionListener cambioTipoMacchina(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new ActionListener() {
@@ -181,6 +235,11 @@ public class CantieriController {
 		};
 	}
 	
+	/**
+	 * Aggiorna elenco macchine.
+	 *
+	 * @param ass the ass
+	 */
 	private void aggiornaElencoMacchine(AddAssociazione ass){
 		ass.clearList();
 		if(tipoMacchina.equals("Ruspa")){

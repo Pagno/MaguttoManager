@@ -23,20 +23,35 @@ import model.Associazione;
 
 import com.toedter.calendar.JDateChooser;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EditCantiere.
+ */
 public class EditCantiere extends JDialog implements PropertyChangeListener{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
 	
+	/** The content panel. */
 	private final JPanel contentPanel = new JPanel();
+	
+	/** The txt indirizzo. */
 	private JTextField txtNome, txtIndirizzo;
+	
+	/** The lbl data fine. */
 	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine;
+	
+	/** The ok button. */
 	private JButton okButton;
+	
+	/** The data fine. */
 	private JDateChooser dataInizio,dataFine;
+	
 	/**
 	 * Create the dialog.
+	 *
+	 * @param view the view
+	 * @param obj the obj
 	 */
 	public EditCantiere(JFrame view, Object[] obj) {
 		this(view);
@@ -44,6 +59,12 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		setTextBox(obj);
 		okButton.setText("Modifica");
 	}
+	
+	/**
+	 * Sets the text box.
+	 *
+	 * @param v the new text box
+	 */
 	private void setTextBox( Object[] v){
 		txtNome.setText(v[1].toString());
 		txtIndirizzo.setText(v[2].toString());
@@ -51,7 +72,10 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	}
 
 	/**
-	 * @wbp.parser.constructor
+	 * Instantiates a new edits the cantiere.
+	 *
+	 * @param view the view
+	 * @wbp.parser.constructor 
 	 */
 	public EditCantiere(JFrame view) {
 		super(view);
@@ -171,32 +195,74 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		dataInizio.addPropertyChangeListener(this);
 	}
 
+	/**
+	 * Sets the insert button listeners.
+	 *
+	 * @param act the new insert button listeners
+	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
+	/**
+	 * Gets the nome cantiere.
+	 *
+	 * @return the nome cantiere
+	 */
 	public String getNomeCantiere() {
 		return txtNome.getText();
 	}
 
+	/**
+	 * Gets the indirizzo.
+	 *
+	 * @return the indirizzo
+	 */
 	public String getIndirizzo() {
 		return txtIndirizzo.getText();
 	}
+	
+	/**
+	 * Gets the data inizio.
+	 *
+	 * @return the data inizio
+	 */
 	public Date getDataInizio(){
 		return dataInizio.getDate();
 	}
+	
+	/**
+	 * Gets the data fine.
+	 *
+	 * @return the data fine
+	 */
 	public Date getDataFine(){
 		return dataFine.getDate();
 	}
+	
+	/**
+	 * Sets the minima data fine.
+	 *
+	 * @param d the new minima data fine
+	 */
 	public void setMinimaDataFine(Date d){
 		if(dataFine.getDate()==null || dataFine.getDate().before(d))
 			dataFine.setDate(null);
 		dataFine.setMinSelectableDate(d);
 	}
 	
+	/**
+	 * Sets the data inizio changed listener.
+	 *
+	 * @param list the new data inizio changed listener
+	 */
 	public void setDataInizioChangedListener(PropertyChangeListener list){
 		dataInizio.addPropertyChangeListener(list);
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
@@ -205,6 +271,12 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		setMinimaDataFine(getDataInizio());
 		
 	}
+	
+	/**
+	 * Gets the associazioni list.
+	 *
+	 * @return the associazioni list
+	 */
 	public ArrayList<Associazione> getAssociazioniList(){
 		return null;
 	}

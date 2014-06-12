@@ -7,10 +7,18 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelCantiereTest.
+ */
 public class ModelCantiereTest {
 
+	/** The mc. */
 	ModelCantiere mc;
 	
+	/**
+	 * Instantiates a new model cantiere test.
+	 */
 	public ModelCantiereTest(){
 		ModelCantiere.resetForTest();
 		mc=ModelCantiere.getModelCantiere();
@@ -19,6 +27,9 @@ public class ModelCantiereTest {
 		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05));
 	}
 	
+	/**
+	 * Test get model cantiere.
+	 */
 	@Test
 	public void testGetModelCantiere() {
 		ArrayList<Cantiere>lista=mc.getLista();
@@ -30,6 +41,9 @@ public class ModelCantiereTest {
 		assertSame(mc,prova);
 	}
 
+	/**
+	 * Test aggiungi cantiere.
+	 */
 	@Test
 	public void testAggiungiCantiere() {
 		assertEquals(mc.getNextCodice(),21);
@@ -40,6 +54,9 @@ public class ModelCantiereTest {
 		assertTrue(lista.contains(new Cantiere(21,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
 
+	/**
+	 * Test carica cantiere.
+	 */
 	@Test
 	public void testCaricaCantiere() {
 		assertEquals(mc.getNextCodice(),21);
@@ -50,6 +67,9 @@ public class ModelCantiereTest {
 		assertTrue(lista.contains(new Cantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
 
+	/**
+	 * Test modifica cantiere.
+	 */
 	@Test
 	public void testModificaCantiere() {
 		assertEquals(mc.getNextCodice(),21);
@@ -60,6 +80,9 @@ public class ModelCantiereTest {
 		assertTrue(lista.contains(new Cantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
 
+	/**
+	 * Test rimuovi cantiere string.
+	 */
 	@Test
 	public void testRimuoviCantiereString() {
 		assertTrue(mc.rimuoviCantiere("Pedemontana"));
@@ -68,6 +91,9 @@ public class ModelCantiereTest {
 		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
 	}
 
+	/**
+	 * Test rimuovi cantiere int.
+	 */
 	@Test
 	public void testRimuoviCantiereInt() {
 		assertTrue(mc.rimuoviCantiere(16));
@@ -76,6 +102,9 @@ public class ModelCantiereTest {
 		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
 	}
 
+	/**
+	 * Test get cantiere.
+	 */
 	@Test
 	public void testGetCantiere() {
 		assertEquals(mc.getCantiere(16),new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01)));

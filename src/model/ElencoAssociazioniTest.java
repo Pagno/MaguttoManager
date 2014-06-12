@@ -7,10 +7,18 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ElencoAssociazioniTest.
+ */
 public class ElencoAssociazioniTest {
 
+	/** The ea. */
 	ElencoAssociazioni ea;
 	
+	/**
+	 * Instantiates a new elenco associazioni test.
+	 */
 	public ElencoAssociazioniTest(){
 		ElencoAssociazioni.resetForTest();
 		ea=ElencoAssociazioni.getElencoAssociazioni();
@@ -19,6 +27,9 @@ public class ElencoAssociazioniTest {
 		ea.caricaAssociazione(9, new Escavatore(11,"Caterpillar","CEscavatore",94,93,92,91) , new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05)), new GregorianCalendar(2014,06,06), new GregorianCalendar(2017,01,29));
 	}
 	
+	/**
+	 * Test get elenco associazioni.
+	 */
 	@Test
 	public void testGetElencoAssociazioni() {
 		ArrayList<Associazione>lista=ea.getElencoAssociazioniList();
@@ -30,6 +41,9 @@ public class ElencoAssociazioniTest {
 		assertSame(ea,prova);
 	}
 
+	/**
+	 * Test inserisci associazione.
+	 */
 	@Test
 	public void testInserisciAssociazione() {
 		assertEquals(ea.getNextCodice(),10);
@@ -40,6 +54,9 @@ public class ElencoAssociazioniTest {
 		assertTrue(lista.contains(new Associazione(10,new Gru(13,"G.C.","GGru",360,90,89,88), new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)), new GregorianCalendar(2014,03,11), new GregorianCalendar(2014,12,01))));
 	}
 
+	/**
+	 * Test carica associazione.
+	 */
 	@Test
 	public void testCaricaAssociazione() {
 		assertEquals(ea.getNextCodice(),10);
@@ -50,6 +67,9 @@ public class ElencoAssociazioniTest {
 		assertTrue(lista.contains(new Associazione(15,new Gru(13,"G.C.","GGru",360,90,89,88), new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)), new GregorianCalendar(2014,03,11), new GregorianCalendar(2014,12,01))));
 	}
 
+	/**
+	 * Test modifica associazione.
+	 */
 	@Test
 	public void testModificaAssociazione() {
 		ea.modificaAssociazione(4,new Gru(13,"G.C.","GGru",360,90,89,88), new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)), new GregorianCalendar(2014,03,11), new GregorianCalendar(2014,12,01));
@@ -59,6 +79,9 @@ public class ElencoAssociazioniTest {
 		assertTrue(lista.contains(new Associazione(4,new Gru(13,"G.C.","GGru",360,90,89,88), new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)), new GregorianCalendar(2014,03,11), new GregorianCalendar(2014,12,01))));
 	}
 
+	/**
+	 * Test elimina associazione.
+	 */
 	@Test
 	public void testEliminaAssociazione() {
 		assertTrue(ea.eliminaAssociazione(4));

@@ -6,11 +6,19 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelCamionTest.
+ */
 public class ModelCamionTest {
 
 
+	/** The mc. */
 	ModelCamion mc;
 	
+	/**
+	 * Instantiates a new model camion test.
+	 */
 	public ModelCamionTest() {
 		ModelCamion.resetForTest();
 		mc=ModelCamion.getModelCamion();
@@ -19,6 +27,9 @@ public class ModelCamionTest {
 		mc.caricaCamion(9, "Volkswagen", "Crafter", 1680, 1000, 1);
 	}
 
+	/**
+	 * Test get model camion.
+	 */
 	@Test
 	public void testGetModelCamion() {
 		ArrayList<Camion> lista=mc.getLista();
@@ -30,6 +41,9 @@ public class ModelCamionTest {
 		assertSame(mc,prova);
 	}
 
+	/**
+	 * Test aggiungi camion.
+	 */
 	@Test
 	public void testAggiungiCamion() {
 		assertEquals(mc.getNextCodice(),10);
@@ -39,6 +53,10 @@ public class ModelCamionTest {
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Camion(10,"Iveco", "35C10", 1360, 1030, 3)));
 	}
+	
+	/**
+	 * Test carica camion.
+	 */
 	@Test
 	public void testCaricaCamion() {
 		assertEquals(mc.getNextCodice(),11);
@@ -48,6 +66,10 @@ public class ModelCamionTest {
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Camion(15,"Iveco", "35C10", 1360, 1030, 3)));
 	}
+	
+	/**
+	 * Test modifica camion.
+	 */
 	@Test
 	public void testModificaCamion() {
 		assertEquals(mc.getNextCodice(),16);
@@ -58,6 +80,9 @@ public class ModelCamionTest {
 		assertTrue(lista.contains(new Camion(5, "Iveco", "Daily", 1800,1045, 3)));
 	}
 
+	/**
+	 * Test elimina camion.
+	 */
 	@Test
 	public void testEliminaCamion() {
 		assertTrue(mc.eliminaCamion(7));
@@ -66,12 +91,18 @@ public class ModelCamionTest {
 		assertFalse(lista.contains(new Camion(7, "Iveco", "Daily", 1800,1045, 3)));
 	}
 
+	/**
+	 * Test is camion.
+	 */
 	@Test
 	public void testIsCamion() {
 		mc.caricaCamion(8, "Iveco", "Daily", 1200, 800, 3);
 		assertTrue(mc.isCamion(8));
 	}
 
+	/**
+	 * Test get camion.
+	 */
 	@Test
 	public void testGetCamion() {
 

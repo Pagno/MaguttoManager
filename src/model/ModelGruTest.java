@@ -6,10 +6,18 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelGruTest.
+ */
 public class ModelGruTest {
 
+	/** The mg. */
 	ModelGru mg;
 	
+	/**
+	 * Instantiates a new model gru test.
+	 */
 	public ModelGruTest(){
 		ModelGru.resetForTest();
 		mg=ModelGru.getModelGru();
@@ -18,6 +26,9 @@ public class ModelGruTest {
 		mg.caricaGru(26, "Cattaneo", "CM 78A", 45, 2200, 28,27);
 	}
 	
+	/**
+	 * Test get model gru.
+	 */
 	@Test
 	public void testGetModelGru() {
 		ArrayList<Gru>lista=mg.getLista();
@@ -29,6 +40,9 @@ public class ModelGruTest {
 		assertSame(mg,prova);
 	}
 
+	/**
+	 * Test aggiungi gru.
+	 */
 	@Test
 	public void testAggiungiGru() {
 		assertEquals(mg.getNextCodice(),27);
@@ -39,6 +53,9 @@ public class ModelGruTest {
 		assertTrue(lista.contains(new Gru(27,"Raimondi", "MRT33+3", 360, 2000, 35,30)));
 	}
 
+	/**
+	 * Test carica gru.
+	 */
 	@Test
 	public void testCaricaGru() {
 		assertEquals(mg.getNextCodice(),28);
@@ -49,6 +66,9 @@ public class ModelGruTest {
 		assertTrue(lista.contains(new Gru(31, "Raimondi", "MRT33+3", 360, 2000, 35,30)));
 	}
 
+	/**
+	 * Test modifica gru.
+	 */
 	@Test
 	public void testModificaGru() {
 		assertEquals(mg.getNextCodice(),32);
@@ -59,6 +79,9 @@ public class ModelGruTest {
 		assertTrue(lista.contains(new Gru(3, "Vicaro", "OMV 168 A", 23, 1500, 20,26)));
 	}
 
+	/**
+	 * Test elimina gru.
+	 */
 	@Test
 	public void testEliminaGru() {
 		assertTrue(mg.eliminaGru(26));
@@ -68,12 +91,18 @@ public class ModelGruTest {
 	
 	}
 
+	/**
+	 * Test is gru.
+	 */
 	@Test
 	public void testIsGru() {
 		mg.caricaGru(15, "Raimondi", "MRT33+3", 360, 2000, 35,30);
 		assertTrue(mg.isGru(15));
 	}
 
+	/**
+	 * Test get gru.
+	 */
 	@Test
 	public void testGetGru() {
 		mg.caricaGru(7, "Raimondi", "MRT33+3", 360, 2000, 35,30);

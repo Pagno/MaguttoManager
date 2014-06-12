@@ -33,12 +33,21 @@ public class Database implements DatabaseInterface{
 	/** The a. */
 	static boolean a;
 
+	/** The istanza. */
 	private static Database istanza;
 	
+	/**
+	 * Instantiates a new database.
+	 */
 	private Database(){
 
 	}
 	
+	/**
+	 * Gets the database.
+	 *
+	 * @return the database
+	 */
 	public static synchronized Database getDatabase(){
 		if(istanza==null){
 			istanza=new Database();
@@ -82,8 +91,8 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Controlla se esistono le tabelle nel DB.
 	 *
+	 * @return true, if is empty
 	 * @throws DBException the java db exception
-	 * @throws SQLException 
 	 */
 	@Override
 	public boolean isEmpty() throws DBException{
@@ -169,6 +178,9 @@ public class Database implements DatabaseInterface{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see database.DatabaseInterface#emptyTable(java.lang.String)
+	 */
 	@Override
 	public void emptyTable(String tableName) throws DBException{
 		String qry = "delete from APP." + tableName;

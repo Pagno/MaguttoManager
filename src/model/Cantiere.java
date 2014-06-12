@@ -1,13 +1,37 @@
 package model;
 import java.text.SimpleDateFormat;
 import java.util.*;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class Cantiere.
+ */
 class Cantiere {
+	
+	/** The codice. */
 	private int codice;
+	
+	/** The nome cantiere. */
 	private String nomeCantiere;
+	
+	/** The indirizzo. */
 	private String indirizzo;
+	
+	/** The data apertura. */
 	private GregorianCalendar dataApertura;
+	
+	/** The data chiusura. */
 	private GregorianCalendar dataChiusura;
 
+	/**
+	 * Instantiates a new cantiere.
+	 *
+	 * @param codice the codice
+	 * @param nomeCantiere the nome cantiere
+	 * @param indirizzo the indirizzo
+	 * @param dataApertura the data apertura
+	 * @param dataChiusura the data chiusura
+	 */
 	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura ){
 		this.setCodice(codice);
 		this.nomeCantiere=nomeCantiere;
@@ -16,26 +40,56 @@ class Cantiere {
 		this.dataChiusura=dataChiusura;
 	}
 
+	/**
+	 * Gets the nome cantiere.
+	 *
+	 * @return the nome cantiere
+	 */
 	public String getNomeCantiere() {
 		return nomeCantiere;
 	}
 
+	/**
+	 * Sets the nome cantiere.
+	 *
+	 * @param nomeCantiere the new nome cantiere
+	 */
 	public void setNomeCantiere(String nomeCantiere) {
 		this.nomeCantiere = nomeCantiere;
 	}
 
+	/**
+	 * Gets the indirizzo.
+	 *
+	 * @return the indirizzo
+	 */
 	public String getIndirizzo() {
 		return indirizzo;
 	}
 
+	/**
+	 * Sets the indirizzo.
+	 *
+	 * @param indirizzo the new indirizzo
+	 */
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
 
+	/**
+	 * Gets the data apertura.
+	 *
+	 * @return the data apertura
+	 */
 	public GregorianCalendar getDataApertura() {
 		return dataApertura;
 	}
 	
+	/**
+	 * Gets the str data apertura.
+	 *
+	 * @return the str data apertura
+	 */
 	public String getStrDataApertura() {
 
 		SimpleDateFormat df = new SimpleDateFormat();
@@ -67,14 +121,29 @@ class Cantiere {
 		*/
 	}
 
+	/**
+	 * Sets the data apertura.
+	 *
+	 * @param dataApertura the new data apertura
+	 */
 	public void setDataApertura(GregorianCalendar dataApertura) {
 		this.dataApertura = dataApertura;
 	}
 
+	/**
+	 * Gets the data chiusura.
+	 *
+	 * @return the data chiusura
+	 */
 	public GregorianCalendar getDataChiusura() {
 		return dataChiusura;
 	}
 	
+	/**
+	 * Gets the str data chiusura.
+	 *
+	 * @return the str data chiusura
+	 */
 	public String getStrDataChiusura() {
 		
 
@@ -106,22 +175,43 @@ class Cantiere {
 		return year +"-"+ month +"-"+ day;*/
 	}
 
+	/**
+	 * Sets the data chiusura.
+	 *
+	 * @param dataChiusura the new data chiusura
+	 */
 	public void setDataChiusura(GregorianCalendar dataChiusura) {
 		this.dataChiusura = dataChiusura;
 	}
 
+	/**
+	 * Gets the codice.
+	 *
+	 * @return the codice
+	 */
 	public int getCodice() {
 		return codice;
 	}
 
+	/**
+	 * Sets the codice.
+	 *
+	 * @param codice the new codice
+	 */
 	public void setCodice(Integer codice) {
 		this.codice = codice;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj){
 		if(this==obj){
 			return true;
