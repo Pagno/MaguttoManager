@@ -77,5 +77,25 @@ public class CamionTest {
 		c.setModello("Tir");
 		assertEquals(c.getModello(),"Tir");
 	}
+	
+	@Test
+	public void testToString() {
+		assertEquals(c.toString(),5 + " Yamaha Prova " + 100 + " " + 99 + " " + 98);
+	}
+	
+	@Test
+	public void testEquals() {
+		assertTrue(c.equals(c));
+		assertFalse(c.equals(new Ruspa(5,"Yamaha","Prova",100,99,98)));
+		assertFalse(c.equals("Stringa"));
+		assertFalse(c.equals(null));
+		assertTrue(c.equals(new Camion(5,"Yamaha","Prova",100,99,98)));
+		assertFalse(c.equals(new Camion(6,"Yamaha","Prova",100,99,98)));
+		assertFalse(c.equals(new Camion(5,"Yamaha","Test",100,99,98)));
+		assertFalse(c.equals(new Camion(5,"Caterpillar","Prova",100,99,98)));
+		assertFalse(c.equals(new Camion(5,"Yamaha","Prova",101,99,98)));
+		assertFalse(c.equals(new Camion(5,"Yamaha","Prova",100,100,98)));
+		assertFalse(c.equals(new Camion(5,"Yamaha","Prova",100,99,99)));
+	}
 
 }

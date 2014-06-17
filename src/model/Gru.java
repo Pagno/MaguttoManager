@@ -111,9 +111,6 @@ public class Gru extends Macchina{
 		if(!(super.equals(obj))){
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
 		Gru g=(Gru)obj;
 		if((this.angoloRotazione==g.getAngoloRotazione()) &&(this.portataMax==g.getPortataMassima())&&(this.lunghezza==g.getLunghezza())&&(this.altezza==g.getAltezza())){
 			return true;

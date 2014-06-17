@@ -86,5 +86,25 @@ public class GruTest {
 		g.setModello("Villetta");
 		assertEquals(g.getModello(),"Villetta");
 	}
+	
+	@Test
+	public void testToString() {
+		assertEquals(g.toString(),5 + " Volvo Grattacielo " + 99 + " " + 100 + " " + 98 + " " + 360);
+	}
 
+	@Test
+	public void testEquals(){
+		assertTrue(g.equals(g));
+		assertTrue(g.equals(new Gru(5,"Volvo","Grattacielo",360,100,99,98)));
+		assertFalse(g.equals(new Gru(6,"Volvo","Grattacielo",360,100,99,98)));
+		assertFalse(g.equals(new Gru(5,"Caterpillar","Grattacielo",360,100,99,98)));
+		assertFalse(g.equals(new Gru(5,"Volvo","Piano Terra",360,100,99,98)));
+		assertFalse(g.equals(new Gru(5,"Volvo","Grattacielo",180,100,99,98)));
+		assertFalse(g.equals(new Gru(5,"Volvo","Grattacielo",360,101,99,98)));
+		assertFalse(g.equals(new Gru(5,"Volvo","Grattacielo",360,100,100,98)));
+		assertFalse(g.equals(new Gru(5,"Volvo","Grattacielo",360,100,99,99)));
+		assertFalse(g.equals(new Ruspa(5,"Volvo","Grattacielo",100,99,98)));
+		assertFalse(g.equals("Stringa"));
+		assertFalse(g.equals(null));
+	}
 }

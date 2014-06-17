@@ -220,16 +220,8 @@ public class Associazione implements Cloneable {
 			return false;
 		}
 		Associazione a=(Associazione)obj;
-		if(this.ID==a.getID()){
-			if(this.cantiere.equals(a.getCantiere())){
-				if(this.macchina.equals(a.getMacchina())){
-					if(this.dataInizio.equals(a.getDataInizio())){
-						if(this.dataFine.equals(a.getDataFine())){
-							return true;
-						}
-					}
-				}
-			}
+		if((this.ID==a.getID())&&(this.cantiere.equals(a.getCantiere()))&&(this.macchina.equals(a.getMacchina()))&&(this.dataInizio.equals(a.getDataInizio()))&&(this.dataFine.equals(a.getDataFine()))){
+			return true;		
 		}
 		return false;
 	}

@@ -223,16 +223,8 @@ class Cantiere {
 			return false;
 		}
 		Cantiere c=(Cantiere)obj;
-		if(this.codice==c.getCodice()){
-			if(this.indirizzo.equals(c.getIndirizzo())){
-				if(this.nomeCantiere.equals(c.getNomeCantiere())){
-					if(this.dataApertura.equals(c.getDataApertura())){
-						if(this.dataChiusura.equals(c.getDataChiusura())){
-							return true;
-						}
-					}
-				}
-			}
+		if((this.codice==c.getCodice())&&(this.indirizzo.equals(c.getIndirizzo()))&&(this.nomeCantiere.equals(c.getNomeCantiere()))&&(this.dataApertura.equals(c.getDataApertura()))&&(this.dataChiusura.equals(c.getDataChiusura()))){
+			return true;
 		}
 		return false;
 	}

@@ -71,4 +71,40 @@ public class AssociazioneTest {
 		assertEquals(a.getDataFine(),new GregorianCalendar(2021,6,2));
 	}
 
+	@Test
+	public void testClone(){
+		assertEquals(a,a.clone());
+	}
+	
+	@Test
+	public void testGetStrDataInizio(){
+		//I mesi del GregorianCalendar partono da 0, quindi il mese 5 inserito all'inizio corrisponderà a Giugno.
+		assertEquals(a.getStrDataInizio(),"2014-06-23");
+	}
+	
+	@Test
+	public void testGetStrDataFine(){
+		//I mesi del GregorianCalendar partono da 0, quindi il mese 5 inserito all'inizio corrisponderà a Giugno.
+		assertEquals(a.getStrDataFine(),"2014-06-26");
+	}
+	
+	@Test
+	public void testEquals(){
+		assertTrue(a.equals(a));
+		assertFalse(a.equals(null));
+		assertTrue(a.equals(new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals("stringa"));
+		assertFalse(a.equals(new Associazione(6, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals(new Associazione(5, new Ruspa(5,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals(new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(4,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals(new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2015,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals(new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2015,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals(new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2015,5,23),new GregorianCalendar(2014,5,26))));
+		assertFalse(a.equals(new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2015,5,26))));
+	}
+	
+	@Test
+	public void testtoString(){
+		assertEquals(a.toString(),5 + " " + 4 + " " + 3 + " 2014-06-23 2014-06-26");
+	}
 }

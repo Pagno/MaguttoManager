@@ -113,9 +113,6 @@ public class Escavatore extends Macchina{
 		if(!(super.equals(obj))){
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
 		Escavatore e=(Escavatore)obj;
 		if((this.profonditaMax==e.getProfonditaMassima()) &&(this.portataMax==e.getPortataMassima())&&(this.capacitaMax==e.getCapacitaMassima())&&(this.altezzaMax==e.getAltezzaMassima())){
 			return true;
