@@ -86,5 +86,26 @@ public class EscavatoreTest {
 		e.setModello("ModProva");
 		assertEquals(e.getModello(),"ModProva");
 	}
+	
+	@Test
+	public void testToString() {
+		assertEquals(e.toString(),5 + " Volvo Prova " + 100 + " " + 99 + " " + 98 + " " + 97);
+	}
+	
+	@Test
+	public void testEquals() {
+		assertTrue(e.equals(e));
+		assertTrue(e.equals(new Escavatore(5,"Volvo","Prova",100,99,98,97)));
+		assertFalse(e.equals(new Escavatore(6,"Volvo","Prova",100,99,98,97)));
+		assertFalse(e.equals(new Escavatore(5,"Caterpillar","Prova",100,99,98,97)));
+		assertFalse(e.equals(new Escavatore(5,"Volvo","Esc",100,99,98,97)));
+		assertFalse(e.equals(new Escavatore(5,"Volvo","Prova",101,99,98,97)));
+		assertFalse(e.equals(new Escavatore(5,"Volvo","Prova",100,100,98,97)));
+		assertFalse(e.equals(new Escavatore(5,"Volvo","Prova",100,99,99,97)));
+		assertFalse(e.equals(new Escavatore(5,"Volvo","Prova",100,99,98,98)));
+		assertFalse(e.equals(new Ruspa(5,"Volvo","Prova",100,99,98)));
+		assertFalse(e.equals("Stringa"));
+		assertFalse(e.equals(null));
+	}
 
 }
