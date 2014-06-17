@@ -93,9 +93,6 @@ public class Camion extends Macchina {
 		if(!(super.equals(obj))){
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
 		Camion c=(Camion)obj;
 		if((this.capacitaMax==c.getCapacitaMassima()) &&(this.portataMax==c.getPortataMassima())&&(this.lunghezza==c.getLunghezza())){
 			return true;

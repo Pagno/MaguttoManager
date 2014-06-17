@@ -19,7 +19,7 @@ public class CantiereTest {
 	 * Instantiates a new cantiere test.
 	 */
 	public CantiereTest(){
-		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,12,31));
+		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class CantiereTest {
 		assertEquals(c.getNomeCantiere(),"Ponte sullo stretto");
 		assertEquals(c.getIndirizzo(),"Messina");
 		assertEquals(c.getDataApertura(),new GregorianCalendar(2060,1,1));
-		assertEquals(c.getDataChiusura(),new GregorianCalendar(2090,12,31));
+		assertEquals(c.getDataChiusura(),new GregorianCalendar(2090,11,31));
 	}
 
 	/**
@@ -57,8 +57,8 @@ public class CantiereTest {
 	 */
 	@Test
 	public void testSetDataApertura() {
-		c.setDataChiusura(new GregorianCalendar(2061,4,25));
-		assertEquals(c.getDataChiusura(),new GregorianCalendar(2061,4,25));
+		c.setDataApertura(new GregorianCalendar(2061,4,25));
+		assertEquals(c.getDataApertura(),new GregorianCalendar(2061,4,25));
 	}
 
 	/**
@@ -79,4 +79,22 @@ public class CantiereTest {
 		assertEquals(c.getCodice(),17);
 	}
 
+	@Test
+	public void testToString(){
+		//GregorianCalendar parte da 00
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31" );
+	}
+	
+	@Test
+	public void testEquals(){
+		assertTrue(c.equals(c));
+		assertFalse(c.equals(null));
+		assertFalse(c.equals("Stringa"));
+		assertTrue(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
+		assertFalse(c.equals(new Cantiere(12,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
+		assertFalse(c.equals(new Cantiere(11,"Ponte stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Reggio",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31))));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31))));
+	}
 }
