@@ -89,6 +89,7 @@ public class ModelCamionTest {
 		ArrayList<Camion> lista=mc.getLista();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Camion(7, "Iveco", "Daily", 1800,1045, 3)));
+		assertFalse(mc.eliminaCamion(34));
 	}
 
 	/**
@@ -98,6 +99,7 @@ public class ModelCamionTest {
 	public void testIsCamion() {
 		mc.caricaCamion(8, "Iveco", "Daily", 1200, 800, 3);
 		assertTrue(mc.isCamion(8));
+		assertFalse(mc.isCamion(34));
 	}
 
 	/**
@@ -115,6 +117,16 @@ public class ModelCamionTest {
 		assertEquals(g.getLunghezza(),9);
 		assertEquals(g.getPortataMassima(),2000);
 		assertEquals(g.getCapacitaMassima(),3600);
+		assertNull(mc.getCamion(34));
+	}
+	
+	@Test
+	public void testToString() {
+		Camion a=new Camion(5, "Iveco", "Daily 35C10", 2000, 1340, 4);
+		Camion b=new Camion(7, "Iveco", "Daily", 1800,1045, 3);
+		Camion c=new Camion(9, "Volkswagen", "Crafter", 1680, 1000, 1);
+		String str=a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
+		assertEquals(mc.toString(),str);
 	}
 
 }
