@@ -93,9 +93,6 @@ public class Ruspa extends Macchina{
 		if(!(super.equals(obj))){
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
 		Ruspa r=(Ruspa)obj;
 		if((this.portataMax==r.getPortataMassima())&&(this.capacitaMax==r.getCapacitaMassima())&&(this.altezzaMax==r.getAltezzaMassima())){
 			return true;

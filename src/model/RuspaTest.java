@@ -76,5 +76,25 @@ public class RuspaTest {
 		r.setModello("Ruspetta");
 		assertEquals(r.getModello(),"Ruspetta");
 	}
+	
+	@Test
+	public void testToString() {
+		assertEquals(r.toString(),5 + " Caterpillar Ruspona " + 100 + " " + 99 + " " + 98);
+	}
+	
+	@Test
+	public void testEquals(){
+		assertTrue(r.equals(r));
+		assertTrue(r.equals(new Ruspa(5,"Caterpillar","Ruspona",100,99,98)));
+		assertFalse(r.equals(new Ruspa(6,"Caterpillar","Ruspona",100,99,98)));
+		assertFalse(r.equals(new Ruspa(5,"Volvo","Ruspona",100,99,98)));
+		assertFalse(r.equals(new Ruspa(5,"Caterpillar","Ruspa",100,99,98)));
+		assertFalse(r.equals(new Ruspa(5,"Caterpillar","Ruspona",101,99,98)));
+		assertFalse(r.equals(new Ruspa(5,"Caterpillar","Ruspona",100,100,98)));
+		assertFalse(r.equals(new Ruspa(5,"Caterpillar","Ruspona",100,99,99)));
+		assertFalse(r.equals(new Gru(5,"Volvo","Grattacielo",360,100,99,98)));
+		assertFalse(r.equals("Stringa"));
+		assertFalse(r.equals(null));
+	}
 
 }
