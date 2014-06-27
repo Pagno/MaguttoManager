@@ -10,3 +10,4 @@ MyDB
 *.exe
 *.o
 *.so
+*.log
