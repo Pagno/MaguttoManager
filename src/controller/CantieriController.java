@@ -145,6 +145,8 @@ public class CantieriController {
 			public void actionPerformed(ActionEvent e) {
 				model.eliminaAssociazione(addAssociazione.getCodiceAssociazioneSelezionata());
 				addAssociazione.rimuoviAssociazioneSelezionata();
+				aggiornaElencoMacchine(addAssociazione);
+				
 			}
 		};
 		
