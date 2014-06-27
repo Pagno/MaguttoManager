@@ -2,11 +2,13 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
+
 import database.DBException;
 import database.DatabaseInterface;
 
@@ -351,12 +353,20 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 */
 	@Override
 	public boolean eliminaCantiere(int codice) {
+		boolean check=true;
+		ArrayList<Integer> id=new ArrayList<Integer>();
 		for(int i=0;i<ea.getElencoAssociazioniList().size();i++){
 			if(ea.getElencoAssociazioniList().get(i).getCantiere().getCodice()==codice)
-			eliminaAssociazione(ea.getElencoAssociazioniList().get(i).getID());
+				id.add(ea.getElencoAssociazioniList().get(i).getID());
+				//check=check && eliminaAssociazione(ea.getElencoAssociazioniList().get(i).getID());
+			
 		}
-
-		return lc.rimuoviCantiere(codice);
+		
+		for(int i=0;i<id.size();i++){
+			check=check && eliminaAssociazione(id.get(i));
+		}
+		
+		return check && lc.rimuoviCantiere(codice);
 	}
 
 	/* (non-Javadoc)
@@ -642,8 +652,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 			disp=true;
 			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
-					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
 						disp=false;
+				
 				}
 			}
 			if(disp==true)
@@ -660,32 +671,30 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @return   array list
 	 */
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+		
 		ArrayList<Gru> gru=new ArrayList<Gru>();
 		gru.clear();
-		boolean disp;
-		for(Gru r:mg.getLista()){
-			System.out.println(r.toString());
+		boolean disp=true;
+		ArrayList<Gru> g=mg.getLista();
+		for(Gru r:g){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){
+			for(Associazione item:ea.getElencoAssociazioniList()){				
 				if(item.getMacchina().equals(r)){
-					if((inizio.after(item.getDataInizio()) && inizio.before(item.getDataFine())) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0)
-							|| (inizio.compareTo(item.getDataInizio())<0 && fine.compareTo(item.getDataFine())>0))
+
+					
+					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
 						disp=false;
-					
-					/*if(inizio.compareTo(item.getDataInizio())>0)
-						System.out.println("inizio after");
-					if(inizio.compareTo(item.getDataInizio())<0)
-						System.out.println("inizio before");
-					*/
-					
 				}
 			}
-			if(disp==true)
+
+			System.out.println("");
+			if(disp==true){
 				gru.add(r);
+				System.out.println(r.toString());
+			}
 		}
 		return gru;
 	}
-	
 	/**
 	 * Elenco camion disponibili.
 	 *
@@ -700,12 +709,13 @@ public class ModelConnector extends Observable implements ModelInterface{
 			disp=true;
 			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
-					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
 						disp=false;
+				
 				}
-			}
 			if(disp==true)
 				camion.add(r);
+			}
 		}
 		return camion;
 	}
@@ -724,12 +734,13 @@ public class ModelConnector extends Observable implements ModelInterface{
 			disp=true;
 			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){
-					if((inizio.compareTo(item.getDataInizio())>0 && inizio.compareTo(item.getDataFine())<0) || (fine.compareTo(item.getDataInizio())>0 && fine.compareTo(item.getDataFine())<0))
+					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
 						disp=false;
+				
 				}
-			}
 			if(disp==true)
 				escavatore.add(r);
+			}
 		}
 		return escavatore;
 	}

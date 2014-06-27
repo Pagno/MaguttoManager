@@ -124,8 +124,7 @@ public class CantieriController {
 				
 				model.aggiungiAssociazione(r.getCodice(), codiceCantiere,view.getDataInizio(),view.getDataFine());
 				
-				view.rimuoviMacchinaSelezionata();
-				//aggiornaElencoMacchine(view);
+				aggiornaElencoMacchine(view);
 			}
 		};		
 	}

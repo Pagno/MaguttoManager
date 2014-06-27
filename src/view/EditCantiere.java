@@ -182,8 +182,9 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 			public void actionPerformed(ActionEvent e) {
 				txtNome.setText("");
 				txtIndirizzo.setText("");
-				dataInizio.setDate(null);
 				dataFine.setDate(null);
+				dataInizio.setDate(null);
+				
 			}
 		});
 		okButton.setActionCommand("Reset");

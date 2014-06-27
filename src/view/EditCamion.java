@@ -46,7 +46,7 @@ public class EditCamion extends JDialog {
 	 */
 	public EditCamion(JFrame view, Object[] obj) {
 		this(view);
-		setTitle("Modifica Cantiere");
+		setTitle("Modifica Camion");
 		setTextBox(obj);
 		okButton.setText("Modifica");
 	}
@@ -72,7 +72,7 @@ public class EditCamion extends JDialog {
 	 */
 	public EditCamion(JFrame view) {
 		super(view);
-		setTitle("Aggiungi un nuovo Cantiere");
+		setTitle("Aggiungi un nuovo Camion");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
