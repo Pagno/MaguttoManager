@@ -39,6 +39,9 @@ public class ModelCantiereTest {
 		assertTrue(lista.contains(new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05))));
 		ModelCantiere prova=ModelCantiere.getModelCantiere();
 		assertSame(mc,prova);
+		ModelCantiere.resetForTest();
+		mc=ModelCantiere.getModelCantiere();
+		assertEquals(mc.getNextCodice(),1);
 	}
 
 	/**

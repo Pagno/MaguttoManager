@@ -39,6 +39,9 @@ public class ModelCamionTest {
 		assertTrue(lista.contains(new Camion(9, "Volkswagen", "Crafter", 1680, 1000, 1)));
 		ModelCamion prova=ModelCamion.getModelCamion();
 		assertSame(mc,prova);
+		ModelCamion.resetForTest();
+		mc=ModelCamion.getModelCamion();
+		assertEquals(mc.getNextCodice(),1);
 	}
 
 	/**
@@ -59,7 +62,7 @@ public class ModelCamionTest {
 	 */
 	@Test
 	public void testCaricaCamion() {
-		assertEquals(mc.getNextCodice(),11);
+		assertEquals(mc.getNextCodice(),10);
 		mc.caricaCamion(15,"Iveco", "35C10", 1360, 1030, 3);
 		assertEquals(mc.getNextCodice(),16);
 		ArrayList<Camion> lista=mc.getLista();
@@ -72,9 +75,9 @@ public class ModelCamionTest {
 	 */
 	@Test
 	public void testModificaCamion() {
-		assertEquals(mc.getNextCodice(),16);
+		assertEquals(mc.getNextCodice(),10);
 		mc.modificaCamion(5, "Iveco", "Daily", 1800,1045, 3);
-		assertEquals(mc.getNextCodice(),16);
+		assertEquals(mc.getNextCodice(),10);
 		ArrayList<Camion>lista=mc.getLista();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Camion(5, "Iveco", "Daily", 1800,1045, 3)));

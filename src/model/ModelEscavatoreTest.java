@@ -38,6 +38,9 @@ public class ModelEscavatoreTest {
 		assertTrue(lista.contains(new Escavatore(9, "Hyndai", "R260LC-9A", 25,50, 5, 4)));
 		ModelEscavatore prova=ModelEscavatore.getModelEscavatore();
 		assertSame(mr,prova);
+		ModelEscavatore.resetForTest();
+		mr=ModelEscavatore.getModelEscavatore();
+		assertEquals(mr.getNextCodice(),1);
 	}
 
 	/**
@@ -45,12 +48,12 @@ public class ModelEscavatoreTest {
 	 */
 	@Test
 	public void testAggiungiEscavatore() {
-		assertEquals(mr.getNextCodice(),14);
+		assertEquals(mr.getNextCodice(),10);
 		mr.aggiungiEscavatore("JCB", "JS115", 6,12, 4, 2);
-		assertEquals(mr.getNextCodice(),15);
+		assertEquals(mr.getNextCodice(),11);
 		ArrayList<Escavatore>lista=mr.getLista();
 		assertEquals(lista.size(),4);
-		assertTrue(lista.contains(new Escavatore(14,"JCB", "JS115", 6,12, 4, 2)));
+		assertTrue(lista.contains(new Escavatore(10,"JCB", "JS115", 6,12, 4, 2)));
 	}
 
 	/**

@@ -38,6 +38,9 @@ public class ModelRuspaTest {
 		assertTrue(lista.contains(new Ruspa(9, "Liebherr", "L524", 1, 2000, 2)));
 		ModelRuspa prova=ModelRuspa.getModelRuspa();
 		assertSame(mr,prova);
+		ModelRuspa.resetForTest();
+		mr=ModelRuspa.getModelRuspa();
+		assertEquals(mr.getNextCodice(),1);
 	}
 
 	/**
@@ -58,12 +61,12 @@ public class ModelRuspaTest {
 	 */
 	@Test
 	public void testAggiungiRuspa() {
-		assertEquals(mr.getNextCodice(),20);
+		assertEquals(mr.getNextCodice(),10);
 		mr.aggiungiRuspa("Hyundai", "HL730-9", 2, 9800, 3);
-		assertEquals(mr.getNextCodice(),21);
+		assertEquals(mr.getNextCodice(),11);
 		ArrayList<Ruspa>lista=mr.getLista();
 		assertEquals(lista.size(),4);
-		assertTrue(lista.contains(new Ruspa(20,"Hyundai", "HL730-9", 2, 9800, 3)));
+		assertTrue(lista.contains(new Ruspa(10,"Hyundai", "HL730-9", 2, 9800, 3)));
 	}
 
 
@@ -72,9 +75,9 @@ public class ModelRuspaTest {
 	 */
 	@Test
 	public void testModificaRuspa() {
-		assertEquals(mr.getNextCodice(),21);
+		assertEquals(mr.getNextCodice(),10);
 		mr.modificaRuspa(5,"XCMG", "LW500", 2, 2700, 3);
-		assertEquals(mr.getNextCodice(),21);
+		assertEquals(mr.getNextCodice(),10);
 		ArrayList<Ruspa>lista=mr.getLista();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Ruspa(5,"XCMG", "LW500", 2, 2700, 3)));
@@ -89,6 +92,7 @@ public class ModelRuspaTest {
 		ArrayList<Ruspa> lista=mr.getLista();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Ruspa(6, "Hitachi", "ZW65", 2,3500, 3)));
+		assertFalse(mr.eliminaRuspa(99));
 	}
 
 	/**
@@ -98,6 +102,7 @@ public class ModelRuspaTest {
 	public void testIsRuspa() {
 		mr.caricaRuspa(8, "JCB", "411", 3, 8000, 3);
 		assertTrue(mr.isRuspa(8));
+		assertFalse(mr.isRuspa(99));
 	}
 
 	/**
@@ -115,6 +120,17 @@ public class ModelRuspaTest {
 		assertEquals(g.getAltezzaMassima(),6);
 		assertEquals(g.getPortataMassima(),16000);
 		assertEquals(g.getCapacitaMassima(),3);
+		assertNull(mr.getRuspa(99));
+	}
+	
+	@Test
+	public void testToString() {
+		Ruspa a =new Ruspa(5,"Caterpillar","Ruspona",1,5000,2);
+		Ruspa b =new Ruspa(6, "Hitachi", "ZW65", 2,3500, 3);
+		Ruspa c =new Ruspa(9, "Liebherr", "L524", 1, 2000, 2);
+		String str= a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
+		assertEquals(mr.toString(),str);
+		
 	}
 
 }
