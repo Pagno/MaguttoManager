@@ -38,6 +38,9 @@ public class ModelEscavatoreTest {
 		assertTrue(lista.contains(new Escavatore(9, "Hyndai", "R260LC-9A", 25,50, 5, 4)));
 		ModelEscavatore prova=ModelEscavatore.getModelEscavatore();
 		assertSame(mr,prova);
+		ModelEscavatore.resetForTest();
+		mr=ModelEscavatore.getModelEscavatore();
+		assertEquals(mr.getNextCodice(),1);
 	}
 
 	/**
@@ -45,12 +48,12 @@ public class ModelEscavatoreTest {
 	 */
 	@Test
 	public void testAggiungiEscavatore() {
-		assertEquals(mr.getNextCodice(),14);
+		assertEquals(mr.getNextCodice(),10);
 		mr.aggiungiEscavatore("JCB", "JS115", 6,12, 4, 2);
-		assertEquals(mr.getNextCodice(),15);
+		assertEquals(mr.getNextCodice(),11);
 		ArrayList<Escavatore>lista=mr.getLista();
 		assertEquals(lista.size(),4);
-		assertTrue(lista.contains(new Escavatore(14,"JCB", "JS115", 6,12, 4, 2)));
+		assertTrue(lista.contains(new Escavatore(10,"JCB", "JS115", 6,12, 4, 2)));
 	}
 
 	/**
@@ -88,6 +91,7 @@ public class ModelEscavatoreTest {
 		ArrayList<Escavatore> lista=mr.getLista();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Escavatore(6,"XCMG", "XE215CLL",15,33,5, 3)));
+		assertFalse(mr.eliminaEscavatore(99));
 	}
 
 	/**
@@ -97,6 +101,7 @@ public class ModelEscavatoreTest {
 	public void testIsEscavatore() {
 		mr.caricaEscavatore(8, "New Holland", "E140C R", 30,50,5,3);
 		assertTrue(mr.isEscavatore(8));
+		assertFalse(mr.isEscavatore(99));
 	}
 
 	/**
@@ -115,6 +120,17 @@ public class ModelEscavatoreTest {
 		assertEquals(g.getPortataMassima(),50);
 		assertEquals(g.getCapacitaMassima(),30);
 		assertEquals(g.getProfonditaMassima(),3);
+		assertNull(mr.getEscavatore(99));
+	}
+	
+	@Test
+	public void testToString() {
+		Escavatore a=new Escavatore(5,"Liebherr","R9250",16,32,4,3);
+		Escavatore b=new Escavatore(6, "Hyundai", "R55-9", 9,15, 5,3);
+		Escavatore c=new Escavatore(9, "Hyndai", "R260LC-9A", 25,50, 5, 4);
+		String str= a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
+		assertEquals(mr.toString(),str);
+		
 	}
 
 }

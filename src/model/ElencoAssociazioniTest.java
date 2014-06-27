@@ -39,6 +39,9 @@ public class ElencoAssociazioniTest {
 		assertTrue(lista.contains(new Associazione(9, new Escavatore(11,"Caterpillar","CEscavatore",94,93,92,91) , new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05)), new GregorianCalendar(2014,06,06), new GregorianCalendar(2017,01,29))));
 		ElencoAssociazioni prova=ElencoAssociazioni.getElencoAssociazioni();
 		assertSame(ea,prova);
+		ElencoAssociazioni.resetForTest();
+		ea=ElencoAssociazioni.getElencoAssociazioni();
+		assertEquals(ea.getNextCodice(),1);
 	}
 
 	/**

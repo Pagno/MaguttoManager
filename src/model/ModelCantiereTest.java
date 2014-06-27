@@ -39,6 +39,9 @@ public class ModelCantiereTest {
 		assertTrue(lista.contains(new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05))));
 		ModelCantiere prova=ModelCantiere.getModelCantiere();
 		assertSame(mc,prova);
+		ModelCantiere.resetForTest();
+		mc=ModelCantiere.getModelCantiere();
+		assertEquals(mc.getNextCodice(),1);
 	}
 
 	/**
@@ -59,11 +62,12 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testCaricaCantiere() {
+		mc.caricaCantiere(1,"Passerella sul Brembo","Dalmine",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));
 		assertEquals(mc.getNextCodice(),21);
 		mc.caricaCantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));
 		assertEquals(mc.getNextCodice(),26);
 		ArrayList<Cantiere>lista=mc.getLista();
-		assertEquals(lista.size(),4);
+		assertEquals(lista.size(),5);
 		assertTrue(lista.contains(new Cantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
 
@@ -89,6 +93,7 @@ public class ModelCantiereTest {
 		ArrayList<Cantiere>lista=mc.getLista();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
+		assertFalse(mc.rimuoviCantiere("Aeroporto Orio al Serio"));
 	}
 
 	/**
@@ -100,6 +105,7 @@ public class ModelCantiereTest {
 		ArrayList<Cantiere>lista=mc.getLista();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
+		assertFalse(mc.rimuoviCantiere(99));
 	}
 
 	/**
@@ -111,6 +117,15 @@ public class ModelCantiereTest {
 		assertEquals(mc.getCantiere(7),new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22)));
 		assertEquals(mc.getCantiere(20),new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05)));
 		assertEquals(mc.getCantiere(1),null);
+	}
+	
+	@Test
+	public void testToString() {
+		Cantiere a=new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));
+		Cantiere b=new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01));
+		Cantiere c=new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05));
+		String str=a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
+		assertEquals(mc.toString(),str);
 	}
 
 }
