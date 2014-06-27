@@ -6,7 +6,7 @@ import java.util.*;
 /**
  *   Class Cantiere.
  */
-class Cantiere {
+public class Cantiere {
 	
 	/**   codice. */
 	private int codice;

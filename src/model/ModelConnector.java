@@ -661,8 +661,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 */
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
 		ArrayList<Gru> gru=new ArrayList<Gru>();
+		gru.clear();
 		boolean disp;
 		for(Gru r:mg.getLista()){
+			System.out.println(r.toString());
 			disp=true;
 			for(Associazione item:ea.getElencoAssociazioniList()){
 				if(item.getMacchina().equals(r)){

@@ -123,7 +123,9 @@ public class CantieriController {
 				Macchina r=(Macchina)view.getListSelected();
 				
 				model.aggiungiAssociazione(r.getCodice(), codiceCantiere,view.getDataInizio(),view.getDataFine());
-
+				
+				view.rimuoviMacchinaSelezionata();
+				//aggiornaElencoMacchine(view);
 			}
 		};		
 	}

@@ -237,7 +237,9 @@ public class AddAssociazione extends JDialog{
 	public void clearList(){
 		listModel.clear();
 	}
-	
+	public void rimuoviMacchinaSelezionata(){
+		listModel.remove(list.getSelectedIndex());
+	}
 	/**
 	 * Gets   selected associazione.
 	 *
