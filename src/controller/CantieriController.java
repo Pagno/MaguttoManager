@@ -253,6 +253,7 @@ public class CantieriController {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				tipoMacchina=((JComboBox)arg0.getSource()).getSelectedItem().toString();
+				System.out.println(tipoMacchina);
 				if(validate==true)
 					aggiornaElencoMacchine(ass);
 				

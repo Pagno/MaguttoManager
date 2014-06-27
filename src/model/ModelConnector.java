@@ -687,10 +687,8 @@ public class ModelConnector extends Observable implements ModelInterface{
 				}
 			}
 
-			System.out.println("");
 			if(disp==true){
 				gru.add(r);
-				System.out.println(r.toString());
 			}
 		}
 		return gru;
@@ -703,21 +701,24 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @return   array list
 	 */
 	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
-		ArrayList<Camion> camion=new ArrayList<Camion>();
+		ArrayList<Camion> cam=new ArrayList<Camion>();
 		boolean disp;
 		for(Camion r:mc.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){
+			for(Associazione item:ea.getElencoAssociazioniList()){				
 				if(item.getMacchina().equals(r)){
+
+					
 					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
 						disp=false;
-				
 				}
-			if(disp==true)
-				camion.add(r);
+			}
+
+			if(disp==true){
+				cam.add(r);
 			}
 		}
-		return camion;
+		return cam;
 	}
 	
 	/**
@@ -728,20 +729,23 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @return   array list
 	 */
 	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
-		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();
-		boolean disp;
+		ArrayList<Escavatore> escavatori=new ArrayList<Escavatore>();
+		boolean disp=true;
 		for(Escavatore r:me.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){
+			for(Associazione item:ea.getElencoAssociazioniList()){				
 				if(item.getMacchina().equals(r)){
+
+					
 					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
 						disp=false;
-				
 				}
-			if(disp==true)
-				escavatore.add(r);
+			}
+
+			if(disp==true){
+				escavatori.add(r);
 			}
 		}
-		return escavatore;
+		return escavatori;
 	}
 }
