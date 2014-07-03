@@ -143,10 +143,13 @@ public class CantieriController {
 		return new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				model.eliminaAssociazione(addAssociazione.getCodiceAssociazioneSelezionata());
-				addAssociazione.rimuoviAssociazioneSelezionata();
-				aggiornaElencoMacchine(addAssociazione);
-				
+				if(addAssociazione.getCodiceAssociazioneSelezionata()==-1){
+					JOptionPane.showMessageDialog(null,"Selezionare l'associazione da cancellare.","Error", JOptionPane.ERROR_MESSAGE);		
+				}else{
+					model.eliminaAssociazione(addAssociazione.getCodiceAssociazioneSelezionata());
+					addAssociazione.rimuoviAssociazioneSelezionata();
+					aggiornaElencoMacchine(addAssociazione);
+				}
 			}
 		};
 		

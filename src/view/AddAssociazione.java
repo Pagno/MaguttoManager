@@ -246,7 +246,7 @@ public class AddAssociazione extends JDialog{
 	 * @return   selected associazione
 	 */
 	public int getCodiceAssociazioneSelezionata(){
-		return (int)tableModel.getValueAt(table.getSelectedRow())[0];
+		return table.getSelectedRow()==-1?-1:(int)tableModel.getValueAt(table.getSelectedRow())[0];
 	}
 	
 	/**
