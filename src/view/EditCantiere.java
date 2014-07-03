@@ -260,7 +260,9 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 			dataFine.setDate(null);
 		dataFine.setMinSelectableDate(d);
 	}
-	
+	public void setMassimaDataInizio(Date d){
+		dataInizio.setMaxSelectableDate(d);
+	}
 	/**
 	 * Sets   data inizio changed listener.
 	 *
@@ -275,9 +277,6 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		// TODO Auto-generated method stub
-		if(dataInizio.getDate()==null)
-			System.out.println("Null");
 		setMinimaDataFine(getDataInizio());
 		
 	}

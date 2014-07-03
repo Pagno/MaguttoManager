@@ -50,6 +50,7 @@ public class EditGru extends JDialog {
 		this(view);
 		setTitle("Modifica Gru");
 		setTextBox(obj);
+		okButton.setText("Modifica");
 	}
 	
 	/**

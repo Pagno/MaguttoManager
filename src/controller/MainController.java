@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -483,6 +485,14 @@ public class MainController{
 					EditCantiere ins = new EditCantiere(mainView, v);
 					CantieriController ctr = new CantieriController(model);
 					ins.setInsertButtonListeners(ctr.EditCantiereListener(ins,(Integer)v[0]));
+					
+					//Se ci sono macchine associate al cantiere, l'utente non deve poter
+					//anticipare la'apertura o posticipare la chiusura per evitare inconguenze
+					//con le date delle associazioni
+					if(model.getAssociazioniList((Integer)v[0]).size()>0){
+						ins.setMinimaDataFine(ins.getDataFine());
+						ins.setMassimaDataInizio(ins.getDataInizio());
+					}
 				}
 			}
 		};
@@ -505,8 +515,29 @@ public class MainController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					model.eliminaMacchina(Integer.parseInt(v[0].toString()));
-					mainView.removeSelected();
+					boolean trovataAssociazione=false;
+					for(ArrayList<String> array:model.getAssociazioniList()){
+						if(array.get(1).compareTo(Integer.toString((Integer)v[0]))==0)
+							trovataAssociazione=true;
+					}
+					int reply=-1;
+					if(trovataAssociazione==true){
+						reply = JOptionPane.showConfirmDialog(mainView,"Sono presenti delle associazione con la macchina da cancellare. \n"
+								+ "Con l'eliminazione della macchina verranno eliminate anche le associazioni ad essa collegate.\n"
+								+ "Si vuole procedere con l'eliminazione?","Warning", JOptionPane.YES_NO_OPTION);
+						if (  (reply == JOptionPane.YES_OPTION || reply==-1)){
+					    	for(ArrayList<String> array:model.getAssociazioniList()){
+								if(array.get(1).compareTo(Integer.toString((Integer)v[0]))==0)
+									model.eliminaAssociazione(Integer.parseInt(array.get(0)));
+							}
+
+							model.eliminaMacchina(Integer.parseInt(v[0].toString()));
+							mainView.removeSelected();
+						}
+					}else{
+						model.eliminaMacchina(Integer.parseInt(v[0].toString()));
+						mainView.removeSelected();
+					}
 				}
 			}
 		};

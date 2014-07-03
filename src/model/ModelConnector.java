@@ -748,4 +748,50 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		return escavatori;
 	}
+	public ArrayList<ArrayList<String>> getAssociazioniList(int codiceCantiere){
+		ArrayList<String> associazione;
+		ArrayList<ArrayList<String>> listaAssociazioni=new ArrayList<ArrayList<String>>();
+		
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("yyyy-MM-dd");
+	    
+		for(Associazione ass:ea.getElencoAssociazioniList(codiceCantiere)){
+			associazione=new ArrayList<String>();
+			associazione.add(Integer.toString(ass.getID()));//ID
+			associazione.add(Integer.toString(ass.getMacchina().getCodice()));//Codice Macchina
+			associazione.add(Integer.toString(ass.getCantiere().getCodice()));//Codice Cantiere
+			
+			associazione.add(df.format(ass.getDataInizio().getTime()));//Data Inizio
+			associazione.add(df.format(ass.getDataFine().getTime()));//Data Fine
+			
+			
+			
+			listaAssociazioni.add(associazione);
+		}
+		
+		return listaAssociazioni;
+	}
+	public ArrayList<ArrayList<String>> getAssociazioniList(){
+		ArrayList<String> associazione;
+		ArrayList<ArrayList<String>> listaAssociazioni=new ArrayList<ArrayList<String>>();
+		
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("yyyy-MM-dd");
+	    
+		for(Associazione ass:ea.getElencoAssociazioniList()){
+			associazione=new ArrayList<String>();
+			associazione.add(Integer.toString(ass.getID()));//ID
+			associazione.add(Integer.toString(ass.getMacchina().getCodice()));//Codice Macchina
+			associazione.add(Integer.toString(ass.getCantiere().getCodice()));//Codice Cantiere
+			
+			associazione.add(df.format(ass.getDataInizio().getTime()));//Data Inizio
+			associazione.add(df.format(ass.getDataFine().getTime()));//Data Fine
+			
+			
+			
+			listaAssociazioni.add(associazione);
+		}
+		
+		return listaAssociazioni;
+	}
 }
