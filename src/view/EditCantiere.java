@@ -298,14 +298,14 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 				if(getDataInizio().after(di.getTime())){
 					dataInizio.setDate(di.getTime());
 					setMassimaDataInizio(di.getTime());
-					JOptionPane.showMessageDialog(null,"La nuova data di inizio non puo essere minore della precedente.","Error", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null,"La nuova data di inizio non puo essere maggiore della precedente.","Error", JOptionPane.ERROR_MESSAGE);		
 				}
 			}
 			if(getDataFine()!=null && df!=null){
 				if(getDataFine().before(df.getTime())){
 					dataFine.setDate(df.getTime());
 					setMinimaDataFine(df.getTime());
-					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(null,"La nuova data di fine non puo essere minore della precedente.","Error", JOptionPane.ERROR_MESSAGE);		
 				}
 			}
 		}
