@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -48,6 +49,9 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	/**   data fine. */
 	private JDateChooser dataInizio,dataFine;
 	
+	private boolean edit=false;
+	
+	private GregorianCalendar di,df;
 	/**
 	 * Create   dialog.
 	 *
@@ -56,6 +60,7 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	 */
 	public EditCantiere(JFrame view, Object[] obj) {
 		this(view);
+		edit=true;
 		setTitle("Modifica Cantiere");
 		setTextBox(obj);
 		okButton.setText("Modifica");
@@ -74,10 +79,16 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 		String[] tokens = ((String)v[3]).split("/");
 		Date d=new Date(Integer.parseInt(tokens[2])-1900,Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
 		dataInizio.setDate(d);
+		di=new GregorianCalendar();
+		di.setTime(d);
 		
 		tokens = ((String)v[4]).split("/");
 		Date d2=new Date(Integer.parseInt(tokens[2])-1900,Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
 		dataFine.setDate(d2);
+
+		df=new GregorianCalendar();
+		df.setTime(d2);
+		
 	}
 
 	/**
@@ -203,6 +214,7 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 
 		setVisible(true);
 		dataInizio.addPropertyChangeListener(this);
+		dataFine.addPropertyChangeListener(this);
 	}
 
 	/**
@@ -255,19 +267,21 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	 *
 	 * @param d   new minima data fine
 	 */
+	
 	public void setMinimaDataFine(Date d){
-		if(dataFine.getDate()==null || dataFine.getDate().before(d))
-			dataFine.setDate(null);
 		dataFine.setMinSelectableDate(d);
 	}
+	
 	public void setMassimaDataInizio(Date d){
 		dataInizio.setMaxSelectableDate(d);
 	}
+
 	/**
 	 * Sets   data inizio changed listener.
 	 *
 	 * @param list   new data inizio changed listener
 	 */
+	
 	public void setDataInizioChangedListener(PropertyChangeListener list){
 		dataInizio.addPropertyChangeListener(list);
 	}
@@ -275,10 +289,30 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	/* (non-Javadoc)
 	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
 	 */
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		setMinimaDataFine(getDataInizio());
-		
+
+		if(edit==true){
+			if(getDataInizio()!=null && di!=null){
+				if(getDataInizio().after(di.getTime())){
+					dataInizio.setDate(di.getTime());
+					setMassimaDataInizio(di.getTime());
+					JOptionPane.showMessageDialog(null,"La nuova data di inizio non puo essere minore della precedente.","Error", JOptionPane.ERROR_MESSAGE);		
+				}
+			}
+			if(getDataFine()!=null && df!=null){
+				if(getDataFine().before(df.getTime())){
+					dataFine.setDate(df.getTime());
+					setMinimaDataFine(df.getTime());
+					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+				}
+			}
+		}
+		else{
+			setMinimaDataFine(getDataInizio());
+			setMassimaDataInizio(getDataFine());
+		}
 	}
 	
 	/**

@@ -489,6 +489,7 @@ public class MainController{
 					//Se ci sono macchine associate al cantiere, l'utente non deve poter
 					//anticipare la'apertura o posticipare la chiusura per evitare inconguenze
 					//con le date delle associazioni
+					
 					if(model.getAssociazioniList((Integer)v[0]).size()>0){
 						ins.setMinimaDataFine(ins.getDataFine());
 						ins.setMassimaDataInizio(ins.getDataInizio());
@@ -581,29 +582,32 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object[] data=mainView.getSelectedData();
-				
-				String[] tokens = ((String)data[3]).split("/");
-				GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
-
-				tokens = ((String)data[4]).split("/");
-				GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
-				
-				
-				AddAssociazione ass = new AddAssociazione(mainView, data[1].toString(),d,d2);
-				CantieriController ctr = new CantieriController(model);
-				
-				ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
-				ass.addPropertyChangeListener(ctr.checkAssociazioni(ass));
-				ass.addComboBoxListener(ctr.cambioTipoMacchina(ass));
-				ass.addRimuoviAssoziazioneListener(ctr.btnRimuoviListener(ass));
-				model.addAssociazioniObserver(ass.tableModel);
-				for(Associazione a:model.elencoAssociazioniCantiere((int) mainView.getSelectedData()[0])){
-					Object[] list={a.getID(),a.getMacchina().getProduttore()+" - "+a.getMacchina().getModello()
-							,a.getDataInizio(),a.getDataFine()};
+				if(data!=null){
+					String[] tokens = ((String)data[3]).split("/");
+					GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
+	
+					tokens = ((String)data[4]).split("/");
+					GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
 					
-					ass.addData(list);
- 				}
-				
+					
+					AddAssociazione ass = new AddAssociazione(mainView, data[1].toString(),d,d2);
+					CantieriController ctr = new CantieriController(model);
+					
+					ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
+					ass.addPropertyChangeListener(ctr.checkAssociazioni(ass));
+					ass.addComboBoxListener(ctr.cambioTipoMacchina(ass));
+					ass.addRimuoviAssoziazioneListener(ctr.btnRimuoviListener(ass));
+					model.addAssociazioniObserver(ass.tableModel);
+					for(Associazione a:model.elencoAssociazioniCantiere((int) mainView.getSelectedData()[0])){
+						Object[] list={a.getID(),a.getMacchina().getProduttore()+" - "+a.getMacchina().getModello()
+								,a.getDataInizio(),a.getDataFine()};
+						
+						ass.addData(list);
+	 				}
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"Selezionare il cantiere cui aggiungere delle associazioni.","Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			
 		};
