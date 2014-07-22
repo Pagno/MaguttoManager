@@ -18,6 +18,7 @@ import model.Escavatore;
 import model.Gru;
 import model.Macchina;
 import model.ModelConnector;
+import model.ModelInterface;
 import model.Ruspa;
 import view.AddAssociazione;
 import view.EditCantiere;
@@ -34,7 +35,7 @@ import view.EditCantiere;
 public class CantieriController {
 	
 	/**   model. */
-	private ModelConnector model;
+	private ModelInterface model;
 	
 	/**
 	 * Istanzia un nuovo controllore CantieriController.
@@ -42,7 +43,7 @@ public class CantieriController {
 	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
-	public CantieriController(ModelConnector modelConnector) {
+	public CantieriController(ModelInterface modelConnector) {
 		model = modelConnector;
 	}
 	

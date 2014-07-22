@@ -20,6 +20,7 @@ import view.EditRuspa;
 import view.MainView;
 import model.Associazione;
 import model.ModelConnector;
+import model.ModelInterface;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -34,7 +35,7 @@ import model.ModelConnector;
 public class MainController{
 
 	/**   model. */
-	private ModelConnector model;
+	private ModelInterface model;
 	
 	/**   main view. */
 	private MainView mainView;
@@ -45,7 +46,7 @@ public class MainController{
 	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
 	 * @param view per registrare gli eventi generati dalla view
 	 */
-	public MainController(ModelConnector modelConnector,MainView view) {
+	public MainController(ModelInterface modelConnector,MainView view) {
 		model = modelConnector;
 		mainView = view;
 		setObserver();

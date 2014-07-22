@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Observer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -187,4 +189,21 @@ public interface ModelInterface {
 	 * @return true, if successful
 	 */
 	public boolean eliminaAssociazione(int codice);
+	
+	
+	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public void pubblicaContenuto();
+
+	public void addGruObserver(Observer observer);
+	public void addRuspaObserver(Observer observer);
+	public void addCamionObserver(Observer observer);	
+	public void addEscavatoreObserver(Observer observer);	
+	public void addCantiereObserver(Observer observer);
+	public void addAssociazioniObserver(Observer observer);
+	public ArrayList<ArrayList<String>> getAssociazioniList(int codiceCantiere);
+	public ArrayList<ArrayList<String>> getAssociazioniList();
+	public ArrayList<Associazione> elencoAssociazioniCantiere(int codiceCantiere);
 }
