@@ -11,3 +11,4 @@ MyDB
 *.o
 *.so
 *.log
+derby.log
