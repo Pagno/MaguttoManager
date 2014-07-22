@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import model.organizer.ModelGru;
+
 import model.organizer.data.Gru;
 
 import org.junit.Test;

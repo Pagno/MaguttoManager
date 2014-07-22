@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import model.organizer.ElencoAssociazioni;
 import model.organizer.data.Associazione;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;

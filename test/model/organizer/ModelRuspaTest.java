@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import model.organizer.ModelRuspa;
+
 import model.organizer.data.Ruspa;
 
 import org.junit.Test;
