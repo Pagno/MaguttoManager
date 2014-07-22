@@ -1,8 +1,11 @@
-package model;
+package model.organizer;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+
+import model.organizer.ModelCamion;
+import model.organizer.data.Camion;
 
 import org.junit.Test;
 

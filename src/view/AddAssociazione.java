@@ -18,8 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import model.Associazione;
-import model.Macchina;
+import model.organizer.data.Associazione;
+import model.organizer.data.Macchina;
 
 import javax.swing.AbstractAction;
 import javax.swing.DefaultListModel;

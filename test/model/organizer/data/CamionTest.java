@@ -1,6 +1,8 @@
-package model;
+package model.organizer.data;
 
 import static org.junit.Assert.*;
+import model.organizer.data.Camion;
+import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 

@@ -1,8 +1,13 @@
-package model;
+package model.organizer.data;
 
 import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
+
+import model.organizer.data.Associazione;
+import model.organizer.data.Camion;
+import model.organizer.data.Cantiere;
+import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
@@ -78,13 +83,13 @@ public class AssociazioneTest {
 	
 	@Test
 	public void testGetStrDataInizio(){
-		//I mesi del GregorianCalendar partono da 0, quindi il mese 5 inserito all'inizio corrisponderà a Giugno.
+		//I mesi del GregorianCalendar partono da 0, quindi il mese 5 inserito all'inizio corrisponderï¿½ a Giugno.
 		assertEquals(a.getStrDataInizio(),"2014-06-23");
 	}
 	
 	@Test
 	public void testGetStrDataFine(){
-		//I mesi del GregorianCalendar partono da 0, quindi il mese 5 inserito all'inizio corrisponderà a Giugno.
+		//I mesi del GregorianCalendar partono da 0, quindi il mese 5 inserito all'inizio corrisponderï¿½ a Giugno.
 		assertEquals(a.getStrDataFine(),"2014-06-26");
 	}
 	

@@ -1,15 +1,17 @@
-package model;
+package model.organizer;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 
+import model.organizer.data.Cantiere;
+
 // TODO: Auto-generated Javadoc
 /**
  *   Class ModelCantiere.
  */
-class ModelCantiere extends Observable{
+public class ModelCantiere extends Observable{
 
 	/**   lista cantieri. */
 	private ArrayList<Cantiere> listaCantieri;
@@ -73,7 +75,7 @@ class ModelCantiere extends Observable{
 	 * @param dataApertura   data apertura
 	 * @param dataChiusura   data chiusura
 	 */
-	void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
+	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		if(this.codice<codice){
 			this.codice=codice;
 		}

@@ -1,13 +1,15 @@
-package model;
+package model.organizer;
 
 import java.util.ArrayList;
+
+import model.organizer.data.Ruspa;
 
 
 // TODO: Auto-generated Javadoc
 /**
  *   Class ModelRuspa.
  */
-class ModelRuspa extends ModelMacchina{
+public class ModelRuspa extends ModelMacchina{
 	
 	/**   lista ruspe. */
 	private ArrayList<Ruspa> listaRuspe;
@@ -64,7 +66,7 @@ class ModelRuspa extends ModelMacchina{
 	 * @param portata   portata
 	 * @param altezza   altezza
 	 */
-	void caricaRuspa(int codice,String produttore, String modello,int capacita,int portata,int altezza){
+	public void caricaRuspa(int codice,String produttore, String modello,int capacita,int portata,int altezza){
 		aggiornaCodice(codice);
 		Ruspa ruspa= new Ruspa(codice, produttore, modello,capacita,portata,altezza);
 		listaRuspe.add(ruspa);

@@ -1,13 +1,15 @@
-package model;
+package model.organizer;
 
 import java.util.ArrayList;
+
+import model.organizer.data.Escavatore;
 
 
 // TODO: Auto-generated Javadoc
 /**
  *   Class ModelEscavatore.
  */
-class ModelEscavatore extends ModelMacchina{
+public class ModelEscavatore extends ModelMacchina{
 	
 	/**   lista escavatori. */
 	private ArrayList<Escavatore> listaEscavatori;
@@ -65,7 +67,7 @@ class ModelEscavatore extends ModelMacchina{
 	 * @param altezza   altezza
 	 * @param profondita   profondita
 	 */
-	void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
+	public void caricaEscavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita){
 		aggiornaCodice(codice);
 		Escavatore escavatore= new Escavatore(codice,produttore, Modello,capacita,portata,altezza,profondita);
 		listaEscavatori.add(escavatore);

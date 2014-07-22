@@ -9,6 +9,20 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.organizer.ElencoAssociazioni;
+import model.organizer.ModelCamion;
+import model.organizer.ModelCantiere;
+import model.organizer.ModelEscavatore;
+import model.organizer.ModelGru;
+import model.organizer.ModelMacchina;
+import model.organizer.ModelRuspa;
+import model.organizer.data.Associazione;
+import model.organizer.data.Camion;
+import model.organizer.data.Cantiere;
+import model.organizer.data.Escavatore;
+import model.organizer.data.Gru;
+import model.organizer.data.Macchina;
+import model.organizer.data.Ruspa;
 import database.DBException;
 import database.DatabaseInterface;
 

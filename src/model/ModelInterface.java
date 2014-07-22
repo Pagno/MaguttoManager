@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observer;
 
+import model.organizer.data.Associazione;
+import model.organizer.data.Camion;
+import model.organizer.data.Escavatore;
+import model.organizer.data.Gru;
+import model.organizer.data.Ruspa;
+
 // TODO: Auto-generated Javadoc
 /**
  *   Interface ModelInterface.

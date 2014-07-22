@@ -1,9 +1,17 @@
-package model;
+package model.organizer;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
+import model.organizer.ElencoAssociazioni;
+import model.organizer.data.Associazione;
+import model.organizer.data.Camion;
+import model.organizer.data.Cantiere;
+import model.organizer.data.Escavatore;
+import model.organizer.data.Gru;
+import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 

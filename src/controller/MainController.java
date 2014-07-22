@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -18,8 +16,7 @@ import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import view.MainView;
-import model.Associazione;
-import model.ModelConnector;
+import model.organizer.data.Associazione;
 import model.ModelInterface;
 
 // TODO: Auto-generated Javadoc

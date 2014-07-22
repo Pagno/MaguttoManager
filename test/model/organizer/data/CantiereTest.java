@@ -1,8 +1,10 @@
-package model;
+package model.organizer.data;
 
 import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
+
+import model.organizer.data.Cantiere;
 
 import org.junit.Test;
 

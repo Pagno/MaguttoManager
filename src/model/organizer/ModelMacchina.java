@@ -1,4 +1,4 @@
-package model;
+package model.organizer;
 
 import java.util.Observable;
 
@@ -32,7 +32,7 @@ public abstract class ModelMacchina extends Observable{
 	/**
 	 * Inits   codice.
 	 */
-	protected static void initCodice(){
+	public static void initCodice(){
 		codice=0;
 	}
 	

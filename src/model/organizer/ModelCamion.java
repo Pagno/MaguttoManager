@@ -1,13 +1,15 @@
-package model;
+package model.organizer;
 
 import java.util.ArrayList;
+
+import model.organizer.data.Camion;
 
 
 // TODO: Auto-generated Javadoc
 /**
  *   Class ModelCamion.
  */
-class ModelCamion extends ModelMacchina{
+public class ModelCamion extends ModelMacchina{
 	
 	/**   lista camion. */
 	private ArrayList<Camion> listaCamion;
@@ -63,7 +65,7 @@ class ModelCamion extends ModelMacchina{
 	 * @param portata   portata
 	 * @param lunghezza   lunghezza
 	 */
-	void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
+	public void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
 		aggiornaCodice(codice);
 		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);

@@ -1,13 +1,15 @@
-package model;
+package model.organizer;
 
 import java.util.ArrayList;
+
+import model.organizer.data.Gru;
 
 
 // TODO: Auto-generated Javadoc
 /**
  *   Class ModelGru.
  */
-class ModelGru extends ModelMacchina{
+public class ModelGru extends ModelMacchina{
 	
 	/**   lista gru. */
 	private ArrayList<Gru> listaGru;
@@ -66,7 +68,7 @@ class ModelGru extends ModelMacchina{
 	 * @param lunghezza   lunghezza
 	 * @param altezza   altezza
 	 */
-	void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
+	public void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		aggiornaCodice(codice);
 		Gru gru=new Gru(codice,produttore,modello, rotazione, portata,lunghezza,altezza);
 		listaGru.add(gru);

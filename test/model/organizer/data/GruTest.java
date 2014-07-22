@@ -1,4 +1,4 @@
-package model;
+package model.organizer.data;
 
 import static org.junit.Assert.*;
 

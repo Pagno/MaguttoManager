@@ -21,7 +21,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import model.Associazione;
+import model.organizer.data.Associazione;
 
 import com.toedter.calendar.JDateChooser;
 

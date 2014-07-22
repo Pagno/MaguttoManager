@@ -1,4 +1,4 @@
-package model;
+package model.organizer.data;
 
 // TODO: Auto-generated Javadoc
 /**

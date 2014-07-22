@@ -1,14 +1,18 @@
-package model;
+package model.organizer;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observable;
+
+import model.organizer.data.Associazione;
+import model.organizer.data.Cantiere;
+import model.organizer.data.Macchina;
 
 
 // TODO: Auto-generated Javadoc
 /**
  *   Class ElencoAssociazioni.
  */
-class ElencoAssociazioni extends Observable{
+public class ElencoAssociazioni extends Observable{
 
 	/**   associazioni. */
 	private ArrayList<Associazione> associazioni;
@@ -67,7 +71,7 @@ class ElencoAssociazioni extends Observable{
 	 * @param dataInizio   data inizio
 	 * @param dataFine   data fine
 	 */
-	void caricaAssociazione(Integer codice, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public void caricaAssociazione(Integer codice, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		if (this.codice<codice){
 			this.codice=codice;
 		}
@@ -161,14 +165,14 @@ class ElencoAssociazioni extends Observable{
 	 *
 	 * @return   next codice
 	 */
-	int getNextCodice(){
+	public int getNextCodice(){
 		return codice+1;
 	}
 	
 	/**
 	 * Reset for test.
 	 */
-	static void resetForTest(){
+	public static void resetForTest(){
 		if(istanza!=null){
 			istanza=null;
 		}

@@ -1,8 +1,11 @@
-package model;
+package model.organizer;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+
+import model.organizer.ModelEscavatore;
+import model.organizer.data.Escavatore;
 
 import org.junit.Test;
 

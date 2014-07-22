@@ -1,4 +1,4 @@
-package model;
+package model.organizer.data;
 import java.text.SimpleDateFormat;
 import java.util.*;
 // TODO: Auto-generated Javadoc

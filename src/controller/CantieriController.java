@@ -13,13 +13,13 @@ import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
 
-import model.Camion;
-import model.Escavatore;
-import model.Gru;
-import model.Macchina;
+import model.organizer.data.Camion;
+import model.organizer.data.Escavatore;
+import model.organizer.data.Gru;
+import model.organizer.data.Macchina;
 import model.ModelConnector;
 import model.ModelInterface;
-import model.Ruspa;
+import model.organizer.data.Ruspa;
 import view.AddAssociazione;
 import view.EditCantiere;
 
