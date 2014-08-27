@@ -6,8 +6,10 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 
 import model.organizer.data.Cantiere;
+import model.organizer.data.Lavoro;
 
-// 
+//TODO aggiungere Observer aggiunta lavori
+
 /**
  *   Class ModelCantiere.
  */
@@ -173,6 +175,18 @@ public class ModelCantiere extends Observable{
 		return null;
 	}
 
+
+	public void addLavoro(int codiceCantiere,int codice, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+		Cantiere cantiere=getCantiere(codiceCantiere);
+		Lavoro lavoro=new Lavoro(codice,nome,dataInizio,dataFine, cantiere);
+		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
+		cantiere.addLavoro(lavoro);
+	}
+	
+	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
+		Cantiere cantiere=getCantiere(codiceCantiere);
+		cantiere.rimuoviLavoro(codiceLavoro);
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

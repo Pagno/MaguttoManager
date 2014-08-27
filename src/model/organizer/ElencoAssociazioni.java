@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import model.organizer.data.Associazione;
 import model.organizer.data.Cantiere;
+import model.organizer.data.Lavoro;
 import model.organizer.data.Macchina;
 
 
@@ -51,9 +52,9 @@ public class ElencoAssociazioni extends Observable{
 	 * @param dataInizio   data inizio
 	 * @param dataFine   data fine
 	 */
-	public void inserisciAssociazione(Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public void inserisciAssociazione(Macchina macchina,Lavoro lavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 			codice++;
-			Associazione a=new Associazione(codice, macchina, cantiere, dataInizio, dataFine);
+			Associazione a=new Associazione(codice, macchina, lavoro, dataInizio, dataFine);
 			associazioni.add(a);
 			
 			Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
@@ -71,11 +72,11 @@ public class ElencoAssociazioni extends Observable{
 	 * @param dataInizio   data inizio
 	 * @param dataFine   data fine
 	 */
-	public void caricaAssociazione(Integer codice, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public void caricaAssociazione(Integer codice, Macchina macchina,Lavoro lavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		if (this.codice<codice){
 			this.codice=codice;
 		}
-		Associazione a=new Associazione(codice, macchina, cantiere, dataInizio, dataFine);
+		Associazione a=new Associazione(codice, macchina, lavoro, dataInizio, dataFine);
 		associazioni.add(a);
 		
 		Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
@@ -89,14 +90,14 @@ public class ElencoAssociazioni extends Observable{
 	 *
 	 * @param codice   codice
 	 * @param macchina   macchina
-	 * @param cantiere   cantiere
+	 * @param lavoro   cantiere
 	 * @param dataInizio   data inizio
 	 * @param dataFine   data fine
 	 */
-	public void modificaAssociazione(Integer codice, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public void modificaAssociazione(Integer codice, Macchina macchina,Lavoro lavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		for (Associazione item:associazioni){
 			if(item.getID()==codice){
-				item.setCantiere(cantiere);
+				item.setLavoro(lavoro);
 				item.setMacchina(macchina);
 				item.setDataInizio(dataInizio);
 				item.setDataFine(dataFine);
@@ -142,7 +143,7 @@ public class ElencoAssociazioni extends Observable{
 	public ArrayList<Associazione> getElencoAssociazioniList(int codiceCantiere){
 		ArrayList<Associazione> arr=new ArrayList<Associazione>();
 		for(Associazione a:associazioni){
-			if(a.getCantiere().getCodice()==codiceCantiere)
+			if(a.getLavoro().getCodice()==codiceCantiere)
 				arr.add(a);
 		}
 		return arr;

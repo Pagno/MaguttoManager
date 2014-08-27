@@ -3,7 +3,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-// 
 /**
  *   Class Associazione.
  */
@@ -15,8 +14,8 @@ public class Associazione implements Cloneable {
 	/**   macchina. */
 	private Macchina macchina;
 	
-	/**   cantiere. */
-	private Cantiere cantiere;
+	/**   lavoro. */
+	private Lavoro lavoro;
 	
 	/**   data inizio. */
 	private GregorianCalendar dataInizio;
@@ -33,14 +32,13 @@ public class Associazione implements Cloneable {
 	 * @param dataInizio data inizio
 	 * @param dataFine data fine
 	 */
-	public Associazione(int ID, Macchina macchina,Cantiere cantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public Associazione(int ID, Macchina macchina,Lavoro lavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.ID=ID;
 		this.setMacchina(macchina);
-		this.setCantiere(cantiere);
+		this.setLavoro(lavoro);
 		this.setDataInizio(dataInizio);
 		this.setDataFine(dataFine);
 	}
-
 	/**
 	 * Gets   macchina.
 	 *
@@ -76,23 +74,23 @@ public class Associazione implements Cloneable {
 	}
 
 	/**
-	 * Gets   cantiere.
+	 * Gets   lavoro.
 	 *
-	 * @return   cantiere
+	 * @return   lavoro
 	 */
-	public Cantiere getCantiere() {
-		return cantiere;
+	public Lavoro getLavoro() {
+		return lavoro;
 	}
 
 	/**
-	 * Sets   cantiere.
+	 * Sets   lavoro.
 	 *
-	 * @param cantiere   new cantiere
+	 * @param lavoro   new lavoro
 	 */
-	public void setCantiere(Cantiere cantiere) {
-		this.cantiere = cantiere;
+	public void setLavoro(Lavoro lav) {
+		this.lavoro = lav;
 	}
-	
+
 	/**
 	 * Gets   data inizio.
 	 *
@@ -112,27 +110,6 @@ public class Associazione implements Cloneable {
 	    df.applyPattern("yyyy-MM-dd");
 	    
 		return df.format(dataInizio.getTime());
-		/*System.out.println(data);
-		String year = (new Integer(dataInizio.get(Calendar.YEAR))).toString();
-		Integer temp=0;
-		if(dataInizio.get(Calendar.MONTH)==Calendar.JANUARY){temp=1;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.FEBRUARY){temp=2;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.MARCH){temp=3;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.APRIL){temp=4;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.MAY){temp=5;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.JUNE){temp=6;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.JULY){temp=7;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.AUGUST){temp=8;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.SEPTEMBER){temp=9;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.OCTOBER){temp=10;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.NOVEMBER){temp=11;}
-		else if(dataInizio.get(Calendar.MONTH)==Calendar.DECEMBER){temp=12;}
-		String month = "0" + temp.toString();
-		month = month.substring(month.length()-2, month.length());
-		temp = new Integer(dataInizio.get(Calendar.DAY_OF_MONTH));
-		String day = "0" + temp.toString();
-		day = day.substring(day.length()-2, day.length());
-		return year +"-"+ month +"-"+ day;*/
 	}
 
 	/**
@@ -165,29 +142,6 @@ public class Associazione implements Cloneable {
 	    df.applyPattern("yyyy-MM-dd");
 	    
 		return df.format(dataFine.getTime());
-		
-		
-		/*
-		String year = (new Integer(dataFine.get(Calendar.YEAR))).toString();
-		Integer temp=0;
-		if(dataFine.get(Calendar.MONTH)==Calendar.JANUARY){temp=1;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.FEBRUARY){temp=2;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.MARCH){temp=3;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.APRIL){temp=4;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.MAY){temp=5;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.JUNE){temp=6;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.JULY){temp=7;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.AUGUST){temp=8;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.SEPTEMBER){temp=9;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.OCTOBER){temp=10;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.NOVEMBER){temp=11;}
-		else if(dataFine.get(Calendar.MONTH)==Calendar.DECEMBER){temp=12;}
-		String month = "0" + temp.toString();
-		month = month.substring(month.length()-2, month.length());
-		temp = new Integer(dataFine.get(Calendar.DAY_OF_MONTH));
-		String day = "0" + temp.toString();
-		day = day.substring(day.length()-2, day.length());
-		return year +"-"+ month +"-"+ day;*/
 	}
 
 	/**
@@ -203,7 +157,7 @@ public class Associazione implements Cloneable {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return this.getID() + " " + this.getMacchina().getCodice() + " " + this.getCantiere().getCodice() + " " + this.getStrDataInizio() + " " + this.getStrDataFine();
+		return this.getID() + " " + this.getMacchina().getCodice() + " " + this.getLavoro().getCodice() + " " + this.getStrDataInizio() + " " + this.getStrDataFine();
 	}
 	
 	/* (non-Javadoc)
@@ -220,7 +174,7 @@ public class Associazione implements Cloneable {
 			return false;
 		}
 		Associazione a=(Associazione)obj;
-		if((this.ID==a.getID())&&(this.cantiere.equals(a.getCantiere()))&&(this.macchina.equals(a.getMacchina()))&&(this.dataInizio.equals(a.getDataInizio()))&&(this.dataFine.equals(a.getDataFine()))){
+		if((this.ID==a.getID())&&(this.lavoro.equals(a.getLavoro()))&&(this.macchina.equals(a.getMacchina()))&&(this.dataInizio.equals(a.getDataInizio()))&&(this.dataFine.equals(a.getDataFine()))){
 			return true;		
 		}
 		return false;

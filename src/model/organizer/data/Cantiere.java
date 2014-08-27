@@ -22,7 +22,10 @@ public class Cantiere {
 	
 	/**   data chiusura. */
 	private GregorianCalendar dataChiusura;
-
+	
+	/**   Elenco richieste macchine.  */
+	private ArrayList<Lavoro> lavori;
+	
 	/**
 	 * Instantiates a new cantiere.
 	 *
@@ -38,8 +41,39 @@ public class Cantiere {
 		this.indirizzo=indirizzo;
 		this.dataApertura=dataApertura;
 		this.dataChiusura=dataChiusura;
+		lavori=new ArrayList<Lavoro>();
 	}
 
+	/**
+	 * Aggiungi una nuova richiesta di macchina.
+	 *
+	 * @param Richiesta richiesta
+	 */
+	public void addLavoro(Lavoro r) {
+		lavori.add(r);
+	}
+	
+	/**
+	 * Gets elenco richieste.
+	 *
+	 * @return elenco richieste
+	 */
+	public boolean rimuoviLavoro(int codiceLavoro) {
+		for(int i=0;i<lavori.size();i++){
+			if(lavori.get(i).getCodice()==codiceLavoro)
+				lavori.remove(i);
+		}
+		return false;
+	}
+	/**
+	 * Gets elenco richieste.
+	 *
+	 * @return elenco richieste
+	 */
+	public ArrayList<Lavoro> getElencoLavori() {
+		return lavori;
+	}
+	
 	/**
 	 * Gets nome cantiere.
 	 *
