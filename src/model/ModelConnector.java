@@ -180,13 +180,37 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"DataChiusura date not null, " +
 						"Indirizzo varchar(50) not null)";
 				db.update(qry);
-
+				
+				qry = "create table APP.Lavoro(" +
+						"Codice integer  primary key, "+
+						"Nome varchar(30) not null,"+
+						"CodiceCantiere integer references APP.Cantiere(Codice), "+
+						"DataInizio date not null,"+
+						"DataFine date not null);";
+				db.update(qry);
+				
 				qry = "create table APP.Associazione ( " +
 						"Id integer primary key, " +
 						"CodiceMacchina integer references APP.Macchina(Codice), " +
-						"CodiceCantiere integer references APP.Cantiere(Codice), " +
+						"CodiceLavoro integer references APP.Lavoro(Codice)," +
 						"DataInizio date not null, " +
 						"DataFine date not null)";
+				db.update(qry);
+				
+				qry = "create table APP.Richiesta( " +
+						"Codice integer  primary key, " +
+						"CodiceLavoro integer references APP.Lavoro(Codice), " +
+						"CodiceAssociazione integer references APP.Associazione(Id), " +
+						"DataInizio date not null, " +
+						"DataFine date not null," + 
+						"Tipo varchar(10) not null check (Tipo like 'Gru' or Tipo like 'Camion' or Tipo like 'Ruspa' or Tipo like 'Escavatore'), " +
+						"CapacitaMax integer, " +
+						"PortataMax integer, " +
+						"AltezzaMax integer, " +
+						"LunghezzaMax integer, " +
+						"ProfonditaMax integer, " +
+						"RotazioneMax integer)";
+
 				db.update(qry);
 				System.out.println("DB creato");
 			}
@@ -254,9 +278,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 				db.update(qry);
 			}
 			for(Associazione item:ea.getElencoAssociazioniList()){
-				String qry = "insert into APP.Associazione (Id,CodiceMacchina,CodiceCantiere,DataInizio,DataFine)"+
+				String qry = "insert into APP.Associazione (Id,CodiceMacchina,CodiceLavoro,DataInizio,DataFine)"+
 						"values(" + item.getID() + "," + item.getMacchina().getCodice() + "," + 
-						item.getCantiere().getCodice() + ",'" + item.getStrDataInizio() + 
+						item.getLavoro().getCodice() + ",'" + item.getStrDataInizio() + 
 						"','" + item.getStrDataFine() + "')" ;
 				db.update(qry);
 			}
@@ -372,6 +396,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#eliminaCantiere(int)
 	 */
+	//TODO Elimina Cantiere deve eliminare le associazioni e i lavori
 	@Override
 	public boolean eliminaCantiere(int codice) {
 		boolean check=true;
@@ -393,17 +418,18 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#aggiungiAssociazione(java.lang.Integer, java.lang.Integer, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
+	//TODO Quando inserisco una nuova associazione mi richiede il lavoro ma per poter risalire al lavoro devo avere il codice cantiere
 	@Override
-	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
-		ea.inserisciAssociazione(getMacchina(codiceMacchina), lc.getCantiere(codiceCantiere), dataInizio, dataFine);
+	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceLavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
+		ea.inserisciAssociazione(getMacchina(codiceMacchina), lc.getLavoro(codiceLavoro), dataInizio, dataFine);
 	}
 
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#modificaAssociazione(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
 	@Override
-	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
-		ea.modificaAssociazione(codice, getMacchina(codiceMacchina), lc.getCantiere(codiceCantiere), dataInizio, dataFine);
+	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceLavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
+		ea.modificaAssociazione(codice, getMacchina(codiceMacchina), lc.getLavoro(codiceLavoro), dataInizio, dataFine);
 	}
 
 	/* (non-Javadoc)
@@ -439,9 +465,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 		//carica i cantieri
 		loadCantieri();
-
+		//carica i lavori
+		loadLavori();
 		//carica le associazioni
 		loadAssociazioni();
+		//carica le richieste
+		loadRichieste();
 
 	}
 
@@ -554,18 +583,17 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 
 	}
-
 	/**
-	 * Load associazioni.
+	 * Load lavoro.
 	 */
-	private void loadAssociazioni(){
+	private void loadLavori(){
 		//carica le associazioni
 		try {
 			//db.connect();
-			String qry="select * from APP.Associazione";
+			String qry="select * from APP.Lavoro";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
-				ea.caricaAssociazione(res.getInt("Id"), getMacchina(res.getInt("CodiceMacchina")), lc.getCantiere(res.getInt("CodiceCantiere")), convertToDate(res.getString("DataInizio")), convertToDate(res.getString("DataFine")));
+				lc.caricaLavoro(res.getInt("CodiceCantiere"), res.getInt("codice"), res.getString("Nome"), convertToDate(res.getString("DataInizio")), convertToDate(res.getString("DataFine")));
 			}
 			//db.disconnect();
 		} catch (DBException e) {
@@ -576,7 +604,44 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 
 	}
-
+	/**
+	 * Load associazioni.
+	 */
+	private void loadAssociazioni(){
+		//carica le associazioni
+		try {
+			//db.connect();
+			String qry="select * from APP.Associazione";
+			ResultSet res=db.interrogate(qry);
+			while(res.next()){
+				ea.caricaAssociazione(res.getInt("Id"), getMacchina(res.getInt("CodiceMacchina")), lc.getLavoro(res.getInt("CodiceLavoro")), convertToDate(res.getString("DataInizio")), convertToDate(res.getString("DataFine")));
+			}
+			//db.disconnect();
+		} catch (DBException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Load richieste.
+	 */
+	//TODO Sistemare il caricamento delle richieste
+	private void loadRichieste(){
+		//carica le associazioni
+		try {
+			//db.connect();
+			String qry="select * from APP.Richiesta";
+			ResultSet res=db.interrogate(qry);
+			while(res.next()){
+			}
+			//db.disconnect();
+		} catch (DBException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Gets   macchina.
 	 *

@@ -19,7 +19,10 @@ public class ModelCantiere extends Observable{
 	private ArrayList<Cantiere> listaCantieri;
 	
 	/**   codice. */
-	private Integer codice;
+	private int codice;
+
+	/**   codice Lavoro. */
+	private int codiceLavoro;
 	
 	/**   istanza. */
 	private static ModelCantiere istanza;
@@ -30,6 +33,7 @@ public class ModelCantiere extends Observable{
 	private ModelCantiere(){
 		listaCantieri=new ArrayList<Cantiere>();
 		codice=0;
+		codiceLavoro=0;
 	}
 	
 	/**
@@ -174,15 +178,41 @@ public class ModelCantiere extends Observable{
 		}
 		return null;
 	}
-
-
-	public void addLavoro(int codiceCantiere,int codice, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	/**
+	 * Gets   cantiere.
+	 *
+	 * @param codice   codice
+	 * @return   cantiere
+	 */
+	public Lavoro getLavoro(Integer codiceLavoro){
+		for(Cantiere item:listaCantieri){
+			for(Lavoro lavoro:item.getElencoLavori()){
+				if(lavoro.getCodice()==codiceLavoro)
+					return lavoro;
+				break;
+			}
+		}
+		return null;
+	}
+	//aggiungo nupvi database
+	public void addLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+		this.codiceLavoro++;
 		Cantiere cantiere=getCantiere(codiceCantiere);
-		Lavoro lavoro=new Lavoro(codice,nome,dataInizio,dataFine, cantiere);
+		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine, cantiere);
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 	}
 	
+	//carico i lavori presenti a database
+	public void caricaLavoro(int codiceCantiere,int codiceLavoro,String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+		if(this.codiceLavoro<codiceLavoro){
+			this.codiceLavoro=codiceLavoro;
+		}
+		Cantiere cantiere=getCantiere(codiceCantiere);
+		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine, cantiere);
+		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
+		cantiere.addLavoro(lavoro);
+	}
 	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		cantiere.rimuoviLavoro(codiceLavoro);
