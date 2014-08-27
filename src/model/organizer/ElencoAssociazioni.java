@@ -8,7 +8,7 @@ import model.organizer.data.Cantiere;
 import model.organizer.data.Macchina;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ElencoAssociazioni.
  */

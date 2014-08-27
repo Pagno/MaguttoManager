@@ -12,7 +12,7 @@ import database.Database;
 import database.DBException;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class Main.
  */
@@ -29,7 +29,7 @@ public class Main {
 	 * @throws InterruptedException   interrupted exception
 	 */
 	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
-		// TODO Auto-generated method stub
+		// 
 
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -40,13 +40,13 @@ public class Main {
 		        }
 		    }
 		} catch (Exception e) {
-		    // If Nimbus is not available, you can set   GUI to ano r look and feel.
+		    // If Nimbus is not available, you can set   GUI to another look and feel.
 		}
 
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		MainController vis=new MainController(m,mainView);
+		new MainController(m,mainView);
 
 	}
 

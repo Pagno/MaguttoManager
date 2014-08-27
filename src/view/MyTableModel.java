@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-// TODO: Auto-generated Javadoc
+//
 /**
  *   Class MyTableModel.
  */
@@ -94,7 +94,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 	 */
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
+		// 
 		return columnNames.length;
 	}
 
@@ -103,7 +103,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
 	 */
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
+		// 
 		return data.size();
 	}
 

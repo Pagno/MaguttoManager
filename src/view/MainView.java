@@ -15,7 +15,7 @@ import javax.swing.JButton;
 
 import java.awt.event.WindowAdapter;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class MainView.
  */
@@ -37,11 +37,10 @@ public class MainView extends JFrame {
 	public MyTableModel dataModelGru,dataModelRuspa,dataModelCamion,dataModelEscavatore,dataModelCantiere;
 	
 	/**   btn add associazione. */
-	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,btnViewCantiere,btnEdit,btnDelete,btnAddAssociazione;
+	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,btnViewCantiere,btnEdit,btnDelete,btnAddLavoro;
 	
 	/**   item add camion. */
-	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
-			itemAddCamion;
+	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore, itemAddCamion;
 	
 	/**   item collega macchina. */
 	private JMenuItem itemAddCantiere, itemCollegaMacchina;
@@ -88,14 +87,14 @@ public class MainView extends JFrame {
 		center.setLayout(new BorderLayout(0, 0));
 		btnEdit =new JButton("Modifica");
 		btnDelete=new JButton("Elimina");
-		btnAddAssociazione =new JButton("Associazioni");
-		btnAddAssociazione.setVisible(false);
+		btnAddLavoro =new JButton("Lavori");
+		btnAddLavoro.setVisible(false);
 		
 		center.add(scrollpane, BorderLayout.CENTER);
 		JPanel southPanel =new JPanel();
 		southPanel.add(btnEdit);
 		southPanel.add(btnDelete);
-		southPanel.add(btnAddAssociazione);
+		southPanel.add(btnAddLavoro);
 		center.add(southPanel,BorderLayout.SOUTH);
 		contentPane.add(center, BorderLayout.CENTER);
 		
@@ -342,11 +341,11 @@ public class MainView extends JFrame {
 	 *
 	 * @param act   act
 	 */
-	public void addBtnAddAssocizioneListener(ActionListener act) {
-		for( ActionListener al : btnAddAssociazione.getActionListeners() ) {
-			btnAddAssociazione.removeActionListener( al );
+	public void addBtnAddLavoroListener(ActionListener act) {
+		for( ActionListener al : btnAddLavoro.getActionListeners() ) {
+			btnAddLavoro.removeActionListener( al );
 	    }
-		btnAddAssociazione.addActionListener(act);
+		btnAddLavoro.addActionListener(act);
 	}
 	
 	
@@ -412,7 +411,7 @@ public class MainView extends JFrame {
 	 * @param visible   new visible btn modifica
 	 */
 	public void setVisibleBtnAssociazioni(boolean visible){
-		btnAddAssociazione.setVisible(visible);
+		btnAddLavoro.setVisible(visible);
 	}
 	
 	/**

@@ -5,21 +5,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
-import view.AddAssociazione;
 import view.EditCamion;
-import view.EditCantiere;
+import view.InsertCantiere;
 import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import view.MainView;
-import model.organizer.data.Associazione;
+import view.lavoro.EditLavoro;
 import model.ModelInterface;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  * 
  * Questa Classe permette di gestire gli eventi,
@@ -56,7 +54,7 @@ public class MainController{
 		mainView.addAggiungiCamionListener(VisualizzaInserimentoCamion());
 		mainView.addAggiungiEscavatoreListener(VisualizzaInserimentoEscavatore());
 		mainView.addAggiungiCantiereListener(VisualizzaInserimentoCantiere());
-		mainView.addBtnAddAssocizioneListener(AddAssociazioneView());
+		mainView.addBtnAddLavoroListener(AddLavoroView());
 		//TABLE LISTENER
 		mainView.addButtonGruListener(VisualizzaElencoGru());
 		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
@@ -257,7 +255,7 @@ public class MainController{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EditCantiere ins = new EditCantiere(mainView);
+				InsertCantiere ins = new InsertCantiere(mainView);
 				CantieriController ctr = new CantieriController(model);
 				//ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
 				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener(ins));
@@ -367,7 +365,7 @@ public class MainController{
 				mainView.showCantiereData();
 				//mainView.disableBtnModifica(true);
 				mainView.addEliminaListener(EliminaCantiere());
-				mainView.addModificaListener(VisualizzaModificaCantiereView());
+				mainView.addModificaListener(AddLavoroView());
 				mainView.setVisibleBtnAssociazioni(true);
 			}
 		};
@@ -471,7 +469,7 @@ public class MainController{
 			}
 		};
 	}
-	public ActionListener VisualizzaModificaCantiereView() {
+	/*public ActionListener VisualizzaModificaCantiereView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -495,7 +493,7 @@ public class MainController{
 				}
 			}
 		};
-	}
+	}*/
 	//DELETE
 	/**
 	 * Elimina la macchina selezionata nella tabella.
@@ -574,24 +572,44 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener AddAssociazioneView(){
+	public ActionListener AddLavoroView(){
 		return new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object[] data=mainView.getSelectedData();
 				if(data!=null){
-					String[] tokens = ((String)data[3]).split("/");
+					/*String[] tokens = ((String)data[3]).split("/");
 					GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
 	
 					tokens = ((String)data[4]).split("/");
 					GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
+					*/
 					
-					
-					AddAssociazione ass = new AddAssociazione(mainView, data[1].toString(),d,d2);
+					EditLavoro editLavoro = new EditLavoro(mainView, data);
 					CantieriController ctr = new CantieriController(model);
+					if(model.getAssociazioniList((Integer)data[0]).size()>0){
+						editLavoro.setMinimaDataFine(editLavoro.getDataFineCantiere());
+						editLavoro.setMassimaDataInizio(editLavoro.getDataInizioCantiere());
+					}
 					
-					ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
+					//Aggiungo i lavori gia caricati per questo cantiere
+					for (ArrayList<String> lavoro:model.getLavoriCantiereList((int) mainView.getSelectedData()[0]))
+							editLavoro.addLavoro(lavoro);
+					
+					//Carico tutte le richieste per questo cantiere
+					for (ArrayList<String> richiesta:model.getRichiesteLavoroList(((int) mainView.getSelectedData()[0])))
+						editLavoro.addRichiesta(richiesta);
+				
+					
+					//Aggiungi tutti i listener per i vari bottoni
+					editLavoro.setAddLavoroListeners(ctr.AddLavoroListener(editLavoro));
+					editLavoro.setEditLavoroListeners(ctr.EditLavoroListener());
+					editLavoro.setAddCantiereListeners(ctr.EditCantiereListener(editLavoro,(Integer)data[0]));
+					
+					
+					
+					/*ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
 					ass.addPropertyChangeListener(ctr.checkAssociazioni(ass));
 					ass.addComboBoxListener(ctr.cambioTipoMacchina(ass));
 					ass.addRimuoviAssoziazioneListener(ctr.btnRimuoviListener(ass));
@@ -601,7 +619,7 @@ public class MainController{
 								,a.getDataInizio(),a.getDataFine()};
 						
 						ass.addData(list);
-	 				}
+	 				}*/
 				}
 				else{
 					JOptionPane.showMessageDialog(null,"Selezionare il cantiere cui aggiungere delle associazioni.","Error", JOptionPane.ERROR_MESSAGE);

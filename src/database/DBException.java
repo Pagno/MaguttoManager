@@ -1,6 +1,6 @@
 package database;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  * Classe che rappresenta le eccezioni che possono essere sollevate dal database.
  * 

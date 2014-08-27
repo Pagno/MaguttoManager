@@ -10,7 +10,7 @@ import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Ruspa;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Interface ModelInterface.
  */
@@ -209,7 +209,16 @@ public interface ModelInterface {
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
 	public void addAssociazioniObserver(Observer observer);
+	public void addLavoroObserver(Observer observer);
 	public ArrayList<ArrayList<String>> getAssociazioniList(int codiceCantiere);
 	public ArrayList<ArrayList<String>> getAssociazioniList();
 	public ArrayList<Associazione> elencoAssociazioniCantiere(int codiceCantiere);
+	
+	
+
+	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
+	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
+	
+	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
+	
 }

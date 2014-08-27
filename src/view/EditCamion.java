@@ -15,7 +15,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class EditCamion.
  */

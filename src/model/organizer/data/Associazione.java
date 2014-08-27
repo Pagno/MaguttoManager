@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class Associazione.
  */

@@ -14,6 +14,7 @@ import model.organizer.ModelCamion;
 import model.organizer.ModelCantiere;
 import model.organizer.ModelEscavatore;
 import model.organizer.ModelGru;
+import model.organizer.ModelLavoro;
 import model.organizer.ModelMacchina;
 import model.organizer.ModelRuspa;
 import model.organizer.data.Associazione;
@@ -26,7 +27,7 @@ import model.organizer.data.Ruspa;
 import database.DBException;
 import database.DatabaseInterface;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelConnector.
  */
@@ -49,6 +50,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	
 	/**   ea. */
 	private ElencoAssociazioni ea;
+	
+	/**   ml. */
+	private ModelLavoro ml;
 	
 	/**   db. */
 	private DatabaseInterface db;
@@ -97,6 +101,8 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addAssociazioniObserver(Observer observer){
 		ea.deleteObservers();
 		ea.addObserver(observer);
+	}	
+	public void addLavoroObserver(Observer observer){
 	}
 	/**
 	 * Adds   ruspa observer.
@@ -124,6 +130,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
+	
 	
 	/**
 	 * Adds   cantiere observer.
@@ -591,7 +598,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		return null;
 	}
-
+	/**
+	 * Gets   cantiere.
+	 *
+	 * @param mCode   m code
+	 * @return   macchina
+	 */
+	private Cantiere getCantiere(Integer mCode){
+		return lc.getCantiere(mCode);
+	}
 	/**
 	 * Convert to date.
 	 *
@@ -629,6 +644,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		mc = ModelCamion.getModelCamion();
 		mr = ModelRuspa.getModelRuspa();
 		me = ModelEscavatore.getModelEscavatore();
+		ml = ModelLavoro.getModelLavoro();
 		ea = ElencoAssociazioni.getElencoAssociazioni();
 		lc = ModelCantiere.getModelCantiere();
 	}
@@ -807,5 +823,31 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		
 		return listaAssociazioni;
+	}
+
+	@Override
+	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere) {ArrayList<String> work1=new ArrayList<>();work1.add("1");work1.add("Scavi");work1.add("Scavicchi");
+		ArrayList<ArrayList<String>> arr=new ArrayList<ArrayList<String>>();
+		ArrayList<String> ass1=new ArrayList<>();ass1.add("1");ass1.add("scavi");ass1.add("24/07/2014");ass1.add("24/08/2014");
+		ArrayList<String> ass2=new ArrayList<>();ass2.add("2");ass2.add("fondamenta");ass2.add("13/08/2014");ass2.add("11/09/2014");
+		arr.add(ass1);arr.add(ass2);
+		return arr;
+	}
+
+	@Override
+	public void insertLavoro(String nome, GregorianCalendar inizio,
+			GregorianCalendar fine, int idCantiere) {
+		 ml.aggiungiLavoro(nome,inizio,fine,getCantiere(idCantiere));
+		
+	}
+
+	@Override
+	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere) {
+		ArrayList<ArrayList<String>> arr=new ArrayList<ArrayList<String>>();
+		ArrayList<String> ass1=new ArrayList<>();ass1.add("2");ass1.add("Escavatore");ass1.add("24/07/2014");ass1.add("24/08/2014");
+		
+		ArrayList<String> ass2=new ArrayList<>();ass2.add("2");ass2.add("Camion");ass2.add("13/05/2014");ass2.add("19/05/2014");
+		arr.add(ass1);arr.add(ass2);
+		return arr;
 	}
 }

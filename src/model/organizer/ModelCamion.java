@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.organizer.data.Camion;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelCamion.
  */

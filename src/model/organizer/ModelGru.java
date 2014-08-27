@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.organizer.data.Gru;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelGru.
  */

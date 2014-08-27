@@ -15,7 +15,7 @@ import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ElencoAssociazioniTest.
  */

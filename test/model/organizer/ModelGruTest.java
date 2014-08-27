@@ -9,7 +9,7 @@ import model.organizer.data.Gru;
 
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelGruTest.
  */

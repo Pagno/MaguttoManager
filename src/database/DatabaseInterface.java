@@ -2,7 +2,7 @@ package database;
 
 import java.sql.ResultSet;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Interface DatabaseInterface.
  */

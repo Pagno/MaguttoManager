@@ -2,7 +2,7 @@ package model.organizer;
 
 import java.util.Observable;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelMacchina.
  */

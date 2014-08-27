@@ -7,7 +7,7 @@ import java.util.Observable;
 
 import model.organizer.data.Cantiere;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelCantiere.
  */

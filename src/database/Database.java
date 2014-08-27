@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  * Classe che gestisce le connessioni, le interrogazioni, le modifiche e le disconnessioni al database.
  * 

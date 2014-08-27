@@ -10,7 +10,7 @@ import model.organizer.data.Cantiere;
 
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelCantiereTest.
  */

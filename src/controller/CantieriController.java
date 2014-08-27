@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
@@ -21,7 +23,8 @@ import model.ModelConnector;
 import model.ModelInterface;
 import model.organizer.data.Ruspa;
 import view.AddAssociazione;
-import view.EditCantiere;
+import view.InsertCantiere;
+import view.lavoro.EditLavoro;
 
 
 /**
@@ -57,8 +60,8 @@ public class CantieriController {
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener InsertNuovoCantiereListener(EditCantiere editCantiere){
-		final EditCantiere cantieriView=editCantiere;
+	public ActionListener InsertNuovoCantiereListener(InsertCantiere editCantiere){
+		final InsertCantiere cantieriView=editCantiere;
 		return new ActionListener(){
 
 			@Override
@@ -84,23 +87,22 @@ public class CantieriController {
 				}*/
 			}};
 	}
-	public ActionListener EditCantiereListener(EditCantiere editCantiere,final int codice){
-		final EditCantiere cantieriView=editCantiere;
+	public ActionListener EditCantiereListener(EditLavoro editCantiere,final int codice){
+		final EditLavoro  cantieriView=editCantiere;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				GregorianCalendar dataInizio=new GregorianCalendar();
-				dataInizio.setTime(cantieriView.getDataInizio());
+				dataInizio.setTime(cantieriView.getDataInizioCantiere());
 				GregorianCalendar dataFine=new GregorianCalendar();
-				dataFine.setTime(cantieriView.getDataFine());
+				dataFine.setTime(cantieriView.getDataFineCantiere());
 				
 				
 				String nome=cantieriView.getNomeCantiere();
-				String indirizzo=cantieriView.getIndirizzo();
+				String indirizzo=cantieriView.getIndirizzoCantiere();
 				
 				//MEMORIZZO CANTIERE
-				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine);				
-				cantieriView.dispose();
+				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine);
 			}
 		};
 		
@@ -266,6 +268,31 @@ public class CantieriController {
 		};
 	}
 	
+	
+	public ActionListener EditLavoroListener(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("editLavoro");
+				
+			}
+		};
+	}
+	public ActionListener AddLavoroListener(final EditLavoro editLavoro){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String nome=editLavoro.getNomeLavoro();
+				GregorianCalendar inizio=new GregorianCalendar();
+				inizio.setTime(editLavoro.getDataInizioLavoro());
+				GregorianCalendar fine=new GregorianCalendar();
+				inizio.setTime(editLavoro.getDataFineLavoro());
+				
+				model.insertLavoro(nome, inizio, fine, 1);
+				
+			}
+		};
+	}
 	/**
 	 * Aggiorna elenco macchine.
 	 *

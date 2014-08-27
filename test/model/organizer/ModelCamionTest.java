@@ -9,7 +9,7 @@ import model.organizer.data.Camion;
 
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class ModelCamionTest.
  */

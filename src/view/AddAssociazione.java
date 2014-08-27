@@ -38,7 +38,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class AddAssociazione.
  */
@@ -365,7 +365,7 @@ public class AddAssociazione extends JDialog{
 		 */
 		@Override
 		public int getColumnCount() {
-			// TODO Auto-generated method stub
+			// 
 			return columnsName.length;
 		}
 
@@ -374,7 +374,6 @@ public class AddAssociazione extends JDialog{
 		 */
 		@Override
 		public int getRowCount() {
-			// TODO Auto-generated method stub
 			return data.size();
 		}
 		
@@ -406,7 +405,7 @@ public class AddAssociazione extends JDialog{
 		 */
 		@Override
 		public Object getValueAt(int arg0, int arg1) {
-			// TODO Auto-generated method stub
+			// 
 			if(arg1==1 || arg1==2){
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
@@ -415,7 +414,6 @@ public class AddAssociazione extends JDialog{
 			return data.get(arg0)[arg1+1];
 		}
 		public Object[] getValueAt(int arg0) {
-			// TODO Auto-generated method stub
 
 			return data.get(arg0);
 		}

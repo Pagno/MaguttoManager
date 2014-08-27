@@ -25,11 +25,11 @@ import model.organizer.data.Associazione;
 
 import com.toedter.calendar.JDateChooser;
 
-// TODO: Auto-generated Javadoc
+// 
 /**
  *   Class EditCantiere.
  */
-public class EditCantiere extends JDialog implements PropertyChangeListener{
+public class InsertCantiere extends JDialog implements PropertyChangeListener{
 
 	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
@@ -52,52 +52,14 @@ public class EditCantiere extends JDialog implements PropertyChangeListener{
 	private boolean edit=false;
 	
 	private GregorianCalendar di,df;
-	/**
-	 * Create   dialog.
-	 *
-	 * @param view   view
-	 * @param obj   obj
-	 */
-	public EditCantiere(JFrame view, Object[] obj) {
-		this(view);
-		edit=true;
-		setTitle("Modifica Cantiere");
-		setTextBox(obj);
-		okButton.setText("Modifica");
-		
-	}
 	
-	/**
-	 * Sets   text box.
-	 *
-	 * @param v   new text box
-	 */
-	private void setTextBox( Object[] v){
-		txtNome.setText(v[1].toString());
-		txtIndirizzo.setText(v[2].toString());
-		//dc.setText(v[3].toString());
-		String[] tokens = ((String)v[3]).split("/");
-		Date d=new Date(Integer.parseInt(tokens[2])-1900,Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
-		dataInizio.setDate(d);
-		di=new GregorianCalendar();
-		di.setTime(d);
-		
-		tokens = ((String)v[4]).split("/");
-		Date d2=new Date(Integer.parseInt(tokens[2])-1900,Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
-		dataFine.setDate(d2);
-
-		df=new GregorianCalendar();
-		df.setTime(d2);
-		
-	}
-
 	/**
 	 * Instantiates a new edits   cantiere.
 	 *
 	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
-	public EditCantiere(JFrame view) {
+	public InsertCantiere(JFrame view) {
 		super(view);
 		setTitle("Aggiungi un nuovo Cantiere");
 		setResizable(true);
