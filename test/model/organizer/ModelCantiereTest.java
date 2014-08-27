@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import model.organizer.ModelCantiere;
+
 import model.organizer.data.Cantiere;
 
 import org.junit.Test;
