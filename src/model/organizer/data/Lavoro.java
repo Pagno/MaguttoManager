@@ -2,6 +2,7 @@ package model.organizer.data;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.ArrayList;
 
 public class Lavoro {
 	private int codice;
@@ -9,6 +10,7 @@ public class Lavoro {
 	private GregorianCalendar dataInizio;
 	private GregorianCalendar dataFine;
 	private Cantiere cantiere;
+	private ArrayList<Richiesta> macchinariRichiesti;
 	
 	
 	public Lavoro(int codice, String nome, GregorianCalendar dataInizio,
@@ -19,6 +21,7 @@ public class Lavoro {
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.cantiere = cantiere;
+		this.macchinariRichiesti=new ArrayList<Richiesta>();
 	}
 
 
@@ -97,7 +100,6 @@ public class Lavoro {
 	}
 
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -124,6 +126,11 @@ public class Lavoro {
 				return false;
 		} else if (!dataInizio.equals(other.dataInizio))
 			return false;
+		if (macchinariRichiesti == null) {
+			if (other.macchinariRichiesti != null)
+				return false;
+		} else if (!macchinariRichiesti.equals(other.macchinariRichiesti))
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -131,8 +138,77 @@ public class Lavoro {
 			return false;
 		return true;
 	}
+
+
+	public void inserisciRichiesta(GregorianCalendar dataInizio, GregorianCalendar dataFine,
+			RichiestaMacchina caratteristiche, Lavoro lavoro){
+		Richiesta r=new Richiesta(dataInizio, dataFine,caratteristiche, lavoro);
+		macchinariRichiesti.add(r);
+	}
 	
+	public void modificaRichiesta(Integer codice,GregorianCalendar dataInizio, GregorianCalendar dataFine,
+			RichiestaMacchina caratteristiche, Lavoro lavoro){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getCodice()==codice){
+				item.setDataInizio(dataInizio);
+				item.setDataFine(dataFine);
+				item.setCaratteristiche(caratteristiche);
+				item.setLavoro(lavoro);
+			}
+		}
+	}
 	
+	public boolean eliminaRichiesta(Integer codice){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getCodice()==codice){
+				macchinariRichiesti.remove(item);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void soddisfaRichiesta(Integer codice,Associazione ass){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getCodice()==codice){
+				if(item.rispettaRichiesta(ass.getMacchina())){
+					item.setAssociazioneSoddisfacente(ass);
+				}
+			}
+		}
+	}
+	
+	//vogliamo cancellare l'associazione, quindi inseriamo null al posto dell'associazione precedente
+	public void liberaRichiesta(Integer codice){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getCodice()==codice){
+					item.setAssociazioneSoddisfacente(null);
+			}
+		}
+	}
+	
+	//Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
+	public boolean isScoperto(){
+		for(Richiesta item:macchinariRichiesti){
+			if(!item.isSoddisfatta()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<Richiesta> whereScoperto(){
+		if(!isScoperto()){
+			return null;
+		}
+		ArrayList<Richiesta>richScoperte=new ArrayList<Richiesta>();
+		for(Richiesta item:macchinariRichiesti){
+			if(!item.isSoddisfatta()){
+				richScoperte.add(item);
+			}
+		}
+		return richScoperte;
+	}
 
 	
 }

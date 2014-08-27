@@ -6,27 +6,23 @@ import java.util.GregorianCalendar;
 public class Richiesta {
 	
 
-	enum tipoMacchina{RUSPA,CAMION,ESCAVATORE,GRU};
-	private tipoMacchina tipo;
+
 	private GregorianCalendar dataInizio;
 	private GregorianCalendar dataFine;
 	private RichiestaMacchina caratteristiche;
-	private boolean soddisfatta;
-	private Macchina macchina;
+	private Associazione associazioneSoddisfacente;
 	private Lavoro lavoro;
 	
-	public Richiesta(tipoMacchina tipo,
-			GregorianCalendar dataInizio, GregorianCalendar dataFine,
+	public Richiesta(GregorianCalendar dataInizio, GregorianCalendar dataFine,
 			RichiestaMacchina caratteristiche, Lavoro lavoro) {
 		super();
 		
-		this.tipo = tipo;
 		assignCodice();
-		dataInizio = dataInizio;
-		dataFine = dataFine;
-		//TODO inserire le caratteristiche o passare il riferimento a RichiestaMacchina??
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
 		this.caratteristiche = caratteristiche;
 		this.lavoro = lavoro;
+		this.setAssociazioneSoddisfacente(null);
 	}
 	
 	/**   codice. */
@@ -67,15 +63,6 @@ public class Richiesta {
 		return codice;
 	}
 
-	public tipoMacchina getTipo() {
-		return tipo;
-	}
-
-
-	public void setTipo(tipoMacchina tipo) {
-		this.tipo = tipo;
-	}
-
 
 	public GregorianCalendar getDataInizio() {
 		return dataInizio;
@@ -83,7 +70,7 @@ public class Richiesta {
 
 
 	public void setDataInizio(GregorianCalendar dataInizio) {
-		dataInizio = dataInizio;
+		this.dataInizio = dataInizio;
 	}
 
 
@@ -110,7 +97,7 @@ public class Richiesta {
 	}
 
 	public void setDataFine(GregorianCalendar dataFine) {
-		dataFine = dataFine;
+		this.dataFine = dataFine;
 	}
 
 
@@ -125,22 +112,12 @@ public class Richiesta {
 
 
 	public boolean isSoddisfatta() {
-		return soddisfatta;
-	}
-
-
-	public void setSoddisfatta(boolean soddisfatta) {
-		this.soddisfatta = soddisfatta;
-	}
-
-
-	public Macchina getMacchina() {
-		return macchina;
-	}
-
-
-	public void setMacchina(Macchina macchina) {
-		this.macchina = macchina;
+		if(associazioneSoddisfacente==null){
+			return false;
+		}
+		else{
+			return true;
+		}
 	}
 
 
@@ -164,11 +141,11 @@ public class Richiesta {
 	@Override
 	public String toString() {
 		String s;
-		s=getCodice() + " " + tipo + " " + dataInizio
+		s=getCodice() + " " + dataInizio
 				+ " " + dataFine + " "
-				+ caratteristiche + " " + soddisfatta;
-		if(soddisfatta){
-			s=s + " " + macchina.getCodice();
+				+ caratteristiche + " " + isSoddisfatta();
+		if(isSoddisfatta()){
+			s=s + " " + associazioneSoddisfacente.getMacchina().getCodice();
 		}
 		else{
 			s=s + " null";
@@ -211,21 +188,16 @@ public class Richiesta {
 				return false;
 		} else if (!lavoro.equals(other.lavoro))
 			return false;
-		if (macchina == null) {
-			if (other.macchina != null)
+		if (associazioneSoddisfacente == null) {
+			if (other.associazioneSoddisfacente != null)
 				return false;
-		} else if (!macchina.equals(other.macchina))
-			return false;
-		if (soddisfatta != other.soddisfatta)
-			return false;
-		if (tipo != other.tipo)
+		} else if (!associazioneSoddisfacente.equals(other.associazioneSoddisfacente))
 			return false;
 		return true;
 	}
 
 	public boolean rispettaRichiesta(Macchina m){
-		//TODO controllare se la macchina è del tipo dichiarato nell'enum, poi confrontare con la macchina inserita.
-		return false;
+		return caratteristiche.rispettaRichiesta(m);
 	}
 
 	//Metodi realizzati appositamente per il testing della classe.
@@ -236,6 +208,16 @@ public class Richiesta {
 	 */
 	int getNextCodice(){
 		return ultimoCodice+1;
+	}
+
+
+	public Associazione getAssociazioneSoddisfacente() {
+		return associazioneSoddisfacente;
+	}
+
+
+	public void setAssociazioneSoddisfacente(Associazione associazioneSoddisfacente) {
+		this.associazioneSoddisfacente = associazioneSoddisfacente;
 	}
 	
 	
