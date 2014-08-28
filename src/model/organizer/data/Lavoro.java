@@ -140,18 +140,14 @@ public class Lavoro {
 	}
 
 
-	public void inserisciRichiesta(GregorianCalendar dataInizio, GregorianCalendar dataFine,
-			RichiestaMacchina caratteristiche, Lavoro lavoro){
-		Richiesta r=new Richiesta(dataInizio, dataFine,caratteristiche, lavoro);
+	public void inserisciRichiesta(RichiestaMacchina caratteristiche, Lavoro lavoro){
+		Richiesta r=new Richiesta(caratteristiche, lavoro);
 		macchinariRichiesti.add(r);
 	}
 	
-	public void modificaRichiesta(Integer codice,GregorianCalendar dataInizio, GregorianCalendar dataFine,
-			RichiestaMacchina caratteristiche, Lavoro lavoro){
+	public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche, Lavoro lavoro){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
-				item.setDataInizio(dataInizio);
-				item.setDataFine(dataFine);
 				item.setCaratteristiche(caratteristiche);
 				item.setLavoro(lavoro);
 			}

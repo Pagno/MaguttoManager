@@ -22,7 +22,10 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
+import model.organizer.data.Lavoro;
 import model.organizer.data.Macchina;
+import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaGru;
 import model.organizer.data.Ruspa;
 import database.DBException;
 import database.DatabaseInterface;
@@ -634,6 +637,18 @@ public class ModelConnector extends Observable implements ModelInterface{
 			String qry="select * from APP.Richiesta";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
+				if(res.getString("Tipo").equalsIgnoreCase("Gru")){
+					RichiestaGru richiestaGru=new RichiestaGru();
+					Lavoro lavoro=getLavoro(res.getInt("CodiceLavoro");
+					Richiesta richiesta=new Richiesta(richiestaGru, getLavoro(res.getInt("CodiceLavoro")));
+					lavoro.inserisciRichiesta(dataInizio, dataFine, caratteristiche, lavoro);
+				}else if(res.getString("Tipo").equalsIgnoreCase("Camion")){
+					
+				}else if(res.getString("Tipo").equalsIgnoreCase("Ruspa")){
+					
+				}else if(res.getString("Tipo").equalsIgnoreCase("Escavatore")){
+					
+				}
 			}
 			//db.disconnect();
 		} catch (DBException e) {
@@ -671,6 +686,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 */
 	private Cantiere getCantiere(Integer mCode){
 		return lc.getCantiere(mCode);
+	}
+	private Lavoro getLavoro(Integer codiceLavoro){
+		return lc.getLavoro(codiceLavoro);
 	}
 	/**
 	 * Convert to date.
