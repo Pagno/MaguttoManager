@@ -1,6 +1,4 @@
 package model.organizer.data;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 
 /**
@@ -17,11 +15,7 @@ public class Associazione implements Cloneable {
 	/**   lavoro. */
 	private Lavoro lavoro;
 	
-	/**   data inizio. */
-	private GregorianCalendar dataInizio;
-	
-	/**   data fine. */
-	private GregorianCalendar dataFine;
+
 	
 	/**
 	 * Instantiates a new associazione.
@@ -32,12 +26,9 @@ public class Associazione implements Cloneable {
 	 * @param dataInizio data inizio
 	 * @param dataFine data fine
 	 */
-	public Associazione(int ID, Macchina macchina,Lavoro lavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine){
-		this.ID=ID;
+	public Associazione(int ID, Macchina macchina,Lavoro lavoro){
 		this.setMacchina(macchina);
 		this.setLavoro(lavoro);
-		this.setDataInizio(dataInizio);
-		this.setDataFine(dataFine);
 	}
 	/**
 	 * Gets   macchina.
@@ -91,73 +82,13 @@ public class Associazione implements Cloneable {
 		this.lavoro = lav;
 	}
 
-	/**
-	 * Gets   data inizio.
-	 *
-	 * @return   data inizio
-	 */
-	public GregorianCalendar getDataInizio() {
-		return dataInizio;
-	}
-	
-	/**
-	 * Gets   str data inizio.
-	 *
-	 * @return   str data inizio
-	 */
-	public String getStrDataInizio() {
-		SimpleDateFormat df = new SimpleDateFormat();
-	    df.applyPattern("yyyy-MM-dd");
-	    
-		return df.format(dataInizio.getTime());
-	}
 
-	/**
-	 * Sets   data inizio.
-	 *
-	 * @param dataInizio   new data inizio
-	 */
-	public void setDataInizio(GregorianCalendar dataInizio) {
-		this.dataInizio = dataInizio;
-	}
-
-	/**
-	 * Gets   data fine.
-	 *
-	 * @return   data fine
-	 */
-	public GregorianCalendar getDataFine() {
-		return dataFine;
-	}
-	
-	/**
-	 * Gets   str data fine.
-	 *
-	 * @return   str data fine
-	 */
-	public String getStrDataFine() {
-
-		
-		SimpleDateFormat df = new SimpleDateFormat();
-	    df.applyPattern("yyyy-MM-dd");
-	    
-		return df.format(dataFine.getTime());
-	}
-
-	/**
-	 * Sets   data fine.
-	 *
-	 * @param dataFine   new data fine
-	 */
-	public void setDataFine(GregorianCalendar dataFine) {
-		this.dataFine = dataFine;
-	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return this.getID() + " " + this.getMacchina().getCodice() + " " + this.getLavoro().getCodice() + " " + this.getStrDataInizio() + " " + this.getStrDataFine();
+		return this.getID() + " " + this.getMacchina().getCodice() + " " + this.getLavoro().getCodice() ;
 	}
 	
 	/* (non-Javadoc)
@@ -174,7 +105,7 @@ public class Associazione implements Cloneable {
 			return false;
 		}
 		Associazione a=(Associazione)obj;
-		if((this.ID==a.getID())&&(this.lavoro.equals(a.getLavoro()))&&(this.macchina.equals(a.getMacchina()))&&(this.dataInizio.equals(a.getDataInizio()))&&(this.dataFine.equals(a.getDataFine()))){
+		if((this.ID==a.getID())&&(this.lavoro.equals(a.getLavoro()))&&(this.macchina.equals(a.getMacchina()))){
 			return true;		
 		}
 		return false;
