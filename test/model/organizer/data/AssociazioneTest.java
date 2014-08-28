@@ -21,7 +21,7 @@ public class AssociazioneTest {
      * Instantiates a new associazione test.
      */
     public AssociazioneTest(){
-    	a=new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26));
+    	a=new Associazione(5, new Ruspa(4,"Caterpillar","Ruspone",100,100,100), new Lavoro(3,"Scavi",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25),new Cantiere(3,"BrebeMi","Bottanuco",new GregorianCalendar(2014,5,22),new GregorianCalendar(2014,5,25)),new GregorianCalendar(2014,5,23),new GregorianCalendar(2014,5,26));
     }
     
 	/**
