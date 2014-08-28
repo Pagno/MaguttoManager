@@ -4,7 +4,6 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 
 import model.organizer.data.Associazione;
-import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Macchina;
 
@@ -52,13 +51,12 @@ public class ElencoAssociazioni extends Observable{
 	 * @param dataInizio   data inizio
 	 * @param dataFine   data fine
 	 */
-	public void inserisciAssociazione(Macchina macchina,Lavoro lavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	public void inserisciAssociazione(Macchina macchina,Lavoro lavoro){
 			codice++;
-			Associazione a=new Associazione(codice, macchina, lavoro, dataInizio, dataFine);
+			Associazione a=new Associazione(codice, macchina, lavoro);
 			associazioni.add(a);
 			
-			Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
-					,dataInizio,dataFine};
+			Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()};
 			setChanged();
 			notifyObservers(list);
 	}
@@ -76,7 +74,7 @@ public class ElencoAssociazioni extends Observable{
 		if (this.codice<codice){
 			this.codice=codice;
 		}
-		Associazione a=new Associazione(codice, macchina, lavoro, dataInizio, dataFine);
+		Associazione a=new Associazione(codice, macchina, lavoro);
 		associazioni.add(a);
 		
 		Object[] list={codice,macchina.getProduttore()+" - "+macchina.getModello()
@@ -99,8 +97,6 @@ public class ElencoAssociazioni extends Observable{
 			if(item.getID()==codice){
 				item.setLavoro(lavoro);
 				item.setMacchina(macchina);
-				item.setDataInizio(dataInizio);
-				item.setDataFine(dataFine);
 			}
 		}
 		

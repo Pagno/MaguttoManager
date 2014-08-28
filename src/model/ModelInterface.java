@@ -172,10 +172,8 @@ public interface ModelInterface {
 	 *
 	 * @param codiceMacchina   codice macchina
 	 * @param codiceCantiere   codice cantiere
-	 * @param dataInizio   data inizio
-	 * @param dataFine   data fine
 	 */
-	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine);
+	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceCantiere);
 	
 	/**
 	 * Modifica associazione.
@@ -183,10 +181,8 @@ public interface ModelInterface {
 	 * @param codice   codice
 	 * @param codiceMacchina   codice macchina
 	 * @param codiceCantiere   codice cantiere
-	 * @param dataInizio   data inizio
-	 * @param dataFine   data fine
 	 */
-	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceCantiere, GregorianCalendar dataInizio, GregorianCalendar dataFine);
+	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceCantiere);
 	
 	/**
 	 * Elimina associazione.
