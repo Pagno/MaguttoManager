@@ -71,6 +71,9 @@ public class Cantiere {
 	 * @return elenco richieste
 	 */
 	public ArrayList<Lavoro> getElencoLavori() {
+		if(lavori.size()==0){
+			return null;
+		}
 		return lavori;
 	}
 	

@@ -23,8 +23,6 @@ public class Associazione implements Cloneable {
 	 * @param ID id dell'Associazione
 	 * @param macchina riferimento alla Macchina da Associare
 	 * @param cantiere riferimento al Cantiere da Associare
-	 * @param dataInizio data inizio
-	 * @param dataFine data fine
 	 */
 	public Associazione(int ID, Macchina macchina,Lavoro lavoro){
 		this.setMacchina(macchina);

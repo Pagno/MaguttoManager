@@ -2,9 +2,10 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-
-
+import model.organizer.data.Cantiere;
+import model.organizer.data.Lavoro;
 
 import org.junit.Test;
 
@@ -98,5 +99,44 @@ public class CantiereTest {
 		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Reggio",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
 		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31))));
 		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31))));
+	}
+	
+	@Test
+	public void testAddLavoro(){
+		ArrayList<Lavoro>lista=c.getElencoLavori();
+		assertTrue(lista.equals(null));
+		Lavoro l1=new Lavoro(1,"Scavo",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c.addLavoro(l1);
+		lista=c.getElencoLavori();
+		assertEquals(lista.size(),1);
+		assertTrue(lista.contains(l1));
+		Lavoro l2=new Lavoro(2,"Costruzione",new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		c.addLavoro(l2);
+		lista=c.getElencoLavori();
+		assertEquals(lista.size(),2);
+		assertTrue(lista.contains(l1));
+		assertTrue(lista.contains(l2));
+	}
+	
+	@Test
+	public void testRimuoviLavoro(){
+		ArrayList<Lavoro>lista=c.getElencoLavori();
+		assertTrue(lista.equals(null));
+		Lavoro l1=new Lavoro(1,"Scavo",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c.addLavoro(l1);
+		Lavoro l2=new Lavoro(2,"Costruzione",new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		c.addLavoro(l2);
+		Lavoro l3=new Lavoro(3,"Gettata",new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
+		c.addLavoro(l3);
+		lista=c.getElencoLavori();
+		assertEquals(lista.size(),3);
+		assertTrue(lista.contains(l1));
+		assertTrue(lista.contains(l2));
+		assertTrue(lista.contains(l3));
+		c.rimuoviLavoro(2);
+		assertEquals(lista.size(),2);
+		assertTrue(lista.contains(l1));
+		assertFalse(lista.contains(l2));
+		assertTrue(lista.contains(l3));
 	}
 }

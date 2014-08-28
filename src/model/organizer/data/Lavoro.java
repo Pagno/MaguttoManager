@@ -9,18 +9,16 @@ public class Lavoro {
 	private String nome;
 	private GregorianCalendar dataInizio;
 	private GregorianCalendar dataFine;
-	private Cantiere cantiere;
 	private ArrayList<Richiesta> macchinariRichiesti;
 	
 	
 	public Lavoro(int codice, String nome, GregorianCalendar dataInizio,
-			GregorianCalendar dataFine, Cantiere cantiere) {
+			GregorianCalendar dataFine) {
 		super();
 		this.codice = codice;
 		this.nome = nome;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
-		this.cantiere = cantiere;
 		this.macchinariRichiesti=new ArrayList<Richiesta>();
 	}
 
@@ -82,21 +80,10 @@ public class Lavoro {
 	}
 
 
-	public Cantiere getCantiere() {
-		return cantiere;
-	}
-
-
-	public void setCantiere(Cantiere cantiere) {
-		this.cantiere = cantiere;
-	}
-
-
 	@Override
 	public String toString() {
 		return  codice + " " + nome + " "
-				+ getStrDataInizio() + " " + getStrDataFine() + " "
-				+ cantiere;
+				+ getStrDataInizio() + " " + getStrDataFine();
 	}
 
 
@@ -109,11 +96,6 @@ public class Lavoro {
 		if (getClass() != obj.getClass())
 			return false;
 		Lavoro other = (Lavoro) obj;
-		if (cantiere == null) {
-			if (other.cantiere != null)
-				return false;
-		} else if (!cantiere.equals(other.cantiere))
-			return false;
 		if (codice != other.codice)
 			return false;
 		if (dataFine == null) {
