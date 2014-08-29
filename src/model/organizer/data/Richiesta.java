@@ -1,6 +1,6 @@
 package model.organizer.data;
 
-
+//
 
 public class Richiesta {
 	
