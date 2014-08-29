@@ -16,6 +16,17 @@ public class Richiesta {
 		this.setMacchina(null);
 	}
 	
+	public Richiesta(RichiestaMacchina caratteristiche, int codiceRichiesta) {
+		super();
+		
+		if(codice>ultimoCodice){
+			ultimoCodice=codiceRichiesta;
+		}
+		this.codice=ultimoCodice;
+		this.caratteristiche = caratteristiche;
+		this.setMacchina(null);
+	}
+	
 	/**   codice. */
 	private static int ultimoCodice;
 
