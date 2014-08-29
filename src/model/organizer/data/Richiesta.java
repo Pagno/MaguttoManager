@@ -53,7 +53,7 @@ public class Richiesta {
 	 *
 	 * @return   codice
 	 */
-	protected int getCodice(){
+	public int getCodice(){
 		return codice;
 	}
 
