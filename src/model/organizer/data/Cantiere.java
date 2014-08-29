@@ -80,6 +80,19 @@ public class Cantiere {
 	}
 	
 	/**
+	 * Restituisce il lavoro richiesto
+	 *
+	 * @return lavoro
+	 */
+	public Lavoro getLavoro(int codiceLavoro) {
+		for(int i=0;i<lavori.size();i++){
+			if(lavori.get(i).getCodice()==codiceLavoro)
+				return lavori.get(i);
+		}
+		return null;
+	}
+	
+	/**
 	 * Gets elenco richieste.
 	 *
 	 * @return elenco richieste

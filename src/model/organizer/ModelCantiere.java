@@ -175,9 +175,15 @@ public class ModelCantiere extends Observable{
 		}
 	}
 	
-	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,
-			GregorianCalendar dataFine){
-		//TODO
+	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		for(Cantiere item:listaCantieri){
+			if(item.hasLavoro(codiceLavoro)){
+				Lavoro lav=item.getLavoro(codiceLavoro);
+				lav.setNome(nome);
+				lav.setDataInizio(dataInizio);
+				lav.setDataFine(dataFine);
+			}
+		}
 	}
 	
 	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,
