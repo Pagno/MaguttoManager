@@ -190,19 +190,38 @@ public class ModelCantiere extends Observable{
 		}
 	}
 	
-	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,
-			GregorianCalendar dataFine){
-		//TODO
+	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			Lavoro lav=can.getLavoro(codiceLavoro);
+			lav.setNome(nome);
+			lav.setDataInizio(dataInizio);
+			lav.setDataFine(dataFine);
+		}
 	}
 	
-	public void getListaLavori(int codiceCantiere){
-		//TODO
+	public ArrayList<Lavoro> getListaLavori(int codiceCantiere){
+		Cantiere can=getCantiere(codiceCantiere);
+		return can.getElencoLavori();
 	}
 	
-	public void getListaLavori(){
-		// TODO
+	public ArrayList<Lavoro> getListaLavori(){
+		ArrayList<Lavoro>totLavori=new ArrayList<Lavoro>();
+		for(Cantiere item:listaCantieri){
+			for(Lavoro l:item.getElencoLavori()){
+				totLavori.add(l);
+			}
+		}
+		if(totLavori.size()==0){
+			return null;
+		}
+		else{
+			return totLavori;
+		}
 	}
+	
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
+	
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -218,12 +237,30 @@ public class ModelCantiere extends Observable{
 	
 	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
 	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
-		//TODO
+		Cantiere item=getCantiere(codiceCantiere);
+		if(item.hasLavoro(codiceLavoro)){
+			Lavoro l=item.getLavoro(codiceLavoro);
+			l.inserisciRichiesta(caratteristiche);
+		}
+	}
+	
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
+	public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
+		for(Cantiere item:listaCantieri){
+			if(item.hasLavoro(codiceLavoro)){
+				Lavoro l=item.getLavoro(codiceLavoro);
+				l.inserisciRichiesta(caratteristiche);
+			}
+		}
 	}
 	
 	//Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
 	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
-		//TODO
+		Cantiere item=getCantiere(codiceCantiere);
+		if(item.hasLavoro(codiceLavoro)){
+			Lavoro l=item.getLavoro(codiceLavoro);
+			l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
+		}
 	}
 	
 	public void soddisfaRichiesta(int codiceRichiesta, Macchina m){

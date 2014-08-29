@@ -127,6 +127,14 @@ public class Lavoro {
 		macchinariRichiesti.add(r);
 	}
 	
+	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
+		Richiesta r=new Richiesta(caratteristiche,codice);
+		if(r.rispettaRichiesta(m)){
+			r.setMacchina(m);
+		}
+		macchinariRichiesti.add(r);
+	}
+	
 	public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
