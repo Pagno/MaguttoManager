@@ -1,7 +1,6 @@
 package model.organizer.data;
 
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+
 
 public class Richiesta {
 	
@@ -17,7 +16,7 @@ public class Richiesta {
 		assignCodice();
 		this.caratteristiche = caratteristiche;
 		this.lavoro = lavoro;
-		this.setAssociazioneSoddisfacente(null);
+		this.setMacchina(null);
 	}
 	
 	/**   codice. */
