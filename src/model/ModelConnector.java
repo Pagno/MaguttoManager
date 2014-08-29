@@ -28,6 +28,7 @@ import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
 import model.organizer.data.RichiestaEscavatore;
 import model.organizer.data.RichiestaGru;
+import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.RichiestaRuspa;
 import model.organizer.data.Ruspa;
 import database.DBException;
@@ -53,10 +54,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	
 	/**   lc. */
 	private ModelCantiere lc;
-	
-	/**   ea. */
-	private ElencoAssociazioni ea;
-	
+		
 	/**   ml. */
 	private ModelLavoro ml;
 	
@@ -99,15 +97,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 		mg.addObserver(observer);
 	}
 	
-	/**
-	 * Adds   associazione observer.
-	 *
-	 * @param observer   observer
-	 */
-	public void addAssociazioniObserver(Observer observer){
-		ea.deleteObservers();
-		ea.addObserver(observer);
-	}	
 	public void addLavoroObserver(Observer observer){
 	}
 	/**
@@ -157,8 +146,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 		mc.getLista().clear();
 		mr.getLista().clear();
 		me.getLista().clear();
-		ea.getElencoAssociazioniList().clear();
-		lc.getLista().clear();
+		for(Cantiere cantiere:lc.getListaCantieri()){
+			for(Lavoro lavoro:cantiere.getElencoLavori())
+				lavoro.getListaRichieste().clear();
+			cantiere.getElencoLavori().clear();
+		}
+		lc.getListaCantieri().clear();
 		
 		try {
 			db.connect();
@@ -267,7 +260,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				db.update(qry);
 			}
 
-			for(Cantiere cantiere:lc.getLista()){
+			for(Cantiere cantiere:lc.getListaCantieri()){
 				String qry = "insert into APP.Cantiere (Codice,Nome,DataApertura,DataChiusura,Indirizzo)"+
 						"values(" + cantiere.getCodice() + ",'" + cantiere.getNomeCantiere() + "','" + 
 						cantiere.getStrDataApertura() + "','" + cantiere.getStrDataChiusura() + 
@@ -279,7 +272,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 							"values(" + lavoro.getCodice() + ",'" + lavoro.getNome() + "','" + 
 							lavoro.getStrDataInizio() + "','" + lavoro.getStrDataFine() + "')" ;
 					db.update(qry);
-					for(Richiesta richiesta:lavoro.getElencoRichieste()){
+					for(Richiesta richiesta:lavoro.getListaRichieste()){
 						if(richiesta.getCaratteristiche() instanceof RichiestaCamion ){
 							RichiestaCamion camion=(RichiestaCamion)richiesta.getCaratteristiche();
 							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,CapacitaMin,CapacitaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax)"+
@@ -424,62 +417,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#eliminaCantiere(int)
 	 */
-	//TODO Elimina Cantiere deve eliminare le associazioni e i lavori
+	//TODO Elimina Cantiere deve eliminare i lavori e le richieste
 	@Override
 	public boolean eliminaCantiere(int codice) {
 		boolean check=true;
-		ArrayList<Integer> id=new ArrayList<Integer>();
-		for(int i=0;i<ea.getElencoAssociazioniList().size();i++){
-			if(ea.getElencoAssociazioniList().get(i).getCantiere().getCodice()==codice)
-				id.add(ea.getElencoAssociazioniList().get(i).getID());
-				//check=check && eliminaAssociazione(ea.getElencoAssociazioniList().get(i).getID());
-			
-		}
 		
-		for(int i=0;i<id.size();i++){
-			check=check && eliminaAssociazione(id.get(i));
-		}
 		
 		return check && lc.rimuoviCantiere(codice);
 	}
-
-	/* (non-Javadoc)
-	 * @see model.ModelInterface#aggiungiAssociazione(java.lang.Integer, java.lang.Integer, java.util.GregorianCalendar, java.util.GregorianCalendar)
-	 */
-	//TODO Quando inserisco una nuova associazione mi richiede il lavoro ma per poter risalire al lavoro devo avere il codice cantiere
-	@Override
-	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceLavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
-		ea.inserisciAssociazione(getMacchina(codiceMacchina), lc.getLavoro(codiceLavoro), dataInizio, dataFine);
-	}
-
-	/* (non-Javadoc)
-	 * @see model.ModelInterface#modificaAssociazione(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.util.GregorianCalendar, java.util.GregorianCalendar)
-	 */
-	@Override
-	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceLavoro, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
-		ea.modificaAssociazione(codice, getMacchina(codiceMacchina), lc.getLavoro(codiceLavoro), dataInizio, dataFine);
-	}
-
-	/* (non-Javadoc)
-	 * @see model.ModelInterface#eliminaAssociazione(int)
-	 */
-	@Override
-	public boolean eliminaAssociazione(int codice) {
-		return ea.eliminaAssociazione(codice);
-	}
 	
-	/**
-	 * Elimina associazioni cantiere.
-	 *
-	 * @param codiceCantiere   codice cantiere
-	 * @return true, if successful
-	 */
-	public boolean eliminaAssociazioniCantiere(int codiceCantiere) {
-		return ea.eliminaAssociazione(codiceCantiere);
-	}
-	public ArrayList<Associazione> elencoAssociazioniCantiere(int codiceCantiere) {
-		return ea.getElencoAssociazioniList(codiceCantiere);
-	}
 	/**
 	 * Load db.
 	 */
@@ -495,8 +441,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 		loadCantieri();
 		//carica i lavori
 		loadLavori();
-		//carica le associazioni
-		loadAssociazioni();
 		//carica le richieste
 		loadRichieste();
 
@@ -633,25 +577,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	}
 	/**
-	 * Load associazioni.
-	 */
-	private void loadAssociazioni(){
-		//carica le associazioni
-		try {
-			//db.connect();
-			String qry="select * from APP.Associazione";
-			ResultSet res=db.interrogate(qry);
-			while(res.next()){
-				ea.caricaAssociazione(res.getInt("Id"), getMacchina(res.getInt("CodiceMacchina")), lc.getLavoro(res.getInt("CodiceLavoro")), convertToDate(res.getString("DataInizio")), convertToDate(res.getString("DataFine")));
-			}
-			//db.disconnect();
-		} catch (DBException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	/**
 	 * Load richieste.
 	 */
 	//TODO Sistemare il caricamento delle richieste
@@ -661,19 +586,30 @@ public class ModelConnector extends Observable implements ModelInterface{
 			//db.connect();
 			String qry="select * from APP.Richiesta";
 			ResultSet res=db.interrogate(qry);
+			RichiestaMacchina richiesta=null;
+			Lavoro lavoro;
 			while(res.next()){
+				lavoro=lc.getLavoro(res.getInt("CodiceLavoro"));
 				if(res.getString("Tipo").equalsIgnoreCase("Gru")){
-					RichiestaGru richiestaGru=new RichiestaGru();
-					Lavoro lavoro=getLavoro(res.getInt("CodiceLavoro");
-					Richiesta richiesta=new Richiesta(richiestaGru, getLavoro(res.getInt("CodiceLavoro")));
-					lavoro.inserisciRichiesta(dataInizio, dataFine, caratteristiche, lavoro);
+					richiesta=new RichiestaGru(res.getInt("LunghezzaMin"),res.getInt("LunghezzaMax"),
+							res.getInt("AltezzaMin"),res.getInt("AltezzaMax"),res.getInt("PortataMin"),
+							res.getInt("PortataMax"),res.getInt("RotazioneMin"),res.getInt("RotazioneMax"));
+					
 				}else if(res.getString("Tipo").equalsIgnoreCase("Camion")){
+					richiesta=new RichiestaCamion(res.getInt("CapacitaMin"),res.getInt("CapacitaMax"),
+							res.getInt("PortataMin"),res.getInt("PortataMax"),res.getInt("LunghezzaMin"),res.getInt("LunghezzaMax"));
 					
 				}else if(res.getString("Tipo").equalsIgnoreCase("Ruspa")){
+					richiesta=new RichiestaRuspa(res.getInt("CapacitaMin"),res.getInt("CapacitaMax"),
+							res.getInt("PortataMin"),res.getInt("PortataMax"),res.getInt("AltezzaMin"),res.getInt("AltezzaMax"));
 					
 				}else if(res.getString("Tipo").equalsIgnoreCase("Escavatore")){
+					richiesta=new RichiestaEscavatore(res.getInt("CapacitaMin"),res.getInt("CapacitaMax"),
+							res.getInt("PortataMin"),res.getInt("PortataMax"),res.getInt("AltezzaMin"),
+							res.getInt("AltezzaMax"),res.getInt("ProfonditaMin"),res.getInt("ProfonditaMax"));
 					
 				}
+				lavoro.inserisciRichiesta(richiesta);
 			}
 			//db.disconnect();
 		} catch (DBException e) {
@@ -703,18 +639,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		return null;
 	}
-	/**
-	 * Gets   cantiere.
-	 *
-	 * @param mCode   m code
-	 * @return   macchina
-	 */
-	private Cantiere getCantiere(Integer mCode){
-		return lc.getCantiere(mCode);
-	}
-	private Lavoro getLavoro(Integer codiceLavoro){
-		return lc.getLavoro(codiceLavoro);
-	}
+
 	/**
 	 * Convert to date.
 	 *
@@ -753,7 +678,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 		mr = ModelRuspa.getModelRuspa();
 		me = ModelEscavatore.getModelEscavatore();
 		ml = ModelLavoro.getModelLavoro();
-		ea = ElencoAssociazioni.getElencoAssociazioni();
 		lc = ModelCantiere.getModelCantiere();
 	}
 
@@ -772,8 +696,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 		System.out.println(mg.toString());
 		System.out.println("---CANTIERI-----------------");
 		System.out.println(lc.toString());
-		System.out.println("---ASSOCIAZIONI-------------");
-		System.out.println(ea.toString());
 	}
 	
 	/**
@@ -788,11 +710,16 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp;
 		for(Ruspa r:mr.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){
-				if(item.getMacchina().equals(r)){
-					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
-						disp=false;
-				
+			
+			for(Cantiere cantiere:lc.getListaCantieri()){
+				for(Lavoro lavoro:cantiere.getElencoLavori()){
+					for(Richiesta richiesta:lavoro.getListaRichieste()){
+						if(richiesta.getMacchina().equals(r)){
+							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
+								disp=false;
+						}
+					}
+						
 				}
 			}
 			if(disp==true)
@@ -816,12 +743,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		ArrayList<Gru> g=mg.getLista();
 		for(Gru r:g){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){				
-				if(item.getMacchina().equals(r)){
-
-					
-					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
-						disp=false;
+			for(Cantiere cantiere:lc.getListaCantieri()){
+				for(Lavoro lavoro:cantiere.getElencoLavori()){
+					for(Richiesta richiesta:lavoro.getListaRichieste()){
+						if(richiesta.getMacchina().equals(r)){
+							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
+								disp=false;
+						}
+					}
+						
 				}
 			}
 
@@ -843,12 +773,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp;
 		for(Camion r:mc.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){				
-				if(item.getMacchina().equals(r)){
-
-					
-					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
-						disp=false;
+			for(Cantiere cantiere:lc.getListaCantieri()){
+				for(Lavoro lavoro:cantiere.getElencoLavori()){
+					for(Richiesta richiesta:lavoro.getListaRichieste()){
+						if(richiesta.getMacchina().equals(r)){
+							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
+								disp=false;
+						}
+					}
+						
 				}
 			}
 
@@ -871,12 +804,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		boolean disp=true;
 		for(Escavatore r:me.getLista()){
 			disp=true;
-			for(Associazione item:ea.getElencoAssociazioniList()){				
-				if(item.getMacchina().equals(r)){
-
-					
-					if(!(fine.before(item.getDataInizio()) || inizio.after(item.getDataFine())))
-						disp=false;
+			for(Cantiere cantiere:lc.getListaCantieri()){
+				for(Lavoro lavoro:cantiere.getElencoLavori()){
+					for(Richiesta richiesta:lavoro.getListaRichieste()){
+						if(richiesta.getMacchina().equals(r)){
+							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
+								disp=false;
+						}
+					}
+						
 				}
 			}
 
@@ -885,52 +821,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 			}
 		}
 		return escavatori;
-	}
-	public ArrayList<ArrayList<String>> getAssociazioniList(int codiceCantiere){
-		ArrayList<String> associazione;
-		ArrayList<ArrayList<String>> listaAssociazioni=new ArrayList<ArrayList<String>>();
-		
-		SimpleDateFormat df = new SimpleDateFormat();
-	    df.applyPattern("yyyy-MM-dd");
-	    
-		for(Associazione ass:ea.getElencoAssociazioniList(codiceCantiere)){
-			associazione=new ArrayList<String>();
-			associazione.add(Integer.toString(ass.getID()));//ID
-			associazione.add(Integer.toString(ass.getMacchina().getCodice()));//Codice Macchina
-			associazione.add(Integer.toString(ass.getCantiere().getCodice()));//Codice Cantiere
-			
-			associazione.add(df.format(ass.getDataInizio().getTime()));//Data Inizio
-			associazione.add(df.format(ass.getDataFine().getTime()));//Data Fine
-			
-			
-			
-			listaAssociazioni.add(associazione);
-		}
-		
-		return listaAssociazioni;
-	}
-	public ArrayList<ArrayList<String>> getAssociazioniList(){
-		ArrayList<String> associazione;
-		ArrayList<ArrayList<String>> listaAssociazioni=new ArrayList<ArrayList<String>>();
-		
-		SimpleDateFormat df = new SimpleDateFormat();
-	    df.applyPattern("yyyy-MM-dd");
-	    
-		for(Associazione ass:ea.getElencoAssociazioniList()){
-			associazione=new ArrayList<String>();
-			associazione.add(Integer.toString(ass.getID()));//ID
-			associazione.add(Integer.toString(ass.getMacchina().getCodice()));//Codice Macchina
-			associazione.add(Integer.toString(ass.getCantiere().getCodice()));//Codice Cantiere
-			
-			associazione.add(df.format(ass.getDataInizio().getTime()));//Data Inizio
-			associazione.add(df.format(ass.getDataFine().getTime()));//Data Fine
-			
-			
-			
-			listaAssociazioni.add(associazione);
-		}
-		
-		return listaAssociazioni;
 	}
 
 	@Override
@@ -945,7 +835,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	@Override
 	public void insertLavoro(String nome, GregorianCalendar inizio,
 			GregorianCalendar fine, int idCantiere) {
-		 ml.aggiungiLavoro(nome,inizio,fine,getCantiere(idCantiere));
+		 ml.aggiungiLavoro(nome,inizio,fine,lc.getCantiere(idCantiere));
 		
 	}
 

@@ -166,32 +166,6 @@ public interface ModelInterface {
 	 */
 	public boolean eliminaCantiere(int codice);
 	
-	//ASSOCIAZIONE
-	/**
-	 * Aggiungi associazione.
-	 *
-	 * @param codiceMacchina   codice macchina
-	 * @param codiceCantiere   codice cantiere
-	 */
-	public void aggiungiAssociazione(Integer codiceMacchina,Integer codiceCantiere);
-	
-	/**
-	 * Modifica associazione.
-	 *
-	 * @param codice   codice
-	 * @param codiceMacchina   codice macchina
-	 * @param codiceCantiere   codice cantiere
-	 */
-	public void modificaAssociazione(Integer codice, Integer codiceMacchina,Integer codiceCantiere);
-	
-	/**
-	 * Elimina associazione.
-	 *
-	 * @param codice   codice
-	 * @return true, if successful
-	 */
-	public boolean eliminaAssociazione(int codice);
-	
 	
 	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
@@ -204,11 +178,7 @@ public interface ModelInterface {
 	public void addCamionObserver(Observer observer);	
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
-	public void addAssociazioniObserver(Observer observer);
 	public void addLavoroObserver(Observer observer);
-	public ArrayList<ArrayList<String>> getAssociazioniList(int codiceCantiere);
-	public ArrayList<ArrayList<String>> getAssociazioniList();
-	public ArrayList<Associazione> elencoAssociazioniCantiere(int codiceCantiere);
 	
 	
 
