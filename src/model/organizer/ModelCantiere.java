@@ -7,56 +7,43 @@ import java.util.Observable;
 
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
+import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaMacchina;
+import model.organizer.data.Macchina;
 
 //TODO aggiungere Observer aggiunta lavori
 
-/**
- *   Class ModelCantiere.
- */
+
 public class ModelCantiere extends Observable{
 
-	/**   lista cantieri. */
+	
 	private ArrayList<Cantiere> listaCantieri;
 	
-	/**   codice. */
+	
 	private int codice;
 
-	/**   codice Lavoro. */
+	
 	private int codiceLavoro;
 	
-	/**   istanza. */
+	
 	private static ModelCantiere istanza;
 
-	/**
-	 * Instantiates a new model cantiere.
-	 */
+
 	private ModelCantiere(){
 		listaCantieri=new ArrayList<Cantiere>();
 		codice=0;
 		codiceLavoro=0;
 	}
 	
-	/**
-	 * Gets   model cantiere.
-	 *
-	 * @return   model cantiere
-	 */
+
 	public static synchronized ModelCantiere getModelCantiere(){
 		if(istanza==null){
 			istanza=new ModelCantiere();
 		}
 		return istanza;
 	}
+//OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
 
-	/**
-	 * Aggiungi cantiere.
-	 *
-	 * @param nomeCantiere   nome cantiere
-	 * @param indirizzo   indirizzo
-	 * @param dataApertura   data apertura
-	 * @param dataChiusura   data chiusura
-	 * @return   int
-	 */
 	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		codice++;
 		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura));
@@ -72,15 +59,6 @@ public class ModelCantiere extends Observable{
 		
 	}
 
-	/**
-	 * Carica cantiere.
-	 *
-	 * @param codice   codice
-	 * @param nomeCantiere   nome cantiere
-	 * @param indirizzo   indirizzo
-	 * @param dataApertura   data apertura
-	 * @param dataChiusura   data chiusura
-	 */
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		if(this.codice<codice){
 			this.codice=codice;
@@ -95,15 +73,7 @@ public class ModelCantiere extends Observable{
 	
 	}
 
-	/**
-	 * Modifica cantiere.
-	 *
-	 * @param codice   codice
-	 * @param nomeCantiere   nome cantiere
-	 * @param indirizzo   indirizzo
-	 * @param dataApertura   data apertura
-	 * @param dataChiusura   data chiusura
-	 */
+
 	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice()==codice){
@@ -121,12 +91,7 @@ public class ModelCantiere extends Observable{
 		}
 	}
 
-	/**
-	 * Rimuovi cantiere.
-	 *
-	 * @param nomeCantiere   nome cantiere
-	 * @return true, if successful
-	 */
+
 	public boolean rimuoviCantiere(String nomeCantiere){
 		for(Cantiere item:listaCantieri){
 			if(item.getNomeCantiere().equals(nomeCantiere)){
@@ -138,12 +103,7 @@ public class ModelCantiere extends Observable{
 
 	}
 
-	/**
-	 * Rimuovi cantiere.
-	 *
-	 * @param codice   codice
-	 * @return true, if successful
-	 */
+
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice() == codice){
@@ -155,21 +115,12 @@ public class ModelCantiere extends Observable{
 
 	}
 
-	/**
-	 * Gets   lista.
-	 *
-	 * @return   lista
-	 */
-	public ArrayList<Cantiere> getLista(){
+
+	public ArrayList<Cantiere> getListaCantieri(){
 		    return listaCantieri;
 	}
 
-	/**
-	 * Gets   cantiere.
-	 *
-	 * @param codice   codice
-	 * @return   cantiere
-	 */
+
 	public Cantiere getCantiere(Integer codice){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice()==codice){
@@ -178,12 +129,9 @@ public class ModelCantiere extends Observable{
 		}
 		return null;
 	}
-	/**
-	 * Gets   cantiere.
-	 *
-	 * @param codice   codice
-	 * @return   cantiere
-	 */
+
+//OPERAZIONI SUI LAVORI----------------------------------------------------------------------------------------------------------------
+	
 	public Lavoro getLavoro(Integer codiceLavoro){
 		for(Cantiere item:listaCantieri){
 			for(Lavoro lavoro:item.getElencoLavori()){
@@ -194,8 +142,9 @@ public class ModelCantiere extends Observable{
 		}
 		return null;
 	}
-	//aggiungo nupvi database
-	public void addLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
+	
+	//aggiungo nuovi lavori
+	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine);
@@ -217,9 +166,120 @@ public class ModelCantiere extends Observable{
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		cantiere.rimuoviLavoro(codiceLavoro);
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+	public void rimuoviLavoro(int codiceLavoro){
+		for(Cantiere item:listaCantieri){
+			if(item.hasLavoro(codiceLavoro)){
+				item.rimuoviLavoro(codiceLavoro);
+			}
+		}
+	}
+	
+	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,
+			GregorianCalendar dataFine){
+		//TODO
+	}
+	
+	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,
+			GregorianCalendar dataFine){
+		//TODO
+	}
+	
+	public void getListaLavori(int codiceCantiere){
+		//TODO
+	}
+	
+	public void getListaLavori(){
+		// TODO
+	}
+//OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
+	public Richiesta getRichiesta(Integer codiceRichiesta){
+		for(Cantiere can:listaCantieri){
+			for(Lavoro lav:can.getElencoLavori()){
+				for(Richiesta item:lav.getListaRichieste()){
+					if(item.getCodice()==codiceRichiesta)
+						return item;
+					break;
+				}
+			}
+		}
+		return null;
+	}
+	
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
+	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
+		//TODO
+	}
+	
+	//Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
+	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
+		//TODO
+	}
+	
+	public void soddisfaRichiesta(int codiceRichiesta, Macchina m){
+		//TODO
+	}
+	
+	public void soddisfaRichiesta(int codiceLavoro,int codiceRichiesta, Macchina m){
+		//TODO
+	}
+	
+	public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
+		//TODO
+	}
+	
+	public void modificaRichiesta(int codiceRichiesta, RichiestaMacchina caratteristiche){
+		//TODO
+		//Se è già soddisfatta, modificando le caratteristiche libero la macchina!!!
+	}
+	
+	public void modificaRichiesta(int codiceLavoro,int codiceRichiesta, RichiestaMacchina caratteristiche){
+		//TODO
+		//Se è già soddisfatta, modificando le caratteristiche libero la macchina!!!
+	}
+	
+	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
+		//TODO
+		//Se è già soddisfatta, modificando le caratteristiche libero la macchina!!!
+	}
+	
+	public void liberaRichiesta(int codiceRichiesta){
+		//TODO
+	}
+	
+	public void liberaRichiesta(int codiceLavoro,int codiceRichiesta){
+		//TODO
+	}
+	
+	public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
+		//TODO
+	}
+	
+	public void rimuoviRichiesta(int codiceRichiesta){
+		//TODO
+	}
+	
+	public void rimuoviRichiesta(int codiceLavoro,int codiceRichiesta){
+		//TODO
+	}
+	
+	public void rimuoviRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
+		//TODO
+	}
+	
+	public void getListaRichieste(int codiceCantiere, int codiceLavoro){
+		//TODO
+	}
+	
+	public void getListaRichieste(int codiceCantiere){
+		//TODO
+	}
+	
+	public void getListaRichieste(){
+		// TODO
+	}
+//OPERAZIONI GENERICHE---------------------------------------------------------------------------------------------------------------
+
 	public String toString(){
 		String tmp = "";
 		for(Cantiere item:listaCantieri){
@@ -230,18 +290,12 @@ public class ModelCantiere extends Observable{
 
 	//Metodi realizzati appositamente per il testing della classe.
 	
-	/**
-	 * Gets   next codice.
-	 *
-	 * @return   next codice
-	 */
+	
 	int getNextCodice(){
 		return codice+1;
 	}
 		
-	/**
-	 * Reset for test.
-	 */
+	
 	static void resetForTest(){
 		if(istanza!=null){
 			istanza=null;

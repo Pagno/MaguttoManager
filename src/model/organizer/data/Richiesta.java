@@ -1,21 +1,18 @@
 package model.organizer.data;
 
-//
-
 public class Richiesta {
 	
 
 
 	private RichiestaMacchina caratteristiche;
 	private Macchina macchina;
-	private Lavoro lavoro;
 	
-	public Richiesta(RichiestaMacchina caratteristiche, Lavoro lavoro) {
+	
+	public Richiesta(RichiestaMacchina caratteristiche) {
 		super();
 		
 		assignCodice();
 		this.caratteristiche = caratteristiche;
-		this.lavoro = lavoro;
 		this.setMacchina(null);
 	}
 	
@@ -53,7 +50,7 @@ public class Richiesta {
 	 *
 	 * @return   codice
 	 */
-	protected int getCodice(){
+	public int getCodice(){
 		return codice;
 	}
 
@@ -77,16 +74,6 @@ public class Richiesta {
 	}
 
 
-	public Lavoro getLavoro() {
-		return lavoro;
-	}
-
-
-	public void setLavoro(Lavoro lavoro) {
-		this.lavoro = lavoro;
-	}
-
-
 	public void setCodice(int codice) {
 		this.codice = codice;
 	}
@@ -104,8 +91,6 @@ public class Richiesta {
 		else{
 			s=s + " null";
 		}
-				
-		s=s + " " + lavoro.getCodice();
 		
 		return s;
 	}
@@ -127,11 +112,6 @@ public class Richiesta {
 		} else if (!caratteristiche.equals(other.caratteristiche))
 			return false;
 		if (codice != other.codice)
-			return false;
-		if (lavoro == null) {
-			if (other.lavoro != null)
-				return false;
-		} else if (!lavoro.equals(other.lavoro))
 			return false;
 		if (macchina == null) {
 			if (other.macchina != null)

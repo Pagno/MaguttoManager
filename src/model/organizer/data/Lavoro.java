@@ -122,16 +122,15 @@ public class Lavoro {
 	}
 
 
-	public void inserisciRichiesta(RichiestaMacchina caratteristiche, Lavoro lavoro){
-		Richiesta r=new Richiesta(caratteristiche, lavoro);
+	public void inserisciRichiesta(RichiestaMacchina caratteristiche){
+		Richiesta r=new Richiesta(caratteristiche);
 		macchinariRichiesti.add(r);
 	}
 	
-	public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche, Lavoro lavoro){
+	public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
 				item.setCaratteristiche(caratteristiche);
-				item.setLavoro(lavoro);
 			}
 		}
 	}
@@ -146,11 +145,11 @@ public class Lavoro {
 		return false;
 	}
 	
-	public void soddisfaRichiesta(Integer codice,Associazione ass){
+	public void soddisfaRichiesta(Integer codice,Macchina mac){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
-				if(item.rispettaRichiesta(ass.getMacchina())){
-					item.setAssociazioneSoddisfacente(ass);
+				if(item.rispettaRichiesta(mac)){
+					item.setMacchina(mac);
 				}
 			}
 		}
@@ -160,7 +159,7 @@ public class Lavoro {
 	public void liberaRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
-					item.setAssociazioneSoddisfacente(null);
+					item.setMacchina(null);
 			}
 		}
 	}
@@ -188,5 +187,8 @@ public class Lavoro {
 		return richScoperte;
 	}
 
+	public ArrayList<Richiesta> getListaRichieste(){
+		return macchinariRichiesti;
+	}
 	
 }
