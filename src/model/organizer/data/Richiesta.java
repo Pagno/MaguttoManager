@@ -8,7 +8,7 @@ public class Richiesta {
 
 
 	private RichiestaMacchina caratteristiche;
-	private Associazione associazioneSoddisfacente;
+	private Macchina macchina;
 	private Lavoro lavoro;
 	
 	public Richiesta(RichiestaMacchina caratteristiche, Lavoro lavoro) {
@@ -69,7 +69,7 @@ public class Richiesta {
 
 
 	public boolean isSoddisfatta() {
-		if(associazioneSoddisfacente==null){
+		if(macchina==null){
 			return false;
 		}
 		else{
@@ -100,7 +100,7 @@ public class Richiesta {
 		String s;
 		s=getCodice() + " " + caratteristiche + " " + isSoddisfatta();
 		if(isSoddisfatta()){
-			s=s + " " + associazioneSoddisfacente.getMacchina().getCodice();
+			s=s + " " + macchina.getCodice();
 		}
 		else{
 			s=s + " null";
@@ -134,10 +134,10 @@ public class Richiesta {
 				return false;
 		} else if (!lavoro.equals(other.lavoro))
 			return false;
-		if (associazioneSoddisfacente == null) {
-			if (other.associazioneSoddisfacente != null)
+		if (macchina == null) {
+			if (other.macchina != null)
 				return false;
-		} else if (!associazioneSoddisfacente.equals(other.associazioneSoddisfacente))
+		} else if (!macchina.equals(other.macchina))
 			return false;
 		return true;
 	}
@@ -157,13 +157,13 @@ public class Richiesta {
 	}
 
 
-	public Associazione getAssociazioneSoddisfacente() {
-		return associazioneSoddisfacente;
+	public Macchina getMacchina() {
+		return macchina;
 	}
 
 
-	public void setAssociazioneSoddisfacente(Associazione associazioneSoddisfacente) {
-		this.associazioneSoddisfacente = associazioneSoddisfacente;
+	public void setMacchina(Macchina macchina) {
+		this.macchina = macchina;
 	}
 	
 	
