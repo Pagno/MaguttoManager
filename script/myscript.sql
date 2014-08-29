@@ -24,23 +24,14 @@ create table APP.Lavoro(
 	DataInizio date not null,
 	DataFine date not null);
 	
-create table APP.Associazione (
-	Id integer primary key,
-	CodiceMacchina integer references APP.Macchina(Codice), 
-	CodiceLavoro integer references APP.Lavoro(Codice), 
-	DataInizio date not null,
-	DataFine date not null);
-	
 create table APP.Richiesta(
 	Codice integer  primary key,
 	CodiceLavoro integer references APP.Lavoro(Codice), 
-	CodiceAssociazione integer references APP.Associazione(Id),
-	DataInizio date not null,
-	DataFine date not null,
+	CodiceMacchina integer references APP.Macchina(Codice),
 	Tipo varchar(10) not null check (Tipo like 'Gru' or Tipo like 'Camion' or Tipo like 'Ruspa' or Tipo like 'Escavatore'),
-	CapacitaMax integer,
-	PortataMax integer, 
-	AltezzaMax integer,
-	LunghezzaMax integer,
-	ProfonditaMax integer,
-	RotazioneMax integer);
+	CapacitaMin integer,CapacitaMax integer,
+	PortataMin integer, PortataMax integer, 
+	AltezzaMin integer, AltezzaMax integer,
+	LunghezzaMin integer, LunghezzaMax integer,
+	ProfonditaMin integer, ProfonditaMax integer,
+	RotazioneMin integer,RotazioneMax integer);
