@@ -25,7 +25,10 @@ import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaCamion;
+import model.organizer.data.RichiestaEscavatore;
 import model.organizer.data.RichiestaGru;
+import model.organizer.data.RichiestaRuspa;
 import model.organizer.data.Ruspa;
 import database.DBException;
 import database.DatabaseInterface;
@@ -192,27 +195,17 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"DataFine date not null);";
 				db.update(qry);
 				
-				qry = "create table APP.Associazione ( " +
-						"Id integer primary key, " +
-						"CodiceMacchina integer references APP.Macchina(Codice), " +
-						"CodiceLavoro integer references APP.Lavoro(Codice)," +
-						"DataInizio date not null, " +
-						"DataFine date not null)";
-				db.update(qry);
-				
-				qry = "create table APP.Richiesta( " +
-						"Codice integer  primary key, " +
-						"CodiceLavoro integer references APP.Lavoro(Codice), " +
-						"CodiceAssociazione integer references APP.Associazione(Id), " +
-						"DataInizio date not null, " +
-						"DataFine date not null," + 
-						"Tipo varchar(10) not null check (Tipo like 'Gru' or Tipo like 'Camion' or Tipo like 'Ruspa' or Tipo like 'Escavatore'), " +
-						"CapacitaMax integer, " +
-						"PortataMax integer, " +
-						"AltezzaMax integer, " +
-						"LunghezzaMax integer, " +
-						"ProfonditaMax integer, " +
-						"RotazioneMax integer)";
+				qry = "create table APP.Richiesta( "+
+						"Codice integer  primary key,"+
+						"CodiceLavoro integer references APP.Lavoro(Codice), "+
+						"CodiceMacchina integer references APP.Macchina(Codice),"+
+						"Tipo varchar(10) not null check (Tipo like 'Gru' or Tipo like 'Camion' or Tipo like 'Ruspa' or Tipo like 'Escavatore'),"+
+						"CapacitaMin integer,CapacitaMax integer, "+
+						"PortataMin integer, PortataMax integer, "+
+						"AltezzaMin integer, AltezzaMax integer,"+
+						"LunghezzaMin integer, LunghezzaMax integer,"+
+						"ProfonditaMin integer, ProfonditaMax integer,"+
+						"RotazioneMin integer,RotazioneMax integer);";
 
 				db.update(qry);
 				System.out.println("DB creato");
@@ -238,17 +231,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 			System.out.println("Salvataggio Dati.");
 			db.connect();
 			//POPOLARE IL DATABASE
-			db.emptyTable("Associazione");
-			db.emptyTable("Macchina");
+			db.emptyTable("Richiesta");
+			db.emptyTable("Lavoro");
 			db.emptyTable("Cantiere");
-
-			for(Cantiere item:lc.getLista()){
-				String qry = "insert into APP.Cantiere (Codice,Nome,DataApertura,DataChiusura,Indirizzo)"+
-						"values(" + item.getCodice() + ",'" + item.getNomeCantiere() + "','" + 
-						item.getStrDataApertura() + "','" + item.getStrDataChiusura() + 
-						"','" + item.getIndirizzo() + "')" ;
-				db.update(qry);
-			}
+			db.emptyTable("Macchina");
 
 			for(Camion item:mc.getLista()){
 
@@ -280,14 +266,53 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"," + item.getPortataMassima() + "," + item.getAltezzaMassima() + ")" ;
 				db.update(qry);
 			}
-			for(Associazione item:ea.getElencoAssociazioniList()){
-				String qry = "insert into APP.Associazione (Id,CodiceMacchina,CodiceLavoro,DataInizio,DataFine)"+
-						"values(" + item.getID() + "," + item.getMacchina().getCodice() + "," + 
-						item.getLavoro().getCodice() + ",'" + item.getStrDataInizio() + 
-						"','" + item.getStrDataFine() + "')" ;
-				db.update(qry);
-			}
 
+			for(Cantiere cantiere:lc.getLista()){
+				String qry = "insert into APP.Cantiere (Codice,Nome,DataApertura,DataChiusura,Indirizzo)"+
+						"values(" + cantiere.getCodice() + ",'" + cantiere.getNomeCantiere() + "','" + 
+						cantiere.getStrDataApertura() + "','" + cantiere.getStrDataChiusura() + 
+						"','" + cantiere.getIndirizzo() + "')" ;
+				db.update(qry);
+				
+				for(Lavoro lavoro: cantiere.getElencoLavori()){
+					qry = "insert into APP.Lavoro (Codice,Nome,CodiceCantiere,DataInizio,DataFine)"+
+							"values(" + lavoro.getCodice() + ",'" + lavoro.getNome() + "','" + 
+							lavoro.getStrDataInizio() + "','" + lavoro.getStrDataFine() + "')" ;
+					db.update(qry);
+					for(Richiesta richiesta:lavoro.getElencoRichieste()){
+						if(richiesta.getCaratteristiche() instanceof RichiestaCamion ){
+							RichiestaCamion camion=(RichiestaCamion)richiesta.getCaratteristiche();
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,CapacitaMin,CapacitaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax)"+
+								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Camion','" +
+								camion.getMinCapacita() + ",'" + camion.getMaxCapacita() + "','" + camion.getMinPortata() + "','" +  camion.getMaxPortata() + "','" + 
+								camion.getMinLunghezza() + "','" + camion.getMaxLunghezza() + "')" ;
+							db.update(qry);
+						}else if(richiesta.getCaratteristiche() instanceof RichiestaGru ){
+							RichiestaGru Gru=(RichiestaGru)richiesta.getCaratteristiche();
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,AltezzaMin,AltezzaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax,RotazioneMin,RotazioneMax)"+
+								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Gru','" +
+								Gru.getMinAltezza() + ",'" + Gru.getMaxAltezza() + "','" + Gru.getMinPortata() + "','" +  Gru.getMaxPortata() + "','" + 
+								Gru.getMinLunghezza() + "','" + Gru.getMaxLunghezza() + "','" + Gru.getMinAngoloRotazione() +"','" + Gru.getMaxAngoloRotazione() +"')" ;
+							db.update(qry);
+						}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore ){
+							RichiestaEscavatore escavatore=(RichiestaEscavatore)richiesta.getCaratteristiche();
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,AltezzaMin,AltezzaMin,PortataMin,PortataMax,CapacitaMin,CapacitaMax,ProfonditaMin,ProfonditaMax)"+
+								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Escavatore','" +
+								escavatore.getMinAltezza() + ",'" + escavatore.getMaxAltezza() + "','" + escavatore.getMinPortata() + "','" +  escavatore.getMaxPortata() + "','" + 
+								escavatore.getMinCapacita() + "','" + escavatore.getMaxCapacita() + "','" + escavatore.getMinProfondita() +"','" + escavatore.getMaxProfondita() +"')" ;
+							db.update(qry);
+						}else if(richiesta.getCaratteristiche() instanceof RichiestaRuspa ){
+							RichiestaRuspa ruspa=(RichiestaRuspa)richiesta.getCaratteristiche();
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,AltezzaMin,AltezzaMin,PortataMin,PortataMax,CapacitaMin,CapacitaMax)"+
+								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Ruspa','" +
+								ruspa.getMinAltezza() + ",'" + ruspa.getMaxAltezza() + "','" + ruspa.getMinPortata() + "','" +  ruspa.getMaxPortata() + "','" + 
+								ruspa.getMinCapacita() + "','" + ruspa.getMaxCapacita() + "','" +"')" ;
+							db.update(qry);
+						}
+					}
+					
+				}
+			}
 			db.disconnect();
 		} 
 		catch (DBException e) {
