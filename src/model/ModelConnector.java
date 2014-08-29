@@ -420,10 +420,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	//TODO Elimina Cantiere deve eliminare i lavori e le richieste
 	@Override
 	public boolean eliminaCantiere(int codice) {
-		boolean check=true;
-		
-		
-		return check && lc.rimuoviCantiere(codice);
+		return lc.rimuoviCantiere(codice);
 	}
 	
 	/**
@@ -579,7 +576,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/**
 	 * Load richieste.
 	 */
-	//TODO Sistemare il caricamento delle richieste
 	private void loadRichieste(){
 		//carica le associazioni
 		try {

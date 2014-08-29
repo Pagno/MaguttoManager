@@ -105,9 +105,13 @@ public class ModelCantiere extends Observable{
 
 
 	public boolean rimuoviCantiere(int codice){
-		for(Cantiere item:listaCantieri){
-			if(item.getCodice() == codice){
-				this.listaCantieri.remove(item);
+		for(Cantiere cantiere:listaCantieri){
+			if(cantiere.getCodice() == codice){
+				for(Lavoro lavoro:cantiere.getElencoLavori()){
+					lavoro.getListaRichieste().clear();
+				}
+				cantiere.getElencoLavori().clear();
+				this.listaCantieri.remove(cantiere);
 				return true;
 			}
 		}
@@ -212,7 +216,7 @@ public class ModelCantiere extends Observable{
 		return null;
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
 	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		//TODO
 	}
@@ -236,17 +240,17 @@ public class ModelCantiere extends Observable{
 	
 	public void modificaRichiesta(int codiceRichiesta, RichiestaMacchina caratteristiche){
 		//TODO
-		//Se è già soddisfatta, modificando le caratteristiche libero la macchina!!!
+		//Se ï¿½ giï¿½ soddisfatta, modificando le caratteristiche libero la macchina!!!
 	}
 	
 	public void modificaRichiesta(int codiceLavoro,int codiceRichiesta, RichiestaMacchina caratteristiche){
 		//TODO
-		//Se è già soddisfatta, modificando le caratteristiche libero la macchina!!!
+		//Se ï¿½ giï¿½ soddisfatta, modificando le caratteristiche libero la macchina!!!
 	}
 	
 	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
 		//TODO
-		//Se è già soddisfatta, modificando le caratteristiche libero la macchina!!!
+		//Se ï¿½ giï¿½ soddisfatta, modificando le caratteristiche libero la macchina!!!
 	}
 	
 	public void liberaRichiesta(int codiceRichiesta){

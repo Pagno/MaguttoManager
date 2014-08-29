@@ -71,7 +71,7 @@ public class RichiestaCamion extends RichiestaMacchina {
 	public String toString() {
 		return  minCapacita + "-"
 				+  maxCapacita + " "  + minPortata
-				+ "-" + maxPortata + + minLunghezza
+				+ "-" + maxPortata + " " + minLunghezza
 				+ "-" + maxLunghezza ;
 	}
 

@@ -35,7 +35,7 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testGetModelCantiere() {
-		ArrayList<Cantiere>lista=mc.getLista();
+		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 		assertTrue(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
@@ -55,7 +55,7 @@ public class ModelCantiereTest {
 		assertEquals(mc.getNextCodice(),21);
 		mc.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));
 		assertEquals(mc.getNextCodice(),22);
-		ArrayList<Cantiere>lista=mc.getLista();
+		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Cantiere(21,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
@@ -69,7 +69,7 @@ public class ModelCantiereTest {
 		assertEquals(mc.getNextCodice(),21);
 		mc.caricaCantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));
 		assertEquals(mc.getNextCodice(),26);
-		ArrayList<Cantiere>lista=mc.getLista();
+		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),5);
 		assertTrue(lista.contains(new Cantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
@@ -82,7 +82,7 @@ public class ModelCantiereTest {
 		assertEquals(mc.getNextCodice(),21);
 		mc.modificaCantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22));
 		assertEquals(mc.getNextCodice(),21);
-		ArrayList<Cantiere>lista=mc.getLista();
+		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Cantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22))));
 	}
@@ -93,7 +93,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testRimuoviCantiereString() {
 		assertTrue(mc.rimuoviCantiere("Pedemontana"));
-		ArrayList<Cantiere>lista=mc.getLista();
+		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
 		assertFalse(mc.rimuoviCantiere("Aeroporto Orio al Serio"));
@@ -105,7 +105,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testRimuoviCantiereInt() {
 		assertTrue(mc.rimuoviCantiere(16));
-		ArrayList<Cantiere>lista=mc.getLista();
+		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),2);
 		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01))));
 		assertFalse(mc.rimuoviCantiere(99));

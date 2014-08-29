@@ -122,7 +122,7 @@ public class RichiestaGru extends RichiestaMacchina {
 				+ maxLunghezza + " " + minAltezza + "-"
 				+ maxAltezza + " " + minPortata + "-"
 				+ maxPortata + " " + minAngoloRotazione
-				+ "--" + maxAngoloRotazione ;
+				+ "-" + maxAngoloRotazione ;
 	}
 
 	@Override
