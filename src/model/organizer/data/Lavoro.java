@@ -143,6 +143,24 @@ public class Lavoro {
 		}
 	}
 	
+	public boolean hasRichiesta(Integer codice){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getCodice()==codice){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Richiesta getRichiesta(Integer codice){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getCodice()==codice){
+				return item;
+			}
+		}
+		return null;
+	}
+	
 	public boolean eliminaRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){

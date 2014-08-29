@@ -138,10 +138,8 @@ public class ModelCantiere extends Observable{
 	
 	public Lavoro getLavoro(Integer codiceLavoro){
 		for(Cantiere item:listaCantieri){
-			for(Lavoro lavoro:item.getElencoLavori()){
-				if(lavoro.getCodice()==codiceLavoro)
-					return lavoro;
-				break;
+			if(item.hasLavoro(codiceLavoro)){
+				return item.getLavoro(codiceLavoro);
 			}
 		}
 		return null;
@@ -175,6 +173,7 @@ public class ModelCantiere extends Observable{
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				item.rimuoviLavoro(codiceLavoro);
+				break;
 			}
 		}
 	}
@@ -186,6 +185,7 @@ public class ModelCantiere extends Observable{
 				lav.setNome(nome);
 				lav.setDataInizio(dataInizio);
 				lav.setDataFine(dataFine);
+				break;
 			}
 		}
 	}
@@ -215,9 +215,65 @@ public class ModelCantiere extends Observable{
 		if(totLavori.size()==0){
 			return null;
 		}
-		else{
-			return totLavori;
+		return totLavori;
+	}
+	
+	public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
+		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
+		Cantiere can=getCantiere(codiceCantiere);
+		for(Lavoro l:can.getElencoLavori()){
+			if(l.isScoperto()){
+				temp.add(l);
+			}
 		}
+		if(temp.size()==0){
+			return null;
+		}
+		return temp;
+	}
+	
+	public ArrayList<Lavoro> getListaScoperti(){
+		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
+		for(Cantiere item:listaCantieri){
+			for(Lavoro l:item.getElencoLavori()){
+				if(l.isScoperto()){
+					temp.add(l);
+				}
+			}
+		}
+		if(temp.size()==0){
+			return null;
+		}
+		return temp;
+	}
+	
+	public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
+		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
+		Cantiere can=getCantiere(codiceCantiere);
+		for(Lavoro l:can.getElencoLavori()){
+			if(!l.isScoperto()){
+				temp.add(l);
+			}
+		}
+		if(temp.size()==0){
+			return null;
+		}
+		return temp;
+	}
+	
+	public ArrayList<Lavoro> getListaCoperti(){
+		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
+		for(Cantiere item:listaCantieri){
+			for(Lavoro l:item.getElencoLavori()){
+				if(!l.isScoperto()){
+					temp.add(l);
+				}
+			}
+		}
+		if(temp.size()==0){
+			return null;
+		}
+		return temp;
 	}
 	
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
@@ -225,17 +281,15 @@ public class ModelCantiere extends Observable{
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
-				for(Richiesta item:lav.getListaRichieste()){
-					if(item.getCodice()==codiceRichiesta)
-						return item;
-					break;
+				if(lav.hasRichiesta(codiceRichiesta)){
+					return lav.getRichiesta(codiceRichiesta);
 				}
 			}
 		}
 		return null;
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
 	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
 		if(item.hasLavoro(codiceLavoro)){
@@ -250,6 +304,7 @@ public class ModelCantiere extends Observable{
 			if(item.hasLavoro(codiceLavoro)){
 				Lavoro l=item.getLavoro(codiceLavoro);
 				l.inserisciRichiesta(caratteristiche);
+				break;
 			}
 		}
 	}
@@ -264,66 +319,270 @@ public class ModelCantiere extends Observable{
 	}
 	
 	public void soddisfaRichiesta(int codiceRichiesta, Macchina m){
-		//TODO
+		ciclo:for(Cantiere can:listaCantieri){
+			for(Lavoro lav:can.getElencoLavori()){
+				if(lav.hasRichiesta(codiceRichiesta)){
+					lav.soddisfaRichiesta(codiceRichiesta, m);
+					break ciclo;
+				}
+			}
+		}
 	}
 	
 	public void soddisfaRichiesta(int codiceLavoro,int codiceRichiesta, Macchina m){
-		//TODO
+		for(Cantiere can:listaCantieri){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.soddisfaRichiesta(codiceRichiesta, m);
+					break;
+				}
+			}
+		}
 	}
 	
 	public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
-		//TODO
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			Lavoro l=getLavoro(codiceLavoro);
+			if(l.hasRichiesta(codiceRichiesta)){
+				l.soddisfaRichiesta(codiceRichiesta, m);
+			}
+		}
 	}
 	
 	public void modificaRichiesta(int codiceRichiesta, RichiestaMacchina caratteristiche){
-		//TODO
-		//Se ï¿½ giï¿½ soddisfatta, modificando le caratteristiche libero la macchina!!!
+		ciclo:for(Cantiere can:listaCantieri){
+			for(Lavoro lav:can.getElencoLavori()){
+				if(lav.hasRichiesta(codiceRichiesta)){
+					lav.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
+					lav.liberaRichiesta(codiceRichiesta);
+					break ciclo;
+				}
+			}
+		}
 	}
 	
 	public void modificaRichiesta(int codiceLavoro,int codiceRichiesta, RichiestaMacchina caratteristiche){
-		//TODO
-		//Se ï¿½ giï¿½ soddisfatta, modificando le caratteristiche libero la macchina!!!
+		for(Cantiere can:listaCantieri){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
+					l.liberaRichiesta(codiceRichiesta);
+					break;
+				}
+			}
+		}
 	}
 	
 	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
-		//TODO
-		//Se ï¿½ giï¿½ soddisfatta, modificando le caratteristiche libero la macchina!!!
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			Lavoro l=getLavoro(codiceLavoro);
+			if(l.hasRichiesta(codiceRichiesta)){
+				l.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
+				l.liberaRichiesta(codiceRichiesta);
+			}
+		}
 	}
 	
 	public void liberaRichiesta(int codiceRichiesta){
-		//TODO
+		ciclo:for(Cantiere can:listaCantieri){
+			for(Lavoro lav:can.getElencoLavori()){
+				if(lav.hasRichiesta(codiceRichiesta)){
+					lav.liberaRichiesta(codiceRichiesta);
+					break ciclo;
+				}
+			}
+		}
 	}
 	
 	public void liberaRichiesta(int codiceLavoro,int codiceRichiesta){
-		//TODO
+		for(Cantiere can:listaCantieri){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.liberaRichiesta(codiceRichiesta);
+					break;
+				}
+			}
+		}
 	}
 	
 	public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
-		//TODO
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			Lavoro l=getLavoro(codiceLavoro);
+			if(l.hasRichiesta(codiceRichiesta)){
+				l.liberaRichiesta(codiceRichiesta);
+			}
+		}
 	}
 	
 	public void rimuoviRichiesta(int codiceRichiesta){
-		//TODO
+		ciclo:for(Cantiere can:listaCantieri){
+			for(Lavoro lav:can.getElencoLavori()){
+				if(lav.hasRichiesta(codiceRichiesta)){
+					lav.eliminaRichiesta(codiceRichiesta);
+					break ciclo;
+				}
+			}
+		}
 	}
 	
 	public void rimuoviRichiesta(int codiceLavoro,int codiceRichiesta){
-		//TODO
+		for(Cantiere can:listaCantieri){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.eliminaRichiesta(codiceRichiesta);
+					break;
+				}
+			}
+		}
 	}
 	
 	public void rimuoviRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
-		//TODO
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			Lavoro l=getLavoro(codiceLavoro);
+			if(l.hasRichiesta(codiceRichiesta)){
+				l.eliminaRichiesta(codiceRichiesta);
+			}
+		}
 	}
 	
-	public void getListaRichieste(int codiceCantiere, int codiceLavoro){
-		//TODO
+	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere, int codiceLavoro){
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			ArrayList<Richiesta>temp=new ArrayList<Richiesta>();
+			for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
+				if(r.isSoddisfatta()){
+					temp.add(r);
+				}
+			}
+			if(temp.size()!=0){
+				return temp;
+			}
+		}
+		return null;
 	}
 	
-	public void getListaRichieste(int codiceCantiere){
-		//TODO
+	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
+			for(Richiesta r:l.getListaRichieste()){
+				if(r.isSoddisfatta()){
+					totRichieste.add(r);
+				}
+			}
+		}
+		if(totRichieste.size()==0){
+			return null;
+		}
+		return totRichieste;
 	}
 	
-	public void getListaRichieste(){
-		// TODO
+	public ArrayList<Richiesta> getListaSoddisfatte(){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		for(Cantiere c:listaCantieri){
+			for(Lavoro l:c.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					if(r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
+				}
+			}
+		}
+		if(totRichieste.size()==0){
+			return null;
+		}
+		return totRichieste;
+	}
+	
+	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			ArrayList<Richiesta>temp=new ArrayList<Richiesta>();
+			for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
+				if(!r.isSoddisfatta()){
+					temp.add(r);
+				}
+			}
+			if(temp.size()!=0){
+				return temp;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
+			for(Richiesta r:l.getListaRichieste()){
+				if(!r.isSoddisfatta()){
+					totRichieste.add(r);
+				}
+			}
+		}
+		if(totRichieste.size()==0){
+			return null;
+		}
+		return totRichieste;
+	}
+	
+	public ArrayList<Richiesta> getListaInsoddisfatte(){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		for(Cantiere c:listaCantieri){
+			for(Lavoro l:c.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					if(!r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
+				}
+			}
+		}
+		if(totRichieste.size()==0){
+			return null;
+		}
+		return totRichieste;
+	}
+	
+	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere, int codiceLavoro){
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can.hasLavoro(codiceLavoro)){
+			return can.getLavoro(codiceLavoro).getListaRichieste();
+		}
+		return null;
+	}
+	
+	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
+			for(Richiesta r:l.getListaRichieste()){
+				totRichieste.add(r);
+			}
+		}
+		if(totRichieste.size()==0){
+			return null;
+		}
+		return totRichieste;
+	}
+	
+	public ArrayList<Richiesta> getListaRichieste(){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		for(Cantiere c:listaCantieri){
+			for(Lavoro l:c.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					totRichieste.add(r);
+				}
+			}
+		}
+		if(totRichieste.size()==0){
+			return null;
+		}
+		return totRichieste;
 	}
 //OPERAZIONI GENERICHE---------------------------------------------------------------------------------------------------------------
 
