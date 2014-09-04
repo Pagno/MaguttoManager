@@ -73,7 +73,7 @@ public class MainView extends JFrame {
 		dataModelCamion = new MyTableModel(columnNamesCamion);
 		String[] columnNamesEscavatore={"Produttore","Modello","Altezza Scarico","Profondita Scavo","Capacita","Portata Massima"};
 		dataModelEscavatore = new MyTableModel(columnNamesEscavatore);
-		String[] columnNamesCantiere={"Nome","Indirizzo","Data Apertura","Data Chiusura"};
+		String[] columnNamesCantiere={"Nome","Indirizzo","Data Apertura","Data Chiusura","Priorita"};
 		dataModelCantiere = new MyTableModel(columnNamesCantiere);
 		
 		

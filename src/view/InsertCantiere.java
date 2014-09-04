@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -39,7 +40,10 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 	private JTextField txtNome, txtIndirizzo;
 	
 	/**   lbl data fine. */
-	private JLabel lblNome, lblIndirizzo, lblDataInizio,lblDataFine;
+	private JLabel lblPriorita, lblNome, lblIndirizzo, lblDataInizio,lblDataFine;
+	
+	String[] priority={"BASSA","MEDIA","ALTA"};
+	private JComboBox<String> priorita=new JComboBox<String>(priority);
 	
 	/**   ok button. */
 	private JButton okButton;
@@ -70,6 +74,7 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 		lblIndirizzo = new JLabel("Indirizzo Cantiere:");
 		lblDataInizio = new JLabel("Data Inizio:");
 		lblDataFine = new JLabel("Data Fine:");
+		lblPriorita=new JLabel("Priorita:");
 		dataInizio = new JDateChooser();
 
 		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
@@ -98,13 +103,15 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 								.addComponent(lblNome)
 								.addComponent(lblIndirizzo)
 								.addComponent(lblDataInizio)
-								.addComponent(lblDataFine))
+								.addComponent(lblDataFine)
+								.addComponent(lblPriorita))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtNome)
 								.addComponent(txtIndirizzo)
 								.addComponent(dataInizio)
-								.addComponent(dataFine)));
+								.addComponent(dataFine)
+								.addComponent(priorita)));
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
 				.addGroup(
@@ -132,6 +139,13 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblDataFine)
 								.addComponent(dataFine,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+				.addGroup(		
+						layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPriorita)
+								.addComponent(priorita,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)));
@@ -203,7 +217,14 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 	public String getIndirizzo() {
 		return txtIndirizzo.getText();
 	}
-	
+	/**
+	 * Gets   indirizzo.
+	 *
+	 * @return   indirizzo
+	 */
+	public String getPriorita() {
+		return (String)priorita.getSelectedItem();
+	}
 	/**
 	 * Gets   data inizio.
 	 *

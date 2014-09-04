@@ -173,6 +173,7 @@ public class EditLavoro extends JDialog {
 	
 	//ACCESSO AI DATI DEL CANTIERE
 	public String getNomeCantiere() {return pnlCantiere.getNomeCantiere();}
+	public String getPrioritaCantiere() {return pnlCantiere.getPrioritaCantiere();}
 	public String getIndirizzoCantiere() {return pnlCantiere.getIndirizzoCantiere();}
 	public Date getDataInizioCantiere(){return pnlCantiere.getDataInizioCantiere();}
 	public Date getDataFineCantiere(){return pnlCantiere.getDataFineCantiere();}
@@ -195,7 +196,7 @@ public class EditLavoro extends JDialog {
 	public int getMinAltezza() {return pnlAddRichiesta.getMinAltezza();}
 	public int getMinProfondita() {return pnlAddRichiesta.getMinProfondita();}
 	public int getMinRotazione() {return pnlAddRichiesta.getMinRotazione();	}
-	public String getTipeMacchina() {return pnlAddRichiesta.getType();}
+	public String getTipoMacchina() {return pnlAddRichiesta.getType();}
 
 }
 

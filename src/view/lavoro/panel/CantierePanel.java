@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -29,10 +30,11 @@ public class CantierePanel extends JPanel {
 
 
 	private JTextField txtNomeCantiere, txtIndirizzo;
-	private JLabel lblNomeCantiere, lblIndirizzoCantiere, lblDataInizioCantiere,lblDataFineCantiere;
+	private JLabel lblPriorita,lblNomeCantiere, lblIndirizzoCantiere, lblDataInizioCantiere,lblDataFineCantiere;
 	private JDateChooser dataInizioCantiere,dataFineCantiere;
 	private JButton btnAdd,btnReset;
-	
+	String[] priority={"BASSA","MEDIA","ALTA"};
+	private JComboBox<String> priorita=new JComboBox<String>(priority);
 	
 	public CantierePanel() {
 		setLayout(new BorderLayout());
@@ -41,6 +43,7 @@ public class CantierePanel extends JPanel {
 	}
 	private void createPanel(){
 		lblNomeCantiere = new JLabel("Nome:");
+		lblPriorita = new JLabel("Priorita:");
 		lblIndirizzoCantiere = new JLabel("Indirizzo Cantiere:");
 		lblDataInizioCantiere = new JLabel("Data Inizio:");
 		lblDataFineCantiere = new JLabel("Data Fine:");
@@ -68,6 +71,7 @@ public class CantierePanel extends JPanel {
 								.addComponent(lblIndirizzoCantiere)
 								.addComponent(lblDataInizioCantiere)
 								.addComponent(lblDataFineCantiere)
+								.addComponent(lblPriorita)
 								.addComponent(btnReset))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
@@ -75,6 +79,7 @@ public class CantierePanel extends JPanel {
 								.addComponent(txtIndirizzo)
 								.addComponent(dataInizioCantiere)
 								.addComponent(dataFineCantiere)
+								.addComponent(priorita)
 								.addComponent(btnAdd)));
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
@@ -103,6 +108,13 @@ public class CantierePanel extends JPanel {
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblDataFineCantiere)
 								.addComponent(dataFineCantiere,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+				.addGroup(		
+						layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPriorita)
+								.addComponent(priorita,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
@@ -152,12 +164,14 @@ public class CantierePanel extends JPanel {
 		}catch(ParseException error){
 			System.out.println("Formato date errato.");
 		}
+		priorita.setSelectedItem(v[5]);
 	}
 	
 	public void setAddCantiereListeners(ActionListener act) {
 		btnAdd.addActionListener(act);
 	}
 	public String getNomeCantiere() {return txtNomeCantiere.getText();}
+	public String getPrioritaCantiere() {return (String)priorita.getSelectedItem();}
 	public String getIndirizzoCantiere() {return txtIndirizzo.getText();}
 	public Date getDataInizioCantiere(){return dataInizioCantiere.getDate();}
 	public Date getDataFineCantiere(){return dataFineCantiere.getDate();}

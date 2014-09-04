@@ -16,6 +16,8 @@ import model.organizer.data.Camion;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
+import model.organizer.data.Priority;
+import model.organizer.data.RichiestaMacchina;
 import model.ModelInterface;
 import model.organizer.data.Ruspa;
 import view.InsertCantiere;
@@ -71,7 +73,7 @@ public class CantieriController {
 				String indirizzo=cantieriView.getIndirizzo();
 				
 				//MEMORIZZO CANTIERE
-				model.aggiungiCantiere(nome, indirizzo, dataInizio, dataFine);				
+				model.aggiungiCantiere(nome, indirizzo, dataInizio, dataFine,Priority.valueOf(cantieriView.getPriorita()));				
 				cantieriView.dispose();
 				/*GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
 				GregorianCalendar fine=new GregorianCalendar();fine.setTime(cantieriView.getDataFine());
@@ -97,7 +99,7 @@ public class CantieriController {
 				String indirizzo=cantieriView.getIndirizzoCantiere();
 				
 				//MEMORIZZO CANTIERE
-				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine);
+				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine,Priority.valueOf(cantieriView.getPrioritaCantiere()));//TODO sistemare priorita
 			}
 		};
 		
@@ -248,11 +250,20 @@ public class CantieriController {
 	 *
 	 * @param EditLavoro   editLavoro
 	 */
-	public ActionListener AddRichiestaListener(EditLavoro editLavoro) {
+	public ActionListener AddRichiestaListener(final EditLavoro editLavoro) {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				RichiestaMacchina richiesta;
+				if(editLavoro.getTipoMacchina()=="Gru"){
+					
+				}else if(editLavoro.getTipoMacchina()=="Ruspa"){
+					
+				}else if(editLavoro.getTipoMacchina()=="Camion"){
+					
+				}else if(editLavoro.getTipoMacchina()=="Escavatore"){
+					
+				}
 			}
 		};
 	}
