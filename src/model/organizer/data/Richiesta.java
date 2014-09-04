@@ -139,7 +139,12 @@ public class Richiesta {
 
 
 	public void setMacchina(Macchina macchina) {
-		this.macchina = macchina;
+		if(this.rispettaRichiesta(macchina)){
+			this.macchina = macchina;
+		}
+		else{
+			this.macchina=null;
+		}
 	}
 	
 	

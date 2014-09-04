@@ -8,8 +8,7 @@ public class RichiestaTest {
 	Richiesta r;
 	
 	public RichiestaTest(){
-		RichiestaRuspa rr=new RichiestaRuspa(5,10,5,10,5,10);
-		r=new Richiesta(rr,22);
+		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),22);
 	}
 	
 	@Test
@@ -52,40 +51,67 @@ public class RichiestaTest {
 		assertTrue(r.isSoddisfatta());
 	}
 
-
 	@Test
 	public void testToString() {
+		//TODO
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testEqualsObject() {
+	public void testEquals() {
+		//TODO
 		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testRispettaRichiesta() {
-		fail("Not yet implemented");
+		assertTrue(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,7,7)));
+		assertTrue(r.rispettaRichiesta(new Ruspa(9,"Pippo","Pippo",7,7,7)));
+		assertTrue(r.rispettaRichiesta(new Ruspa(10,"Pluto","Pippo",7,7,7)));
+		assertTrue(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pluto",7,7,7)));
+		assertTrue(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",8,7,7)));
+		assertTrue(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,8,7)));
+		assertTrue(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,7,8)));
+		assertFalse(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",1,7,7)));
+		assertFalse(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,1,7)));
+		assertFalse(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,7,1)));
+		assertFalse(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",99,7,7)));
+		assertFalse(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,99,7)));
+		assertFalse(r.rispettaRichiesta(new Ruspa(10,"Pippo","Pippo",7,7,99)));
+		assertFalse(r.rispettaRichiesta(new Camion(10,"Pippo","Pippo",7,7,7)));
 	}
 
 	@Test
 	public void testGetNextCodice() {
-		fail("Not yet implemented");
+		assertEquals(Richiesta.getNextCodice(),23);
+		Richiesta.initCodice();
+		assertEquals(Richiesta.getNextCodice(),1);
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20));
+		assertEquals(Richiesta.getNextCodice(),2);
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),99);
+		assertEquals(Richiesta.getNextCodice(),100);
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20));
+		assertEquals(Richiesta.getNextCodice(),101);
 	}
 
 	@Test
 	public void testSetMacchina() {
-		fail("Not yet implemented");
+		assertFalse(r.isSoddisfatta());
+		assertEquals(r.getMacchina(),null);
+		r.setMacchina(new Camion(10,"Pippo","Pippo",7,7,7));
+		assertFalse(r.isSoddisfatta());
+		assertEquals(r.getMacchina(),null);
+		r.setMacchina(new Ruspa(10,"Pippo","Pippo",7,7,7));
+		assertTrue(r.isSoddisfatta());
+		assertEquals(r.getMacchina(),new Ruspa(10,"Pippo","Pippo",7,7,7));
+		r.setMacchina(new Camion(10,"Pippo","Pippo",7,7,7));
+		assertFalse(r.isSoddisfatta());
+		assertEquals(r.getMacchina(),null);
+		r.setMacchina(new Ruspa(10,"Pippo","Pippo",7,7,7));
+		r.setMacchina(null);
+		assertFalse(r.isSoddisfatta());
+		assertEquals(r.getMacchina(),null);
 	}
 
-	@Test
-	public void testEqualsObject1() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString1() {
-		fail("Not yet implemented");
-	}
 
 }
