@@ -18,7 +18,6 @@ import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
 import model.ModelInterface;
 import model.organizer.data.Ruspa;
-import view.AddAssociazione;
 import view.InsertCantiere;
 import view.lavoro.EditLavoro;
 
@@ -111,7 +110,7 @@ public class CantieriController {
 	 * @param view   view
 	 * @return   action listener
 	 */
-	public ActionListener addMacchinaListener(AddAssociazione view){
+	/*public ActionListener addMacchinaListener(AddAssociazione view){
 		final AddAssociazione ass=view;
 		return new ActionListener() {
 			
@@ -127,7 +126,7 @@ public class CantieriController {
 			}
 		};
 		
-	}
+	}*/
 	
 	/**   validate. */
 	private boolean validate=false;
@@ -146,7 +145,7 @@ public class CantieriController {
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public PropertyChangeListener checkAssociazioni(AddAssociazione addAssociazione){
+	/*public PropertyChangeListener checkAssociazioni(AddAssociazione addAssociazione){
 		final AddAssociazione ass=addAssociazione;
 		return new PropertyChangeListener(){
 
@@ -187,7 +186,7 @@ public class CantieriController {
 			}
 			
 		};
-	}
+	}*/
 	
 	/**
 	 * Cambiare il tipo di macchina da aggiungere all'associazione.
@@ -199,7 +198,7 @@ public class CantieriController {
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener cambioTipoMacchina(AddAssociazione addAssociazione){
+	/*public ActionListener cambioTipoMacchina(AddAssociazione addAssociazione){
 		final AddAssociazione ass=addAssociazione;
 		return new ActionListener() {
 			@Override
@@ -211,7 +210,7 @@ public class CantieriController {
 				
 			}
 		};
-	}
+	}*/
 	
 	public ActionListener EditLavoroListener(){
 		return new ActionListener() {
@@ -262,7 +261,7 @@ public class CantieriController {
 	 *
 	 * @param ass   ass
 	 */
-	private void aggiornaElencoMacchine(AddAssociazione ass){
+	/*private void aggiornaElencoMacchine(AddAssociazione ass){
 		ass.clearList();
 		if(tipoMacchina.equals("Ruspa")){
 			ArrayList<Ruspa> ruspeDisp=model.elencoRuspeDisponibili(ass.getDataInizio(),ass.getDataFine());
@@ -288,7 +287,7 @@ public class CantieriController {
 				ass.aggiungiMacchinaALista(r);
 			}
 		}
-	}
+	}*/
 
 
 }

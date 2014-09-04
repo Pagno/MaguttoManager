@@ -21,8 +21,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import model.organizer.data.Associazione;
-
 import com.toedter.calendar.JDateChooser;
 
 // 
@@ -282,7 +280,4 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 	 *
 	 * @return   associazioni list
 	 */
-	public ArrayList<Associazione> getAssociazioniList(){
-		return null;
-	}
 }
