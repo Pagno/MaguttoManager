@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observable;
+import java.util.Observer;
 
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
@@ -18,7 +19,7 @@ public class ModelCantiere extends Observable{
 
 	
 	private ArrayList<Cantiere> listaCantieri;
-	
+	private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
 	
 	private int codice;
 
@@ -104,6 +105,11 @@ public class ModelCantiere extends Observable{
 	}
 
 
+
+	public void addLavoroObserver(Observer observer) {
+		lavoroObserver.add(observer);
+	}
+	
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere cantiere:listaCantieri){
 			if(cantiere.getCodice() == codice){
@@ -152,6 +158,16 @@ public class ModelCantiere extends Observable{
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine);
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
+		
+		SimpleDateFormat df = new SimpleDateFormat();
+	    df.applyPattern("dd/MM/yyyy");
+		ArrayList<String> v1=new ArrayList<String>();
+		v1.add(Integer.toString(codice));v1.add(nome);
+		v1.add(df.format(dataInizio.getTime()));
+		v1.add(df.format(dataFine.getTime()));//Cantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+		for(Observer ob:lavoroObserver){
+			ob.update(this, v1);
+		}
 	}
 	
 	//carico i lavori presenti a database
@@ -289,7 +305,7 @@ public class ModelCantiere extends Observable{
 		return null;
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
 	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
 		if(item.hasLavoro(codiceLavoro)){
@@ -298,7 +314,7 @@ public class ModelCantiere extends Observable{
 		}
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
 	public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
@@ -607,4 +623,6 @@ public class ModelCantiere extends Observable{
 			istanza=null;
 		}
 	}
+
+
 }

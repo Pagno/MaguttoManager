@@ -16,6 +16,8 @@ import view.EditRuspa;
 import view.MainView;
 import view.lavoro.EditLavoro;
 import model.ModelInterface;
+import model.organizer.data.Cantiere;
+import model.organizer.data.Lavoro;
 
 // 
 /**
@@ -513,27 +515,10 @@ public class MainController{
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
 					boolean trovataAssociazione=false;
-					for(ArrayList<String> array:model.getAssociazioniList()){
-						if(array.get(1).compareTo(Integer.toString((Integer)v[0]))==0)
-							trovataAssociazione=true;
-					}
-					int reply=-1;
-					if(trovataAssociazione==true){
-						reply = JOptionPane.showConfirmDialog(mainView,"Sono presenti delle associazione con la macchina da cancellare. \n"
-								+ "Con l'eliminazione della macchina verranno eliminate anche le associazioni ad essa collegate.\n"
-								+ "Si vuole procedere con l'eliminazione?","Warning", JOptionPane.YES_NO_OPTION);
-						if (  (reply == JOptionPane.YES_OPTION || reply==-1)){
-					    	for(ArrayList<String> array:model.getAssociazioniList()){
-								if(array.get(1).compareTo(Integer.toString((Integer)v[0]))==0)
-									model.eliminaAssociazione(Integer.parseInt(array.get(0)));
-							}
-
-							model.eliminaMacchina(Integer.parseInt(v[0].toString()));
-							mainView.removeSelected();
+					for(Cantiere cantiere:model.getListaCantieri()){
+						for(Lavoro lavoro:cantiere.getElencoLavori()){
+							lavoro.liberaMacchina(Integer.parseInt(v[0].toString()));
 						}
-					}else{
-						model.eliminaMacchina(Integer.parseInt(v[0].toString()));
-						mainView.removeSelected();
 					}
 				}
 			}
@@ -588,10 +573,13 @@ public class MainController{
 					
 					EditLavoro editLavoro = new EditLavoro(mainView, data);
 					CantieriController ctr = new CantieriController(model);
-					if(model.getAssociazioniList((Integer)data[0]).size()>0){
+					model.addLavoroObserver(editLavoro.treeModel);
+					
+					//TODO se il cantiere contiene dei lavori non si deve poter restringere le date
+					/*if(model.getAssociazioniList((Integer)data[0]).size()>0){
 						editLavoro.setMinimaDataFine(editLavoro.getDataFineCantiere());
 						editLavoro.setMassimaDataInizio(editLavoro.getDataInizioCantiere());
-					}
+					}*/
 					
 					//Aggiungo i lavori gia caricati per questo cantiere
 					for (ArrayList<String> lavoro:model.getLavoriCantiereList((int) mainView.getSelectedData()[0]))
@@ -606,7 +594,6 @@ public class MainController{
 					editLavoro.setAddLavoroListeners(ctr.AddLavoroListener(editLavoro));
 					editLavoro.setEditLavoroListeners(ctr.EditLavoroListener());
 					editLavoro.setAddCantiereListeners(ctr.EditCantiereListener(editLavoro,(Integer)data[0]));
-					
 					
 					
 					/*ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));

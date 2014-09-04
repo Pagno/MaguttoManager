@@ -3,8 +3,10 @@ package model.organizer.data;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Lavoro {
+public class Lavoro{
 	private int codice;
 	private String nome;
 	private GregorianCalendar dataInizio;
@@ -21,7 +23,6 @@ public class Lavoro {
 		this.dataFine = dataFine;
 		this.macchinariRichiesti=new ArrayList<Richiesta>();
 	}
-
 
 	public int getCodice() {
 		return codice;
@@ -189,7 +190,14 @@ public class Lavoro {
 			}
 		}
 	}
-	
+	//Libera le richieste con associata una data macchina
+	public void liberaMacchina(int codiceMacchina){
+		for(Richiesta item:macchinariRichiesti){
+			if(item.getMacchina().getCodice()==codiceMacchina){
+					item.setMacchina(null);
+			}
+		}
+	}
 	//Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
 	public boolean isScoperto(){
 		for(Richiesta item:macchinariRichiesti){

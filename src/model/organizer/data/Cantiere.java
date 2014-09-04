@@ -56,7 +56,7 @@ public class Cantiere {
 	/**
 	 * Rimuove un lavoro dato il codice.
 	 *
-	 * @return true se il lavoro è stato rimosso.
+	 * @return true se il lavoro ï¿½ stato rimosso.
 	 */
 	public boolean rimuoviLavoro(int codiceLavoro) {
 		for(int i=0;i<lavori.size();i++){
@@ -67,7 +67,7 @@ public class Cantiere {
 	}
 	
 	/**
-	 * Verifica se un certo lavoro è contenuto in questo cantiere
+	 * Verifica se un certo lavoro ï¿½ contenuto in questo cantiere
 	 *
 	 * @return true se contiene il lavoro
 	 */
@@ -98,9 +98,6 @@ public class Cantiere {
 	 * @return elenco richieste
 	 */
 	public ArrayList<Lavoro> getElencoLavori() {
-		if(lavori.size()==0){
-			return null;
-		}
 		return lavori;
 	}
 	

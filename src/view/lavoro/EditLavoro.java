@@ -59,7 +59,7 @@ public class EditLavoro extends JDialog {
 	private VisualizzaRichiestaPanel pnlVisualizzaPanel;
 	
 	//MODELLI TABELLA JTREE
-	private treeModel treeModel;
+	public treeModel treeModel;
 	private JTree tree;
 	private JScrollPane scrollpane;
 	private Object[] datiCantiere;
@@ -70,6 +70,7 @@ public class EditLavoro extends JDialog {
 	 */
 	public EditLavoro(JFrame view,Object[] datiCantiere) {
 		super(view);
+		setTitle("Edit Cantiere");
 		this.datiCantiere=datiCantiere;
 		setBounds(0, 0, 700, 500);
 		contentPane = new JPanel();
@@ -146,9 +147,11 @@ public class EditLavoro extends JDialog {
 			//Controllo se il Lavoro e nuovo oppure e gia stato inserito
 			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
 				pnlLavoro.clear();pnlLavoro.btnAddActionListener(addLavoroActionListener);
+				pnlLavoro.btnLavoro.setText("Inserisci");
 			}else{
 				ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
 				pnlLavoro.fill(data);pnlLavoro.btnAddActionListener(editLavoroActionListener);
+				pnlLavoro.btnLavoro.setText("Modifica");
 			}
 		}else if(tp!=null && tp.getPath().length==3){
 			DefaultMutableTreeNode selected=(DefaultMutableTreeNode)tp.getPath()[tp.getPath().length-1];

@@ -72,7 +72,7 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 		
 		txtNomeLavoro  = new JTextField();
 		txtNomeLavoro.setColumns(15);
-		btnLavoro=new JButton("Modifica");
+		btnLavoro=new JButton("Inserisci");
 		btnReset=new JButton("Reset");
 		
 		GroupLayout layout = new GroupLayout(this);

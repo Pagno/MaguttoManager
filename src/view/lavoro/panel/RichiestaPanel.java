@@ -1,12 +1,14 @@
 package view.lavoro.panel;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,10 +26,12 @@ public class RichiestaPanel extends JPanel {
 	
 
 
-	private JLabel lbldato1,lbldato2,lbldato3,lbldato4,lbldato5,lbldato6;
-	private JTextField txtdato1,txtdato2,txtdato3,txtdato4,txtdato5,txtdato6;
+	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
+	private JTextField txtPortata,txtCapacita,txtLunghezza,txtAltezza,txtProfondita,txtRotazione;
 	public JButton btnReset,btnAdd;
 	
+	String[] str= {"Gru","Ruspa","Camion","Escavatore"};
+	public JComboBox<String> Type=new JComboBox<String>(str);
 	
 	public RichiestaPanel() {
 		setLayout(new BorderLayout());
@@ -37,115 +41,163 @@ public class RichiestaPanel extends JPanel {
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// 
 				clear();
 			}
 		});
-
 		createPanel();
+		Type.addActionListener(TypeListener());
+		//Type.setSelectedIndex(0);
+		
 	}
 	private void createPanel(){
-		lbldato1 = new JLabel("NomeLavoro:");
-		lbldato2 = new JLabel("Data Inizio:");
-		lbldato3  = new JLabel("Data Fine:");
-		lbldato4 = new JLabel("NomeLavoro:");
-		lbldato5 = new JLabel("Data Inizio:");
-		lbldato6  = new JLabel("Data Fine:");
+		lblTipo = new JLabel("Tipo Macchina: ");
+		lblPortata = new JLabel("Portata: ");
+		lblCapacita = new JLabel("Capacita: ");
+		lblLunghezza  = new JLabel("Lunghezza: ");
+		lblAltezza = new JLabel("Altezza: ");
+		lblProfondita = new JLabel("Profondita: ");
+		lblRotazione  = new JLabel("Angolo Rotazione:");
 		
-		txtdato1  = new JTextField();
-		txtdato2  = new JTextField();
-		txtdato3  = new JTextField();
-		txtdato4  = new JTextField();
-		txtdato5  = new JTextField();
-		txtdato6  = new JTextField();
+		txtPortata  = new JTextField();
+		txtCapacita  = new JTextField();
+		txtLunghezza  = new JTextField();
+		txtAltezza  = new JTextField();
+		txtProfondita  = new JTextField();
+		txtRotazione  = new JTextField();
 		
 		GroupLayout layout = new GroupLayout(this);
 		layout.setAutoCreateContainerGaps(true);
 		layout.setAutoCreateGaps(true);
 
 		layout.setHorizontalGroup(layout
-				.createSequentialGroup()
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato1)
-								.addComponent(lbldato2)
-								.addComponent(lbldato3)
-								.addComponent(lbldato4)
-								.addComponent(lbldato5)
-								.addComponent(lbldato6)
-								.addComponent(btnReset))
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtdato1)
-								.addComponent(txtdato2)
-								.addComponent(txtdato3)
-								.addComponent(txtdato4)
-								.addComponent(txtdato5)
-								.addComponent(txtdato6)
-								.addComponent(btnAdd)));
+			.createSequentialGroup()
+			.addGroup(
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblTipo)
+					.addComponent(lblPortata)
+					.addComponent(lblCapacita)
+					.addComponent(lblLunghezza)
+					.addComponent(lblAltezza)
+					.addComponent(lblProfondita)
+					.addComponent(lblRotazione)
+					.addComponent(btnReset))
+			.addGroup(
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(Type)
+					.addComponent(txtPortata)
+					.addComponent(txtCapacita)
+					.addComponent(txtLunghezza)
+					.addComponent(txtAltezza)
+					.addComponent(txtProfondita)
+					.addComponent(txtRotazione)
+					.addComponent(btnAdd)));
 		layout.setVerticalGroup(layout
-				.createSequentialGroup()
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato1 )
-								.addComponent(txtdato1,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato2 )
-								.addComponent(txtdato2,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato3 )
-								.addComponent(txtdato3,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato4 )
-								.addComponent(txtdato4,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato5 )
-								.addComponent(txtdato5,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbldato6 )
-								.addComponent(txtdato6,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnReset )
-								.addComponent(btnAdd,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)));
+			.createSequentialGroup()
+			.addGroup(
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblTipo )
+					.addComponent(Type,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblPortata )
+					.addComponent(txtPortata,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(		
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblCapacita )
+					.addComponent(txtCapacita,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(		
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblLunghezza )
+					.addComponent(txtLunghezza,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(		
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblAltezza )
+					.addComponent(txtAltezza,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(		
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblProfondita )
+					.addComponent(txtProfondita,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(		
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblRotazione )
+					.addComponent(txtRotazione,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+			.addGroup(		
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(btnReset )
+					.addComponent(btnAdd,
+						GroupLayout.PREFERRED_SIZE,
+						GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)));
 
 		this.setLayout(layout);
 		
 	}
 	
+	private ActionListener TypeListener(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(((String)Type.getSelectedItem()).equals("Gru")){
+					setVisibilitaCapacita(false);
+					setVisibilitaPortata(true);
+					setVisibilitaLunghezza(true);
+					setVisibilitaAltezza(true);
+					setVisibilitaProfondita(false);
+					setVisibilitaRotazione(true);
+				}else if(((String)Type.getSelectedItem()).equals("Ruspa")){
+					setVisibilitaCapacita(true);
+					setVisibilitaPortata(true);
+					setVisibilitaLunghezza(false);
+					setVisibilitaAltezza(true);
+					setVisibilitaProfondita(false);
+					setVisibilitaRotazione(false);
+				}else if(((String)Type.getSelectedItem()).equals("Escavatore")){
+					setVisibilitaCapacita(true);
+					setVisibilitaPortata(true);
+					setVisibilitaLunghezza(false);
+					setVisibilitaAltezza(true);
+					setVisibilitaProfondita(true);
+					setVisibilitaRotazione(false);
+				}else if(((String)Type.getSelectedItem()).equals("Camion")){
+					setVisibilitaCapacita(true);
+					setVisibilitaPortata(true);
+					setVisibilitaLunghezza(true);
+					setVisibilitaAltezza(false);
+					setVisibilitaProfondita(false);
+					setVisibilitaRotazione(false);
+				}
+			}
+		};
+	}
+	
 	public void clear(){
-		txtdato1.setText("");
-		txtdato2.setText("");
-		txtdato3.setText("");
-		txtdato4.setText("");
-		txtdato5.setText("");
-		txtdato6.setText("");
+		txtPortata.setText("");
+		txtCapacita.setText("");
+		txtLunghezza.setText("");
+		txtAltezza.setText("");
+		txtProfondita.setText("");
+		txtRotazione.setText("");
 	}
 	public void btnAddActionListener(ActionListener act){
 		for( ActionListener al : btnReset.getActionListeners() ) {
@@ -153,6 +205,30 @@ public class RichiestaPanel extends JPanel {
 	    }
 		btnAdd.addActionListener(act);
 		
+	}
+	private void setVisibilitaCapacita(Boolean vis){
+		lblCapacita.setVisible(vis);
+		txtCapacita.setVisible(vis);
+	}
+	private void setVisibilitaPortata(Boolean vis){
+		lblPortata.setVisible(vis);
+		txtPortata.setVisible(vis);
+	}
+	private void setVisibilitaLunghezza(Boolean vis){
+		lblLunghezza.setVisible(vis);
+		txtLunghezza.setVisible(vis);
+	}
+	private void setVisibilitaAltezza(Boolean vis){
+		lblAltezza.setVisible(vis);
+		txtAltezza.setVisible(vis);
+	}
+	private void setVisibilitaProfondita(Boolean vis){
+		lblProfondita.setVisible(vis);
+		txtProfondita.setVisible(vis);
+	}
+	private void setVisibilitaRotazione(Boolean vis){
+		lblRotazione.setVisible(vis);
+		txtRotazione.setVisible(vis);
 	}
 	/*public void fill(ArrayList<String> data){
 		dataInizioCantiere.setDate(null);

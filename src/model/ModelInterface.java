@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import model.organizer.data.Associazione;
 import model.organizer.data.Camion;
+import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Ruspa;
@@ -171,6 +172,9 @@ public interface ModelInterface {
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
 	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
 	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public ArrayList<Cantiere> getListaCantieri();
+	
+	
 	public void pubblicaContenuto();
 
 	public void addGruObserver(Observer observer);

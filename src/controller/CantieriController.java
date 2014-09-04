@@ -2,11 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -19,7 +16,6 @@ import model.organizer.data.Camion;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
-import model.ModelConnector;
 import model.ModelInterface;
 import model.organizer.data.Ruspa;
 import view.AddAssociazione;
@@ -103,57 +99,6 @@ public class CantieriController {
 				
 				//MEMORIZZO CANTIERE
 				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine);
-			}
-		};
-		
-	}
-
-	/**
-	 * Gestisce l'aggiunta di una <em>"Associazione"</em>.
-	 *
-	 *@param addAssociazione view da cui leggere i dati dell'Associzione da inserire
-	 *@param codiceCantiere codice  del Cantiere 
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener addAssociazioneListener(AddAssociazione addAssociazione,final int codiceCantiere){
-		final AddAssociazione view=addAssociazione;
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Macchina r=(Macchina)view.getListSelected();
-				
-				model.aggiungiAssociazione(r.getCodice(), codiceCantiere,view.getDataInizio(),view.getDataFine());
-				
-				aggiornaElencoMacchine(view);
-			}
-		};		
-	}
-	
-	/**
-	 * Gestisce l'eliminaziozne delle Associzioni selezionate.
-	 *
-	 *@param addAssociazione view da cui leggere i dati dell'Associazione da cancellare
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener btnRimuoviListener(final AddAssociazione addAssociazione){
-		return new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(addAssociazione.getCodiceAssociazioneSelezionata()==-1){
-					JOptionPane.showMessageDialog(null,"Selezionare l'associazione da cancellare.","Error", JOptionPane.ERROR_MESSAGE);		
-				}else{
-					model.eliminaAssociazione(addAssociazione.getCodiceAssociazioneSelezionata());
-					addAssociazione.rimuoviAssociazioneSelezionata();
-					aggiornaElencoMacchine(addAssociazione);
-				}
 			}
 		};
 		
@@ -268,7 +213,6 @@ public class CantieriController {
 		};
 	}
 	
-	
 	public ActionListener EditLavoroListener(){
 		return new ActionListener() {
 			@Override
@@ -282,14 +226,19 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String nome=editLavoro.getNomeLavoro();
-				GregorianCalendar inizio=new GregorianCalendar();
-				inizio.setTime(editLavoro.getDataInizioLavoro());
-				GregorianCalendar fine=new GregorianCalendar();
-				inizio.setTime(editLavoro.getDataFineLavoro());
-				
-				model.insertLavoro(nome, inizio, fine, 1);
-				
+				if(editLavoro.getDataInizioLavoro()==null || editLavoro.getDataFineLavoro()==null
+						|| editLavoro.getNomeLavoro()==""){
+					JOptionPane.showMessageDialog(null,"Compilare tutti campi.","Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					String nome=editLavoro.getNomeLavoro();
+					GregorianCalendar inizio=new GregorianCalendar();
+					inizio.setTime(editLavoro.getDataInizioLavoro());
+					GregorianCalendar fine=new GregorianCalendar();
+					fine.setTime(editLavoro.getDataFineLavoro());
+					
+					model.insertLavoro(nome, inizio, fine, 1);
+				}
 			}
 		};
 	}

@@ -9,15 +9,13 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.organizer.ElencoAssociazioni;
+
 import model.organizer.ModelCamion;
 import model.organizer.ModelCantiere;
 import model.organizer.ModelEscavatore;
 import model.organizer.ModelGru;
-import model.organizer.ModelLavoro;
 import model.organizer.ModelMacchina;
 import model.organizer.ModelRuspa;
-import model.organizer.data.Associazione;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
@@ -54,9 +52,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 	
 	/**   lc. */
 	private ModelCantiere lc;
-		
-	/**   ml. */
-	private ModelLavoro ml;
 	
 	/**   db. */
 	private DatabaseInterface db;
@@ -96,9 +91,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addGruObserver(Observer observer){
 		mg.addObserver(observer);
 	}
-	
-	public void addLavoroObserver(Observer observer){
-	}
 	/**
 	 * Adds   ruspa observer.
 	 *
@@ -136,6 +128,14 @@ public class ModelConnector extends Observable implements ModelInterface{
 		lc.addObserver(observer);
 	}
 	
+	/**
+	 * Adds   Lavoro observer.
+	 *
+	 * @param observer   observer
+	 */
+	public void addLavoroObserver(Observer observer){
+		lc.addLavoroObserver(observer);
+	}
 	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
@@ -180,12 +180,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"Indirizzo varchar(50) not null)";
 				db.update(qry);
 				
-				qry = "create table APP.Lavoro(" +
+				qry = "create table APP.Lavoro (" +
 						"Codice integer  primary key, "+
 						"Nome varchar(30) not null,"+
 						"CodiceCantiere integer references APP.Cantiere(Codice), "+
 						"DataInizio date not null,"+
-						"DataFine date not null);";
+						"DataFine date not null)";
 				db.update(qry);
 				
 				qry = "create table APP.Richiesta( "+
@@ -198,7 +198,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"AltezzaMin integer, AltezzaMax integer,"+
 						"LunghezzaMin integer, LunghezzaMax integer,"+
 						"ProfonditaMin integer, ProfonditaMax integer,"+
-						"RotazioneMin integer,RotazioneMax integer);";
+						"RotazioneMin integer,RotazioneMax integer)";
 
 				db.update(qry);
 				System.out.println("DB creato");
@@ -269,7 +269,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				
 				for(Lavoro lavoro: cantiere.getElencoLavori()){
 					qry = "insert into APP.Lavoro (Codice,Nome,CodiceCantiere,DataInizio,DataFine)"+
-							"values(" + lavoro.getCodice() + ",'" + lavoro.getNome() + "','" + 
+							"values(" + lavoro.getCodice() + ",'" + lavoro.getNome() + "'," +  cantiere.getCodice() + ",'" +
 							lavoro.getStrDataInizio() + "','" + lavoro.getStrDataFine() + "')" ;
 					db.update(qry);
 					for(Richiesta richiesta:lavoro.getListaRichieste()){
@@ -417,7 +417,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#eliminaCantiere(int)
 	 */
-	//TODO Elimina Cantiere deve eliminare i lavori e le richieste
 	@Override
 	public boolean eliminaCantiere(int codice) {
 		return lc.rimuoviCantiere(codice);
@@ -673,7 +672,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 		mc = ModelCamion.getModelCamion();
 		mr = ModelRuspa.getModelRuspa();
 		me = ModelEscavatore.getModelEscavatore();
-		ml = ModelLavoro.getModelLavoro();
 		lc = ModelCantiere.getModelCantiere();
 	}
 
@@ -821,27 +819,51 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	@Override
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere) {ArrayList<String> work1=new ArrayList<>();work1.add("1");work1.add("Scavi");work1.add("Scavicchi");
-		ArrayList<ArrayList<String>> arr=new ArrayList<ArrayList<String>>();
-		ArrayList<String> ass1=new ArrayList<>();ass1.add("1");ass1.add("scavi");ass1.add("24/07/2014");ass1.add("24/08/2014");
-		ArrayList<String> ass2=new ArrayList<>();ass2.add("2");ass2.add("fondamenta");ass2.add("13/08/2014");ass2.add("11/09/2014");
-		arr.add(ass1);arr.add(ass2);
-		return arr;
+		ArrayList<ArrayList<String>> elencoLavori=new ArrayList<ArrayList<String>>();
+		ArrayList<String> l;
+		for(Lavoro lavoro:lc.getCantiere(codiceCantiere).getElencoLavori()){
+			//CODICE,NOME,DATAINIZIO,DATAFINE
+			l=new ArrayList<String>();
+			
+			l.add(Integer.toString(lavoro.getCodice()));
+			l.add(lavoro.getNome());
+			SimpleDateFormat df = new SimpleDateFormat();
+			df.applyPattern("dd/MM/yyyy");
+			l.add(df.format(lavoro.getDataInizio().getTime()));
+			l.add(df.format(lavoro.getDataFine().getTime()));
+			elencoLavori.add(l);
+		}
+		return elencoLavori;
 	}
 
 	@Override
 	public void insertLavoro(String nome, GregorianCalendar inizio,
 			GregorianCalendar fine, int idCantiere) {
-		 ml.aggiungiLavoro(nome,inizio,fine,lc.getCantiere(idCantiere));
-		
+		 lc.aggiungiLavoro(idCantiere, nome, inizio, fine);
 	}
 
 	@Override
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere) {
-		ArrayList<ArrayList<String>> arr=new ArrayList<ArrayList<String>>();
-		ArrayList<String> ass1=new ArrayList<>();ass1.add("2");ass1.add("Escavatore");ass1.add("24/07/2014");ass1.add("24/08/2014");
-		
-		ArrayList<String> ass2=new ArrayList<>();ass2.add("2");ass2.add("Camion");ass2.add("13/05/2014");ass2.add("19/05/2014");
-		arr.add(ass1);arr.add(ass2);
-		return arr;
+		ArrayList<ArrayList<String>> elencoLavori=new ArrayList<ArrayList<String>>();
+		ArrayList<String> l;
+		for(Lavoro lavoro:lc.getCantiere(codiceCantiere).getElencoLavori()){
+			//CODICE,NOME,DATAINIZIO,DATAFINE
+			l=new ArrayList<String>();
+			
+			l.add(Integer.toString(lavoro.getCodice()));
+			l.add(lavoro.getNome());
+			SimpleDateFormat df = new SimpleDateFormat();
+			df.applyPattern("dd/MM/yyyy");;
+			l.add(df.format(lavoro.getDataInizio().getTime()));
+			l.add(df.format(lavoro.getDataFine().getTime()));
+			elencoLavori.add(l);
+		}
+		return elencoLavori;
 	}
+
+	@Override
+	public ArrayList<Cantiere> getListaCantieri() {
+		return lc.getListaCantieri();
+	}
+
 }
