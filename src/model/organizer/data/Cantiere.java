@@ -228,13 +228,13 @@ public class Cantiere {
 	public String toString(){
 		String priStr;
 		if(priorita==Priority.ALTA){
-			priStr="Priorità Alta";
+			priStr="Prioritï¿½ Alta";
 		}
 		else if(priorita==Priority.MEDIA){
-			priStr="Priorità Media";
+			priStr="Prioritï¿½ Media";
 		}
 		else{
-			priStr="Priorità Bassa";
+			priStr="Prioritï¿½ Bassa";
 		}
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura() + " - " + priStr;
 	}
@@ -263,7 +263,10 @@ public class Cantiere {
 	public Priority getPriorita() {
 		return priorita;
 	}
-
+	
+	public String getPrioritaString() {
+		return priorita.toString();
+	}
 
 	public void setPriorita(Priority priorita) {
 		this.priorita = priorita;

@@ -178,7 +178,8 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"Nome varchar(30) not null, " +
 						"DataApertura date not null, " +
 						"DataChiusura date not null, " +
-						"Indirizzo varchar(50) not null)";
+						"Indirizzo varchar(50) not null,"+
+						"Priorita varchar(10) not null check (Priorita like 'BASSA' or Priorita like 'MEDIA' or Priorita like 'ALTA'))";
 				db.update(qry);
 				
 				qry = "create table APP.Lavoro (" +
@@ -262,10 +263,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 			}
 
 			for(Cantiere cantiere:lc.getListaCantieri()){
-				String qry = "insert into APP.Cantiere (Codice,Nome,DataApertura,DataChiusura,Indirizzo)"+
+				String qry = "insert into APP.Cantiere (Codice,Nome,DataApertura,DataChiusura,Indirizzo,Priorita)"+
 						"values(" + cantiere.getCodice() + ",'" + cantiere.getNomeCantiere() + "','" + 
 						cantiere.getStrDataApertura() + "','" + cantiere.getStrDataChiusura() + 
-						"','" + cantiere.getIndirizzo() + "')" ;
+						"','" + cantiere.getIndirizzo() + "','" + cantiere.getPrioritaString() +"')" ;
 				db.update(qry);
 				
 				for(Lavoro lavoro: cantiere.getElencoLavori()){
@@ -541,17 +542,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 			String qry="select * from APP.Cantiere";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
-				Priority temp;
-				if(res.getString("Priorita")=="Alta"){
-					temp=Priority.ALTA;
-				}
-				else if(res.getString("Priorita")=="Media"){
-					temp=Priority.MEDIA;
-				}
-				else{
-					temp=Priority.BASSA;
-				}
-				lc.caricaCantiere(res.getInt("Codice"), res.getString("Nome"), res.getString("Indirizzo"), convertToDate(res.getString("DataApertura")), convertToDate(res.getString("DataChiusura")),temp);
+				lc.caricaCantiere(res.getInt("Codice"), res.getString("Nome"), res.getString("Indirizzo"), convertToDate(res.getString("DataApertura")), convertToDate(res.getString("DataChiusura")),Priority.valueOf(res.getString("Priorita")));
 			}
 			//db.disconnect();
 		} catch (DBException e) {

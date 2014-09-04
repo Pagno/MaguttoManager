@@ -99,7 +99,7 @@ public class CantieriController {
 				String indirizzo=cantieriView.getIndirizzoCantiere();
 				
 				//MEMORIZZO CANTIERE
-				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine,Priority.valueOf(cantieriView.getPrioritaCantiere()));//TODO sistemare priorita
+				model.modificaCantiere(codice,nome, indirizzo, dataInizio, dataFine,Priority.valueOf(cantieriView.getPrioritaCantiere()));
 			}
 		};
 		

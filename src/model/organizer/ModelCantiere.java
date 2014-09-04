@@ -13,7 +13,7 @@ import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
 
-//TODO aggiungere Observer aggiunta lavori
+
 
 
 public class ModelCantiere extends Observable{
@@ -53,8 +53,7 @@ public class ModelCantiere extends Observable{
 
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
-	    //TODO includi la priorità nell'observer
-		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		setChanged();
 		notifyObservers(v1);
 		
@@ -69,8 +68,7 @@ public class ModelCantiere extends Observable{
 	
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
-	    //TODO includi la priorità nell'observer
-		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		setChanged();
 		notifyObservers(v1);
 	
@@ -87,8 +85,7 @@ public class ModelCantiere extends Observable{
 				item.setPriorita(priorita);
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
-			    //TODO includi la priorità nell'observer
-				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
+				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 				setChanged();
 				notifyObservers(v1);
 			}
