@@ -26,6 +26,8 @@ public class Cantiere {
 	/**   Elenco richieste macchine.  */
 	private ArrayList<Lavoro> lavori;
 	
+	private Priority priorita;
+	
 	/**
 	 * Instantiates a new cantiere.
 	 *
@@ -35,8 +37,9 @@ public class Cantiere {
 	 * @param dataApertura data apertura del Cantiere
 	 * @param dataChiusura data chiusura del Cantiere
 	 */
-	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura ){
+	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
 		this.setCodice(codice);
+		this.priorita=priorita;
 		this.nomeCantiere=nomeCantiere;
 		this.indirizzo=indirizzo;
 		this.dataApertura=dataApertura;
@@ -223,7 +226,17 @@ public class Cantiere {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura();
+		String priStr;
+		if(priorita==Priority.ALTA){
+			priStr="Priorità Alta";
+		}
+		else if(priorita==Priority.MEDIA){
+			priStr="Priorità Media";
+		}
+		else{
+			priStr="Priorità Bassa";
+		}
+		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura() + " - " + priStr;
 	}
 	
 	/* (non-Javadoc)
@@ -240,10 +253,20 @@ public class Cantiere {
 			return false;
 		}
 		Cantiere c=(Cantiere)obj;
-		if((this.codice==c.getCodice())&&(this.indirizzo.equals(c.getIndirizzo()))&&(this.nomeCantiere.equals(c.getNomeCantiere()))&&(this.dataApertura.equals(c.getDataApertura()))&&(this.dataChiusura.equals(c.getDataChiusura()))){
+		if((this.codice==c.getCodice())&&(this.indirizzo.equals(c.getIndirizzo()))&&(this.nomeCantiere.equals(c.getNomeCantiere()))&&(this.dataApertura.equals(c.getDataApertura()))&&(this.dataChiusura.equals(c.getDataChiusura()))&&(this.priorita==c.getPriorita())){
 			return true;
 		}
 		return false;
 	}
 
+
+	public Priority getPriorita() {
+		return priorita;
+	}
+
+
+	public void setPriorita(Priority priorita) {
+		this.priorita = priorita;
+	}
+	
 }

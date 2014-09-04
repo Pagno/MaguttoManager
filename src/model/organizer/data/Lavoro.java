@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+
 public class Lavoro{
+
 	private int codice;
 	private String nome;
 	private GregorianCalendar dataInizio;
@@ -17,6 +19,7 @@ public class Lavoro{
 	public Lavoro(int codice, String nome, GregorianCalendar dataInizio,
 			GregorianCalendar dataFine) {
 		super();
+
 		this.codice = codice;
 		this.nome = nome;
 		this.dataInizio = dataInizio;
@@ -32,7 +35,6 @@ public class Lavoro{
 	public void setCodice(int codice) {
 		this.codice = codice;
 	}
-
 
 	public String getNome() {
 		return nome;

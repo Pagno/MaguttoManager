@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observer;
 
-import model.organizer.data.Associazione;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;

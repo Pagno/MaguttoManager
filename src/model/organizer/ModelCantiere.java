@@ -11,6 +11,7 @@ import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
+import model.organizer.data.Priority;
 
 //TODO aggiungere Observer aggiunta lavori
 
@@ -45,9 +46,9 @@ public class ModelCantiere extends Observable{
 	}
 //OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
 
-	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
+	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		codice++;
-		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura));
+		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
 		
 
 		SimpleDateFormat df = new SimpleDateFormat();
@@ -60,11 +61,11 @@ public class ModelCantiere extends Observable{
 		
 	}
 
-	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
+	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		if(this.codice<codice){
 			this.codice=codice;
 		}
-		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura));
+		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
 	
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
@@ -75,7 +76,7 @@ public class ModelCantiere extends Observable{
 	}
 
 
-	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura){
+	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice()==codice){
 				item.setNomeCantiere(nomeCantiere);
