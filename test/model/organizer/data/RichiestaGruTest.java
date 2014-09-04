@@ -2,7 +2,6 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
-import java.util.GregorianCalendar;
 
 
 

@@ -22,7 +22,7 @@ public class CantiereTest {
 	 * Instantiates a new cantiere test.
 	 */
 	public CantiereTest(){
-		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA);
 	}
 
 	/**
@@ -35,6 +35,7 @@ public class CantiereTest {
 		assertEquals(c.getIndirizzo(),"Messina");
 		assertEquals(c.getDataApertura(),new GregorianCalendar(2060,1,1));
 		assertEquals(c.getDataChiusura(),new GregorianCalendar(2090,11,31));
+		assertEquals(c.getPriorita(),Priority.MEDIA);
 	}
 
 	/**
@@ -81,11 +82,20 @@ public class CantiereTest {
 		c.setCodice(17);
 		assertEquals(c.getCodice(),17);
 	}
+	
+	/**
+	 * Test set priorita.
+	 */
+	@Test
+	public void testSetPriorita() {
+		c.setPriorita(Priority.ALTA);
+		assertEquals(c.getPriorita(),Priority.ALTA);
+	}
 
 	@Test
 	public void testToString(){
 		//GregorianCalendar parte da 00
-		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31" );
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Media" );
 	}
 	
 	@Test
@@ -93,18 +103,20 @@ public class CantiereTest {
 		assertTrue(c.equals(c));
 		assertFalse(c.equals(null));
 		assertFalse(c.equals("Stringa"));
-		assertTrue(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
-		assertFalse(c.equals(new Cantiere(12,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
-		assertFalse(c.equals(new Cantiere(11,"Ponte stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Reggio",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31))));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31))));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31))));
+		assertTrue(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
+		assertFalse(c.equals(new Cantiere(12,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Reggio",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31),Priority.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.BASSA)));
 	}
 	
 	@Test
 	public void testAddLavoro(){
 		ArrayList<Lavoro>lista=c.getElencoLavori();
-		assertTrue(lista.equals(null));
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
 		Lavoro l1=new Lavoro(1,"Scavo",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
 		c.addLavoro(l1);
 		lista=c.getElencoLavori();
@@ -121,7 +133,8 @@ public class CantiereTest {
 	@Test
 	public void testRimuoviLavoro(){
 		ArrayList<Lavoro>lista=c.getElencoLavori();
-		assertTrue(lista.equals(null));
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
 		Lavoro l1=new Lavoro(1,"Scavo",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
 		c.addLavoro(l1);
 		Lavoro l2=new Lavoro(2,"Costruzione",new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));

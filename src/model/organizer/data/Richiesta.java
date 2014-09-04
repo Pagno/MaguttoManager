@@ -7,6 +7,11 @@ public class Richiesta {
 	private RichiestaMacchina caratteristiche;
 	private Macchina macchina;
 	
+	/**   codice. */
+	private static int ultimoCodice;
+
+	private int codice;
+	
 	
 	public Richiesta(RichiestaMacchina caratteristiche) {
 		super();
@@ -19,28 +24,12 @@ public class Richiesta {
 	public Richiesta(RichiestaMacchina caratteristiche, int codiceRichiesta) {
 		super();
 		
-		if(codice>ultimoCodice){
+		if(codiceRichiesta>ultimoCodice){
 			ultimoCodice=codiceRichiesta;
 		}
-		this.codice=ultimoCodice;
+		this.codice=codiceRichiesta;
 		this.caratteristiche = caratteristiche;
 		this.setMacchina(null);
-	}
-	
-	/**   codice. */
-	private static int ultimoCodice;
-
-	private int codice;
-	
-	/**
-	 * Aggiorna codice.
-	 *
-	 * @param code   code
-	 */
-	protected void aggiornaCodice(int code){
-		if(ultimoCodice<code){
-			ultimoCodice=code;
-		}
 	}
 	
 	
@@ -51,7 +40,7 @@ public class Richiesta {
 		ultimoCodice=0;
 	}
 	
-	public void assignCodice(){
+	private void assignCodice(){
 		ultimoCodice++;
 		codice=ultimoCodice;
 	}
@@ -85,9 +74,6 @@ public class Richiesta {
 	}
 
 
-	public void setCodice(int codice) {
-		this.codice = codice;
-	}
 
 	
 	
@@ -142,7 +128,7 @@ public class Richiesta {
 	 *
 	 * @return   next codice
 	 */
-	int getNextCodice(){
+	static int getNextCodice(){
 		return ultimoCodice+1;
 	}
 
