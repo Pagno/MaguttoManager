@@ -28,6 +28,7 @@ public class RichiestaPanel extends JPanel {
 
 	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
 	private JTextField txtPortata,txtCapacita,txtLunghezza,txtAltezza,txtProfondita,txtRotazione;
+	
 	public JButton btnReset,btnAdd;
 	
 	String[] str= {"Gru","Ruspa","Camion","Escavatore"};
@@ -237,7 +238,27 @@ public class RichiestaPanel extends JPanel {
 		btnReset.setText("Modifica");
 	}*/
 	
-	
+	public int getMinPortata() {
+		return Integer.parseInt(txtPortata.getText());
+	}
+	public int getMinCapacita() {
+		return Integer.parseInt(txtCapacita.getText());
+	}
+	public int getMinLunghezza() {
+		return Integer.parseInt(txtLunghezza.getText());
+	}
+	public int getMinAltezza() {
+		return Integer.parseInt(txtAltezza.getText());
+	}
+	public int getMinProfondita() {
+		return Integer.parseInt(txtProfondita.getText());
+	}
+	public int getMinRotazione() {
+		return Integer.parseInt(txtRotazione.getText());
+	}
+	public String getType() {
+		return (String)Type.getSelectedItem();
+	}
 	
 
 }

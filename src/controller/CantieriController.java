@@ -242,6 +242,21 @@ public class CantieriController {
 			}
 		};
 	}
+	
+	
+	/**
+	 * Inserisci una nuova richiesta.
+	 *
+	 * @param EditLavoro   editLavoro
+	 */
+	public ActionListener AddRichiestaListener(EditLavoro editLavoro) {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		};
+	}
 	/**
 	 * Aggiorna elenco macchine.
 	 *
@@ -274,5 +289,6 @@ public class CantieriController {
 			}
 		}
 	}
+
 
 }

@@ -2,49 +2,30 @@ package view.lavoro;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.hamcrest.core.IsInstanceOf;
 
 import view.lavoro.panel.CantierePanel;
 import view.lavoro.panel.LavoroPanel;
 import view.lavoro.panel.RichiestaPanel;
 import view.lavoro.panel.VisualizzaRichiestaPanel;
 
-import com.toedter.calendar.JDateChooser;
 
 public class EditLavoro extends JDialog {
 
@@ -53,7 +34,7 @@ public class EditLavoro extends JDialog {
 	 */
 	private static final long serialVersionUID = 2004768729465641055L;
 	private JPanel contentPane,cardPanel;
-	private RichiestaPanel pnlAddRichiesta;
+	public RichiestaPanel pnlAddRichiesta;
 	private LavoroPanel pnlLavoro;
 	private CantierePanel pnlCantiere;
 	private VisualizzaRichiestaPanel pnlVisualizzaPanel;
@@ -139,8 +120,7 @@ public class EditLavoro extends JDialog {
 		if (tp!=null && tp.getPath().length==1){
 			cl.show(cardPanel,"cantiere");
 		}
-		else if (tp!=null && tp.getPath().length==2){
-			//visualizzo il pannello Lavoro
+		else if (tp!=null && tp.getPath().length==2){//VISUALIZZO IL PANNELLO LAVORO
 			cl.show(cardPanel,"lavoro");
 			//carico le date del Cantiere nel caso fossere state cambiate
 			pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
@@ -153,7 +133,7 @@ public class EditLavoro extends JDialog {
 				pnlLavoro.fill(data);pnlLavoro.btnAddActionListener(editLavoroActionListener);
 				pnlLavoro.btnLavoro.setText("Modifica");
 			}
-		}else if(tp!=null && tp.getPath().length==3){
+		}else if(tp!=null && tp.getPath().length==3){//VISUALIZZO IL PANNELLO RICHIESTA
 			DefaultMutableTreeNode selected=(DefaultMutableTreeNode)tp.getPath()[tp.getPath().length-1];
 			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
 				cl.show(cardPanel,"richiesta");
@@ -175,6 +155,10 @@ public class EditLavoro extends JDialog {
 	ActionListener addLavoroActionListener;
 	public void setAddLavoroListeners(ActionListener act) {	  
 		addLavoroActionListener=act;
+	}
+	ActionListener addRichiestaActionListener;
+	public void setAddRichiestaListeners(ActionListener act) {
+		pnlAddRichiesta.btnAddActionListener(act);
 	}
 	public void addLavoro(ArrayList<String> work){
 		treeModel.addWork(work);
@@ -203,7 +187,16 @@ public class EditLavoro extends JDialog {
 	public String getNomeLavoro() {return pnlLavoro.getNomeLavoro();}
 	public Date getDataInizioLavoro(){return pnlLavoro.getDataInizioLavoro();}
 	public Date getDataFineLavoro(){return pnlLavoro.getDataFineLavoro();}
-	
+
+	//ACCESSO AI DATI DEL RICHIESTA
+	public int getMinCapacita() {return pnlAddRichiesta.getMinCapacita();}
+	public int getMinPortata(){return pnlAddRichiesta.getMinPortata();}
+	public int getMinLunghezza() {return pnlAddRichiesta.getMinLunghezza();	}
+	public int getMinAltezza() {return pnlAddRichiesta.getMinAltezza();}
+	public int getMinProfondita() {return pnlAddRichiesta.getMinProfondita();}
+	public int getMinRotazione() {return pnlAddRichiesta.getMinRotazione();	}
+	public String getTipeMacchina() {return pnlAddRichiesta.getType();}
+
 }
 
 

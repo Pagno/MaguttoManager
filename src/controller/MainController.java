@@ -592,6 +592,7 @@ public class MainController{
 					
 					//Aggiungi tutti i listener per i vari bottoni
 					editLavoro.setAddLavoroListeners(ctr.AddLavoroListener(editLavoro));
+					editLavoro.setAddRichiestaListeners(ctr.AddRichiestaListener(editLavoro));
 					editLavoro.setEditLavoroListeners(ctr.EditLavoroListener());
 					editLavoro.setAddCantiereListeners(ctr.EditCantiereListener(editLavoro,(Integer)data[0]));
 					

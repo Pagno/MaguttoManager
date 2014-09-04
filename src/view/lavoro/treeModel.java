@@ -44,9 +44,14 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 				
 		}//aggiungo il nodo
 	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		addWork((ArrayList<String>)arg);
+	}
 	
-	
-	class richiestaNode extends DefaultMutableTreeNode {
+	class richiestaNode extends DefaultMutableTreeNode implements Observer{
 		/**
 		 * 
 		 */
@@ -68,12 +73,10 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 		public ArrayList<String> getData(){
 			return ass;
 		}
-	}
-
-
-	@Override
-	public void update(Observable o, Object arg) {
-		addWork((ArrayList<String>)arg);
+		@Override
+		public void update(Observable arg0, Object arg1) {
+			addRichiesta((ArrayList<String>)arg1);
+		}
 	}
 }
 
