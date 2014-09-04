@@ -46,18 +46,18 @@ public class ModelCantiere extends Observable{
 	}
 //OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
 
-	public int aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
+	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		codice++;
 		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
 		
 
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
+	    //TODO includi la priorità nell'observer
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
 		setChanged();
 		notifyObservers(v1);
 		
-		return codice;
 		
 	}
 
@@ -69,6 +69,7 @@ public class ModelCantiere extends Observable{
 	
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
+	    //TODO includi la priorità nell'observer
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
 		setChanged();
 		notifyObservers(v1);
@@ -83,9 +84,10 @@ public class ModelCantiere extends Observable{
 				item.setIndirizzo(indirizzo);
 				item.setDataApertura(dataApertura);
 				item.setDataChiusura(dataChiusura);
-				
+				item.setPriorita(priorita);
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
+			    //TODO includi la priorità nell'observer
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
 				setChanged();
 				notifyObservers(v1);
@@ -106,11 +108,6 @@ public class ModelCantiere extends Observable{
 	}
 
 
-
-	public void addLavoroObserver(Observer observer) {
-		lavoroObserver.add(observer);
-	}
-	
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere cantiere:listaCantieri){
 			if(cantiere.getCodice() == codice){
@@ -150,6 +147,10 @@ public class ModelCantiere extends Observable{
 			}
 		}
 		return null;
+	}
+	
+	public void addLavoroObserver(Observer observer) {
+		lavoroObserver.add(observer);
 	}
 	
 	//aggiungo nuovi lavori
