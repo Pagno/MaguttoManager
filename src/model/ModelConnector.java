@@ -137,7 +137,14 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addLavoroObserver(Observer observer){
 		lc.addLavoroObserver(observer);
 	}
-	
+	/**
+	 * Adds   Richiesta observer.
+	 *
+	 * @param observer   observer
+	 */
+	public void addRichiestaObserver(Observer observer){
+		lc.addRichiestaObserver(observer);
+	}
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -691,7 +698,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		System.out.println("---GRU----------------------");
 		System.out.println(mg.toString());
 		System.out.println("---CANTIERI-----------------");
-		System.out.println(lc.toString());
+		for(Cantiere c:lc.getListaCantieri()){
+			System.out.println("	CANTIERE: "+c.toString());
+			for(Lavoro l:c.getElencoLavori()){
+				System.out.println("		LAVORO: "+l.toString());
+				for(Richiesta r:l.getListaRichieste()){
+					System.out.println("			RICHIESTA: "+r.getCaratteristiche().toString());
+				}
+			}
+		}
 	}
 	
 	/**
@@ -849,16 +864,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 		ArrayList<ArrayList<String>> elencoLavori=new ArrayList<ArrayList<String>>();
 		ArrayList<String> l;
 		for(Lavoro lavoro:lc.getCantiere(codiceCantiere).getElencoLavori()){
-			//CODICE,NOME,DATAINIZIO,DATAFINE
-			l=new ArrayList<String>();
-			
-			l.add(Integer.toString(lavoro.getCodice()));
-			l.add(lavoro.getNome());
-			SimpleDateFormat df = new SimpleDateFormat();
-			df.applyPattern("dd/MM/yyyy");;
-			l.add(df.format(lavoro.getDataInizio().getTime()));
-			l.add(df.format(lavoro.getDataFine().getTime()));
-			elencoLavori.add(l);
+			for(Richiesta richieste:lavoro.getListaRichieste()){
+				l=new ArrayList<String>();
+			}
 		}
 		return elencoLavori;
 	}
@@ -866,6 +874,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 	@Override
 	public ArrayList<Cantiere> getListaCantieri() {
 		return lc.getListaCantieri();
+	}
+
+	@Override
+	public void addRichiesta(int codiceCantiere, int codiceLavoro,
+			RichiestaMacchina richiesta) {
+		lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
 }

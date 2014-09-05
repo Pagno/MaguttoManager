@@ -17,7 +17,11 @@ import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
+import model.organizer.data.RichiestaCamion;
+import model.organizer.data.RichiestaEscavatore;
+import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaMacchina;
+import model.organizer.data.RichiestaRuspa;
 import model.ModelInterface;
 import model.organizer.data.Ruspa;
 import view.InsertCantiere;
@@ -256,13 +260,23 @@ public class CantieriController {
 			public void actionPerformed(ActionEvent e) {
 				RichiestaMacchina richiesta;
 				if(editLavoro.getTipoMacchina()=="Gru"){
-					
+					richiesta=new RichiestaGru(editLavoro.getMinLunghezza(), editLavoro.getMaxLunghezza(),
+							editLavoro.getMinAltezza(), editLavoro.getMaxAltezza(), editLavoro.getMinPortata(),editLavoro.getMaxPortata(),editLavoro.getMinRotazione(), editLavoro.getMaxRotazione());
+					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
+					//System.out.println("Codice Cantiere: "+editLavoro.getCodiceCantiere());
+					//System.out.println("Codice Lavoro: "+editLavoro.getCodiceLavoro());
 				}else if(editLavoro.getTipoMacchina()=="Ruspa"){
-					
+					richiesta=new RichiestaRuspa(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
+							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinAltezza(),editLavoro.getMaxAltezza());
+					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
 				}else if(editLavoro.getTipoMacchina()=="Camion"){
-					
+					richiesta=new RichiestaCamion(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
+							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinLunghezza(),editLavoro.getMaxLunghezza());
+					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
 				}else if(editLavoro.getTipoMacchina()=="Escavatore"){
-					
+					richiesta=new RichiestaEscavatore(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
+							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinAltezza(),editLavoro.getMaxAltezza(),editLavoro.getMinProfondita(), editLavoro.getMaxProfondita());
+					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
 				}
 			}
 		};

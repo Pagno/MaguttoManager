@@ -35,10 +35,10 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 		insertNodeInto(a, root, 0);
 		listaLavori.add(a);//aggiungo il nodo
 	}
-	public void addRichiesta(ArrayList<String> ass){
+	public void addRichiesta(ArrayList<String> richiesta){
 		for(workNode wn:listaLavori){
-			if(wn.getId().compareTo(ass.get(0))==0){
-				wn.addAssociazione(ass);
+			if(wn.getCodiceLavoro()==Integer.parseInt(richiesta.get(0))){
+				wn.addRichiesta(richiesta);
 				break;
 			}
 				
@@ -48,36 +48,12 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		addWork((ArrayList<String>)arg);
-	}
-	
-	class richiestaNode extends DefaultMutableTreeNode implements Observer{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 6286210896311354098L;
-		ArrayList<String> ass;
-
-		public richiestaNode(ArrayList<String> newAss) {
-			ass = newAss;
+		if(((ArrayList<String>)arg).size()==4){
+			addWork((ArrayList<String>)arg);
+		}else{
+			addRichiesta((ArrayList<String>)arg);
 		}
-		public String getId(){
-			return ass.get(0);
-		}
-		public String toString(){
-			return ass.get(0)+" - "+ass.get(1);
-		}
-		public String getName(){
-			return ass.get(1);
-		}
-		public ArrayList<String> getData(){
-			return ass;
-		}
-		@Override
-		public void update(Observable arg0, Object arg1) {
-			addRichiesta((ArrayList<String>)arg1);
-		}
-	}
+	}	
 }
 
 

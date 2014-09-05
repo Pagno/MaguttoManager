@@ -21,6 +21,7 @@ public class ModelCantiere extends Observable{
 	
 	private ArrayList<Cantiere> listaCantieri;
 	private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
+	private ArrayList<Observer> richiestaObserver=new ArrayList<Observer>();
 	
 	private int codice;
 
@@ -161,7 +162,7 @@ public class ModelCantiere extends Observable{
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		ArrayList<String> v1=new ArrayList<String>();
-		v1.add(Integer.toString(codice));v1.add(nome);
+		v1.add(Integer.toString(codiceLavoro));v1.add(nome);
 		v1.add(df.format(dataInizio.getTime()));
 		v1.add(df.format(dataFine.getTime()));//Cantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
 		for(Observer ob:lavoroObserver){
@@ -292,7 +293,11 @@ public class ModelCantiere extends Observable{
 	}
 	
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
-	
+
+
+	public void addRichiestaObserver(Observer observer) {
+		richiestaObserver.add(observer);
+	}	
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -310,6 +315,14 @@ public class ModelCantiere extends Observable{
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
 			l.inserisciRichiesta(caratteristiche);
+			
+			/*
+			ArrayList<String> v1=new ArrayList<String>();
+			v1.add(Integer.toString(codiceLavoro));
+			for(Observer ob:richiestaObserver){
+				ob.update(this, v1);
+			}
+			*/
 		}
 	}
 	
@@ -622,6 +635,7 @@ public class ModelCantiere extends Observable{
 			istanza=null;
 		}
 	}
+
 
 
 }

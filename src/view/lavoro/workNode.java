@@ -6,25 +6,25 @@ import java.util.Observer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
-	public class workNode extends DefaultMutableTreeNode  implements Observer {
+	public class workNode extends DefaultMutableTreeNode{
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = -6628712095965266106L;
 		
 		ArrayList<String> work;
-		ArrayList<ArrayList<String>> listaAssociazioni;
+		ArrayList<ArrayList<String>> listaRichieste;
 
 		public workNode(ArrayList<String> w) {
 			work=w;
-			listaAssociazioni=new ArrayList<ArrayList<String>>();
+			listaRichieste=new ArrayList<ArrayList<String>>();
 		}
-		public String getId(){
-			return work.get(0);
+		public int getCodiceLavoro(){
+			return Integer.parseInt(work.get(0));
 		}
-		public void addAssociazione(ArrayList<String> newAss){
-			listaAssociazioni.add(newAss);
-			workNode a=new workNode(newAss);
+		public void addRichiesta(ArrayList<String> newAss){
+			listaRichieste.add(newAss);
+			richiestaNode a=new richiestaNode(newAss);
 			insert(a, 0);
 		}
 
@@ -36,9 +36,5 @@ import javax.swing.tree.DefaultMutableTreeNode;
 		}
 		public String getName(){
 			return work.get(1);
-		}
-		@Override
-		public void update(Observable o, Object arg) {
-						
 		}
 	}

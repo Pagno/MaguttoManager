@@ -8,6 +8,7 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
+import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Ruspa;
 import model.organizer.data.Priority;
 
@@ -144,7 +145,7 @@ public interface ModelInterface {
 	 * @param indirizzo   indirizzo
 	 * @param dataApertura   data apertura
 	 * @param dataChiusura   data chiusura
-	 * @param priorita priorità
+	 * @param priorita prioritï¿½
 	 */
 	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita);
 	
@@ -156,9 +157,20 @@ public interface ModelInterface {
 	 * @param indirizzo   indirizzo
 	 * @param dataApertura   data apertura
 	 * @param dataChiusura   data chiusura
-	 * @param priorita priorità
+	 * @param priorita prioritï¿½
 	 */
 	public void modificaCantiere(int codice, String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita);
+	/**
+	 * Aggiungi Richiesta Gru.
+	 *
+	 * @param codice   codice
+	 * @param nomeCantiere   nome cantiere
+	 * @param indirizzo   indirizzo
+	 * @param dataApertura   data apertura
+	 * @param dataChiusura   data chiusura
+	 * @param priorita prioritï¿½
+	 */
+	public void addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
 	
 	/**
 	 * Elimina cantiere.
@@ -184,6 +196,7 @@ public interface ModelInterface {
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
 	public void addLavoroObserver(Observer observer);
+	public void addRichiestaObserver(Observer observer);
 	
 	
 

@@ -113,6 +113,7 @@ public class EditLavoro extends JDialog {
 		setVisible(true);
 	}
 	
+	private int codiceLavoro;
 	//Aggiornamento dei pannelli
 	void doMouseClicked(MouseEvent me) {
 		TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
@@ -130,16 +131,19 @@ public class EditLavoro extends JDialog {
 				pnlLavoro.btnLavoro.setText("Inserisci");
 			}else{
 				ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
+				codiceLavoro=Integer.parseInt(data.get(0));
 				pnlLavoro.fill(data);pnlLavoro.btnAddActionListener(editLavoroActionListener);
 				pnlLavoro.btnLavoro.setText("Modifica");
 			}
 		}else if(tp!=null && tp.getPath().length==3){//VISUALIZZO IL PANNELLO RICHIESTA
-			DefaultMutableTreeNode selected=(DefaultMutableTreeNode)tp.getPath()[tp.getPath().length-1];
 			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
+				addNode selected=(addNode)tp.getPath()[tp.getPath().length-1];
+				codiceLavoro=((workNode)selected.getParent()).getCodiceLavoro();
+			
 				cl.show(cardPanel,"richiesta");
 			}else{
 				cl.show(cardPanel,"visualizza");
-				ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
+				ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
 			}
 		}
 	}	
@@ -172,6 +176,7 @@ public class EditLavoro extends JDialog {
 	
 	
 	//ACCESSO AI DATI DEL CANTIERE
+	public int getCodiceCantiere(){return (int)datiCantiere[0];}
 	public String getNomeCantiere() {return pnlCantiere.getNomeCantiere();}
 	public String getPrioritaCantiere() {return pnlCantiere.getPrioritaCantiere();}
 	public String getIndirizzoCantiere() {return pnlCantiere.getIndirizzoCantiere();}
@@ -185,6 +190,7 @@ public class EditLavoro extends JDialog {
 
 
 	//ACCESSO AI DATI DEL LAVORO
+	public int getCodiceLavoro() {return codiceLavoro;}
 	public String getNomeLavoro() {return pnlLavoro.getNomeLavoro();}
 	public Date getDataInizioLavoro(){return pnlLavoro.getDataInizioLavoro();}
 	public Date getDataFineLavoro(){return pnlLavoro.getDataFineLavoro();}
@@ -196,6 +202,14 @@ public class EditLavoro extends JDialog {
 	public int getMinAltezza() {return pnlAddRichiesta.getMinAltezza();}
 	public int getMinProfondita() {return pnlAddRichiesta.getMinProfondita();}
 	public int getMinRotazione() {return pnlAddRichiesta.getMinRotazione();	}
+	
+	public int getMaxCapacita() {return pnlAddRichiesta.getMaxCapacita();}
+	public int getMaxPortata(){return pnlAddRichiesta.getMaxPortata();}
+	public int getMaxLunghezza() {return pnlAddRichiesta.getMaxLunghezza();	}
+	public int getMaxAltezza() {return pnlAddRichiesta.getMaxAltezza();}
+	public int getMaxProfondita() {return pnlAddRichiesta.getMaxProfondita();}
+	public int getMaxRotazione() {return pnlAddRichiesta.getMaxRotazione();	}
+	
 	public String getTipoMacchina() {return pnlAddRichiesta.getType();}
 
 }

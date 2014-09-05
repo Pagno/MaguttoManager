@@ -27,7 +27,8 @@ public class RichiestaPanel extends JPanel {
 
 
 	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
-	private JTextField txtPortata,txtCapacita,txtLunghezza,txtAltezza,txtProfondita,txtRotazione;
+	private JTextField txtMinPortata,txtMinCapacita,txtMinLunghezza,txtMinAltezza,txtMinProfondita,txtMinRotazione;
+	private JTextField txtMaxPortata,txtMaxCapacita,txtMaxLunghezza,txtMaxAltezza,txtMaxProfondita,txtMaxRotazione;
 	
 	public JButton btnReset,btnAdd;
 	
@@ -59,13 +60,22 @@ public class RichiestaPanel extends JPanel {
 		lblProfondita = new JLabel("Profondita: ");
 		lblRotazione  = new JLabel("Angolo Rotazione:");
 		
-		txtPortata  = new JTextField();
-		txtCapacita  = new JTextField();
-		txtLunghezza  = new JTextField();
-		txtAltezza  = new JTextField();
-		txtProfondita  = new JTextField();
-		txtRotazione  = new JTextField();
+		txtMinPortata  = new JTextField();
+		txtMinCapacita  = new JTextField();
+		txtMinLunghezza  = new JTextField();
+		txtMinAltezza  = new JTextField();
+		txtMinProfondita  = new JTextField();
+		txtMinRotazione  = new JTextField();
 		
+		txtMaxPortata  = new JTextField();
+		txtMaxCapacita  = new JTextField();
+		txtMaxLunghezza  = new JTextField();
+		txtMaxAltezza  = new JTextField();
+		txtMaxProfondita  = new JTextField();
+		txtMaxRotazione  = new JTextField();
+		
+		JLabel lblLabel1=new JLabel("");
+		JLabel lblLabel2=new JLabel("");
 		GroupLayout layout = new GroupLayout(this);
 		layout.setAutoCreateContainerGaps(true);
 		layout.setAutoCreateGaps(true);
@@ -85,13 +95,23 @@ public class RichiestaPanel extends JPanel {
 			.addGroup(
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(Type)
-					.addComponent(txtPortata)
-					.addComponent(txtCapacita)
-					.addComponent(txtLunghezza)
-					.addComponent(txtAltezza)
-					.addComponent(txtProfondita)
-					.addComponent(txtRotazione)
-					.addComponent(btnAdd)));
+					.addComponent(txtMinPortata)
+					.addComponent(txtMinCapacita)
+					.addComponent(txtMinLunghezza)
+					.addComponent(txtMinAltezza)
+					.addComponent(txtMinProfondita)
+					.addComponent(txtMinRotazione)
+					.addComponent(btnAdd))
+			.addGroup(
+				layout.createParallelGroup(Alignment.LEADING)
+					.addComponent(lblLabel1)
+					.addComponent(txtMaxPortata)
+					.addComponent(txtMaxCapacita)
+					.addComponent(txtMaxLunghezza)
+					.addComponent(txtMaxAltezza)
+					.addComponent(txtMaxProfondita)
+					.addComponent(txtMaxRotazione)
+					.addComponent(lblLabel2)));
 		layout.setVerticalGroup(layout
 			.createSequentialGroup()
 			.addGroup(
@@ -100,46 +120,71 @@ public class RichiestaPanel extends JPanel {
 					.addComponent(Type,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
+						GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblLabel1))
 			.addGroup(
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(lblPortata )
-					.addComponent(txtPortata,
+					.addComponent(txtMinPortata,
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtMaxPortata,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
 			.addGroup(		
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(lblCapacita )
-					.addComponent(txtCapacita,
+					.addComponent(txtMinCapacita,
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtMaxCapacita,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
 			.addGroup(		
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(lblLunghezza )
-					.addComponent(txtLunghezza,
+					.addComponent(txtMinLunghezza,
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtMaxLunghezza,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
 			.addGroup(		
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(lblAltezza )
-					.addComponent(txtAltezza,
+					.addComponent(txtMinAltezza,
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtMaxAltezza,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
 			.addGroup(		
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(lblProfondita )
-					.addComponent(txtProfondita,
+					.addComponent(txtMinProfondita,
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtMaxProfondita,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
 			.addGroup(		
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(lblRotazione )
-					.addComponent(txtRotazione,
+					.addComponent(txtMinRotazione,
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtMaxRotazione,
 						GroupLayout.PREFERRED_SIZE,
 						GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
@@ -147,9 +192,10 @@ public class RichiestaPanel extends JPanel {
 				layout.createParallelGroup(Alignment.LEADING)
 					.addComponent(btnReset )
 					.addComponent(btnAdd,
-						GroupLayout.PREFERRED_SIZE,
-						GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE)));
+							GroupLayout.PREFERRED_SIZE,
+							GroupLayout.DEFAULT_SIZE,
+							GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblLabel2)));
 
 		this.setLayout(layout);
 		
@@ -193,12 +239,12 @@ public class RichiestaPanel extends JPanel {
 	}
 	
 	public void clear(){
-		txtPortata.setText("");
-		txtCapacita.setText("");
-		txtLunghezza.setText("");
-		txtAltezza.setText("");
-		txtProfondita.setText("");
-		txtRotazione.setText("");
+		txtMinPortata.setText("");
+		txtMinCapacita.setText("");
+		txtMinLunghezza.setText("");
+		txtMinAltezza.setText("");
+		txtMinProfondita.setText("");
+		txtMinRotazione.setText("");
 	}
 	public void btnAddActionListener(ActionListener act){
 		for( ActionListener al : btnReset.getActionListeners() ) {
@@ -209,27 +255,27 @@ public class RichiestaPanel extends JPanel {
 	}
 	private void setVisibilitaCapacita(Boolean vis){
 		lblCapacita.setVisible(vis);
-		txtCapacita.setVisible(vis);
+		txtMinCapacita.setVisible(vis);
 	}
 	private void setVisibilitaPortata(Boolean vis){
 		lblPortata.setVisible(vis);
-		txtPortata.setVisible(vis);
+		txtMinPortata.setVisible(vis);
 	}
 	private void setVisibilitaLunghezza(Boolean vis){
 		lblLunghezza.setVisible(vis);
-		txtLunghezza.setVisible(vis);
+		txtMinLunghezza.setVisible(vis);
 	}
 	private void setVisibilitaAltezza(Boolean vis){
 		lblAltezza.setVisible(vis);
-		txtAltezza.setVisible(vis);
+		txtMinAltezza.setVisible(vis);
 	}
 	private void setVisibilitaProfondita(Boolean vis){
 		lblProfondita.setVisible(vis);
-		txtProfondita.setVisible(vis);
+		txtMinProfondita.setVisible(vis);
 	}
 	private void setVisibilitaRotazione(Boolean vis){
 		lblRotazione.setVisible(vis);
-		txtRotazione.setVisible(vis);
+		txtMinRotazione.setVisible(vis);
 	}
 	/*public void fill(ArrayList<String> data){
 		dataInizioCantiere.setDate(null);
@@ -239,26 +285,45 @@ public class RichiestaPanel extends JPanel {
 	}*/
 	
 	public int getMinPortata() {
-		return Integer.parseInt(txtPortata.getText());
+		return txtMinPortata.getText().equals("")?0:Integer.parseInt(txtMinPortata.getText());
 	}
 	public int getMinCapacita() {
-		return Integer.parseInt(txtCapacita.getText());
+		return txtMinCapacita.getText().equals("")?0:Integer.parseInt(txtMinCapacita.getText());
 	}
 	public int getMinLunghezza() {
-		return Integer.parseInt(txtLunghezza.getText());
+		return txtMinLunghezza.getText().equals("")?0:Integer.parseInt(txtMinLunghezza.getText());
 	}
 	public int getMinAltezza() {
-		return Integer.parseInt(txtAltezza.getText());
+		return txtMinAltezza.getText().equals("")?0:Integer.parseInt(txtMinAltezza.getText());
 	}
 	public int getMinProfondita() {
-		return Integer.parseInt(txtProfondita.getText());
+		return txtMinProfondita.getText().equals("")?0:Integer.parseInt(txtMinProfondita.getText());
 	}
 	public int getMinRotazione() {
-		return Integer.parseInt(txtRotazione.getText());
+		return txtMinRotazione.getText().equals("")?0:Integer.parseInt(txtMinRotazione.getText());
 	}
 	public String getType() {
 		return (String)Type.getSelectedItem();
 	}
 	
+	
+	public int getMaxPortata() {
+		return txtMaxPortata.getText().equals("")?0:Integer.parseInt(txtMaxPortata.getText());
+	}
+	public int getMaxCapacita() {
+		return txtMaxCapacita.getText().equals("")?0:Integer.parseInt(txtMaxCapacita.getText());
+	}
+	public int getMaxLunghezza() {
+		return txtMaxLunghezza.getText().equals("")?0:Integer.parseInt(txtMaxLunghezza.getText());
+	}
+	public int getMaxAltezza() {
+		return txtMaxAltezza.getText().equals("")?0:Integer.parseInt(txtMaxAltezza.getText());
+	}
+	public int getMaxProfondita() {
+		return txtMaxProfondita.getText().equals("")?0:Integer.parseInt(txtMaxProfondita.getText());
+	}
+	public int getMaxRotazione() {
+		return txtMaxRotazione.getText().equals("")?0:Integer.parseInt(txtMaxRotazione.getText());
+	}
 
 }
