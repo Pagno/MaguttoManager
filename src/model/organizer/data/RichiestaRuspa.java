@@ -93,7 +93,7 @@ public class RichiestaRuspa extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return minCapacita + "-"
+		return "Richiesta:Ruspa " + minCapacita + "-"
 				+ maxCapacita + " " + minPortata + "-"
 				+ maxPortata + " " + minAltezza + "-"
 				+ maxAltezza;

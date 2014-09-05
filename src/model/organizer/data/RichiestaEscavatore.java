@@ -90,7 +90,7 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return  minCapacita
+		return  "Richiesta:Escavatore " + minCapacita
 				+ "-" + maxCapacita + " " + minPortata
 				+ "-" + maxPortata + " " + minAltezza
 				+ "-" + maxAltezza + " "

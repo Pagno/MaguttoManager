@@ -53,8 +53,9 @@ public class RichiestaTest {
 
 	@Test
 	public void testToString() {
-		//TODO
-		fail("Not yet implemented");
+		assertEquals(r.toString(), "22 Richiesta:Ruspa 5-10 5-10 5-10 false null");
+		r.setMacchina(new Ruspa(10,"Pippo","Pluto",7,8,9));
+		assertEquals(r.toString(), "22 Richiesta:Ruspa 5-10 5-10 5-10 true 10");
 	}
 
 	@Test
