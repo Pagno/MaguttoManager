@@ -125,9 +125,11 @@ public class Lavoro{
 	}
 
 
-	public void inserisciRichiesta(RichiestaMacchina caratteristiche){
+	public int inserisciRichiesta(RichiestaMacchina caratteristiche){
 		Richiesta r=new Richiesta(caratteristiche);
+		System.out.println("Richiesta aggiunta al lavoro +"+getCodice());
 		macchinariRichiesti.add(r);
+		return r.getCodice();
 	}
 	
 	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){

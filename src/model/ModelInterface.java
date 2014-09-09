@@ -160,17 +160,31 @@ public interface ModelInterface {
 	 * @param priorita priorit�
 	 */
 	public void modificaCantiere(int codice, String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita);
+	
 	/**
-	 * Aggiungi Richiesta Gru.
+	 * Cancella Lavoro.
 	 *
-	 * @param codice   codice
-	 * @param nomeCantiere   nome cantiere
-	 * @param indirizzo   indirizzo
-	 * @param dataApertura   data apertura
-	 * @param dataChiusura   data chiusura
-	 * @param priorita priorit�
+	 * @param codiceRichiesta   Codice del lavoro da cancellare
+	 * 
 	 */
-	public void addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	public boolean deleteLavoro(int codiceLavoro);
+	
+	/**
+	 * Aggiungi Richiesta.
+	 *
+	 * @param codiceCantiere   codice del cantiere
+	 * @param codiceLavoro   codice del Lavoro
+	 * @param richiesta   Richiesta da Inserire
+	 * 
+	 */
+	public ArrayList<String> addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	/**
+	 * Cancella Richiesta.
+	 *
+	 * @param codiceRichiesta   Codice della richiesta da cancellare
+	 * 
+	 */
+	public boolean deleteRichiesta(int codiceRichiesta);
 	
 	/**
 	 * Elimina cantiere.

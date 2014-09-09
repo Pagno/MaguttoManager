@@ -1,8 +1,5 @@
 package view.lavoro;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
@@ -24,8 +21,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 		}
 		public void addRichiesta(ArrayList<String> newAss){
 			listaRichieste.add(newAss);
-			richiestaNode a=new richiestaNode(newAss);
-			insert(a, 0);
+			//richiestaNode a=new richiestaNode(newAss);
+			//add(a);
 		}
 
 		public String toString(){

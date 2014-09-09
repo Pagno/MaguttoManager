@@ -563,14 +563,7 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object[] data=mainView.getSelectedData();
-				if(data!=null){
-					/*String[] tokens = ((String)data[3]).split("/");
-					GregorianCalendar d=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
-	
-					tokens = ((String)data[4]).split("/");
-					GregorianCalendar d2=new GregorianCalendar(Integer.parseInt(tokens[2]),Integer.parseInt(tokens[1])-1,Integer.parseInt(tokens[0]));
-					*/
-					
+				if(data!=null){					
 					EditLavoro editLavoro = new EditLavoro(mainView, data);
 					CantieriController ctr = new CantieriController(model);
 					model.addLavoroObserver(editLavoro.treeModel);
@@ -596,19 +589,9 @@ public class MainController{
 					editLavoro.setAddRichiestaListeners(ctr.AddRichiestaListener(editLavoro));
 					editLavoro.setEditLavoroListeners(ctr.EditLavoroListener());
 					editLavoro.setAddCantiereListeners(ctr.EditCantiereListener(editLavoro,(Integer)data[0]));
+					editLavoro.addDeleteLavoroListener(ctr.DeleteLavoroListener(editLavoro));
+					editLavoro.addDeleteRichiestaListener(ctr.DeleteRichiestaListener(editLavoro));
 					
-					
-					/*ass.addAggiungiAssociazioneListener(ctr.addAssociazioneListener(ass,(int) mainView.getSelectedData()[0]));
-					ass.addPropertyChangeListener(ctr.checkAssociazioni(ass));
-					ass.addComboBoxListener(ctr.cambioTipoMacchina(ass));
-					ass.addRimuoviAssoziazioneListener(ctr.btnRimuoviListener(ass));
-					model.addAssociazioniObserver(ass.tableModel);
-					for(Associazione a:model.elencoAssociazioniCantiere((int) mainView.getSelectedData()[0])){
-						Object[] list={a.getID(),a.getMacchina().getProduttore()+" - "+a.getMacchina().getModello()
-								,a.getDataInizio(),a.getDataFine()};
-						
-						ass.addData(list);
-	 				}*/
 				}
 				else{
 					JOptionPane.showMessageDialog(null,"Selezionare il cantiere cui aggiungere delle associazioni.","Error", JOptionPane.ERROR_MESSAGE);

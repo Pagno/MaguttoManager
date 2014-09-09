@@ -9,9 +9,13 @@ import java.util.Observer;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaCamion;
+import model.organizer.data.RichiestaEscavatore;
+import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
+import model.organizer.data.RichiestaRuspa;
 
 
 
@@ -185,13 +189,14 @@ public class ModelCantiere extends Observable{
 		cantiere.rimuoviLavoro(codiceLavoro);
 	}
 	
-	public void rimuoviLavoro(int codiceLavoro){
+	public boolean rimuoviLavoro(int codiceLavoro){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				item.rimuoviLavoro(codiceLavoro);
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
@@ -310,20 +315,25 @@ public class ModelCantiere extends Observable{
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
-	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
+	public ArrayList<String> aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
+		ArrayList<String> v1=null;
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
-			l.inserisciRichiesta(caratteristiche);
+			int codiceRichiesta=l.inserisciRichiesta(caratteristiche);
 			
-			/*
-			ArrayList<String> v1=new ArrayList<String>();
-			v1.add(Integer.toString(codiceLavoro));
-			for(Observer ob:richiestaObserver){
-				ob.update(this, v1);
-			}
-			*/
+			
+			v1=new ArrayList<String>();
+			v1.add(Integer.toString(codiceLavoro));v1.add(Integer.toString(codiceRichiesta));
+			String tipo="";
+			tipo+=(caratteristiche instanceof RichiestaCamion)==true?"Camion":"";
+			tipo+=(caratteristiche instanceof RichiestaRuspa)==true?"Ruspa":"";
+			tipo+=(caratteristiche instanceof RichiestaEscavatore)==true?"Escavatore":"";
+			tipo+=(caratteristiche instanceof RichiestaGru)==true?"Gru":"";
+			v1.add(tipo);
 		}
+		
+		return v1;
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
@@ -448,15 +458,16 @@ public class ModelCantiere extends Observable{
 		}
 	}
 	
-	public void rimuoviRichiesta(int codiceRichiesta){
-		ciclo:for(Cantiere can:listaCantieri){
+	public boolean rimuoviRichiesta(int codiceRichiesta){
+		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
 					lav.eliminaRichiesta(codiceRichiesta);
-					break ciclo;
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
 	public void rimuoviRichiesta(int codiceLavoro,int codiceRichiesta){

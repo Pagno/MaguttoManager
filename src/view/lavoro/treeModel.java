@@ -39,7 +39,8 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 		for(workNode wn:listaLavori){
 			if(wn.getCodiceLavoro()==Integer.parseInt(richiesta.get(0))){
 				wn.addRichiesta(richiesta);
-				break;
+				richiestaNode a=new richiestaNode(richiesta);
+				insertNodeInto(a, wn, 0);
 			}
 				
 		}//aggiungo il nodo

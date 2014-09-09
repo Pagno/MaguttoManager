@@ -9,7 +9,6 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
-
 import model.organizer.ModelCamion;
 import model.organizer.ModelCantiere;
 import model.organizer.ModelEscavatore;
@@ -282,33 +281,37 @@ public class ModelConnector extends Observable implements ModelInterface{
 							lavoro.getStrDataInizio() + "','" + lavoro.getStrDataFine() + "')" ;
 					db.update(qry);
 					for(Richiesta richiesta:lavoro.getListaRichieste()){
+
+						String codiceMacchina=richiesta.getMacchina()==null?"":"CodiceMacchina,";
+						String codice=richiesta.getMacchina()==null?"":""+richiesta.getMacchina().getCodice()+",";
+						
 						if(richiesta.getCaratteristiche() instanceof RichiestaCamion ){
 							RichiestaCamion camion=(RichiestaCamion)richiesta.getCaratteristiche();
-							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,CapacitaMin,CapacitaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax)"+
-								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Camion','" +
-								camion.getMinCapacita() + ",'" + camion.getMaxCapacita() + "','" + camion.getMinPortata() + "','" +  camion.getMaxPortata() + "','" + 
-								camion.getMinLunghezza() + "','" + camion.getMaxLunghezza() + "')" ;
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,CapacitaMin,CapacitaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax)"+
+								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+",'Camion'," +
+								camion.getMinCapacita() + "," + camion.getMaxCapacita() + "," + camion.getMinPortata() + "," +  camion.getMaxPortata() + "," + 
+								camion.getMinLunghezza() + "," + camion.getMaxLunghezza() + ")" ;
 							db.update(qry);
 						}else if(richiesta.getCaratteristiche() instanceof RichiestaGru ){
 							RichiestaGru Gru=(RichiestaGru)richiesta.getCaratteristiche();
-							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,AltezzaMin,AltezzaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax,RotazioneMin,RotazioneMax)"+
-								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Gru','" +
-								Gru.getMinAltezza() + ",'" + Gru.getMaxAltezza() + "','" + Gru.getMinPortata() + "','" +  Gru.getMaxPortata() + "','" + 
-								Gru.getMinLunghezza() + "','" + Gru.getMaxLunghezza() + "','" + Gru.getMinAngoloRotazione() +"','" + Gru.getMaxAngoloRotazione() +"')" ;
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,AltezzaMin,AltezzaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax,RotazioneMin,RotazioneMax)"+
+								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+"'Gru'," +
+								Gru.getMinAltezza() + "," + Gru.getMaxAltezza() + "," + Gru.getMinPortata() + "," +  Gru.getMaxPortata() + "," + 
+								Gru.getMinLunghezza() + "," + Gru.getMaxLunghezza() + "," + Gru.getMinAngoloRotazione() +"," + Gru.getMaxAngoloRotazione() +")" ;
 							db.update(qry);
 						}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore ){
 							RichiestaEscavatore escavatore=(RichiestaEscavatore)richiesta.getCaratteristiche();
-							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,AltezzaMin,AltezzaMin,PortataMin,PortataMax,CapacitaMin,CapacitaMax,ProfonditaMin,ProfonditaMax)"+
-								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Escavatore','" +
-								escavatore.getMinAltezza() + ",'" + escavatore.getMaxAltezza() + "','" + escavatore.getMinPortata() + "','" +  escavatore.getMaxPortata() + "','" + 
-								escavatore.getMinCapacita() + "','" + escavatore.getMaxCapacita() + "','" + escavatore.getMinProfondita() +"','" + escavatore.getMaxProfondita() +"')" ;
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,AltezzaMin,AltezzaMin,PortataMin,PortataMax,CapacitaMin,CapacitaMax,ProfonditaMin,ProfonditaMax)"+
+								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + ","+codice+"'Escavatore'," +
+								escavatore.getMinAltezza() + "," + escavatore.getMaxAltezza() + "," + escavatore.getMinPortata() + "," +  escavatore.getMaxPortata() + "," + 
+								escavatore.getMinCapacita() + "," + escavatore.getMaxCapacita() + "," + escavatore.getMinProfondita() +"," + escavatore.getMaxProfondita() +")" ;
 							db.update(qry);
 						}else if(richiesta.getCaratteristiche() instanceof RichiestaRuspa ){
 							RichiestaRuspa ruspa=(RichiestaRuspa)richiesta.getCaratteristiche();
-							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,CodiceMacchina,Tipo,AltezzaMin,AltezzaMin,PortataMin,PortataMax,CapacitaMin,CapacitaMax)"+
-								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + "','" + richiesta.getMacchina().getCodice() + "','Ruspa','" +
-								ruspa.getMinAltezza() + ",'" + ruspa.getMaxAltezza() + "','" + ruspa.getMinPortata() + "','" +  ruspa.getMaxPortata() + "','" + 
-								ruspa.getMinCapacita() + "','" + ruspa.getMaxCapacita() + "','" +"')" ;
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,AltezzaMin,AltezzaMax,PortataMin,PortataMax,CapacitaMin,CapacitaMax)"+
+								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+"'Ruspa'," +
+								ruspa.getMinAltezza() + "," + ruspa.getMaxAltezza() + "," + ruspa.getMinPortata() + "," +  ruspa.getMaxPortata() + "," + 
+								ruspa.getMinCapacita() + "," + ruspa.getMaxCapacita() +")" ;
 							db.update(qry);
 						}
 					}
@@ -861,14 +864,16 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	@Override
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere) {
-		ArrayList<ArrayList<String>> elencoLavori=new ArrayList<ArrayList<String>>();
-		ArrayList<String> l;
+		ArrayList<ArrayList<String>> elencoRichieste=new ArrayList<ArrayList<String>>();
+		ArrayList<String> l=null;
 		for(Lavoro lavoro:lc.getCantiere(codiceCantiere).getElencoLavori()){
 			for(Richiesta richieste:lavoro.getListaRichieste()){
 				l=new ArrayList<String>();
+				//TODO Sistemare caricamento richieste
 			}
+			//elencoRichieste.add(l);
 		}
-		return elencoLavori;
+		return elencoRichieste;
 	}
 
 	@Override
@@ -877,9 +882,19 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void addRichiesta(int codiceCantiere, int codiceLavoro,
+	public ArrayList<String> addRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
-		lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
+		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
+	}
+
+	@Override
+	public boolean deleteRichiesta(int codiceRichiesta) {
+		return lc.rimuoviRichiesta(codiceRichiesta);
+	}
+
+	@Override
+	public boolean deleteLavoro(int codiceLavoro) {
+		return lc.rimuoviLavoro(codiceLavoro);
 	}
 
 }

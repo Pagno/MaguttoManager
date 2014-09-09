@@ -258,29 +258,62 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RichiestaMacchina richiesta;
+				RichiestaMacchina richiesta=null;
+				ArrayList<String> v1=null;
+				
+				System.out.println();
+				
 				if(editLavoro.getTipoMacchina()=="Gru"){
 					richiesta=new RichiestaGru(editLavoro.getMinLunghezza(), editLavoro.getMaxLunghezza(),
 							editLavoro.getMinAltezza(), editLavoro.getMaxAltezza(), editLavoro.getMinPortata(),editLavoro.getMaxPortata(),editLavoro.getMinRotazione(), editLavoro.getMaxRotazione());
-					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
-					//System.out.println("Codice Cantiere: "+editLavoro.getCodiceCantiere());
+						//System.out.println("Codice Cantiere: "+editLavoro.getCodiceCantiere());
 					//System.out.println("Codice Lavoro: "+editLavoro.getCodiceLavoro());
 				}else if(editLavoro.getTipoMacchina()=="Ruspa"){
 					richiesta=new RichiestaRuspa(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
 							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinAltezza(),editLavoro.getMaxAltezza());
-					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
-				}else if(editLavoro.getTipoMacchina()=="Camion"){
+					}else if(editLavoro.getTipoMacchina()=="Camion"){
 					richiesta=new RichiestaCamion(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
 							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinLunghezza(),editLavoro.getMaxLunghezza());
-					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
 				}else if(editLavoro.getTipoMacchina()=="Escavatore"){
 					richiesta=new RichiestaEscavatore(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
 							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinAltezza(),editLavoro.getMaxAltezza(),editLavoro.getMinProfondita(), editLavoro.getMaxProfondita());
-					model.addRichiesta(editLavoro.getCodiceLavoro(), editLavoro.getCodiceLavoro(), richiesta);
 				}
+				v1=model.addRichiesta(editLavoro.getCodiceCantiere(), editLavoro.getCodiceLavoro(), richiesta);
+				
+				v1.add(Integer.toString(editLavoro.getMinCapacita()));v1.add(Integer.toString(editLavoro.getMaxCapacita()));
+				v1.add(Integer.toString(editLavoro.getMinPortata()));v1.add(Integer.toString(editLavoro.getMaxPortata()));
+				v1.add(Integer.toString(editLavoro.getMinLunghezza()));v1.add(Integer.toString(editLavoro.getMaxLunghezza()));
+				v1.add(Integer.toString(editLavoro.getMinAltezza()));v1.add(Integer.toString(editLavoro.getMaxAltezza()));
+				v1.add(Integer.toString(editLavoro.getMinProfondita()));v1.add(Integer.toString(editLavoro.getMaxProfondita()));
+				v1.add(Integer.toString(editLavoro.getMinRotazione()));v1.add(Integer.toString(editLavoro.getMaxRotazione()));
+				System.out.println(v1);
+				editLavoro.addRichiesta(v1);
 			}
 		};
 	}
+	
+	public ActionListener DeleteRichiestaListener(final EditLavoro editLavoro) {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.print(editLavoro.getCodiceRichiestaSelezionata());
+				//model.deleteRichiesta(editLavoro.getCodiceRichiestaSelezionata());
+				editLavoro.removeSelectedData();
+			}
+		};
+	}
+	
+	public ActionListener DeleteLavoroListener(final EditLavoro editLavoro) {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.print(editLavoro.getCodiceLavoroSelezionato());
+				//model.deleteLavoro(editLavoro.getCodiceLavoroSelezionato());
+				editLavoro.removeSelectedData();
+			}
+		};
+	}
+	
 	/**
 	 * Aggiorna elenco macchine.
 	 *

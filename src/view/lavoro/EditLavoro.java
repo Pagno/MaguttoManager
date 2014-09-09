@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -18,8 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-
 
 import view.lavoro.panel.CantierePanel;
 import view.lavoro.panel.LavoroPanel;
@@ -38,13 +39,14 @@ public class EditLavoro extends JDialog {
 	private LavoroPanel pnlLavoro;
 	private CantierePanel pnlCantiere;
 	private VisualizzaRichiestaPanel pnlVisualizzaPanel;
-	
+	private JButton btnDelete;
 	//MODELLI TABELLA JTREE
 	public treeModel treeModel;
 	private JTree tree;
 	private JScrollPane scrollpane;
 	private Object[] datiCantiere;
 
+	
 	//LAVORO PANEL
 	/**
 	 * Create the dialog.
@@ -99,8 +101,12 @@ public class EditLavoro extends JDialog {
 	    tree.setCellRenderer(renderer);
 		scrollpane = new JScrollPane(tree,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollpane.setBounds(0,0,200, 500);
-		contentPane.add(scrollpane,BorderLayout.WEST);
-
+		
+		JPanel pnlWest=new JPanel(new BorderLayout(0,0));
+		pnlWest.add(scrollpane,BorderLayout.CENTER);
+		btnDelete=new JButton("Delete");
+		pnlWest.add(btnDelete,BorderLayout.SOUTH);
+		contentPane.add(pnlWest,BorderLayout.WEST);
 		CardLayout cl = (CardLayout)(cardPanel.getLayout());
 		
 		cl.show(cardPanel,"cantiere");
@@ -120,6 +126,7 @@ public class EditLavoro extends JDialog {
 		CardLayout  cl = (CardLayout)(cardPanel.getLayout());
 		if (tp!=null && tp.getPath().length==1){
 			cl.show(cardPanel,"cantiere");
+			btnDelete.setEnabled(false);
 		}
 		else if (tp!=null && tp.getPath().length==2){//VISUALIZZO IL PANNELLO LAVORO
 			cl.show(cardPanel,"lavoro");
@@ -127,9 +134,15 @@ public class EditLavoro extends JDialog {
 			pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
 			//Controllo se il Lavoro e nuovo oppure e gia stato inserito
 			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
+				btnDelete.setEnabled(false);
 				pnlLavoro.clear();pnlLavoro.btnAddActionListener(addLavoroActionListener);
 				pnlLavoro.btnLavoro.setText("Inserisci");
 			}else{
+				btnDelete.setEnabled(true);				
+				for( ActionListener al : btnDelete.getActionListeners() ) {
+					btnDelete.removeActionListener( al );
+				}
+				btnDelete.addActionListener(deleteLavoroListener);
 				ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
 				codiceLavoro=Integer.parseInt(data.get(0));
 				pnlLavoro.fill(data);pnlLavoro.btnAddActionListener(editLavoroActionListener);
@@ -137,11 +150,21 @@ public class EditLavoro extends JDialog {
 			}
 		}else if(tp!=null && tp.getPath().length==3){//VISUALIZZO IL PANNELLO RICHIESTA
 			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
+				btnDelete.setEnabled(false);
+				for( ActionListener al : btnDelete.getActionListeners() ) {
+					btnDelete.removeActionListener( al );
+				}
+				btnDelete.addActionListener(deleteRichiestaListener);
 				addNode selected=(addNode)tp.getPath()[tp.getPath().length-1];
 				codiceLavoro=((workNode)selected.getParent()).getCodiceLavoro();
-			
+				pnlAddRichiesta.clearData();
 				cl.show(cardPanel,"richiesta");
 			}else{
+				btnDelete.setEnabled(true);
+				for( ActionListener al : btnDelete.getActionListeners() ) {
+					btnDelete.removeActionListener( al );
+				}
+				btnDelete.addActionListener(deleteRichiestaListener);
 				cl.show(cardPanel,"visualizza");
 				ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
 			}
@@ -173,7 +196,14 @@ public class EditLavoro extends JDialog {
 	public void addMouseListener(MouseAdapter adp){
 		tree.addMouseListener(adp);
 	}
-	
+	ActionListener deleteLavoroListener;
+	public void addDeleteLavoroListener(ActionListener adp){
+		deleteLavoroListener=adp;
+	}
+	ActionListener deleteRichiestaListener;
+	public void addDeleteRichiestaListener(ActionListener adp){
+		deleteRichiestaListener=adp;
+	}
 	
 	//ACCESSO AI DATI DEL CANTIERE
 	public int getCodiceCantiere(){return (int)datiCantiere[0];}
@@ -211,6 +241,33 @@ public class EditLavoro extends JDialog {
 	public int getMaxRotazione() {return pnlAddRichiesta.getMaxRotazione();	}
 	
 	public String getTipoMacchina() {return pnlAddRichiesta.getType();}
+
+
+	public int getCodiceRichiestaSelezionata() {
+		TreePath tp=tree.getSelectionPath();
+		ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
+		return Integer.parseInt(data.get(1));
+	}
+
+	public int getCodiceLavoroSelezionato() {
+		TreePath tp=tree.getSelectionPath();
+		ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
+		return Integer.parseInt(data.get(0));
+	}
+
+
+	public void removeSelectedData() {
+		System.out.println("rimozione path");
+		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+
+        TreePath[] paths = tree.getSelectionPaths();
+        for (TreePath path : paths) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+            if (node.getParent() != null) {
+                model.removeNodeFromParent(node);
+            }
+        }
+	}
 
 }
 

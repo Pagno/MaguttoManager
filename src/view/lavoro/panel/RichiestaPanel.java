@@ -1,7 +1,6 @@
 package view.lavoro.panel;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,7 +47,7 @@ public class RichiestaPanel extends JPanel {
 		});
 		createPanel();
 		Type.addActionListener(TypeListener());
-		//Type.setSelectedIndex(0);
+		Type.setSelectedIndex(0);
 		
 	}
 	private void createPanel(){
@@ -205,6 +204,8 @@ public class RichiestaPanel extends JPanel {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				clearData();
+				
 				if(((String)Type.getSelectedItem()).equals("Gru")){
 					setVisibilitaCapacita(false);
 					setVisibilitaPortata(true);
@@ -256,26 +257,32 @@ public class RichiestaPanel extends JPanel {
 	private void setVisibilitaCapacita(Boolean vis){
 		lblCapacita.setVisible(vis);
 		txtMinCapacita.setVisible(vis);
+		txtMaxCapacita.setVisible(vis);
 	}
 	private void setVisibilitaPortata(Boolean vis){
 		lblPortata.setVisible(vis);
 		txtMinPortata.setVisible(vis);
+		txtMaxPortata.setVisible(vis);
 	}
 	private void setVisibilitaLunghezza(Boolean vis){
 		lblLunghezza.setVisible(vis);
 		txtMinLunghezza.setVisible(vis);
+		txtMaxLunghezza.setVisible(vis);
 	}
 	private void setVisibilitaAltezza(Boolean vis){
 		lblAltezza.setVisible(vis);
 		txtMinAltezza.setVisible(vis);
+		txtMaxAltezza.setVisible(vis);
 	}
 	private void setVisibilitaProfondita(Boolean vis){
 		lblProfondita.setVisible(vis);
 		txtMinProfondita.setVisible(vis);
+		txtMaxProfondita.setVisible(vis);
 	}
 	private void setVisibilitaRotazione(Boolean vis){
 		lblRotazione.setVisible(vis);
 		txtMinRotazione.setVisible(vis);
+		txtMaxRotazione.setVisible(vis);
 	}
 	/*public void fill(ArrayList<String> data){
 		dataInizioCantiere.setDate(null);
@@ -324,6 +331,22 @@ public class RichiestaPanel extends JPanel {
 	}
 	public int getMaxRotazione() {
 		return txtMaxRotazione.getText().equals("")?0:Integer.parseInt(txtMaxRotazione.getText());
+	}
+	public void clearData() {
+
+		txtMinPortata.setText("");
+		txtMinCapacita.setText("");
+		txtMinLunghezza.setText("");
+		txtMinAltezza.setText("");
+		txtMinProfondita.setText("");
+		txtMinRotazione.setText("");
+		
+		txtMaxPortata.setText("");
+		txtMaxCapacita.setText("");
+		txtMaxLunghezza.setText("");
+		txtMaxAltezza.setText("");
+		txtMaxProfondita.setText("");
+		txtMaxRotazione.setText("");
 	}
 
 }
