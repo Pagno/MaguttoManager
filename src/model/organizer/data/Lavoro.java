@@ -3,21 +3,21 @@ package model.organizer.data;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 
-public class Lavoro{
+public class Lavoro extends DefaultMutableTreeNode{
 
 	private int codice;
 	private String nome;
 	private GregorianCalendar dataInizio;
 	private GregorianCalendar dataFine;
 	private ArrayList<Richiesta> macchinariRichiesti;
-	
+	private Cantiere cantiere;
 	
 	public Lavoro(int codice, String nome, GregorianCalendar dataInizio,
-			GregorianCalendar dataFine) {
+			GregorianCalendar dataFine,Cantiere c) {
 		super();
 
 		this.codice = codice;
@@ -129,7 +129,10 @@ public class Lavoro{
 		Richiesta r=new Richiesta(caratteristiche);
 		System.out.println("Richiesta aggiunta al lavoro +"+getCodice());
 		macchinariRichiesti.add(r);
+		add(caratteristiche);
 		return r.getCodice();
+		
+		
 	}
 	
 	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){

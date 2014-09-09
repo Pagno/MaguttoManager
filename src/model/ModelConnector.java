@@ -273,6 +273,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"values(" + cantiere.getCodice() + ",'" + cantiere.getNomeCantiere() + "','" + 
 						cantiere.getStrDataApertura() + "','" + cantiere.getStrDataChiusura() + 
 						"','" + cantiere.getIndirizzo() + "','" + cantiere.getPrioritaString() +"')" ;
+				System.out.println(qry);
 				db.update(qry);
 				
 				for(Lavoro lavoro: cantiere.getElencoLavori()){
@@ -867,15 +868,56 @@ public class ModelConnector extends Observable implements ModelInterface{
 		ArrayList<ArrayList<String>> elencoRichieste=new ArrayList<ArrayList<String>>();
 		ArrayList<String> l=null;
 		for(Lavoro lavoro:lc.getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta richieste:lavoro.getListaRichieste()){
+			for(Richiesta richiesta:lavoro.getListaRichieste()){
 				l=new ArrayList<String>();
-				//TODO Sistemare caricamento richieste
+				l.add(Integer.toString(lavoro.getCodice()));l.add(Integer.toString(richiesta.getCodice()));
+				if(richiesta.getCaratteristiche() instanceof RichiestaCamion){
+					RichiestaCamion rc=(RichiestaCamion)richiesta.getCaratteristiche();
+					l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+					l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+					l.add(Integer.toString(rc.getMinLunghezza()));l.add(Integer.toString(rc.getMaxLunghezza()));
+					l.add("0");l.add("0");
+					l.add("0");l.add("0");
+					l.add("0");l.add("0");
+				}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore){
+					RichiestaEscavatore rc=(RichiestaEscavatore)richiesta.getCaratteristiche();
+					l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+					l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+					l.add("0");l.add("0");
+					l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+					l.add(Integer.toString(rc.getMinProfondita()));l.add(Integer.toString(rc.getMaxProfondita()));
+					l.add("0");l.add("0");
+					
+				}else if(richiesta.getCaratteristiche() instanceof RichiestaGru){
+					RichiestaGru rc=(RichiestaGru)richiesta.getCaratteristiche();
+					l.add("0");l.add("0");
+					l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+					l.add(Integer.toString(rc.getMinLunghezza()));l.add(Integer.toString(rc.getMaxLunghezza()));
+					l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+					l.add("0");l.add("0");
+					l.add(Integer.toString(rc.getMinAngoloRotazione()));l.add(Integer.toString(rc.getMaxAngoloRotazione()));
+				}else if(richiesta.getCaratteristiche() instanceof RichiestaRuspa){
+					RichiestaRuspa rc=(RichiestaRuspa)richiesta.getCaratteristiche();
+					l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+					l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+					l.add("0");l.add("0");
+					l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+					l.add("0");l.add("0");
+					l.add("0");l.add("0");
+
+					elencoRichieste.add(l);
+				}
 			}
-			//elencoRichieste.add(l);
 		}
 		return elencoRichieste;
 	}
-
+	public Cantiere  getCantiere(int codiceCantiere){
+		for(Cantiere cantiere:lc.getListaCantieri()){
+			if(cantiere.getCodice()==codiceCantiere)
+				return cantiere;
+		}
+		return null;
+	}
 	@Override
 	public ArrayList<Cantiere> getListaCantieri() {
 		return lc.getListaCantieri();

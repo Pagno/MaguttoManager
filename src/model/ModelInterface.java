@@ -194,6 +194,8 @@ public interface ModelInterface {
 	 */
 	public boolean eliminaCantiere(int codice);
 	
+	public Cantiere getCantiere(int codiceCantiere);
+	
 	
 	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
 	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine);

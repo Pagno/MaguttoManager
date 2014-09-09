@@ -22,6 +22,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import model.organizer.data.Cantiere;
 import view.lavoro.panel.CantierePanel;
 import view.lavoro.panel.LavoroPanel;
 import view.lavoro.panel.RichiestaPanel;
@@ -51,10 +52,10 @@ public class EditLavoro extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditLavoro(JFrame view,Object[] datiCantiere) {
+	public EditLavoro(JFrame view,Cantiere datiCantiere) {
 		super(view);
 		setTitle("Edit Cantiere");
-		this.datiCantiere=datiCantiere;
+		//this.datiCantiere=datiCantiere;
 		setBounds(0, 0, 700, 500);
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -79,7 +80,7 @@ public class EditLavoro extends JDialog {
 		//CARICO I PANNELLI
 		cardPanel= new JPanel(new CardLayout());
 		pnlCantiere= new CantierePanel();
-		pnlCantiere.setDatiCantiere(datiCantiere);
+		//pnlCantiere.setDatiCantiere(datiCantiere);
 		pnlLavoro= new LavoroPanel(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
 		pnlAddRichiesta= new RichiestaPanel();
 		pnlVisualizzaPanel=new VisualizzaRichiestaPanel();
@@ -91,9 +92,10 @@ public class EditLavoro extends JDialog {
 		cardPanel.add(pnlVisualizzaPanel,"visualizza");
 
 		contentPane.add(cardPanel,BorderLayout.CENTER);
-		treeModel = new treeModel(datiCantiere[1].toString()); 
-		addNode nuovoLavoro=new addNode("Aggiungi Lavoro");
 		
+		treeModel = new treeModel(datiCantiere); 
+		addNode nuovoLavoro=new addNode("Aggiungi Lavoro");
+		treeModel.reload(datiCantiere);
 		tree=new JTree(treeModel);
 		tree.setSize(200, 500);
 
@@ -167,11 +169,14 @@ public class EditLavoro extends JDialog {
 				btnDelete.addActionListener(deleteRichiestaListener);
 				cl.show(cardPanel,"visualizza");
 				ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
+				pnlVisualizzaPanel.loadData(data);
 			}
 		}
 	}	
 	
-	
+	public void addAggiungiAssociazioneListener(ActionListener act){
+		pnlVisualizzaPanel.addAggiungiAssociazioneListener(act);
+	}
 	public void setAddCantiereListeners(ActionListener act) {
 		pnlCantiere.setAddCantiereListeners(act);
 	}

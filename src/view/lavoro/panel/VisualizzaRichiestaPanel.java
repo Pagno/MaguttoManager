@@ -1,8 +1,11 @@
 package view.lavoro.panel;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
@@ -13,11 +16,11 @@ public class VisualizzaRichiestaPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 8632987215239339395L;
-	
+	private ArrayList<String> data;
 	
 
-	private JLabel lblText1,lblText2,lblText3,lblText4,lblText5,lblText6;
-	private JLabel lblDato1,lblDato2,lblDato3,lblDato4,lblDato5,lblDato6;
+	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
+	private JButton btnAssociaMacchina;
 	/**
 	 * Create the panel.
 	 */
@@ -26,92 +29,35 @@ public class VisualizzaRichiestaPanel extends JPanel {
 		createPanel();
 	}
 	private void createPanel(){
-		lblDato1 = new JLabel("NomeLavoro:");
-		lblDato2 = new JLabel("Data Inizio:");
-		lblDato3  = new JLabel("Data Fine:");
-		lblDato4 = new JLabel("NomeLavoro:");
-		lblDato5 = new JLabel("Data Inizio:");
-		lblDato6  = new JLabel("Data Fine:");
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		lblTipo=new JLabel();
+		lblPortata=new JLabel("Portata");
+		lblCapacita=new JLabel("Capacita");
+		lblLunghezza=new JLabel("Lunghezza");
+		lblAltezza=new JLabel("Altezza");
+		lblProfondita=new JLabel("Profondita");
+		lblRotazione=new JLabel("Rotazione");
+		btnAssociaMacchina=new JButton("Associa Macchina");
 		
+		add(lblTipo);
+		add(lblCapacita);
+		add(lblPortata);
+		add(lblLunghezza);
+		add(lblAltezza);
+		add(lblProfondita);
+		add(lblRotazione);
+		add(btnAssociaMacchina);
+	}
 
-		lblText1 = new JLabel("NomeLavoro:");
-		lblText2 = new JLabel("Data Inizio:");
-		lblText3 = new JLabel("Data Fine:");
-		lblText4 = new JLabel("NomeLavoro:");
-		lblText5 = new JLabel("Data Inizio:");
-		lblText6  = new JLabel("Data Fine:");
-		
-		GroupLayout layout = new GroupLayout(this);
-		layout.setAutoCreateContainerGaps(true);
-		layout.setAutoCreateGaps(true);
-
-		layout.setHorizontalGroup(layout
-				.createSequentialGroup()
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblText1)
-								.addComponent(lblText2)
-								.addComponent(lblText3)
-								.addComponent(lblText4)
-								.addComponent(lblText5)
-								.addComponent(lblText6))
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato1)
-								.addComponent(lblDato2)
-								.addComponent(lblDato3)
-								.addComponent(lblDato4)
-								.addComponent(lblDato5)
-								.addComponent(lblDato6)));
-		layout.setVerticalGroup(layout
-				.createSequentialGroup()
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato1 )
-								.addComponent(lblText1,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato2 )
-								.addComponent(lblText2,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato3 )
-								.addComponent(lblText3,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato4 )
-								.addComponent(lblText4,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato5 )
-								.addComponent(lblText5,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
-						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDato6 )
-								.addComponent(lblText6,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)));
-
-		this.setLayout(layout);
-		
+	public void addAggiungiAssociazioneListener(ActionListener act){
+		btnAssociaMacchina.addActionListener(act);
 	}
 	public void loadData(ArrayList<String> dati){
-		
+		data=dati;
+		lblTipo.setText(data.get(2));
+		lblCapacita.setText(data.get(3)+" <Capactia< "+data.get(4));
+	}
+	public ArrayList<String> getData(){
+		return data;
 	}
 }

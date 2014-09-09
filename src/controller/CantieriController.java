@@ -296,8 +296,8 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.print(editLavoro.getCodiceRichiestaSelezionata());
-				//model.deleteRichiesta(editLavoro.getCodiceRichiestaSelezionata());
+				//System.out.print(editLavoro.getCodiceRichiestaSelezionata());
+				model.deleteRichiesta(editLavoro.getCodiceRichiestaSelezionata());
 				editLavoro.removeSelectedData();
 			}
 		};
@@ -307,8 +307,8 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.print(editLavoro.getCodiceLavoroSelezionato());
-				//model.deleteLavoro(editLavoro.getCodiceLavoroSelezionato());
+				//System.out.print(editLavoro.getCodiceLavoroSelezionato());
+				model.deleteLavoro(editLavoro.getCodiceLavoroSelezionato());
 				editLavoro.removeSelectedData();
 			}
 		};

@@ -564,7 +564,7 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				Object[] data=mainView.getSelectedData();
 				if(data!=null){					
-					EditLavoro editLavoro = new EditLavoro(mainView, data);
+					EditLavoro editLavoro = new EditLavoro(mainView, model.getCantiere((int)data[0]));
 					CantieriController ctr = new CantieriController(model);
 					model.addLavoroObserver(editLavoro.treeModel);
 					model.addRichiestaObserver(editLavoro.treeModel);
