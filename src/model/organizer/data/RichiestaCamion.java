@@ -69,7 +69,7 @@ public class RichiestaCamion extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return  minCapacita + "-"
+		return  "Richiesta:Camion " + minCapacita + "-"
 				+  maxCapacita + " "  + minPortata
 				+ "-" + maxPortata + " " + minLunghezza
 				+ "-" + maxLunghezza ;

@@ -99,6 +99,10 @@ public class ModelCantiere extends Observable{
 
 
 	public boolean rimuoviCantiere(String nomeCantiere){
+		/*TODO controllare se viene utilizzato:
+		 * se non viene utilizzato eliminarlo
+		 * se viene utilizzato fare in modo che la stringa sia univoca in inserimenti, caricamenti e modifiche
+		 */
 		for(Cantiere item:listaCantieri){
 			if(item.getNomeCantiere().equals(nomeCantiere)){
 				this.listaCantieri.remove(item);
