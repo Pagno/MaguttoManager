@@ -896,5 +896,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public boolean deleteLavoro(int codiceLavoro) {
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
-
+	
+	@Override
+	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
+		Macchina macchina=getMacchina(codiceMacchina);
+		lc.soddisfaRichiesta(codiceRichiesta, macchina);
+	}
 }
