@@ -1,6 +1,7 @@
 package model.organizer;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import model.organizer.data.Camion;
 
@@ -153,6 +154,11 @@ public class ModelCamion extends ModelMacchina{
 		}
 		return null;
 	}
+	
+	public ArrayList<Camion> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		//TODO
+		return null;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -177,4 +183,6 @@ public class ModelCamion extends ModelMacchina{
 			istanza=null;
 		}
 	}
+	
+	
 }
