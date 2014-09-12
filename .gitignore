@@ -4,6 +4,7 @@
 bin
 MyDB
 
+*.log
 *.com
 *.class
 *.dll
@@ -11,4 +12,3 @@ MyDB
 *.o
 *.so
 *.log
-derby.log

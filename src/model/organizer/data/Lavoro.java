@@ -126,14 +126,14 @@ public class Lavoro{
 
 
 	public int inserisciRichiesta(RichiestaMacchina caratteristiche){
-		Richiesta r=new Richiesta(caratteristiche);
+		Richiesta r=new Richiesta(caratteristiche,this);
 		System.out.println("Richiesta aggiunta al lavoro +"+getCodice());
 		macchinariRichiesti.add(r);
 		return r.getCodice();
 	}
 	
 	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
-		Richiesta r=new Richiesta(caratteristiche,codice);
+		Richiesta r=new Richiesta(caratteristiche,this,codice);
 		if(r.rispettaRichiesta(m)){
 			r.setMacchina(m);
 		}

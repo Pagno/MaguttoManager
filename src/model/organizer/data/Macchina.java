@@ -86,4 +86,12 @@ public abstract class Macchina {
 		}
 		return false;
 	}
+	
+	public void addRichiesta(Richiesta r){
+		//TODO addrichiesta
+	}
+	
+	public void removeRichiesta(Richiesta r){
+		//TODO removeRichiesta
+	}
 }
