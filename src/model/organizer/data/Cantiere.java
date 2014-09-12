@@ -63,10 +63,24 @@ public class Cantiere {
 	 */
 	public boolean rimuoviLavoro(int codiceLavoro) {
 		for(int i=0;i<lavori.size();i++){
-			if(lavori.get(i).getCodice()==codiceLavoro)
+			if(lavori.get(i).getCodice()==codiceLavoro){
+				lavori.get(i).svuotaRichieste();
 				lavori.remove(i);
+				return true;
+			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Rimuove tutti i lavori.
+	 *
+	 */
+	public void svuotaLavori(){
+		for(Lavoro l:lavori){
+			l.svuotaRichieste();
+		}
+		lavori.clear();
 	}
 	
 	/**

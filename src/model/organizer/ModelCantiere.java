@@ -105,6 +105,7 @@ public class ModelCantiere extends Observable{
 		 */
 		for(Cantiere item:listaCantieri){
 			if(item.getNomeCantiere().equals(nomeCantiere)){
+				item.svuotaLavori();
 				this.listaCantieri.remove(item);
 				return true;
 			}
@@ -117,10 +118,7 @@ public class ModelCantiere extends Observable{
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere cantiere:listaCantieri){
 			if(cantiere.getCodice() == codice){
-				for(Lavoro lavoro:cantiere.getElencoLavori()){
-					lavoro.getListaRichieste().clear();
-				}
-				cantiere.getElencoLavori().clear();
+				cantiere.svuotaLavori();
 				this.listaCantieri.remove(cantiere);
 				return true;
 			}
