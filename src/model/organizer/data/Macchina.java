@@ -103,7 +103,7 @@ public abstract class Macchina {
 	public boolean isFree(GregorianCalendar inizio,GregorianCalendar fine){
 		//if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
 		for(Richiesta richiesta:elencoRichiesta){
-			if(!(fine.before(richiesta.getLavoro.getDataInizio()) || inizio.after(richiesta.getLavoro.getDataFine())))
+			if(!(fine.before(richiesta.getDataInizio()) || inizio.after(richiesta.getDataFine())))
 				return false;
 		}
 		

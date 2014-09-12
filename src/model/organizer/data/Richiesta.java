@@ -1,5 +1,7 @@
 package model.organizer.data;
 
+import java.util.GregorianCalendar;
+
 public final class Richiesta implements Comparable<Richiesta>{
 	
 
@@ -168,6 +170,11 @@ public final class Richiesta implements Comparable<Richiesta>{
 	public int compareTo(Richiesta r) {
 		return this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio());
 	}
-	
+	public GregorianCalendar getDataInizio(){
+		return lavoro.getDataInizio();
+	}
+	public GregorianCalendar getDataFine(){
+		return lavoro.getDataFine();
+	}
 }
 
