@@ -169,11 +169,19 @@ public class Lavoro{
 	public boolean eliminaRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
+				item.setMacchina(null);
 				macchinariRichiesti.remove(item);
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public void svuotaRichieste(){
+		for(Richiesta item:macchinariRichiesti){
+				item.setMacchina(null);
+		}
+		macchinariRichiesti.clear();
 	}
 	
 	public void soddisfaRichiesta(Integer codice,Macchina mac){
@@ -186,22 +194,25 @@ public class Lavoro{
 		}
 	}
 	
-	//vogliamo cancellare l'associazione, quindi inseriamo null al posto dell'associazione precedente
-	public void liberaRichiesta(Integer codice){
+	//vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente
+	public void liberaRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
-			if(item.getCodice()==codice){
+			if(item.getCodice()==codiceRichiesta){
 					item.setMacchina(null);
 			}
 		}
 	}
+	
 	//Libera le richieste con associata una data macchina
 	public void liberaMacchina(int codiceMacchina){
+		//TODO
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getMacchina().getCodice()==codiceMacchina){
 					item.setMacchina(null);
 			}
 		}
 	}
+	
 	//Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
 	public boolean isScoperto(){
 		for(Richiesta item:macchinariRichiesti){
