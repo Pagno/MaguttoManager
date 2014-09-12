@@ -1,5 +1,8 @@
 package model.organizer.data;
 
+import java.util.GregorianCalendar;
+import java.util.TreeSet;
+
 // 
 /**
  *   Class Macchina.
@@ -15,6 +18,8 @@ public abstract class Macchina {
 	/**   produttore. */
 	private String produttore;
 	
+	/**   */
+	private TreeSet<Richiesta> elencoRichiesta;
 	/**
 	 * Instantiates a new macchina.
 	 *
@@ -26,6 +31,7 @@ public abstract class Macchina {
 		this.codice=codice;
 		this.produttore=produttore;
 		this.modello=modello;
+		elencoRichiesta=new TreeSet<Richiesta>();
 	}
 	
 	/**
@@ -88,10 +94,19 @@ public abstract class Macchina {
 	}
 	
 	public void addRichiesta(Richiesta r){
-		//TODO addrichiesta
+		elencoRichiesta.add(r);
 	}
 	
 	public void removeRichiesta(Richiesta r){
-		//TODO removeRichiesta
+		elencoRichiesta.remove(r);
+	}
+	public boolean isFree(GregorianCalendar inizio,GregorianCalendar fine){
+		//if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
+		for(Richiesta richiesta:elencoRichiesta){
+			if(!(fine.before(richiesta.getLavoro.getDataInizio()) || inizio.after(richiesta.getLavoro.getDataFine())))
+				return false;
+		}
+		
+		return true;
 	}
 }
