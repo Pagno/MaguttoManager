@@ -53,14 +53,61 @@ public class RichiestaTest {
 
 	@Test
 	public void testToString() {
-		//TODO
-		fail("Not yet implemented");
+		assertEquals(r.toString(), "22 Richiesta:Ruspa 5-10 5-10 5-10 false null");
+		r.setMacchina(new Ruspa(10,"Pippo","Pluto",7,8,9));
+		assertEquals(r.toString(), "22 Richiesta:Ruspa 5-10 5-10 5-10 true 10");
 	}
 
 	@Test
 	public void testEquals() {
-		//TODO
-		fail("Not yet implemented");
+		assertTrue(r.equals(r));
+		assertFalse(r.equals(null));
+		assertFalse(r.equals("Stringa"));
+		Richiesta a=new Richiesta(null,22);
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		assertFalse(a.equals(new Richiesta(null,23)));
+		assertTrue(a.equals(new Richiesta(null,22)));
+		assertTrue(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(6,10,5,10,5,10),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,11,5,10,5,10),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,6,10,5,10),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,11,5,10),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,6,10),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,11),22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),23)));
+		a=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),22);
+		assertTrue(r.equals(a));
+		assertTrue(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,7));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		r.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,7));
+		assertTrue(r.equals(a));
+		assertTrue(a.equals(r));
+		a.setMacchina(new Ruspa(8,"Yamaha","Ruspa",7,7,7));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Toyota","Ruspa",7,7,7));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Yamaha","Ruspetta",7,7,7));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",8,7,7));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,8,7));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,8));
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,7));
+		r.setMacchina(null);
+		assertFalse(r.equals(a));
+		assertFalse(a.equals(r));
+		
 	}
 
 	@Test

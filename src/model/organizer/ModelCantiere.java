@@ -109,8 +109,13 @@ public class ModelCantiere extends DefaultTreeModel{
 
 
 	public boolean rimuoviCantiere(String nomeCantiere){
+		/*TODO controllare se viene utilizzato:
+		 * se non viene utilizzato eliminarlo
+		 * se viene utilizzato fare in modo che la stringa sia univoca in inserimenti, caricamenti e modifiche
+		 */
 		for(Cantiere item:listaCantieri){
 			if(item.getNomeCantiere().equals(nomeCantiere)){
+				item.svuotaLavori();
 				this.listaCantieri.remove(item);
 				return true;
 			}
@@ -123,10 +128,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere cantiere:listaCantieri){
 			if(cantiere.getCodice() == codice){
-				for(Lavoro lavoro:cantiere.getElencoLavori()){
-					lavoro.getListaRichieste().clear();
-				}
-				cantiere.getElencoLavori().clear();
+				cantiere.svuotaLavori();
 				this.listaCantieri.remove(cantiere);
 				return true;
 			}

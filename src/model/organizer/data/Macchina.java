@@ -1,6 +1,11 @@
 package model.organizer.data;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.GregorianCalendar;
+import java.util.TreeSet;
+>>>>>>> master
 
 // 
 /**
@@ -18,8 +23,7 @@ public abstract class Macchina {
 	private String produttore;
 	
 	/**	  Richiesta 	*/
-	private ArrayList<Richiesta> richieste;
-	
+	private TreeSet<Richiesta> elencoRichiesta;
 
 	/**
 	 * Instantiates a new macchina.
@@ -32,6 +36,7 @@ public abstract class Macchina {
 		this.codice=codice;
 		this.produttore=produttore;
 		this.modello=modello;
+		elencoRichiesta=new TreeSet<Richiesta>();
 	}
 	
 	/**
@@ -93,30 +98,20 @@ public abstract class Macchina {
 		return false;
 	}
 	
-	/**
-	 * Gets   richiesta.
-	 *
-	 * @return   richiesta
-	 */	
-	public ArrayList<Richiesta> getRichiesta() {
-		return richieste;
+	public void addRichiesta(Richiesta r){
+		elencoRichiesta.add(r);
 	}
-
-	/**
-	 *
-	 * libera  macchina.
-	 *
-	 */
-	public void liberaMacchina(Richiesta richiesta) {
-		this.richieste.remove(richiesta);
+	
+	public void removeRichiesta(Richiesta r){
+		elencoRichiesta.remove(r);
 	}
-
-	/**
-	 * Sets   richiesta.
-	 *
-	 * @param    new Richiesta
-	 */
-	public void addRichiesta(Richiesta richiesta) {
-		this.richieste.add(richiesta);
+	public boolean isFree(GregorianCalendar inizio,GregorianCalendar fine){
+		//if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
+		for(Richiesta richiesta:elencoRichiesta){
+			if(!(fine.before(richiesta.getDataInizio()) || inizio.after(richiesta.getDataFine())))
+				return false;
+		}
+		
+		return true;
 	}
 }

@@ -69,7 +69,7 @@ public class RichiestaCamion extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return  "Camion:  "+minCapacita + "-"
+		return  "Richiesta:Camion " + minCapacita + "-"
 				+  maxCapacita + " "  + minPortata
 				+ "-" + maxPortata + " " + minLunghezza
 				+ "-" + maxLunghezza ;
@@ -106,19 +106,16 @@ public class RichiestaCamion extends RichiestaMacchina {
 		if (Camion.class != m.getClass())
 			return false;
 		Camion other = (Camion) m;
-		if(other.getCapacitaMassima() < minCapacita)
-			return false;
-		if(other.getCapacitaMassima() > maxCapacita)
-			return false;
-		if(other.getPortataMassima() < minPortata)
-			return false;
-		if(other.getPortataMassima() > maxPortata)
-			return false;
-		if(other.getLunghezza() < minLunghezza)
-			return false;
-		if(other.getLunghezza() > maxLunghezza)
-			return false;
-		return true;
+
+
+		boolean soddisfa=true;
+		soddisfa=soddisfa && (minCapacita==-1)?true:other.getCapacitaMassima() > minCapacita;
+		soddisfa=soddisfa && (maxCapacita==-1)?true:other.getCapacitaMassima() < maxCapacita;
+		soddisfa=soddisfa && (minPortata==-1)?true:other.getPortataMassima() > minPortata;
+		soddisfa=soddisfa && (maxPortata==-1)?true:other.getPortataMassima() < maxPortata;
+		soddisfa=soddisfa && (minLunghezza==-1)?true:other.getLunghezza() > minLunghezza;
+		soddisfa=soddisfa && (maxLunghezza==-1)?true:other.getLunghezza() < maxLunghezza;
+		return soddisfa;
 	}
 	
 	

@@ -118,7 +118,7 @@ public class RichiestaGru extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return "Gru:  "+minLunghezza + "-"
+		return "Richiesta:Gru " + minLunghezza + "-"
 				+ maxLunghezza + " " + minAltezza + "-"
 				+ maxAltezza + " " + minPortata + "-"
 				+ maxPortata + " " + minAngoloRotazione
@@ -132,23 +132,15 @@ public class RichiestaGru extends RichiestaMacchina {
 		if (Gru.class != m.getClass())
 			return false;
 		Gru other = (Gru) m;
-		if(other.getLunghezza() < minLunghezza)
-			return false;
-		if(other.getLunghezza() > maxLunghezza)
-			return false;
-		if(other.getPortataMassima() < minPortata)
-			return false;
-		if(other.getPortataMassima() > maxPortata)
-			return false;
-		if(other.getAltezza() < minAltezza)
-			return false;
-		if(other.getAltezza() > maxAltezza)
-			return false;
-		if(other.getAngoloRotazione() < minAngoloRotazione)
-			return false;
-		if(other.getAngoloRotazione() > maxAngoloRotazione)
-			return false;
-		return true;
+
+		boolean soddisfa=true;
+		soddisfa=soddisfa && (minLunghezza==-1)?true:other.getLunghezza() > minLunghezza;
+		soddisfa=soddisfa && (maxLunghezza==-1)?true:other.getLunghezza() < maxLunghezza;
+		soddisfa=soddisfa && (minPortata==-1)?true:other.getPortataMassima() > minPortata;
+		soddisfa=soddisfa && (maxPortata==-1)?true:other.getPortataMassima() < maxPortata;
+		soddisfa=soddisfa && (minLunghezza==-1)?true:other.getLunghezza() > minLunghezza;
+		soddisfa=soddisfa && (maxLunghezza==-1)?true:other.getLunghezza() < maxLunghezza;
+		return soddisfa;
 	}
 	
 	

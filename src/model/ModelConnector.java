@@ -941,12 +941,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public boolean deleteLavoro(int codiceLavoro) {
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
-
-	@Override
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina) {
-		System.out.println("Macchina Associata.");
-		lc.soddisfaRichiesta(codiceRichiesta, getMacchina(codiceMacchina));
-	}
 	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta){
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		//TODO fare il controllo su tutte le richiesteMacchina
@@ -969,5 +963,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 	@Override
 	public void liberaRichiesta(int codiceRichiesta) {
 		lc.liberaRichiesta(codiceRichiesta);		
+	}
+	
+	@Override
+	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
+		Macchina macchina=getMacchina(codiceMacchina);
+		lc.soddisfaRichiesta(codiceRichiesta, macchina);
 	}
 }

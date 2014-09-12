@@ -1,7 +1,9 @@
 package model.organizer;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
+import model.organizer.data.Camion;
 import model.organizer.data.Gru;
 
 
@@ -157,6 +159,11 @@ public class ModelGru extends ModelMacchina{
 				return item;
 			}
 		}
+		return null;
+	}
+	
+	public ArrayList<Gru> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		//TODO
 		return null;
 	}
 

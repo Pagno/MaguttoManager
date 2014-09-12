@@ -8,6 +8,7 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
+import model.organizer.data.Macchina;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Ruspa;
 import model.organizer.data.Priority;
@@ -160,7 +161,25 @@ public interface ModelInterface {
 	 * @param priorita priorit�
 	 */
 	public void modificaCantiere(int codice, String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita);
+	/**
+	 * Elimina cantiere.
+	 *
+	 * @param codice   codice
+	 * @return true, if successful
+	 */
+	public boolean eliminaCantiere(int codice);
 	
+	/**
+	 * Inserisci un nuovo Lavoro.
+	 *
+	 * @param nome   Codice del lavoro da cancellare
+	 * @param inizio   dataInizio del Lavoro
+	 * @param fine   dataFine del Lavoro
+	 * @param idCantiere   Codice del cantiere cui appartiene il lavoro
+	 * 
+	 */
+	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
+
 	/**
 	 * Cancella Lavoro.
 	 *
@@ -187,12 +206,13 @@ public interface ModelInterface {
 	public boolean deleteRichiesta(int codiceRichiesta);
 	
 	/**
-	 * Elimina cantiere.
+	 * Associa una macchina ad una richiesta.
 	 *
-	 * @param codice   codice
-	 * @return true, if successful
+	 * @param codiceRichiesta   Codice della richiesta da associare
+	 * @param codiceMacchina  codice della macchina da associare
+	 * 
 	 */
-	public boolean eliminaCantiere(int codice);
+	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);
 	
 	public Cantiere getCantiere(int codiceCantiere);
 	
@@ -219,9 +239,11 @@ public interface ModelInterface {
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
 	
+
 	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
 	
 	public void soddisfaRichiesta(int codiceRichiesta,int codiceMacchina);
 	public void liberaRichiesta(int codiceRichiesta);
 	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta);
+
 }

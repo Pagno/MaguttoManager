@@ -1,15 +1,18 @@
 package model.organizer.data;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.GregorianCalendar;
 
-public class Richiesta extends DefaultMutableTreeNode{
+public final class Richiesta extends DefaultMutableTreeNode implements Comparable<Richiesta>{
 	
 
 
 	private RichiestaMacchina caratteristiche;
 	private Macchina macchina;
+	private Lavoro lavoro;
 	
 	/**   codice. */
 	private static int ultimoCodice;
@@ -17,15 +20,16 @@ public class Richiesta extends DefaultMutableTreeNode{
 	private int codice;
 	
 	
-	public Richiesta(RichiestaMacchina caratteristiche) {
+	public Richiesta(RichiestaMacchina caratteristiche, Lavoro lavoro) {
 		super();
 		
 		assignCodice();
 		this.caratteristiche = caratteristiche;
+		this.lavoro=lavoro;
 		this.setMacchina(null);
 	}
 	
-	public Richiesta(RichiestaMacchina caratteristiche, int codiceRichiesta) {
+	public Richiesta(RichiestaMacchina caratteristiche,Lavoro lavoro, int codiceRichiesta) {
 		super();
 		
 		if(codiceRichiesta>ultimoCodice){
@@ -33,6 +37,7 @@ public class Richiesta extends DefaultMutableTreeNode{
 		}
 		this.codice=codiceRichiesta;
 		this.caratteristiche = caratteristiche;
+		this.lavoro=lavoro;
 		this.setMacchina(null);
 	}
 	
@@ -159,6 +164,11 @@ public class Richiesta extends DefaultMutableTreeNode{
 				return false;
 		} else if (!macchina.equals(other.macchina))
 			return false;
+		if (lavoro == null) {
+			if (other.lavoro != null)
+				return false;
+		} else if (!lavoro.equals(other.lavoro))
+			return false;
 		return true;
 	}
 
@@ -183,14 +193,32 @@ public class Richiesta extends DefaultMutableTreeNode{
 
 
 	public void setMacchina(Macchina macchina) {
-		if(this.rispettaRichiesta(macchina)){
-			this.macchina = macchina;
+		if(this.macchina!=null){
+			this.macchina.removeRichiesta(this);
 		}
-		else{
+		if(macchina==null){
 			this.macchina=null;
 		}
+		else{
+			if(this.rispettaRichiesta(macchina)){
+				this.macchina = macchina;
+				this.macchina.addRichiesta(this);
+			}
+			else{
+				this.macchina=null;
+			}
+		}
 	}
-	
-	
+
+	@Override
+	public int compareTo(Richiesta r) {
+		return this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio());
+	}
+	public GregorianCalendar getDataInizio(){
+		return lavoro.getDataInizio();
+	}
+	public GregorianCalendar getDataFine(){
+		return lavoro.getDataFine();
+	}
 }
 
