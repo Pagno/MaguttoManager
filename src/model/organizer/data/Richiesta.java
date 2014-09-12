@@ -1,11 +1,12 @@
 package model.organizer.data;
 
-public class Richiesta {
+public final class Richiesta implements Comparable<Richiesta>{
 	
 
 
 	private RichiestaMacchina caratteristiche;
 	private Macchina macchina;
+	private Lavoro lavoro;
 	
 	/**   codice. */
 	private static int ultimoCodice;
@@ -13,15 +14,16 @@ public class Richiesta {
 	private int codice;
 	
 	
-	public Richiesta(RichiestaMacchina caratteristiche) {
+	public Richiesta(RichiestaMacchina caratteristiche, Lavoro lavoro) {
 		super();
 		
 		assignCodice();
 		this.caratteristiche = caratteristiche;
+		this.lavoro=lavoro;
 		this.setMacchina(null);
 	}
 	
-	public Richiesta(RichiestaMacchina caratteristiche, int codiceRichiesta) {
+	public Richiesta(RichiestaMacchina caratteristiche,Lavoro lavoro, int codiceRichiesta) {
 		super();
 		
 		if(codiceRichiesta>ultimoCodice){
@@ -29,6 +31,7 @@ public class Richiesta {
 		}
 		this.codice=codiceRichiesta;
 		this.caratteristiche = caratteristiche;
+		this.lavoro=lavoro;
 		this.setMacchina(null);
 	}
 	
@@ -115,6 +118,11 @@ public class Richiesta {
 				return false;
 		} else if (!macchina.equals(other.macchina))
 			return false;
+		if (lavoro == null) {
+			if (other.lavoro != null)
+				return false;
+		} else if (!lavoro.equals(other.lavoro))
+			return false;
 		return true;
 	}
 
@@ -139,19 +147,27 @@ public class Richiesta {
 
 
 	public void setMacchina(Macchina macchina) {
+		if(this.macchina!=null){
+			this.macchina.removeRichiesta(this);
+		}
 		if(macchina==null){
 			this.macchina=null;
 		}
 		else{
 			if(this.rispettaRichiesta(macchina)){
 				this.macchina = macchina;
+				this.macchina.addRichiesta(this);
 			}
 			else{
 				this.macchina=null;
 			}
 		}
 	}
-	
+
+	@Override
+	public int compareTo(Richiesta r) {
+		return this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio());
+	}
 	
 }
 
