@@ -1,6 +1,10 @@
 package model.organizer.data;
 
-public class Richiesta {
+import java.util.ArrayList;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+public class Richiesta extends DefaultMutableTreeNode{
 	
 
 
@@ -75,6 +79,46 @@ public class Richiesta {
 
 
 
+	public ArrayList<String> getData() {
+		ArrayList<String> l=new ArrayList<String>();
+		l.add(Integer.toString(getCodice()));
+		if(getCaratteristiche() instanceof RichiestaCamion){
+			RichiestaCamion rc=(RichiestaCamion)getCaratteristiche();
+			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add(Integer.toString(rc.getMinLunghezza()));l.add(Integer.toString(rc.getMaxLunghezza()));
+			l.add("0");l.add("0");
+			l.add("0");l.add("0");
+			l.add("0");l.add("0");
+		}else if(getCaratteristiche() instanceof RichiestaEscavatore){
+			RichiestaEscavatore rc=(RichiestaEscavatore)getCaratteristiche();
+			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+			l.add(Integer.toString(rc.getMinProfondita()));l.add(Integer.toString(rc.getMaxProfondita()));
+			l.add("0");l.add("0");
+			
+		}else if(getCaratteristiche() instanceof RichiestaGru){
+			RichiestaGru rc=(RichiestaGru)getCaratteristiche();
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add(Integer.toString(rc.getMinLunghezza()));l.add(Integer.toString(rc.getMaxLunghezza()));
+			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinAngoloRotazione()));l.add(Integer.toString(rc.getMaxAngoloRotazione()));
+		}else if(getCaratteristiche() instanceof RichiestaRuspa){
+			RichiestaRuspa rc=(RichiestaRuspa)getCaratteristiche();
+			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+			l.add("0");l.add("0");
+			l.add("0");l.add("0");
+		}
+		return l;
+	}
+	
 	
 	
 	

@@ -10,6 +10,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.apache.derby.impl.sql.compile.InsertNode;
 
+import view.lavoro.addNode;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
@@ -58,8 +59,8 @@ public class ModelCantiere extends DefaultTreeModel{
 
 	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		codice++;
-		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
-		
+		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
+		this.listaCantieri.add(c);
 
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
@@ -67,22 +68,24 @@ public class ModelCantiere extends DefaultTreeModel{
 		//setChanged();
 		//notifyObservers(v1);
 		observer.update(null, v1);//notifyObservers(v1);
-		
-		
+		addNode add=new addNode("Aggiungi nuovo Lavoro");
+		insertNodeInto(add, c, 0);
 	}
 
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		if(this.codice<codice){
 			this.codice=codice;
 		}
-		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
-	
+		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
+		this.listaCantieri.add(c);
+		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		//setChanged();
 		observer.update(null, v1);//notifyObservers(v1);
-	
+		addNode add=new addNode("Aggiungi nuovo Lavoro");
+		insertNodeInto(add, c, 0);
 	}
 
 
@@ -100,7 +103,6 @@ public class ModelCantiere extends DefaultTreeModel{
 				//setChanged();
 				//notifyObservers(v1);
 				observer.update(null, v1);//notifyObservers(v1);
-				
 			}
 		}
 	}
@@ -172,6 +174,10 @@ public class ModelCantiere extends DefaultTreeModel{
 		cantiere.addLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
 
+		addNode add=new addNode("Aggiungi nuova Richiesta");
+		insertNodeInto(add, lavoro, 0);
+		
+		
 		/*SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		ArrayList<String> v1=new ArrayList<String>();
@@ -194,6 +200,8 @@ public class ModelCantiere extends DefaultTreeModel{
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
+		addNode add=new addNode("Aggiungi nuova Richiesta");
+		insertNodeInto(add, lavoro, 0);
 	}
 	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
@@ -332,8 +340,6 @@ public class ModelCantiere extends DefaultTreeModel{
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
 			int codiceRichiesta=l.inserisciRichiesta(caratteristiche);
-
-			insertNodeInto(caratteristiche, l, 0);
 			
 			/*v1=new ArrayList<String>();
 			v1.add(Integer.toString(codiceLavoro));v1.add(Integer.toString(codiceRichiesta));
@@ -366,7 +372,6 @@ public class ModelCantiere extends DefaultTreeModel{
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
 			l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
-			insertNodeInto(caratteristiche, l, 0);
 		}
 	}
 	

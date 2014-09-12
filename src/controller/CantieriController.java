@@ -24,6 +24,7 @@ import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.RichiestaRuspa;
 import model.ModelInterface;
 import model.organizer.data.Ruspa;
+import view.AssociaMacchina;
 import view.InsertCantiere;
 import view.lavoro.EditLavoro;
 
@@ -88,6 +89,7 @@ public class CantieriController {
 				}*/
 			}};
 	}
+	
 	public ActionListener EditCantiereListener(EditLavoro editCantiere,final int codice){
 		final EditLavoro  cantieriView=editCantiere;
 		return new ActionListener() {
@@ -108,7 +110,6 @@ public class CantieriController {
 		};
 		
 	}
-	
 	
 	/**
 	 * Adds   macchina listener.
@@ -243,6 +244,7 @@ public class CantieriController {
 					fine.setTime(editLavoro.getDataFineLavoro());
 					
 					model.insertLavoro(nome, inizio, fine, 1);
+					editLavoro.reloadModel();
 				}
 			}
 		};
@@ -298,7 +300,7 @@ public class CantieriController {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.print(editLavoro.getCodiceRichiestaSelezionata());
 				model.deleteRichiesta(editLavoro.getCodiceRichiestaSelezionata());
-				editLavoro.removeSelectedData();
+				editLavoro.reloadModel();
 			}
 		};
 	}
@@ -309,7 +311,7 @@ public class CantieriController {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.print(editLavoro.getCodiceLavoroSelezionato());
 				model.deleteLavoro(editLavoro.getCodiceLavoroSelezionato());
-				editLavoro.removeSelectedData();
+				editLavoro.reloadModel();
 			}
 		};
 	}
@@ -347,5 +349,36 @@ public class CantieriController {
 		}
 	}*/
 
+	public ActionListener associaMacchinaView(final EditLavoro editLavoro){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 
+				AssociaMacchina am=new AssociaMacchina(editLavoro, model.getElencoMacchineDisponibili(editLavoro.getCodiceRichiestaSelezionata()));
+				int codiceRichiesta=editLavoro.getCodiceRichiestaSelezionata();
+				am.addBtnAssociaListener(associaMacchina(codiceRichiesta, editLavoro, am));
+			}
+		};
+	}
+	public ActionListener associaMacchina(final int codiceRichiesta,final EditLavoro editLavoro,final AssociaMacchina am){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int codiceMacchina=am.getMacchinaSelezionata();
+				am.dispose();
+				model.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
+				editLavoro.aggiornaRichiesta();
+			}
+		};
+	}
+	public ActionListener rimuoviAssociazioneListener(final EditLavoro editLavoro){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int codiceRichiesta=editLavoro.getCodiceRichiestaSelezionata();
+				model.liberaRichiesta(codiceRichiesta);
+				editLavoro.aggiornaRichiesta();
+			}
+		};
+	}
 }

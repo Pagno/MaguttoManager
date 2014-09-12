@@ -221,4 +221,7 @@ public interface ModelInterface {
 	
 	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
 	
+	public void soddisfaRichiesta(int codiceRichiesta,int codiceMacchina);
+	public void liberaRichiesta(int codiceRichiesta);
+	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta);
 }

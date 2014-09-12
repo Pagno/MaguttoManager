@@ -67,8 +67,10 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	 */
 	public boolean rimuoviLavoro(int codiceLavoro) {
 		for(int i=0;i<lavori.size();i++){
-			if(lavori.get(i).getCodice()==codiceLavoro)
+			if(lavori.get(i).getCodice()==codiceLavoro){
+				remove(lavori.get(i));
 				lavori.remove(i);
+			}
 		}
 		return false;
 	}

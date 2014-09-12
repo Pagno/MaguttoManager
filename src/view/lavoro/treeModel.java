@@ -20,18 +20,12 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 	Cantiere c;
 	public treeModel(Cantiere cantiere) {
 		super(null);
-		
-
 		setRoot(cantiere);
-
-		addNode add=new addNode("Aggiungi nuovo Lavoro");
-		insertNodeInto(add, cantiere, 0);
 	}
 	public void addWork(ArrayList<String> work){
 		workNode a=new workNode(work);
-		addNode add=new addNode("Aggiungi nuova Richiesta");
-		insertNodeInto(add, a, 0);
 		//insertNodeInto(a, getRoot(), 0);
+		
 		listaLavori.add(a);//aggiungo il nodo
 	}
 	public void addRichiesta(ArrayList<String> richiesta){

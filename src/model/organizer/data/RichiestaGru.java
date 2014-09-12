@@ -118,7 +118,7 @@ public class RichiestaGru extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return minLunghezza + "-"
+		return "Gru:  "+minLunghezza + "-"
 				+ maxLunghezza + " " + minAltezza + "-"
 				+ maxAltezza + " " + minPortata + "-"
 				+ maxPortata + " " + minAngoloRotazione

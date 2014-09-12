@@ -175,6 +175,14 @@ public class CantierePanel extends JPanel {
 	public String getIndirizzoCantiere() {return txtIndirizzo.getText();}
 	public Date getDataInizioCantiere(){return dataInizioCantiere.getDate();}
 	public Date getDataFineCantiere(){return dataFineCantiere.getDate();}
+
+	public void setNomeCantiere(String nome) {txtNomeCantiere.setText(nome);}
+	public void setPrioritaCantiere(String priorita) {this.priorita.setSelectedItem(priorita); }
+	public void setIndirizzoCantiere(String Indirizzo) {txtIndirizzo.setText(Indirizzo);}
+	public void setDataInizioCantiere(GregorianCalendar inizio){dataInizioCantiere.setDate(inizio.getTime());}
+	public void setDataFineCantiere(GregorianCalendar fine){dataFineCantiere.setDate(fine.getTime());}
+	
+	
 	public void setDataInizioCantiereChangedListener(PropertyChangeListener list){dataInizioCantiere.addPropertyChangeListener(list);}
 	public void setMinimaDataFineCantiere(Date d){dataFineCantiere.setMinSelectableDate(d);}
 	public void setMassimaDataInizioCantiere(Date d){dataInizioCantiere.setMaxSelectableDate(d);}

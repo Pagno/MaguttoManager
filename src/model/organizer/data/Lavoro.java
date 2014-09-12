@@ -129,7 +129,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		Richiesta r=new Richiesta(caratteristiche);
 		System.out.println("Richiesta aggiunta al lavoro +"+getCodice());
 		macchinariRichiesti.add(r);
-		add(caratteristiche);
+		add(r);
 		return r.getCodice();
 		
 		
@@ -140,6 +140,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		if(r.rispettaRichiesta(m)){
 			r.setMacchina(m);
 		}
+		add(r);
 		macchinariRichiesti.add(r);
 	}
 	
@@ -172,6 +173,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public boolean eliminaRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
+				remove(item);
 				macchinariRichiesti.remove(item);
 				return true;
 			}
@@ -184,6 +186,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 			if(item.getCodice()==codice){
 				if(item.rispettaRichiesta(mac)){
 					item.setMacchina(mac);
+					mac.addRichiesta(item);
 				}
 			}
 		}
@@ -193,7 +196,8 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void liberaRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
-					item.setMacchina(null);
+				item.getMacchina().liberaMacchina(item);
+				item.setMacchina(null);
 			}
 		}
 	}
@@ -201,7 +205,8 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void liberaMacchina(int codiceMacchina){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getMacchina().getCodice()==codiceMacchina){
-					item.setMacchina(null);
+				item.getMacchina().liberaMacchina(item);
+				item.setMacchina(null);
 			}
 		}
 	}
@@ -231,5 +236,5 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public ArrayList<Richiesta> getListaRichieste(){
 		return macchinariRichiesti;
 	}
-	
+
 }

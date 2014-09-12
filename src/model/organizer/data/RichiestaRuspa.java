@@ -93,7 +93,7 @@ public class RichiestaRuspa extends RichiestaMacchina {
 
 	@Override
 	public String toString() {
-		return minCapacita + "-"
+		return "Ruspa:  "+minCapacita + "-"
 				+ maxCapacita + " " + minPortata + "-"
 				+ maxPortata + " " + minAltezza + "-"
 				+ maxAltezza;
@@ -106,18 +106,15 @@ public class RichiestaRuspa extends RichiestaMacchina {
 		if (Ruspa.class != m.getClass())
 			return false;
 		Ruspa other = (Ruspa) m;
-		if(other.getCapacitaMassima() < minCapacita)
-			return false;
-		if(other.getCapacitaMassima() > maxCapacita)
-			return false;
-		if(other.getPortataMassima() < minPortata)
-			return false;
-		if(other.getPortataMassima() > maxPortata)
-			return false;
-		if(other.getAltezzaMassima() < minAltezza)
-			return false;
-		if(other.getAltezzaMassima() > maxAltezza)
-			return false;
+
+		boolean soddisfa=true;
+		soddisfa=soddisfa && (minCapacita==0)?true:other.getCapacitaMassima() < minCapacita;
+		soddisfa=soddisfa && (maxCapacita==0)?true:other.getCapacitaMassima() >maxCapacita;
+		soddisfa=soddisfa && (minPortata==0)?true:other.getPortataMassima() < minPortata;
+		soddisfa=soddisfa && (maxPortata==0)?true:other.getPortataMassima() >maxPortata;
+		soddisfa=soddisfa && (minAltezza==0)?true:other.getAltezzaMassima() < minAltezza;
+		soddisfa=soddisfa && (maxAltezza==0)?true:other.getAltezzaMassima() >maxAltezza;
+		
 		return true;
 	}
 }

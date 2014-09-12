@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,6 +24,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import model.organizer.data.Cantiere;
+import model.organizer.data.Lavoro;
+import model.organizer.data.Richiesta;
 import view.lavoro.panel.CantierePanel;
 import view.lavoro.panel.LavoroPanel;
 import view.lavoro.panel.RichiestaPanel;
@@ -52,7 +55,7 @@ public class EditLavoro extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditLavoro(JFrame view,Cantiere datiCantiere) {
+	public EditLavoro(JFrame view,Cantiere cantiere) {
 		super(view);
 		setTitle("Edit Cantiere");
 		//this.datiCantiere=datiCantiere;
@@ -80,6 +83,13 @@ public class EditLavoro extends JDialog {
 		//CARICO I PANNELLI
 		cardPanel= new JPanel(new CardLayout());
 		pnlCantiere= new CantierePanel();
+		pnlCantiere.setNomeCantiere(cantiere.getNomeCantiere());
+		pnlCantiere.setIndirizzoCantiere(cantiere.getIndirizzo());
+		pnlCantiere.setPrioritaCantiere(cantiere.getPrioritaString());
+		pnlCantiere.setDataInizioCantiere(cantiere.getDataApertura());
+		pnlCantiere.setDataFineCantiere(cantiere.getDataChiusura());
+		
+		
 		//pnlCantiere.setDatiCantiere(datiCantiere);
 		pnlLavoro= new LavoroPanel(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
 		pnlAddRichiesta= new RichiestaPanel();
@@ -93,9 +103,8 @@ public class EditLavoro extends JDialog {
 
 		contentPane.add(cardPanel,BorderLayout.CENTER);
 		
-		treeModel = new treeModel(datiCantiere); 
-		addNode nuovoLavoro=new addNode("Aggiungi Lavoro");
-		treeModel.reload(datiCantiere);
+		treeModel = new treeModel(cantiere); 
+		treeModel.reload(cantiere);
 		tree=new JTree(treeModel);
 		tree.setSize(200, 500);
 
@@ -126,6 +135,68 @@ public class EditLavoro extends JDialog {
 	void doMouseClicked(MouseEvent me) {
 		TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
 		CardLayout  cl = (CardLayout)(cardPanel.getLayout());
+		try{
+			if(tp.getPathCount()==1){ //Seleziono il cantiere e mostro il pannello del cantiere
+				cl.show(cardPanel,"cantiere");
+				btnDelete.setEnabled(false);
+			}else if(tp.getPathCount()==2){
+				cl.show(cardPanel,"lavoro");
+				pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
+				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuovo Lavoro")){
+					btnDelete.setEnabled(false);
+					pnlLavoro.clear();pnlLavoro.btnAddActionListener(addLavoroActionListener);
+					pnlLavoro.btnLavoro.setText("Inserisci");
+				}else{
+					Lavoro lavoro=((Lavoro)tp.getPath()[tp.getPathCount()-1]);
+					ArrayList<String> l=new ArrayList<String>();
+					l.add(Integer.toString(lavoro.getCodice()));
+					l.add(lavoro.getNome());
+					SimpleDateFormat df = new SimpleDateFormat();
+					df.applyPattern("dd/MM/yyyy");
+					l.add(df.format(lavoro.getDataInizio().getTime()));
+					l.add(df.format(lavoro.getDataFine().getTime()));
+					pnlLavoro.fill(l);
+					
+
+					btnDelete.setEnabled(true);				
+					for( ActionListener al : btnDelete.getActionListeners() ) {
+						btnDelete.removeActionListener( al );
+					}
+					btnDelete.addActionListener(deleteLavoroListener);
+					codiceLavoro=lavoro.getCodice();
+					pnlLavoro.btnLavoro.setText("Modifica");
+				}
+			}else if(tp.getPathCount()==3){
+				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuova Richiesta")){
+					cl.show(cardPanel,"richiesta");
+				}else{
+					btnDelete.setEnabled(true);
+					for( ActionListener al : btnDelete.getActionListeners() ) {
+						btnDelete.removeActionListener( al );
+					}
+					btnDelete.addActionListener(deleteRichiestaListener);
+					
+					
+					Richiesta richiesta=(Richiesta)tp.getPath()[tp.getPath().length-1];
+					
+					if(richiesta.isSoddisfatta()){
+						pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
+						pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener);
+					}else{
+						pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener);
+						pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
+					}
+					ArrayList<String> data=richiesta.getData();
+					pnlVisualizzaPanel.loadData(data);
+
+					cl.show(cardPanel,"visualizza");
+				}	
+			}
+			
+		}catch(java.lang.NullPointerException ex){
+			
+		}
+		/*CardLayout  cl = (CardLayout)(cardPanel.getLayout());
 		if (tp!=null && tp.getPath().length==1){
 			cl.show(cardPanel,"cantiere");
 			btnDelete.setEnabled(false);
@@ -171,12 +242,9 @@ public class EditLavoro extends JDialog {
 				ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
 				pnlVisualizzaPanel.loadData(data);
 			}
-		}
+		}*/
 	}	
 	
-	public void addAggiungiAssociazioneListener(ActionListener act){
-		pnlVisualizzaPanel.addAggiungiAssociazioneListener(act);
-	}
 	public void setAddCantiereListeners(ActionListener act) {
 		pnlCantiere.setAddCantiereListeners(act);
 	}
@@ -198,9 +266,6 @@ public class EditLavoro extends JDialog {
 	public void addRichiesta(ArrayList<String> associazione){
 		treeModel.addRichiesta(associazione);
 	}
-	public void addMouseListener(MouseAdapter adp){
-		tree.addMouseListener(adp);
-	}
 	ActionListener deleteLavoroListener;
 	public void addDeleteLavoroListener(ActionListener adp){
 		deleteLavoroListener=adp;
@@ -208,6 +273,13 @@ public class EditLavoro extends JDialog {
 	ActionListener deleteRichiestaListener;
 	public void addDeleteRichiestaListener(ActionListener adp){
 		deleteRichiestaListener=adp;
+	}
+	ActionListener associaMacchinaListener,liberaRichiestaListener;
+	public void addAssociaMacchinaListener(ActionListener adp){
+		associaMacchinaListener=adp;
+	}
+	public void addLiberaRichiestaListener(ActionListener adp){
+		liberaRichiestaListener=adp;
 	}
 	
 	//ACCESSO AI DATI DEL CANTIERE
@@ -247,33 +319,39 @@ public class EditLavoro extends JDialog {
 	
 	public String getTipoMacchina() {return pnlAddRichiesta.getType();}
 
-
 	public int getCodiceRichiestaSelezionata() {
 		TreePath tp=tree.getSelectionPath();
-		ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
-		return Integer.parseInt(data.get(1));
+		Richiesta richiesta=((Richiesta)tp.getPath()[tp.getPathCount()-1]);
+		return richiesta.getCodice();
 	}
 
 	public int getCodiceLavoroSelezionato() {
+		return codiceLavoro;
+	}
+
+	public void reloadModel(){
+		treeModel.reload();
+	}
+	public void aggiornaRichiesta(){
 		TreePath tp=tree.getSelectionPath();
-		ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
-		return Integer.parseInt(data.get(0));
+		btnDelete.setEnabled(true);
+		for( ActionListener al : btnDelete.getActionListeners() ) {
+			btnDelete.removeActionListener( al );
+		}
+		btnDelete.addActionListener(deleteRichiestaListener);
+		
+		
+		Richiesta richiesta=(Richiesta)tp.getPath()[tp.getPath().length-1];
+		
+		if(richiesta.isSoddisfatta()){
+			pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
+			pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener);
+		}else{
+			pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener);
+			pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
+		}
+		
+		ArrayList<String> data=richiesta.getData();
+		pnlVisualizzaPanel.loadData(data);
 	}
-
-
-	public void removeSelectedData() {
-		System.out.println("rimozione path");
-		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-
-        TreePath[] paths = tree.getSelectionPaths();
-        for (TreePath path : paths) {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-            if (node.getParent() != null) {
-                model.removeNodeFromParent(node);
-            }
-        }
-	}
-
 }
-
-

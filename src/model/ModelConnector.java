@@ -273,7 +273,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 						"values(" + cantiere.getCodice() + ",'" + cantiere.getNomeCantiere() + "','" + 
 						cantiere.getStrDataApertura() + "','" + cantiere.getStrDataChiusura() + 
 						"','" + cantiere.getIndirizzo() + "','" + cantiere.getPrioritaString() +"')" ;
-				System.out.println(qry);
 				db.update(qry);
 				
 				for(Lavoro lavoro: cantiere.getElencoLavori()){
@@ -313,6 +312,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+"'Ruspa'," +
 								ruspa.getMinAltezza() + "," + ruspa.getMaxAltezza() + "," + ruspa.getMinPortata() + "," +  ruspa.getMaxPortata() + "," + 
 								ruspa.getMinCapacita() + "," + ruspa.getMaxCapacita() +")" ;
+							System.out.println(qry);
 							db.update(qry);
 						}
 					}
@@ -617,7 +617,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 							res.getInt("AltezzaMax"),res.getInt("ProfonditaMin"),res.getInt("ProfonditaMax"));
 					
 				}
-				lavoro.inserisciRichiesta(richiesta);
+				int codiceRichiesta=lavoro.inserisciRichiesta(richiesta);
+				if(res.getInt("CodiceMacchina")!=0){
+					soddisfaRichiesta(codiceRichiesta, res.getInt("CodiceMacchina"));
+				}
 			}
 			//db.disconnect();
 		} catch (DBException e) {
@@ -939,4 +942,32 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
 
+	@Override
+	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina) {
+		System.out.println("Macchina Associata.");
+		lc.soddisfaRichiesta(codiceRichiesta, getMacchina(codiceMacchina));
+	}
+	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta){
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		//TODO fare il controllo su tutte le richiesteMacchina
+		ArrayList<ArrayList<String>> elencoMacchineDisponibili=new ArrayList<ArrayList<String>>();
+		if(richiesta.getCaratteristiche() instanceof RichiestaRuspa){
+			for(Ruspa ruspa:mr.getLista()){
+				ArrayList<String> macchina=new ArrayList<String>();
+				if(richiesta.getCaratteristiche().rispettaRichiesta(ruspa)){
+					macchina.add(Integer.toString(ruspa.getCodice()));
+					macchina.add(ruspa.getProduttore());
+					macchina.add(ruspa.getModello());
+					elencoMacchineDisponibili.add(macchina);
+				}
+					
+			}
+		}
+		return elencoMacchineDisponibili;
+	}
+
+	@Override
+	public void liberaRichiesta(int codiceRichiesta) {
+		lc.liberaRichiesta(codiceRichiesta);		
+	}
 }

@@ -566,8 +566,10 @@ public class MainController{
 				if(data!=null){					
 					EditLavoro editLavoro = new EditLavoro(mainView, model.getCantiere((int)data[0]));
 					CantieriController ctr = new CantieriController(model);
-					model.addLavoroObserver(editLavoro.treeModel);
-					model.addRichiestaObserver(editLavoro.treeModel);
+					editLavoro.addAssociaMacchinaListener(ctr.associaMacchinaView(editLavoro));
+					editLavoro.addLiberaRichiestaListener(ctr.rimuoviAssociazioneListener(editLavoro));
+					//model.addLavoroObserver(editLavoro.treeModel);
+					//model.addRichiestaObserver(editLavoro.treeModel);
 					
 					//TODO se il cantiere contiene dei lavori non si deve poter restringere le date
 					/*if(model.getAssociazioniList((Integer)data[0]).size()>0){
@@ -576,13 +578,13 @@ public class MainController{
 					}*/
 					
 					//Aggiungo i lavori gia caricati per questo cantiere
-					for (ArrayList<String> lavoro:model.getLavoriCantiereList((int) mainView.getSelectedData()[0]))
+					/*for (ArrayList<String> lavoro:model.getLavoriCantiereList((int) mainView.getSelectedData()[0]))
 							editLavoro.addLavoro(lavoro);
 					
 					//Carico tutte le richieste per questo cantiere
 					for (ArrayList<String> richiesta:model.getRichiesteLavoroList(((int) mainView.getSelectedData()[0])))
 						editLavoro.addRichiesta(richiesta);
-				
+				*/
 					
 					//Aggiungi tutti i listener per i vari bottoni
 					editLavoro.setAddLavoroListeners(ctr.AddLavoroListener(editLavoro));

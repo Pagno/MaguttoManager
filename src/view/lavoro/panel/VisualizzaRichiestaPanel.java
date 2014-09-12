@@ -20,7 +20,7 @@ public class VisualizzaRichiestaPanel extends JPanel {
 	
 
 	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
-	private JButton btnAssociaMacchina;
+	public JButton btnAssociaMacchina;
 	/**
 	 * Create the panel.
 	 */
@@ -49,7 +49,16 @@ public class VisualizzaRichiestaPanel extends JPanel {
 		add(btnAssociaMacchina);
 	}
 
-	public void addAggiungiAssociazioneListener(ActionListener act){
+	public void addSoddisfaRichiestaListener(ActionListener act){
+		for(ActionListener action:btnAssociaMacchina.getActionListeners()){
+			btnAssociaMacchina.removeActionListener(action);
+		}
+		btnAssociaMacchina.addActionListener(act);
+	}
+	public void addLiberaRichiestaListener(ActionListener act){
+		for(ActionListener action:btnAssociaMacchina.getActionListeners()){
+			btnAssociaMacchina.removeActionListener(action);
+		}
 		btnAssociaMacchina.addActionListener(act);
 	}
 	public void loadData(ArrayList<String> dati){

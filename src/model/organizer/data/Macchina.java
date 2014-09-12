@@ -1,20 +1,26 @@
 package model.organizer.data;
 
+import java.util.ArrayList;
+
 // 
 /**
  *   Class Macchina.
  */
 public abstract class Macchina {
 	
-	/**   modello. */
+	/**   modello. 		*/
 	private String modello;
 	
-	/**   codice. */
+	/**   codice. 		*/
 	private int codice;
 	
-	/**   produttore. */
+	/**   produttore. 	*/
 	private String produttore;
 	
+	/**	  Richiesta 	*/
+	private ArrayList<Richiesta> richieste;
+	
+
 	/**
 	 * Instantiates a new macchina.
 	 *
@@ -85,5 +91,32 @@ public abstract class Macchina {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Gets   richiesta.
+	 *
+	 * @return   richiesta
+	 */	
+	public ArrayList<Richiesta> getRichiesta() {
+		return richieste;
+	}
+
+	/**
+	 *
+	 * libera  macchina.
+	 *
+	 */
+	public void liberaMacchina(Richiesta richiesta) {
+		this.richieste.remove(richiesta);
+	}
+
+	/**
+	 * Sets   richiesta.
+	 *
+	 * @param    new Richiesta
+	 */
+	public void addRichiesta(Richiesta richiesta) {
+		this.richieste.add(richiesta);
 	}
 }
