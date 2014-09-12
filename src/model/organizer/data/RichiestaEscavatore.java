@@ -132,23 +132,18 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 		if (Escavatore.class != m.getClass())
 			return false;
 		Escavatore other = (Escavatore) m;
-		if(other.getCapacitaMassima() < minCapacita)
-			return false;
-		if(other.getCapacitaMassima() > maxCapacita)
-			return false;
-		if(other.getPortataMassima() < minPortata)
-			return false;
-		if(other.getPortataMassima() > maxPortata)
-			return false;
-		if(other.getAltezzaMassima() < minAltezza)
-			return false;
-		if(other.getAltezzaMassima() > maxAltezza)
-			return false;
-		if(other.getProfonditaMassima() < minProfondita)
-			return false;
-		if(other.getProfonditaMassima() > maxProfondita)
-			return false;
-		return true;
+
+		
+		boolean soddisfa=true;
+		soddisfa=soddisfa && (minCapacita==-1)?true:other.getCapacitaMassima() > minCapacita;
+		soddisfa=soddisfa && (maxCapacita==-1)?true:other.getCapacitaMassima() < maxCapacita;
+		soddisfa=soddisfa && (minPortata==-1)?true:other.getPortataMassima() > minPortata;
+		soddisfa=soddisfa && (maxPortata==-1)?true:other.getPortataMassima() < maxPortata;
+		soddisfa=soddisfa && (minAltezza==-1)?true:other.getAltezzaMassima() > minAltezza;
+		soddisfa=soddisfa && (maxAltezza==-1)?true:other.getAltezzaMassima() < maxAltezza;
+		soddisfa=soddisfa && (minProfondita==-1)?true:other.getProfonditaMassima() > minProfondita;
+		soddisfa=soddisfa && (maxProfondita==-1)?true:other.getProfonditaMassima() < maxProfondita;
+		return soddisfa;
 	}
 	
 	
