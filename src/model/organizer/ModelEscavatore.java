@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 import model.organizer.data.Camion;
 import model.organizer.data.Escavatore;
+import model.organizer.data.Ruspa;
 
 
 // 
@@ -161,8 +162,13 @@ public class ModelEscavatore extends ModelMacchina{
 	}
 	
 	public ArrayList<Escavatore> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
-		//TODO
-		return null;
+		ArrayList<Escavatore>listaLibera=new ArrayList<Escavatore>();
+		for(Escavatore escavatore:listaEscavatori){
+			if(escavatore.isFree(dataInizio, dataFine)){
+				listaLibera.add(escavatore);
+			}
+		}
+		return listaLibera;
 	}
 
 	/* (non-Javadoc)

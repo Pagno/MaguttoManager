@@ -159,8 +159,13 @@ public class ModelRuspa extends ModelMacchina{
 	}
 	
 	public ArrayList<Ruspa> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
-		//TODO
-		return null;
+		ArrayList<Ruspa>listaLibera=new ArrayList<Ruspa>();
+		for(Ruspa ruspa:listaRuspe){
+			if(ruspa.isFree(dataInizio, dataFine)){
+				listaLibera.add(ruspa);
+			}
+		}
+		return listaLibera;
 	}
 
 	/* (non-Javadoc)
