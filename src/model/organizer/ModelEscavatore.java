@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 import model.organizer.data.Camion;
 import model.organizer.data.Escavatore;
+import model.organizer.data.Ruspa;
 
 
 // 
@@ -115,6 +116,7 @@ public class ModelEscavatore extends ModelMacchina{
 	public boolean eliminaEscavatore(int codice){
 		for(Escavatore item:listaEscavatori){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaEscavatori.remove(item);
 			}
 		}
@@ -160,6 +162,15 @@ public class ModelEscavatore extends ModelMacchina{
 		return null;
 	}
 	
+	public ArrayList<Escavatore> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		ArrayList<Escavatore>listaLibera=new ArrayList<Escavatore>();
+		for(Escavatore escavatore:listaEscavatori){
+			if(escavatore.isFree(dataInizio, dataFine)){
+				listaLibera.add(escavatore);
+			}
+		}
+		return listaLibera;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

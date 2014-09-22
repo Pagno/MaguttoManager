@@ -18,6 +18,7 @@ public abstract class Macchina {
 	/**   produttore. 	*/
 	private String produttore;
 	
+
 	/**	  Richiesta 	*/
 	private TreeSet<Richiesta> elencoRichiesta;
 
@@ -109,5 +110,10 @@ public abstract class Macchina {
 		}
 		
 		return true;
+	}
+	public void liberaRichieste(){
+		for(Richiesta richiesta:elencoRichiesta){
+			richiesta.setMacchina(null);
+		}
 	}
 }

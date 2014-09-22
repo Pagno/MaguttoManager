@@ -110,6 +110,7 @@ public class ModelCamion extends ModelMacchina{
 	public boolean eliminaCamion(int codice){
 		for(Camion item:listaCamion){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaCamion.remove(item);
 			}
 		}
@@ -153,6 +154,16 @@ public class ModelCamion extends ModelMacchina{
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Camion> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		ArrayList<Camion> listaLibera=new ArrayList<Camion>();
+		
+		for(Camion camion:listaCamion){
+			if(camion.isFree(dataInizio, dataFine))
+				listaLibera.add(camion);
+		}
+		return listaLibera;
 	}
 
 	/* (non-Javadoc)

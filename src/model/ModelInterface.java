@@ -8,6 +8,7 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
+import model.organizer.data.Macchina;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Ruspa;
 import model.organizer.data.Priority;
@@ -211,15 +212,14 @@ public interface ModelInterface {
 	 * @param codiceMacchina  codice della macchina da associare
 	 * 
 	 */
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);
-	
+	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);	
 	public Cantiere getCantiere(int codiceCantiere);
 	
 	
-	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
-	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
-	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
-	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Cantiere> getListaCantieri();
 	
 	

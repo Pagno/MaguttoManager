@@ -117,6 +117,7 @@ public class ModelGru extends ModelMacchina{
 	public boolean eliminaGru(int codice){
 		for(Gru item:listaGru){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaGru.remove(item);
 			}
 		}
@@ -162,6 +163,15 @@ public class ModelGru extends ModelMacchina{
 		return null;
 	}
 	
+	public ArrayList<Gru> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		ArrayList<Gru> listaLibera=new ArrayList<Gru>();
+		
+		for(Gru gru:listaGru){
+			if(gru.isFree(dataInizio, dataFine))
+				listaLibera.add(gru);
+		}
+		return listaLibera;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

@@ -113,6 +113,7 @@ public class ModelRuspa extends ModelMacchina{
 	public boolean eliminaRuspa(int codice){
 		for(Ruspa item:listaRuspe){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaRuspe.remove(item);
 			}	
 		}
@@ -156,6 +157,16 @@ public class ModelRuspa extends ModelMacchina{
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Ruspa> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		ArrayList<Ruspa>listaLibera=new ArrayList<Ruspa>();
+		for(Ruspa ruspa:listaRuspe){
+			if(ruspa.isFree(dataInizio, dataFine)){
+				listaLibera.add(ruspa);
+			}
+		}
+		return listaLibera;
 	}
 
 	/* (non-Javadoc)

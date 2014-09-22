@@ -184,7 +184,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void svuotaRichieste(){
 		for(Richiesta item:macchinariRichiesti){
 			item.getMacchina().removeRichiesta(item);
-				item.setMacchina(null);
+			item.setMacchina(null);
 		}
 		macchinariRichiesti.clear();
 	}
