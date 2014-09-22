@@ -156,8 +156,13 @@ public class ModelCamion extends ModelMacchina{
 	}
 	
 	public ArrayList<Camion> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
-		//TODO
-		return null;
+		ArrayList<Camion> listaLibera=new ArrayList<Camion>();
+		
+		for(Camion camion:listaCamion){
+			if(camion.isFree(dataInizio, dataFine))
+				listaLibera.add(camion);
+		}
+		return listaLibera;
 	}
 
 	/* (non-Javadoc)

@@ -163,8 +163,13 @@ public class ModelGru extends ModelMacchina{
 	}
 	
 	public ArrayList<Gru> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
-		//TODO
-		return null;
+		ArrayList<Gru> listaLibera=new ArrayList<Gru>();
+		
+		for(Gru gru:listaGru){
+			if(gru.isFree(dataInizio, dataFine))
+				listaLibera.add(gru);
+		}
+		return listaLibera;
 	}
 
 	/* (non-Javadoc)
