@@ -154,11 +154,6 @@ public class ModelCamion extends ModelMacchina{
 		}
 		return null;
 	}
-	
-	public ArrayList<Camion> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
-		//TODO
-		return null;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

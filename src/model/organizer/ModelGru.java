@@ -162,10 +162,6 @@ public class ModelGru extends ModelMacchina{
 		return null;
 	}
 	
-	public ArrayList<Gru> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
-		//TODO
-		return null;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

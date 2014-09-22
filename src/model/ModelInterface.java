@@ -8,7 +8,6 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
-import model.organizer.data.Macchina;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Ruspa;
 import model.organizer.data.Priority;
@@ -196,7 +195,7 @@ public interface ModelInterface {
 	 * @param richiesta   Richiesta da Inserire
 	 * 
 	 */
-	public ArrayList<String> addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	public void addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
 	/**
 	 * Cancella Richiesta.
 	 *
@@ -239,10 +238,6 @@ public interface ModelInterface {
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
 	
-
-	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
-	
-	public void soddisfaRichiesta(int codiceRichiesta,int codiceMacchina);
 	public void liberaRichiesta(int codiceRichiesta);
 	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta);
 

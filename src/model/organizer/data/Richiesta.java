@@ -1,6 +1,6 @@
 package model.organizer.data;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -219,6 +219,9 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	public GregorianCalendar getDataFine(){
 		return lavoro.getDataFine();
+	}
+	public int getCodiceLavoro(){
+		return lavoro.getCodice();
 	}
 }
 

@@ -261,9 +261,6 @@ public class CantieriController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				RichiestaMacchina richiesta=null;
-				ArrayList<String> v1=null;
-				
-				System.out.println();
 				
 				if(editLavoro.getTipoMacchina()=="Gru"){
 					richiesta=new RichiestaGru(editLavoro.getMinLunghezza(), editLavoro.getMaxLunghezza(),
@@ -280,8 +277,9 @@ public class CantieriController {
 					richiesta=new RichiestaEscavatore(editLavoro.getMinCapacita(), editLavoro.getMaxCapacita(),
 							editLavoro.getMinPortata(), editLavoro.getMaxPortata(), editLavoro.getMinAltezza(),editLavoro.getMaxAltezza(),editLavoro.getMinProfondita(), editLavoro.getMaxProfondita());
 				}
-				v1=model.addRichiesta(editLavoro.getCodiceCantiere(), editLavoro.getCodiceLavoro(), richiesta);
+				model.addRichiesta(editLavoro.getCodiceCantiere(), editLavoro.getCodiceLavoro(), richiesta);
 				
+				/*
 				v1.add(Integer.toString(editLavoro.getMinCapacita()));v1.add(Integer.toString(editLavoro.getMaxCapacita()));
 				v1.add(Integer.toString(editLavoro.getMinPortata()));v1.add(Integer.toString(editLavoro.getMaxPortata()));
 				v1.add(Integer.toString(editLavoro.getMinLunghezza()));v1.add(Integer.toString(editLavoro.getMaxLunghezza()));
@@ -289,7 +287,8 @@ public class CantieriController {
 				v1.add(Integer.toString(editLavoro.getMinProfondita()));v1.add(Integer.toString(editLavoro.getMaxProfondita()));
 				v1.add(Integer.toString(editLavoro.getMinRotazione()));v1.add(Integer.toString(editLavoro.getMaxRotazione()));
 				System.out.println(v1);
-				editLavoro.addRichiesta(v1);
+				editLavoro.addRichiesta(v1);*/
+				editLavoro.reloadModel();
 			}
 		};
 	}

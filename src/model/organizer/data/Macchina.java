@@ -1,11 +1,7 @@
 package model.organizer.data;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
->>>>>>> master
 
 // 
 /**

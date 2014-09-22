@@ -48,7 +48,7 @@ public class EditLavoro extends JDialog {
 	public treeModel treeModel;
 	private JTree tree;
 	private JScrollPane scrollpane;
-	private Object[] datiCantiere;
+	private int codiceCantiere;
 
 	
 	//LAVORO PANEL
@@ -58,6 +58,7 @@ public class EditLavoro extends JDialog {
 	public EditLavoro(JFrame view,Cantiere cantiere) {
 		super(view);
 		setTitle("Edit Cantiere");
+		codiceCantiere=cantiere.getCodice();
 		//this.datiCantiere=datiCantiere;
 		setBounds(0, 0, 700, 500);
 		contentPane = new JPanel();
@@ -178,6 +179,7 @@ public class EditLavoro extends JDialog {
 					
 					
 					Richiesta richiesta=(Richiesta)tp.getPath()[tp.getPath().length-1];
+					codiceLavoro=richiesta.getCodiceLavoro();
 					
 					if(richiesta.isSoddisfatta()){
 						pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
@@ -283,7 +285,7 @@ public class EditLavoro extends JDialog {
 	}
 	
 	//ACCESSO AI DATI DEL CANTIERE
-	public int getCodiceCantiere(){return (int)datiCantiere[0];}
+	public int getCodiceCantiere(){return codiceCantiere;}
 	public String getNomeCantiere() {return pnlCantiere.getNomeCantiere();}
 	public String getPrioritaCantiere() {return pnlCantiere.getPrioritaCantiere();}
 	public String getIndirizzoCantiere() {return pnlCantiere.getIndirizzoCantiere();}

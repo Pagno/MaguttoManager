@@ -336,25 +336,13 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
-	public ArrayList<String> aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
+	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
-		ArrayList<String> v1=null;
+		System.out.print("CodiceLavoro: "+codiceLavoro);
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
-			int codiceRichiesta=l.inserisciRichiesta(caratteristiche);
-			
-			/*v1=new ArrayList<String>();
-			v1.add(Integer.toString(codiceLavoro));v1.add(Integer.toString(codiceRichiesta));
-			String tipo="";
-			tipo+=(caratteristiche instanceof RichiestaCamion)==true?"Camion":"";
-			tipo+=(caratteristiche instanceof RichiestaRuspa)==true?"Ruspa":"";
-			tipo+=(caratteristiche instanceof RichiestaEscavatore)==true?"Escavatore":"";
-			tipo+=(caratteristiche instanceof RichiestaGru)==true?"Gru":"";
-			v1.add(tipo);
-			*/
+			l.inserisciRichiesta(caratteristiche);
 		}
-		
-		return v1;
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
@@ -670,7 +658,6 @@ public class ModelCantiere extends DefaultTreeModel{
 
 	Observer observer;
 	public void addObserver(Observer ob) {
-		// TODO Auto-generated method stub
 		this.observer=ob;
 	}
 
