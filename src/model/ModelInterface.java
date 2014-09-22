@@ -215,10 +215,10 @@ public interface ModelInterface {
 	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);
 	
 	
-	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
-	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
-	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
-	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine);
+	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Cantiere> getListaCantieri();
 	
 	

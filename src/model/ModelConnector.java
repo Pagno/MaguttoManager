@@ -719,24 +719,14 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Ruspa> elencoRuspeDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
 		ArrayList<Ruspa> ruspe=new ArrayList<Ruspa>();
-		boolean disp;
-		for(Ruspa r:mr.getLista()){
-			disp=true;
-			
-			for(Cantiere cantiere:lc.getListaCantieri()){
-				for(Lavoro lavoro:cantiere.getElencoLavori()){
-					for(Richiesta richiesta:lavoro.getListaRichieste()){
-						if(richiesta.getMacchina().equals(r)){
-							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
-								disp=false;
-						}
-					}
-						
-				}
-			}
-			if(disp==true)
+		
+		for(Ruspa r:mr.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(r))
 				ruspe.add(r);
 		}
 		return ruspe;
@@ -749,29 +739,16 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Gru> elencoGruDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
+	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
+		
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
 		ArrayList<Gru> gru=new ArrayList<Gru>();
-		gru.clear();
-		boolean disp=true;
-		ArrayList<Gru> g=mg.getLista();
-		for(Gru r:g){
-			disp=true;
-			for(Cantiere cantiere:lc.getListaCantieri()){
-				for(Lavoro lavoro:cantiere.getElencoLavori()){
-					for(Richiesta richiesta:lavoro.getListaRichieste()){
-						if(richiesta.getMacchina().equals(r)){
-							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
-								disp=false;
-						}
-					}
-						
-				}
-			}
-
-			if(disp==true){
-				gru.add(r);
-			}
+		
+		for(Gru g:mg.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(g))
+				gru.add(g);
 		}
 		return gru;
 	}
@@ -782,28 +759,17 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Camion> elencoCamionDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
-		ArrayList<Camion> cam=new ArrayList<Camion>();
-		boolean disp;
-		for(Camion r:mc.getLista()){
-			disp=true;
-			for(Cantiere cantiere:lc.getListaCantieri()){
-				for(Lavoro lavoro:cantiere.getElencoLavori()){
-					for(Richiesta richiesta:lavoro.getListaRichieste()){
-						if(richiesta.getMacchina().equals(r)){
-							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
-								disp=false;
-						}
-					}
-						
-				}
-			}
-
-			if(disp==true){
-				cam.add(r);
-			}
+	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Camion> camion=new ArrayList<Camion>();
+		
+		for(Camion c:mc.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(c))
+				camion.add(c);
 		}
-		return cam;
+		return camion;
 	}
 	
 	/**
@@ -813,28 +779,17 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Escavatore> elencoEscavatoreDisponibili(GregorianCalendar inizio,GregorianCalendar fine){
-		ArrayList<Escavatore> escavatori=new ArrayList<Escavatore>();
-		boolean disp=true;
-		for(Escavatore r:me.getLista()){
-			disp=true;
-			for(Cantiere cantiere:lc.getListaCantieri()){
-				for(Lavoro lavoro:cantiere.getElencoLavori()){
-					for(Richiesta richiesta:lavoro.getListaRichieste()){
-						if(richiesta.getMacchina().equals(r)){
-							if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
-								disp=false;
-						}
-					}
-						
-				}
-			}
-
-			if(disp==true){
-				escavatori.add(r);
-			}
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro){
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();
+		
+		for(Escavatore e:me.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(e))
+				escavatore.add(e);
 		}
-		return escavatori;
+		return escavatore;
 	}
 
 	@Override
