@@ -10,7 +10,7 @@ public class GreedyEngine {
 	public static ArrayList<Couple> generateAssociations(ModelInterface model){
 		ArrayList<Couple>Associazioni=new ArrayList<Couple>();
 		//TODO
-		//Ordina cantieri per priorità
+		//Ordina cantieri per prioritï¿½
 		ArrayList<Cantiere>lCantieri=model.getListaCantieri();
 		model.
 		
