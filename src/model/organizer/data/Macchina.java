@@ -109,4 +109,9 @@ public abstract class Macchina {
 		
 		return true;
 	}
+	public void liberaRichieste(){
+		for(Richiesta richiesta:elencoRichiesta){
+			richiesta.setMacchina(null);
+		}
+	}
 }

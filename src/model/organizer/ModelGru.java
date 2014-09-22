@@ -117,6 +117,7 @@ public class ModelGru extends ModelMacchina{
 	public boolean eliminaGru(int codice){
 		for(Gru item:listaGru){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaGru.remove(item);
 			}
 		}

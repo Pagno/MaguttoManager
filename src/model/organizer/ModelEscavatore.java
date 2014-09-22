@@ -116,6 +116,7 @@ public class ModelEscavatore extends ModelMacchina{
 	public boolean eliminaEscavatore(int codice){
 		for(Escavatore item:listaEscavatori){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaEscavatori.remove(item);
 			}
 		}

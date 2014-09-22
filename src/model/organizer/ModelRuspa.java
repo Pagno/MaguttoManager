@@ -113,6 +113,7 @@ public class ModelRuspa extends ModelMacchina{
 	public boolean eliminaRuspa(int codice){
 		for(Ruspa item:listaRuspe){
 			if(item.getCodice()==codice){
+				item.liberaRichieste();
 				return listaRuspe.remove(item);
 			}	
 		}
