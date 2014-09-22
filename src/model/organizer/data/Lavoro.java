@@ -205,9 +205,9 @@ public class Lavoro{
 	
 	//Libera le richieste con associata una data macchina
 	public void liberaMacchina(int codiceMacchina){
-		//TODO
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getMacchina().getCodice()==codiceMacchina){
+					item.getMacchina().removeRichiesta(item);
 					item.setMacchina(null);
 			}
 		}
