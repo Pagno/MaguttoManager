@@ -892,4 +892,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 		Macchina macchina=getMacchina(codiceMacchina);
 		lc.soddisfaRichiesta(codiceRichiesta, macchina);
 	}
+	
+	@Override
+	public ArrayList<Richiesta> getRichiesteScoperte(){
+		return lc.getListaInsoddisfatte();
+	}
 }
