@@ -14,9 +14,10 @@ public class Lavoro{
 	private GregorianCalendar dataInizio;
 	private GregorianCalendar dataFine;
 	private ArrayList<Richiesta> macchinariRichiesti;
+	private Cantiere cantiere;
 	
 	
-	public Lavoro(int codice, String nome, GregorianCalendar dataInizio,
+	public Lavoro(int codice, String nome, Cantiere cantiere, GregorianCalendar dataInizio,
 			GregorianCalendar dataFine) {
 		super();
 
@@ -25,6 +26,15 @@ public class Lavoro{
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.macchinariRichiesti=new ArrayList<Richiesta>();
+		this.cantiere=cantiere;
+	}
+
+	public Cantiere getCantiere() {
+		return cantiere;
+	}
+
+	public void setCantiere(Cantiere cantiere) {
+		this.cantiere = cantiere;
 	}
 
 	public int getCodice() {
@@ -223,6 +233,7 @@ public class Lavoro{
 		return false;
 	}
 	
+	
 	public ArrayList<Richiesta> whereScoperto(){
 		if(!isScoperto()){
 			return null;
@@ -240,4 +251,11 @@ public class Lavoro{
 		return macchinariRichiesti;
 	}
 	
+	public Priority getPriorita(){
+		return cantiere.getPriorita();
+	}
+	
+	public int getCodiceCantiere(){
+		return cantiere.getCodice();
+	}
 }

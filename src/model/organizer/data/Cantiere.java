@@ -47,6 +47,7 @@ public class Cantiere {
 		lavori=new ArrayList<Lavoro>();
 	}
 
+	
 	/**
 	 * Aggiungi una nuova richiesta di macchina.
 	 *
@@ -236,6 +237,15 @@ public class Cantiere {
 		this.codice = codice;
 	}
 
+	public boolean isScoperto(){
+		for(Lavoro lav:lavori){
+			if(lav.isScoperto()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
