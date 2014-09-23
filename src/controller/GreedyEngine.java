@@ -5,10 +5,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.ModelInterface;
+import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
+import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaCamion;
 import controller.Associazione;
 
 public class GreedyEngine {
@@ -47,14 +50,23 @@ public class GreedyEngine {
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
 		
 		//IMPOSTO LE PRENOTAZIONI
-		ArrayList<Associazione>prenotazioni=new ArrayList<Associazione>();
+		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
 		for(Richiesta ric:sortedRichieste){
 			for(Lavoro lav:ric.getLavoro().getCantiere().getElencoLavori()){
 				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
 					for(Richiesta item:lav.getListaRichieste()){
 						if(item.isSoddisfatta()){
 							if(ric.rispettaRichiesta(item.getMacchina())){
-								prenotazioni.add(new Associazione(ric,item.getMacchina()));
+								if(item.getMacchina().isFree(ric.getDataInizio(), ric.getDataFine())){
+									sx=(GregorianCalendar)lav.getDataInizio();
+									dx=(GregorianCalendar)lav.getDataFine();
+									d=0;
+									while(sx.before(dx)){
+										sx.add(Calendar.DAY_OF_MONTH, 1);
+										d++;
+									}
+									prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
+								}
 							}
 						}
 					}
@@ -65,13 +77,110 @@ public class GreedyEngine {
 		
 		//TODO seleziona coppie proposte
 		//TODO Attenzione! Quando seleziono una coppia settare confermato a true!!!
+		ArrayList<Associazione>associazioni=new ArrayList<Associazione>();
+		//Considera le varie richieste in ordine di priorità.
+		//Per ciascuna richiesta, controlla se sono presenti prenotazioni disponibili.
+		//Se sono presenti molte prenotazioni, seleziona quella collegata al lavoro più corto.
+		for(Richiesta ric:sortedRichieste){
+			
+			Prenotazione temp=selectMostPromisingReservation(associazioni,prenotazioni,ric);
+			
+			//Se ne ha trovata almeno una, allora la seleziona e poi rimuove tutte le selezioni per questa richiesta
+			if(temp!=null){
+				associazioni.add(temp.select());
+				removeReservationsByRequest(prenotazioni,ric);
+			}
+			else{
+				//TODO
+				if(ric.getCaratteristiche() instanceof RichiestaCamion){
+					ArrayList<Camion>disp=model.elencoCamionDisponibili(ric.getCodice(), ric.getCodiceLavoro());
+					boolean isSelected=false;
+					for(Camion item:disp){
+						boolean isPrenotato=false;
+						for(Prenotazione p:prenotazioni){
+							if(p.getAssociazione().getMacchina().equals(item)){
+								isPrenotato=true;
+								break;
+							}
+						}
+						if(!isPrenotato){
+							Associazione a=new Associazione(ric,item);
+							a.setConfermata(true);
+							associazioni.add(a);
+							isSelected=true;
+							break;
+						}
+					}
+					if(!isSelected){
+						for(int i=prenotazioni.size()-1;i>=0;i--){
+							Prenotazione p=prenotazioni.get(i);
+							if(disp.contains(p.getAssociazione().getMacchina())){
+								associazioni.add(p.select());
+							}
+						}
+					}
+					
+				}
+				else if(ric.getCaratteristiche() instanceof RichiestaCamion){
+
+				}
+				else if(ric.getCaratteristiche() instanceof RichiestaCamion){
+
+				}
+				else{
+
+				}
+			}
+		}
+		
 		//SELEZIONO LE COPPIE PIU' PROMETTENTI
 		
-		return Associazioni;
+		return associazioni;
 	}
 	
 	
 	
+	
+	
+	
+	//FUNZIONI DI SELEZIONE 
+	
+	public static void removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
+		for(Prenotazione coppia:list){
+			if(coppia.getRichiesta().equals(ric)){
+				list.remove(coppia);
+			}
+		}
+	}
+	
+	public static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
+		Prenotazione temp=new Prenotazione(null,-1);
+		//Seleziona le prenotazioni per questa richiesta
+		for(Prenotazione coppia:list){
+			if(coppia.getRichiesta().equals(ric)){
+				if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
+					boolean valid=true;
+					for(Associazione a:alreadySelected){
+						if(coppia.getAssociazione().getMacchina().equals(a.getMacchina())){
+							if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
+								valid=false;
+								break;
+							}
+						}
+					}
+					if(valid){
+						temp=coppia;
+					}
+				}
+			}
+		}
+		if(temp.getDurataLavoro()==-1){
+			return null;
+		}
+		else{
+			return temp;
+		}
+	}
 	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
 	
