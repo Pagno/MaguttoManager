@@ -723,11 +723,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Macchina> getElencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
-		ArrayList<Ruspa> ruspe=new ArrayList<Ruspa>();
+		ArrayList<Macchina> ruspe=new ArrayList<Macchina>();
 		
 		for(Ruspa r:mr.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
 			if(richiesta.rispettaRichiesta(r))
@@ -743,12 +743,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Macchina> getElencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
 		
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
-		ArrayList<Gru> gru=new ArrayList<Gru>();
+		ArrayList<Macchina> gru=new ArrayList<Macchina>();
 		
 		for(Gru g:mg.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
 			if(richiesta.rispettaRichiesta(g))
@@ -763,11 +763,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Macchina> getElencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
-		ArrayList<Camion> camion=new ArrayList<Camion>();
+		ArrayList<Macchina> camion=new ArrayList<Macchina>();
 		
 		for(Camion c:mc.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
 			if(richiesta.rispettaRichiesta(c))
@@ -783,11 +783,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Macchina> getElencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
-		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();
+		ArrayList<Macchina> escavatore=new ArrayList<Macchina>();
 		
 		for(Escavatore e:me.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
 			if(richiesta.rispettaRichiesta(e))

@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
@@ -31,6 +33,8 @@ import view.lavoro.panel.LavoroPanel;
 import view.lavoro.panel.RichiestaPanel;
 import view.lavoro.panel.VisualizzaRichiestaPanel;
 
+import javax.swing.JCheckBox;
+
 
 public class EditLavoro extends JDialog {
 
@@ -49,7 +53,8 @@ public class EditLavoro extends JDialog {
 	private JTree tree;
 	private JScrollPane scrollpane;
 	private int codiceCantiere;
-
+	private JCheckBox chckbxNewCheckBox;
+	private addNodeRenderer renderer;
 	
 	//LAVORO PANEL
 	/**
@@ -60,7 +65,7 @@ public class EditLavoro extends JDialog {
 		setTitle("Edit Cantiere");
 		codiceCantiere=cantiere.getCodice();
 		//this.datiCantiere=datiCantiere;
-		setBounds(0, 0, 700, 500);
+		setBounds(0, 0, 900, 500);
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -109,13 +114,20 @@ public class EditLavoro extends JDialog {
 		tree=new JTree(treeModel);
 		tree.setSize(200, 500);
 
-		addNodeRenderer renderer = new addNodeRenderer();
+		renderer = new addNodeRenderer();
 	    tree.setCellRenderer(renderer);
+	    
+	    chckbxNewCheckBox = new JCheckBox("Nascondi Richieste Soddisfatte");
+	    chckbxNewCheckBox.addItemListener(check());
 		scrollpane = new JScrollPane(tree,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollpane.setBounds(0,0,200, 500);
 		
 		JPanel pnlWest=new JPanel(new BorderLayout(0,0));
+		pnlWest.add(chckbxNewCheckBox,BorderLayout.NORTH);
 		pnlWest.add(scrollpane,BorderLayout.CENTER);
+		
+		
+		scrollpane.setColumnHeaderView(chckbxNewCheckBox);
 		btnDelete=new JButton("Delete");
 		pnlWest.add(btnDelete,BorderLayout.SOUTH);
 		contentPane.add(pnlWest,BorderLayout.WEST);
@@ -198,54 +210,19 @@ public class EditLavoro extends JDialog {
 		}catch(java.lang.NullPointerException ex){
 			
 		}
-		/*CardLayout  cl = (CardLayout)(cardPanel.getLayout());
-		if (tp!=null && tp.getPath().length==1){
-			cl.show(cardPanel,"cantiere");
-			btnDelete.setEnabled(false);
-		}
-		else if (tp!=null && tp.getPath().length==2){//VISUALIZZO IL PANNELLO LAVORO
-			cl.show(cardPanel,"lavoro");
-			//carico le date del Cantiere nel caso fossere state cambiate
-			pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
-			//Controllo se il Lavoro e nuovo oppure e gia stato inserito
-			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
-				btnDelete.setEnabled(false);
-				pnlLavoro.clear();pnlLavoro.btnAddActionListener(addLavoroActionListener);
-				pnlLavoro.btnLavoro.setText("Inserisci");
-			}else{
-				btnDelete.setEnabled(true);				
-				for( ActionListener al : btnDelete.getActionListeners() ) {
-					btnDelete.removeActionListener( al );
-				}
-				btnDelete.addActionListener(deleteLavoroListener);
-				ArrayList<String> data=((workNode)tp.getPath()[tp.getPath().length-1]).getData();
-				codiceLavoro=Integer.parseInt(data.get(0));
-				pnlLavoro.fill(data);pnlLavoro.btnAddActionListener(editLavoroActionListener);
-				pnlLavoro.btnLavoro.setText("Modifica");
-			}
-		}else if(tp!=null && tp.getPath().length==3){//VISUALIZZO IL PANNELLO RICHIESTA
-			if (tp.getPath()[tp.getPath().length-1] instanceof addNode){
-				btnDelete.setEnabled(false);
-				for( ActionListener al : btnDelete.getActionListeners() ) {
-					btnDelete.removeActionListener( al );
-				}
-				btnDelete.addActionListener(deleteRichiestaListener);
-				addNode selected=(addNode)tp.getPath()[tp.getPath().length-1];
-				codiceLavoro=((workNode)selected.getParent()).getCodiceLavoro();
-				pnlAddRichiesta.clearData();
-				cl.show(cardPanel,"richiesta");
-			}else{
-				btnDelete.setEnabled(true);
-				for( ActionListener al : btnDelete.getActionListeners() ) {
-					btnDelete.removeActionListener( al );
-				}
-				btnDelete.addActionListener(deleteRichiestaListener);
-				cl.show(cardPanel,"visualizza");
-				ArrayList<String> data=((richiestaNode)tp.getPath()[tp.getPath().length-1]).getData();
-				pnlVisualizzaPanel.loadData(data);
-			}
-		}*/
 	}	
+	
+	public ItemListener check(){
+		return new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				renderer.set(!chckbxNewCheckBox.isSelected());
+				treeModel.reload();
+			}
+		};
+	}
+	
 	
 	public void setAddCantiereListeners(ActionListener act) {
 		pnlCantiere.setAddCantiereListeners(act);

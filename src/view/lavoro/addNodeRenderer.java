@@ -9,16 +9,23 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
-public class addNodeRenderer implements TreeCellRenderer {
+import model.organizer.data.Lavoro;
+import model.organizer.data.Richiesta;
 
-	JLabel lbl;
+public class addNodeRenderer implements TreeCellRenderer {
+	Boolean showSoddisfatta=true;
+	JLabel lbl,lblAdd;
 	DefaultTreeCellRenderer defaultRenderer = new DefaultTreeCellRenderer();
 	
+	public void set(boolean bo){
+		showSoddisfatta=bo;
+	}
 	
 	public addNodeRenderer(){
+		lblAdd=new JLabel();
 		lbl=new JLabel();
-		lbl.setBackground(Color.blue);
-		lbl.setForeground(Color.RED);
+		lblAdd.setBackground(Color.blue);
+		lblAdd.setForeground(Color.RED);
 	}
 	
 	@Override
@@ -27,10 +34,25 @@ public class addNodeRenderer implements TreeCellRenderer {
 
 	    Component returnValue = null;
 	    if ((arg1 != null) && (arg1 instanceof DefaultMutableTreeNode)){
-			
-			if((DefaultMutableTreeNode) arg1 instanceof addNode){
-				lbl.setText(arg1.toString());
+	    	if((DefaultMutableTreeNode) arg1 instanceof Lavoro){
+				Lavoro ric=(Lavoro)arg1;
+				lbl.setText(ric.toString());
+				if(showSoddisfatta==false){
+					if(ric.hasRichiestaInsoddisfatta()==false)
+						lbl.setText("");
+				}
 				returnValue=lbl;
+			}else if((DefaultMutableTreeNode) arg1 instanceof Richiesta){
+				Richiesta ric=(Richiesta)arg1;
+				lbl.setText(ric.toString());
+				if(showSoddisfatta==false){
+					if(ric.isSoddisfatta())
+						lbl.setText("");
+				}
+				returnValue=lbl;
+			}else  if((DefaultMutableTreeNode) arg1 instanceof addNode){
+				lblAdd.setText(arg1.toString());
+				returnValue=lblAdd;
 			}
 		}
 	    if (returnValue == null) 

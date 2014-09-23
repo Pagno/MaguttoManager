@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import org.apache.derby.impl.sql.compile.InsertNode;
@@ -70,6 +71,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
+		Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){

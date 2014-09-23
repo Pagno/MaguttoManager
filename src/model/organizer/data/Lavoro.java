@@ -160,7 +160,13 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
-	
+	public boolean hasRichiestaInsoddisfatta(){
+		for(Richiesta richiesta:macchinariRichiesti){
+			if(richiesta.isSoddisfatta()==false);
+				return true;
+		}
+		return false;
+	}
 	public Richiesta getRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
