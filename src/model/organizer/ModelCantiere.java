@@ -161,7 +161,7 @@ public class ModelCantiere extends Observable{
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
 		Cantiere cantiere=getCantiere(codiceCantiere);
-		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine);
+		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 		
@@ -182,7 +182,7 @@ public class ModelCantiere extends Observable{
 			this.codiceLavoro=codiceLavoro;
 		}
 		Cantiere cantiere=getCantiere(codiceCantiere);
-		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine);
+		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 	}
