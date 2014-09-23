@@ -330,12 +330,7 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Macchina> m=null;
-				m=editLavoro.getTipoMacchina()=="Gru"?model.getElencoGruDisponibili(editLavoro.getCodiceRichiestaSelezionata(),editLavoro.getCodiceLavoroSelezionato()):m;
-				m=editLavoro.getTipoMacchina()=="Ruspa"?model.getElencoRuspeDisponibili(editLavoro.getCodiceRichiestaSelezionata(),editLavoro.getCodiceLavoroSelezionato()):m;
-				m=editLavoro.getTipoMacchina()=="Camion"?model.getElencoCamionDisponibili(editLavoro.getCodiceRichiestaSelezionata(),editLavoro.getCodiceLavoroSelezionato()):m;
-				m=editLavoro.getTipoMacchina()=="Escavatore"?model.getElencoEscavatoreDisponibili(editLavoro.getCodiceRichiestaSelezionata(),editLavoro.getCodiceLavoroSelezionato()):m;
-				AssociaMacchina am=new AssociaMacchina(editLavoro, m);
+				AssociaMacchina am=new AssociaMacchina(editLavoro, model.getElencoMacchineDisponibili(editLavoro.getCodiceRichiestaSelezionata()));
 				int codiceRichiesta=editLavoro.getCodiceRichiestaSelezionata();
 				am.addBtnAssociaListener(associaMacchina(codiceRichiesta, editLavoro, am));
 			}

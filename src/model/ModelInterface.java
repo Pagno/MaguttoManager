@@ -212,11 +212,7 @@ public interface ModelInterface {
 	public Cantiere getCantiere(int codiceCantiere);
 	
 	
-	public ArrayList<Macchina> getElencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro);
-	public ArrayList<Macchina> getElencoGruDisponibili(int codiceRichiesta,int codiceLavoro);
-	public ArrayList<Macchina> getElencoCamionDisponibili(int codiceRichiesta,int codiceLavoro);
-	public ArrayList<Macchina> getElencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro);
-	public ArrayList<Cantiere> getListaCantieri();
+public ArrayList<Cantiere> getListaCantieri();
 	
 	
 	public void pubblicaContenuto();
@@ -226,8 +222,6 @@ public interface ModelInterface {
 	public void addCamionObserver(Observer observer);	
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
-	public void addLavoroObserver(Observer observer);
-	public void addRichiestaObserver(Observer observer);
 	
 	
 
@@ -235,6 +229,6 @@ public interface ModelInterface {
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
 	
 	public void liberaRichiesta(int codiceRichiesta);
-	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta);
+	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta);
 
 }

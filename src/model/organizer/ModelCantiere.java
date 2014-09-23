@@ -165,10 +165,6 @@ public class ModelCantiere extends DefaultTreeModel{
 		return null;
 	}
 	
-	public void addLavoroObserver(Observer observer) {
-		lavoroObserver.add(observer);
-	}
-	
 	//aggiungo nuovi lavori
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
@@ -180,17 +176,6 @@ public class ModelCantiere extends DefaultTreeModel{
 
 		addNode add=new addNode("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
-		
-		
-		/*SimpleDateFormat df = new SimpleDateFormat();
-	    df.applyPattern("dd/MM/yyyy");
-		ArrayList<String> v1=new ArrayList<String>();
-		v1.add(Integer.toString(codiceLavoro));v1.add(nome);
-		v1.add(df.format(dataInizio.getTime()));
-		v1.add(df.format(dataFine.getTime()));//Cantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
-		for(Observer ob:lavoroObserver){
-			ob.update(this, v1);
-		}*/
 
 	}
 	

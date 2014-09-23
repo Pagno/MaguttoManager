@@ -514,12 +514,9 @@ public class MainController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					boolean trovataAssociazione=false;
-					for(Cantiere cantiere:model.getListaCantieri()){
-						for(Lavoro lavoro:cantiere.getElencoLavori()){
-							lavoro.liberaMacchina(Integer.parseInt(v[0].toString()));
-						}
-					}
+					//TODO Sistemare la conferma dell'eliminazione della macchina
+					int confirm=JOptionPane.showConfirmDialog(null,"La macchine che si desidera eliminare.","Elimina Macchina", JOptionPane.YES_NO_OPTION);		
+					model.eliminaMacchina(Integer.parseInt(v[0].toString()));
 				}
 			}
 		};

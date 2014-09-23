@@ -127,23 +127,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addCantiereObserver(Observer observer){
 		lc.addObserver(observer);
 	}
-	
-	/**
-	 * Adds   Lavoro observer.
-	 *
-	 * @param observer   observer
-	 */
-	public void addLavoroObserver(Observer observer){
-		lc.addLavoroObserver(observer);
-	}
-	/**
-	 * Adds   Richiesta observer.
-	 *
-	 * @param observer   observer
-	 */
-	public void addRichiestaObserver(Observer observer){
-		lc.addRichiestaObserver(observer);
-	}
+
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -715,86 +699,6 @@ public class ModelConnector extends Observable implements ModelInterface{
 			}
 		}
 	}
-	
-	/**
-	 * Elenco ruspe disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
-	 */
-	public ArrayList<Macchina> getElencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
-		Lavoro lavoro=lc.getLavoro(codiceLavoro);
-		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
-		
-		ArrayList<Macchina> ruspe=new ArrayList<Macchina>();
-		
-		for(Ruspa r:mr.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
-			if(richiesta.rispettaRichiesta(r))
-				ruspe.add(r);
-		}
-		return ruspe;
-	}
-	
-	/**
-	 * Elenco gru disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
-	 */
-	public ArrayList<Macchina> getElencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
-		
-		Lavoro lavoro=lc.getLavoro(codiceLavoro);
-		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
-		
-		ArrayList<Macchina> gru=new ArrayList<Macchina>();
-		
-		for(Gru g:mg.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
-			if(richiesta.rispettaRichiesta(g))
-				gru.add(g);
-		}
-		return gru;
-	}
-	/**
-	 * Elenco camion disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
-	 */
-	public ArrayList<Macchina> getElencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
-		Lavoro lavoro=lc.getLavoro(codiceLavoro);
-		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
-		
-		ArrayList<Macchina> camion=new ArrayList<Macchina>();
-		
-		for(Camion c:mc.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
-			if(richiesta.rispettaRichiesta(c))
-				camion.add(c);
-		}
-		return camion;
-	}
-	
-	/**
-	 * Elenco escavatore disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
-	 */
-	public ArrayList<Macchina> getElencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro){
-		Lavoro lavoro=lc.getLavoro(codiceLavoro);
-		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
-		
-		ArrayList<Macchina> escavatore=new ArrayList<Macchina>();
-		
-		for(Escavatore e:me.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
-			if(richiesta.rispettaRichiesta(e))
-				escavatore.add(e);
-		}
-		return escavatore;
-	}
 
 	@Override
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere) {ArrayList<String> work1=new ArrayList<>();work1.add("1");work1.add("Scavi");work1.add("Scavicchi");
@@ -896,53 +800,36 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public boolean deleteLavoro(int codiceLavoro) {
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
-	
-	public ArrayList<ArrayList<String>> getElencoMacchineDisponibili(int codiceRichiesta){
+	/**
+	 * Elenco macchine disponibili per una data richiesta.
+	 *
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
+	 */
+	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta){
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
-		ArrayList<ArrayList<String>> elencoMacchineDisponibili=new ArrayList<ArrayList<String>>();
+		
+		ArrayList<Macchina> elencoMacchineDisponibili=new ArrayList<Macchina>();
 		if(richiesta.getCaratteristiche() instanceof RichiestaRuspa){
-			for(Ruspa ruspa:mr.getLista()){
-				ArrayList<String> macchina=new ArrayList<String>();
-				if(richiesta.getCaratteristiche().rispettaRichiesta(ruspa) 
-						&& ruspa.isFree(richiesta.getDataInizio(), richiesta.getDataInizio())){
-					macchina.add(Integer.toString(ruspa.getCodice()));
-					macchina.add(ruspa.getProduttore());
-					macchina.add(ruspa.getModello());
-					elencoMacchineDisponibili.add(macchina);
-				}	
+			for(Ruspa e:mr.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
 			}
 		}else if(richiesta.getCaratteristiche() instanceof RichiestaGru){
-			for(Gru gru:mg.getLista()){
-				ArrayList<String> macchina=new ArrayList<String>();
-				if(richiesta.getCaratteristiche().rispettaRichiesta(gru) 
-						&& gru.isFree(richiesta.getDataInizio(), richiesta.getDataInizio())){
-					macchina.add(Integer.toString(gru.getCodice()));
-					macchina.add(gru.getProduttore());
-					macchina.add(gru.getModello());
-					elencoMacchineDisponibili.add(macchina);
-				}	
+			for(Gru e:mg.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
 			}
 		}else if(richiesta.getCaratteristiche() instanceof RichiestaCamion){
-			for(Camion camion:mc.getLista()){
-				ArrayList<String> macchina=new ArrayList<String>();
-				if(richiesta.getCaratteristiche().rispettaRichiesta(camion) 
-						&& camion.isFree(richiesta.getDataInizio(), richiesta.getDataInizio())){
-					macchina.add(Integer.toString(camion.getCodice()));
-					macchina.add(camion.getProduttore());
-					macchina.add(camion.getModello());
-					elencoMacchineDisponibili.add(macchina);
-				}	
+			for(Camion e:mc.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
 			}
 		}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore){
-			for(Escavatore escavatore:me.getLista()){
-				ArrayList<String> macchina=new ArrayList<String>();
-				if(richiesta.getCaratteristiche().rispettaRichiesta(escavatore) 
-						&& escavatore.isFree(richiesta.getDataInizio(), richiesta.getDataInizio())){
-					macchina.add(Integer.toString(escavatore.getCodice()));
-					macchina.add(escavatore.getProduttore());
-					macchina.add(escavatore.getModello());
-					elencoMacchineDisponibili.add(macchina);
-				}	
+			for(Escavatore e:me.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
 			}
 		}
 		return elencoMacchineDisponibili;
