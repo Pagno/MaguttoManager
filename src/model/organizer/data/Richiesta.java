@@ -166,6 +166,7 @@ public final class Richiesta implements Comparable<Richiesta>{
 		}
 	}
 
+	
 	@Override
 	public int compareTo(Richiesta r) {
 		return this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio());
@@ -175,6 +176,18 @@ public final class Richiesta implements Comparable<Richiesta>{
 	}
 	public GregorianCalendar getDataFine(){
 		return lavoro.getDataFine();
+	}
+	
+	public Priority getPriorita(){
+		return lavoro.getPriorita();
+	}
+	
+	public int getCodiceLavoro(){
+		return lavoro.getCodice();
+	}
+	
+	public int getCodiceCantiere(){
+		return lavoro.getCodiceCantiere();
 	}
 }
 
