@@ -189,5 +189,9 @@ public final class Richiesta implements Comparable<Richiesta>{
 	public int getCodiceCantiere(){
 		return lavoro.getCodiceCantiere();
 	}
+	
+	public Lavoro getLavoro(){
+		return lavoro;
+	}
 }
 
