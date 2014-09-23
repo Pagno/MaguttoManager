@@ -9,12 +9,12 @@ import model.organizer.data.Cantiere;
 import model.organizer.data.Priority;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
-import controller.Coppia;
+import controller.Associazione;
 
 public class GreedyEngine {
 
-	public static ArrayList<Coppia> generateAssociations(ModelInterface model){
-		ArrayList<Coppia>Associazioni=new ArrayList<Coppia>();
+	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
+		ArrayList<Associazione>Associazioni=new ArrayList<Associazione>();
 
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
 		ArrayList<Richiesta> richieste=model.getRichiesteScoperte();
@@ -47,14 +47,14 @@ public class GreedyEngine {
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
 		
 		//IMPOSTO LE PRENOTAZIONI
-		ArrayList<Coppia>prenotazioni=new ArrayList<Coppia>();
+		ArrayList<Associazione>prenotazioni=new ArrayList<Associazione>();
 		for(Richiesta ric:sortedRichieste){
 			for(Lavoro lav:ric.getLavoro().getCantiere().getElencoLavori()){
 				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
 					for(Richiesta item:lav.getListaRichieste()){
 						if(item.isSoddisfatta()){
 							if(ric.rispettaRichiesta(item.getMacchina())){
-								prenotazioni.add(new Coppia(ric,item.getMacchina()));
+								prenotazioni.add(new Associazione(ric,item.getMacchina()));
 							}
 						}
 					}

@@ -3,12 +3,12 @@ package controller;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 
-public class Coppia {
+public class Associazione {
 	private Richiesta ric;
 	private Macchina mac;
 	private boolean confermata;
 	
-	public Coppia(Richiesta r, Macchina m){
+	public Associazione(Richiesta r, Macchina m){
 		ric=r;
 		mac=m;
 		confermata=false;
