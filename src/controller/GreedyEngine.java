@@ -79,21 +79,86 @@ public class GreedyEngine {
 				//TODO
 				if(ric.getCaratteristiche() instanceof RichiestaCamion){
 					ArrayList<Camion>disp=model.elencoCamionDisponibili(ric.getCodice(), ric.getCodiceLavoro());
+					//TODO c'è almeno una macchina libera in disp?
+					//TODO c'è almeno una macchina libera anche da associazioni??
 					boolean isSelected=false;
+					for(Camion mac:disp){
+						boolean nonAssociata=true;
+						for(Associazione a:associazioni){
+							//controllo che la macchina non sia già associata e quindi occupata temporaneamente
+							//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
+							if(mac.equals(a.getMacchina())){
+								if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
+									//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già associata
+									nonAssociata=false;
+									break;
+								}
+							}
+						}
+						if(nonAssociata){
+							//La macchina è libera sia dalle associazioni definitive sia da quelle proposte.
+							//Passo quindi a controllare se è stata prenotata da richieste meno prioritarie.
+							boolean isPrenotato=false;
+							for(Prenotazione p:prenotazioni){
+								if(p.getAssociazione().getMacchina().equals(mac)){
+									if(!((ric.getDataFine().before(p.getAssociazione().getRichiesta().getDataInizio()))||(ric.getDataInizio().after(p.getAssociazione().getRichiesta().getDataFine())))){
+										//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
+										isPrenotato=true;
+										break;
+									}
+								}
+							}
+							if(!isPrenotato){
+								//La macchina è libera, non è associata e non è prenotata da altri. 
+								//Posso quindi associarla senza problemi
+								Associazione a=new Associazione(ric,mac);
+								a.setConfermata(true);
+								associazioni.add(a);
+								isSelected=true;
+								break;
+							}
+						}
+					}
+					if(!isSelected){
+						//Nessuna macchina selezionata, rubo quella prenotata dalla richiesta meno prioritaria
+					}
+					
+					
+					
+					
+					/*boolean isSelected=false;
 					for(Camion item:disp){
 						boolean isPrenotato=false;
 						for(Prenotazione p:prenotazioni){
 							if(p.getAssociazione().getMacchina().equals(item)){
-								isPrenotato=true;
-								break;
+								if(!((ric.getDataFine().before(p.getAssociazione().getRichiesta().getDataInizio()))||(ric.getDataInizio().after(p.getAssociazione().getRichiesta().getDataFine())))){
+									//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
+									isPrenotato=true;
+									break;
+								}
 							}
 						}
 						if(!isPrenotato){
-							Associazione a=new Associazione(ric,item);
-							a.setConfermata(true);
-							associazioni.add(a);
-							isSelected=true;
-							break;
+							//Se non è prenotata, controllo se è già stata associata a qualche richiesta in precedenza
+							boolean valid=true;
+							for(Associazione a:associazioni){
+								//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
+								//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
+								if(item.equals(a.getMacchina())){
+									if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
+										//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già occupata
+										valid=false;
+										break;
+									}
+								}
+							}
+							if(valid){
+								Associazione a=new Associazione(ric,item);
+								a.setConfermata(true);
+								associazioni.add(a);
+								isSelected=true;
+								break;
+							}
 						}
 					}
 					if(!isSelected){
@@ -104,7 +169,7 @@ public class GreedyEngine {
 							}
 						}
 					}
-					
+					*/
 				}
 				else if(ric.getCaratteristiche() instanceof RichiestaCamion){
 
