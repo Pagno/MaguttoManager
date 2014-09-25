@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 import javax.swing.JOptionPane;
-import model.organizer.data.Macchina;
+
+import model.organizer.data.Cantiere;
 import model.organizer.data.Priority;
+import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
 import model.organizer.data.RichiestaEscavatore;
 import model.organizer.data.RichiestaGru;
@@ -69,13 +72,7 @@ public class CantieriController {
 				//MEMORIZZO CANTIERE
 				model.aggiungiCantiere(nome, indirizzo, dataInizio, dataFine,Priority.valueOf(cantieriView.getPriorita()));				
 				cantieriView.dispose();
-				/*GregorianCalendar inizio=new GregorianCalendar();inizio.setTime(cantieriView.getDataInizio());
-				GregorianCalendar fine=new GregorianCalendar();fine.setTime(cantieriView.getDataFine());
-				int cod=model.aggiungiCantiere(nome, indirizzo, inizio, fine);
-				for(Object[] data:lista){
 
-					model.aggiungiAssociazione((int)(data[0]), cod, (GregorianCalendar)data[1], (GregorianCalendar)data[2]);
-				}*/
 			}};
 	}
 	
@@ -208,12 +205,47 @@ public class CantieriController {
 		};
 	}*/
 	
-	public ActionListener EditLavoroListener(){
+	public ActionListener EditLavoroListener(final EditLavoro editLavoro){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("editLavoro");
+				//TODO Testare il funzionamento
 				
+				GregorianCalendar newStartDate,newEndDate,oldStartDate,oldEndDate;
+				//Prendo le nuove date
+				(newStartDate=new GregorianCalendar()).setTime(editLavoro.getDataInizioLavoro());
+				(newEndDate=new GregorianCalendar()).setTime(editLavoro.getDataInizioLavoro());
+				
+				/*Devo controllare che le date inserite rispettino la disponibilità delle macchine associate
+				*alle varie richieste
+				*/
+				int codiceLavoro=editLavoro.getCodiceLavoro();
+				
+				ArrayList<Richiesta> richieste=model.getElencoRichieste(codiceLavoro);
+				//Prendo le vecchie date
+				oldStartDate=((richieste.get(0)).getDataInizio());
+				oldEndDate=((richieste.get(0)).getDataFine());
+				/*
+				 * Se la nuova data di inizio e posteriore alla vecchia data di inizio e la 
+				 * se la nuova data di fine e antecedente alla vecchia data di fine 
+				 * posso tranquillamente modificare il lavoro
+				 * */
+				boolean modifica=true;
+				if(newStartDate.before(oldStartDate) || newEndDate.after(oldStartDate)){
+					for(Richiesta richiesta:richieste){
+						if(newStartDate.before(oldStartDate))
+							modifica=modifica&&richiesta.getMacchina().isFree(newStartDate, oldStartDate);
+						if(newEndDate.after(oldStartDate))
+							modifica=modifica&&richiesta.getMacchina().isFree(oldEndDate, newEndDate);
+					}
+				}
+				if(modifica){
+					model.modificaLavoro(codiceLavoro, editLavoro.getNomeLavoro(), newStartDate, newEndDate); 
+				}
+				else{
+					JOptionPane.showMessageDialog(editLavoro, "Non è stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
+				}
+				System.out.println("CodiceLavoro: "+codiceLavoro);	
 			}
 		};
 	}

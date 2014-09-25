@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import model.organizer.data.Cantiere;
 import model.organizer.data.Macchina;
+import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Priority;
 
@@ -168,14 +169,25 @@ public interface ModelInterface {
 	/**
 	 * Inserisci un nuovo Lavoro.
 	 *
-	 * @param nome   Codice del lavoro da cancellare
+	 * @param nome   Codice del lavoro da inserire
 	 * @param inizio   dataInizio del Lavoro
 	 * @param fine   dataFine del Lavoro
 	 * @param idCantiere   Codice del cantiere cui appartiene il lavoro
 	 * 
 	 */
 	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
-
+	
+	/**
+	 * Modifica un Lavoro.
+	 *
+	 * @param codiceLavoro    Codice del lavoro da modificare
+	 * @param nome   Nome del lavoro da modificare
+	 * @param inizio   dataInizio del Lavoro
+	 * @param fine   dataFine del Lavoro
+	 * 
+	 */
+	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine);
+		
 	/**
 	 * Cancella Lavoro.
 	 *
@@ -230,5 +242,7 @@ public ArrayList<Cantiere> getListaCantieri();
 	
 	public void liberaRichiesta(int codiceRichiesta);
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta);
+
+	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro);
 
 }

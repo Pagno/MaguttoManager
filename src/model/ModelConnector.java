@@ -724,7 +724,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 			GregorianCalendar fine, int idCantiere) {
 		 lc.aggiungiLavoro(idCantiere, nome, inizio, fine);
 	}
-
+	@Override
+	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		lc.modificaLavoro(codiceLavoro, nome, dataInizio, dataFine);
+	}
+	
 	@Override
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere) {
 		ArrayList<ArrayList<String>> elencoRichieste=new ArrayList<ArrayList<String>>();
@@ -845,4 +849,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 		Macchina macchina=getMacchina(codiceMacchina);
 		lc.soddisfaRichiesta(codiceRichiesta, macchina);
 	}
+	
+	@Override
+	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro){
+		return lc.getLavoro(codicelavoro).getListaRichieste();
+	}
+	
 }
