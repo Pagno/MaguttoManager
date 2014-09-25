@@ -3,9 +3,15 @@ package model.organizer;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.GregorianCalendar;
 
 import model.organizer.data.Camion;
+import model.organizer.data.Cantiere;
+import model.organizer.data.Lavoro;
+import model.organizer.data.Priority;
+import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaCamion;
 
 import org.junit.Test;
 
@@ -134,5 +140,31 @@ public class ModelCamionTest {
 		String str=a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
 		assertEquals(mc.toString(),str);
 	}
+	
+	@Test
+	public void testGetDisponibili() {
 
+		//Svuoto la lista dei camion presenti
+		mc.getLista().clear();
+		Camion a=new Camion(5, "Iveco", "Daily 35C10", 2000, 1340, 4);
+		Camion b=new Camion(7, "Iveco", "Daily", 12,12, 13);
+		Camion c=new Camion(9, "Volkswagen", "Crafter", 1680, 1000, 1);
+		ArrayList<Camion> listaCamion=new ArrayList<Camion>(Arrays.asList(a,c));
+		mc.addCamion(a);mc.addCamion(b);mc.addCamion(c);
+		
+		
+		Cantiere cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
+		Lavoro lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 10, 10),new GregorianCalendar(2014, 11, 11));
+
+		RichiestaCamion rc=new RichiestaCamion(10, 20, 10, 20, 10, 20);
+		int codice=lavoro.inserisciRichiesta(rc);
+
+		lavoro.soddisfaRichiesta(codice, b);
+		
+		System.out.println(mc.getDisponibili(new GregorianCalendar(2014, 10, 10), new GregorianCalendar(2014, 11, 11)));
+		assertEquals(listaCamion, mc.getDisponibili(new GregorianCalendar(2014, 10, 10), new GregorianCalendar(2014, 11, 11)));
+		assertNotEquals(listaCamion.add(b), mc.getDisponibili(new GregorianCalendar(2014, 10, 10), new GregorianCalendar(2014, 11, 11)));
+		
+
+	}
 }

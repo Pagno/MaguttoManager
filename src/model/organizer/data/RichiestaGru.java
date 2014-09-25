@@ -131,15 +131,17 @@ public class RichiestaGru extends RichiestaMacchina {
 			return false;
 		if (Gru.class != m.getClass())
 			return false;
-		Gru other = (Gru) m;
+		Gru gru = (Gru) m;
 
 		boolean soddisfa=true;
-		soddisfa=soddisfa && (minLunghezza==-1)?true:other.getLunghezza() > minLunghezza;
-		soddisfa=soddisfa && (maxLunghezza==-1)?true:other.getLunghezza() < maxLunghezza;
-		soddisfa=soddisfa && (minPortata==-1)?true:other.getPortataMassima() > minPortata;
-		soddisfa=soddisfa && (maxPortata==-1)?true:other.getPortataMassima() < maxPortata;
-		soddisfa=soddisfa && (minLunghezza==-1)?true:other.getLunghezza() > minLunghezza;
-		soddisfa=soddisfa && (maxLunghezza==-1)?true:other.getLunghezza() < maxLunghezza;
+		soddisfa=soddisfa && ((minLunghezza==-1)?soddisfa : gru.getLunghezza() >= minLunghezza);
+		soddisfa=soddisfa && ((maxLunghezza==-1)?soddisfa : gru.getLunghezza() <= maxLunghezza);
+		soddisfa=soddisfa && ((minPortata==-1)?soddisfa : gru.getPortataMassima() >= minPortata);
+		soddisfa=soddisfa && ((maxPortata==-1)?soddisfa : gru.getPortataMassima() <= maxPortata);
+		soddisfa=soddisfa && ((minAltezza==-1)?soddisfa : gru.getAltezza() >= minAltezza);
+		soddisfa=soddisfa && ((maxAltezza==-1)?soddisfa : gru.getAltezza() <= maxAltezza);
+		soddisfa=soddisfa && ((minAngoloRotazione==-1)?soddisfa : gru.getAngoloRotazione() >= minAngoloRotazione);
+		soddisfa=soddisfa && ((maxAngoloRotazione==-1)?soddisfa : gru.getAngoloRotazione() <= maxAngoloRotazione);
 		return soddisfa;
 	}
 	

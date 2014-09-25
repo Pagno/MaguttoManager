@@ -95,7 +95,7 @@ public class CantiereTest {
 	@Test
 	public void testToString(){
 		//GregorianCalendar parte da 00
-		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Media" );
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Prioritï¿½ Media" );
 	}
 	
 	@Test
@@ -117,12 +117,12 @@ public class CantiereTest {
 		ArrayList<Lavoro>lista=c.getElencoLavori();
 		assertTrue(lista.equals(new ArrayList<Lavoro>()));
 		assertEquals(lista.size(),0);
-		Lavoro l1=new Lavoro(1,"Scavo",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		Lavoro l1=new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
 		c.addLavoro(l1);
 		lista=c.getElencoLavori();
 		assertEquals(lista.size(),1);
 		assertTrue(lista.contains(l1));
-		Lavoro l2=new Lavoro(2,"Costruzione",new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		Lavoro l2=new Lavoro(2,"Costruzione",c,new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
 		c.addLavoro(l2);
 		lista=c.getElencoLavori();
 		assertEquals(lista.size(),2);
@@ -135,11 +135,11 @@ public class CantiereTest {
 		ArrayList<Lavoro>lista=c.getElencoLavori();
 		assertTrue(lista.equals(new ArrayList<Lavoro>()));
 		assertEquals(lista.size(),0);
-		Lavoro l1=new Lavoro(1,"Scavo",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		Lavoro l1=new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
 		c.addLavoro(l1);
-		Lavoro l2=new Lavoro(2,"Costruzione",new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		Lavoro l2=new Lavoro(2,"Costruzione",c,new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
 		c.addLavoro(l2);
-		Lavoro l3=new Lavoro(3,"Gettata",new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
+		Lavoro l3=new Lavoro(3,"Gettata",c,new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
 		c.addLavoro(l3);
 		lista=c.getElencoLavori();
 		assertEquals(lista.size(),3);

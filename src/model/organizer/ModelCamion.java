@@ -190,5 +190,11 @@ public class ModelCamion extends ModelMacchina{
 		}
 	}
 	
+	/**
+	 * Add Camion for Test.
+	 */
+	void addCamion(Camion camion){
+		listaCamion.add(camion);
+	}
 	
 }

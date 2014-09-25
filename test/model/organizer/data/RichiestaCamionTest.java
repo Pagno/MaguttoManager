@@ -97,7 +97,6 @@ public class RichiestaCamionTest {
 
 	@Test
 	public void testtoString(){
-		System.out.println(rCamion);
-		assertEquals(rCamion.toString(),"300-500 3000-4000 10-20");
+		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 3000-4000 10-20");
 	}
 }

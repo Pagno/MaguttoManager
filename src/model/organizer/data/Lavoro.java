@@ -137,7 +137,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 
 	public int inserisciRichiesta(RichiestaMacchina caratteristiche){
 		Richiesta r=new Richiesta(caratteristiche,this);
-		System.out.println("Richiesta aggiunta al lavoro +"+getCodice());
 		macchinariRichiesti.add(r);
 		add(r);
 		return r.getCodice();
