@@ -169,11 +169,9 @@ public class ModelCantiere extends DefaultTreeModel{
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
 		Cantiere cantiere=getCantiere(codiceCantiere);
-<<<<<<< HEAD
-		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine,cantiere);
-=======
+
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
->>>>>>> refs/heads/master
+
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
@@ -189,11 +187,8 @@ public class ModelCantiere extends DefaultTreeModel{
 			this.codiceLavoro=codiceLavoro;
 		}
 		Cantiere cantiere=getCantiere(codiceCantiere);
-<<<<<<< HEAD
-		Lavoro lavoro=new Lavoro(codiceLavoro,nome,dataInizio,dataFine,cantiere);
-=======
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
->>>>>>> refs/heads/master
+
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);

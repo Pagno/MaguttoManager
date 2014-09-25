@@ -225,9 +225,6 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		return lavoro.getDataFine();
 
 	}
-	public int getCodiceLavoro(){
-		return lavoro.getCodice();
-	}
 	
 	public Priority getPriorita(){
 		return lavoro.getPriorita();

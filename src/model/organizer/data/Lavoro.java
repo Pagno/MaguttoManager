@@ -15,18 +15,10 @@ public class Lavoro extends DefaultMutableTreeNode{
 	private GregorianCalendar dataFine;
 	private ArrayList<Richiesta> macchinariRichiesti;
 	private Cantiere cantiere;
-<<<<<<< HEAD
-=======
 	
->>>>>>> refs/heads/master
-	
-<<<<<<< HEAD
-	public Lavoro(int codice, String nome, GregorianCalendar dataInizio,
-			GregorianCalendar dataFine,Cantiere c) {
-=======
+
 	public Lavoro(int codice, String nome, Cantiere cantiere, GregorianCalendar dataInizio,
 			GregorianCalendar dataFine) {
->>>>>>> refs/heads/master
 		super();
 
 		this.codice = codice;
@@ -272,9 +264,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public ArrayList<Richiesta> getListaRichieste(){
 		return macchinariRichiesti;
 	}
-<<<<<<< HEAD
 
-=======
 	
 	public Priority getPriorita(){
 		return cantiere.getPriorita();
@@ -283,5 +273,4 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public int getCodiceCantiere(){
 		return cantiere.getCodice();
 	}
->>>>>>> refs/heads/master
 }
