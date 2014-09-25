@@ -50,6 +50,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 		lavori=new ArrayList<Lavoro>();
 	}
 
+	
 	/**
 	 * Aggiungi una nuova richiesta di macchina.
 	 *
@@ -240,6 +241,15 @@ public class Cantiere extends DefaultMutableTreeNode  {
 		this.codice = codice;
 	}
 
+	public boolean isScoperto(){
+		for(Lavoro lav:lavori){
+			if(lav.isScoperto()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

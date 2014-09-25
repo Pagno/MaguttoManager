@@ -699,6 +699,85 @@ public class ModelConnector extends Observable implements ModelInterface{
 			}
 		}
 	}
+	/**
+	 * Elenco ruspe disponibili.
+	 *
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
+	 */
+	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Ruspa> ruspe=new ArrayList<Ruspa>();
+		
+		for(Ruspa r:mr.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(r))
+				ruspe.add(r);
+		}
+		return ruspe;
+	}
+	
+	/**
+	 * Elenco gru disponibili.
+	 *
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
+	 */
+	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
+		
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Gru> gru=new ArrayList<Gru>();
+		
+		for(Gru g:mg.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(g))
+				gru.add(g);
+		}
+		return gru;
+	}
+	/**
+	 * Elenco camion disponibili.
+	 *
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
+	 */
+	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Camion> camion=new ArrayList<Camion>();
+		
+		for(Camion c:mc.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(c))
+				camion.add(c);
+		}
+		return camion;
+	}
+	
+	/**
+	 * Elenco escavatore disponibili.
+	 *
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
+	 */
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro){
+		Lavoro lavoro=lc.getLavoro(codiceLavoro);
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Escavatore> escavatore=new ArrayList<Escavatore>();
+		
+		for(Escavatore e:me.getDisponibili(lavoro.getDataInizio(), lavoro.getDataFine())){
+			if(richiesta.rispettaRichiesta(e))
+				escavatore.add(e);
+		}
+		return escavatore;
+	}
 
 	@Override
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere) {ArrayList<String> work1=new ArrayList<>();work1.add("1");work1.add("Scavi");work1.add("Scavicchi");
@@ -855,4 +934,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 		return lc.getLavoro(codicelavoro).getListaRichieste();
 	}
 	
+	public ArrayList<Richiesta> getRichiesteScoperte(){
+		return lc.getListaInsoddisfatte();
+	}
 }

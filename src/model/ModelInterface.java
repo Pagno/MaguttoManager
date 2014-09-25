@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observer;
 
+import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
+import model.organizer.data.Escavatore;
+import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Priority;
+import model.organizer.data.Ruspa;
 
 // 
 /**
@@ -224,7 +228,13 @@ public interface ModelInterface {
 	public Cantiere getCantiere(int codiceCantiere);
 	
 	
-public ArrayList<Cantiere> getListaCantieri();
+
+	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Cantiere> getListaCantieri();
+	public ArrayList<Richiesta> getRichiesteScoperte();
 	
 	
 	public void pubblicaContenuto();
