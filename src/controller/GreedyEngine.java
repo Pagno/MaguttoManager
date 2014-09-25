@@ -54,22 +54,7 @@ public class GreedyEngine {
 		for(Richiesta ric:sortedRichieste){
 			for(Lavoro lav:ric.getLavoro().getCantiere().getElencoLavori()){
 				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
-					for(Richiesta item:lav.getListaRichieste()){
-						if(item.isSoddisfatta()){
-							if(ric.rispettaRichiesta(item.getMacchina())){
-								if(item.getMacchina().isFree(ric.getDataInizio(), ric.getDataFine())){
-									sx=(GregorianCalendar)lav.getDataInizio();
-									dx=(GregorianCalendar)lav.getDataFine();
-									d=0;
-									while(sx.before(dx)){
-										sx.add(Calendar.DAY_OF_MONTH, 1);
-										d++;
-									}
-									prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
-								}
-							}
-						}
-					}
+					reserveMacchineFromLavoro(ric, lav, prenotazioni);
 				}
 			}
 		}
@@ -161,8 +146,11 @@ public class GreedyEngine {
 				if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
 					boolean valid=true;
 					for(Associazione a:alreadySelected){
+						//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
+						//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
 						if(coppia.getAssociazione().getMacchina().equals(a.getMacchina())){
 							if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
+								//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già occupata
 								valid=false;
 								break;
 							}
@@ -183,6 +171,27 @@ public class GreedyEngine {
 	}
 	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
+	
+	public static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
+		int d;
+		GregorianCalendar sx,dx;
+		for(Richiesta item:lav.getListaRichieste()){
+			if(item.isSoddisfatta()){
+				if(ric.rispettaRichiesta(item.getMacchina())){
+					if(item.getMacchina().isFree(ric.getDataInizio(), ric.getDataFine())){
+						sx=(GregorianCalendar)lav.getDataInizio();
+						dx=(GregorianCalendar)lav.getDataFine();
+						d=0;
+						while(sx.before(dx)){
+							sx.add(Calendar.DAY_OF_MONTH, 1);
+							d++;
+						}
+						prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
+					}
+				}
+			}
+		}
+	}
 	
 	//Verifico se il lavoro element finisce meno di una settimana prima rispetto a base
 	public static boolean lavoroEndsLessThanAWeekBefore(Lavoro element, Lavoro base){
