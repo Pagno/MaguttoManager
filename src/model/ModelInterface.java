@@ -219,7 +219,7 @@ public interface ModelInterface {
 	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro);
-	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro);
+	public ArrayList<Escavatore> elencoEscavatoriDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Cantiere> getListaCantieri();
 	public ArrayList<Richiesta> getRichiesteScoperte();
 	

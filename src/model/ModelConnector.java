@@ -779,7 +779,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Escavatore> elencoEscavatoreDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Escavatore> elencoEscavatoriDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
