@@ -43,7 +43,7 @@ public class MainView extends JFrame {
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore, itemAddCamion;
 	
 	/**   item collega macchina. */
-	private JMenuItem itemAddCantiere, itemCollegaMacchina;
+	private JMenuItem itemAddCantiere, itemGreedyEngine;
 	
 	/**   item file esci. */
 	private JMenuItem itemFileSalva,itemFileCarica,itemFileEsci;
@@ -174,8 +174,8 @@ public class MainView extends JFrame {
 		itemAddCantiere = new JMenuItem("Aggiungi Cantiere");
 		menuCantiere.add(itemAddCantiere);
 		menuCantiere.addSeparator();
-		itemCollegaMacchina = new JMenuItem("Nuova Associazione");
-		menuCantiere.add(itemCollegaMacchina);
+		itemGreedyEngine = new JMenuItem("Associa Macchina in modo automatico");
+		menuCantiere.add(itemGreedyEngine);
 		
 		
 		menuBar.add(menuFile);
@@ -201,7 +201,14 @@ public class MainView extends JFrame {
 	public void addButtonGruListener(ActionListener act) {
 		btnViewGru.addActionListener(act);
 	}
-	
+	/**
+	 * Adds   button gru listener.
+	 *
+	 * @param act   act
+	 */
+	public void addGreedyEngineListener(ActionListener act) {
+		itemGreedyEngine.addActionListener(act);
+	}
 	/**
 	 * Adds   button ruspa listener.
 	 *

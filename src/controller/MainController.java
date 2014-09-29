@@ -47,34 +47,32 @@ public class MainController{
 		mainView.setVisible(true);
 		model.pubblicaContenuto();
 		//INSERT LISTENER
-		mainView.addAggiungiRuspaListener(VisualizzaInserimentoRuspa());
-		mainView.addAggiungiGruListener(VisualizzaInserimentoGru());
-		mainView.addAggiungiCamionListener(VisualizzaInserimentoCamion());
-		mainView.addAggiungiEscavatoreListener(VisualizzaInserimentoEscavatore());
-		mainView.addAggiungiCantiereListener(VisualizzaInserimentoCantiere());
-		mainView.addBtnAddLavoroListener(AddLavoroView());
+		mainView.addAggiungiRuspaListener(visualizzaInserimentoRuspa());
+		mainView.addAggiungiGruListener(visualizzaInserimentoGru());
+		mainView.addAggiungiCamionListener(visualizzaInserimentoCamion());
+		mainView.addAggiungiEscavatoreListener(visualizzaInserimentoEscavatore());
+		mainView.addAggiungiCantiereListener(visualizzaInserimentoCantiere());
+		mainView.addBtnAddLavoroListener(addLavoroView());
 		//TABLE LISTENER
-		mainView.addButtonGruListener(VisualizzaElencoGru());
-		mainView.addButtonRuspaListener(VisualizzaElencoRuspe());
-		mainView.addButtonCamionListener(VisualizzaElencoCamion());
-		mainView.addButtonEscavatoreListener(VisualizzaElencoEscavatore());
-		mainView.addButtonCantiereListener(VisualizzaElencoCantieri());
+		mainView.addButtonGruListener(visualizzaElencoGru());
+		mainView.addButtonRuspaListener(visualizzaElencoRuspe());
+		mainView.addButtonCamionListener(visualizzaElencoCamion());
+		mainView.addButtonEscavatoreListener(visualizzaElencoEscavatore());
+		mainView.addButtonCantiereListener(visualizzaElencoCantieri());
 		
 		//EDIT LISTENER	
-		mainView.addModificaListener(VisualizzaModificaGruView());
+		mainView.addModificaListener(visualizzaModificaGruView());
 		
 		//DELETE LISTENER
-		mainView.addEliminaListener(EliminaMacchina());	
+		mainView.addEliminaListener(eliminaMacchina());	
 		
 		//MENU FILE LISTENER
-		mainView.addBtnEsciListener(ExitManager());
+		mainView.addBtnEsciListener(exitManager());
 		mainView.addBtnCaricaListener(caricaDatiListener());
 		mainView.addBtnSalvaListener(salvaDatiListener());
 		mainView.addWindowClosingListener(chiusuraProgramma());
 		
-		
-		//MENU FILE LISTENER
-		mainView.addBtnSalvaListener(salvaDatiListener());
+		mainView.addGreedyEngineListener(addGreedyEngineView());
 		
 
 	}
@@ -99,7 +97,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener ExitManager(){
+	public ActionListener exitManager(){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -173,7 +171,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaInserimentoGru() {
+	public ActionListener visualizzaInserimentoGru() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -192,7 +190,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaInserimentoRuspa() {
+	public ActionListener visualizzaInserimentoRuspa() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -211,7 +209,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaInserimentoCamion() {
+	public ActionListener visualizzaInserimentoCamion() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -230,7 +228,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaInserimentoEscavatore() {
+	public ActionListener visualizzaInserimentoEscavatore() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -249,7 +247,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaInserimentoCantiere() {
+	public ActionListener visualizzaInserimentoCantiere() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -271,14 +269,14 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaElencoGru() {
+	public ActionListener visualizzaElencoGru() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showGruData();
 				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(VisualizzaModificaGruView());
-				mainView.addEliminaListener(EliminaMacchina());
+				mainView.addModificaListener(visualizzaModificaGruView());
+				mainView.addEliminaListener(eliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
 			}
 
@@ -293,14 +291,14 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaElencoRuspe() {
+	public ActionListener visualizzaElencoRuspe() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showRuspaData();
 				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(VisualizzaModificaRuspaView());
-				mainView.addEliminaListener(EliminaMacchina());
+				mainView.addModificaListener(visualizzaModificaRuspaView());
+				mainView.addEliminaListener(eliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
 			}
 		};
@@ -314,14 +312,14 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaElencoCamion() {
+	public ActionListener visualizzaElencoCamion() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCamionData();
 				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(VisualizzaModificaCamionView());
-				mainView.addEliminaListener(EliminaMacchina());
+				mainView.addModificaListener(visualizzaModificaCamionView());
+				mainView.addEliminaListener(eliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
 			}
 		};
@@ -335,14 +333,14 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaElencoEscavatore() {
+	public ActionListener visualizzaElencoEscavatore() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showEscavatoreData();
 				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(VisualizzaModificaEscavatoreView());
-				mainView.addEliminaListener(EliminaMacchina());
+				mainView.addModificaListener(visualizzaModificaEscavatoreView());
+				mainView.addEliminaListener(eliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
 			}
 		};
@@ -356,14 +354,14 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaElencoCantieri() {
+	public ActionListener visualizzaElencoCantieri() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCantiereData();
 				//mainView.disableBtnModifica(true);
-				mainView.addEliminaListener(EliminaCantiere());
-				mainView.addModificaListener(AddLavoroView());
+				mainView.addEliminaListener(eliminaCantiere());
+				mainView.addModificaListener(addLavoroView());
 				mainView.setVisibleBtnAssociazioni(true);
 			}
 		};
@@ -378,7 +376,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaModificaGruView() {
+	public ActionListener visualizzaModificaGruView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -401,7 +399,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaModificaRuspaView() {
+	public ActionListener visualizzaModificaRuspaView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -426,7 +424,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaModificaCamionView() {
+	public ActionListener visualizzaModificaCamionView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -451,7 +449,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener VisualizzaModificaEscavatoreView() {
+	public ActionListener visualizzaModificaEscavatoreView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -502,7 +500,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EliminaMacchina(){
+	public ActionListener eliminaMacchina(){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -529,7 +527,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EliminaCantiere(){
+	public ActionListener eliminaCantiere(){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -553,7 +551,7 @@ public class MainController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener AddLavoroView(){
+	public ActionListener addLavoroView(){
 		return new ActionListener(){
 
 			@Override
@@ -578,6 +576,17 @@ public class MainController{
 				}
 			}
 			
+		};
+	}
+	public ActionListener addGreedyEngineView(){
+		return new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.GreedyEngine greedyEngine=new view.GreedyEngine(mainView);
+				CantieriController ctr = new CantieriController(model);
+				greedyEngine.addBtnGeneraMigliorAssociazioneListener(ctr.greedyEngineListener(greedyEngine));
+			}
 		};
 	}
 }

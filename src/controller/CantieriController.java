@@ -389,4 +389,15 @@ public class CantieriController {
 			}
 		};
 	}
+	
+	
+	public ActionListener greedyEngineListener(final view.GreedyEngine greedyView){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Associazione> assGreedy=controller.GreedyEngine.generateAssociations(model);
+				greedyView.loadData(assGreedy);
+			}
+		};
+	}
 }

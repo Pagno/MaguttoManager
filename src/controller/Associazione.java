@@ -43,5 +43,10 @@ public class Associazione {
 			ric.setMacchina(mac);
 		}
 	}
+	public String toString(){
+		String result="Cantiere:"+ric.getLavoro().getCantiere().getNomeCantiere()
+				+" Lavoro:"+ric.getLavoro().getNome()+ " -->  Macchina: "+mac.getProduttore()+" - "+mac.getModello();
+		return result;
+	}
 	
 }
