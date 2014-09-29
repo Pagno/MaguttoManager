@@ -24,7 +24,7 @@ public class GreedyEngine extends JDialog {
 	private JList list;
 	private DefaultListModel<Associazione> listModel;
 	private JButton btnGeneraMigliorAssociazione,btnEliminaAssociazione,okButton;
-	
+	private ArrayList<Associazione> data=new ArrayList<Associazione>();
 	
 	public GreedyEngine(JFrame view) {
 		super(view);
@@ -45,6 +45,14 @@ public class GreedyEngine extends JDialog {
 
 		btnEliminaAssociazione = new JButton("Elimina associazione");
 		contentPanel.add(btnEliminaAssociazione, BorderLayout.SOUTH);
+		btnEliminaAssociazione.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int index=list.getSelectedIndex();
+				data.remove(listModel.get(index));
+				listModel.remove(index);			
+			}
+		});
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -80,11 +88,13 @@ public class GreedyEngine extends JDialog {
 		int index=list.getSelectedIndex();
 		list.remove(index);
 	}
-	public void loadData(ArrayList<Associazione> listaAssociazioni){
-		System.out.println("Associazione caricate.");
+	public void setData(ArrayList<Associazione> listaAssociazioni){
+		data=listaAssociazioni;
 		for(Associazione associazione:listaAssociazioni){
-			System.out.println(associazione);
 			listModel.addElement(associazione);
 		}
+	}
+	public ArrayList<Associazione> getData(){
+		return data;
 	}
 }

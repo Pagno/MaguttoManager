@@ -586,6 +586,7 @@ public class MainController{
 				view.GreedyEngine greedyEngine=new view.GreedyEngine(mainView);
 				CantieriController ctr = new CantieriController(model);
 				greedyEngine.addBtnGeneraMigliorAssociazioneListener(ctr.greedyEngineListener(greedyEngine));
+				greedyEngine.addBtnConfermaAssociazioniListener(ctr.confermaAssociazioniListener(greedyEngine));
 			}
 		};
 	}

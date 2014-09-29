@@ -390,13 +390,28 @@ public class CantieriController {
 		};
 	}
 	
+	/*
+	 * ================LISTENER GREEDY ENGINE=================
+	 * */
 	
 	public ActionListener greedyEngineListener(final view.GreedyEngine greedyView){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Associazione> assGreedy=controller.GreedyEngine.generateAssociations(model);
-				greedyView.loadData(assGreedy);
+				greedyView.setData(assGreedy);
+			}
+		};
+	}
+	
+	public ActionListener confermaAssociazioniListener(final view.GreedyEngine greedyView){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Associazione> assGreedy=greedyView.getData();
+				for(Associazione associazione:assGreedy){
+					model.soddisfaRichiesta(associazione.getRichiesta().getCodice(), associazione.getMacchina().getCodice());
+				}
 			}
 		};
 	}

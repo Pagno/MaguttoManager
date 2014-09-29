@@ -171,7 +171,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	public boolean hasRichiestaInsoddisfatta(){
 		for(Richiesta richiesta:macchinariRichiesti){
-			if(richiesta.isSoddisfatta()==false);
+			if(richiesta.isSoddisfatta()==false)
 				return true;
 		}
 		return false;

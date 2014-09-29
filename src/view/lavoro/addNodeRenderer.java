@@ -51,7 +51,7 @@ public class addNodeRenderer implements TreeCellRenderer {
 				}
 				returnValue=lbl;
 			}else  if((DefaultMutableTreeNode) arg1 instanceof addNode){
-				lblAdd.setText(arg1.toString());
+				lblAdd.setText(showSoddisfatta==false?"":arg1.toString());
 				returnValue=lblAdd;
 			}
 		}
