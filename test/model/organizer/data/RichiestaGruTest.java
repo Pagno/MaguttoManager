@@ -41,9 +41,9 @@ public class RichiestaGruTest {
 	@Test
 	public void testRispettaRichiesta(){
 		assertTrue(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",100,3100,38,24)));
-		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",89,3100,38,24)));
 		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",100,4001,38,24)));
 		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",100,3100,29,24)));
+		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",89,3100,38,24)));
 		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",100,3100,38,19)));
 	}
 
@@ -109,7 +109,6 @@ public class RichiestaGruTest {
 
 	@Test
 	public void testtoString(){
-		System.out.println(rGru.toString());
-		assertEquals(rGru.toString(),"30-40 20-30 3000-4000 90-120");
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-4000 90-120");
 	}
 }

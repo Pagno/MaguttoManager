@@ -1,8 +1,12 @@
 package model.organizer.data;
 
+import java.util.ArrayList;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.GregorianCalendar;
 
-public final class Richiesta implements Comparable<Richiesta>{
+public final class Richiesta extends DefaultMutableTreeNode implements Comparable<Richiesta>{
+
 	
 
 
@@ -80,6 +84,49 @@ public final class Richiesta implements Comparable<Richiesta>{
 
 
 
+	public ArrayList<String> getData() {
+		ArrayList<String> l=new ArrayList<String>();
+		l.add(Integer.toString(getCodice()));
+		if(getCaratteristiche() instanceof RichiestaCamion){
+			l.add("Camion");
+			RichiestaCamion rc=(RichiestaCamion)getCaratteristiche();
+			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add(Integer.toString(rc.getMinLunghezza()));l.add(Integer.toString(rc.getMaxLunghezza()));
+			l.add("0");l.add("0");
+			l.add("0");l.add("0");
+			l.add("0");l.add("0");
+		}else if(getCaratteristiche() instanceof RichiestaEscavatore){
+			l.add("Escavatore");
+			RichiestaEscavatore rc=(RichiestaEscavatore)getCaratteristiche();
+			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+			l.add(Integer.toString(rc.getMinProfondita()));l.add(Integer.toString(rc.getMaxProfondita()));
+			l.add("0");l.add("0");
+		}else if(getCaratteristiche() instanceof RichiestaGru){
+			l.add("Gru");
+			RichiestaGru rc=(RichiestaGru)getCaratteristiche();
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add(Integer.toString(rc.getMinLunghezza()));l.add(Integer.toString(rc.getMaxLunghezza()));
+			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinAngoloRotazione()));l.add(Integer.toString(rc.getMaxAngoloRotazione()));
+		}else if(getCaratteristiche() instanceof RichiestaRuspa){
+			l.add("Ruspa");
+			RichiestaRuspa rc=(RichiestaRuspa)getCaratteristiche();
+			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));
+			l.add(Integer.toString(rc.getMinPortata()));l.add(Integer.toString(rc.getMaxPortata()));
+			l.add("0");l.add("0");
+			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
+			l.add("0");l.add("0");
+			l.add("0");l.add("0");
+		}
+		return l;
+	}
+	
 	
 	
 	
@@ -176,6 +223,7 @@ public final class Richiesta implements Comparable<Richiesta>{
 	}
 	public GregorianCalendar getDataFine(){
 		return lavoro.getDataFine();
+
 	}
 	
 	public Priority getPriorita(){

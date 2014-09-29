@@ -21,7 +21,6 @@ import controller.Associazione;
 
 public class GreedyEngine {
 
-
 	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
 		ArrayList<Associazione>Associazioni=new ArrayList<Associazione>();
 
@@ -202,11 +201,11 @@ public class GreedyEngine {
 				if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
 					boolean valid=true;
 					for(Associazione a:alreadySelected){
-						//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
-						//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
+						//controllo che la prenotazione non coinvolga una macchina giï¿½ associata e quindi occupata temporaneamente
+						//Le macchine erano giï¿½ libere, il controllo ï¿½ effettuato in reserveMacchineFromLavoro
 						if(coppia.getAssociazione().getMacchina().equals(a.getMacchina())){
 							if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
-								//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già occupata
+								//se la macchina ï¿½ la stessa e le tempistiche si sovrappongono, la macchina ï¿½ giï¿½ occupata
 								valid=false;
 								break;
 							}

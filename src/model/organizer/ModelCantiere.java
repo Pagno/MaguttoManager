@@ -6,6 +6,12 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import org.apache.derby.impl.sql.compile.InsertNode;
+
+import view.lavoro.addNode;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
@@ -20,7 +26,7 @@ import model.organizer.data.RichiestaRuspa;
 
 
 
-public class ModelCantiere extends Observable{
+public class ModelCantiere extends DefaultTreeModel{
 
 	
 	private ArrayList<Cantiere> listaCantieri;
@@ -37,6 +43,7 @@ public class ModelCantiere extends Observable{
 
 
 	private ModelCantiere(){
+		super(null);
 		listaCantieri=new ArrayList<Cantiere>();
 		codice=0;
 		codiceLavoro=0;
@@ -53,30 +60,34 @@ public class ModelCantiere extends Observable{
 
 	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		codice++;
-		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
-		
+		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
+		this.listaCantieri.add(c);
 
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
-		setChanged();
-		notifyObservers(v1);
-		
-		
+		//setChanged();
+		//notifyObservers(v1);
+		observer.update(null, v1);//notifyObservers(v1);
+		addNode add=new addNode("Aggiungi nuovo Lavoro");
+		insertNodeInto(add, c, 0);
+		Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
 		if(this.codice<codice){
 			this.codice=codice;
 		}
-		this.listaCantieri.add(new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita));
-	
+		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
+		this.listaCantieri.add(c);
+		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
-		setChanged();
-		notifyObservers(v1);
-	
+		//setChanged();
+		observer.update(null, v1);//notifyObservers(v1);
+		addNode add=new addNode("Aggiungi nuovo Lavoro");
+		insertNodeInto(add, c, 0);
 	}
 
 
@@ -91,8 +102,9 @@ public class ModelCantiere extends Observable{
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
-				setChanged();
-				notifyObservers(v1);
+				//setChanged();
+				//notifyObservers(v1);
+				observer.update(null, v1);//notifyObservers(v1);
 			}
 		}
 	}
@@ -153,27 +165,20 @@ public class ModelCantiere extends Observable{
 		return null;
 	}
 	
-	public void addLavoroObserver(Observer observer) {
-		lavoroObserver.add(observer);
-	}
-	
 	//aggiungo nuovi lavori
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
 		Cantiere cantiere=getCantiere(codiceCantiere);
+
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
+
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
-		
-		SimpleDateFormat df = new SimpleDateFormat();
-	    df.applyPattern("dd/MM/yyyy");
-		ArrayList<String> v1=new ArrayList<String>();
-		v1.add(Integer.toString(codiceLavoro));v1.add(nome);
-		v1.add(df.format(dataInizio.getTime()));
-		v1.add(df.format(dataFine.getTime()));//Cantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime())};
-		for(Observer ob:lavoroObserver){
-			ob.update(this, v1);
-		}
+		insertNodeInto(lavoro, cantiere, 0);
+
+		addNode add=new addNode("Aggiungi nuova Richiesta");
+		insertNodeInto(add, lavoro, 0);
+
 	}
 	
 	//carico i lavori presenti a database
@@ -183,8 +188,12 @@ public class ModelCantiere extends Observable{
 		}
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
+
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
+		insertNodeInto(lavoro, cantiere, 0);
+		addNode add=new addNode("Aggiungi nuova Richiesta");
+		insertNodeInto(add, lavoro, 0);
 	}
 	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
@@ -317,25 +326,13 @@ public class ModelCantiere extends Observable{
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
-	public ArrayList<String> aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
+	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
-		ArrayList<String> v1=null;
+		System.out.print("CodiceLavoro: "+codiceLavoro);
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
-			int codiceRichiesta=l.inserisciRichiesta(caratteristiche);
-			
-			
-			v1=new ArrayList<String>();
-			v1.add(Integer.toString(codiceLavoro));v1.add(Integer.toString(codiceRichiesta));
-			String tipo="";
-			tipo+=(caratteristiche instanceof RichiestaCamion)==true?"Camion":"";
-			tipo+=(caratteristiche instanceof RichiestaRuspa)==true?"Ruspa":"";
-			tipo+=(caratteristiche instanceof RichiestaEscavatore)==true?"Escavatore":"";
-			tipo+=(caratteristiche instanceof RichiestaGru)==true?"Gru":"";
-			v1.add(tipo);
+			l.inserisciRichiesta(caratteristiche);
 		}
-		
-		return v1;
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
@@ -647,6 +644,11 @@ public class ModelCantiere extends Observable{
 		if(istanza!=null){
 			istanza=null;
 		}
+	}
+
+	Observer observer;
+	public void addObserver(Observer ob) {
+		this.observer=ob;
 	}
 
 

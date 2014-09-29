@@ -127,23 +127,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public void addCantiereObserver(Observer observer){
 		lc.addObserver(observer);
 	}
-	
-	/**
-	 * Adds   Lavoro observer.
-	 *
-	 * @param observer   observer
-	 */
-	public void addLavoroObserver(Observer observer){
-		lc.addLavoroObserver(observer);
-	}
-	/**
-	 * Adds   Richiesta observer.
-	 *
-	 * @param observer   observer
-	 */
-	public void addRichiestaObserver(Observer observer){
-		lc.addRichiestaObserver(observer);
-	}
+
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -616,7 +600,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 							res.getInt("AltezzaMax"),res.getInt("ProfonditaMin"),res.getInt("ProfonditaMax"));
 					
 				}
-				lavoro.inserisciRichiesta(richiesta);
+				int codiceRichiesta=lavoro.inserisciRichiesta(richiesta);
+				if(res.getInt("CodiceMacchina")!=0){
+					soddisfaRichiesta(codiceRichiesta, res.getInt("CodiceMacchina"));
+				}
 			}
 			//db.disconnect();
 		} catch (DBException e) {
@@ -707,11 +694,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 				System.out.println("		LAVORO: "+l.toString());
 				for(Richiesta r:l.getListaRichieste()){
 					System.out.println("			RICHIESTA: "+r.getCaratteristiche().toString());
+					if(r.isSoddisfatta()) System.out.println("				MACCHINA: "+r.getMacchina());
 				}
 			}
 		}
 	}
-	
 	/**
 	 * Elenco ruspe disponibili.
 	 *
@@ -816,7 +803,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 			GregorianCalendar fine, int idCantiere) {
 		 lc.aggiungiLavoro(idCantiere, nome, inizio, fine);
 	}
-
+	@Override
+	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
+		lc.modificaLavoro(codiceLavoro, nome, dataInizio, dataFine);
+	}
+	
 	@Override
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere) {
 		ArrayList<ArrayList<String>> elencoRichieste=new ArrayList<ArrayList<String>>();
@@ -865,16 +856,22 @@ public class ModelConnector extends Observable implements ModelInterface{
 		}
 		return elencoRichieste;
 	}
-
+	public Cantiere  getCantiere(int codiceCantiere){
+		for(Cantiere cantiere:lc.getListaCantieri()){
+			if(cantiere.getCodice()==codiceCantiere)
+				return cantiere;
+		}
+		return null;
+	}
 	@Override
 	public ArrayList<Cantiere> getListaCantieri() {
 		return lc.getListaCantieri();
 	}
 
 	@Override
-	public ArrayList<String> addRichiesta(int codiceCantiere, int codiceLavoro,
+	public void addRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
-		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
+		lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
 	@Override
@@ -886,6 +883,45 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public boolean deleteLavoro(int codiceLavoro) {
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
+	/**
+	 * Elenco macchine disponibili per una data richiesta.
+	 *
+	 * @param inizio   inizio
+	 * @param fine   fine
+	 * @return   array list
+	 */
+	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta){
+		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
+		
+		ArrayList<Macchina> elencoMacchineDisponibili=new ArrayList<Macchina>();
+		if(richiesta.getCaratteristiche() instanceof RichiestaRuspa){
+			for(Ruspa e:mr.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
+			}
+		}else if(richiesta.getCaratteristiche() instanceof RichiestaGru){
+			for(Gru e:mg.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
+			}
+		}else if(richiesta.getCaratteristiche() instanceof RichiestaCamion){
+			for(Camion e:mc.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
+			}
+		}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore){
+			for(Escavatore e:me.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
+				if(richiesta.rispettaRichiesta(e))
+					elencoMacchineDisponibili.add(e);
+			}
+		}
+		return elencoMacchineDisponibili;
+	}
+
+	@Override
+	public void liberaRichiesta(int codiceRichiesta) {
+		lc.liberaRichiesta(codiceRichiesta);		
+	}
 	
 	@Override
 	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
@@ -894,6 +930,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 	
 	@Override
+	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro){
+		return lc.getLavoro(codicelavoro).getListaRichieste();
+	}
+	
 	public ArrayList<Richiesta> getRichiesteScoperte(){
 		return lc.getListaInsoddisfatte();
 	}

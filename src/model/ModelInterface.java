@@ -11,8 +11,8 @@ import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
-import model.organizer.data.Ruspa;
 import model.organizer.data.Priority;
+import model.organizer.data.Ruspa;
 
 // 
 /**
@@ -173,14 +173,25 @@ public interface ModelInterface {
 	/**
 	 * Inserisci un nuovo Lavoro.
 	 *
-	 * @param nome   Codice del lavoro da cancellare
+	 * @param nome   Codice del lavoro da inserire
 	 * @param inizio   dataInizio del Lavoro
 	 * @param fine   dataFine del Lavoro
 	 * @param idCantiere   Codice del cantiere cui appartiene il lavoro
 	 * 
 	 */
 	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
-
+	
+	/**
+	 * Modifica un Lavoro.
+	 *
+	 * @param codiceLavoro    Codice del lavoro da modificare
+	 * @param nome   Nome del lavoro da modificare
+	 * @param inizio   dataInizio del Lavoro
+	 * @param fine   dataFine del Lavoro
+	 * 
+	 */
+	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine);
+		
 	/**
 	 * Cancella Lavoro.
 	 *
@@ -197,7 +208,7 @@ public interface ModelInterface {
 	 * @param richiesta   Richiesta da Inserire
 	 * 
 	 */
-	public ArrayList<String> addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	public void addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
 	/**
 	 * Cancella Richiesta.
 	 *
@@ -213,9 +224,11 @@ public interface ModelInterface {
 	 * @param codiceMacchina  codice della macchina da associare
 	 * 
 	 */
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);
+	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);	
+	public Cantiere getCantiere(int codiceCantiere);
 	
 	
+
 	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro);
 	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro);
@@ -231,13 +244,15 @@ public interface ModelInterface {
 	public void addCamionObserver(Observer observer);	
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
-	public void addLavoroObserver(Observer observer);
-	public void addRichiestaObserver(Observer observer);
 	
 	
 
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
 	
-		
+	public void liberaRichiesta(int codiceRichiesta);
+	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta);
+
+	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro);
+
 }

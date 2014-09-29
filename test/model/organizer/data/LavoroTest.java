@@ -13,13 +13,14 @@ import org.junit.Test;
 public class LavoroTest {
 	
 	/**   c. */
-	Lavoro c;
-	
+	Lavoro lavoro;
+	Cantiere cantiere;
 	/**
 	 * Instantiates a new Lavoro test.
 	 */
 	public LavoroTest(){
-		c=new Lavoro(5,"Scavi",new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
+		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 	}
 
 	/**
@@ -27,10 +28,10 @@ public class LavoroTest {
 	 */
 	@Test
 	public void testLavoro() {
-		assertEquals(c.getCodice(),5);
-		assertEquals(c.getNome(),"Scavi");
-		assertEquals(c.getDataInizio(),new GregorianCalendar(2014, 9, 01));
-		assertEquals(c.getDataFine(),new GregorianCalendar(2014, 11, 1));
+		assertEquals(lavoro.getCodice(),5);
+		assertEquals(lavoro.getNome(),"Scavi");
+		assertEquals(lavoro.getDataInizio(),new GregorianCalendar(2014, 9, 01));
+		assertEquals(lavoro.getDataFine(),new GregorianCalendar(2014, 11, 1));
 	}
 
 	/**
@@ -38,8 +39,8 @@ public class LavoroTest {
 	 */
 	@Test
 	public void testSetNome() {
-		c.setNome("Fondamenta");
-		assertEquals(c.getNome(),"Fondamenta");
+		lavoro.setNome("Fondamenta");
+		assertEquals(lavoro.getNome(),"Fondamenta");
 	}
 
 	/**
@@ -47,8 +48,8 @@ public class LavoroTest {
 	 */
 	@Test
 	public void testSetCodice() {
-		c.setCodice(8);
-		assertEquals(c.getCodice(),8);
+		lavoro.setCodice(8);
+		assertEquals(lavoro.getCodice(),8);
 	}
 
 	/**
@@ -56,33 +57,33 @@ public class LavoroTest {
 	 */
 	@Test
 	public void testSetDataInizio() {
-		c.setDataInizio(new GregorianCalendar(2014, 10, 01));
-		assertEquals(c.getDataInizio(),new GregorianCalendar(2014, 10, 01));
+		lavoro.setDataInizio(new GregorianCalendar(2014, 10, 01));
+		assertEquals(lavoro.getDataInizio(),new GregorianCalendar(2014, 10, 01));
 	}
 	/**
 	 * Test set Data Fine.
 	 */
 	@Test
 	public void testSetDataFine() {
-		c.setDataFine(new GregorianCalendar(2014, 12, 01));
-		assertEquals(c.getDataFine(),new GregorianCalendar(2014, 12, 01));
+		lavoro.setDataFine(new GregorianCalendar(2014, 12, 01));
+		assertEquals(lavoro.getDataFine(),new GregorianCalendar(2014, 12, 01));
 	}
 	/**
 	 * Test set produttore.
 	 */
 	
 	public void testEquals() {
-		assertTrue(c.equals(c));
-		assertFalse(c.equals(new Ruspa(5,"Yamaha","Prova",100,99,98)));
-		assertFalse(c.equals("Stringa"));
-		assertFalse(c.equals(null));
-		assertTrue(c.equals(new Camion(5,"Yamaha","Prova",100,99,98)));
-		assertFalse(c.equals(new Camion(6,"Yamaha","Prova",100,99,98)));
-		assertFalse(c.equals(new Camion(5,"Yamaha","Test",100,99,98)));
-		assertFalse(c.equals(new Camion(5,"Caterpillar","Prova",100,99,98)));
-		assertFalse(c.equals(new Camion(5,"Yamaha","Prova",101,99,98)));
-		assertFalse(c.equals(new Camion(5,"Yamaha","Prova",100,100,98)));
-		assertFalse(c.equals(new Camion(5,"Yamaha","Prova",100,99,99)));
+		assertTrue(lavoro.equals(lavoro));
+		assertFalse(lavoro.equals(new Ruspa(5,"Yamaha","Prova",100,99,98)));
+		assertFalse(lavoro.equals("Stringa"));
+		assertFalse(lavoro.equals(null));
+		assertTrue(lavoro.equals(new Camion(5,"Yamaha","Prova",100,99,98)));
+		assertFalse(lavoro.equals(new Camion(6,"Yamaha","Prova",100,99,98)));
+		assertFalse(lavoro.equals(new Camion(5,"Yamaha","Test",100,99,98)));
+		assertFalse(lavoro.equals(new Camion(5,"Caterpillar","Prova",100,99,98)));
+		assertFalse(lavoro.equals(new Camion(5,"Yamaha","Prova",101,99,98)));
+		assertFalse(lavoro.equals(new Camion(5,"Yamaha","Prova",100,100,98)));
+		assertFalse(lavoro.equals(new Camion(5,"Yamaha","Prova",100,99,99)));
 	}
 
 }

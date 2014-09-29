@@ -9,17 +9,19 @@ import java.util.TreeSet;
  */
 public abstract class Macchina {
 	
-	/**   modello. */
+	/**   modello. 		*/
 	private String modello;
 	
-	/**   codice. */
+	/**   codice. 		*/
 	private int codice;
 	
-	/**   produttore. */
+	/**   produttore. 	*/
 	private String produttore;
 	
-	/**   */
+
+	/**	  Richiesta 	*/
 	private TreeSet<Richiesta> elencoRichiesta;
+
 	/**
 	 * Instantiates a new macchina.
 	 *

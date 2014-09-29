@@ -1,6 +1,8 @@
 package model.organizer.data;
 
-public abstract class RichiestaMacchina {
+import javax.swing.tree.DefaultMutableTreeNode;
+
+public abstract class RichiestaMacchina{
 	
 	public RichiestaMacchina() {
 		super();

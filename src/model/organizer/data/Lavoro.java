@@ -3,11 +3,11 @@ package model.organizer.data;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 
-public class Lavoro{
+public class Lavoro extends DefaultMutableTreeNode{
 
 	private int codice;
 	private String nome;
@@ -16,7 +16,7 @@ public class Lavoro{
 	private ArrayList<Richiesta> macchinariRichiesti;
 	private Cantiere cantiere;
 	
-	
+
 	public Lavoro(int codice, String nome, Cantiere cantiere, GregorianCalendar dataInizio,
 			GregorianCalendar dataFine) {
 		super();
@@ -137,9 +137,11 @@ public class Lavoro{
 
 	public int inserisciRichiesta(RichiestaMacchina caratteristiche){
 		Richiesta r=new Richiesta(caratteristiche,this);
-		System.out.println("Richiesta aggiunta al lavoro +"+getCodice());
 		macchinariRichiesti.add(r);
+		add(r);
 		return r.getCodice();
+		
+		
 	}
 	
 	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
@@ -147,6 +149,7 @@ public class Lavoro{
 		if(r.rispettaRichiesta(m)){
 			r.setMacchina(m);
 		}
+		add(r);
 		macchinariRichiesti.add(r);
 	}
 	
@@ -166,7 +169,13 @@ public class Lavoro{
 		}
 		return false;
 	}
-	
+	public boolean hasRichiestaInsoddisfatta(){
+		for(Richiesta richiesta:macchinariRichiesti){
+			if(richiesta.isSoddisfatta()==false);
+				return true;
+		}
+		return false;
+	}
 	public Richiesta getRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
@@ -189,7 +198,8 @@ public class Lavoro{
 	
 	public void svuotaRichieste(){
 		for(Richiesta item:macchinariRichiesti){
-				item.setMacchina(null);
+			item.getMacchina().removeRichiesta(item);
+			item.setMacchina(null);
 		}
 		macchinariRichiesti.clear();
 	}
@@ -199,6 +209,7 @@ public class Lavoro{
 			if(item.getCodice()==codice){
 				if(item.rispettaRichiesta(mac)){
 					item.setMacchina(mac);
+					mac.addRichiesta(item);
 				}
 			}
 		}
@@ -207,18 +218,20 @@ public class Lavoro{
 	//vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente
 	public void liberaRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
-			if(item.getCodice()==codiceRichiesta){
-					item.setMacchina(null);
+			if(item.getCodice()==codice){
+				item.getMacchina().removeRichiesta(item);
+				item.setMacchina(null);
 			}
 		}
 	}
 	
 	//Libera le richieste con associata una data macchina
 	public void liberaMacchina(int codiceMacchina){
+		//TODO
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getMacchina().getCodice()==codiceMacchina){
-					item.getMacchina().removeRichiesta(item);
-					item.setMacchina(null);
+				item.getMacchina().removeRichiesta(item);
+				item.setMacchina(null);
 			}
 		}
 	}
@@ -250,6 +263,7 @@ public class Lavoro{
 	public ArrayList<Richiesta> getListaRichieste(){
 		return macchinariRichiesti;
 	}
+
 	
 	public Priority getPriorita(){
 		return cantiere.getPriorita();

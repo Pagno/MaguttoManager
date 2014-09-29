@@ -6,6 +6,8 @@ import java.util.Observer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import model.organizer.data.Cantiere;
+
 
 public class treeModel extends DefaultTreeModel  implements Observer{
 
@@ -15,24 +17,15 @@ public class treeModel extends DefaultTreeModel  implements Observer{
 	private static final long serialVersionUID = -8141324938219265208L;
 
 	ArrayList<workNode> listaLavori=new ArrayList<workNode>();  
-	DefaultMutableTreeNode root;
-	
-	
-	public treeModel(String cantiere) {
+	Cantiere c;
+	public treeModel(Cantiere cantiere) {
 		super(null);
-		
-
-		root =  new DefaultMutableTreeNode(cantiere);
-		setRoot(root);
-
-		addNode add=new addNode("Aggiungi nuovo Lavoro");
-		insertNodeInto(add, root, 0);
+		setRoot(cantiere);
 	}
 	public void addWork(ArrayList<String> work){
 		workNode a=new workNode(work);
-		addNode add=new addNode("Aggiungi nuova Richiesta");
-		insertNodeInto(add, a, 0);
-		insertNodeInto(a, root, 0);
+		//insertNodeInto(a, getRoot(), 0);
+		
 		listaLavori.add(a);//aggiungo il nodo
 	}
 	public void addRichiesta(ArrayList<String> richiesta){

@@ -117,7 +117,6 @@ public class RichiestaEscavatoreTest {
 
 	@Test
 	public void testtoString(){
-		System.out.println(rEscavatore.toString());
-		assertEquals(rEscavatore.toString(),"30-40 120-130 10-15 5-8");
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 10-15 5-8");
 	}
 }

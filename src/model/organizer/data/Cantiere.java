@@ -1,12 +1,14 @@
 package model.organizer.data;
 import java.text.SimpleDateFormat;
 import java.util.*;
-// 
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *   Class Cantiere.
  */
-public class Cantiere {
+public class Cantiere extends DefaultMutableTreeNode  {
 	
 	/**   codiceCantiere. */
 	private int codice;
@@ -38,6 +40,7 @@ public class Cantiere {
 	 * @param dataChiusura data chiusura del Cantiere
 	 */
 	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+		super(null);
 		this.setCodice(codice);
 		this.priorita=priorita;
 		this.nomeCantiere=nomeCantiere;
@@ -55,6 +58,7 @@ public class Cantiere {
 	 */
 	public void addLavoro(Lavoro r) {
 		lavori.add(r);
+
 	}
 	
 	/**

@@ -109,12 +109,12 @@ public class RichiestaCamion extends RichiestaMacchina {
 
 
 		boolean soddisfa=true;
-		soddisfa=soddisfa && (minCapacita==-1)?true:other.getCapacitaMassima() > minCapacita;
-		soddisfa=soddisfa && (maxCapacita==-1)?true:other.getCapacitaMassima() < maxCapacita;
-		soddisfa=soddisfa && (minPortata==-1)?true:other.getPortataMassima() > minPortata;
-		soddisfa=soddisfa && (maxPortata==-1)?true:other.getPortataMassima() < maxPortata;
-		soddisfa=soddisfa && (minLunghezza==-1)?true:other.getLunghezza() > minLunghezza;
-		soddisfa=soddisfa && (maxLunghezza==-1)?true:other.getLunghezza() < maxLunghezza;
+		soddisfa=soddisfa && ((minCapacita==-1)?soddisfa : other.getCapacitaMassima() >= minCapacita);
+		soddisfa=soddisfa && ((maxCapacita==-1)?soddisfa : other.getCapacitaMassima() <= maxCapacita);
+		soddisfa=soddisfa && ((minPortata==-1)?soddisfa : other.getPortataMassima() >= minPortata);
+		soddisfa=soddisfa && ((maxPortata==-1)?soddisfa : other.getPortataMassima() <= maxPortata);
+		soddisfa=soddisfa && ((minLunghezza==-1)?soddisfa : other.getLunghezza() >= minLunghezza);
+		soddisfa=soddisfa && ((maxLunghezza==-1)?soddisfa : other.getLunghezza() <= maxLunghezza);
 		return soddisfa;
 	}
 	

@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 import view.EditCamion;
@@ -16,8 +14,6 @@ import view.EditRuspa;
 import view.MainView;
 import view.lavoro.EditLavoro;
 import model.ModelInterface;
-import model.organizer.data.Cantiere;
-import model.organizer.data.Lavoro;
 
 // 
 /**
@@ -280,7 +276,7 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showGruData();
-				//mainView.disableBtnModifica(false);
+				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaGruView());
 				mainView.addEliminaListener(EliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
@@ -302,7 +298,7 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showRuspaData();
-				//mainView.disableBtnModifica(false);
+				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaRuspaView());
 				mainView.addEliminaListener(EliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
@@ -323,7 +319,7 @@ public class MainController{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showCamionData();
-				//mainView.disableBtnModifica(false);
+				mainView.disableBtnModifica(false);
 				mainView.addModificaListener(VisualizzaModificaCamionView());
 				mainView.addEliminaListener(EliminaMacchina());
 				mainView.setVisibleBtnAssociazioni(false);
@@ -498,7 +494,8 @@ public class MainController{
 	}*/
 	//DELETE
 	/**
-	 * Elimina la macchina selezionata nella tabella.
+	 * Elimina la macchina selezionata nella tabella. Se la macchina presenta delle associazioni con
+	 * dei cantieri appare un messaggio in cui viene chiesta la conferma all'utente dell'eliminazione
 	 *
 	 * @return istanza classe ActionListener 
 	 * che implementa il metodo <strong>actionPerformed</strong>
@@ -512,14 +509,13 @@ public class MainController{
 				Object[] v=mainView.getSelectedData();
 
 				if(v==null){
-					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
+					JOptionPane.showMessageDialog(mainView,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					boolean trovataAssociazione=false;
-					for(Cantiere cantiere:model.getListaCantieri()){
-						for(Lavoro lavoro:cantiere.getElencoLavori()){
-							lavoro.liberaMacchina(Integer.parseInt(v[0].toString()));
-						}
-					}
+					//TODO Mostrare a messaggio il codice dei lavori che sono associati a tale macchina
+					//int confirm=JOptionPane.showConfirmDialog(mainView,"Eliminando questa macchina verranno eliminate anche le associazioni con i lavori associati. \n Si desidera continuare con l'eliminazione?","Elimina Macchina", JOptionPane.YES_NO_OPTION);		
+					//if(confirm==JOptionPane.OK_OPTION){
+						model.eliminaMacchina(Integer.parseInt(v[0].toString()));
+					//}
 				}
 			}
 		};
@@ -564,30 +560,14 @@ public class MainController{
 			public void actionPerformed(ActionEvent e) {
 				Object[] data=mainView.getSelectedData();
 				if(data!=null){					
-					EditLavoro editLavoro = new EditLavoro(mainView, data);
+					EditLavoro editLavoro = new EditLavoro(mainView, model.getCantiere((int)data[0]));
 					CantieriController ctr = new CantieriController(model);
-					model.addLavoroObserver(editLavoro.treeModel);
-					model.addRichiestaObserver(editLavoro.treeModel);
-					
-					//TODO se il cantiere contiene dei lavori non si deve poter restringere le date
-					/*if(model.getAssociazioniList((Integer)data[0]).size()>0){
-						editLavoro.setMinimaDataFine(editLavoro.getDataFineCantiere());
-						editLavoro.setMassimaDataInizio(editLavoro.getDataInizioCantiere());
-					}*/
-					
-					//Aggiungo i lavori gia caricati per questo cantiere
-					for (ArrayList<String> lavoro:model.getLavoriCantiereList((int) mainView.getSelectedData()[0]))
-							editLavoro.addLavoro(lavoro);
-					
-					//Carico tutte le richieste per questo cantiere
-					for (ArrayList<String> richiesta:model.getRichiesteLavoroList(((int) mainView.getSelectedData()[0])))
-						editLavoro.addRichiesta(richiesta);
-				
-					
-					//Aggiungi tutti i listener per i vari bottoni
+					editLavoro.addAssociaMacchinaListener(ctr.associaMacchinaView(editLavoro));
+					editLavoro.addLiberaRichiestaListener(ctr.rimuoviAssociazioneListener(editLavoro));
+
 					editLavoro.setAddLavoroListeners(ctr.AddLavoroListener(editLavoro));
 					editLavoro.setAddRichiestaListeners(ctr.AddRichiestaListener(editLavoro));
-					editLavoro.setEditLavoroListeners(ctr.EditLavoroListener());
+					editLavoro.setEditLavoroListeners(ctr.EditLavoroListener(editLavoro));
 					editLavoro.setAddCantiereListeners(ctr.EditCantiereListener(editLavoro,(Integer)data[0]));
 					editLavoro.addDeleteLavoroListener(ctr.DeleteLavoroListener(editLavoro));
 					editLavoro.addDeleteRichiestaListener(ctr.DeleteRichiestaListener(editLavoro));

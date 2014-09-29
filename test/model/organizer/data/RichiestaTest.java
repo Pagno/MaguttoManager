@@ -2,20 +2,27 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
+import java.util.GregorianCalendar;
+
 import org.junit.Test;
 
 public class RichiestaTest {
 	Richiesta r;
+	Lavoro lavoro;
+	Cantiere cantiere;
 	
 	public RichiestaTest(){
-		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),22);
+		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
+		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+
+		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
 	}
 	
 	@Test
 	public void testRichiestaRichiestaMacchina() {
 		int code;
 		code=Richiesta.getNextCodice();
-		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20));
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro);
 		assertEquals(r.getCaratteristiche(),new RichiestaCamion(10,20,10,20,10,20));
 		assertEquals(r.getCodice(),code);
 		assertEquals(Richiesta.getNextCodice(),code+1);
@@ -63,20 +70,20 @@ public class RichiestaTest {
 		assertTrue(r.equals(r));
 		assertFalse(r.equals(null));
 		assertFalse(r.equals("Stringa"));
-		Richiesta a=new Richiesta(null,22);
+		Richiesta a=new Richiesta(null,lavoro,22);
 		assertFalse(r.equals(a));
 		assertFalse(a.equals(r));
-		assertFalse(a.equals(new Richiesta(null,23)));
-		assertTrue(a.equals(new Richiesta(null,22)));
-		assertTrue(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(6,10,5,10,5,10),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,11,5,10,5,10),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,6,10,5,10),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,11,5,10),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,6,10),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,11),22)));
-		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),23)));
-		a=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),22);
+		assertFalse(a.equals(new Richiesta(null,lavoro,23)));
+		assertTrue(a.equals(new Richiesta(null,lavoro,22)));
+		assertTrue(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(6,10,5,10,5,10),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,11,5,10,5,10),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,6,10,5,10),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,11,5,10),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,6,10),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,11),lavoro,22)));
+		assertFalse(r.equals(new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,23)));
+		a=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
 		assertTrue(r.equals(a));
 		assertTrue(a.equals(r));
 		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,7));
@@ -133,11 +140,11 @@ public class RichiestaTest {
 		assertEquals(Richiesta.getNextCodice(),23);
 		Richiesta.initCodice();
 		assertEquals(Richiesta.getNextCodice(),1);
-		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20));
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro);
 		assertEquals(Richiesta.getNextCodice(),2);
-		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),99);
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro,99);
 		assertEquals(Richiesta.getNextCodice(),100);
-		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20));
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro);
 		assertEquals(Richiesta.getNextCodice(),101);
 	}
 
