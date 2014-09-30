@@ -288,7 +288,7 @@ public class GreedyEngine {
 	 *se tale priorità è minore, restituisce false.
 	 *se le priorità sono uguali, passo al confronto della durata dei lavori.
 	 */
-	private static boolean sortByPriority(Richiesta ins, Richiesta arr, Integer dIns, Integer dArr){
+	static boolean sortByPriority(Richiesta ins, Richiesta arr, Integer dIns, Integer dArr){
 		if(ins.getPriorita()==Priority.ALTA){
 			if(arr.getPriorita()==Priority.ALTA){
 				return sortByDuration(ins, arr, dIns, dArr);
@@ -322,7 +322,7 @@ public class GreedyEngine {
 	 *se tale durata è maggiore, restituisce false.
 	 *se le durate sono uguali, passo al confronto della data d'inizio del lavoro.
 	 */
-	private static boolean sortByDuration(Richiesta ins, Richiesta arr, Integer dIns, Integer dArr){
+	static boolean sortByDuration(Richiesta ins, Richiesta arr, Integer dIns, Integer dArr){
 		if(dIns<dArr){
 			return true;
 		}
@@ -338,7 +338,7 @@ public class GreedyEngine {
 	 *se tale data d'inizio è maggiore, restituisce false.
 	 *se le data d'inizio sono uguali, passo al confronto dei codici.
 	 */
-	private static boolean sortByStartDate(Richiesta ins, Richiesta arr){
+	static boolean sortByStartDate(Richiesta ins, Richiesta arr){
 		if(ins.getDataInizio().before(arr.getDataInizio())){
 			return true;
 		}
@@ -360,7 +360,7 @@ public class GreedyEngine {
 	 *se il codice di ins è minore del codice di arr, restituisco true.
 	 *se tale codice è maggiore, restituisco false.
 	 */
-	private static boolean sortByCodes(Richiesta ins, Richiesta arr){
+	static boolean sortByCodes(Richiesta ins, Richiesta arr){
 		if(ins.getCodiceCantiere()<arr.getCodiceCantiere()){
 			return true;
 		}
