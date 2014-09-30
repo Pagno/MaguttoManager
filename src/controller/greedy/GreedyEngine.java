@@ -1,4 +1,4 @@
-package controller;
+package controller.greedy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +12,8 @@ import model.organizer.data.Priority;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
-import controller.Associazione;
+import controller.data.Associazione;
+import controller.data.Prenotazione;
 
 public class GreedyEngine {
 

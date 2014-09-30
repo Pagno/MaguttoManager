@@ -1,4 +1,4 @@
-package controller;
+package controller.data;
 
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
