@@ -160,6 +160,23 @@ public class GreedyEngineTest {
 		assertTrue(GreedyEngine.sortByDuration(r3_1, r1_2, d3_1, d1_2));
 		assertFalse(GreedyEngine.sortByPriority(r3_2, r2_1, d3_2, d2_1));
 		assertFalse(GreedyEngine.sortByDuration(r3_2, r1_1, d3_2, d1_1));
+		
+		//Priorità uguali
+		//Alta-Alta
+		assertEquals(GreedyEngine.sortByPriority(r1_1, r1_2, d1_1, d1_2),GreedyEngine.sortByDuration(r1_1, r1_2, d1_1, d1_2));
+		assertTrue(GreedyEngine.sortByDuration(r1_1, r1_2, d1_1, d1_2));
+		assertEquals(GreedyEngine.sortByPriority(r1_2, r1_1, d1_2, d1_1),GreedyEngine.sortByDuration(r1_2, r1_1, d1_2, d1_1));
+		assertFalse(GreedyEngine.sortByPriority(r1_2, r1_1, d1_2, d1_1));
+		//Media-Media
+		assertEquals(GreedyEngine.sortByPriority(r2_1, r2_2, d2_1, d2_2),GreedyEngine.sortByDuration(r2_1, r2_2, d2_1, d2_2));
+		assertTrue(GreedyEngine.sortByDuration(r2_1, r2_2, d2_1, d2_2));
+		assertEquals(GreedyEngine.sortByPriority(r2_2, r2_1, d2_2, d2_1),GreedyEngine.sortByDuration(r2_2, r2_1, d2_2, d2_1));
+		assertFalse(GreedyEngine.sortByPriority(r2_2, r2_1, d2_2, d2_1));
+		//Bassa-Bassa
+		assertEquals(GreedyEngine.sortByPriority(r3_1, r3_2, d3_1, d3_2),GreedyEngine.sortByDuration(r3_1, r3_2, d3_1, d3_2));
+		assertTrue(GreedyEngine.sortByDuration(r3_1, r3_2, d3_1, d3_2));
+		assertEquals(GreedyEngine.sortByPriority(r3_2, r3_1, d3_2, d3_1),GreedyEngine.sortByDuration(r3_2, r3_1, d3_2, d3_1));
+		assertFalse(GreedyEngine.sortByPriority(r3_2, r3_1, d3_2, d3_1));
 	}
 
 	@Test
