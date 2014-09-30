@@ -47,12 +47,50 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testLavoroEndsLessThanAWeekBefore() {
-		fail("Not yet implemented");
+		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
+		Lavoro base=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,15),new GregorianCalendar(2014,04,20));
+		Lavoro element=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,02));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,13));
+		assertTrue(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,11));
+		assertTrue(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,18));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,17));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,25));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,23));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,31));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,30));
+		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
 	}
 
 	@Test
 	public void testLavoroStartsLessThanAWeekAfter() {
-		fail("Not yet implemented");
+		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
+		Lavoro base=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,15),new GregorianCalendar(2014,04,20));
+		Lavoro element=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,02));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,13));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,11));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,18));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,17));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,25));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,23));
+		assertTrue(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataFine(new GregorianCalendar(2014,04,29));
+		assertTrue(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		element.setDataInizio(new GregorianCalendar(2014,04,28));
+		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
 	}
 
 	@Test

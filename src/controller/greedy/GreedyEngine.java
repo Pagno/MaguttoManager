@@ -1,8 +1,10 @@
 package controller.greedy;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import model.ModelInterface;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
@@ -235,7 +237,7 @@ public class GreedyEngine {
 				sx=(GregorianCalendar)element.getDataFine().clone();
 				dx=(GregorianCalendar)base.getDataInizio().clone();
 				d=0;
-				while(sx.before(dx)||d<8){
+				while(sx.before(dx)&&d<8){
 					sx.add(Calendar.DAY_OF_MONTH, 1);
 					d++;
 				}
@@ -260,10 +262,10 @@ public class GreedyEngine {
 		int d;
 		if(!element.equals(base)){
 			if(element.getDataInizio().after(base.getDataFine())){
-				sx=(GregorianCalendar)element.getDataInizio().clone();
-				dx=(GregorianCalendar)base.getDataFine().clone();
+				sx=(GregorianCalendar)base.getDataFine().clone();
+				dx=(GregorianCalendar)element.getDataInizio().clone();
 				d=0;
-				while(sx.before(dx)||d<8){
+				while(sx.before(dx)&&d<8){
 					sx.add(Calendar.DAY_OF_MONTH, 1);
 					d++;
 				}
