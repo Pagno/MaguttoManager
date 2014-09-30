@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
+import controller.data.Associazione;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Priority;
 import model.organizer.data.Richiesta;
@@ -398,7 +399,7 @@ public class CantieriController {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Associazione> assGreedy=controller.GreedyEngine.generateAssociations(model);
+				ArrayList<Associazione> assGreedy=controller.greedy.GreedyEngine.generateAssociations(model);
 				greedyView.setData(assGreedy);
 			}
 		};
