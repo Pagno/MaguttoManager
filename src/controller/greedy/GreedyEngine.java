@@ -53,7 +53,7 @@ public class GreedyEngine {
 		//IMPOSTO LE PRENOTAZIONI
 		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
 		for(Richiesta ric:sortedRichieste){
-			for(Lavoro lav:ric.getLavoro().getCantiere().getElencoLavori()){
+			for(Lavoro lav:ric.getRelatedWorks()){
 				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
 					reserveMacchineFromLavoro(ric, lav, prenotazioni);
 				}
@@ -116,7 +116,7 @@ public class GreedyEngine {
 					//controllo che la macchina non sia già associata e quindi occupata temporaneamente
 					//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
 					if(mac.equals(a.getMacchina())){
-						if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
+						if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
 							//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già associata
 							disp.remove(mac);
 							break;
@@ -136,8 +136,8 @@ public class GreedyEngine {
 				for(T mac:disp){
 					boolean isPrenotato=false;
 					for(Prenotazione p:prenotazioni){
-						if(p.getAssociazione().getMacchina().equals(mac)){
-							if(!((ric.getDataFine().before(p.getAssociazione().getRichiesta().getDataInizio()))||(ric.getDataInizio().after(p.getAssociazione().getRichiesta().getDataFine())))){
+						if(p.getMacchina().equals(mac)){
+							if(!((ric.getDataFine().before(p.getDataInizio()))||(ric.getDataInizio().after(p.getDataFine())))){
 								//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
 								isPrenotato=true;
 								break;
@@ -159,8 +159,8 @@ public class GreedyEngine {
 					//Sono sicuro di trovare almeno una prenotazione, perché c'è almeno una macchina libera ma nessuna era non prenotata.
 					//Le prenotazioni sono in ordine di priorità della richiesta, quindi seleziono quella con indice più alto.
 					for(int i=prenotazioni.size()-1; i>=0; i--){
-						if(disp.contains(prenotazioni.get(i).getAssociazione().getMacchina())){
-							insertAssociation(ric,prenotazioni.get(i).getAssociazione().getMacchina(),associazioni);
+						if(disp.contains(prenotazioni.get(i).getMacchina())){
+							insertAssociation(ric,prenotazioni.get(i).getMacchina(),associazioni);
 						}
 					}
 				}
@@ -184,8 +184,8 @@ public class GreedyEngine {
 					for(Associazione a:alreadySelected){
 						//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
 						//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
-						if(coppia.getAssociazione().getMacchina().equals(a.getMacchina())){
-							if(!((ric.getDataFine().before(a.getRichiesta().getDataInizio()))||(ric.getDataInizio().after(a.getRichiesta().getDataFine())))){
+						if(coppia.getMacchina().equals(a.getMacchina())){
+							if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
 								//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già occupata
 								valid=false;
 								break;

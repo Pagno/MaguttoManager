@@ -1,5 +1,7 @@
 package controller.data;
 
+import java.util.GregorianCalendar;
+
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 
@@ -39,5 +41,13 @@ public class Prenotazione {
 	
 	public Macchina getMacchina(){
 		return associazione.getMacchina();
+	}
+	
+	public GregorianCalendar getDataInizio(){
+		return associazione.getDataInizio();
+	}
+	
+	public GregorianCalendar getDataFine(){
+		return associazione.getDataFine();
 	}
 }

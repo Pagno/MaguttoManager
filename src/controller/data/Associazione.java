@@ -1,5 +1,7 @@
 package controller.data;
 
+import java.util.GregorianCalendar;
+
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 
@@ -47,6 +49,14 @@ public class Associazione {
 		String result="Cantiere:"+ric.getLavoro().getCantiere().getNomeCantiere()
 				+" Lavoro:"+ric.getLavoro().getNome()+ " -->  Macchina: "+mac.getProduttore()+" - "+mac.getModello();
 		return result;
+	}
+	
+	public GregorianCalendar getDataInizio(){
+		return ric.getDataInizio();
+	}
+	
+	public GregorianCalendar getDataFine(){
+		return ric.getDataFine();
 	}
 	
 }

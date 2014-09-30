@@ -241,5 +241,9 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	public Lavoro getLavoro(){
 		return lavoro;
 	}
+	
+	public ArrayList<Lavoro> getRelatedWorks(){
+		return lavoro.getRelatedWorks();
+	}
 }
 
