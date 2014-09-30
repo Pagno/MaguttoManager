@@ -1,5 +1,6 @@
 package controller.data;
 
+import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 
 public class Prenotazione {
@@ -34,5 +35,9 @@ public class Prenotazione {
 	
 	public Richiesta getRichiesta() {
 		return associazione.getRichiesta();
+	}
+	
+	public Macchina getMacchina(){
+		return associazione.getMacchina();
 	}
 }
