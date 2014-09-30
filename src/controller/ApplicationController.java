@@ -54,11 +54,7 @@ public class ApplicationController{
 		mainView.addAggiungiCantiereListener(visualizzaInserimentoCantiere());
 		mainView.addBtnAddLavoroListener(addLavoroView());
 		//TABLE LISTENER
-		mainView.addButtonGruListener(visualizzaElencoGru());
-		mainView.addButtonRuspaListener(visualizzaElencoRuspe());
-		mainView.addButtonCamionListener(visualizzaElencoCamion());
-		mainView.addButtonEscavatoreListener(visualizzaElencoEscavatore());
-		mainView.addButtonCantiereListener(visualizzaElencoCantieri());
+
 		
 		//EDIT LISTENER	
 		mainView.addModificaListener(visualizzaModificaGruView());
@@ -67,10 +63,6 @@ public class ApplicationController{
 		mainView.addEliminaListener(eliminaMacchina());	
 		
 		//MENU FILE LISTENER
-		mainView.addBtnEsciListener(exitManager());
-		mainView.addBtnCaricaListener(caricaDatiListener());
-		mainView.addBtnSalvaListener(salvaDatiListener());
-		mainView.addWindowClosingListener(chiusuraProgramma());
 		
 		mainView.addGreedyEngineListener(addGreedyEngineView());
 		
@@ -97,14 +89,9 @@ public class ApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener exitManager(){
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				model.storeData();
-				mainView.dispose();
-			}
-		};
+	public void exitManager(){
+		model.storeData();
+		mainView.dispose();
 	}
 	
 	/**
@@ -115,14 +102,8 @@ public class ApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener salvaDatiListener(){
-		return new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				model.storeData();
-			}
-			
-		};
+	public void salvaDatiListener(){
+		model.storeData();
 	}
 	
 	/**
@@ -133,19 +114,8 @@ public class ApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener caricaDatiListener(){
-		return new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				mainView.dataModelCamion.resetData();
-				mainView.dataModelRuspa.resetData();
-				mainView.dataModelEscavatore.resetData();
-				mainView.dataModelGru.resetData();
-				mainView.dataModelCantiere.resetData();
-				model.refreshData();
-			}
-			
-		};
+	public void caricaDatiListener(){
+		model.refreshData();
 	}
 	
 	/**
@@ -153,13 +123,8 @@ public class ApplicationController{
 	 *
 	 * @return   window adapter
 	 */
-	public WindowAdapter chiusuraProgramma(){
-		return new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				model.storeData();
-			}
-		};
+	public void chiusuraProgramma(){
+		model.storeData();
 	}
 	
 	//BTN VIEW LISTENER
@@ -256,113 +221,6 @@ public class ApplicationController{
 				//ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
 				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener(ins));
 				//ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
-			}
-		};
-	}
-	
-	//VISUALIZZA ELENCO IN TABELLA
-	/**
-	 * Visualizza l'elenco delle Gru inserite.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaElencoGru() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mainView.showGruData();
-				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(visualizzaModificaGruView());
-				mainView.addEliminaListener(eliminaMacchina());
-				mainView.setVisibleBtnAssociazioni(false);
-			}
-
-		};
-	}
-	
-	/**
-	 * Visualizza l'elenco delle Ruspe inserite.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaElencoRuspe() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mainView.showRuspaData();
-				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(visualizzaModificaRuspaView());
-				mainView.addEliminaListener(eliminaMacchina());
-				mainView.setVisibleBtnAssociazioni(false);
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza l'elenco dei Csmion inseriti.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaElencoCamion() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mainView.showCamionData();
-				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(visualizzaModificaCamionView());
-				mainView.addEliminaListener(eliminaMacchina());
-				mainView.setVisibleBtnAssociazioni(false);
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza l'elenco degli Escavatori inseriti.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaElencoEscavatore() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mainView.showEscavatoreData();
-				mainView.disableBtnModifica(false);
-				mainView.addModificaListener(visualizzaModificaEscavatoreView());
-				mainView.addEliminaListener(eliminaMacchina());
-				mainView.setVisibleBtnAssociazioni(false);
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza l'elenco dei Cantieri inseriti.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaElencoCantieri() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mainView.showCantiereData();
-				//mainView.disableBtnModifica(true);
-				mainView.addEliminaListener(eliminaCantiere());
-				mainView.addModificaListener(addLavoroView());
-				mainView.setVisibleBtnAssociazioni(true);
 			}
 		};
 	}

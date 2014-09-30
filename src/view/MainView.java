@@ -1,7 +1,11 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +17,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
+import controller.AbstractApplicationController;
+
 import java.awt.event.WindowAdapter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 // 
 /**
@@ -48,12 +56,13 @@ public class MainView extends JFrame {
 	/**   item file esci. */
 	private JMenuItem itemFileSalva,itemFileCarica,itemFileEsci;
 	
+	private AbstractApplicationController appController;
 	/**
 	 * Create   frame.
 	 */
-	public MainView() {
-
+	public MainView(AbstractApplicationController aCtr) {
 		setTitle("MaguttoManager");
+		appController=aCtr;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 564, 365);
 
@@ -97,7 +106,7 @@ public class MainView extends JFrame {
 		southPanel.add(btnAddLavoro);
 		center.add(southPanel,BorderLayout.SOUTH);
 		contentPane.add(center, BorderLayout.CENTER);
-		
+		listener();
 	}
 	
 	/**
@@ -105,8 +114,13 @@ public class MainView extends JFrame {
 	 *
 	 * @param e   e
 	 */
-	public void addWindowClosingListener(WindowAdapter e){
-		addWindowListener(e);
+	private WindowListener addWindowClosingListener(WindowAdapter e){
+		return new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				appController.chiusuraProgramma();
+			}
+		};
 	}
 
 	/**
@@ -183,23 +197,46 @@ public class MainView extends JFrame {
 		menuBar.add(menuCantiere);
 	}
 	
-	/**
-	 * Adds   exit listener.
-	 *
-	 * @param act   act
-	 */
-	public void addExitListener(ActionListener act){
-		itemFileEsci.addActionListener(act);
-	}
 	
 	//VIEW LISTENER
+	public void listener(){
+		btnViewGru.addActionListener(visualizzaElencoGru(this));
+		btnViewRuspa.addActionListener(visualizzaElencoGru(this));
+		btnViewEscavatore.addActionListener(visualizzaElencoGru(this));
+		btnViewCamion.addActionListener(visualizzaElencoGru(this));
+		btnViewCantiere.addActionListener(visualizzaElencoGru(this));
+		
+		//zZ
+		itemFileSalva.addActionListener(addBtnSalvaListener());
+		addWindowListener(addWindowClosingListener());
+		itemFileCarica.addActionListener(addBtnCaricaListener());
+	}
 	/**
 	 * Adds   button gru listener.
 	 *
 	 * @param act   act
 	 */
-	public void addButtonGruListener(ActionListener act) {
-		btnViewGru.addActionListener(act);
+	public ActionListener visualizzaElencoGru(final MainView mainView) {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				showGruData();
+				Method m;
+				try {
+					Class c=MainView.class;
+					m = c.getMethod("show"+((JButton)arg0.getSource()).getText()+"Data");
+					m.invoke(mainView);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				//disableBtnModifica(false);
+				btnAddLavoro.setVisible(false);
+				if(((JButton)arg0.getSource()).equals(btnViewCantiere)){
+					btnAddLavoro.setVisible(true);
+				}
+			}
+		};
 	}
 	/**
 	 * Adds   button gru listener.
@@ -209,42 +246,6 @@ public class MainView extends JFrame {
 	public void addGreedyEngineListener(ActionListener act) {
 		itemGreedyEngine.addActionListener(act);
 	}
-	/**
-	 * Adds   button ruspa listener.
-	 *
-	 * @param act   act
-	 */
-	public void addButtonRuspaListener(ActionListener act) {
-		btnViewRuspa.addActionListener(act);
-	}
-	
-	/**
-	 * Adds   button camion listener.
-	 *
-	 * @param act   act
-	 */
-	public void addButtonCamionListener(ActionListener act) {
-		btnViewCamion.addActionListener(act);
-	}
-	
-	/**
-	 * Adds   button escavatore listener.
-	 *
-	 * @param act   act
-	 */
-	public void addButtonEscavatoreListener(ActionListener act) {
-		btnViewEscavatore.addActionListener(act);
-	}
-	
-	/**
-	 * Adds   button cantiere listener.
-	 *
-	 * @param act   act
-	 */
-	public void addButtonCantiereListener(ActionListener act) {
-		btnViewCantiere.addActionListener(act);
-	}
-
 	//MENU ADD LISTENER
 	/**
 	 * Adds   aggiungi gru listener.
@@ -297,8 +298,13 @@ public class MainView extends JFrame {
 	 *
 	 * @param act   act
 	 */
-	public void addBtnSalvaListener(ActionListener act){
-		itemFileSalva.addActionListener(act);
+	public ActionListener addBtnSalvaListener(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				appController.salvaDatiListener();
+			}
+		};
 	}
 	
 	/**
@@ -306,8 +312,18 @@ public class MainView extends JFrame {
 	 *
 	 * @param act   act
 	 */
-	public void addBtnCaricaListener(ActionListener act){
-		itemFileCarica.addActionListener(act);
+	public ActionListener addBtnCaricaListener(){
+		return new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dataModelCamion.resetData();
+				dataModelRuspa.resetData();
+				dataModelEscavatore.resetData();
+				dataModelGru.resetData();
+				dataModelCantiere.resetData();
+				appController.caricaDatiListener();
+			}
+		};
 	}
 	
 	/**
@@ -315,8 +331,13 @@ public class MainView extends JFrame {
 	 *
 	 * @param act   act
 	 */
-	public void addBtnEsciListener(ActionListener act){
-		itemFileEsci.addActionListener(act);
+	public ActionListener addBtnEsciListener(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				appController.exitManager();
+			}
+		};
 	}
 	//BOTTOM BUTTON
 	/**
@@ -411,16 +432,6 @@ public class MainView extends JFrame {
 	public void disableBtnModifica(boolean disable){
 		btnEdit.setEnabled(!disable);
 	}
-	
-	/**
-	 * Sets   visible btn modifica.
-	 *
-	 * @param visible   new visible btn modifica
-	 */
-	public void setVisibleBtnAssociazioni(boolean visible){
-		btnAddLavoro.setVisible(visible);
-	}
-	
 	/**
 	 * Removes   selected.
 	 */
