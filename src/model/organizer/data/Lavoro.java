@@ -3,7 +3,6 @@ package model.organizer.data;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 
 

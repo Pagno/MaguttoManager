@@ -6,7 +6,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
 
-import controller.MainController;
+import controller.ApplicationController;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
@@ -46,7 +46,7 @@ public class Main {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		new MainController(m,mainView);
+		new ApplicationController(m,mainView);
 
 	}
 

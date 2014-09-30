@@ -25,7 +25,7 @@ import model.ModelInterface;
  * @see MainView
  * 
  */
-public class MainController{
+public class ApplicationController{
 
 	/**   model. */
 	private ModelInterface model;
@@ -39,7 +39,7 @@ public class MainController{
 	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
 	 * @param view per registrare gli eventi generati dalla view
 	 */
-	public MainController(ModelInterface modelConnector,MainView view) {
+	public ApplicationController(ModelInterface modelConnector,MainView view) {
 		model = modelConnector;
 		mainView = view;
 		setObserver();
