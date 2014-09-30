@@ -411,7 +411,7 @@ public class CantieriController {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Associazione> assGreedy=greedyView.getData();
 				for(Associazione associazione:assGreedy){
-					model.soddisfaRichiesta(associazione.getRichiesta().getCodice(), associazione.getMacchina().getCodice());
+					associazione.concretizza();
 				}
 			}
 		};
