@@ -8,12 +8,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.AbstractInsertController;
 
 // 
 /**
@@ -38,17 +41,34 @@ public class EditCamion extends JDialog {
 	/**   ok button. */
 	private JButton okButton;
 
+	private AbstractInsertController insCtr;
 	/**
 	 * Create   dialog.
 	 *
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditCamion(JFrame view, Object[] obj) {
-		this(view);
+	public EditCamion(JFrame view, Object[] obj,AbstractInsertController aCtr) {
+		super(view);
+		insCtr=aCtr;
 		setTitle("Modifica Camion");
+		createLayout();
 		setTextBox(obj);
 		okButton.setText("Modifica");
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+				}catch(java.lang.NumberFormatException ex){
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
 	}
 	
 	/**
@@ -70,9 +90,34 @@ public class EditCamion extends JDialog {
 	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
-	public EditCamion(JFrame view) {
+	public EditCamion(JFrame view,AbstractInsertController aCtr) {
 		super(view);
+		insCtr=aCtr;
 		setTitle("Aggiungi un nuovo Camion");
+		createLayout();
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					if(insCtr.insertNewCamionListener(txtProduttore.getText(),txtModello.getText(),
+						Integer.parseInt(txtCapacita.getText()), 
+						Integer.parseInt(txtPortata.getText()), 
+						Integer.parseInt(txtLunghezza.getText())))
+					{	
+						dispose();
+					}
+				}catch(java.lang.NumberFormatException ex){
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+	}
+	private void createLayout(){
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -207,6 +252,7 @@ public class EditCamion extends JDialog {
 
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
+		
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 

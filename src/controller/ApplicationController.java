@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JOptionPane;
 
 import view.EditCamion;
@@ -25,7 +26,7 @@ import model.ModelInterface;
  * @see MainView
  * 
  */
-public class ApplicationController{
+public class ApplicationController implements AbstractApplicationController{
 
 	/**   model. */
 	private ModelInterface model;
@@ -46,25 +47,10 @@ public class ApplicationController{
 		model.refreshData();
 		mainView.setVisible(true);
 		model.pubblicaContenuto();
-		//INSERT LISTENER
-		mainView.addAggiungiRuspaListener(visualizzaInserimentoRuspa());
-		mainView.addAggiungiGruListener(visualizzaInserimentoGru());
-		mainView.addAggiungiCamionListener(visualizzaInserimentoCamion());
-		mainView.addAggiungiEscavatoreListener(visualizzaInserimentoEscavatore());
-		mainView.addAggiungiCantiereListener(visualizzaInserimentoCantiere());
-		mainView.addBtnAddLavoroListener(addLavoroView());
-		//TABLE LISTENER
 
-		
 		//EDIT LISTENER	
-		mainView.addModificaListener(visualizzaModificaGruView());
-		
-		//DELETE LISTENER
-		mainView.addEliminaListener(eliminaMacchina());	
 		
 		//MENU FILE LISTENER
-		
-		mainView.addGreedyEngineListener(addGreedyEngineView());
 		
 
 	}
@@ -91,7 +77,6 @@ public class ApplicationController{
 	 */
 	public void exitManager(){
 		model.storeData();
-		mainView.dispose();
 	}
 	
 	/**
@@ -127,128 +112,6 @@ public class ApplicationController{
 		model.storeData();
 	}
 	
-	//BTN VIEW LISTENER
-	/**
-	 * Visualizza la view per iniserire una nuova Gru.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaInserimentoGru() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				EditGru ins = new EditGru(mainView);
-				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.insertNewGruListener(ins));
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza la view per iniserire una nuova Ruspa.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaInserimentoRuspa() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				EditRuspa ins = new EditRuspa(mainView);
-				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.insertNewRuspaListener(ins));
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza la view per iniserire un nuovo Camion.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaInserimentoCamion() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				EditCamion ins = new EditCamion(mainView);
-				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.insertNewCamionListener(ins));
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza la view per iniserire un nuovo Escavatore.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaInserimentoEscavatore() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				EditEscavatore ins = new EditEscavatore(mainView);
-				InsertController ctr = new InsertController(model);
-				ins.setInsertButtonListeners(ctr.insertNewEscavatoreListener(ins));
-			}
-		};
-	}
-	
-	/**
-	 * Visualizza la view per iniserire un nuovo Cantiere.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaInserimentoCantiere() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				InsertCantiere ins = new InsertCantiere(mainView);
-				CantieriController ctr = new CantieriController(model);
-				//ins.setInsertAddAssociazioneListeners(ctr.OpenViewAddAssociazioniListener());
-				ins.setInsertButtonListeners(ctr.InsertNuovoCantiereListener(ins));
-				//ins.setDataInizioChangedListener(ctr.setDataInizioChangedListener(ins));
-			}
-		};
-	}
-	
-	//EDIT
-	/**
-	 * Visualizza la view per modificare i dati di una Gru.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener visualizzaModificaGruView() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object[] v=mainView.getSelectedData();
-				if(v==null){
-					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
-				}else{
-					EditGru ins = new EditGru(mainView, v);
-					InsertController ctr = new InsertController(model);
-					ins.setInsertButtonListeners(ctr.EditGruListener(ins,(Integer)v[0]));
-				}
-			}
-		};
-	}
 	/**
 	 * Visualizza la view per modificare i dati di una Ruspa.
 	 *
@@ -266,10 +129,10 @@ public class ApplicationController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					EditRuspa ins = new EditRuspa(mainView, v);
+					/*EditRuspa ins = new EditRuspa(mainView, v);
 					InsertController ctr = new InsertController(model);
 					ins.setInsertButtonListeners(ctr.EditRuspaListener(ins,(Integer)v[0]));
-				}
+				*/}
 			}
 		};
 	}
@@ -291,10 +154,10 @@ public class ApplicationController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					EditCamion ins = new EditCamion(mainView, v);
+					/*EditCamion ins = new EditCamion(mainView, v);
 					InsertController ctr = new InsertController(model);
 					ins.setInsertButtonListeners(ctr.EditCamionListener(ins,(Integer)v[0]));
-				}
+				*/}
 			}
 		};
 	}
@@ -358,23 +221,12 @@ public class ApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener eliminaMacchina(){
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object[] v=mainView.getSelectedData();
-
-				if(v==null){
-					JOptionPane.showMessageDialog(mainView,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
-				}else{
-					//TODO Mostrare a messaggio il codice dei lavori che sono associati a tale macchina
-					//int confirm=JOptionPane.showConfirmDialog(mainView,"Eliminando questa macchina verranno eliminate anche le associazioni con i lavori associati. \n Si desidera continuare con l'eliminazione?","Elimina Macchina", JOptionPane.YES_NO_OPTION);		
-					//if(confirm==JOptionPane.OK_OPTION){
-						model.eliminaMacchina(Integer.parseInt(v[0].toString()));
-					//}
-				}
-			}
-		};
+	public boolean eliminaMacchina(Integer codiceMacchina){
+		//TODO Mostrare a messaggio il codice dei lavori che sono associati a tale macchina
+		//int confirm=JOptionPane.showConfirmDialog(mainView,"Eliminando questa macchina verranno eliminate anche le associazioni con i lavori associati. \n Si desidera continuare con l'eliminazione?","Elimina Macchina", JOptionPane.YES_NO_OPTION);		
+		//if(confirm==JOptionPane.OK_OPTION){
+			return model.eliminaMacchina(codiceMacchina);
+		//}
 	}
 	
 	/**
@@ -385,20 +237,8 @@ public class ApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener eliminaCantiere(){
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object[] v=mainView.getSelectedData();
-
-				if(v==null){
-					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
-				}else{
-					model.eliminaCantiere(Integer.parseInt(v[0].toString()));
-					mainView.removeSelected();
-				}
-			}
-		};
+	public boolean eliminaCantiere(Integer codiceCantiere){
+		return model.eliminaCantiere(codiceCantiere);
 	}
 	
 	/**

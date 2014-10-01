@@ -1,12 +1,13 @@
 import java.sql.SQLException;
 import java.text.ParseException;
+
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
-
 import controller.ApplicationController;
+import controller.InsertController;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
@@ -45,8 +46,13 @@ public class Main {
 
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
-		MainView mainView = new MainView();
-		new ApplicationController(m,mainView);
+		MainView mainView=null ;
+		mainView = new MainView();
+		ApplicationController aCtr=new ApplicationController(m,mainView);
+		InsertController iCtr=new InsertController(m);
+		mainView.setApplicationController(aCtr);
+		mainView.setInsertController(iCtr);
+		
 
 	}
 

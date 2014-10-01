@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +11,7 @@ import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import model.ModelInterface;
+import model.organizer.data.Priority;
 
 
 /**
@@ -19,7 +21,7 @@ import model.ModelInterface;
  * e alla modifica di quelli esistenti
  * 
  */
-public class InsertController {
+public class InsertController extends AbstractInsertController{
 
 	/**   model. */
 	ModelInterface model;
@@ -45,30 +47,17 @@ public class InsertController {
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener insertNewGruListener( EditGru editGru) {
-		final EditGru dialog=editGru;
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int ang = Integer.parseInt(dialog.getAngoloRotazione());
-					int alt = Integer.parseInt(dialog.getAltezza());
-					int lung = Integer.parseInt(dialog.getLunghezza());
-					int max = Integer.parseInt(dialog.getPortataMassima());
-					
-					model.aggiungiGru(dialog.getProduttore(),dialog.getModello(),ang,max,lung,alt);
-					
-					
-					dialog.dispose();
-				} catch (NumberFormatException exc) {
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"I campi:\n - Lunghezza\n - Altezza\n - Portata Massima\n - Angolo Rotazione\ndevono contenere numeri. ",
-									"Alert", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		};
+	public boolean insertNewGruListener(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza){
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.aggiungiGru(produttore,modello,rotazione,portata,lunghezza,altezza);
+		return true;
 	}
 	
 	/**
@@ -81,102 +70,74 @@ public class InsertController {
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener insertNewRuspaListener(EditRuspa editRuspa) {
-		final EditRuspa dialog=editRuspa;
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int capacita = Integer.parseInt(dialog.getCapacita());
-					int alt = Integer.parseInt(dialog.getAltezza());
-					int portata = Integer.parseInt(dialog.getPortataMassima());
-
-					model.aggiungiRuspa(dialog.getProduttore(),dialog.getModello(),capacita,portata,alt);
-					
-					
-					dialog.dispose();
-				} catch (NumberFormatException exc) {
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
-									"Alert", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		};
+	public boolean insertNewRuspaListener(String produttore, String modello,int capacita,int portata,int altezza) {
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.aggiungiRuspa(produttore,modello,capacita,portata,altezza);
+		return true;
 	}
 	
-	/**
-	 * Gestisce l'inserimento di un nuovo <em>"Camion"</em>.
-	 *
-	 * @param editCamion view da cui leggere i dati del nuovo Camion
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener insertNewCamionListener(EditCamion editCamion) {
-		final EditCamion dialog=editCamion;
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int capacita = Integer.parseInt(dialog.getCapacita());
-					int lunghezza = Integer.parseInt(dialog.getLunghezza());
-					int portata = Integer.parseInt(dialog.getPortataMassima());
-
-					model.aggiungiCamion(dialog.getProduttore(),dialog.getModello(),capacita,portata,lunghezza);
-					
-					
-					dialog.dispose();
-				} catch (NumberFormatException exc) {
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
-									"Alert", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		};
+	
+	
+	public boolean insertNewEscavatoreListener(String produttore, String modello,int capacita,int portata,int altezza,int profondita){
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.aggiungiEscavatore(produttore, modello, capacita, portata, altezza, profondita);
+		return true;
 	}
 	
-	/**
-	 * Gestisce l'inserimento di un nuovo <em>"Escavatore"</em>.
-	 *
-	 * @param editEscavatore view da cui leggere i dati del nuovo Escavatore
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
-	 */
-	public ActionListener insertNewEscavatoreListener(EditEscavatore editEscavatore) {
-		final EditEscavatore dialog=editEscavatore;
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int capacita = Integer.parseInt(dialog.getCapacita());
-					int altezza = Integer.parseInt(dialog.getAltezza());
-					int portata = Integer.parseInt(dialog.getPortataMassima());
-					int profondita=Integer.parseInt(dialog.getProfondita());
-
-					model.aggiungiEscavatore(dialog.getProduttore(),dialog.getModello(), capacita, portata, altezza,profondita);
-					
-					
-					dialog.dispose();
-				} catch (NumberFormatException exc) {
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
-									"Alert", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		};
+	
+	
+	
+	public boolean insertNewCamionListener(String produttore,String modello,int capacita,int portata,int lunghezza){
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.aggiungiCamion(produttore, modello, capacita, portata, lunghezza);
+		return true;
 	}
 	
+	
+	
+	
+
+	public boolean insertNewCantiereListener(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+		if(nomeCantiere=="" || indirizzo==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Nome cantiere\n - Indirizzo Cantiere\ndevono essere compilati. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}else if(dataChiusura.before(dataApertura)){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"La data di inizio deve essere inferiore alla data di chiusura. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
+		return true;
+	}
+
 	
 	//EDIT LISTENER
 	/**

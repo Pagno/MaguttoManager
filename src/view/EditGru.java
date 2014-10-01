@@ -8,12 +8,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.AbstractApplicationController;
+import controller.AbstractInsertController;
 
 // 
 /**
@@ -40,17 +44,34 @@ public class EditGru extends JDialog {
 	/**   ok button. */
 	private JButton okButton;
 
+	private AbstractInsertController insCtr;
 	/**
 	 * Create   dialog.
 	 *
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditGru(JFrame view, Object[] obj) {
-		this(view);
+	public EditGru(JFrame view, Object[] obj,AbstractInsertController aCtr) {
+		super(view);
+		insCtr=aCtr;
 		setTitle("Modifica Gru");
+		createLayout();
 		setTextBox(obj);
 		okButton.setText("Modifica");
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					System.out.println("Edit");
+				}catch(java.lang.NumberFormatException ex){
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"I campi:\n - Lunghezza\n - Altezza\n - Portata Massima\n - Angolo Rotazione\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 	}
 	
 	/**
@@ -72,9 +93,34 @@ public class EditGru extends JDialog {
 	 *
 	 * @param view   view
 	 */
-	public EditGru(JFrame view) {
+	public EditGru(JFrame view,AbstractInsertController aCtr) {
 		super(view);
+		insCtr=aCtr;
 		setTitle("Aggiungi nuova Gru");
+		createLayout();
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					if(insCtr.insertNewGruListener(txtProduttore.getText(),txtModello.getText(),
+						Integer.parseInt(txtAngoloRotazione.getText()), 
+						Integer.parseInt(txtPortataMax.getText()), 
+						Integer.parseInt(txtLunghezza.getText()), 
+						Integer.parseInt(txtAltezza.getText())))
+					{	
+						dispose();
+					}
+				}catch(java.lang.NumberFormatException ex){
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"I campi:\n - Lunghezza\n - Altezza\n - Portata Massima\n - Angolo Rotazione\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+	}
+	private void createLayout(){
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -237,6 +283,7 @@ public class EditGru extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
+		
 		JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
 			@Override
