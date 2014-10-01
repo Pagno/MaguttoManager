@@ -90,15 +90,20 @@ public class EditRuspa extends JDialog {
 		lblCap = new JLabel("metri cubi");
 
 		txtProduttore = new JTextField();
+		txtProduttore.setName("produttore");
 		txtProduttore.setColumns(15);
 		txtModello = new JTextField();
 		txtModello.setColumns(15);
+		txtModello.setName("modello");
 		txtAltezza = new JTextField();
 		txtAltezza.setColumns(5);
+		txtAltezza.setName("altezza");
 		txtPortataMax = new JTextField();
 		txtPortataMax.setColumns(5);
+		txtPortataMax.setName("portata");
 		txtCapacita = new JTextField();
 		txtCapacita.setColumns(5);
+		txtCapacita.setName("capacita");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -208,6 +213,7 @@ public class EditRuspa extends JDialog {
 
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
+		okButton.setName("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 

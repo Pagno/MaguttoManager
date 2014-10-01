@@ -74,6 +74,7 @@ public class EditGru extends JDialog {
 	 */
 	public EditGru(JFrame view) {
 		super(view);
+		setName("editGru");
 		setTitle("Aggiungi nuova Gru");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
@@ -94,16 +95,22 @@ public class EditGru extends JDialog {
 
 		txtProduttore = new JTextField();
 		txtProduttore.setColumns(15);
+		txtProduttore.setName("produttore");
 		txtModello = new JTextField();
 		txtModello.setColumns(15);
+		txtModello.setName("modello");
 		txtAltezza = new JTextField();
 		txtAltezza.setColumns(5);
+		txtAltezza.setName("altezza");
 		txtPortataMax = new JTextField();
 		txtPortataMax.setColumns(5);
+		txtPortataMax.setName("portata");
 		txtAngoloRotazione = new JTextField();
 		txtAngoloRotazione.setColumns(5);
+		txtAngoloRotazione.setName("angolo");
 		txtLunghezza = new JTextField();
 		txtLunghezza.setColumns(5);
+		txtLunghezza.setName("lunghezza");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -233,6 +240,7 @@ public class EditGru extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		okButton = new JButton("Inserisci");
+		okButton.setName("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

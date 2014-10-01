@@ -78,6 +78,7 @@ public class MainView extends JFrame {
 		
 		
 		table = new JTable();
+		table.setName("table");
 		table.setModel(dataModelGru);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 
@@ -116,10 +117,15 @@ public class MainView extends JFrame {
 		leftMenu = new JPanel();
 		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
 		btnViewGru = new JButton("Gru");
+		btnViewGru.setName("Gru");
 		btnViewRuspa = new JButton("Ruspa");
+		btnViewRuspa.setName("Ruspa");
 		btnViewCamion = new JButton("Camion");
+		btnViewCamion.setName("Camion");
 		btnViewEscavatore = new JButton("Escavatore");
+		btnViewEscavatore.setName("Escavatore");
 		btnViewCantiere = new JButton("Cantiere");
+		btnViewCantiere.setName("Cantiere");
 		leftMenu.add(btnViewGru);
 		leftMenu.add(btnViewRuspa);
 		leftMenu.add(btnViewCamion);
@@ -159,15 +165,19 @@ public class MainView extends JFrame {
 
 		// AGGIUNGI
 		itemAddGru = new JMenuItem("Aggiungi Gru");
+		itemAddGru.setName("aggiungiGru");
 		menuMacchina.add(itemAddGru);
 		menuMacchina.addSeparator();
 		itemAddRuspa = new JMenuItem("Aggiungi Ruspa");
+		itemAddRuspa.setName("aggiungiRuspa");
 		menuMacchina.add(itemAddRuspa);
 		menuMacchina.addSeparator();
 		itemAddCamion = new JMenuItem("Aggiungi Camion");
+		itemAddCamion.setName("aggiungiCamion");
 		menuMacchina.add(itemAddCamion);
 		menuMacchina.addSeparator();
 		itemAddEscavatore = new JMenuItem("Aggiungi Escavatore");
+		itemAddEscavatore.setName("aggiungiEscavatore");
 		menuMacchina.add(itemAddEscavatore);
 
 		// CANTIERE
