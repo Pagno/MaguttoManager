@@ -93,16 +93,22 @@ public class EditEscavatore extends JDialog {
 
 		txtProduttore = new JTextField();
 		txtProduttore.setColumns(15);
+		txtProduttore.setName("produttore");
 		txtModello = new JTextField();
 		txtModello.setColumns(15);
+		txtModello.setName("modello");
 		txtAltezza = new JTextField();
 		txtAltezza.setColumns(5);
+		txtAltezza.setName("altezza");
 		txtPortataMax = new JTextField();
 		txtPortataMax.setColumns(5);
+		txtPortataMax.setName("portata");
 		txtCapacita = new JTextField();
 		txtCapacita.setColumns(5);
+		txtCapacita.setName("capacita");
 		txtProfondita = new JTextField();
 		txtProfondita.setColumns(5);
+		txtProfondita.setName("profondita");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -234,6 +240,7 @@ public class EditEscavatore extends JDialog {
 
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
+		okButton.setName("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 

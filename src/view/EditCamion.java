@@ -73,6 +73,7 @@ public class EditCamion extends JDialog {
 	public EditCamion(JFrame view) {
 		super(view);
 		setTitle("Aggiungi un nuovo Camion");
+		setName("editCamion");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -90,14 +91,19 @@ public class EditCamion extends JDialog {
 
 		txtProduttore = new JTextField();
 		txtProduttore.setColumns(15);
+		txtProduttore.setName("produttore");
 		txtModello = new JTextField();
 		txtModello.setColumns(15);
+		txtModello.setName("modello");
 		txtLunghezza = new JTextField();
 		txtLunghezza.setColumns(5);
+		txtLunghezza.setName("lunghezza");
 		txtPortata = new JTextField();
 		txtPortata.setColumns(5);
+		txtPortata.setName("portata");
 		txtCapacita = new JTextField();
 		txtCapacita.setColumns(5);
+		txtCapacita.setName("capacita");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -207,6 +213,7 @@ public class EditCamion extends JDialog {
 
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
+		okButton.setName("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 

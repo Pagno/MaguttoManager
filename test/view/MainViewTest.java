@@ -1,13 +1,8 @@
 package view;
 
-import javax.swing.JDialog;
-
 import model.ModelConnector;
 
 import org.fest.swing.annotation.GUITest;
-import org.fest.swing.core.Robot;
-import org.fest.swing.finder.FrameFinder;
-import org.fest.swing.finder.WindowFinder;
 import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.junit.After;
@@ -82,14 +77,43 @@ public class MainViewTest {
 	}
 
 	@Test
-	public void testClickBtnEscavatore() {
-		frame.button("Escavatore").click();
-		frame.table("table").requireContents(new String[0][0]);
-	}
-
-	@Test
 	public void testClickBtnCamion() {
 		frame.button("Camion").click();
 		frame.table("table").requireContents(new String[0][0]);
+		
+		frame.menuItem("aggiungiCamion").click();
+		DialogFixture editRuspa = frame.dialog();
+		editRuspa.textBox("produttore").setText("Camion");
+		editRuspa.textBox("modello").setText("C101");
+		editRuspa.textBox("lunghezza").setText("10");
+		editRuspa.textBox("portata").setText("3500");
+		editRuspa.textBox("capacita").setText("800");
+		editRuspa.button("OK").click();
+
+		frame.button("Camion").click();
+		frame.table("table")
+				.requireContents(
+						new String[][] { { "Camion", "C101", "10", "800","3500" }});
+	}
+
+	@Test
+	public void testClickBtnEscavatore() {
+		frame.button("Escavatore").click();
+		frame.table("table").requireContents(new String[0][0]);
+		
+		frame.menuItem("aggiungiEscavatore").click();
+		DialogFixture editRuspa = frame.dialog();
+		editRuspa.textBox("produttore").setText("Escavatore");
+		editRuspa.textBox("modello").setText("E101");
+		editRuspa.textBox("altezza").setText("10");
+		editRuspa.textBox("profondita").setText("5");
+		editRuspa.textBox("capacita").setText("200");
+		editRuspa.textBox("portata").setText("1200");
+		editRuspa.button("OK").click();
+
+		frame.button("Escavatore").click();
+		frame.table("table")
+				.requireContents(
+						new String[][] { { "Escavatore", "E101", "10", "5","200","1200" }});
 	}
 }
