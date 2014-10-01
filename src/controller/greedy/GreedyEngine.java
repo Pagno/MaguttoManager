@@ -1,13 +1,11 @@
 package controller.greedy;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.ModelInterface;
 import model.organizer.data.Camion;
-import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
@@ -105,13 +103,13 @@ public class GreedyEngine {
 	
 	
 	//FUNZIONI DI SELEZIONE
-	public static <T extends Macchina> void insertAssociation(Richiesta ric, T mac, ArrayList<Associazione>associazioni){
+	static <T extends Macchina> void insertAssociation(Richiesta ric, T mac, ArrayList<Associazione>associazioni){
 		Associazione a=new Associazione(ric,mac);
 		a.setConfermata(true);
 		associazioni.add(a);
 	}
 	
-	public static <T extends Macchina> ArrayList<Associazione> selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
+	static <T extends Macchina> ArrayList<Associazione> selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
 		if(ric.isSoddisfatta()){
 			//Se ric è già soddisfatta, non faccio nulla
 		}
@@ -199,7 +197,7 @@ public class GreedyEngine {
 		return associazioni;
 	}
 	
-	public static ArrayList<Prenotazione> removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
+	static ArrayList<Prenotazione> removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
 		ArrayList<Prenotazione>nuovaList=new ArrayList<Prenotazione>();
 		for(Prenotazione coppia:list){
 			if(!coppia.getRichiesta().equals(ric)){
@@ -209,7 +207,7 @@ public class GreedyEngine {
 		return nuovaList;
 	}
 	
-	public static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
+	static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
 		//Se la richiesta è soddisfatta, non seleziono alcuna prenotazione
 		if(ric.isSoddisfatta()){
 			return null;
@@ -263,7 +261,7 @@ public class GreedyEngine {
 	
 	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
-	public static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
+	static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
 		int d;
 		GregorianCalendar sx,dx;
 		if(lav!=null){
@@ -287,7 +285,7 @@ public class GreedyEngine {
 	}
 	
 	//Verifico se il lavoro element finisce meno di una settimana prima rispetto a base
-	public static boolean lavoroEndsLessThanAWeekBefore(Lavoro element, Lavoro base){
+	static boolean lavoroEndsLessThanAWeekBefore(Lavoro element, Lavoro base){
 		GregorianCalendar sx,dx;
 		int d;
 		if(!element.equals(base)){
@@ -315,7 +313,7 @@ public class GreedyEngine {
 		}
 	}
 	//Verifico se il lavoro element inizia meno di una settimana dopo rispetto a base
-	public static boolean lavoroStartsLessThanAWeekAfter(Lavoro element, Lavoro base){
+	static boolean lavoroStartsLessThanAWeekAfter(Lavoro element, Lavoro base){
 		GregorianCalendar sx,dx;
 		int d;
 		if(!element.equals(base)){
