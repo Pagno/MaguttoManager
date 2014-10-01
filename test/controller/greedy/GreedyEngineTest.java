@@ -39,7 +39,46 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testRemoveReservationsByRequest() {
-		fail("Not yet implemented");
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		c.addLavoro(l);
+		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Richiesta ric1=new Richiesta(rc,l,20);
+		Richiesta ric2=new Richiesta(rc,l,30);
+		p=GreedyEngine.removeReservationsByRequest(p, ric1);
+		assertEquals(p.size(),0);
+		Associazione a1=new Associazione(ric1,new Camion(1,"Yamaha","Camion",15,15,15));
+		Prenotazione p1=new Prenotazione(a1,10);
+		Associazione a2=new Associazione(ric1,new Camion(2,"Yamaha","Camion",15,15,15));
+		Prenotazione p2=new Prenotazione(a2,10);
+		Associazione a3=new Associazione(ric2,new Camion(3,"Yamaha","Camion",15,15,15));
+		Prenotazione p3=new Prenotazione(a3,10);
+		Associazione a4=new Associazione(ric2,new Camion(4,"Yamaha","Camion",15,15,15));
+		Prenotazione p4=new Prenotazione(a4,10);
+		p.add(p1);
+		p.add(p3);
+		p.add(p2);
+		p.add(p4);
+		assertEquals(p.size(),4);
+		p=GreedyEngine.removeReservationsByRequest(p, new Richiesta(rc,null,40));
+		assertEquals(p.size(),4);
+		assertTrue(p.contains(p1));
+		assertTrue(p.contains(p2));
+		assertTrue(p.contains(p3));
+		assertTrue(p.contains(p4));
+		p=GreedyEngine.removeReservationsByRequest(p, ric1);
+		assertEquals(2,p.size());
+		assertFalse(p.contains(p1));
+		assertFalse(p.contains(p2));
+		assertTrue(p.contains(p3));
+		assertTrue(p.contains(p4));
+		p=GreedyEngine.removeReservationsByRequest(p, ric2);
+		assertEquals(p.size(),0);
+		assertFalse(p.contains(p1));
+		assertFalse(p.contains(p2));
+		assertFalse(p.contains(p3));
+		assertFalse(p.contains(p4));
 	}
 
 	@Test

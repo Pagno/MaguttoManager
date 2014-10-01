@@ -73,7 +73,7 @@ public class GreedyEngine {
 			//Se ne ha trovata almeno una, allora la seleziona e poi rimuove tutte le selezioni per questa richiesta
 			if(temp!=null){
 				associazioni.add(temp.select());
-				removeReservationsByRequest(prenotazioni,ric);
+				prenotazioni=removeReservationsByRequest(prenotazioni,ric);
 			}
 			else{
 				//In tal caso non ha trovato prenotazioni
@@ -171,13 +171,17 @@ public class GreedyEngine {
 			}
 		}
 	}
-	public static void removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
+	
+	public static ArrayList<Prenotazione> removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
+		ArrayList<Prenotazione>nuovaList=new ArrayList<Prenotazione>();
 		for(Prenotazione coppia:list){
-			if(coppia.getRichiesta().equals(ric)){
-				list.remove(coppia);
+			if(!coppia.getRichiesta().equals(ric)){
+				nuovaList.add(coppia);
 			}
 		}
+		return nuovaList;
 	}
+	
 	public static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
 		//Se la richiesta è soddisfatta, non seleziono alcuna prenotazione
 		if(ric.isSoddisfatta()){
