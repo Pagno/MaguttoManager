@@ -101,6 +101,8 @@ public class GreedyEngine {
 		//SELEZIONO LE COPPIE PIU' PROMETTENTI
 		return associazioni;
 	}
+	
+	
 	//FUNZIONI DI SELEZIONE
 	public static <T extends Macchina> void insertAssociation(Richiesta ric, T mac, ArrayList<Associazione>associazioni){
 		Associazione a=new Associazione(ric,mac);
@@ -177,36 +179,58 @@ public class GreedyEngine {
 		}
 	}
 	public static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
-		Prenotazione temp=new Prenotazione(null,-1);
-		//Seleziona le prenotazioni per questa richiesta
-		for(Prenotazione coppia:list){
-			if(coppia.getRichiesta().equals(ric)){
-				if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
-					boolean valid=true;
-					for(Associazione a:alreadySelected){
-						//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
-						//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
-						if(coppia.getMacchina().equals(a.getMacchina())){
-							if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-								//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già occupata
-								valid=false;
-								break;
-							}
-						}
-					}
-					if(valid){
-						temp=coppia;
-					}
-				}
-			}
-		}
-		if(temp.getDurataLavoro()==-1){
+		//Se la richiesta è soddisfatta, non seleziono alcuna prenotazione
+		if(ric.isSoddisfatta()){
 			return null;
 		}
 		else{
-			return temp;
+
+			//Se la richiesta è già stata associata, non seleziono alcuna prenotazione
+			boolean isAssociato=false;
+			for(Associazione asso:alreadySelected){
+				if(asso.getRichiesta().equals(ric)){
+					isAssociato=true;
+					break;
+				}
+			}
+			if(isAssociato){
+				return null;
+			}
+			else{
+				Prenotazione temp=new Prenotazione(null,-1);
+				//Seleziona le prenotazioni per questa richiesta
+				for(Prenotazione coppia:list){
+					if(coppia.getRichiesta().equals(ric)){
+						if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
+							boolean valid=true;
+							for(Associazione a:alreadySelected){
+								//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
+								//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
+								if(coppia.getMacchina().equals(a.getMacchina())){
+									if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
+										//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già occupata
+										valid=false;
+										break;
+									}
+								}
+							}
+							if(valid){
+								temp=coppia;
+							}
+						}
+					}
+				}
+				if(temp.getDurataLavoro()==-1){
+					return null;
+				}
+				else{
+					return temp;
+				}
+			}
 		}
 	}
+	
+	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
 	public static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
 		int d;
@@ -284,6 +308,8 @@ public class GreedyEngine {
 			return false;
 		}
 	}
+	
+	
 	//FUNZIONI DI ORDINAMENTO-------------------------------------------------------------------------------------------------
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la priorità del cantiere di ins è superiore a quella del cantiere di arr, restituisce true.
