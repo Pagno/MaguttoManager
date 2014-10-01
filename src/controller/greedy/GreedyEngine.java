@@ -109,6 +109,7 @@ public class GreedyEngine {
 		a.setConfermata(true);
 		associazioni.add(a);
 	}
+	
 	public static <T extends Macchina> void selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
 		if(disp.size()==0){
 			//In tal caso non ho nessuna macchina libera per soddisfare la richiesta

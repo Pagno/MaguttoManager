@@ -29,7 +29,22 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testInsertAssociation() {
-		fail("Not yet implemented");
+		ArrayList<Associazione>a=new ArrayList<Associazione>();
+		assertTrue(a.isEmpty());
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		GreedyEngine.insertAssociation(new Richiesta(rc,null,20), new Camion(1,"Yamaha","Camion",15,15,15), a);
+		assertFalse(a.isEmpty());
+		assertEquals(a.size(),1);
+		assertTrue(a.get(0).getMacchina().equals(new Camion(1,"Yamaha","Camion",15,15,15)));
+		assertTrue(a.get(0).getRichiesta().equals(new Richiesta(rc,null,20)));
+		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
+		GreedyEngine.insertAssociation(new Richiesta(rr,null,21), new Ruspa(40,"Yamaha","Ruspa",15,15,15), a);
+		assertFalse(a.isEmpty());
+		assertEquals(a.size(),2);
+		assertTrue(a.get(0).getMacchina().equals(new Camion(1,"Yamaha","Camion",15,15,15)));
+		assertTrue(a.get(0).getRichiesta().equals(new Richiesta(rc,null,20)));
+		assertTrue(a.get(1).getMacchina().equals(new Ruspa(40,"Yamaha","Ruspa",15,15,15)));
+		assertTrue(a.get(1).getRichiesta().equals(new Richiesta(rr,null,21)));
 	}
 
 	@Test
@@ -47,7 +62,7 @@ public class GreedyEngineTest {
 		Richiesta ric1=new Richiesta(rc,l,20);
 		Richiesta ric2=new Richiesta(rc,l,30);
 		p=GreedyEngine.removeReservationsByRequest(p, ric1);
-		assertEquals(p.size(),0);
+		assertTrue(p.isEmpty());
 		Associazione a1=new Associazione(ric1,new Camion(1,"Yamaha","Camion",15,15,15));
 		Prenotazione p1=new Prenotazione(a1,10);
 		Associazione a2=new Associazione(ric1,new Camion(2,"Yamaha","Camion",15,15,15));
@@ -74,7 +89,7 @@ public class GreedyEngineTest {
 		assertTrue(p.contains(p3));
 		assertTrue(p.contains(p4));
 		p=GreedyEngine.removeReservationsByRequest(p, ric2);
-		assertEquals(p.size(),0);
+		assertTrue(p.isEmpty());
 		assertFalse(p.contains(p1));
 		assertFalse(p.contains(p2));
 		assertFalse(p.contains(p3));
