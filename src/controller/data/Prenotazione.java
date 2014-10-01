@@ -6,6 +6,12 @@ import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 
 public class Prenotazione {
+	@Override
+	public String toString() {
+		return "Prenotazione [associazione=" + associazione + ", durataLavoro="
+				+ durataLavoro + "]";
+	}
+
 	private Associazione associazione;
 	private Integer durataLavoro;
 	
