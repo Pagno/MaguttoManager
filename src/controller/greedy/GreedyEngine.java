@@ -111,67 +111,92 @@ public class GreedyEngine {
 		associazioni.add(a);
 	}
 	
-	public static <T extends Macchina> void selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
-		if(disp.size()==0){
-			//In tal caso non ho nessuna macchina libera per soddisfare la richiesta
-			//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+	public static <T extends Macchina> ArrayList<Associazione> selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
+		if(ric.isSoddisfatta()){
+			//Se ric è già soddisfatta, non faccio nulla
 		}
 		else{
-			for(T mac:disp){
-				for(Associazione a:associazioni){
-					//controllo che la macchina non sia già associata e quindi occupata temporaneamente
-					//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
-					if(mac.equals(a.getMacchina())){
-						if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-							//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già associata
-							disp.remove(mac);
-							break;
-						}
-					}
+			boolean isAssociata=false;
+			for(Associazione a:associazioni){
+				if(a.getRichiesta().equals(ric)){
+					isAssociata=true;
+					break;
 				}
 			}
-			if(disp.size()==0){
-				//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
-				//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+			if(isAssociata){
+				//Se ric è già soddisfatta, non faccio nulla
 			}
 			else{
-				//Se arrivo qui, c'è almeno una macchina libera o ancora non associata che soddisfa la richiesta
-				//Quindi potrò sicuramente soddisfare la richiesta con almeno una macchina
-				//Cerchiamo prima una macchina non prenotata da altri
-				boolean isSelezionato=false;
-				for(T mac:disp){
-					boolean isPrenotato=false;
-					for(Prenotazione p:prenotazioni){
-						if(p.getMacchina().equals(mac)){
-							if(!((ric.getDataFine().before(p.getDataInizio()))||(ric.getDataInizio().after(p.getDataFine())))){
-								//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
-								isPrenotato=true;
+				if(disp.size()==0){
+					//In tal caso non ho nessuna macchina libera per soddisfare la richiesta
+					//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+				}
+				else{
+					ArrayList<T>nonAssociate=new ArrayList<T>();
+					for(T mac:disp){
+						boolean alreadyAssociato=false;
+						for(Associazione a:associazioni){
+							//controllo che la macchina non sia già associata e quindi occupata temporaneamente
+							//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
+							if(mac.equals(a.getMacchina())){
+								if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
+									//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già associata
+									alreadyAssociato=true;
+									break;
+								}
+							}
+						}
+						if(!alreadyAssociato){
+							nonAssociate.add(mac);
+						}
+					}
+					disp=nonAssociate;
+					if(disp.size()==0){
+						//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
+						//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+					}
+					else{
+						//Se arrivo qui, c'è almeno una macchina libera o ancora non associata che soddisfa la richiesta
+						//Quindi potrò sicuramente soddisfare la richiesta con almeno una macchina
+						//Cerchiamo prima una macchina non prenotata da altri
+						boolean isSelezionato=false;
+						for(T mac:disp){
+							boolean isPrenotato=false;
+							for(Prenotazione p:prenotazioni){
+								if(p.getMacchina().equals(mac)){
+									if(!((ric.getDataFine().before(p.getDataInizio()))||(ric.getDataInizio().after(p.getDataFine())))){
+										//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
+										isPrenotato=true;
+										break;
+									}
+								}
+							}
+							if(!isPrenotato){
+								//La macchina è libera, non è associata e non è prenotata da altri.
+								//Posso quindi associarla senza problemi
+								insertAssociation(ric,mac,associazioni);
+								isSelezionato=true;
 								break;
 							}
 						}
-					}
-					if(!isPrenotato){
-						//La macchina è libera, non è associata e non è prenotata da altri.
-						//Posso quindi associarla senza problemi
-						insertAssociation(ric,mac,associazioni);
-						isSelezionato=true;
-						break;
-					}
-				}
-				if(!isSelezionato){
-					//Se siamo arrivati a questo punto, c'è almeno una macchina associabile a questa richiesta,
-					//ma tutte quelle libere sono già prenotate da altre richieste.
-					//Rubo quindi la macchina alla richiesta meno prioritaria tra tutte.
-					//Sono sicuro di trovare almeno una prenotazione, perché c'è almeno una macchina libera ma nessuna era non prenotata.
-					//Le prenotazioni sono in ordine di priorità della richiesta, quindi seleziono quella con indice più alto.
-					for(int i=prenotazioni.size()-1; i>=0; i--){
-						if(disp.contains(prenotazioni.get(i).getMacchina())){
-							insertAssociation(ric,prenotazioni.get(i).getMacchina(),associazioni);
+						if(!isSelezionato){
+							//Se siamo arrivati a questo punto, c'è almeno una macchina associabile a questa richiesta,
+							//ma tutte quelle libere sono già prenotate da altre richieste.
+							//Rubo quindi la macchina alla richiesta meno prioritaria tra tutte.
+							//Sono sicuro di trovare almeno una prenotazione, perché c'è almeno una macchina libera ma nessuna era non prenotata.
+							//Le prenotazioni sono in ordine di priorità della richiesta, quindi seleziono quella con indice più alto.
+							for(int i=prenotazioni.size()-1; i>=0; i--){
+								if(disp.contains(prenotazioni.get(i).getMacchina())){
+									insertAssociation(ric,prenotazioni.get(i).getMacchina(),associazioni);
+									break;
+								}
+							}
 						}
 					}
 				}
 			}
 		}
+		return associazioni;
 	}
 	
 	public static ArrayList<Prenotazione> removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){

@@ -25,6 +25,7 @@ public class GreedyEngineTest {
 	@Test
 	public void testGenerateAssociations() {
 		fail("Not yet implemented");
+		//TODO
 	}
 
 	@Test
@@ -49,7 +50,61 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testSelectMacchinaWithoutReservation() {
-		fail("Not yet implemented");
+		ArrayList<Camion>cList=new ArrayList<Camion>();
+		ArrayList<Associazione>a=new ArrayList<Associazione>();
+		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
+		assertTrue(a.isEmpty());
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,23));
+		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,23));
+		c.addLavoro(l);
+		c.addLavoro(l2);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Richiesta ric1=new Richiesta(rc,l,20);
+		//Caso lista di macchine libere vuota
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		assertTrue(a.isEmpty());
+		//Caso di macchine associate nel periodo della prenotazione
+		Camion cam1=new Camion(10,"Yamaha","Camion1",15,15,15);
+		Associazione asso1=new Associazione(new Richiesta(rc,l2,30),cam1);
+		a.add(asso1);
+		cList.add(cam1);
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		assertFalse(a.isEmpty());
+		assertEquals(a.size(),1);
+		assertTrue(a.contains(asso1));
+		//Caso di macchina libera
+		Camion cam2=new Camion(11,"Yamaha","Camion2",15,15,15);
+		Camion cam3=new Camion(12,"Yamaha","Camion3",15,15,15);
+		Camion cam4=new Camion(13,"Yamaha","Camion4",15,15,15);
+		Prenotazione p1=new Prenotazione(new Associazione(new Richiesta(rc,l2,32),cam3),14);
+		p.add(p1);
+		Associazione asso2=new Associazione(new Richiesta(rc,l3,31),cam2);
+		a.add(asso2);
+		cList.add(cam2);
+		cList.add(cam3);
+		cList.add(cam4);
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		assertEquals(a.size(),3);
+		assertTrue(a.contains(asso1));
+		assertTrue(a.contains(asso2));
+		assertEquals(a.get(2).getRichiesta(),ric1);
+		assertEquals(a.get(2).getMacchina(),cam2);
+		//Caso di tutte le macchine prenotate
+		Prenotazione p2=new Prenotazione(new Associazione(new Richiesta(rc,l2,33),cam4),20);
+		p.add(p2);
+		Richiesta ric2=new Richiesta(rc,l,21);
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric2, cList, a, p);
+		assertEquals(a.size(),4);
+		assertTrue(a.contains(asso1));
+		assertTrue(a.contains(asso2));
+		assertEquals(a.get(2).getRichiesta(),ric1);
+		assertEquals(a.get(2).getMacchina(),cam2);
+		assertEquals(a.get(3).getRichiesta(),ric2);
+		assertEquals(a.get(3).getMacchina(),cam4);
+		
+		
 	}
 
 	@Test
