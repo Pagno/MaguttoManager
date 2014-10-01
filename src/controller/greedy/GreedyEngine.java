@@ -22,6 +22,7 @@ import controller.data.Associazione;
 import controller.data.Prenotazione;
 
 public class GreedyEngine {
+	
 	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
 		ArrayList<Richiesta> richieste=model.getRichiesteScoperte();
@@ -240,23 +241,26 @@ public class GreedyEngine {
 	public static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
 		int d;
 		GregorianCalendar sx,dx;
-		for(Richiesta item:lav.getListaRichieste()){
-			if(item.isSoddisfatta()){
-				if(ric.rispettaRichiesta(item.getMacchina())){
-					if(item.getMacchina().isFree(ric.getDataInizio(), ric.getDataFine())){
-						sx=(GregorianCalendar)lav.getDataInizio();
-						dx=(GregorianCalendar)lav.getDataFine();
-						d=0;
-						while(sx.before(dx)){
-							sx.add(Calendar.DAY_OF_MONTH, 1);
-							d++;
+		if(lav!=null){
+			sx=(GregorianCalendar)lav.getDataInizio().clone();
+			dx=(GregorianCalendar)lav.getDataFine().clone();
+			d=0;
+			while(sx.before(dx)){
+				sx.add(Calendar.DAY_OF_MONTH, 1);
+				d++;
+			}
+			for(Richiesta item:lav.getListaRichieste()){
+				if(item.isSoddisfatta()){
+					if(ric.rispettaRichiesta(item.getMacchina())){
+						if(item.getMacchina().isFree(ric.getDataInizio(), ric.getDataFine())){
+							prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
 						}
-						prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
 					}
 				}
 			}
 		}
 	}
+	
 	//Verifico se il lavoro element finisce meno di una settimana prima rispetto a base
 	public static boolean lavoroEndsLessThanAWeekBefore(Lavoro element, Lavoro base){
 		GregorianCalendar sx,dx;
