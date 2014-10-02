@@ -74,6 +74,7 @@ public class EditEscavatore extends JDialog {
 	public EditEscavatore(JFrame view) {
 		super(view);
 		setTitle("Aggiungi un nuovo Escavatore");
+		setName("editEscavatore");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());

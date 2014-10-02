@@ -182,6 +182,7 @@ public class MainView extends JFrame {
 
 		// CANTIERE
 		itemAddCantiere = new JMenuItem("Aggiungi Cantiere");
+		itemAddCantiere.setName("aggiungiCantiere");
 		menuCantiere.add(itemAddCantiere);
 		menuCantiere.addSeparator();
 		itemGreedyEngine = new JMenuItem("Associa Macchina in modo automatico");

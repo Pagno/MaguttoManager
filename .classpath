@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/FEST"/>
 	<classpathentry kind="lib" path="lib/FEST/fest-swing-1.2-sources.jar"/>
-	<classpathentry kind="lib" path="lib/FEST/fest-swing-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/FEST/fest-swing-1.2.jar" sourcepath="lib/FEST/fest-swing-1.2-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

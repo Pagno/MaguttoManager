@@ -63,6 +63,7 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 	 */
 	public InsertCantiere(JFrame view) {
 		super(view);
+		setName("insertCantiere");
 		setTitle("Aggiungi un nuovo Cantiere");
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
@@ -76,7 +77,8 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 		lblDataFine = new JLabel("Data Fine:");
 		lblPriorita=new JLabel("Priorita:");
 		dataInizio = new JDateChooser();
-
+		dataInizio.setName("dataInizio");
+		
 		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
 		//dataInizio.getJCalendar().getDayChooser().addDateEvaluator(new TestDateEvaluator());
 		dataInizio.getJCalendar().setTodayButtonVisible(true);
@@ -84,11 +86,14 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 		
 		
 		dataFine = new JDateChooser();
+		dataFine.setName("dataFine");
 
 		txtNome = new JTextField();
 		txtNome.setColumns(15);
+		txtNome.setName("nome");
 		txtIndirizzo = new JTextField();
 		txtIndirizzo.setColumns(15);
+		txtIndirizzo.setName("indirizzo");
 		//dc = new JTextField();
 		//dc.setColumns(5);
 
@@ -158,6 +163,7 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener{
 
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
+		okButton.setName("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 

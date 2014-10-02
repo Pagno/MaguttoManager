@@ -71,7 +71,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
-		Lavoro lav=(Lavoro) c.getFirstChild();
+		//Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
