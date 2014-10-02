@@ -23,56 +23,33 @@ public class GreedyEngine {
 	
 	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
+		
 		ArrayList<Richiesta> richieste=model.getRichiesteScoperte();
 		ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
 		ArrayList<Integer> durate=new ArrayList<Integer>();
-		int d;
-		boolean inserito;
-		GregorianCalendar sx,dx;
-		for(Richiesta ric:richieste){
-			d=0;
-			sx=(GregorianCalendar)ric.getDataInizio().clone();
-			dx=(GregorianCalendar)ric.getDataFine().clone();
-			while(sx.before(dx)){
-				sx.add(Calendar.DAY_OF_MONTH, 1);
-				d++;
-			}
-			inserito=false;
-			for(int i=0; i<sortedRichieste.size();i++){
-				if(sortByPriority(ric,sortedRichieste.get(i),d,durate.get(i))){
-					sortedRichieste.add(i,ric);
-					durate.add(i,d);
-					inserito=true;
-				}
-			}
-			if(!inserito){
-				sortedRichieste.add(ric);
-				durate.add(d);
-			}
-		}
+		GreedyEngine.sortRequests(richieste,sortedRichieste,durate);
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
+		//durate contiene le durate relative alle richieste, nelle medesime posizioni
+		
 		//IMPOSTO LE PRENOTAZIONI
-		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
-		for(Richiesta ric:sortedRichieste){
-			for(Lavoro lav:ric.getRelatedWorks()){
-				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
-					reserveMacchineFromLavoro(ric, lav, prenotazioni);
-				}
-			}
-		}
+		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generateReservations(sortedRichieste);
 		//prenotazioni contiene tutte le coppie macchina-richiesta i cui lavori rispettano i criteri selezionati.
 		//TODO seleziona coppie proposte
 		//TODO Attenzione! Quando seleziono una coppia settare confermato a true!!!
+		
+		//GENERO LE ASSOCIAZIONI
 		ArrayList<Associazione>associazioni=new ArrayList<Associazione>();
 		//Considera le varie richieste in ordine di priorità.
 		//Per ciascuna richiesta, controlla se sono presenti prenotazioni disponibili.
 		//Se sono presenti molte prenotazioni, seleziona quella collegata al lavoro più corto.
 		for(Richiesta ric:sortedRichieste){
 			Prenotazione temp=selectMostPromisingReservation(associazioni,prenotazioni,ric);
-			//Se ne ha trovata almeno una, allora la seleziona e poi rimuove tutte le selezioni per questa richiesta
+			//La richiesta è già stata analizzata, quindi le sue eventuali prenotazioni ora sono inutili.
+			//Le rimuoviamo dalla lista, per migliorare la velocità dei cicli su prenotazione
+			prenotazioni=removeReservationsByRequest(prenotazioni,ric);
+			//Se ne ha trovata almeno una, allora la seleziona aggiungendola ad associazioni
 			if(temp!=null){
 				associazioni.add(temp.select());
-				prenotazioni=removeReservationsByRequest(prenotazioni,ric);
 			}
 			else{
 				//In tal caso non ha trovato prenotazioni
@@ -97,12 +74,14 @@ public class GreedyEngine {
 				}
 			}
 		}
-		//SELEZIONO LE COPPIE PIU' PROMETTENTI
+		
 		return associazioni;
 	}
 	
+	//--------------------------------------------------------------------------------------------------------------------------------
 	
 	//FUNZIONI DI SELEZIONE
+	
 	static <T extends Macchina> void insertAssociation(Richiesta ric, T mac, ArrayList<Associazione>associazioni){
 		Associazione a=new Associazione(ric,mac);
 		a.setConfermata(true);
@@ -261,6 +240,19 @@ public class GreedyEngine {
 	
 	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
+	
+	static ArrayList<Prenotazione> generateReservations(ArrayList<Richiesta> sortedRichieste){
+		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
+		for(Richiesta ric:sortedRichieste){
+			for(Lavoro lav:ric.getRelatedWorks()){
+				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
+					reserveMacchineFromLavoro(ric, lav, prenotazioni);
+				}
+			}
+		}
+		return prenotazioni;
+	}
+	
 	static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
 		int d;
 		GregorianCalendar sx,dx;
@@ -312,6 +304,7 @@ public class GreedyEngine {
 			return false;
 		}
 	}
+	
 	//Verifico se il lavoro element inizia meno di una settimana dopo rispetto a base
 	static boolean lavoroStartsLessThanAWeekAfter(Lavoro element, Lavoro base){
 		GregorianCalendar sx,dx;
@@ -343,6 +336,34 @@ public class GreedyEngine {
 	
 	
 	//FUNZIONI DI ORDINAMENTO-------------------------------------------------------------------------------------------------
+	
+	static void sortRequests(ArrayList<Richiesta> richieste,ArrayList<Richiesta> sortedRichieste,ArrayList<Integer> durate){
+		int d;
+		boolean inserito;
+		GregorianCalendar sx,dx;
+		for(Richiesta ric:richieste){
+			d=0;
+			sx=(GregorianCalendar)ric.getDataInizio().clone();
+			dx=(GregorianCalendar)ric.getDataFine().clone();
+			while(sx.before(dx)){
+				sx.add(Calendar.DAY_OF_MONTH, 1);
+				d++;
+			}
+			inserito=false;
+			for(int i=0; i<sortedRichieste.size();i++){
+				if(sortByPriority(ric,sortedRichieste.get(i),d,durate.get(i))){
+					sortedRichieste.add(i,ric);
+					durate.add(i,d);
+					inserito=true;
+				}
+			}
+			if(!inserito){
+				sortedRichieste.add(ric);
+				durate.add(d);
+			}
+		}
+	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la priorità del cantiere di ins è superiore a quella del cantiere di arr, restituisce true.
 	 *se tale priorità è minore, restituisce false.
@@ -377,6 +398,7 @@ public class GreedyEngine {
 			}
 		}
 	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la durata del lavoro di ins è minore a quella del lavoro di arr, restituisce true.
 	 *se tale durata è maggiore, restituisce false.
@@ -393,6 +415,7 @@ public class GreedyEngine {
 			return sortByStartDate(ins, arr);
 		}
 	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la data d'inizio del lavoro di ins è minore a quella del lavoro di arr, restituisce true.
 	 *se tale data d'inizio è maggiore, restituisce false.
@@ -409,6 +432,7 @@ public class GreedyEngine {
 			return sortByCodes(ins,arr);
 		}
 	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se il codice del cantiere di ins è minore del codice del cantiere di arr, restituisco true.
 	 *se tale codice è maggiore, restituisco false.

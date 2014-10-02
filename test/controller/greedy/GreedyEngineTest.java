@@ -210,6 +210,12 @@ public class GreedyEngineTest {
 	}
 
 	@Test
+	public void testGenerateReservations(){
+		//TODO
+		fail("Not yet implemented");
+	}
+	
+	@Test
 	public void testReserveMacchineFromLavoro() {
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		assertTrue(p.isEmpty());
@@ -312,6 +318,12 @@ public class GreedyEngineTest {
 		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
 	}
 
+	@Test
+	public void testSortRequests() {
+		//TODO
+		fail("Not yet implemented");
+	}
+	
 	@Test
 	public void testSortByPriority() {
 		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
