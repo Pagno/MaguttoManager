@@ -320,7 +320,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testSortRequests() {
-		//TODO
+		
 				ArrayList<Richiesta> richieste=new ArrayList<Richiesta>();
 				ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
 				ArrayList<Integer> durate=new ArrayList<Integer>();
@@ -370,6 +370,7 @@ public class GreedyEngineTest {
 				Richiesta r321=l32.getRichiesta(9);
 				Richiesta r411=l41.getRichiesta(4);
 				Richiesta r421=l42.getRichiesta(6);
+				
 				// L'ordine ottenuto dalla funzione dovrebbe essere:
 				// r121, r111, r221, r211, r311, r312, r321, r231, r421, r411
 				// E per le durate:
@@ -668,7 +669,132 @@ public class GreedyEngineTest {
 				assertEquals(durate.get(8),new Integer(2));
 				assertEquals(durate.get(9),new Integer(10));
 				
+				// CASO 3
+				// r311, r231, r411, r221, r321, r121, r111, r421, r312, r211
 				
+				/*
+				 * Fase 1:
+				 * r311 -> pos1
+				 * vettore: *r311
+				 * 
+				 * Fase 2:
+				 * r231
+				 * Confronto con r311: stessa priorità, stessa durata, data iniziale successiva = va inserito dopo
+				 * Fine -> pos2
+				 * vettore: r311, *r231
+				 * 
+				 * Fase 3:
+				 * r411
+				 * Confronto con r311: priorità inferiore = va inserito dopo
+				 * Confronto con r231: priorità inferiore = va inserito dopo
+				 * Fine -> pos3
+				 * vettore: r311, r231, *r411
+				 * 
+				 * Fase 4:
+				 * r221
+				 * Confronto con r311: stessa priorità, durata inferiore = va inserito prima -> pos1
+				 * vettore: *r221, r311, r231, r411
+				 * 
+				 * Fase 5:
+				 * r321
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, 
+				 *                     codice lavoro superiore = va inserito dopo
+				 * Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va inserito prima -> pos3
+				 * vettore: r221, r311, *r321, r231, r411
+				 * 
+				 * Fase 6:
+				 * r121
+				 * Confronto con r221: priorità superiore = va inserito prima -> pos1
+				 * vettore: *r121, r221, r311, r321, r231, r411
+				 * 
+				 * Fase 7:
+				 * r111
+				 * Confronto con r121: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r221: priorità superiore = va inserito prima -> pos2
+				 * vettore: r121, *r111, r221, r311, r321, r231, r411
+				 * 
+				 * Fase 8:
+				 * r421
+				 * Confronto con r121: priorità inferiore = va inserito dopo
+				 * Confronto con r111: priorità inferiore = va inserito dopo
+				 * Confronto con r221: priorità inferiore = va inserito dopo
+				 * Confronto con r311: priorità inferiore = va inserito dopo
+				 * Confronto con r321: priorità inferiore = va inserito dopo
+				 * Confronto con r131: priorità inferiore = va inserito dopo
+				 * Confronto con r411: stessa priorità, durata inferiore = va inserito prima -> pos7
+				 * vettore: r121, r111, r221, r311, r321, r231, *r421, r411
+				 * 
+				 * Fase 9:
+				 * r312
+				 * Confronto con r121: priorità inferiore = va inserito dopo
+				 * Confronto con r111: priorità inferiore = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, stesso lavoro, 
+				 *                     codice richiesta superiore = va inserito dopo
+				 * Confronto con r321: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere,
+				 *                     codice lavoro inferiore = va inserito prima -> pos5
+				 * vettore: r121, r111, r221, r311, *r312, r321, r231, r421, r411
+				 * 
+				 * Fase 10:
+				 * r211
+				 * Confronto con r121: priorità inferiore = va inserito dopo
+				 * Confronto con r111: priorità inferiore = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                     codice cantiere inferiore = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r211, r311, r312, r321, r231, r421, r411  
+				 *                   
+				 */
+				
+				richieste.clear();
+				sortedRichieste.clear();
+				durate.clear();
+				
+				richieste.add(r311);
+				richieste.add(r231);
+				richieste.add(r411);
+				richieste.add(r221);
+				richieste.add(r321);
+				richieste.add(r121);
+				richieste.add(r111);
+				richieste.add(r421);
+				richieste.add(r312);
+				richieste.add(r211);
+				assertEquals(richieste.get(0),r311);
+				assertEquals(richieste.get(1),r231);
+				assertEquals(richieste.get(2),r411);
+				assertEquals(richieste.get(3),r221);
+				assertEquals(richieste.get(4),r321);
+				assertEquals(richieste.get(5),r121);
+				assertEquals(richieste.get(6),r111);
+				assertEquals(richieste.get(7),r421);
+				assertEquals(richieste.get(8),r312);
+				assertEquals(richieste.get(9),r211);
+				GreedyEngine.sortRequests(richieste, sortedRichieste, durate);
+				assertEquals(sortedRichieste.size(),richieste.size());
+				assertEquals(sortedRichieste.size(),10);
+				assertEquals(sortedRichieste.get(0),r121);
+				assertEquals(sortedRichieste.get(1),r111);
+				assertEquals(sortedRichieste.get(2),r221);
+				assertEquals(sortedRichieste.get(3),r211);
+				assertEquals(sortedRichieste.get(4),r311);
+				assertEquals(sortedRichieste.get(5),r312);
+				assertEquals(sortedRichieste.get(6),r321);
+				assertEquals(sortedRichieste.get(7),r231);
+				assertEquals(sortedRichieste.get(8),r421);
+				assertEquals(sortedRichieste.get(9),r411);
+				assertEquals(durate.size(),richieste.size());
+				assertEquals(durate.get(0),new Integer(2));
+				assertEquals(durate.get(1),new Integer(10));
+				assertEquals(durate.get(2),new Integer(2));
+				assertEquals(durate.get(3),new Integer(10));
+				assertEquals(durate.get(4),new Integer(10));
+				assertEquals(durate.get(5),new Integer(10));
+				assertEquals(durate.get(6),new Integer(10));
+				assertEquals(durate.get(7),new Integer(10));
+				assertEquals(durate.get(8),new Integer(2));
+				assertEquals(durate.get(9),new Integer(10));
 	}
 	
 	@Test
