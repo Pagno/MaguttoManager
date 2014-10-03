@@ -211,8 +211,109 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testGenerateReservations(){
-		//TODO
-		fail("Not yet implemented");
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,02),new GregorianCalendar(2014,10,27),Priority.MEDIA);
+		Lavoro base=new Lavoro(100,"base",c,new GregorianCalendar(2014,05,15),new GregorianCalendar(2014,05,20));
+		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,05,02),new GregorianCalendar(2014,05,04));
+		Lavoro l2=new Lavoro(2,"l2",c,new GregorianCalendar(2014,05,07),new GregorianCalendar(2014,05,9));
+		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,05,10),new GregorianCalendar(2014,05,12));
+		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,05,14),new GregorianCalendar(2014,05,16));
+		Lavoro l5=new Lavoro(5,"l5",c,new GregorianCalendar(2014,05,17),new GregorianCalendar(2014,05,19));
+		Lavoro l6=new Lavoro(6,"l6",c,new GregorianCalendar(2014,05,19),new GregorianCalendar(2014,05,21));
+		Lavoro l7=new Lavoro(7,"l7",c,new GregorianCalendar(2014,05,23),new GregorianCalendar(2014,05,25));
+		Lavoro l8=new Lavoro(8,"l8",c,new GregorianCalendar(2014,05,26),new GregorianCalendar(2014,05,28));
+		Lavoro l9=new Lavoro(9,"l9",c,new GregorianCalendar(2014,05,28),new GregorianCalendar(2014,05,30));
+		Lavoro loccupa=new Lavoro(10,"l10",c,new GregorianCalendar(2014,05,26),new GregorianCalendar(2014,06,10));
+		c.addLavoro(base);
+		c.addLavoro(l1);
+		c.addLavoro(l2);
+		c.addLavoro(l3);
+		c.addLavoro(l4);
+		c.addLavoro(l5);
+		c.addLavoro(l6);
+		c.addLavoro(l7);
+		c.addLavoro(l8);
+		c.addLavoro(l9);
+		c.addLavoro(loccupa);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Camion c1=new Camion(1,"Yamaha","Camion",15,15,15);
+		Camion c2=new Camion(2,"Yamaha","Camion",15,15,15);
+		Camion c3=new Camion(3,"Yamaha","Camion",15,15,15);
+		l1.caricaRichiesta(rc, 1, null);
+		l2.caricaRichiesta(rc, 2, null);
+		l3.caricaRichiesta(rc, 3, null);
+		l4.caricaRichiesta(rc, 4, null);
+		l5.caricaRichiesta(rc, 5, null);
+		l6.caricaRichiesta(rc, 6, null);
+		l7.caricaRichiesta(rc, 7, null);
+		l8.caricaRichiesta(rc, 8, null);
+		l9.caricaRichiesta(rc, 9, null);
+		loccupa.caricaRichiesta(rc, 10, c2);
+		Richiesta r1=l1.getRichiesta(1);
+		Richiesta r2=l2.getRichiesta(2);
+		Richiesta r3=l3.getRichiesta(3);
+		Richiesta r4=l4.getRichiesta(4);
+		Richiesta r5=l5.getRichiesta(5);
+		Richiesta r6=l6.getRichiesta(6);
+		Richiesta r7=l7.getRichiesta(7);
+		Richiesta r8=l8.getRichiesta(8);
+		Richiesta r9=l9.getRichiesta(9);
+		base.caricaRichiesta(rc, 101, c1);
+		base.caricaRichiesta(rc, 102, null);
+		base.caricaRichiesta(rc, 103, c2);
+		base.caricaRichiesta(rc, 104, c3);
+		base.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 105, new Ruspa(4,"Yamaha","Ruspa",15,15,15));
+		Richiesta b2=base.getRichiesta(102);
+		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
+		sortedRichieste.add(r1);
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r3);
+		sortedRichieste.add(r4);
+		sortedRichieste.add(r5);
+		sortedRichieste.add(r6);
+		sortedRichieste.add(r7);
+		sortedRichieste.add(r8);
+		sortedRichieste.add(r9);
+		sortedRichieste.add(b2);
+		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generateReservations(sortedRichieste);
+		
+		assertEquals(prenotazioni.get(0).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(0).getMacchina(),c1);
+		assertEquals(prenotazioni.get(0).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(1).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(1).getMacchina(),c2);
+		assertEquals(prenotazioni.get(1).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(2).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(2).getMacchina(),c3);
+		assertEquals(prenotazioni.get(2).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(3).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(3).getMacchina(),c1);
+		assertEquals(prenotazioni.get(3).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(4).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(4).getMacchina(),c2);
+		assertEquals(prenotazioni.get(4).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(5).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(5).getMacchina(),c3);
+		assertEquals(prenotazioni.get(5).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(6).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(6).getMacchina(),c1);
+		assertEquals(prenotazioni.get(6).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(7).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(7).getMacchina(),c2);
+		assertEquals(prenotazioni.get(7).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(8).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(8).getMacchina(),c3);
+		assertEquals(prenotazioni.get(8).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(9).getRichiesta(),r7); //da loccupa
+		assertEquals(prenotazioni.get(9).getMacchina(),c2); //da loccupa
+		assertEquals(prenotazioni.get(9).getDurataLavoro(),new Integer(14)); //da loccupa
+		assertEquals(prenotazioni.get(10).getRichiesta(),r8);
+		assertEquals(prenotazioni.get(10).getMacchina(),c1);
+		assertEquals(prenotazioni.get(10).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(11).getRichiesta(),r8);
+		assertEquals(prenotazioni.get(11).getMacchina(),c3);
+		assertEquals(prenotazioni.get(11).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.size(),12);
+		
 	}
 	
 	@Test
