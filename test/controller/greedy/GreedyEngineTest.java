@@ -541,8 +541,132 @@ public class GreedyEngineTest {
 				 * vettore: *r221
 				 * 
 				 * Fase 2:
+				 * r111
+				 * Confronto con r221: priorità più alta = va inserito prima -> pos1
+				 * vettore: *r111, r221
 				 * 
+				 * Fase 3:
+				 * r421
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: priorità più bassa = va inserito dopo
+				 * Fine -> pos3
+				 * vettore: r111, r221, *r421
+				 * 
+				 * Fase 4:
+				 * r121
+				 * Confronto con r121: stessa priorità, durata inferiore = va inserito prima -> pos1
+				 * vettore: *r121, r111, r221, r421
+				 * 
+				 * Fase 5:
+				 * r411
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: priorità più bassa = va inserito dopo
+				 * Confronto con r421: stessa priorità, durata superiore = va inserito dopo
+				 * Fine -> pos5
+				 * vettore: r121, r111, r221, r421, *r411
+				 * 
+				 * Fase 6:
+				 * r231
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r421: priorità più alta = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r231, r421, r411
+				 * 
+				 * Fase 7:
+				 * r312
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r312, r231, r421, r411
+				 * 
+				 * Fase 8:
+				 * r311
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r312: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, stesso lavoro, 
+				 *  	               codice richiesta più basso = va messo prima -> pos4
+				 * vettore: r121, r111, r221, *r311, r312, r231, r421, r411
+				 * 
+				 * Fase 9:
+				 * r211
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                     codice cantiere inferiore = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r211, r311, r312, r231, r421, r411
+				 * 
+				 * Fase 10:
+				 * r321
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r211: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                     codice cantiere superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere,
+				 *                     codice lavoro superiore = va inserito dopo
+				 * Confronto con r312: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere,
+				 *                     codice lavoro superiore = va inserito dopo
+				 * Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va inserito prima -> pos7
+				 * vettore: r121, r111, r221, r211, r311, r312, *r321, r231, r421, r411
+				 *  
+				 * Fine -> OK
+				 * Verifichiamo che l'algoritmo funzioni correttamente
+				 *  
 				 */
+				
+				richieste.clear();
+				sortedRichieste.clear();
+				durate.clear();
+				
+				richieste.add(r221);
+				richieste.add(r111);
+				richieste.add(r421);
+				richieste.add(r121);
+				richieste.add(r411);
+				richieste.add(r231);
+				richieste.add(r312);
+				richieste.add(r311);
+				richieste.add(r211);
+				richieste.add(r321);
+				assertEquals(richieste.get(0),r221);
+				assertEquals(richieste.get(1),r111);
+				assertEquals(richieste.get(2),r421);
+				assertEquals(richieste.get(3),r121);
+				assertEquals(richieste.get(4),r411);
+				assertEquals(richieste.get(5),r231);
+				assertEquals(richieste.get(6),r312);
+				assertEquals(richieste.get(7),r311);
+				assertEquals(richieste.get(8),r211);
+				assertEquals(richieste.get(9),r321);
+				GreedyEngine.sortRequests(richieste, sortedRichieste, durate);
+				assertEquals(sortedRichieste.size(),richieste.size());
+				assertEquals(sortedRichieste.size(),10);
+				assertEquals(sortedRichieste.get(0),r121);
+				assertEquals(sortedRichieste.get(1),r111);
+				assertEquals(sortedRichieste.get(2),r221);
+				assertEquals(sortedRichieste.get(3),r211);
+				assertEquals(sortedRichieste.get(4),r311);
+				assertEquals(sortedRichieste.get(5),r312);
+				assertEquals(sortedRichieste.get(6),r321);
+				assertEquals(sortedRichieste.get(7),r231);
+				assertEquals(sortedRichieste.get(8),r421);
+				assertEquals(sortedRichieste.get(9),r411);
+				assertEquals(durate.size(),richieste.size());
+				assertEquals(durate.get(0),new Integer(2));
+				assertEquals(durate.get(1),new Integer(10));
+				assertEquals(durate.get(2),new Integer(2));
+				assertEquals(durate.get(3),new Integer(10));
+				assertEquals(durate.get(4),new Integer(10));
+				assertEquals(durate.get(5),new Integer(10));
+				assertEquals(durate.get(6),new Integer(10));
+				assertEquals(durate.get(7),new Integer(10));
+				assertEquals(durate.get(8),new Integer(2));
+				assertEquals(durate.get(9),new Integer(10));
 				
 				
 	}
