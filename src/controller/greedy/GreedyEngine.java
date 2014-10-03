@@ -355,6 +355,7 @@ public class GreedyEngine {
 					sortedRichieste.add(i,ric);
 					durate.add(i,d);
 					inserito=true;
+					break;
 				}
 			}
 			if(!inserito){
