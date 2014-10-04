@@ -34,8 +34,6 @@ public class GreedyEngine {
 		//IMPOSTO LE PRENOTAZIONI
 		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generateReservations(sortedRichieste);
 		//prenotazioni contiene tutte le coppie macchina-richiesta i cui lavori rispettano i criteri selezionati.
-		//TODO seleziona coppie proposte
-		//TODO Attenzione! Quando seleziono una coppia settare confermato a true!!!
 		
 		//GENERO LE ASSOCIAZIONI
 		ArrayList<Associazione>associazioni=new ArrayList<Associazione>();

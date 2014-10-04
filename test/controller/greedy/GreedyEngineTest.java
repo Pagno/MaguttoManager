@@ -189,6 +189,10 @@ public class GreedyEngineTest {
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p3);
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,05),new GregorianCalendar(2014,04,15));
 		a.add(new Associazione(new Richiesta(rc,l2,11), cam3));
+		Lavoro l3=new Lavoro(5,"l3",c,new GregorianCalendar(2017,04,05),new GregorianCalendar(2017,04,15));
+		a.add(new Associazione(new Richiesta(rc,l3,19), cam2));
+		Lavoro l4=new Lavoro(6,"l4",c,new GregorianCalendar(2012,04,05),new GregorianCalendar(2012,04,15));
+		a.add(new Associazione(new Richiesta(rc,l4,20), cam2));
 		//Se la prenotazione più promettente è già occupata, seleziona la più promettente libera
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p2);
 		//Anche se ci sono prenotazioni promettenti per altre richieste, restituisce null se non ce ne sono per la richiesta attuale
