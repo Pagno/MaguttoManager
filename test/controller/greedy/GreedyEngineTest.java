@@ -103,7 +103,16 @@ public class GreedyEngineTest {
 		assertEquals(a.get(2).getMacchina(),cam2);
 		assertEquals(a.get(3).getRichiesta(),ric2);
 		assertEquals(a.get(3).getMacchina(),cam4);
-		
+		//caso richiesta già soddisfatta
+		Richiesta ric3=new Richiesta(rc,l,22);
+		ric3.setMacchina(new Camion(99,"Yamaha","Camion",15,15,15));
+		ArrayList<Associazione>b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
+		assertEquals(b,a);
+		//caso richiesta già associata
+		ric3.setMacchina(null);
+		a.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
+		b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
+		assertEquals(b,a);
 		
 	}
 
