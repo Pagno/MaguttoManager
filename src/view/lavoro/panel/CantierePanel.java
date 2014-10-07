@@ -50,14 +50,20 @@ public class CantierePanel extends JPanel {
 		dataInizioCantiere = new JDateChooser();
 		dataInizioCantiere.getJCalendar().setTodayButtonVisible(true);
 		dataInizioCantiere.getJCalendar().setNullDateButtonVisible(true);
+		dataInizioCantiere.setName("dataInizioCantiere");
 		dataFineCantiere = new JDateChooser();
+		dataFineCantiere.setName("dataFineCantiere");
 		txtNomeCantiere = new JTextField();
 		txtNomeCantiere.setColumns(15);
+		txtNomeCantiere.setName("nomeCantiere");
 		txtIndirizzo = new JTextField();
+		txtIndirizzo.setName("indirizzoCantiere");;
 		txtIndirizzo.setColumns(15);
 		btnAdd=new JButton("Edit");
+		btnAdd.setName("edit");
 		btnReset=new JButton("Reset");
-		
+		btnReset=new JButton("resetCantiere");
+		priorita.setName("prioritaCantiere");
 		
 		GroupLayout layout = new GroupLayout(this);
 		layout.setAutoCreateContainerGaps(true);

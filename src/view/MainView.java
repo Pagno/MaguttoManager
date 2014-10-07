@@ -87,8 +87,11 @@ public class MainView extends JFrame {
 		JPanel center=new JPanel();
 		center.setLayout(new BorderLayout(0, 0));
 		btnEdit =new JButton("Modifica");
+		btnEdit.setName("modifica");
 		btnDelete=new JButton("Elimina");
+		btnDelete.setName("elimina");
 		btnAddLavoro =new JButton("Lavori");
+		btnAddLavoro.setName("lavori");
 		btnAddLavoro.setVisible(false);
 		
 		center.add(scrollpane, BorderLayout.CENTER);

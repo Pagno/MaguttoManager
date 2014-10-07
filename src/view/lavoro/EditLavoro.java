@@ -75,6 +75,7 @@ public class EditLavoro extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		JButton okButton = new JButton("Chiudi");
 		okButton.setActionCommand("Chiudi");
+		okButton.setName("chiudi");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
@@ -94,13 +95,15 @@ public class EditLavoro extends JDialog {
 		pnlCantiere.setPrioritaCantiere(cantiere.getPrioritaString());
 		pnlCantiere.setDataInizioCantiere(cantiere.getDataApertura());
 		pnlCantiere.setDataFineCantiere(cantiere.getDataChiusura());
-		
+		pnlCantiere.setName("pnlCantiere");
 		
 		//pnlCantiere.setDatiCantiere(datiCantiere);
 		pnlLavoro= new LavoroPanel(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
+		pnlLavoro.setName("pnlLavoro");
 		pnlAddRichiesta= new RichiestaPanel();
+		pnlAddRichiesta.setName("pnlAddRichiesta");
 		pnlVisualizzaPanel=new VisualizzaRichiestaPanel();
-		
+		pnlVisualizzaPanel.setName("pnlVisualizzaPanel");
 		
 		cardPanel.add(pnlLavoro,"lavoro");
 		cardPanel.add(pnlAddRichiesta,"richiesta");
@@ -116,6 +119,7 @@ public class EditLavoro extends JDialog {
 
 		renderer = new addNodeRenderer();
 	    tree.setCellRenderer(renderer);
+	    tree.setName("tree");
 	    
 	    chckbxNewCheckBox = new JCheckBox("Nascondi Richieste Soddisfatte");
 	    chckbxNewCheckBox.addItemListener(check());
@@ -176,6 +180,7 @@ public class EditLavoro extends JDialog {
 						btnDelete.removeActionListener( al );
 					}
 					btnDelete.addActionListener(deleteLavoroListener);
+					pnlLavoro.btnAddActionListener(editLavoroActionListener);
 					codiceLavoro=lavoro.getCodice();
 					pnlLavoro.btnLavoro.setText("Modifica");
 				}

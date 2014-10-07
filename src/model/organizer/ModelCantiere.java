@@ -168,7 +168,9 @@ public class ModelCantiere extends DefaultTreeModel{
 	//aggiungo nuovi lavori
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
+		System.out.println("codiceCantiere: "+codiceCantiere);
 		Cantiere cantiere=getCantiere(codiceCantiere);
+		
 
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 

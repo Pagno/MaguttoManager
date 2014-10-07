@@ -3,6 +3,7 @@ package view;
 import static view.JDateChooserSetTextTask.setDateIn;
 import static view.DateAssert.verifyThat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -21,8 +22,11 @@ public class AbstractDataChooserDriver extends JComponentDriver implements
 		super(robot);
 	}
 
-	@Override
-	public void requireText(JDateChooser dateChooser, String expected) {
+	public void requireDate(JDateChooser dateChooser, Date data) {
+		Date d = dateChooser.getDate();
+		SimpleDateFormat sdf = new SimpleDateFormat(); // creo l'oggetto
+		sdf.applyPattern("dd/MM/yyyy");
+		String expected=sdf.format(d);
 		 verifyThat(textOf(dateChooser)).as(propertyName(dateChooser, TEXT_PROPERTY)).isEqualOrMatches(expected);
 	}
 
@@ -42,4 +46,9 @@ public class AbstractDataChooserDriver extends JComponentDriver implements
 	    robot.waitForIdle();
 	}
 
+	@Override
+	public void requireText(JDateChooser component, String expected) {
+		// TODO Auto-generated method stub
+		
+	}
 }

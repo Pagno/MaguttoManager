@@ -28,7 +28,10 @@ public class JDateChooserFixture extends ComponentFixture<JDateChooser>
 	public String text() {
 		return driver.textOf(target);
 	}
-
+	public JDateChooserFixture requireDate(Date expected) {
+		driver.requireDate(target,expected);
+		return this;
+	}
 	public JDateChooserFixture setDate(Date text) {
 		driver.setDate(target, text);
 		return this;

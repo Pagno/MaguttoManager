@@ -44,7 +44,6 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// 
 				clear();
 			}
 		});
@@ -63,17 +62,22 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 		dataInizioLavoro.getJCalendar().setTodayButtonVisible(true);
 		dataInizioLavoro.getJCalendar().setNullDateButtonVisible(true);
 		dataInizioLavoro.addPropertyChangeListener(this);
-		
+		dataInizioLavoro.setName("dataInizioLavoro");
+	
 		dataFineLavoro  = new JDateChooser();
 		dataFineLavoro.setName("dataFine");
 		dataFineLavoro.getJCalendar().setTodayButtonVisible(true);
 		dataFineLavoro.getJCalendar().setNullDateButtonVisible(true);
 		dataFineLavoro.addPropertyChangeListener(this);
+		dataFineLavoro.setName("dataFineLavoro");
 		
 		txtNomeLavoro  = new JTextField();
 		txtNomeLavoro.setColumns(15);
+		txtNomeLavoro.setName("nomeLavoro");
 		btnLavoro=new JButton("Inserisci");
+		btnLavoro.setName("inserisciLavoro");
 		btnReset=new JButton("Reset");
+		btnReset.setName("resetLavoro");
 		
 		GroupLayout layout = new GroupLayout(this);
 		layout.setAutoCreateContainerGaps(true);
@@ -165,17 +169,20 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		JDateChooser event=(JDateChooser)evt.getSource();
-		if(event.getName().compareTo("dataInizio")==0 && dataFineLavoro.getDate()!=null && dataInizioLavoro.getDate()!=null){
+		try{
+		if(event.getName().compareTo("dataInizioLavoro")==0 && dataFineLavoro.getDate()!=null && dataInizioLavoro.getDate()!=null){
 			if (dataInizioLavoro.getDate().after(dataFineLavoro.getDate()))
 				dataInizioLavoro.setDate(null);
 			else
 				dataFineLavoro.setMinSelectableDate(dataInizioLavoro.getDate());
 		}
-		if(event.getName().compareTo("dataFine")==0 && dataInizioLavoro.getDate()!=null && dataFineLavoro.getDate()!=null){
+		if(event.getName().compareTo("dataFineLavoro")==0 && dataInizioLavoro.getDate()!=null && dataFineLavoro.getDate()!=null){
 			if (dataFineLavoro.getDate().before(dataInizioLavoro.getDate()))
 				dataFineLavoro.setDate(null);
 			else
 				dataInizioLavoro.setMaxSelectableDate(dataFineLavoro.getDate());
+		}
+		}catch(NullPointerException ex){
 		}
 	}
 }

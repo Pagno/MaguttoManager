@@ -513,6 +513,7 @@ public class MainController{
 					//int confirm=JOptionPane.showConfirmDialog(mainView,"Eliminando questa macchina verranno eliminate anche le associazioni con i lavori associati. \n Si desidera continuare con l'eliminazione?","Elimina Macchina", JOptionPane.YES_NO_OPTION);		
 					//if(confirm==JOptionPane.OK_OPTION){
 						model.eliminaMacchina(Integer.parseInt(v[0].toString()));
+						mainView.removeSelected();
 					//}
 				}
 			}
