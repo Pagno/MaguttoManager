@@ -26,6 +26,7 @@ public class AssociaMacchina extends JDialog {
 
 	public AssociaMacchina(JDialog v, ArrayList<Macchina> macchine) {
 		super(v);
+		setName("associaMacchina");
 		this.view = v;
 		view.setEnabled(false);
 		setTitle("Associa Macchina");
@@ -33,8 +34,10 @@ public class AssociaMacchina extends JDialog {
 		setBounds(0, 0, 200, 100);
 		listaMacchine = macchine;
 		btnAssocia = new JButton("Associa");
+		btnAssocia.setName("aggiungiAssociazione");
 		btnCancel = new JButton("Cancel");
 		cmbListaMacchine = new JComboBox<String>();
+		cmbListaMacchine.setName("elencoMacchine");
 
 		for (Macchina macchina : listaMacchine) {
 			cmbListaMacchine.addItem(macchina.getProduttore() + " - " + macchina.getModello());

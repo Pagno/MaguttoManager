@@ -4,11 +4,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout.Alignment;
 
 public class VisualizzaRichiestaPanel extends JPanel {
 
@@ -38,6 +36,7 @@ public class VisualizzaRichiestaPanel extends JPanel {
 		lblProfondita=new JLabel("Profondita");
 		lblRotazione=new JLabel("Rotazione");
 		btnAssociaMacchina=new JButton("Associa Macchina");
+		btnAssociaMacchina.setName("associaMacchina");
 		
 		add(lblTipo);
 		add(lblCapacita);

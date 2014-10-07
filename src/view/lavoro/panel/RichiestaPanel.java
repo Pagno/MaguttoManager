@@ -37,7 +37,9 @@ public class RichiestaPanel extends JPanel {
 	public RichiestaPanel() {
 		setLayout(new BorderLayout());
 		btnReset=new JButton("Reset");
+		btnReset.setName("reset");
 		btnAdd=new JButton("Aggiungi");
+		btnAdd.setName("aggiungi");
 		
 		btnReset.addActionListener(new ActionListener() {
 			@Override
@@ -48,6 +50,7 @@ public class RichiestaPanel extends JPanel {
 		createPanel();
 		Type.addActionListener(TypeListener());
 		Type.setSelectedIndex(0);
+		Type.setName("tipoMacchina");
 		
 	}
 	private void createPanel(){
@@ -60,18 +63,30 @@ public class RichiestaPanel extends JPanel {
 		lblRotazione  = new JLabel("Angolo Rotazione:");
 		
 		txtMinPortata  = new JTextField();
+		txtMinPortata.setName("minPortata");
 		txtMinCapacita  = new JTextField();
+		txtMinCapacita.setName("minCapacita");
 		txtMinLunghezza  = new JTextField();
+		txtMinLunghezza.setName("minLunghezza");
 		txtMinAltezza  = new JTextField();
+		txtMinAltezza.setName("minAltezza");
 		txtMinProfondita  = new JTextField();
+		txtMinProfondita.setName("minProfondita");
 		txtMinRotazione  = new JTextField();
+		txtMinRotazione.setName("minRotazione");
 		
 		txtMaxPortata  = new JTextField();
+		txtMaxPortata.setName("maxPortata");
 		txtMaxCapacita  = new JTextField();
+		txtMaxCapacita.setName("maxCapacita");
 		txtMaxLunghezza  = new JTextField();
+		txtMaxLunghezza.setName("maxLunghezza");
 		txtMaxAltezza  = new JTextField();
+		txtMaxAltezza.setName("maxAltezza");
 		txtMaxProfondita  = new JTextField();
+		txtMaxProfondita.setName("maxProfondita");
 		txtMaxRotazione  = new JTextField();
+		txtMaxRotazione.setName("maxRotazione");
 		
 		JLabel lblLabel1=new JLabel("");
 		JLabel lblLabel2=new JLabel("");
