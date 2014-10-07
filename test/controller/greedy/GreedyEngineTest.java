@@ -24,6 +24,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testGenerateAssociations() {
+		//TODO
 		fail("Not yet implemented");
 	}
 
@@ -49,7 +50,70 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testSelectMacchinaWithoutReservation() {
-		fail("Not yet implemented");
+		ArrayList<Camion>cList=new ArrayList<Camion>();
+		ArrayList<Associazione>a=new ArrayList<Associazione>();
+		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
+		assertTrue(a.isEmpty());
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,23));
+		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,23));
+		c.addLavoro(l);
+		c.addLavoro(l2);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Richiesta ric1=new Richiesta(rc,l,20);
+		//Caso lista di macchine libere vuota
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		assertTrue(a.isEmpty());
+		//Caso di macchine associate nel periodo della prenotazione
+		Camion cam1=new Camion(10,"Yamaha","Camion1",15,15,15);
+		Associazione asso1=new Associazione(new Richiesta(rc,l2,30),cam1);
+		a.add(asso1);
+		cList.add(cam1);
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		assertFalse(a.isEmpty());
+		assertEquals(a.size(),1);
+		assertTrue(a.contains(asso1));
+		//Caso di macchina libera
+		Camion cam2=new Camion(11,"Yamaha","Camion2",15,15,15);
+		Camion cam3=new Camion(12,"Yamaha","Camion3",15,15,15);
+		Camion cam4=new Camion(13,"Yamaha","Camion4",15,15,15);
+		Prenotazione p1=new Prenotazione(new Associazione(new Richiesta(rc,l2,32),cam3),14);
+		p.add(p1);
+		Associazione asso2=new Associazione(new Richiesta(rc,l3,31),cam2);
+		a.add(asso2);
+		cList.add(cam2);
+		cList.add(cam3);
+		cList.add(cam4);
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		assertEquals(a.size(),3);
+		assertTrue(a.contains(asso1));
+		assertTrue(a.contains(asso2));
+		assertEquals(a.get(2).getRichiesta(),ric1);
+		assertEquals(a.get(2).getMacchina(),cam2);
+		//Caso di tutte le macchine prenotate
+		Prenotazione p2=new Prenotazione(new Associazione(new Richiesta(rc,l2,33),cam4),20);
+		p.add(p2);
+		Richiesta ric2=new Richiesta(rc,l,21);
+		a=GreedyEngine.selectMacchinaWithoutReservation(ric2, cList, a, p);
+		assertEquals(a.size(),4);
+		assertTrue(a.contains(asso1));
+		assertTrue(a.contains(asso2));
+		assertEquals(a.get(2).getRichiesta(),ric1);
+		assertEquals(a.get(2).getMacchina(),cam2);
+		assertEquals(a.get(3).getRichiesta(),ric2);
+		assertEquals(a.get(3).getMacchina(),cam4);
+		//caso richiesta già soddisfatta
+		Richiesta ric3=new Richiesta(rc,l,22);
+		ric3.setMacchina(new Camion(99,"Yamaha","Camion",15,15,15));
+		ArrayList<Associazione>b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
+		assertEquals(b,a);
+		//caso richiesta già associata
+		ric3.setMacchina(null);
+		a.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
+		b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
+		assertEquals(b,a);
+		
 	}
 
 	@Test
@@ -134,6 +198,10 @@ public class GreedyEngineTest {
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p3);
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,05),new GregorianCalendar(2014,04,15));
 		a.add(new Associazione(new Richiesta(rc,l2,11), cam3));
+		Lavoro l3=new Lavoro(5,"l3",c,new GregorianCalendar(2017,04,05),new GregorianCalendar(2017,04,15));
+		a.add(new Associazione(new Richiesta(rc,l3,19), cam2));
+		Lavoro l4=new Lavoro(6,"l4",c,new GregorianCalendar(2012,04,05),new GregorianCalendar(2012,04,15));
+		a.add(new Associazione(new Richiesta(rc,l4,20), cam2));
 		//Se la prenotazione più promettente è già occupata, seleziona la più promettente libera
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p2);
 		//Anche se ci sono prenotazioni promettenti per altre richieste, restituisce null se non ce ne sono per la richiesta attuale
@@ -154,6 +222,113 @@ public class GreedyEngineTest {
 		
 	}
 
+	@Test
+	public void testGenerateReservations(){
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,02),new GregorianCalendar(2014,10,27),Priority.MEDIA);
+		Lavoro base=new Lavoro(100,"base",c,new GregorianCalendar(2014,05,15),new GregorianCalendar(2014,05,20));
+		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,05,02),new GregorianCalendar(2014,05,04));
+		Lavoro l2=new Lavoro(2,"l2",c,new GregorianCalendar(2014,05,07),new GregorianCalendar(2014,05,9));
+		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,05,10),new GregorianCalendar(2014,05,12));
+		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,05,14),new GregorianCalendar(2014,05,16));
+		Lavoro l5=new Lavoro(5,"l5",c,new GregorianCalendar(2014,05,17),new GregorianCalendar(2014,05,19));
+		Lavoro l6=new Lavoro(6,"l6",c,new GregorianCalendar(2014,05,19),new GregorianCalendar(2014,05,21));
+		Lavoro l7=new Lavoro(7,"l7",c,new GregorianCalendar(2014,05,23),new GregorianCalendar(2014,05,25));
+		Lavoro l8=new Lavoro(8,"l8",c,new GregorianCalendar(2014,05,26),new GregorianCalendar(2014,05,28));
+		Lavoro l9=new Lavoro(9,"l9",c,new GregorianCalendar(2014,05,28),new GregorianCalendar(2014,05,30));
+		Lavoro loccupa=new Lavoro(10,"l10",c,new GregorianCalendar(2014,05,26),new GregorianCalendar(2014,06,10));
+		c.addLavoro(base);
+		c.addLavoro(l1);
+		c.addLavoro(l2);
+		c.addLavoro(l3);
+		c.addLavoro(l4);
+		c.addLavoro(l5);
+		c.addLavoro(l6);
+		c.addLavoro(l7);
+		c.addLavoro(l8);
+		c.addLavoro(l9);
+		c.addLavoro(loccupa);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Camion c1=new Camion(1,"Yamaha","Camion",15,15,15);
+		Camion c2=new Camion(2,"Yamaha","Camion",15,15,15);
+		Camion c3=new Camion(3,"Yamaha","Camion",15,15,15);
+		l1.caricaRichiesta(rc, 1, null);
+		l2.caricaRichiesta(rc, 2, null);
+		l3.caricaRichiesta(rc, 3, null);
+		l4.caricaRichiesta(rc, 4, null);
+		l5.caricaRichiesta(rc, 5, null);
+		l6.caricaRichiesta(rc, 6, null);
+		l7.caricaRichiesta(rc, 7, null);
+		l8.caricaRichiesta(rc, 8, null);
+		l9.caricaRichiesta(rc, 9, null);
+		loccupa.caricaRichiesta(rc, 10, c2);
+		Richiesta r1=l1.getRichiesta(1);
+		Richiesta r2=l2.getRichiesta(2);
+		Richiesta r3=l3.getRichiesta(3);
+		Richiesta r4=l4.getRichiesta(4);
+		Richiesta r5=l5.getRichiesta(5);
+		Richiesta r6=l6.getRichiesta(6);
+		Richiesta r7=l7.getRichiesta(7);
+		Richiesta r8=l8.getRichiesta(8);
+		Richiesta r9=l9.getRichiesta(9);
+		base.caricaRichiesta(rc, 101, c1);
+		base.caricaRichiesta(rc, 102, null);
+		base.caricaRichiesta(rc, 103, c2);
+		base.caricaRichiesta(rc, 104, c3);
+		base.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 105, new Ruspa(4,"Yamaha","Ruspa",15,15,15));
+		Richiesta b2=base.getRichiesta(102);
+		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
+		sortedRichieste.add(r1);
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r3);
+		sortedRichieste.add(r4);
+		sortedRichieste.add(r5);
+		sortedRichieste.add(r6);
+		sortedRichieste.add(r7);
+		sortedRichieste.add(r8);
+		sortedRichieste.add(r9);
+		sortedRichieste.add(b2);
+		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generateReservations(sortedRichieste);
+		
+		assertEquals(prenotazioni.get(0).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(0).getMacchina(),c1);
+		assertEquals(prenotazioni.get(0).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(1).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(1).getMacchina(),c2);
+		assertEquals(prenotazioni.get(1).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(2).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(2).getMacchina(),c3);
+		assertEquals(prenotazioni.get(2).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(3).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(3).getMacchina(),c1);
+		assertEquals(prenotazioni.get(3).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(4).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(4).getMacchina(),c2);
+		assertEquals(prenotazioni.get(4).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(5).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(5).getMacchina(),c3);
+		assertEquals(prenotazioni.get(5).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(6).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(6).getMacchina(),c1);
+		assertEquals(prenotazioni.get(6).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(7).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(7).getMacchina(),c2);
+		assertEquals(prenotazioni.get(7).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(8).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(8).getMacchina(),c3);
+		assertEquals(prenotazioni.get(8).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(9).getRichiesta(),r7); //da loccupa
+		assertEquals(prenotazioni.get(9).getMacchina(),c2); //da loccupa
+		assertEquals(prenotazioni.get(9).getDurataLavoro(),new Integer(14)); //da loccupa
+		assertEquals(prenotazioni.get(10).getRichiesta(),r8);
+		assertEquals(prenotazioni.get(10).getMacchina(),c1);
+		assertEquals(prenotazioni.get(10).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(11).getRichiesta(),r8);
+		assertEquals(prenotazioni.get(11).getMacchina(),c3);
+		assertEquals(prenotazioni.get(11).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.size(),12);
+		
+	}
+	
 	@Test
 	public void testReserveMacchineFromLavoro() {
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
@@ -257,6 +432,485 @@ public class GreedyEngineTest {
 		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
 	}
 
+	@Test
+	public void testSortRequests() {
+		
+				ArrayList<Richiesta> richieste=new ArrayList<Richiesta>();
+				ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
+				ArrayList<Integer> durate=new ArrayList<Integer>();
+				assertTrue(richieste.isEmpty());
+				assertTrue(sortedRichieste.isEmpty());
+				assertTrue(durate.isEmpty());
+				Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.ALTA);
+				Cantiere c2=new Cantiere(2,"c2","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.MEDIA);
+				Cantiere c3=new Cantiere(3,"c3","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.MEDIA);
+				Cantiere c4=new Cantiere(4,"c4","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.BASSA);
+				Lavoro l11=new Lavoro(1,"l11",c1,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
+				Lavoro l12=new Lavoro(5,"l12",c1,new GregorianCalendar(2015,02,9),new GregorianCalendar(2015,02,11));
+				Lavoro l21=new Lavoro(2,"l21",c2,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
+				Lavoro l22=new Lavoro(7,"l22",c2,new GregorianCalendar(2015,03,04),new GregorianCalendar(2015,03,06));
+				Lavoro l23=new Lavoro(8,"l23",c2,new GregorianCalendar(2016,02,03),new GregorianCalendar(2016,02,13));
+				Lavoro l31=new Lavoro(3,"l31",c3,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
+				Lavoro l32=new Lavoro(9,"l32",c3,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
+				Lavoro l41=new Lavoro(4,"l41",c4,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
+				Lavoro l42=new Lavoro(6,"l42",c4,new GregorianCalendar(2015,02,9),new GregorianCalendar(2015,02,11));
+				c1.addLavoro(l11);
+				c1.addLavoro(l12);
+				c2.addLavoro(l21);
+				c2.addLavoro(l22);
+				c2.addLavoro(l23);
+				c3.addLavoro(l31);
+				c3.addLavoro(l32);
+				c4.addLavoro(l41);
+				c4.addLavoro(l42);
+				RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+				l11.caricaRichiesta(rc, 1, null);
+				l12.caricaRichiesta(rc, 5, null);
+				l21.caricaRichiesta(rc, 2, null);
+				l22.caricaRichiesta(rc, 7, null);
+				l23.caricaRichiesta(rc, 8, null);
+				l31.caricaRichiesta(rc, 3, null);
+				l31.caricaRichiesta(rc, 10, null);
+				l32.caricaRichiesta(rc, 9, null);
+				l41.caricaRichiesta(rc, 4, null);
+				l42.caricaRichiesta(rc, 6, null);
+				Richiesta r111=l11.getRichiesta(1);
+				Richiesta r121=l12.getRichiesta(5);
+				Richiesta r211=l21.getRichiesta(2);
+				Richiesta r221=l22.getRichiesta(7);
+				Richiesta r231=l23.getRichiesta(8);
+				Richiesta r311=l31.getRichiesta(3);
+				Richiesta r312=l31.getRichiesta(10);
+				Richiesta r321=l32.getRichiesta(9);
+				Richiesta r411=l41.getRichiesta(4);
+				Richiesta r421=l42.getRichiesta(6);
+				
+				// L'ordine ottenuto dalla funzione dovrebbe essere:
+				// r121, r111, r221, r211, r311, r312, r321, r231, r421, r411
+				// E per le durate:
+				// 2, 10, 2, 10, 10, 10, 10, 10, 2, 10
+				
+				/* L'analisi dell'ordine è questa: 
+				 * Le parentesi corrispondono alla selezione esatta della posizione, che non richiede ulteriori analisi.
+				 * In realtà l'ordinamento delle priorità avviene secondo l'ordine con cui le richieste sono poste in "richieste"
+				 * quindi l'algoritmo usato qui non equivale a quello utilizzato dal programma, ma il risultato deve esser lo stesso.
+				 *
+				 *        | Richiesta | PrioritàCan | DurataLav |  DataInizio  |  CodCan  |  CodLav  |  CodRic   |
+				 *        |   r111    |    ALTA     |   10 (2)  |      X       |    X     |    X     |    X      |
+				 *        |   r121    |    ALTA     |   2  (1)  |      X       |    X     |    X     |    X      |
+				 *        |   r211    |    MEDIA    |   10      |  03/02/15    |    2 (4) |    X     |    X      |
+				 *        |   r221    |    MEDIA    |   2  (3)  |      X       |    X     |    X     |    X      |
+				 *        |   r231    |    MEDIA    |   10      |  03/02/16 (8)|    X     |    X     |    X      |
+				 *        |   r311    |    MEDIA    |   10      |  03/02/15    |    3     |    3     |    3  (5) |
+				 *        |   r312    |    MEDIA    |   10      |  03/02/15    |    3     |    3     |    10 (6) |
+				 *        |   r321    |    MEDIA    |   10      |  03/02/15    |    3     |    9 (7) |    X      |
+				 *        |   r411    |    BASSA    |   10 (10) |      X       |    X     |    X     |    X      |
+				 *        |   r421    |    BASSA    |   2  (9)  |      X       |    X     |    X     |    X      |
+				 *        
+				 * Poniamo ora le richieste con ordini casuali all'interno di "richieste", e verifichiamo che l'ordine sia rispettato.
+				 * In parallelo verificheremo il calcolo delle durate e il loro ordinamento in "durate".
+				 * Per ogni ordine verrà indicata l'esecuzione dell'ordinamento.
+				 */
+				
+				// CASO 1
+				// r121, r111, r421, r411, r311, r221, r231, r312, r321, r211
+				
+				/* 
+				 * '*' = appena inserito
+				 * 
+				 *  Fase 1:
+				 *  r121 -> pos1
+				 *  vettore: *r121
+				 *  
+				 *  Fase 2:
+				 *  r111
+				 *  Confronto con r121: stessa priorità, dura di più = va messo dopo
+				 *  Fine -> pos2
+				 *  vettore: r121 , *r111
+				 *  
+				 *  Fase 3:
+				 *  r421
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Fine -> pos3
+				 *  vettore: r121 , r111, *r421
+				 *  
+				 *  Fase 4:
+				 *  r411
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r421: stessa priorità, dura di più = va messo dopo
+				 *  Fine -> pos4
+				 *  vettore: r121 , r111, r421, *r411
+				 *  
+				 *  Fase 5:
+				 *  r311
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r421: priorità più bassa = va messo prima -> pos3
+				 *  vettore: r121 , r111, *r311, r421, r411
+				 *  
+				 *  Fase 6:
+				 *  r221
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r311: stessa priorità, dura di meno = va messo prima -> pos3
+				 *  vettore: r121 , r111, *r221, r311, r421, r411
+				 *  
+				 *  Fase 7:
+				 *  r231
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r221: stessa priorità, dura di più = va messo dopo
+				 *  Confronto con r311: stessa priorità, stessa durata, inizia dopo = va messo dopo
+				 *  Confronto con r421: priorità più alta=va messo prima -> pos5
+				 *  vettore: r121 , r111, r221, r311, *r231, r421, r411
+				 *  
+				 *  Fase 8:
+				 *  r312
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r221: stessa priorità, dura di più = va messo dopo
+				 *  Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, stesso lavoro, 
+				 *  	                codice richiesta più alto = va messo dopo
+				 *  Confronto con r231: stessa priorità, stessa durata, inizia prima = va messo prima -> pos5
+				 *  vettore: r121 , r111, r221, r311, *r312, r231, r421, r411
+				 *  
+				 *  Fase 9:
+				 *  r321
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r221: stessa priorità, dura di più = va messo dopo
+				 *  Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, 
+				 *                      codice lavoro più alto = va messo dopo
+				 *  Confronto con r312: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, 
+				 *                      codice lavoro più alto = va messo dopo
+				 *  Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va messo prima -> pos6
+				 *  vettore: r121 , r111, r221, r311, r312, *r321, r231, r421, r411
+				 *  
+				 *  Fase 10:
+				 *  r211
+				 *  Confronto con r121: priorità più bassa = va messo dopo
+				 *  Confronto con r111: priorità più bassa = va messo dopo
+				 *  Confronto con r221: stessa priorità, dura di più = va messo dopo
+				 *  Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                      codice cantiere inferiore = va messo prima -> pos4
+				 *  vettore: r121 , r111, r221, *r211, r311, r312, r321, r231, r421, r411
+				 *  
+				 *  Fine -> OK
+				 *  Verifichiamo che l'algoritmo funzioni correttamente
+				 *  
+				 */
+				
+				richieste.add(r121);
+				richieste.add(r111);
+				richieste.add(r421);
+				richieste.add(r411);
+				richieste.add(r311);
+				richieste.add(r221);
+				richieste.add(r231);
+				richieste.add(r312);
+				richieste.add(r321);
+				richieste.add(r211);
+				assertEquals(richieste.get(0),r121);
+				assertEquals(richieste.get(1),r111);
+				assertEquals(richieste.get(2),r421);
+				assertEquals(richieste.get(3),r411);
+				assertEquals(richieste.get(4),r311);
+				assertEquals(richieste.get(5),r221);
+				assertEquals(richieste.get(6),r231);
+				assertEquals(richieste.get(7),r312);
+				assertEquals(richieste.get(8),r321);
+				assertEquals(richieste.get(9),r211);
+				GreedyEngine.sortRequests(richieste, sortedRichieste, durate);
+				assertEquals(sortedRichieste.size(),richieste.size());
+				assertEquals(sortedRichieste.size(),10);
+				assertEquals(sortedRichieste.get(0),r121);
+				assertEquals(sortedRichieste.get(1),r111);
+				assertEquals(sortedRichieste.get(2),r221);
+				assertEquals(sortedRichieste.get(3),r211);
+				assertEquals(sortedRichieste.get(4),r311);
+				assertEquals(sortedRichieste.get(5),r312);
+				assertEquals(sortedRichieste.get(6),r321);
+				assertEquals(sortedRichieste.get(7),r231);
+				assertEquals(sortedRichieste.get(8),r421);
+				assertEquals(sortedRichieste.get(9),r411);
+				assertEquals(durate.size(),richieste.size());
+				assertEquals(durate.get(0),new Integer(2));
+				assertEquals(durate.get(1),new Integer(10));
+				assertEquals(durate.get(2),new Integer(2));
+				assertEquals(durate.get(3),new Integer(10));
+				assertEquals(durate.get(4),new Integer(10));
+				assertEquals(durate.get(5),new Integer(10));
+				assertEquals(durate.get(6),new Integer(10));
+				assertEquals(durate.get(7),new Integer(10));
+				assertEquals(durate.get(8),new Integer(2));
+				assertEquals(durate.get(9),new Integer(10));
+				
+				// CASO 2
+				// r221, r111, r421, r121, r411, r231, r312, r311, r211, r321
+				
+				/*
+				 * Fase 1:
+				 * r221 -> pos1
+				 * vettore: *r221
+				 * 
+				 * Fase 2:
+				 * r111
+				 * Confronto con r221: priorità più alta = va inserito prima -> pos1
+				 * vettore: *r111, r221
+				 * 
+				 * Fase 3:
+				 * r421
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: priorità più bassa = va inserito dopo
+				 * Fine -> pos3
+				 * vettore: r111, r221, *r421
+				 * 
+				 * Fase 4:
+				 * r121
+				 * Confronto con r121: stessa priorità, durata inferiore = va inserito prima -> pos1
+				 * vettore: *r121, r111, r221, r421
+				 * 
+				 * Fase 5:
+				 * r411
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: priorità più bassa = va inserito dopo
+				 * Confronto con r421: stessa priorità, durata superiore = va inserito dopo
+				 * Fine -> pos5
+				 * vettore: r121, r111, r221, r421, *r411
+				 * 
+				 * Fase 6:
+				 * r231
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r421: priorità più alta = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r231, r421, r411
+				 * 
+				 * Fase 7:
+				 * r312
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r312, r231, r421, r411
+				 * 
+				 * Fase 8:
+				 * r311
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r312: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, stesso lavoro, 
+				 *  	               codice richiesta più basso = va messo prima -> pos4
+				 * vettore: r121, r111, r221, *r311, r312, r231, r421, r411
+				 * 
+				 * Fase 9:
+				 * r211
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                     codice cantiere inferiore = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r211, r311, r312, r231, r421, r411
+				 * 
+				 * Fase 10:
+				 * r321
+				 * Confronto con r121: priorità più bassa = va inserito dopo
+				 * Confronto con r111: priorità più bassa = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r211: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                     codice cantiere superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere,
+				 *                     codice lavoro superiore = va inserito dopo
+				 * Confronto con r312: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere,
+				 *                     codice lavoro superiore = va inserito dopo
+				 * Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va inserito prima -> pos7
+				 * vettore: r121, r111, r221, r211, r311, r312, *r321, r231, r421, r411
+				 *  
+				 * Fine -> OK
+				 * Verifichiamo che l'algoritmo funzioni correttamente
+				 *  
+				 */
+				
+				richieste.clear();
+				sortedRichieste.clear();
+				durate.clear();
+				
+				richieste.add(r221);
+				richieste.add(r111);
+				richieste.add(r421);
+				richieste.add(r121);
+				richieste.add(r411);
+				richieste.add(r231);
+				richieste.add(r312);
+				richieste.add(r311);
+				richieste.add(r211);
+				richieste.add(r321);
+				assertEquals(richieste.get(0),r221);
+				assertEquals(richieste.get(1),r111);
+				assertEquals(richieste.get(2),r421);
+				assertEquals(richieste.get(3),r121);
+				assertEquals(richieste.get(4),r411);
+				assertEquals(richieste.get(5),r231);
+				assertEquals(richieste.get(6),r312);
+				assertEquals(richieste.get(7),r311);
+				assertEquals(richieste.get(8),r211);
+				assertEquals(richieste.get(9),r321);
+				GreedyEngine.sortRequests(richieste, sortedRichieste, durate);
+				assertEquals(sortedRichieste.size(),richieste.size());
+				assertEquals(sortedRichieste.size(),10);
+				assertEquals(sortedRichieste.get(0),r121);
+				assertEquals(sortedRichieste.get(1),r111);
+				assertEquals(sortedRichieste.get(2),r221);
+				assertEquals(sortedRichieste.get(3),r211);
+				assertEquals(sortedRichieste.get(4),r311);
+				assertEquals(sortedRichieste.get(5),r312);
+				assertEquals(sortedRichieste.get(6),r321);
+				assertEquals(sortedRichieste.get(7),r231);
+				assertEquals(sortedRichieste.get(8),r421);
+				assertEquals(sortedRichieste.get(9),r411);
+				assertEquals(durate.size(),richieste.size());
+				assertEquals(durate.get(0),new Integer(2));
+				assertEquals(durate.get(1),new Integer(10));
+				assertEquals(durate.get(2),new Integer(2));
+				assertEquals(durate.get(3),new Integer(10));
+				assertEquals(durate.get(4),new Integer(10));
+				assertEquals(durate.get(5),new Integer(10));
+				assertEquals(durate.get(6),new Integer(10));
+				assertEquals(durate.get(7),new Integer(10));
+				assertEquals(durate.get(8),new Integer(2));
+				assertEquals(durate.get(9),new Integer(10));
+				
+				// CASO 3
+				// r311, r231, r411, r221, r321, r121, r111, r421, r312, r211
+				
+				/*
+				 * Fase 1:
+				 * r311 -> pos1
+				 * vettore: *r311
+				 * 
+				 * Fase 2:
+				 * r231
+				 * Confronto con r311: stessa priorità, stessa durata, data iniziale successiva = va inserito dopo
+				 * Fine -> pos2
+				 * vettore: r311, *r231
+				 * 
+				 * Fase 3:
+				 * r411
+				 * Confronto con r311: priorità inferiore = va inserito dopo
+				 * Confronto con r231: priorità inferiore = va inserito dopo
+				 * Fine -> pos3
+				 * vettore: r311, r231, *r411
+				 * 
+				 * Fase 4:
+				 * r221
+				 * Confronto con r311: stessa priorità, durata inferiore = va inserito prima -> pos1
+				 * vettore: *r221, r311, r231, r411
+				 * 
+				 * Fase 5:
+				 * r321
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, 
+				 *                     codice lavoro superiore = va inserito dopo
+				 * Confronto con r231: stessa priorità, stessa durata, data iniziale precedente = va inserito prima -> pos3
+				 * vettore: r221, r311, *r321, r231, r411
+				 * 
+				 * Fase 6:
+				 * r121
+				 * Confronto con r221: priorità superiore = va inserito prima -> pos1
+				 * vettore: *r121, r221, r311, r321, r231, r411
+				 * 
+				 * Fase 7:
+				 * r111
+				 * Confronto con r121: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r221: priorità superiore = va inserito prima -> pos2
+				 * vettore: r121, *r111, r221, r311, r321, r231, r411
+				 * 
+				 * Fase 8:
+				 * r421
+				 * Confronto con r121: priorità inferiore = va inserito dopo
+				 * Confronto con r111: priorità inferiore = va inserito dopo
+				 * Confronto con r221: priorità inferiore = va inserito dopo
+				 * Confronto con r311: priorità inferiore = va inserito dopo
+				 * Confronto con r321: priorità inferiore = va inserito dopo
+				 * Confronto con r131: priorità inferiore = va inserito dopo
+				 * Confronto con r411: stessa priorità, durata inferiore = va inserito prima -> pos7
+				 * vettore: r121, r111, r221, r311, r321, r231, *r421, r411
+				 * 
+				 * Fase 9:
+				 * r312
+				 * Confronto con r121: priorità inferiore = va inserito dopo
+				 * Confronto con r111: priorità inferiore = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere, stesso lavoro, 
+				 *                     codice richiesta superiore = va inserito dopo
+				 * Confronto con r321: stessa priorità, stessa durata, stessa data iniziale, stesso cantiere,
+				 *                     codice lavoro inferiore = va inserito prima -> pos5
+				 * vettore: r121, r111, r221, r311, *r312, r321, r231, r421, r411
+				 * 
+				 * Fase 10:
+				 * r211
+				 * Confronto con r121: priorità inferiore = va inserito dopo
+				 * Confronto con r111: priorità inferiore = va inserito dopo
+				 * Confronto con r221: stessa priorità, durata superiore = va inserito dopo
+				 * Confronto con r311: stessa priorità, stessa durata, stessa data iniziale, 
+				 *                     codice cantiere inferiore = va inserito prima -> pos4
+				 * vettore: r121, r111, r221, *r211, r311, r312, r321, r231, r421, r411  
+				 *                   
+				 */
+				
+				richieste.clear();
+				sortedRichieste.clear();
+				durate.clear();
+				
+				richieste.add(r311);
+				richieste.add(r231);
+				richieste.add(r411);
+				richieste.add(r221);
+				richieste.add(r321);
+				richieste.add(r121);
+				richieste.add(r111);
+				richieste.add(r421);
+				richieste.add(r312);
+				richieste.add(r211);
+				assertEquals(richieste.get(0),r311);
+				assertEquals(richieste.get(1),r231);
+				assertEquals(richieste.get(2),r411);
+				assertEquals(richieste.get(3),r221);
+				assertEquals(richieste.get(4),r321);
+				assertEquals(richieste.get(5),r121);
+				assertEquals(richieste.get(6),r111);
+				assertEquals(richieste.get(7),r421);
+				assertEquals(richieste.get(8),r312);
+				assertEquals(richieste.get(9),r211);
+				GreedyEngine.sortRequests(richieste, sortedRichieste, durate);
+				assertEquals(sortedRichieste.size(),richieste.size());
+				assertEquals(sortedRichieste.size(),10);
+				assertEquals(sortedRichieste.get(0),r121);
+				assertEquals(sortedRichieste.get(1),r111);
+				assertEquals(sortedRichieste.get(2),r221);
+				assertEquals(sortedRichieste.get(3),r211);
+				assertEquals(sortedRichieste.get(4),r311);
+				assertEquals(sortedRichieste.get(5),r312);
+				assertEquals(sortedRichieste.get(6),r321);
+				assertEquals(sortedRichieste.get(7),r231);
+				assertEquals(sortedRichieste.get(8),r421);
+				assertEquals(sortedRichieste.get(9),r411);
+				assertEquals(durate.size(),richieste.size());
+				assertEquals(durate.get(0),new Integer(2));
+				assertEquals(durate.get(1),new Integer(10));
+				assertEquals(durate.get(2),new Integer(2));
+				assertEquals(durate.get(3),new Integer(10));
+				assertEquals(durate.get(4),new Integer(10));
+				assertEquals(durate.get(5),new Integer(10));
+				assertEquals(durate.get(6),new Integer(10));
+				assertEquals(durate.get(7),new Integer(10));
+				assertEquals(durate.get(8),new Integer(2));
+				assertEquals(durate.get(9),new Integer(10));
+	}
+	
 	@Test
 	public void testSortByPriority() {
 		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);

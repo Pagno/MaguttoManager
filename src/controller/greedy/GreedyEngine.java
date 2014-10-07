@@ -1,13 +1,11 @@
 package controller.greedy;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.ModelInterface;
 import model.organizer.data.Camion;
-import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
@@ -25,56 +23,31 @@ public class GreedyEngine {
 	
 	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
+		
 		ArrayList<Richiesta> richieste=model.getRichiesteScoperte();
 		ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
 		ArrayList<Integer> durate=new ArrayList<Integer>();
-		int d;
-		boolean inserito;
-		GregorianCalendar sx,dx;
-		for(Richiesta ric:richieste){
-			d=0;
-			sx=(GregorianCalendar)ric.getDataInizio().clone();
-			dx=(GregorianCalendar)ric.getDataFine().clone();
-			while(sx.before(dx)){
-				sx.add(Calendar.DAY_OF_MONTH, 1);
-				d++;
-			}
-			inserito=false;
-			for(int i=0; i<sortedRichieste.size();i++){
-				if(sortByPriority(ric,sortedRichieste.get(i),d,durate.get(i))){
-					sortedRichieste.add(i,ric);
-					durate.add(i,d);
-					inserito=true;
-				}
-			}
-			if(!inserito){
-				sortedRichieste.add(ric);
-				durate.add(d);
-			}
-		}
+		GreedyEngine.sortRequests(richieste,sortedRichieste,durate);
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
+		//durate contiene le durate relative alle richieste, nelle medesime posizioni
+		
 		//IMPOSTO LE PRENOTAZIONI
-		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
-		for(Richiesta ric:sortedRichieste){
-			for(Lavoro lav:ric.getRelatedWorks()){
-				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
-					reserveMacchineFromLavoro(ric, lav, prenotazioni);
-				}
-			}
-		}
+		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generateReservations(sortedRichieste);
 		//prenotazioni contiene tutte le coppie macchina-richiesta i cui lavori rispettano i criteri selezionati.
-		//TODO seleziona coppie proposte
-		//TODO Attenzione! Quando seleziono una coppia settare confermato a true!!!
+		
+		//GENERO LE ASSOCIAZIONI
 		ArrayList<Associazione>associazioni=new ArrayList<Associazione>();
 		//Considera le varie richieste in ordine di priorità.
 		//Per ciascuna richiesta, controlla se sono presenti prenotazioni disponibili.
 		//Se sono presenti molte prenotazioni, seleziona quella collegata al lavoro più corto.
 		for(Richiesta ric:sortedRichieste){
 			Prenotazione temp=selectMostPromisingReservation(associazioni,prenotazioni,ric);
-			//Se ne ha trovata almeno una, allora la seleziona e poi rimuove tutte le selezioni per questa richiesta
+			//La richiesta è già stata analizzata, quindi le sue eventuali prenotazioni ora sono inutili.
+			//Le rimuoviamo dalla lista, per migliorare la velocità dei cicli su prenotazione
+			prenotazioni=removeReservationsByRequest(prenotazioni,ric);
+			//Se ne ha trovata almeno una, allora la seleziona aggiungendola ad associazioni
 			if(temp!=null){
 				associazioni.add(temp.select());
-				prenotazioni=removeReservationsByRequest(prenotazioni,ric);
 			}
 			else{
 				//In tal caso non ha trovato prenotazioni
@@ -99,82 +72,109 @@ public class GreedyEngine {
 				}
 			}
 		}
-		//SELEZIONO LE COPPIE PIU' PROMETTENTI
+		
 		return associazioni;
 	}
 	
+	//--------------------------------------------------------------------------------------------------------------------------------
 	
 	//FUNZIONI DI SELEZIONE
-	public static <T extends Macchina> void insertAssociation(Richiesta ric, T mac, ArrayList<Associazione>associazioni){
+	
+	static <T extends Macchina> void insertAssociation(Richiesta ric, T mac, ArrayList<Associazione>associazioni){
 		Associazione a=new Associazione(ric,mac);
 		a.setConfermata(true);
 		associazioni.add(a);
 	}
 	
-	public static <T extends Macchina> void selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
-		if(disp.size()==0){
-			//In tal caso non ho nessuna macchina libera per soddisfare la richiesta
-			//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+	static <T extends Macchina> ArrayList<Associazione> selectMacchinaWithoutReservation(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioni,ArrayList<Prenotazione>prenotazioni){
+		if(ric.isSoddisfatta()){
+			//Se ric è già soddisfatta, non faccio nulla
 		}
 		else{
-			for(T mac:disp){
-				for(Associazione a:associazioni){
-					//controllo che la macchina non sia già associata e quindi occupata temporaneamente
-					//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
-					if(mac.equals(a.getMacchina())){
-						if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-							//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già associata
-							disp.remove(mac);
-							break;
-						}
-					}
+			boolean isAssociata=false;
+			for(Associazione a:associazioni){
+				if(a.getRichiesta().equals(ric)){
+					isAssociata=true;
+					break;
 				}
 			}
-			if(disp.size()==0){
-				//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
-				//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+			if(isAssociata){
+				//Se ric è già soddisfatta, non faccio nulla
 			}
 			else{
-				//Se arrivo qui, c'è almeno una macchina libera o ancora non associata che soddisfa la richiesta
-				//Quindi potrò sicuramente soddisfare la richiesta con almeno una macchina
-				//Cerchiamo prima una macchina non prenotata da altri
-				boolean isSelezionato=false;
-				for(T mac:disp){
-					boolean isPrenotato=false;
-					for(Prenotazione p:prenotazioni){
-						if(p.getMacchina().equals(mac)){
-							if(!((ric.getDataFine().before(p.getDataInizio()))||(ric.getDataInizio().after(p.getDataFine())))){
-								//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
-								isPrenotato=true;
+				if(disp.size()==0){
+					//In tal caso non ho nessuna macchina libera per soddisfare la richiesta
+					//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+				}
+				else{
+					ArrayList<T>nonAssociate=new ArrayList<T>();
+					for(T mac:disp){
+						boolean alreadyAssociato=false;
+						for(Associazione a:associazioni){
+							//controllo che la macchina non sia già associata e quindi occupata temporaneamente
+							//Le macchine erano già libere, il controllo è effettuato in reserveMacchineFromLavoro
+							if(mac.equals(a.getMacchina())){
+								if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
+									//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già associata
+									alreadyAssociato=true;
+									break;
+								}
+							}
+						}
+						if(!alreadyAssociato){
+							nonAssociate.add(mac);
+						}
+					}
+					disp=nonAssociate;
+					if(disp.size()==0){
+						//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
+						//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
+					}
+					else{
+						//Se arrivo qui, c'è almeno una macchina libera o ancora non associata che soddisfa la richiesta
+						//Quindi potrò sicuramente soddisfare la richiesta con almeno una macchina
+						//Cerchiamo prima una macchina non prenotata da altri
+						boolean isSelezionato=false;
+						for(T mac:disp){
+							boolean isPrenotato=false;
+							for(Prenotazione p:prenotazioni){
+								if(p.getMacchina().equals(mac)){
+									if(!((ric.getDataFine().before(p.getDataInizio()))||(ric.getDataInizio().after(p.getDataFine())))){
+										//Se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è prenotata
+										isPrenotato=true;
+										break;
+									}
+								}
+							}
+							if(!isPrenotato){
+								//La macchina è libera, non è associata e non è prenotata da altri.
+								//Posso quindi associarla senza problemi
+								insertAssociation(ric,mac,associazioni);
+								isSelezionato=true;
 								break;
 							}
 						}
-					}
-					if(!isPrenotato){
-						//La macchina è libera, non è associata e non è prenotata da altri.
-						//Posso quindi associarla senza problemi
-						insertAssociation(ric,mac,associazioni);
-						isSelezionato=true;
-						break;
-					}
-				}
-				if(!isSelezionato){
-					//Se siamo arrivati a questo punto, c'è almeno una macchina associabile a questa richiesta,
-					//ma tutte quelle libere sono già prenotate da altre richieste.
-					//Rubo quindi la macchina alla richiesta meno prioritaria tra tutte.
-					//Sono sicuro di trovare almeno una prenotazione, perché c'è almeno una macchina libera ma nessuna era non prenotata.
-					//Le prenotazioni sono in ordine di priorità della richiesta, quindi seleziono quella con indice più alto.
-					for(int i=prenotazioni.size()-1; i>=0; i--){
-						if(disp.contains(prenotazioni.get(i).getMacchina())){
-							insertAssociation(ric,prenotazioni.get(i).getMacchina(),associazioni);
+						if(!isSelezionato){
+							//Se siamo arrivati a questo punto, c'è almeno una macchina associabile a questa richiesta,
+							//ma tutte quelle libere sono già prenotate da altre richieste.
+							//Rubo quindi la macchina alla richiesta meno prioritaria tra tutte.
+							//Sono sicuro di trovare almeno una prenotazione, perché c'è almeno una macchina libera ma nessuna era non prenotata.
+							//Le prenotazioni sono in ordine di priorità della richiesta, quindi seleziono quella con indice più alto.
+							for(int i=prenotazioni.size()-1; i>=0; i--){
+								if(disp.contains(prenotazioni.get(i).getMacchina())){
+									insertAssociation(ric,prenotazioni.get(i).getMacchina(),associazioni);
+									break;
+								}
+							}
 						}
 					}
 				}
 			}
 		}
+		return associazioni;
 	}
 	
-	public static ArrayList<Prenotazione> removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
+	static ArrayList<Prenotazione> removeReservationsByRequest(ArrayList<Prenotazione>list, Richiesta ric){
 		ArrayList<Prenotazione>nuovaList=new ArrayList<Prenotazione>();
 		for(Prenotazione coppia:list){
 			if(!coppia.getRichiesta().equals(ric)){
@@ -184,7 +184,7 @@ public class GreedyEngine {
 		return nuovaList;
 	}
 	
-	public static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
+	static Prenotazione selectMostPromisingReservation(ArrayList<Associazione>alreadySelected,ArrayList<Prenotazione>list, Richiesta ric){
 		//Se la richiesta è soddisfatta, non seleziono alcuna prenotazione
 		if(ric.isSoddisfatta()){
 			return null;
@@ -238,7 +238,20 @@ public class GreedyEngine {
 	
 	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
-	public static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
+	
+	static ArrayList<Prenotazione> generateReservations(ArrayList<Richiesta> sortedRichieste){
+		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
+		for(Richiesta ric:sortedRichieste){
+			for(Lavoro lav:ric.getRelatedWorks()){
+				if(lavoroEndsLessThanAWeekBefore(lav,ric.getLavoro())||lavoroStartsLessThanAWeekAfter(lav,ric.getLavoro())){
+					reserveMacchineFromLavoro(ric, lav, prenotazioni);
+				}
+			}
+		}
+		return prenotazioni;
+	}
+	
+	static void reserveMacchineFromLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
 		int d;
 		GregorianCalendar sx,dx;
 		if(lav!=null){
@@ -262,7 +275,7 @@ public class GreedyEngine {
 	}
 	
 	//Verifico se il lavoro element finisce meno di una settimana prima rispetto a base
-	public static boolean lavoroEndsLessThanAWeekBefore(Lavoro element, Lavoro base){
+	static boolean lavoroEndsLessThanAWeekBefore(Lavoro element, Lavoro base){
 		GregorianCalendar sx,dx;
 		int d;
 		if(!element.equals(base)){
@@ -289,8 +302,9 @@ public class GreedyEngine {
 			return false;
 		}
 	}
+	
 	//Verifico se il lavoro element inizia meno di una settimana dopo rispetto a base
-	public static boolean lavoroStartsLessThanAWeekAfter(Lavoro element, Lavoro base){
+	static boolean lavoroStartsLessThanAWeekAfter(Lavoro element, Lavoro base){
 		GregorianCalendar sx,dx;
 		int d;
 		if(!element.equals(base)){
@@ -320,6 +334,35 @@ public class GreedyEngine {
 	
 	
 	//FUNZIONI DI ORDINAMENTO-------------------------------------------------------------------------------------------------
+	
+	static void sortRequests(ArrayList<Richiesta> richieste,ArrayList<Richiesta> sortedRichieste,ArrayList<Integer> durate){
+		int d;
+		boolean inserito;
+		GregorianCalendar sx,dx;
+		for(Richiesta ric:richieste){
+			d=0;
+			sx=(GregorianCalendar)ric.getDataInizio().clone();
+			dx=(GregorianCalendar)ric.getDataFine().clone();
+			while(sx.before(dx)){
+				sx.add(Calendar.DAY_OF_MONTH, 1);
+				d++;
+			}
+			inserito=false;
+			for(int i=0; i<sortedRichieste.size();i++){
+				if(sortByPriority(ric,sortedRichieste.get(i),d,durate.get(i))){
+					sortedRichieste.add(i,ric);
+					durate.add(i,d);
+					inserito=true;
+					break;
+				}
+			}
+			if(!inserito){
+				sortedRichieste.add(ric);
+				durate.add(d);
+			}
+		}
+	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la priorità del cantiere di ins è superiore a quella del cantiere di arr, restituisce true.
 	 *se tale priorità è minore, restituisce false.
@@ -354,6 +397,7 @@ public class GreedyEngine {
 			}
 		}
 	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la durata del lavoro di ins è minore a quella del lavoro di arr, restituisce true.
 	 *se tale durata è maggiore, restituisce false.
@@ -370,6 +414,7 @@ public class GreedyEngine {
 			return sortByStartDate(ins, arr);
 		}
 	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se la data d'inizio del lavoro di ins è minore a quella del lavoro di arr, restituisce true.
 	 *se tale data d'inizio è maggiore, restituisce false.
@@ -386,6 +431,7 @@ public class GreedyEngine {
 			return sortByCodes(ins,arr);
 		}
 	}
+	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
 	 *se il codice del cantiere di ins è minore del codice del cantiere di arr, restituisco true.
 	 *se tale codice è maggiore, restituisco false.
