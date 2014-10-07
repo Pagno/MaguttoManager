@@ -267,24 +267,51 @@ public class Cantiere extends DefaultMutableTreeNode  {
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura() + " - " + priStr;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj){
-		if(this==obj){
+
+
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		if(obj==null){
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof Cantiere))
 			return false;
-		}
-		Cantiere c=(Cantiere)obj;
-		if((this.codice==c.getCodice())&&(this.indirizzo.equals(c.getIndirizzo()))&&(this.nomeCantiere.equals(c.getNomeCantiere()))&&(this.dataApertura.equals(c.getDataApertura()))&&(this.dataChiusura.equals(c.getDataChiusura()))&&(this.priorita==c.getPriorita())){
-			return true;
-		}
-		return false;
+		Cantiere other = (Cantiere) obj;
+		if (codice != other.codice)
+			return false;
+		if (dataApertura == null) {
+			if (other.dataApertura != null)
+				return false;
+		} else if (!dataApertura.equals(other.dataApertura))
+			return false;
+		if (dataChiusura == null) {
+			if (other.dataChiusura != null)
+				return false;
+		} else if (!dataChiusura.equals(other.dataChiusura))
+			return false;
+		if (indirizzo == null) {
+			if (other.indirizzo != null)
+				return false;
+		} else if (!indirizzo.equals(other.indirizzo))
+			return false;
+		if (lavori == null) {
+			if (other.lavori != null)
+				return false;
+		} else if (!lavori.equals(other.lavori))
+			return false;
+		if (nomeCantiere == null) {
+			if (other.nomeCantiere != null)
+				return false;
+		} else if (!nomeCantiere.equals(other.nomeCantiere))
+			return false;
+		if (priorita != other.priorita)
+			return false;
+		return true;
 	}
 
 

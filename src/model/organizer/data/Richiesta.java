@@ -3,6 +3,7 @@ package model.organizer.data;
 import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import java.util.GregorianCalendar;
 
 public final class Richiesta extends DefaultMutableTreeNode implements Comparable<Richiesta>{
@@ -144,17 +145,15 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		return s;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Richiesta))
 			return false;
 		Richiesta other = (Richiesta) obj;
-	
 		if (caratteristiche == null) {
 			if (other.caratteristiche != null)
 				return false;
@@ -162,15 +161,15 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			return false;
 		if (codice != other.codice)
 			return false;
-		if (macchina == null) {
-			if (other.macchina != null)
-				return false;
-		} else if (!macchina.equals(other.macchina))
-			return false;
 		if (lavoro == null) {
 			if (other.lavoro != null)
 				return false;
 		} else if (!lavoro.equals(other.lavoro))
+			return false;
+		if (macchina == null) {
+			if (other.macchina != null)
+				return false;
+		} else if (!macchina.equals(other.macchina))
 			return false;
 		return true;
 	}
@@ -244,6 +243,10 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	
 	public ArrayList<Lavoro> getRelatedWorks(){
 		return lavoro.getRelatedWorks();
+	}
+	
+	public int getDurata(){
+		return lavoro.getDurata();
 	}
 }
 

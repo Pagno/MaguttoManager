@@ -81,7 +81,7 @@ public class RichiestaCamion extends RichiestaMacchina {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof RichiestaCamion))
 			return false;
 		RichiestaCamion other = (RichiestaCamion) obj;
 		if (maxCapacita != other.maxCapacita)

@@ -97,13 +97,16 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 				+ minProfondita + "-" + maxProfondita;
 	}
 
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof RichiestaEscavatore))
 			return false;
 		RichiestaEscavatore other = (RichiestaEscavatore) obj;
 		if (maxAltezza != other.maxAltezza)

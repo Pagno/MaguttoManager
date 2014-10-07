@@ -1,6 +1,7 @@
 package model.organizer.data;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
 
@@ -106,9 +107,14 @@ public class Lavoro extends DefaultMutableTreeNode{
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Lavoro))
 			return false;
 		Lavoro other = (Lavoro) obj;
+		if (cantiere == null) {
+			if (other.cantiere != null)
+				return false;
+		} else if (!cantiere.equals(other.cantiere))
+			return false;
 		if (codice != other.codice)
 			return false;
 		if (dataFine == null) {
@@ -133,7 +139,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 			return false;
 		return true;
 	}
-
 
 	public int inserisciRichiesta(RichiestaMacchina caratteristiche){
 		Richiesta r=new Richiesta(caratteristiche,this);
@@ -275,5 +280,18 @@ public class Lavoro extends DefaultMutableTreeNode{
 	
 	public ArrayList<Lavoro> getRelatedWorks(){
 		return cantiere.getElencoLavori();
+	}
+	
+	public int getDurata(){
+		int d;
+		GregorianCalendar sx,dx;
+		d=0;
+		sx=(GregorianCalendar)this.getDataInizio().clone();
+		dx=(GregorianCalendar)this.getDataFine().clone();
+		while(sx.before(dx)){
+			sx.add(Calendar.DAY_OF_MONTH, 1);
+			d++;
+		}
+		return d;
 	}
 }

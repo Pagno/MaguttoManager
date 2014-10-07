@@ -94,7 +94,7 @@ public class RichiestaGru extends RichiestaMacchina {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof RichiestaGru))
 			return false;
 		RichiestaGru other = (RichiestaGru) obj;
 		if (maxAltezza != other.maxAltezza)

@@ -2,6 +2,8 @@ package controller.greedy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 import model.ModelInterface;
@@ -21,13 +23,13 @@ import controller.data.Prenotazione;
 
 public class GreedyEngine {
 	
+	
 	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
 		
 		ArrayList<Richiesta> richieste=model.getRichiesteScoperte();
-		ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
-		ArrayList<Integer> durate=new ArrayList<Integer>();
-		GreedyEngine.sortRequests(richieste,sortedRichieste,durate);
+		ArrayList<Richiesta> sortedRichieste=GreedyEngine.sortRequests(richieste);
+		
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
 		//durate contiene le durate relative alle richieste, nelle medesime posizioni
 		
@@ -335,32 +337,12 @@ public class GreedyEngine {
 	
 	//FUNZIONI DI ORDINAMENTO-------------------------------------------------------------------------------------------------
 	
-	static void sortRequests(ArrayList<Richiesta> richieste,ArrayList<Richiesta> sortedRichieste,ArrayList<Integer> durate){
-		int d;
-		boolean inserito;
-		GregorianCalendar sx,dx;
-		for(Richiesta ric:richieste){
-			d=0;
-			sx=(GregorianCalendar)ric.getDataInizio().clone();
-			dx=(GregorianCalendar)ric.getDataFine().clone();
-			while(sx.before(dx)){
-				sx.add(Calendar.DAY_OF_MONTH, 1);
-				d++;
-			}
-			inserito=false;
-			for(int i=0; i<sortedRichieste.size();i++){
-				if(sortByPriority(ric,sortedRichieste.get(i),d,durate.get(i))){
-					sortedRichieste.add(i,ric);
-					durate.add(i,d);
-					inserito=true;
-					break;
-				}
-			}
-			if(!inserito){
-				sortedRichieste.add(ric);
-				durate.add(d);
-			}
-		}
+	static ArrayList<Richiesta> sortRequests(ArrayList<Richiesta> richieste){
+		//Utilizzo il metodo Collections.sort(List<T> list, Comparator<? super T> c)
+		//Tale metodo implementa l'algoritmo MergeSort, che garantisce una complessità O(n log n)
+		ArrayList<Richiesta> sortedRichieste=(ArrayList<Richiesta>)richieste.clone();
+		Collections.sort(sortedRichieste, new GreedyEngine.RichiesteComparator());
+		return sortedRichieste;
 	}
 	
 	/*Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
@@ -368,10 +350,10 @@ public class GreedyEngine {
 	 *se tale priorità è minore, restituisce false.
 	 *se le priorità sono uguali, passo al confronto della durata dei lavori.
 	 */
-	static boolean sortByPriority(Richiesta ins, Richiesta arr, Integer dIns, Integer dArr){
+	static boolean sortByPriority(Richiesta ins, Richiesta arr){
 		if(ins.getPriorita()==Priority.ALTA){
 			if(arr.getPriorita()==Priority.ALTA){
-				return sortByDuration(ins, arr, dIns, dArr);
+				return sortByDuration(ins, arr);
 			}
 			else{
 				return true;
@@ -382,7 +364,7 @@ public class GreedyEngine {
 				return false;
 			}
 			else if(arr.getPriorita()==Priority.MEDIA){
-				return sortByDuration(ins, arr, dIns, dArr);
+				return sortByDuration(ins, arr);
 			}
 			else{
 				return true;
@@ -393,7 +375,7 @@ public class GreedyEngine {
 				return false;
 			}
 			else{
-				return sortByDuration(ins, arr, dIns, dArr);
+				return sortByDuration(ins, arr);
 			}
 		}
 	}
@@ -403,8 +385,10 @@ public class GreedyEngine {
 	 *se tale durata è maggiore, restituisce false.
 	 *se le durate sono uguali, passo al confronto della data d'inizio del lavoro.
 	 */
-	static boolean sortByDuration(Richiesta ins, Richiesta arr, Integer dIns, Integer dArr){
-		if(dIns<dArr){
+	static boolean sortByDuration(Richiesta ins, Richiesta arr){
+		int dIns=ins.getDurata();
+		int dArr=arr.getDurata();
+		if( dIns<arr.getDurata()){
 			return true;
 		}
 		else if(dIns>dArr){
@@ -466,5 +450,23 @@ public class GreedyEngine {
 				}
 			}
 		}
+	}
+	
+	static class RichiesteComparator implements Comparator<Richiesta>{
+		@Override
+		public int compare(Richiesta r1, Richiesta r2){
+			if(r1.equals(r2)){
+				return 0;
+			}
+			else{
+				if(GreedyEngine.sortByPriority(r1, r2)){
+					return -1;
+				}
+				else{
+					return 1;
+				}
+			}
+		}
+		
 	}
 }

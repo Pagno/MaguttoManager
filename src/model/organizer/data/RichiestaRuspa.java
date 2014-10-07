@@ -66,14 +66,14 @@ public class RichiestaRuspa extends RichiestaMacchina {
 	public void setMaxAltezza(int maxAltezza) {
 		this.maxAltezza = maxAltezza;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof RichiestaRuspa))
 			return false;
 		RichiestaRuspa other = (RichiestaRuspa) obj;
 		if (maxAltezza != other.maxAltezza)
