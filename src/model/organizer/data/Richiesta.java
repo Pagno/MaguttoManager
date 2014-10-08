@@ -115,7 +115,8 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			l.add(Integer.toString(rc.getMinAltezza()));l.add(Integer.toString(rc.getMaxAltezza()));
 			l.add("0");l.add("0");
 			l.add(Integer.toString(rc.getMinAngoloRotazione()));l.add(Integer.toString(rc.getMaxAngoloRotazione()));
-		}else if(getCaratteristiche() instanceof RichiestaRuspa){
+		}else {
+			//Resta solo il caso ruspa
 			l.add("Ruspa");
 			RichiestaRuspa rc=(RichiestaRuspa)getCaratteristiche();
 			l.add(Integer.toString(rc.getMinCapacita()));l.add(Integer.toString(rc.getMaxCapacita()));

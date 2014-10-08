@@ -27,8 +27,7 @@ public class GreedyEngine {
 	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
 		
-		ArrayList<Richiesta> richieste=model.getRichiesteScoperte();
-		ArrayList<Richiesta> sortedRichieste=GreedyEngine.sortRequests(richieste);
+		ArrayList<Richiesta> sortedRichieste=GreedyEngine.sortRequests(model.getRichiesteScoperte());
 		
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
 		//durate contiene le durate relative alle richieste, nelle medesime posizioni
