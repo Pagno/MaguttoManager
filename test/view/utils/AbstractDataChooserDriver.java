@@ -1,7 +1,7 @@
-package view;
+package view.utils;
 
-import static view.JDateChooserSetTextTask.setDateIn;
-import static view.DateAssert.verifyThat;
+import static view.utils.DateAssert.verifyThat;
+import static view.utils.JDateChooserSetTextTask.setDateIn;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

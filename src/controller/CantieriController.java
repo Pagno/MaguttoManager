@@ -452,6 +452,7 @@ public class CantieriController {
 				ArrayList<Associazione> assGreedy = greedyView.getData();
 				for (Associazione associazione : assGreedy) {
 					associazione.concretizza();
+					greedyView.dispose();
 				}
 			}
 		};

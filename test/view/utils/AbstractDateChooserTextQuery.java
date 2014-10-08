@@ -1,4 +1,4 @@
-package view;
+package view.utils;
 
 import static org.fest.swing.edt.GuiActionRunner.execute;
 

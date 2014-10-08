@@ -11,6 +11,8 @@ import org.fest.swing.fixture.FrameFixture;
 import org.junit.After;
 import org.junit.Test;
 
+import view.utils.JDateChooserFixture;
+
 import com.toedter.calendar.JDateChooser;
 
 import controller.MainController;

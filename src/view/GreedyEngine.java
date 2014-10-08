@@ -28,6 +28,7 @@ public class GreedyEngine extends JDialog {
 	
 	public GreedyEngine(JFrame view) {
 		super(view);
+		setName("associazioneGreedy");
 		setBounds(100, 100, 450, 300);
 		setTitle("Greedy Engine");
 		getContentPane().setLayout(new BorderLayout());
@@ -37,13 +38,16 @@ public class GreedyEngine extends JDialog {
 
 		listModel=new DefaultListModel<Associazione>();
 		list = new JList(listModel);
+		list.setName("listModel");
 		listScroller = new JScrollPane(list);
 		contentPanel.add(listScroller, BorderLayout.CENTER);
 
-		btnGeneraMigliorAssociazione = new JButton("Genera associazioni");
+		btnGeneraMigliorAssociazione = new JButton("Genera Associazioni");
+		btnGeneraMigliorAssociazione.setName("generaAssociazioni");
 		contentPanel.add(btnGeneraMigliorAssociazione, BorderLayout.NORTH);
 
 		btnEliminaAssociazione = new JButton("Elimina associazione");
+		btnEliminaAssociazione.setName("eliminaAssociazione");
 		contentPanel.add(btnEliminaAssociazione, BorderLayout.SOUTH);
 		btnEliminaAssociazione.addActionListener(new ActionListener() {
 			@Override
@@ -59,11 +63,13 @@ public class GreedyEngine extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		okButton = new JButton("Conferma Associazioni");
+		okButton.setName("confermaAssociazioni");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setName("cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {

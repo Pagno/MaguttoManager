@@ -203,7 +203,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	
 	public void svuotaRichieste(){
 		for(Richiesta item:macchinariRichiesti){
-			item.getMacchina().removeRichiesta(item);//TODO removeRichiesta() è gia presente in setMacchina(null)
+			//item.getMacchina().removeRichiesta(item);//TODO removeRichiesta() è gia presente in setMacchina(null)
 			item.setMacchina(null);
 		}
 		macchinariRichiesti.clear();

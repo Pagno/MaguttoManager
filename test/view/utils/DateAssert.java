@@ -1,4 +1,4 @@
-package view;
+package view.utils;
 
 import static org.fest.swing.util.Strings.areEqualOrMatch;
 import static org.fest.swing.util.Strings.match;

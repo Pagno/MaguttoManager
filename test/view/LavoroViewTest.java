@@ -2,7 +2,6 @@ package view;
 
 import java.util.GregorianCalendar;
 
-
 import model.ModelConnector;
 
 import org.fest.swing.annotation.GUITest;
@@ -10,6 +9,8 @@ import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.junit.After;
 import org.junit.Test;
+
+import view.utils.JDateChooserFixture;
 
 import com.toedter.calendar.JDateChooser;
 
