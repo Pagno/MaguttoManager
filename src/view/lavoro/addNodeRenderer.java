@@ -38,7 +38,7 @@ public class addNodeRenderer implements TreeCellRenderer {
 				Lavoro ric=(Lavoro)arg1;
 				lbl.setText(ric.toString());
 				if(showSoddisfatta==false){
-					if(ric.hasRichiestaInsoddisfatta()==false)
+					if(ric.isScoperto()==false)
 						lbl.setText("");
 				}
 				returnValue=lbl;

@@ -124,27 +124,166 @@ public class LavoroTest {
 
 	@Test
 	public void testHasRichiestaInsoddisfatta() {
-		fail("Not yet implemented");
+		Richiesta.initCodice();
+		assertFalse(lavoro.isScoperto());
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, new Camion(3,"Yamaha","Camion",6,6,6));
+		lavoro.inserisciRichiesta(rc);
+		assertTrue(lavoro.isScoperto());
+		lavoro.soddisfaRichiesta(52, new Camion(4,"Yamaha","Camion",6,6,6));
+		assertTrue(lavoro.isScoperto());
+		lavoro.soddisfaRichiesta(50, new Camion(5,"Yamaha","Camion",6,6,6));
+		assertFalse(lavoro.isScoperto());
+		lavoro.liberaRichiesta(51);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),null);
+		assertTrue(lavoro.isScoperto());
+		lavoro.soddisfaRichiesta(51, new Camion(3,"Yamaha","Camion",6,6,6));
+		assertFalse(lavoro.isScoperto());
+		lavoro.liberaMacchina(3);
+		assertTrue(lavoro.isScoperto());
 	}
 
 	@Test
 	public void testGetRichiesta() {
-		fail("Not yet implemented");
+		Richiesta.initCodice();
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, m);
+		lavoro.inserisciRichiesta(rc);
+		lavoro.inserisciRichiesta(rc);
+		Richiesta r1=lavoro.getRichiesta(50);
+		assertEquals(r1.getMacchina(),null);
+		assertEquals(r1.getCaratteristiche(),rc);
+		assertEquals(r1.getCodice(),50);
+		assertEquals(r1.getLavoro(),lavoro);
+		r1=lavoro.getRichiesta(51);
+		assertEquals(r1.getMacchina(),m);
+		assertEquals(r1.getCaratteristiche(),rc);
+		assertEquals(r1.getCodice(),51);
+		assertEquals(r1.getLavoro(),lavoro);
+		r1=lavoro.getRichiesta(52);
+		assertEquals(r1.getMacchina(),null);
+		assertEquals(r1.getCaratteristiche(),rc);
+		assertEquals(r1.getCodice(),52);
+		assertEquals(r1.getLavoro(),lavoro);
+		r1=lavoro.getRichiesta(53);
+		assertEquals(r1.getMacchina(),null);
+		assertEquals(r1.getCaratteristiche(),rc);
+		assertEquals(r1.getCodice(),53);
+		assertEquals(r1.getLavoro(),lavoro);
+		r1=lavoro.getRichiesta(99);
+		assertEquals(r1,null);
 	}
 
 	@Test
 	public void testEliminaRichiesta() {
-		fail("Not yet implemented");
+		Richiesta.initCodice();
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, m);
+		lavoro.inserisciRichiesta(rc);
+		lavoro.inserisciRichiesta(rc);
+		assertTrue(lavoro.hasRichiesta(50));
+		assertTrue(lavoro.hasRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(52));
+		assertTrue(lavoro.hasRichiesta(53));
+		
+		assertTrue(lavoro.eliminaRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(52));
+		assertTrue(lavoro.hasRichiesta(53));
+		
+		assertFalse(lavoro.eliminaRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(52));
+		assertTrue(lavoro.hasRichiesta(53));
+		
+		assertTrue(lavoro.eliminaRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(52));
+		assertTrue(lavoro.hasRichiesta(53));
+		
+		assertFalse(lavoro.eliminaRichiesta(99));
+		assertFalse(lavoro.hasRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(51));
+		assertTrue(lavoro.hasRichiesta(52));
+		assertTrue(lavoro.hasRichiesta(53));
+		
+		assertTrue(lavoro.eliminaRichiesta(52));
+		assertFalse(lavoro.hasRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(51));
+		assertFalse(lavoro.hasRichiesta(52));
+		assertTrue(lavoro.hasRichiesta(53));
+		
+		assertTrue(lavoro.eliminaRichiesta(53));
+		assertFalse(lavoro.hasRichiesta(50));
+		assertFalse(lavoro.hasRichiesta(51));
+		assertFalse(lavoro.hasRichiesta(52));
+		assertFalse(lavoro.hasRichiesta(53));
 	}
 
 	@Test
 	public void testSvuotaRichieste() {
-		fail("Not yet implemented");
+		Richiesta.initCodice();
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, m);
+		lavoro.inserisciRichiesta(rc);
+		lavoro.inserisciRichiesta(rc);
+		ArrayList<Richiesta>test=lavoro.getListaRichieste();
+		assertFalse(test.isEmpty());
+		assertEquals(test.size(),4);
+		lavoro.svuotaRichieste();
+		test=lavoro.getListaRichieste();
+		assertTrue(test.isEmpty());
 	}
 
 	@Test
 	public void testSoddisfaRichiesta() {
-		fail("Not yet implemented");
+		Richiesta.initCodice();
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
+		Camion c=new Camion(5,"Yamaha","Camion grande",9,9,9);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, m);
+		lavoro.inserisciRichiesta(rc);
+		lavoro.inserisciRichiesta(rc);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),null);
+		lavoro.soddisfaRichiesta(52, m);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),null);
+		lavoro.soddisfaRichiesta(53, c);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.soddisfaRichiesta(50, m);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.soddisfaRichiesta(53, new Ruspa(9,"Yahoo","Ruspa",9,9,9));
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.soddisfaRichiesta(53, null);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
 	}
 
 	@Test

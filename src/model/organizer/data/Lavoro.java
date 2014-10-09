@@ -174,25 +174,19 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
-	public boolean hasRichiestaInsoddisfatta(){
-		for(Richiesta richiesta:macchinariRichiesti){
-			if(richiesta.isSoddisfatta()==false)
-				return true;
-		}
-		return false;
-	}
-	public Richiesta getRichiesta(Integer codice){
+
+	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
-			if(item.getCodice()==codice){
+			if(item.getCodice()==codiceRichiesta){
 				return item;
 			}
 		}
 		return null;
 	}
 	
-	public boolean eliminaRichiesta(Integer codice){
+	public boolean eliminaRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
-			if(item.getCodice()==codice){
+			if(item.getCodice()==codiceRichiesta){
 				item.setMacchina(null);
 				macchinariRichiesti.remove(item);
 				return true;
@@ -203,7 +197,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 	
 	public void svuotaRichieste(){
 		for(Richiesta item:macchinariRichiesti){
-			item.getMacchina().removeRichiesta(item);//TODO removeRichiesta() è gia presente in setMacchina(null)
 			item.setMacchina(null);
 		}
 		macchinariRichiesti.clear();
@@ -248,7 +241,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
-	
 	
 	public ArrayList<Richiesta> whereScoperto(){
 		if(!isScoperto()){
