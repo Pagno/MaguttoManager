@@ -2,9 +2,6 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
-
-
-
 import org.junit.Test;
 
 // 
@@ -45,6 +42,8 @@ public class RichiestaGruTest {
 		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",100,3100,29,24)));
 		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",89,3100,38,24)));
 		assertFalse(rGru.rispettaRichiesta(new Gru(1,"New Holland","GRU212",100,3100,38,19)));
+		assertFalse(rGru.rispettaRichiesta(new Camion(1,"New Holland","GRU212",150,412,16)));
+		assertFalse(rGru.rispettaRichiesta(null));
 	}
 
 	@Test
