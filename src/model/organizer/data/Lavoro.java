@@ -214,7 +214,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 			if(item.getCodice()==codice){
 				if(item.rispettaRichiesta(mac)){
 					item.setMacchina(mac);
-					mac.addRichiesta(item);//TODO mac.addRichiesta è gia presente in setMacchina()
 				}
 			}
 		}
@@ -223,8 +222,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	//vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente
 	public void liberaRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
-			if(item.getCodice()==codice){
-				item.getMacchina().removeRichiesta(item);//TODO removeRichiesta() è gia presente in setMacchina(null)
+			if(item.getCodice()==codiceRichiesta){
 				item.setMacchina(null);
 			}
 		}
@@ -232,11 +230,11 @@ public class Lavoro extends DefaultMutableTreeNode{
 	
 	//Libera le richieste con associata una data macchina
 	public void liberaMacchina(int codiceMacchina){
-		//TODO
 		for(Richiesta item:macchinariRichiesti){
-			if(item.getMacchina().getCodice()==codiceMacchina){
-				item.getMacchina().removeRichiesta(item);//TODO removeRichiesta() è gia presente in setMacchina(null)
-				item.setMacchina(null);
+			if(item.getMacchina()!=null){
+				if(item.getMacchina().getCodice()==codiceMacchina){
+					item.setMacchina(null);
+				}
 			}
 		}
 	}
@@ -294,4 +292,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return d;
 	}
+	
+
 }
