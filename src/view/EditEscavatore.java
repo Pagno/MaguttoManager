@@ -16,7 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controller.AbstractInsertController;
+import controller.Interface.AbstractInsertController;
 
 // 
 /**
@@ -49,7 +49,7 @@ public class EditEscavatore extends JDialog {
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditEscavatore(JFrame view, Object[] obj,AbstractInsertController aCtr) {
+	public EditEscavatore(JFrame view, final Object[] obj,AbstractInsertController aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Escavatore");
@@ -60,7 +60,15 @@ public class EditEscavatore extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					
+					if(insCtr.modificaEscavatore((Integer)obj[0],
+							txtProduttore.getText(),txtModello.getText(),
+							Integer.parseInt(txtCapacita.getText()), 
+							Integer.parseInt(txtPortataMax.getText()), 
+							Integer.parseInt(txtAltezza.getText()),
+							Integer.parseInt(txtProfondita.getText())))
+						{	
+							dispose();
+						}
 				}catch(java.lang.NumberFormatException ex){
 					JOptionPane
 					.showMessageDialog(
@@ -101,7 +109,7 @@ public class EditEscavatore extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					if(insCtr.insertNewEscavatoreListener(txtProduttore.getText(),txtModello.getText(),
+					if(insCtr.inserisciNuovoEscavatore(txtProduttore.getText(),txtModello.getText(),
 						Integer.parseInt(txtCapacita.getText()), 
 						Integer.parseInt(txtPortataMax.getText()), 
 						Integer.parseInt(txtAltezza.getText()),

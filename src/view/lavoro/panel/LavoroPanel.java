@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-public class LavoroPanel extends JPanel implements PropertyChangeListener{
+public class LavoroPanel extends JPanel implements PropertyChangeListener {
 
 	/**
 	 * 
@@ -29,52 +29,53 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 	/**
 	 * Create the panel.
 	 */
-	
 
 	public JTextField txtNomeLavoro;
-	public JLabel lblNomeLavoro,lblDataInizioLavoro,lblDataFineLavoro;
-	public JDateChooser dataInizioLavoro,dataFineLavoro;
-	public JButton btnLavoro,btnReset;
-	
-	Date minDataInizio,maxDataFine;
-	
-	public LavoroPanel(Date inizio,Date fine) {//Data Inizio e fine del cantiere
+	public JLabel lblNomeLavoro, lblDataInizioLavoro, lblDataFineLavoro;
+	public JDateChooser dataInizioLavoro, dataFineLavoro;
+	public JButton btnLavoro, btnReset;
+
+	Date minDataInizio, maxDataFine;
+
+	public LavoroPanel(Date inizio, Date fine) {// Data Inizio e fine del
+												// cantiere
 		setLayout(new BorderLayout());
 		createPanel();
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// 
+				//
 				clear();
 			}
 		});
-		
-		minDataInizio=inizio;
-		maxDataFine=fine;
+
+		minDataInizio = inizio;
+		maxDataFine = fine;
 		setRangeDate(inizio, fine);
-		
+
 	}
-	private void createPanel(){
+
+	private void createPanel() {
 		lblNomeLavoro = new JLabel("NomeLavoro:");
 		lblDataInizioLavoro = new JLabel("Data Inizio:");
-		lblDataFineLavoro  = new JLabel("Data Fine:");
-		dataInizioLavoro  = new JDateChooser();
+		lblDataFineLavoro = new JLabel("Data Fine:");
+		dataInizioLavoro = new JDateChooser();
 		dataInizioLavoro.setName("dataInizio");
 		dataInizioLavoro.getJCalendar().setTodayButtonVisible(true);
 		dataInizioLavoro.getJCalendar().setNullDateButtonVisible(true);
 		dataInizioLavoro.addPropertyChangeListener(this);
-		
-		dataFineLavoro  = new JDateChooser();
+
+		dataFineLavoro = new JDateChooser();
 		dataFineLavoro.setName("dataFine");
 		dataFineLavoro.getJCalendar().setTodayButtonVisible(true);
 		dataFineLavoro.getJCalendar().setNullDateButtonVisible(true);
 		dataFineLavoro.addPropertyChangeListener(this);
-		
-		txtNomeLavoro  = new JTextField();
+
+		txtNomeLavoro = new JTextField();
 		txtNomeLavoro.setColumns(15);
-		btnLavoro=new JButton("Inserisci");
-		btnReset=new JButton("Reset");
-		
+		btnLavoro = new JButton("Inserisci");
+		btnReset = new JButton("Reset");
+
 		GroupLayout layout = new GroupLayout(this);
 		layout.setAutoCreateContainerGaps(true);
 		layout.setAutoCreateGaps(true);
@@ -83,13 +84,13 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 				.createSequentialGroup()
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNomeLavoro )
+								.addComponent(lblNomeLavoro)
 								.addComponent(lblDataInizioLavoro)
-								.addComponent(lblDataFineLavoro )
+								.addComponent(lblDataFineLavoro)
 								.addComponent(btnReset))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtNomeLavoro )
+								.addComponent(txtNomeLavoro)
 								.addComponent(dataInizioLavoro)
 								.addComponent(dataFineLavoro)
 								.addComponent(btnLavoro)));
@@ -97,85 +98,108 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener{
 				.createSequentialGroup()
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNomeLavoro )
-								.addComponent(txtNomeLavoro ,
+								.addComponent(lblNomeLavoro)
+								.addComponent(txtNomeLavoro,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
+				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDataInizioLavoro )
+								.addComponent(lblDataInizioLavoro)
 								.addComponent(dataInizioLavoro,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
+				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDataFineLavoro )
+								.addComponent(lblDataFineLavoro)
 								.addComponent(dataFineLavoro,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-				.addGroup(		
+				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnReset )
+								.addComponent(btnReset)
 								.addComponent(btnLavoro,
 										GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)));
 
 		this.setLayout(layout);
-		
+
 	}
-	
-	public void setRangeDate(Date inizio,Date fine){
-		dataInizioLavoro.setMinSelectableDate(inizio);dataInizioLavoro.setMaxSelectableDate(fine);
-		dataFineLavoro.setMinSelectableDate(inizio);dataFineLavoro.setMaxSelectableDate(fine);
+
+	public void setRangeDate(Date inizio, Date fine) {
+		dataInizioLavoro.setMinSelectableDate(inizio);
+		dataInizioLavoro.setMaxSelectableDate(fine);
+		dataFineLavoro.setMinSelectableDate(inizio);
+		dataFineLavoro.setMaxSelectableDate(fine);
 	}
-	public void clear(){
+
+	public void clear() {
 		dataInizioLavoro.setDate(null);
 		dataFineLavoro.setDate(null);
 		txtNomeLavoro.setText("");
 	}
-	public void btnAddActionListener(ActionListener act){
-		for( ActionListener al : btnLavoro.getActionListeners() ) {
-			btnLavoro.removeActionListener( al );
-	    }
+
+	public void btnAddActionListener(ActionListener act) {
+		for (ActionListener al : btnLavoro.getActionListeners()) {
+			btnLavoro.removeActionListener(al);
+		}
 		btnLavoro.addActionListener(act);
-		
+
 	}
-	public void fill(ArrayList<String> data){
-		DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
-		try{
-		dataInizioLavoro.setDate(df.parse(data.get(2)));
-		dataFineLavoro.setDate(df.parse(data.get(3)));
-		dataInizioLavoro.setMaxSelectableDate(dataFineLavoro.getDate());
-		}catch(ParseException ex){
-			System.out.println("Error Parsing data "+ex.getMessage());
+
+	public void fill(ArrayList<String> data) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			dataInizioLavoro.setDate(df.parse(data.get(2)));
+			dataFineLavoro.setDate(df.parse(data.get(3)));
+			dataInizioLavoro.setMaxSelectableDate(dataFineLavoro.getDate());
+		} catch (ParseException ex) {
+			System.out.println("Error Parsing data " + ex.getMessage());
 		}
 		txtNomeLavoro.setText(data.get(1));
 		btnLavoro.setText("Modifica");
 	}
-	
-	
 
-	public String getNomeLavoro() {return txtNomeLavoro.getText();}
-	public Date getDataInizioLavoro(){return dataInizioLavoro.getDate();}
-	public Date getDataFineLavoro(){return dataFineLavoro.getDate();}
+	public String getNomeLavoro() {
+		return txtNomeLavoro.getText();
+	}
+
+	public Date getDataInizioLavoro() {
+		return dataInizioLavoro.getDate();
+	}
+
+	public Date getDataFineLavoro() {
+		return dataFineLavoro.getDate();
+	}
+
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		JDateChooser event=(JDateChooser)evt.getSource();
-		if(event.getName().compareTo("dataInizio")==0 && dataFineLavoro.getDate()!=null && dataInizioLavoro.getDate()!=null){
-			if (dataInizioLavoro.getDate().after(dataFineLavoro.getDate()))
-				dataInizioLavoro.setDate(null);
-			else
-				dataFineLavoro.setMinSelectableDate(dataInizioLavoro.getDate());
-		}
-		if(event.getName().compareTo("dataFine")==0 && dataInizioLavoro.getDate()!=null && dataFineLavoro.getDate()!=null){
-			if (dataFineLavoro.getDate().before(dataInizioLavoro.getDate()))
-				dataFineLavoro.setDate(null);
-			else
-				dataInizioLavoro.setMaxSelectableDate(dataFineLavoro.getDate());
+		JDateChooser event = (JDateChooser) evt.getSource();
+		try {
+			if (event.getName().compareTo("dataInizio") == 0
+					&& dataFineLavoro.getDate() != null
+					&& dataInizioLavoro.getDate() != null) {
+
+				if (dataInizioLavoro.getDate().after(dataFineLavoro.getDate())) {
+					dataInizioLavoro.setDate(null);
+				} else {
+					dataFineLavoro.setMinSelectableDate(dataInizioLavoro.getDate());
+				}
+			}
+			if (event.getName().compareTo("dataFine") == 0
+					&& dataInizioLavoro.getDate() != null
+					&& dataFineLavoro.getDate() != null) {
+				if (dataFineLavoro.getDate().before(dataInizioLavoro.getDate())) {
+					dataFineLavoro.setDate(null);
+				} else {
+					dataInizioLavoro.setMaxSelectableDate(dataFineLavoro.getDate());
+				}
+			}
+		} catch (NullPointerException ex) {
+
 		}
 	}
 }

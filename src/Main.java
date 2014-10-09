@@ -7,6 +7,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
 import controller.ApplicationController;
+import controller.CantiereController;
 import controller.InsertController;
 import model.ModelConnector;
 import database.Database;
@@ -50,8 +51,10 @@ public class Main {
 		mainView = new MainView();
 		ApplicationController aCtr=new ApplicationController(m,mainView);
 		InsertController iCtr=new InsertController(m);
+		CantiereController cCtr=new CantiereController(m);
 		mainView.setApplicationController(aCtr);
 		mainView.setInsertController(iCtr);
+		mainView.setCantiereController(cCtr);
 		
 
 	}

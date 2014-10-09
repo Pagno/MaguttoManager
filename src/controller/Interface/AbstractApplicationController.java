@@ -1,4 +1,4 @@
-package controller;
+package controller.Interface;
 
 public interface AbstractApplicationController {
 	public boolean eliminaMacchina(Integer codiceMacchina);	

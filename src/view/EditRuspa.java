@@ -16,7 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controller.AbstractInsertController;
+import controller.Interface.AbstractInsertController;
 
 // 
 /**
@@ -49,7 +49,7 @@ public class EditRuspa extends JDialog {
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditRuspa(JFrame view, Object[] obj,AbstractInsertController aCtr) {
+	public EditRuspa(JFrame view, final Object[] obj,AbstractInsertController aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Ruspa");
@@ -60,7 +60,14 @@ public class EditRuspa extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-
+					if(insCtr.modificaRuspa((Integer)obj[0],
+							txtProduttore.getText(),txtModello.getText(),
+							Integer.parseInt(txtCapacita.getText()), 
+							Integer.parseInt(txtPortataMax.getText()), 
+							Integer.parseInt(txtAltezza.getText())))
+						{	
+							dispose();
+						}
 				}catch(java.lang.NumberFormatException ex){
 					JOptionPane
 					.showMessageDialog(
@@ -100,7 +107,7 @@ public class EditRuspa extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					if(insCtr.insertNewRuspaListener(txtProduttore.getText(),txtModello.getText(),
+					if(insCtr.inserisciNuovaRuspa(txtProduttore.getText(),txtModello.getText(),
 						Integer.parseInt(txtCapacita.getText()), 
 						Integer.parseInt(txtPortataMax.getText()), 
 						Integer.parseInt(txtAltezza.getText())))

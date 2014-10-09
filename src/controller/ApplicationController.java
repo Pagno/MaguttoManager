@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 
+import controller.Interface.AbstractApplicationController;
 import view.EditCamion;
 import view.InsertCantiere;
 import view.EditEscavatore;
@@ -47,12 +48,6 @@ public class ApplicationController implements AbstractApplicationController{
 		model.refreshData();
 		mainView.setVisible(true);
 		model.pubblicaContenuto();
-
-		//EDIT LISTENER	
-		
-		//MENU FILE LISTENER
-		
-
 	}
 	
 	/**
@@ -120,7 +115,7 @@ public class ApplicationController implements AbstractApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener visualizzaModificaRuspaView() {
+	/*public ActionListener visualizzaModificaRuspaView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -129,13 +124,13 @@ public class ApplicationController implements AbstractApplicationController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					/*EditRuspa ins = new EditRuspa(mainView, v);
+					EditRuspa ins = new EditRuspa(mainView, v);
 					InsertController ctr = new InsertController(model);
 					ins.setInsertButtonListeners(ctr.EditRuspaListener(ins,(Integer)v[0]));
-				*/}
+				}
 			}
 		};
-	}
+	}*/
 	
 	/**
 	 * Visualizza la view per modificare i dati di un Camion.
@@ -145,7 +140,7 @@ public class ApplicationController implements AbstractApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener visualizzaModificaCamionView() {
+	/*public ActionListener visualizzaModificaCamionView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -154,14 +149,14 @@ public class ApplicationController implements AbstractApplicationController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					/*EditCamion ins = new EditCamion(mainView, v);
+					EditCamion ins = new EditCamion(mainView, v);
 					InsertController ctr = new InsertController(model);
 					ins.setInsertButtonListeners(ctr.EditCamionListener(ins,(Integer)v[0]));
-				*/}
+				}
 			}
 		};
 	}
-	
+	*/
 	/**
 	 * Visualizza la view per modificare i dati di un Escavatore.
 	 *
@@ -170,7 +165,7 @@ public class ApplicationController implements AbstractApplicationController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener visualizzaModificaEscavatoreView() {
+	/*public ActionListener visualizzaModificaEscavatoreView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -179,14 +174,14 @@ public class ApplicationController implements AbstractApplicationController{
 				if(v==null){
 					JOptionPane.showMessageDialog(null,"Selezionare la riga da modificare.","Error", JOptionPane.ERROR_MESSAGE);		
 				}else{
-					EditEscavatore ins = new EditEscavatore(mainView, v);
-					InsertController ctr = new InsertController(model);
-					ins.setInsertButtonListeners(ctr.EditEscavatoreListener(ins,(Integer)v[0]));
+					//EditEscavatore ins = new EditEscavatore(mainView, v);
+					//InsertController ctr = new InsertController(model);
+					//ins.setInsertButtonListeners(ctr.EditEscavatoreListener(ins,(Integer)v[0]));
 				}
 			}
 		};
 	}
-	/*public ActionListener VisualizzaModificaCantiereView() {
+	public ActionListener VisualizzaModificaCantiereView() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -248,7 +243,7 @@ public class ApplicationController implements AbstractApplicationController{
 	 * che implementa il metodo <strong>actionPerformed</strong>
 	 * contenente il comportamento legato all'evento generato.
 	 *
-	 */
+	 *
 	public ActionListener addLavoroView(){
 		return new ActionListener(){
 
@@ -275,7 +270,7 @@ public class ApplicationController implements AbstractApplicationController{
 			}
 			
 		};
-	}
+	}*/
 	public ActionListener addGreedyEngineView(){
 		return new ActionListener(){
 
@@ -283,8 +278,8 @@ public class ApplicationController implements AbstractApplicationController{
 			public void actionPerformed(ActionEvent e) {
 				view.GreedyEngine greedyEngine=new view.GreedyEngine(mainView);
 				CantieriController ctr = new CantieriController(model);
-				greedyEngine.addBtnGeneraMigliorAssociazioneListener(ctr.greedyEngineListener(greedyEngine));
-				greedyEngine.addBtnConfermaAssociazioniListener(ctr.confermaAssociazioniListener(greedyEngine));
+				//greedyEngine.addBtnGeneraMigliorAssociazioneListener(ctr.greedyEngineListener(greedyEngine));
+				//greedyEngine.addBtnConfermaAssociazioniListener(ctr.confermaAssociazioniListener(greedyEngine));
 			}
 		};
 	}

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,8 +17,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
-import controller.AbstractApplicationController;
-import controller.AbstractInsertController;
+import view.lavoro.EditLavoro;
+import controller.Interface.AbstractApplicationController;
+import controller.Interface.AbstractCantieriController;
+import controller.Interface.AbstractInsertController;
+
 import java.awt.event.WindowAdapter;
 import java.lang.reflect.Method;
 
@@ -46,7 +50,7 @@ public class MainView extends JFrame {
 
 	/** btn add associazione. */
 	private JButton btnViewGru, btnViewRuspa, btnViewCamion, btnViewEscavatore,
-			btnViewCantiere, btnEdit, btnDelete, btnAddLavoro;
+			btnViewCantiere, btnEdit, btnDelete;
 
 	/** item add camion. */
 	private JMenuItem itemAddGru, itemAddRuspa, itemAddEscavatore,
@@ -60,6 +64,7 @@ public class MainView extends JFrame {
 
 	private AbstractApplicationController appController;
 	private AbstractInsertController insController;
+	private AbstractCantieriController cantiereController;
 	private String elimina = "Gru";
 
 	/**
@@ -106,14 +111,11 @@ public class MainView extends JFrame {
 		center.setLayout(new BorderLayout(0, 0));
 		btnEdit = new JButton("Modifica");
 		btnDelete = new JButton("Elimina");
-		btnAddLavoro = new JButton("Lavori");
-		btnAddLavoro.setVisible(false);
 
 		center.add(scrollpane, BorderLayout.CENTER);
 		JPanel southPanel = new JPanel();
 		southPanel.add(btnEdit);
 		southPanel.add(btnDelete);
-		southPanel.add(btnAddLavoro);
 		center.add(southPanel, BorderLayout.SOUTH);
 		contentPane.add(center, BorderLayout.CENTER);
 		listener();
@@ -127,6 +129,9 @@ public class MainView extends JFrame {
 		insController = aCtr;
 	}
 
+	public void setCantiereController(AbstractCantieriController aCtr) {
+		cantiereController = aCtr;
+	}
 	/**
 	 * Adds window closing listener.
 	 *
@@ -229,6 +234,10 @@ public class MainView extends JFrame {
 		addWindowListener(addWindowClosingListener());
 		itemFileCarica.addActionListener(addBtnCaricaListener());
 		itemAddGru.addActionListener(visualizzaInserimentoGru());
+		itemAddRuspa.addActionListener(visualizzaInserimentoRuspa());
+		itemAddCamion.addActionListener(visualizzaInserimentoCamion());
+		itemAddEscavatore.addActionListener(visualizzaInserimentoEscavatore());
+		itemAddCantiere.addActionListener(visualizzaInserimentoCantiere());
 		btnDelete.addActionListener(addEliminaListener());
 		btnEdit.addActionListener(addBtnModificaListener());
 	}
@@ -254,11 +263,11 @@ public class MainView extends JFrame {
 					e.printStackTrace();
 				}
 				// disableBtnModifica(false);
-				btnAddLavoro.setVisible(false);
 				elimina = ((JButton) arg0.getSource()).getName();
+				btnEdit.setText("Modifica");
 				if (((JButton) arg0.getSource()).equals(btnViewCantiere)) {
-					btnAddLavoro.setVisible(true);
 					elimina = "Cantiere";
+					btnEdit.setText("Gestisci Cantiere");
 				}
 			}
 		};
@@ -289,7 +298,14 @@ public class MainView extends JFrame {
 			}
 		};
 	}
-
+	public ActionListener visualizzaInserimentoEscavatore() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new EditEscavatore(mainView, insController);
+			}
+		};
+	}
 	/**
 	 * Adds aggiungi ruspa listener.
 	 *
@@ -319,27 +335,14 @@ public class MainView extends JFrame {
 			}
 		};
 	}
-
-	/**
-	 * Adds aggiungi escavatore listener.
-	 *
-	 * @param act
-	 *            act
-	 */
-	public void addAggiungiEscavatoreListener(ActionListener act) {
-		itemAddEscavatore.addActionListener(act);
+	public ActionListener visualizzaInserimentoCantiere() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new InsertCantiere(mainView, insController);
+			}
+		};
 	}
-
-	/**
-	 * Adds aggiungi cantiere listener.
-	 *
-	 * @param act
-	 *            act
-	 */
-	public void addAggiungiCantiereListener(ActionListener act) {
-		itemAddCantiere.addActionListener(act);
-	}
-
 	// MENU FILE LISTENER
 	/**
 	 * Adds btn salva listener.
@@ -441,26 +444,17 @@ public class MainView extends JFrame {
 					if(elimina=="Gru"){
 						new EditGru(mainView,v,insController);
 					}else if(elimina=="Camion"){
+						new EditCamion(mainView,v, insController);
 					}else if(elimina=="Escavatore"){
+						new EditEscavatore(mainView,v, insController);
 					}else if(elimina=="Ruspa"){
+						new EditRuspa(mainView,v, insController);
 					}else if(elimina=="Cantiere"){
+						new EditLavoro(mainView, cantiereController.getCantiere((Integer)v[0]),cantiereController);
 					}
 				}
 			}
 		};
-	}
-
-	/**
-	 * Adds btn add associzione listener.
-	 *
-	 * @param act
-	 *            act
-	 */
-	public void addBtnAddLavoroListener(ActionListener act) {
-		for (ActionListener al : btnAddLavoro.getActionListeners()) {
-			btnAddLavoro.removeActionListener(al);
-		}
-		btnAddLavoro.addActionListener(act);
 	}
 
 	// GESTIONE DEI TABLEMODEL

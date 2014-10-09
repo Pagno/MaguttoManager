@@ -244,13 +244,14 @@ public interface ModelInterface {
 	public void addCamionObserver(Observer observer);	
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
-	
+	public void aggiungiLavoroObserver(Observer observer);
+	public void aggiungiRichiestaObserver(Observer observer);
 	
 
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
 	
-	public void liberaRichiesta(int codiceRichiesta);
+	public boolean liberaRichiesta(int codiceRichiesta);
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta);
 
 	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro);

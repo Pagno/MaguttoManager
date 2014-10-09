@@ -64,7 +64,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
      * @param data   data
      * @return true, if successful
      */
-    public boolean remveData(Object[] data){
+    public boolean removeData(Object[] data){
     	if(this.data.remove(data)){
     		fireTableDataChanged();
     		return true;

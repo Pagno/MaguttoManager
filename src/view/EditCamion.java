@@ -16,41 +16,44 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controller.AbstractInsertController;
+import controller.Interface.AbstractInsertController;
 
 // 
 /**
- *   Class EditCamion.
+ * Class EditCamion.
  */
 public class EditCamion extends JDialog {
 
-	/**   Constant serialVersionUID. */
+	/** Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
-	
-	/**   content panel. */
-	private final JPanel contentPanel = new JPanel();
-	
-	/**   txt capacita. */
-	private JTextField txtProduttore, txtModello, txtLunghezza,txtPortata, txtCapacita;
-	
-	/**   lbl cap. */
-	private JLabel lblProduttore, lblModello, lblLunghezza,
-			lblPortataMax, lblCapacita, lblMetri, lblTon,
-			lblCap;
-	
-	/**   ok button. */
-	private JButton okButton;
 
+	/** content panel. */
+	private final JPanel contentPanel = new JPanel();
+
+	/** txt capacita. */
+	private JTextField txtProduttore, txtModello, txtLunghezza, txtPortata,
+			txtCapacita;
+
+	/** lbl cap. */
+	private JLabel lblProduttore, lblModello, lblLunghezza, lblPortataMax,
+			lblCapacita, lblMetri, lblTon, lblCap;
+
+	/** ok button. */
+	private JButton okButton;
 	private AbstractInsertController insCtr;
+
 	/**
-	 * Create   dialog.
+	 * Create dialog.
 	 *
-	 * @param view   view
-	 * @param obj   obj
+	 * @param view
+	 *            view
+	 * @param obj
+	 *            obj
 	 */
-	public EditCamion(JFrame view, Object[] obj,AbstractInsertController aCtr) {
+	public EditCamion(JFrame view, final Object[] obj,
+			AbstractInsertController aCtr) {
 		super(view);
-		insCtr=aCtr;
+		insCtr = aCtr;
 		setTitle("Modifica Camion");
 		createLayout();
 		setTextBox(obj);
@@ -58,25 +61,33 @@ public class EditCamion extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try{
-				}catch(java.lang.NumberFormatException ex){
+				try {
+					if (insCtr.modificaCamion((Integer) obj[0],
+							txtProduttore.getText(), txtModello.getText(),
+							Integer.parseInt(txtCapacita.getText()),
+							Integer.parseInt(txtPortata.getText()),
+							Integer.parseInt(txtLunghezza.getText()))) {
+						dispose();
+					}
+				} catch (java.lang.NumberFormatException ex) {
 					JOptionPane
-					.showMessageDialog(
-							null,
-							"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
-							"Alert", JOptionPane.ERROR_MESSAGE);
+							.showMessageDialog(
+									null,
+									"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
+									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		
+
 	}
-	
+
 	/**
-	 * Sets   text box.
+	 * Sets text box.
 	 *
-	 * @param v   new text box
+	 * @param v
+	 *            new text box
 	 */
-	private void setTextBox( Object[] v){
+	private void setTextBox(Object[] v) {
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
 		txtLunghezza.setText(v[3].toString());
@@ -85,39 +96,42 @@ public class EditCamion extends JDialog {
 	}
 
 	/**
-	 * Instantiates a new edits   camion.
+	 * Instantiates a new edits camion.
 	 *
-	 * @param view   view
-	 * @wbp.parser.constructor 
+	 * @param view
+	 *            view
+	 * @wbp.parser.constructor
 	 */
-	public EditCamion(JFrame view,AbstractInsertController aCtr) {
+	public EditCamion(JFrame view, AbstractInsertController aCtr) {
 		super(view);
-		insCtr=aCtr;
+		insCtr = aCtr;
 		setTitle("Aggiungi un nuovo Camion");
 		createLayout();
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try{
-					if(insCtr.insertNewCamionListener(txtProduttore.getText(),txtModello.getText(),
-						Integer.parseInt(txtCapacita.getText()), 
-						Integer.parseInt(txtPortata.getText()), 
-						Integer.parseInt(txtLunghezza.getText())))
-					{	
+				try {
+					if (insCtr.inserisciNuovoCamion(txtProduttore.getText(),
+							txtModello.getText(),
+							Integer.parseInt(txtCapacita.getText()),
+							Integer.parseInt(txtPortata.getText()),
+							Integer.parseInt(txtLunghezza.getText()))) {
 						dispose();
 					}
-				}catch(java.lang.NumberFormatException ex){
+
+				} catch (java.lang.NumberFormatException ex) {
 					JOptionPane
-					.showMessageDialog(
-							null,
-							"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
-							"Alert", JOptionPane.ERROR_MESSAGE);
+							.showMessageDialog(
+									null,
+									"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
+									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		
+
 	}
-	private void createLayout(){
+
+	private void createLayout() {
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -252,7 +266,7 @@ public class EditCamion extends JDialog {
 
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
-		
+
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
@@ -275,7 +289,6 @@ public class EditCamion extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-
 			}
 		});
 		chiudiBtn.setActionCommand("Cancel");
@@ -285,55 +298,55 @@ public class EditCamion extends JDialog {
 	}
 
 	/**
-	 * Sets   insert button listeners.
+	 * Sets insert button listeners.
 	 *
-	 * @param act   new insert button listeners
+	 * @param act
+	 *            new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
-	
+
 	/**
-	 * Gets   produttore.
+	 * Gets produttore.
 	 *
-	 * @return   produttore
+	 * @return produttore
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets   modello.
+	 * Gets modello.
 	 *
-	 * @return   modello
+	 * @return modello
 	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
-	
 	/**
-	 * Gets   lunghezza.
+	 * Gets lunghezza.
 	 *
-	 * @return   lunghezza
+	 * @return lunghezza
 	 */
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
 
 	/**
-	 * Gets   capacita.
+	 * Gets capacita.
 	 *
-	 * @return   capacita
+	 * @return capacita
 	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
 	/**
-	 * Gets   portata massima.
+	 * Gets portata massima.
 	 *
-	 * @return   portata massima
+	 * @return portata massima
 	 */
 	public String getPortataMassima() {
 		return txtPortata.getText();

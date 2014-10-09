@@ -55,7 +55,7 @@ public class CantieriController {
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener InsertNuovoCantiereListener(InsertCantiere editCantiere){
+	/*public ActionListener InsertNuovoCantiereListener(InsertCantiere editCantiere){
 		final InsertCantiere cantieriView=editCantiere;
 		return new ActionListener(){
 
@@ -204,7 +204,7 @@ public class CantieriController {
 				
 			}
 		};
-	}*/
+	}
 	
 	public ActionListener EditLavoroListener(final EditLavoro editLavoro){
 		return new ActionListener() {
@@ -219,7 +219,7 @@ public class CantieriController {
 				
 				/*Devo controllare che le date inserite rispettino la disponibilità delle macchine associate
 				*alle varie richieste
-				*/
+				
 				int codiceLavoro=editLavoro.getCodiceLavoro();
 				
 				ArrayList<Richiesta> richieste=model.getElencoRichieste(codiceLavoro);
@@ -230,7 +230,7 @@ public class CantieriController {
 				 * Se la nuova data di inizio e posteriore alla vecchia data di inizio e la 
 				 * se la nuova data di fine e antecedente alla vecchia data di fine 
 				 * posso tranquillamente modificare il lavoro
-				 * */
+				 * 
 				boolean modifica=true;
 				if(newStartDate.before(oldStartDate) || newEndDate.after(oldStartDate)){
 					for(Richiesta richiesta:richieste){
@@ -277,7 +277,7 @@ public class CantieriController {
 	 * Inserisci una nuova richiesta.
 	 *
 	 * @param EditLavoro   editLavoro
-	 */
+	 *
 	public ActionListener AddRichiestaListener(final EditLavoro editLavoro) {
 		return new ActionListener() {
 			@Override
@@ -358,7 +358,7 @@ public class CantieriController {
 			}
 		}
 	}*/
-
+/*
 	public ActionListener associaMacchinaView(final EditLavoro editLavoro){
 		return new ActionListener() {
 			@Override
@@ -393,7 +393,7 @@ public class CantieriController {
 	
 	/*
 	 * ================LISTENER GREEDY ENGINE=================
-	 * */
+	 *
 	
 	public ActionListener greedyEngineListener(final view.GreedyEngine greedyView){
 		return new ActionListener() {
@@ -415,5 +415,5 @@ public class CantieriController {
 				}
 			}
 		};
-	}
+	}*/
 }

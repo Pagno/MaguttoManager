@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
+import controller.Interface.AbstractInsertController;
 import view.EditCamion;
 import view.EditEscavatore;
 import view.EditGru;
@@ -47,7 +49,7 @@ public class InsertController extends AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public boolean insertNewGruListener(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza){
+	public boolean aggiungiNuovaGru(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza){
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -57,6 +59,20 @@ public class InsertController extends AbstractInsertController{
 			return false;
 		}
 		model.aggiungiGru(produttore,modello,rotazione,portata,lunghezza,altezza);
+		return true;
+	}
+	
+	
+	public boolean modificaGru(int codiceGru,String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza) {
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.modificaGru(codiceGru,produttore,modello,rotazione,portata,lunghezza,altezza);
 		return true;
 	}
 	
@@ -70,7 +86,7 @@ public class InsertController extends AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public boolean insertNewRuspaListener(String produttore, String modello,int capacita,int portata,int altezza) {
+	public boolean inserisciNuovaRuspa(String produttore, String modello,int capacita,int portata,int altezza) {
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -82,10 +98,21 @@ public class InsertController extends AbstractInsertController{
 		model.aggiungiRuspa(produttore,modello,capacita,portata,altezza);
 		return true;
 	}
+	public boolean modificaRuspa(int codiceRuspa,String produttore, String modello,int capacita,int portata,int altezza) {
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.modificaRuspa(codiceRuspa,produttore,modello,capacita,portata,altezza);
+		return true;
+	}
 	
 	
-	
-	public boolean insertNewEscavatoreListener(String produttore, String modello,int capacita,int portata,int altezza,int profondita){
+	public boolean inserisciNuovoEscavatore(String produttore, String modello,int capacita,int portata,int altezza,int profondita){
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -97,11 +124,22 @@ public class InsertController extends AbstractInsertController{
 		model.aggiungiEscavatore(produttore, modello, capacita, portata, altezza, profondita);
 		return true;
 	}
+	public boolean modificaEscavatore(int codiceEscavatore,String produttore, String modello,int capacita,int portata,int altezza,int profondita){
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.modificaEscavatore(codiceEscavatore,produttore, modello, capacita, portata, altezza, profondita);
+		return true;
+	}
 	
 	
 	
-	
-	public boolean insertNewCamionListener(String produttore,String modello,int capacita,int portata,int lunghezza){
+	public boolean inserisciNuovoCamion(String produttore,String modello,int capacita,int portata,int lunghezza){
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -113,12 +151,23 @@ public class InsertController extends AbstractInsertController{
 		model.aggiungiCamion(produttore, modello, capacita, portata, lunghezza);
 		return true;
 	}
-	
+	public boolean modificaCamion(int codiceCamion,String produttore,String modello,int capacita,int portata,int lunghezza){
+		if(produttore=="" || modello==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Produttore\n - Modello\ndevono contenere numeri. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.modificaCamion(codiceCamion,produttore, modello, capacita, portata, lunghezza);
+		return true;
+	}
 	
 	
 	
 
-	public boolean insertNewCantiereListener(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+	public boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
 			.showMessageDialog(
@@ -138,7 +187,25 @@ public class InsertController extends AbstractInsertController{
 		return true;
 	}
 
-	
+	public boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+		if(nomeCantiere=="" || indirizzo==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Nome cantiere\n - Indirizzo Cantiere\ndevono essere compilati. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}else if(dataChiusura.before(dataApertura)){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"La data di inizio deve essere inferiore alla data di chiusura. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.modificaCantiere(codiceCantiere,nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
+		return true;
+	}
 	//EDIT LISTENER
 	/**
 	 * Gestisce la modifica di una <em>"Gru"</em>.
@@ -151,7 +218,7 @@ public class InsertController extends AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditGruListener( EditGru editGru,final int codice) {
+	/*public ActionListener EditGruListener( EditGru editGru,final int codice) {
 		final EditGru dialog=editGru;
 		return new ActionListener() {
 			@Override
@@ -175,8 +242,7 @@ public class InsertController extends AbstractInsertController{
 				}
 			}
 		};
-	}
-	
+	}*/
 	/**
 	 * Gestisce la modifica di una <em>"Ruspa"</em>.
 	 *

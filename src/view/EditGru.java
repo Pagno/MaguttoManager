@@ -16,42 +16,44 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controller.AbstractApplicationController;
-import controller.AbstractInsertController;
+import controller.Interface.AbstractApplicationController;
+import controller.Interface.AbstractInsertController;
 
 // 
 /**
- *   Class EditGru.
+ * Class EditGru.
  */
 public class EditGru extends JDialog {
 
-	/**   Constant serialVersionUID. */
+	/** Constant serialVersionUID. */
 	private static final long serialVersionUID = -1364300169692664613L;
 
-	
-	/**   content panel. */
+	/** content panel. */
 	private final JPanel contentPanel = new JPanel();
-	
-	/**   txt angolo rotazione. */
+
+	/** txt angolo rotazione. */
 	private JTextField txtProduttore, txtModello, txtLunghezza, txtAltezza,
 			txtPortataMax, txtAngoloRotazione;
-	
-	/**   lbl angolo. */
+
+	/** lbl angolo. */
 	private JLabel lblProduttore, lblModello, lblLunghezza, lblAltezza,
 			lblPortataMax, lblAngoloRotazione, lblMetri, lblTon, lblMetri2,
 			lblAngolo;
-	
-	/**   ok button. */
+
+	/** ok button. */
 	private JButton okButton;
 
 	private AbstractInsertController insCtr;
+
 	/**
-	 * Create   dialog.
+	 * Create dialog.
 	 *
-	 * @param view   view
-	 * @param obj   obj
+	 * @param view
+	 *            view
+	 * @param obj
+	 *            obj
 	 */
-	public EditGru(JFrame view, Object[] obj,AbstractInsertController aCtr) {
+	public EditGru(JFrame view, final Object[] obj,AbstractInsertController aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Gru");
@@ -62,7 +64,14 @@ public class EditGru extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					System.out.println("Edit");
+					if (insCtr.modificaGru(
+							(Integer)obj[0],txtProduttore.getText(),
+							txtModello.getText(),
+							Integer.parseInt(txtAngoloRotazione.getText()), 
+							Integer.parseInt(txtPortataMax.getText()), 
+							Integer.parseInt(txtLunghezza.getText()), 
+							Integer.parseInt(txtAltezza.getText()))) {
+						dispose();}
 				}catch(java.lang.NumberFormatException ex){
 					JOptionPane
 					.showMessageDialog(
@@ -73,13 +82,14 @@ public class EditGru extends JDialog {
 			}
 		});
 	}
-	
+
 	/**
-	 * Sets   text box.
+	 * Sets text box.
 	 *
-	 * @param v   new text box
+	 * @param v
+	 *            new text box
 	 */
-	private void setTextBox( Object[] v){
+	private void setTextBox(Object[] v) {
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
 		txtLunghezza.setText(v[3].toString());
@@ -87,40 +97,42 @@ public class EditGru extends JDialog {
 		txtPortataMax.setText(v[5].toString());
 		txtAngoloRotazione.setText(v[6].toString());
 	}
-	
+
 	/**
-	 * Instantiates a new edits   gru.
+	 * Instantiates a new edits gru.
 	 *
-	 * @param view   view
+	 * @param view
+	 *            view
 	 */
-	public EditGru(JFrame view,AbstractInsertController aCtr) {
+	public EditGru(JFrame view, AbstractInsertController aCtr) {
 		super(view);
-		insCtr=aCtr;
+		insCtr = aCtr;
 		setTitle("Aggiungi nuova Gru");
 		createLayout();
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try{
-					if(insCtr.insertNewGruListener(txtProduttore.getText(),txtModello.getText(),
-						Integer.parseInt(txtAngoloRotazione.getText()), 
-						Integer.parseInt(txtPortataMax.getText()), 
-						Integer.parseInt(txtLunghezza.getText()), 
-						Integer.parseInt(txtAltezza.getText())))
-					{	
+				try {
+					if (insCtr.aggiungiNuovaGru(txtProduttore.getText(),
+							txtModello.getText(),
+							Integer.parseInt(txtAngoloRotazione.getText()),
+							Integer.parseInt(txtPortataMax.getText()),
+							Integer.parseInt(txtLunghezza.getText()),
+							Integer.parseInt(txtAltezza.getText()))) {
 						dispose();
 					}
-				}catch(java.lang.NumberFormatException ex){
+				} catch (java.lang.NumberFormatException ex) {
 					JOptionPane
-					.showMessageDialog(
-							null,
-							"I campi:\n - Lunghezza\n - Altezza\n - Portata Massima\n - Angolo Rotazione\ndevono contenere numeri. ",
-							"Alert", JOptionPane.ERROR_MESSAGE);
+							.showMessageDialog(
+									null,
+									"I campi:\n - Lunghezza\n - Altezza\n - Portata Massima\n - Angolo Rotazione\ndevono contenere numeri. ",
+									"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
-	private void createLayout(){
+
+	private void createLayout() {
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -283,7 +295,6 @@ public class EditGru extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		
 		JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
 			@Override
@@ -314,63 +325,64 @@ public class EditGru extends JDialog {
 	}
 
 	/**
-	 * Sets   insert button listeners.
+	 * Sets insert button listeners.
 	 *
-	 * @param act   new insert button listeners
+	 * @param act
+	 *            new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets   produttore.
+	 * Gets produttore.
 	 *
-	 * @return   produttore
+	 * @return produttore
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets   modello.
+	 * Gets modello.
 	 *
-	 * @return   modello
+	 * @return modello
 	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
 	/**
-	 * Gets   lunghezza.
+	 * Gets lunghezza.
 	 *
-	 * @return   lunghezza
+	 * @return lunghezza
 	 */
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
 
 	/**
-	 * Gets   altezza.
+	 * Gets altezza.
 	 *
-	 * @return   altezza
+	 * @return altezza
 	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
 
 	/**
-	 * Gets   angolo rotazione.
+	 * Gets angolo rotazione.
 	 *
-	 * @return   angolo rotazione
+	 * @return angolo rotazione
 	 */
 	public String getAngoloRotazione() {
 		return txtAngoloRotazione.getText();
 	}
 
 	/**
-	 * Gets   portata massima.
+	 * Gets portata massima.
 	 *
-	 * @return   portata massima
+	 * @return portata massima
 	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();

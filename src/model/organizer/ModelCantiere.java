@@ -1,7 +1,9 @@
 package model.organizer;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
@@ -30,8 +32,10 @@ public class ModelCantiere extends DefaultTreeModel{
 
 	
 	private ArrayList<Cantiere> listaCantieri;
-	private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
-	private ArrayList<Observer> richiestaObserver=new ArrayList<Observer>();
+	private Observer lavoroObserver;
+	private Observer richiestaObserver;
+	private Observer cantiereObserver;
+	
 	
 	private int codice;
 
@@ -68,10 +72,9 @@ public class ModelCantiere extends DefaultTreeModel{
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		//setChanged();
 		//notifyObservers(v1);
-		observer.update(null, v1);//notifyObservers(v1);
+		cantiereObserver.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
-		Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
@@ -85,7 +88,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		//setChanged();
-		observer.update(null, v1);//notifyObservers(v1);
+		cantiereObserver.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
 	}
@@ -104,7 +107,7 @@ public class ModelCantiere extends DefaultTreeModel{
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 				//setChanged();
 				//notifyObservers(v1);
-				observer.update(null, v1);//notifyObservers(v1);
+				cantiereObserver.update(null, v1);//notifyObservers(v1);
 			}
 		}
 	}
@@ -178,7 +181,14 @@ public class ModelCantiere extends DefaultTreeModel{
 
 		addNode add=new addNode("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
+		
 
+		DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+		/*ArrayList<String> lav=new ArrayList<String>(Arrays.asList(
+				Integer.toString(codiceLavoro),nome,df.format(dataInizio.getTime()),df.format(dataFine.getTime())
+				));
+		lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
+*/
 	}
 	
 	//carico i lavori presenti a database
@@ -311,9 +321,6 @@ public class ModelCantiere extends DefaultTreeModel{
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
 
 
-	public void addRichiestaObserver(Observer observer) {
-		richiestaObserver.add(observer);
-	}	
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -424,15 +431,16 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
-	public void liberaRichiesta(int codiceRichiesta){
+	public boolean liberaRichiesta(int codiceRichiesta){
 		ciclo:for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
 					lav.liberaRichiesta(codiceRichiesta);
-					break ciclo;
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
 	public void liberaRichiesta(int codiceLavoro,int codiceRichiesta){
@@ -646,11 +654,18 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
-	Observer observer;
 	public void addObserver(Observer ob) {
-		this.observer=ob;
+		this.cantiereObserver=ob;
 	}
 
 
+	public void aggiungiLavoroObserver(Observer observer) {
+		lavoroObserver=observer;
+	}
+
+	public void aggiungiRichiestaObserver(Observer observer) {
+		richiestaObserver=observer;
+	}	
+	
 
 }

@@ -128,6 +128,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		lc.addObserver(observer);
 	}
 
+	@Override
+	public void aggiungiLavoroObserver(Observer observer){
+		lc.aggiungiLavoroObserver(observer);
+	}
+
+	@Override
+	public void aggiungiRichiestaObserver(Observer observer) {
+		lc.aggiungiRichiestaObserver(observer);
+	}
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -919,8 +928,8 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void liberaRichiesta(int codiceRichiesta) {
-		lc.liberaRichiesta(codiceRichiesta);		
+	public boolean liberaRichiesta(int codiceRichiesta) {
+		return lc.liberaRichiesta(codiceRichiesta);		
 	}
 	
 	@Override
@@ -933,8 +942,10 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro){
 		return lc.getLavoro(codicelavoro).getListaRichieste();
 	}
-	
+
+	@Override
 	public ArrayList<Richiesta> getRichiesteScoperte(){
 		return lc.getListaInsoddisfatte();
 	}
+
 }
