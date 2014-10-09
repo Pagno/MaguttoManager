@@ -127,10 +127,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 				return false;
 		} else if (!dataInizio.equals(other.dataInizio))
 			return false;
-		if (macchinariRichiesti == null) {
-			if (other.macchinariRichiesti != null)
-				return false;
-		} else if (!macchinariRichiesti.equals(other.macchinariRichiesti))
+		if (!macchinariRichiesti.equals(other.macchinariRichiesti))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)

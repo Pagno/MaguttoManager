@@ -71,6 +71,9 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 
 	public void setCaratteristiche(RichiestaMacchina caratteristiche) {
 		this.caratteristiche = caratteristiche;
+		if(!caratteristiche.rispettaRichiesta(macchina)){
+			this.setMacchina(null);
+		}
 	}
 
 
