@@ -2,6 +2,7 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class RichiestaTest {
 	public RichiestaTest(){
 		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
 		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
-
+		cantiere.addLavoro(lavoro);
 		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
 	}
 	
@@ -114,7 +115,16 @@ public class RichiestaTest {
 		r.setMacchina(null);
 		assertFalse(r.equals(a));
 		assertFalse(a.equals(r));
-		
+		Lavoro l1=new Lavoro(10,"l1",cantiere,new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta b=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),l1,22);
+		assertFalse(r.equals(b));
+		assertFalse(b.equals(r));
+		Richiesta c=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),null,22);
+		assertFalse(r.equals(c));
+		assertFalse(c.equals(r));
+		Richiesta d=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),null,22);
+		assertTrue(c.equals(d));
+		assertTrue(d.equals(c));
 	}
 
 	@Test
@@ -167,5 +177,145 @@ public class RichiestaTest {
 		assertEquals(r.getMacchina(),null);
 	}
 
-
+	@Test
+	public void testGetDataInizio() {
+		assertEquals(r.getDataInizio(),new GregorianCalendar(2014, 9, 01));
+	}
+	
+	@Test
+	public void testGetDataFine() {
+		assertEquals(r.getDataFine(),new GregorianCalendar(2014, 11, 1));
+	}
+	
+	@Test
+	public void testGetPriorita(){
+		assertEquals(r.getPriorita(),Priority.ALTA);
+	}
+	
+	@Test
+	public void testGetCodiceLavoro(){
+		assertEquals(r.getCodiceLavoro(),5);
+	}
+	
+	@Test
+	public void testGetCodiceCantiere(){
+		assertEquals(r.getCodiceCantiere(),23);
+	}
+	
+	@Test
+	public void testGetLavoro(){
+		assertEquals(r.getLavoro(),lavoro);
+	}
+	
+	@Test
+	public void testGetRelatedWorks(){
+		Lavoro l2=new Lavoro(6,"Fondamenta",cantiere, new GregorianCalendar(2015, 9, 01),new GregorianCalendar(2015, 11, 1));
+		cantiere.addLavoro(l2);
+		Lavoro l3=new Lavoro(7,"Muratura",cantiere, new GregorianCalendar(2016, 9, 01),new GregorianCalendar(2016, 11, 1));
+		cantiere.addLavoro(l3);
+		ArrayList<Lavoro>test=new ArrayList<Lavoro>();
+		test.add(lavoro);
+		test.add(l2);
+		test.add(l3);
+		assertEquals(r.getRelatedWorks(),lavoro.getRelatedWorks());
+		assertEquals(r.getRelatedWorks(),test);
+	}
+	
+	@Test
+	public void testGetDurata(){
+		assertEquals(r.getDurata(),lavoro.getDurata());
+	}
+	
+	@Test
+	public void testGetData(){
+		ArrayList<String>test=r.getData();
+		assertEquals(test.get(0),"22");
+		assertEquals(test.get(1),"Ruspa");
+		assertEquals(test.get(2),"5");//MinCapacita
+		assertEquals(test.get(3),"10");//MaxCapacita
+		assertEquals(test.get(4),"5");//MinPortata
+		assertEquals(test.get(5),"10");//MaxPortata
+		assertEquals(test.get(6),"0");//MinLunghezza
+		assertEquals(test.get(7),"0");//MaxLunghezza
+		assertEquals(test.get(8),"5");//MinAltezza
+		assertEquals(test.get(9),"10");//MaxAltezza
+		assertEquals(test.get(10),"0");//MinProfondita
+		assertEquals(test.get(11),"0");//MaxProfondita
+		assertEquals(test.get(12),"0");//MinAngoloRotazione
+		assertEquals(test.get(13),"0");//MaxAngoloRotazione
+		assertEquals(test.size(),14);
+		RichiestaRuspa rr=new RichiestaRuspa(1,2,3,4,5,6);
+		r.setCaratteristiche(rr);
+		test=r.getData();
+		assertEquals(test.get(0),"22");
+		assertEquals(test.get(1),"Ruspa");
+		assertEquals(test.get(2),"1");//MinCapacita
+		assertEquals(test.get(3),"2");//MaxCapacita
+		assertEquals(test.get(4),"3");//MinPortata
+		assertEquals(test.get(5),"4");//MaxPortata
+		assertEquals(test.get(6),"0");//MinLunghezza
+		assertEquals(test.get(7),"0");//MaxLunghezza
+		assertEquals(test.get(8),"5");//MinAltezza
+		assertEquals(test.get(9),"6");//MaxAltezza
+		assertEquals(test.get(10),"0");//MinProfondita
+		assertEquals(test.get(11),"0");//MaxProfondita
+		assertEquals(test.get(12),"0");//MinAngoloRotazione
+		assertEquals(test.get(13),"0");//MaxAngoloRotazione
+		assertEquals(test.size(),14);
+		RichiestaCamion rc=new RichiestaCamion(1, 2, 3, 4, 5, 6);
+		r.setCaratteristiche(rc);
+		test=r.getData();
+		assertEquals(test.get(0),"22");
+		assertEquals(test.get(1),"Camion");
+		assertEquals(test.get(2),"1");//MinCapacita
+		assertEquals(test.get(3),"2");//MaxCapacita
+		assertEquals(test.get(4),"3");//MinPortata
+		assertEquals(test.get(5),"4");//MaxPortata
+		assertEquals(test.get(6),"5");//MinLunghezza
+		assertEquals(test.get(7),"6");//MaxLunghezza
+		assertEquals(test.get(8),"0");//MinAltezza
+		assertEquals(test.get(9),"0");//MaxAltezza
+		assertEquals(test.get(10),"0");//MinProfondita
+		assertEquals(test.get(11),"0");//MaxProfondita
+		assertEquals(test.get(12),"0");//MinAngoloRotazione
+		assertEquals(test.get(13),"0");//MaxAngoloRotazione
+		assertEquals(test.size(),14);
+		RichiestaGru rg=new RichiestaGru(1, 2, 3, 4, 5, 6, 7, 8);
+		r.setCaratteristiche(rg);
+		test=r.getData();
+		assertEquals(test.get(0),"22");
+		assertEquals(test.get(1),"Gru");
+		assertEquals(test.get(2),"0");//MinCapacita
+		assertEquals(test.get(3),"0");//MaxCapacita
+		assertEquals(test.get(4),"5");//MinPortata
+		assertEquals(test.get(5),"6");//MaxPortata
+		assertEquals(test.get(6),"1");//MinLunghezza
+		assertEquals(test.get(7),"2");//MaxLunghezza
+		assertEquals(test.get(8),"3");//MinAltezza
+		assertEquals(test.get(9),"4");//MaxAltezza
+		assertEquals(test.get(10),"0");//MinProfondita
+		assertEquals(test.get(11),"0");//MaxProfondita
+		assertEquals(test.get(12),"7");//MinAngoloRotazione
+		assertEquals(test.get(13),"8");//MaxAngoloRotazione
+		assertEquals(test.size(),14);
+		RichiestaEscavatore re=new RichiestaEscavatore(1, 2, 3, 4, 5, 6, 7, 8);
+		r.setCaratteristiche(re);
+		test=r.getData();
+		assertEquals(test.get(0),"22");
+		assertEquals(test.get(1),"Escavatore");
+		assertEquals(test.get(2),"1");//MinCapacita
+		assertEquals(test.get(3),"2");//MaxCapacita
+		assertEquals(test.get(4),"3");//MinPortata
+		assertEquals(test.get(5),"4");//MaxPortata
+		assertEquals(test.get(6),"0");//MinLunghezza
+		assertEquals(test.get(7),"0");//MaxLunghezza
+		assertEquals(test.get(8),"5");//MinAltezza
+		assertEquals(test.get(9),"6");//MaxAltezza
+		assertEquals(test.get(10),"7");//MinProfondita
+		assertEquals(test.get(11),"8");//MaxProfondita
+		assertEquals(test.get(12),"0");//MinAngoloRotazione
+		assertEquals(test.get(13),"0");//MaxAngoloRotazione
+		assertEquals(test.size(),14);
+	}
+	
 }
