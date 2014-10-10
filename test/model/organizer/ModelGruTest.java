@@ -3,9 +3,12 @@ package model.organizer;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
+import java.util.GregorianCalendar;
 
 import model.organizer.data.Gru;
+import model.organizer.data.Lavoro;
+import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaGru;
 
 import org.junit.Test;
 
@@ -134,6 +137,36 @@ public class ModelGruTest {
 		String str= a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
 		assertEquals(mg.toString(),str);
 		
+	}
+	
+	@Test
+	public void testGetDisponibili() {
+
+		ArrayList<Gru>test=mg.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertEquals(test.size(),3); 
+		Gru g1=mg.getGru(3);
+		Gru g2=mg.getGru(11);
+		Gru g3=mg.getGru(26);
+		assertTrue(test.contains(g1));
+		assertTrue(test.contains(g2));
+		assertTrue(test.contains(g3));
+		Lavoro l=new Lavoro(1, "Lavoro", null, new GregorianCalendar(2014,1,1), new GregorianCalendar(2014,10,10));
+		RichiestaGru rg=new RichiestaGru(1, 40, 1, 35, 1, 3000, 1, 400);
+		Richiesta ric2=new Richiesta(rg, l, 2);
+		ric2.setMacchina(g2);
+		test=mg.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertEquals(test.size(),2);
+		assertTrue(test.contains(g1));
+		assertTrue(test.contains(g3));
+		Richiesta ric1=new Richiesta(rg, l, 1);
+		ric1.setMacchina(g1);
+		test=mg.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertEquals(test.size(),1);
+		assertTrue(test.contains(g3));
+		Richiesta ric3=new Richiesta(rg, l, 3);
+		ric3.setMacchina(g3);
+		test=mg.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertTrue(test.isEmpty());
 	}
 
 	

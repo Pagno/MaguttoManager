@@ -3,7 +3,6 @@ package model.organizer;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import model.organizer.data.Camion;
 import model.organizer.data.Gru;
 
 
