@@ -256,13 +256,13 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	public String toString(){
 		String priStr;
 		if(priorita==Priority.ALTA){
-			priStr="Prioritï¿½ Alta";
+			priStr="Priorità Alta";
 		}
 		else if(priorita==Priority.MEDIA){
-			priStr="Prioritï¿½ Media";
+			priStr="Priorità Media";
 		}
 		else{
-			priStr="Prioritï¿½ Bassa";
+			priStr="Priorità Bassa";
 		}
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura() + " - " + priStr;
 	}
@@ -299,10 +299,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 				return false;
 		} else if (!indirizzo.equals(other.indirizzo))
 			return false;
-		if (lavori == null) {
-			if (other.lavori != null)
-				return false;
-		} else if (!lavori.equals(other.lavori))
+		if (!lavori.equals(other.lavori))
 			return false;
 		if (nomeCantiere == null) {
 			if (other.nomeCantiere != null)
