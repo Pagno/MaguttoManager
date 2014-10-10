@@ -219,8 +219,13 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	
 	@Override
 	public int compareTo(Richiesta r) {
-		return this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio());
+		if(this.equals(r)) {return 0;}
+		if(this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio())!=0){
+			return this.lavoro.getDataInizio().compareTo(r.lavoro.getDataInizio());
+		}
+		else return this.codice-r.getCodice();
 	}
+	
 	public GregorianCalendar getDataInizio(){
 		return lavoro.getDataInizio();
 	}
