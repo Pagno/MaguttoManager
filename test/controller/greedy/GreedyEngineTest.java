@@ -292,40 +292,40 @@ public class GreedyEngineTest {
 		
 		assertEquals(prenotazioni.get(0).getRichiesta(),r2);
 		assertEquals(prenotazioni.get(0).getMacchina(),c1);
-		assertEquals(prenotazioni.get(0).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(0).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(1).getRichiesta(),r2);
 		assertEquals(prenotazioni.get(1).getMacchina(),c2);
-		assertEquals(prenotazioni.get(1).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(1).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(2).getRichiesta(),r2);
 		assertEquals(prenotazioni.get(2).getMacchina(),c3);
-		assertEquals(prenotazioni.get(2).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(2).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(3).getRichiesta(),r3);
 		assertEquals(prenotazioni.get(3).getMacchina(),c1);
-		assertEquals(prenotazioni.get(3).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(3).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(4).getRichiesta(),r3);
 		assertEquals(prenotazioni.get(4).getMacchina(),c2);
-		assertEquals(prenotazioni.get(4).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(4).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(5).getRichiesta(),r3);
 		assertEquals(prenotazioni.get(5).getMacchina(),c3);
-		assertEquals(prenotazioni.get(5).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(5).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(6).getRichiesta(),r7);
 		assertEquals(prenotazioni.get(6).getMacchina(),c1);
-		assertEquals(prenotazioni.get(6).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(6).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(7).getRichiesta(),r7);
 		assertEquals(prenotazioni.get(7).getMacchina(),c2);
-		assertEquals(prenotazioni.get(7).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(7).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(8).getRichiesta(),r7);
 		assertEquals(prenotazioni.get(8).getMacchina(),c3);
-		assertEquals(prenotazioni.get(8).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(8).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(9).getRichiesta(),r7); //da loccupa
 		assertEquals(prenotazioni.get(9).getMacchina(),c2); //da loccupa
-		assertEquals(prenotazioni.get(9).getDurataLavoro(),new Integer(14)); //da loccupa
+		assertEquals(prenotazioni.get(9).getDurataLavoro(),14); //da loccupa
 		assertEquals(prenotazioni.get(10).getRichiesta(),r8);
 		assertEquals(prenotazioni.get(10).getMacchina(),c1);
-		assertEquals(prenotazioni.get(10).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(10).getDurataLavoro(),5);
 		assertEquals(prenotazioni.get(11).getRichiesta(),r8);
 		assertEquals(prenotazioni.get(11).getMacchina(),c3);
-		assertEquals(prenotazioni.get(11).getDurataLavoro(),new Integer(5));
+		assertEquals(prenotazioni.get(11).getDurataLavoro(),5);
 		assertEquals(prenotazioni.size(),12);
 		
 	}
@@ -379,10 +379,10 @@ public class GreedyEngineTest {
 		assertEquals(p.size(),2);
 		assertEquals(p.get(0).getRichiesta(),r);
 		assertEquals(p.get(0).getMacchina(),c1);
-		assertEquals(new Integer(7),p.get(0).getDurataLavoro());
+		assertEquals(7,p.get(0).getDurataLavoro());
 		assertEquals(p.get(1).getRichiesta(),r);
 		assertEquals(p.get(1).getMacchina(),c2);
-		assertEquals(new Integer(7),p.get(1).getDurataLavoro());
+		assertEquals(7,p.get(1).getDurataLavoro());
 	}
 
 	@Test
