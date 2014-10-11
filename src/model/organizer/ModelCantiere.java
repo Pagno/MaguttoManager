@@ -63,6 +63,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
 
+		/*REMOVE COMMENT
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
@@ -71,6 +72,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
+		REMOVE COMMENT*/
 		//Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
@@ -81,6 +83,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
 		
+		/*REMOVE COMMENT
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
@@ -88,6 +91,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
+		REMOVE COMMENT*/
 	}
 
 
@@ -99,12 +103,14 @@ public class ModelCantiere extends DefaultTreeModel{
 				item.setDataApertura(dataApertura);
 				item.setDataChiusura(dataChiusura);
 				item.setPriorita(priorita);
+				/*REMOVE COMMENT
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 				//setChanged();
 				//notifyObservers(v1);
 				observer.update(null, v1);//notifyObservers(v1);
+				REMOVE COMMENT */
 			}
 		}
 	}
@@ -197,9 +203,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		addNode add=new addNode("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
 	}
+	
 	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
-		cantiere.rimuoviLavoro(codiceLavoro);
+		if(cantiere!=null){
+			cantiere.rimuoviLavoro(codiceLavoro);
+		}
 	}
 	
 	public boolean rimuoviLavoro(int codiceLavoro){
@@ -226,17 +235,22 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro lav=can.getLavoro(codiceLavoro);
-			lav.setNome(nome);
-			lav.setDataInizio(dataInizio);
-			lav.setDataFine(dataFine);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro lav=can.getLavoro(codiceLavoro);
+				lav.setNome(nome);
+				lav.setDataInizio(dataInizio);
+				lav.setDataFine(dataFine);
+			}
 		}
 	}
 	
 	public ArrayList<Lavoro> getListaLavori(int codiceCantiere){
 		Cantiere can=getCantiere(codiceCantiere);
-		return can.getElencoLavori();
+		if(can!=null){
+			return can.getElencoLavori();
+		}
+		else return null;
 	}
 	
 	public ArrayList<Lavoro> getListaLavori(){
@@ -255,6 +269,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
+		if(can==null)return null;
 		for(Lavoro l:can.getElencoLavori()){
 			if(l.isScoperto()){
 				temp.add(l);
@@ -284,6 +299,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
+		if(can==null)return null;
 		for(Lavoro l:can.getElencoLavori()){
 			if(!l.isScoperto()){
 				temp.add(l);
@@ -308,6 +324,11 @@ public class ModelCantiere extends DefaultTreeModel{
 			return null;
 		}
 		return temp;
+	}
+	
+	int getNextCodiceLavoro(){
+		int code=this.codiceLavoro+1;
+		return code;
 	}
 	
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
