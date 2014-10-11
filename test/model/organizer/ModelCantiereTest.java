@@ -30,6 +30,7 @@ public class ModelCantiereTest {
 		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
 		mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA);
 		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA);
+		
 	}
 	
 	/**
@@ -38,6 +39,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testGetModelCantiere() {
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
+		assertEquals(lista.size(),9);
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA)));
 		assertTrue(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA)));

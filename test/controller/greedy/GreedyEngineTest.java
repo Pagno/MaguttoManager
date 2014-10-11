@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 import model.organizer.data.Camion;
@@ -808,6 +809,19 @@ public class GreedyEngineTest {
 		assertFalse(GreedyEngine.sortByCodes(r1, r1));
 		
 		
+	}
+	
+	@Test
+	public void testRichiesteComparator(){
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
+		Richiesta r1=new Richiesta(rc, l, 1);
+		Richiesta r2=new Richiesta(rc, l, 2);
+		Comparator<Richiesta> r=new GreedyEngine.RichiesteComparator();
+		assertEquals(r.compare(r1, r1),0);
+		assertEquals(r.compare(r1, r2),-1);
+		assertEquals(r.compare(r2, r1),1);
 	}
 
 }

@@ -634,6 +634,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return tmp;
 	}
 
+	Observer observer;
+	public void addObserver(Observer ob) {
+		this.observer=ob;
+	}
+	
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	
@@ -648,10 +653,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
-	Observer observer;
-	public void addObserver(Observer ob) {
-		this.observer=ob;
-	}
+
 
 
 
