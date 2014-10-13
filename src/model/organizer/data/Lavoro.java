@@ -240,9 +240,6 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	public ArrayList<Richiesta> whereScoperto(){
-		if(!isScoperto()){
-			return null;
-		}
 		ArrayList<Richiesta>richScoperte=new ArrayList<Richiesta>();
 		for(Richiesta item:macchinariRichiesti){
 			if(!item.isSoddisfatta()){

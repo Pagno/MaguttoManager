@@ -174,7 +174,6 @@ public class ModelCantiere extends DefaultTreeModel{
 	//aggiungo nuovi lavori
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
-		System.out.println("codiceCantiere: "+codiceCantiere);
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		
 
@@ -337,6 +336,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	public void addRichiestaObserver(Observer observer) {
 		richiestaObserver.add(observer);
 	}	
+	
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -348,17 +348,18 @@ public class ModelCantiere extends DefaultTreeModel{
 		return null;
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
 	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
-		System.out.print("CodiceLavoro: "+codiceLavoro);
-		if(item.hasLavoro(codiceLavoro)){
-			Lavoro l=item.getLavoro(codiceLavoro);
-			l.inserisciRichiesta(caratteristiche);
+		if(item!=null){
+			if(item.hasLavoro(codiceLavoro)){
+				Lavoro l=item.getLavoro(codiceLavoro);
+				l.inserisciRichiesta(caratteristiche);
+			}
 		}
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
 	public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
@@ -372,9 +373,11 @@ public class ModelCantiere extends DefaultTreeModel{
 	//Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
 	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
 		Cantiere item=getCantiere(codiceCantiere);
-		if(item.hasLavoro(codiceLavoro)){
-			Lavoro l=item.getLavoro(codiceLavoro);
-			l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
+		if(item!=null){
+			if(item.hasLavoro(codiceLavoro)){
+				Lavoro l=item.getLavoro(codiceLavoro);
+				l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
+			}
 		}
 	}
 	
@@ -403,10 +406,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.soddisfaRichiesta(codiceRichiesta, m);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.soddisfaRichiesta(codiceRichiesta, m);
+				}
 			}
 		}
 	}
@@ -438,11 +443,13 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
-				l.liberaRichiesta(codiceRichiesta);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
+					l.liberaRichiesta(codiceRichiesta);
+				}
 			}
 		}
 	}
@@ -472,10 +479,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.liberaRichiesta(codiceRichiesta);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.liberaRichiesta(codiceRichiesta);
+				}
 			}
 		}
 	}
@@ -506,41 +515,42 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void rimuoviRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.eliminaRichiesta(codiceRichiesta);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.eliminaRichiesta(codiceRichiesta);
+				}
 			}
 		}
 	}
-	
+
 	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere, int codiceLavoro){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			ArrayList<Richiesta>temp=new ArrayList<Richiesta>();
-			for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
-				if(r.isSoddisfatta()){
-					temp.add(r);
+		if(can!=null) {
+			if(can.hasLavoro(codiceLavoro)){
+				for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
+					if(r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
 				}
 			}
-			if(temp.size()!=0){
-				return temp;
-			}
 		}
-		return null;
+		return totRichieste;
 	}
 	
 	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
-		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta r:l.getListaRichieste()){
-				if(r.isSoddisfatta()){
-					totRichieste.add(r);
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					if(r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
 				}
 			}
-		}
-		if(totRichieste.size()==0){
-			return null;
 		}
 		return totRichieste;
 	}
@@ -556,39 +566,35 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(totRichieste.size()==0){
-			return null;
+		return totRichieste;
+	}
+
+	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
+					if(!r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
+				}
+			}
 		}
 		return totRichieste;
 	}
 	
-	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
-		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			ArrayList<Richiesta>temp=new ArrayList<Richiesta>();
-			for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
-				if(!r.isSoddisfatta()){
-					temp.add(r);
-				}
-			}
-			if(temp.size()!=0){
-				return temp;
-			}
-		}
-		return null;
-	}
-	
 	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
-		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta r:l.getListaRichieste()){
-				if(!r.isSoddisfatta()){
-					totRichieste.add(r);
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					if(!r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
 				}
 			}
-		}
-		if(totRichieste.size()==0){
-			return null;
 		}
 		return totRichieste;
 	}
@@ -604,29 +610,28 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(totRichieste.size()==0){
-			return null;
-		}
 		return totRichieste;
 	}
 	
 	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere, int codiceLavoro){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			return can.getLavoro(codiceLavoro).getListaRichieste();
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				return can.getLavoro(codiceLavoro).getListaRichieste();
+			}
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
-		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta r:l.getListaRichieste()){
-				totRichieste.add(r);
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					totRichieste.add(r);
+				}
 			}
-		}
-		if(totRichieste.size()==0){
-			return null;
 		}
 		return totRichieste;
 	}
@@ -639,9 +644,6 @@ public class ModelCantiere extends DefaultTreeModel{
 					totRichieste.add(r);
 				}
 			}
-		}
-		if(totRichieste.size()==0){
-			return null;
 		}
 		return totRichieste;
 	}
