@@ -455,7 +455,7 @@ public class LavoroTest {
 	@Test
 	public void testWhereScoperto() {
 		Richiesta.initCodice();
-		assertEquals(lavoro.whereScoperto(),null);
+		assertTrue(lavoro.whereScoperto().isEmpty());
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, new Camion(3,"Yamaha","Camion",6,6,6));

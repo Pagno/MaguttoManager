@@ -249,7 +249,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		if(can!=null){
 			return can.getElencoLavori();
 		}
-		else return null;
+		else return new ArrayList<Lavoro>();
 	}
 	
 	public ArrayList<Lavoro> getListaLavori(){
@@ -259,23 +259,18 @@ public class ModelCantiere extends DefaultTreeModel{
 				totLavori.add(l);
 			}
 		}
-		if(totLavori.size()==0){
-			return null;
-		}
 		return totLavori;
 	}
 	
 	public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can==null)return null;
-		for(Lavoro l:can.getElencoLavori()){
-			if(l.isScoperto()){
-				temp.add(l);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				if(l.isScoperto()){
+					temp.add(l);
+				}
 			}
-		}
-		if(temp.size()==0){
-			return null;
 		}
 		return temp;
 	}
@@ -289,23 +284,18 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(temp.size()==0){
-			return null;
-		}
 		return temp;
 	}
 	
 	public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can==null)return null;
-		for(Lavoro l:can.getElencoLavori()){
-			if(!l.isScoperto()){
-				temp.add(l);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				if(!l.isScoperto()){
+					temp.add(l);
+				}
 			}
-		}
-		if(temp.size()==0){
-			return null;
 		}
 		return temp;
 	}
@@ -318,9 +308,6 @@ public class ModelCantiere extends DefaultTreeModel{
 					temp.add(l);
 				}
 			}
-		}
-		if(temp.size()==0){
-			return null;
 		}
 		return temp;
 	}
@@ -620,7 +607,7 @@ public class ModelCantiere extends DefaultTreeModel{
 				return can.getLavoro(codiceLavoro).getListaRichieste();
 			}
 		}
-		return null;
+		return new ArrayList<Richiesta>();
 	}
 
 	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){

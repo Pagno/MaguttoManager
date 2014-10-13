@@ -276,13 +276,13 @@ public class ModelCantiereTest {
 		assertEquals(list.size(),1);
 		assertTrue(list.contains(new Lavoro(5, "Svuotamento", mc.getCantiere(7),  new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20))));
 		list=mc.getListaLavori(99);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 	}
 	
 	@Test
 	public void testGetListaLavori(){
 		ArrayList<Lavoro>list=mc.getListaLavori();
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		mc.caricaLavoro(16, 22, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		mc.caricaLavoro(7, 5, "Svuotamento", new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20));
@@ -301,7 +301,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testGetListaScoperti(){
 		ArrayList<Lavoro>list=mc.getListaScoperti();
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		mc.caricaLavoro(16, 22, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		mc.caricaLavoro(7, 5, "Svuotamento", new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20));
@@ -313,7 +313,7 @@ public class ModelCantiereTest {
 		Lavoro l23=mc.getLavoro(23);
 		Lavoro l5=mc.getLavoro(5);
 		list=mc.getListaScoperti();
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		RichiestaCamion rc=new RichiestaCamion(5,10,5,10,5,10);
 		Richiesta.initCodice();
 		mc.aggiungiRichiesta(22, rc);
@@ -331,7 +331,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testGetListaScopertiCodiceCantiere(){
 		ArrayList<Lavoro>list=mc.getListaScoperti(16);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		mc.caricaLavoro(16, 22, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		mc.caricaLavoro(7, 5, "Svuotamento", new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20));
@@ -343,7 +343,7 @@ public class ModelCantiereTest {
 		Lavoro l23=mc.getLavoro(23);
 		Lavoro l5=mc.getLavoro(5);
 		list=mc.getListaScoperti(16);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		RichiestaCamion rc=new RichiestaCamion(5,10,5,10,5,10);
 		Richiesta.initCodice();
 		mc.aggiungiRichiesta(22, rc);
@@ -358,13 +358,13 @@ public class ModelCantiereTest {
 		assertEquals(list.size(),1);
 		assertTrue(list.contains(l5));
 		list=mc.getListaScoperti(99);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 	}
 	
 	@Test
 	public void testGetListaCoperti(){
 		ArrayList<Lavoro>list=mc.getListaCoperti();
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		mc.caricaLavoro(16, 22, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		mc.caricaLavoro(7, 5, "Svuotamento", new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20));
@@ -397,7 +397,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testGetListaCopertiCodiceCantiere(){
 		ArrayList<Lavoro>list=mc.getListaCoperti(16);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		mc.caricaLavoro(16, 22, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		mc.caricaLavoro(7, 5, "Svuotamento", new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20));
@@ -424,9 +424,9 @@ public class ModelCantiereTest {
 		assertTrue(list.contains(l23));
 		assertFalse(list.contains(l22));
 		list=mc.getListaCoperti(7);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 		list=mc.getListaCoperti(99);
-		assertEquals(list,null);
+		assertTrue(list.isEmpty());
 	}
 	
 	@Test
@@ -1585,7 +1585,7 @@ public class ModelCantiereTest {
 		assertTrue(test.contains(r3));
 		assertTrue(test.contains(r4));
 		assertEquals(test.size(),2);
-		mc.rimuoviCantiere(1);
+		mc.rimuoviRichiesta(1);
 		test=mc.getListaRichieste(16,22);
 		assertTrue(test.isEmpty());
 		test=mc.getListaRichieste(16,23);
@@ -1594,11 +1594,11 @@ public class ModelCantiereTest {
 		assertFalse(test.contains(r3));
 		assertFalse(test.contains(r4));
 		assertEquals(test.size(),1);
-		mc.rimuoviCantiere(2);
+		mc.rimuoviRichiesta(2);
 		test=mc.getListaRichieste(16,22);
 		assertTrue(test.isEmpty());
-		mc.rimuoviCantiere(3);
-		mc.rimuoviCantiere(4);
+		mc.rimuoviRichiesta(3);
+		mc.rimuoviRichiesta(4);
 		test=mc.getListaRichieste(7,5);
 		assertTrue(test.isEmpty());
 	}
@@ -1639,14 +1639,14 @@ public class ModelCantiereTest {
 		assertTrue(test.contains(r3));
 		assertTrue(test.contains(r4));
 		assertEquals(test.size(),2);
-		mc.rimuoviCantiere(1);
+		mc.rimuoviRichiesta(1);
 		test=mc.getListaRichieste(16);
 		assertFalse(test.contains(r1));
 		assertTrue(test.contains(r2));
 		assertFalse(test.contains(r3));
 		assertFalse(test.contains(r4));
 		assertEquals(test.size(),1);
-		mc.rimuoviCantiere(2);
+		mc.rimuoviRichiesta(2);
 		test=mc.getListaRichieste(16);
 		assertTrue(test.isEmpty());
 		test=mc.getListaRichieste(7);
@@ -1655,8 +1655,8 @@ public class ModelCantiereTest {
 		assertTrue(test.contains(r3));
 		assertTrue(test.contains(r4));
 		assertEquals(test.size(),2);
-		mc.rimuoviCantiere(3);
-		mc.rimuoviCantiere(4);
+		mc.rimuoviRichiesta(3);
+		mc.rimuoviRichiesta(4);
 		test=mc.getListaRichieste(7);
 		assertTrue(test.isEmpty());
 	}
