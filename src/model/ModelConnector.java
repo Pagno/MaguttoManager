@@ -937,4 +937,34 @@ public class ModelConnector extends Observable implements ModelInterface{
 	public ArrayList<Richiesta> getRichiesteScoperte(){
 		return lc.getListaInsoddisfatte();
 	}
+	
+	public Richiesta getRichiesta(int codiceRichiesta){
+		return lc.getRichiesta(codiceRichiesta);
+	}
+	
+	public Macchina getMacchina(int codice){
+		if(mc.isCamion(codice)){
+			return mc.getCamion(codice);
+		}
+		if(mr.isRuspa(codice)){
+			return mr.getRuspa(codice);
+		}
+		if(me.isEscavatore(codice)){
+			return me.getEscavatore(codice);
+		}
+		if(mg.isGru(codice)){
+			return mg.getGru(codice);
+		}
+		return null;
+	}
+	
+	//Metodi realizzati appositamente per il testing della classe.
+	public void ResetAllForTest(){
+		lc.svuotaCantieriForTest();
+		ModelCamion.resetForTest();
+		ModelRuspa.resetForTest();
+		ModelEscavatore.resetForTest();
+		ModelGru.resetForTest();
+		lc.svuotaCantieriForTest();
+	}
 }

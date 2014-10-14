@@ -254,5 +254,9 @@ public interface ModelInterface {
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta);
 
 	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro);
+	
+	public Richiesta getRichiesta(int codiceRichiesta);
+	
+	public Macchina getMacchina(int codice);
 
 }

@@ -59,7 +59,7 @@ public class ModelCantiereTest {
 		MainView mainView = new MainView();
 		new MainController(m,mainView);
 		mc=ModelCantiere.getModelCantiere();
-		mc.svuotaCantieri();
+		m.ResetAllForTest();
 		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
 		mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA);
 		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA);
@@ -88,7 +88,7 @@ public class ModelCantiereTest {
 		MainView mainView = new MainView();
 		new MainController(m,mainView);
 		mc=ModelCantiere.getModelCantiere();
-		mc.svuotaCantieri();
+		mc.svuotaCantieriForTest();
 		assertEquals(mc.getNextCodice(),1);
 		assertEquals(mc.getNextCodiceLavoro(),1);
 		assertTrue(mc.getListaCantieri().isEmpty());

@@ -73,7 +73,11 @@ public class GreedyEngine {
 				}
 			}
 		}
-		
+		//Rimuovere
+		for(Associazione a:associazioni){
+			System.out.println("R: " + a.getRichiesta().getCodice() + " M: " + a.getMacchina().getCodice() + " C: " + a.getConfermata());
+		}
+		//fine da rimuovere
 		return associazioni;
 	}
 	

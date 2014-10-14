@@ -7,26 +7,164 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 
+import model.ModelConnector;
+import model.organizer.ModelCamion;
+import model.organizer.ModelCantiere;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Priority;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
+import model.organizer.data.RichiestaEscavatore;
+import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaRuspa;
 import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
+import view.MainView;
+import controller.MainController;
 import controller.data.Associazione;
 import controller.data.Prenotazione;
+import database.Database;
 
 public class GreedyEngineTest {
 
 	@Test
 	public void testGenerateAssociations() {
-		//TODO
-		fail("Not yet implemented");
+		Database db=Database.getDatabase();
+		ModelConnector m=ModelConnector.getModelConnector(db);
+		MainView mainView = new MainView();
+		new MainController(m,mainView);
+		m.ResetAllForTest();
+		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.BASSA);//Cantiere 1
+		m.insertLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1
+		
+		//Richiesta coperta
+		
+		m.addRichiesta(1, 1, new RichiestaCamion(5,10,5,10,5,10));//Richiesta 1
+		m.aggiungiCamion("Yamaha", "Camion", 7, 7, 7);//Macchina 1
+		m.soddisfaRichiesta(1, 1);
+		
+		//Richiesta scoperta ma senza macchine per soddisfarla
+		
+		m.addRichiesta(1, 1, new RichiestaEscavatore(100,200,100,200,100,200,100,200));//Richiesta 2
+		
+		//Richiesta scoperta ma senza macchine libere per soddisfarla
+		
+		m.addRichiesta(1, 1, new RichiestaCamion(6,8,6,8,6,8));//Richiesta 3
+		
+		//Due richieste si contendono una macchina, solo la più prioritaria la prende
+		
+		m.aggiungiCantiere("Pedemontana","Monza",new GregorianCalendar(2014,4,3),new GregorianCalendar(2016,10,19),Priority.MEDIA);//Cantiere 2
+		m.insertLavoro("Scavo", new GregorianCalendar(2014,2,3),new GregorianCalendar(2014,7,7), 2);//Lavoro 2
+		m.addRichiesta(2, 2, new RichiestaRuspa(10, 20, 10, 20, 10, 20));//Richiesta 4
+		m.addRichiesta(1, 1, new RichiestaRuspa(12, 22, 12, 22, 12, 22));//Richiesta 5
+		m.aggiungiRuspa("Yamaha", "Ruspa", 15, 15, 15);//Macchina 2
+		
+		//Richieste di diversi cantieri con lavoro in stesso periodo e richiesta su stessa macchina, 
+		//solo quello che ha prenotazione su macchina la prende, l’altra no
+		
+		m.addRichiesta(2,2,new RichiestaGru(8,18,8,18,8,18,8,18));//Richiesta 6
+		m.addRichiesta(1,1,new RichiestaGru(7,17,7,17,7,17,7,17));//Richiesta 7
+		m.insertLavoro("Svuotamento", new GregorianCalendar(2014,03,24), new GregorianCalendar(2014,05,24), 1);//Lavoro 3
+		m.addRichiesta(1,3,new RichiestaGru(9,19,9,19,9,19,9,19));//Richiesta 8
+		m.aggiungiGru("Yamaha", "Gru", 10, 10, 10, 10);//Macchina 3
+		m.soddisfaRichiesta(8, 3);
+		
+		//Tre richieste (priorità alta,media,bassa) soddisfatte da tre macchine, la prima non ha prenotazioni, 
+		//la seconda prenota la seconda macchina e la terza prenota la prima e la terza, 
+		//verificare che la prima richiesta prende la terza macchina, la seconda prende la seconda macchina 
+		//e la terza prende la prima macchina
+		
+		m.aggiungiCantiere("Aeroporto Bergamo","Orio al Serio",new GregorianCalendar(2014,1,1),new GregorianCalendar(2020,10,10),Priority.ALTA);//Cantiere 3
+		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 1);//Lavoro 4
+		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 2);//Lavoro 5
+		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 3);//Lavoro 6
+		m.addRichiesta(1,4,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 9 Bassa
+		m.addRichiesta(2,5,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 10 Media
+		m.addRichiesta(3,6,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 11 Alta
+		m.insertLavoro("Asfalto", new GregorianCalendar(2014,7,5), new GregorianCalendar(2014,9,1), 2);//Lavoro 7
+		m.insertLavoro("Asfalto", new GregorianCalendar(2014,7,5), new GregorianCalendar(2014,9,1), 1);//Lavoro 8
+		m.addRichiesta(2,7,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 12 Media
+		m.addRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 13 Bassa
+		m.addRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 14 Bassa
+		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 4
+		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 5
+		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 6
+		m.soddisfaRichiesta(12, 5);
+		m.soddisfaRichiesta(13, 4);
+		m.soddisfaRichiesta(14, 6);
+		
+		//Camion, escavatore, gru, ruspa
+		
+		m.addRichiesta(1,1,new RichiestaCamion(1,2,1,2,1,2));//Richiesta 15
+		m.addRichiesta(1,1,new RichiestaGru(1,2,1,2,1,2,1,2));//Richiesta 16
+		m.addRichiesta(1,1,new RichiestaRuspa(1,2,1,2,1,2));//Richiesta 17
+		m.addRichiesta(1,1,new RichiestaEscavatore(1,2,1,2,1,2,1,2));//Richiesta 18
+		m.aggiungiCamion("Yamaha", "Camioncino", 2, 2, 2);//Macchina 7
+		m.aggiungiGru("Yamaha", "Gru piccola", 2, 2, 2, 2);//Macchina 8
+		m.aggiungiRuspa("Yamaha", "Ruspetta", 2, 2, 2);//Macchina 9
+		m.aggiungiEscavatore("Yamaha", "Escavatore piccolo", 2, 2, 2, 2);//Macchina 10
+		
+		//Esecuzione metodo
+
+		ArrayList<Associazione>test=GreedyEngine.generateAssociations(m);
+		
+		//Associazioni che devono esser generate per questo caso di test
+		
+		Associazione asso1=new Associazione(m.getRichiesta(4),m.getMacchina(2));
+		Associazione asso2=new Associazione(m.getRichiesta(7),m.getMacchina(3));
+		Associazione asso3=new Associazione(m.getRichiesta(11),m.getMacchina(6));
+		Associazione asso4=new Associazione(m.getRichiesta(10),m.getMacchina(5));
+		Associazione asso5=new Associazione(m.getRichiesta(9),m.getMacchina(4));
+		Associazione asso6=new Associazione(m.getRichiesta(15),m.getMacchina(7));
+		Associazione asso7=new Associazione(m.getRichiesta(16),m.getMacchina(8));
+		Associazione asso8=new Associazione(m.getRichiesta(17),m.getMacchina(9));
+		Associazione asso9=new Associazione(m.getRichiesta(18),m.getMacchina(10));
+		asso1.setConfermata(true);
+		asso2.setConfermata(true);
+		asso3.setConfermata(true);
+		asso4.setConfermata(true);
+		asso5.setConfermata(true);
+		asso6.setConfermata(true);
+		asso7.setConfermata(true);
+		asso8.setConfermata(true);
+		asso9.setConfermata(true);
+		
+		//Controllo
+
+		assertEquals(test.size(),9);
+		assertTrue(test.contains(asso1));
+		assertTrue(test.contains(asso2));
+		assertTrue(test.contains(asso3));
+		assertTrue(test.contains(asso4));
+		assertTrue(test.contains(asso5));
+		assertTrue(test.contains(asso6));
+		assertTrue(test.contains(asso7));
+		assertTrue(test.contains(asso8));
+		assertTrue(test.contains(asso9));
+		
+		//provo a concretizzare alcune delle selezioni, e rilancio l'algoritmo
+		for(Associazione a:test){
+			if((a.getRichiesta().getCodice()%2)!=0){
+				a.concretizza();
+			}
+		}
+		
+		test=GreedyEngine.generateAssociations(m);
+		
+		assertEquals(test.size(),4);
+		assertTrue(test.contains(asso1));
+		assertFalse(test.contains(asso2));
+		assertFalse(test.contains(asso3));
+		assertTrue(test.contains(asso4));
+		assertFalse(test.contains(asso5));
+		assertFalse(test.contains(asso6));
+		assertTrue(test.contains(asso7));
+		assertFalse(test.contains(asso8));
+		assertTrue(test.contains(asso9));
 	}
 
 	@Test

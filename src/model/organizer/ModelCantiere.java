@@ -659,7 +659,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
-	public void svuotaCantieri(){
+	public void svuotaCantieriForTest(){
 		codice=0;
 		codiceLavoro=0;
 		Richiesta.initCodice();

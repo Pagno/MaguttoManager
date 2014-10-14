@@ -188,7 +188,7 @@ public class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	static void resetForTest(){
+	public static void resetForTest(){
 		if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;
