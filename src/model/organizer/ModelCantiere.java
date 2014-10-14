@@ -3,35 +3,31 @@ package model.organizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Observable;
+
 import java.util.Observer;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import org.apache.derby.impl.sql.compile.InsertNode;
 
 import view.lavoro.addNode;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
-import model.organizer.data.RichiestaCamion;
-import model.organizer.data.RichiestaEscavatore;
-import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
-import model.organizer.data.RichiestaRuspa;
 
 
 
 
 public class ModelCantiere extends DefaultTreeModel{
 
+	//TODO lavoroObserver e RichiestaObserver servono ancora? li ho commentati e non mi risultano errori in altre classi
+	//TODO anche per addRichiestaObserver vale la stessa cosa
 	
 	private ArrayList<Cantiere> listaCantieri;
-	private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
-	private ArrayList<Observer> richiestaObserver=new ArrayList<Observer>();
+	/*private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
+	private ArrayList<Observer> richiestaObserver=new ArrayList<Observer>();*/
 	
 	private int codice;
 
@@ -63,7 +59,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
 
-		/*REMOVE COMMENT
+		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
@@ -72,7 +68,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
-		REMOVE COMMENT*/
+		
 		//Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
@@ -83,7 +79,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
 		
-		/*REMOVE COMMENT
+		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
@@ -91,7 +87,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
-		REMOVE COMMENT*/
+		
 	}
 
 
@@ -103,14 +99,14 @@ public class ModelCantiere extends DefaultTreeModel{
 				item.setDataApertura(dataApertura);
 				item.setDataChiusura(dataChiusura);
 				item.setPriorita(priorita);
-				/*REMOVE COMMENT
+				
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 				//setChanged();
 				//notifyObservers(v1);
 				observer.update(null, v1);//notifyObservers(v1);
-				REMOVE COMMENT */
+				
 			}
 		}
 	}
@@ -320,9 +316,9 @@ public class ModelCantiere extends DefaultTreeModel{
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
 
 
-	public void addRichiestaObserver(Observer observer) {
+	/*public void addRichiestaObserver(Observer observer) {
 		richiestaObserver.add(observer);
-	}	
+	}	*/
 	
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
@@ -663,7 +659,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
-
+	public void svuotaCantieri(){
+		codice=0;
+		codiceLavoro=0;
+		Richiesta.initCodice();
+		listaCantieri.clear();
+	}
 
 
 

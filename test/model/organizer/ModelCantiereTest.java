@@ -17,6 +17,10 @@ import java.util.GregorianCalendar;
 
 
 
+import java.util.Observable;
+import java.util.Observer;
+
+import model.ModelConnector;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
@@ -32,6 +36,11 @@ import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
+import controller.MainController;
+import database.Database;
+import view.MainView;
+import view.MyTableModel;
+
 // 
 /**
  *   Class ModelCantiereTest.
@@ -45,11 +54,16 @@ public class ModelCantiereTest {
 	 * Instantiates a new model cantiere test.
 	 */
 	public ModelCantiereTest(){
-		ModelCantiere.resetForTest();
+		Database db=Database.getDatabase();
+		ModelConnector m=ModelConnector.getModelConnector(db);
+		MainView mainView = new MainView();
+		new MainController(m,mainView);
 		mc=ModelCantiere.getModelCantiere();
+		mc.svuotaCantieri();
 		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
 		mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA);
 		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA);
+		
 		
 	}
 	
@@ -69,7 +83,15 @@ public class ModelCantiereTest {
 		ModelCantiere.resetForTest();
 		mc=ModelCantiere.getModelCantiere();
 		assertEquals(mc.getNextCodice(),1);
-		
+		Database db=Database.getDatabase();
+		ModelConnector m=ModelConnector.getModelConnector(db);
+		MainView mainView = new MainView();
+		new MainController(m,mainView);
+		mc=ModelCantiere.getModelCantiere();
+		mc.svuotaCantieri();
+		assertEquals(mc.getNextCodice(),1);
+		assertEquals(mc.getNextCodiceLavoro(),1);
+		assertTrue(mc.getListaCantieri().isEmpty());
 	}
 
 	/**
