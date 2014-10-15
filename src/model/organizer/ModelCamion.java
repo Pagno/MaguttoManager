@@ -183,7 +183,7 @@ public class ModelCamion extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	static void resetForTest(){
+	public static void resetForTest(){
 		if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;
@@ -193,7 +193,7 @@ public class ModelCamion extends ModelMacchina{
 	/**
 	 * Add Camion for Test.
 	 */
-	void addCamion(Camion camion){
+	void addCamionForTest(Camion camion){
 		listaCamion.add(camion);
 	}
 	

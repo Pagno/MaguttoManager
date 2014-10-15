@@ -1,5 +1,6 @@
 package model.organizer.data;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
 
@@ -7,7 +8,7 @@ import java.util.TreeSet;
 /**
  *   Class Macchina.
  */
-public abstract class Macchina {
+public abstract class Macchina{
 	
 	/**   modello. 		*/
 	private String modello;
@@ -99,6 +100,15 @@ public abstract class Macchina {
 		elencoRichiesta.add(r);
 	}
 	
+	public Richiesta getRichiesta(int codiceRichiesta){
+		for(Richiesta item:elencoRichiesta){
+			if(item.getCodice()==codiceRichiesta){
+				return item;
+			}
+		}
+		return null;
+	}
+	
 	public void removeRichiesta(Richiesta r){
 		elencoRichiesta.remove(r);
 	}
@@ -113,8 +123,12 @@ public abstract class Macchina {
 	}
 	
 	public void liberaRichieste(){
+		ArrayList<Richiesta>list=new ArrayList<Richiesta>();
 		for(Richiesta richiesta:elencoRichiesta){
-			richiesta.setMacchina(null);
+			list.add(richiesta);
+		}
+		for(Richiesta item:list){
+			item.setMacchina(null);
 		}
 	}
 }

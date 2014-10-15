@@ -95,7 +95,11 @@ public class CantiereTest {
 	@Test
 	public void testToString(){
 		//GregorianCalendar parte da 00
-		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Prioritï¿½ Media" );
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Media" );
+		c.setPriorita(Priority.ALTA);
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Alta" );
+		c.setPriorita(Priority.BASSA);
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Bassa" );
 	}
 	
 	@Test
@@ -110,6 +114,35 @@ public class CantiereTest {
 		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
 		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31),Priority.MEDIA)));
 		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.BASSA)));
+		Cantiere test=new Cantiere(11,"Ponte sullo stretto","Messina",null,new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		Cantiere test2=new Cantiere(11,"Ponte sullo stretto","Messina",null,new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		assertFalse(test.equals(c));
+		assertTrue(test.equals(test2));
+		assertFalse(c.equals(test));
+		test=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),null,Priority.MEDIA);
+		test2.setDataApertura(new GregorianCalendar(2060,1,1));
+		test2.setDataChiusura(null);
+		assertFalse(test.equals(c));
+		assertTrue(test.equals(test2));
+		assertFalse(c.equals(test));
+		test=new Cantiere(11,"Ponte sullo stretto",null,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		test2.setDataChiusura(new GregorianCalendar(2090,11,31));
+		test2.setIndirizzo(null);
+		assertFalse(test.equals(c));
+		assertTrue(test.equals(test2));
+		assertFalse(c.equals(test));
+		test=new Cantiere(11,null,"Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		test2.setIndirizzo("Messina");
+		test2.setNomeCantiere(null);
+		assertFalse(test.equals(c));
+		assertTrue(test.equals(test2));
+		assertFalse(c.equals(test));
+		test.addLavoro(new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31)));
+		assertFalse(test.equals(test2));
+		assertFalse(test2.equals(test));
+		test2.addLavoro(new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31)));
+		assertTrue(test.equals(test2));
+		assertTrue(test2.equals(test));
 	}
 	
 	@Test
@@ -146,10 +179,125 @@ public class CantiereTest {
 		assertTrue(lista.contains(l1));
 		assertTrue(lista.contains(l2));
 		assertTrue(lista.contains(l3));
-		c.rimuoviLavoro(2);
+		assertFalse(c.rimuoviLavoro(99));
+		assertEquals(lista.size(),3);
+		assertTrue(lista.contains(l1));
+		assertTrue(lista.contains(l2));
+		assertTrue(lista.contains(l3));
+		assertTrue(c.rimuoviLavoro(2));
 		assertEquals(lista.size(),2);
 		assertTrue(lista.contains(l1));
 		assertFalse(lista.contains(l2));
 		assertTrue(lista.contains(l3));
+	}
+	
+	@Test
+	public void testSvuotaLavori(){
+		ArrayList<Lavoro>lista=c.getElencoLavori();
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
+		c.svuotaLavori();
+		lista=c.getElencoLavori();
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
+		Lavoro l1=new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c.addLavoro(l1);
+		Lavoro l2=new Lavoro(2,"Costruzione",c,new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		c.addLavoro(l2);
+		Lavoro l3=new Lavoro(3,"Gettata",c,new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
+		c.addLavoro(l3);
+		lista=c.getElencoLavori();
+		assertEquals(lista.size(),3);
+		assertTrue(lista.contains(l1));
+		assertTrue(lista.contains(l2));
+		assertTrue(lista.contains(l3));
+		c.svuotaLavori();
+		lista=c.getElencoLavori();
+		assertTrue(lista.isEmpty());
+	}
+	
+	@Test
+	public void testHasLavoro(){
+		ArrayList<Lavoro>lista=c.getElencoLavori();
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
+		Lavoro l1=new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c.addLavoro(l1);
+		Lavoro l2=new Lavoro(2,"Costruzione",c,new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		c.addLavoro(l2);
+		Lavoro l3=new Lavoro(3,"Gettata",c,new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
+		c.addLavoro(l3);
+		lista=c.getElencoLavori();
+		assertEquals(lista.size(),3);
+		assertTrue(lista.contains(l1));
+		assertTrue(lista.contains(l2));
+		assertTrue(lista.contains(l3));
+		assertTrue(c.hasLavoro(1));
+		assertTrue(c.hasLavoro(2));
+		assertTrue(c.hasLavoro(3));
+		assertFalse(c.hasLavoro(99));
+		assertTrue(c.rimuoviLavoro(2));
+		assertTrue(c.hasLavoro(1));
+		assertFalse(c.hasLavoro(2));
+		assertTrue(c.hasLavoro(3));
+		assertFalse(c.hasLavoro(99));
+		
+	}
+	
+	@Test
+	public void testGetLavoro(){
+		ArrayList<Lavoro>lista=c.getElencoLavori();
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
+		Lavoro l1=new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c.addLavoro(l1);
+		Lavoro l2=new Lavoro(2,"Costruzione",c,new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		c.addLavoro(l2);
+		Lavoro l3=new Lavoro(3,"Gettata",c,new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
+		c.addLavoro(l3);
+		lista=c.getElencoLavori();
+		assertEquals(lista.size(),3);
+		assertTrue(lista.contains(l1));
+		assertTrue(lista.contains(l2));
+		assertTrue(lista.contains(l3));
+		Lavoro test=c.getLavoro(2);
+		assertEquals(l2,test);
+		test=c.getLavoro(3);
+		assertEquals(l3,test);
+		test=c.getLavoro(99);
+		assertEquals(null,test);
+		test=c.getLavoro(1);
+		assertEquals(l1,test);
+	}
+	
+	@Test
+	public void testIsScoperto(){
+		Richiesta.initCodice();
+		ArrayList<Lavoro>lista=c.getElencoLavori();
+		assertTrue(lista.equals(new ArrayList<Lavoro>()));
+		assertEquals(lista.size(),0);
+		Lavoro l1=new Lavoro(1,"Scavo",c,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31));
+		c.addLavoro(l1);
+		Lavoro l2=new Lavoro(2,"Costruzione",c,new GregorianCalendar(2062,1,1),new GregorianCalendar(2088,11,31));
+		c.addLavoro(l2);
+		Lavoro l3=new Lavoro(3,"Gettata",c,new GregorianCalendar(2064,1,1),new GregorianCalendar(2070,11,31));
+		c.addLavoro(l3);
+		assertFalse(c.isScoperto());
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		l2.inserisciRichiesta(rc);
+		assertTrue(c.isScoperto());
+		l2.soddisfaRichiesta(1, new Camion(1,"Yamaha","Camion",7,7,7));
+		assertFalse(c.isScoperto());
+		l3.inserisciRichiesta(rc);
+		assertTrue(c.isScoperto());
+	}
+	
+	@Test
+	public void testGetPrioritaString(){
+		assertEquals(c.getPrioritaString(),"MEDIA");
+		c.setPriorita(Priority.ALTA);
+		assertEquals(c.getPrioritaString(),"ALTA");
+		c.setPriorita(Priority.BASSA);
+		assertEquals(c.getPrioritaString(),"BASSA");
 	}
 }

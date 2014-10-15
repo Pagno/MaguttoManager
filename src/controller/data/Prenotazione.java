@@ -13,7 +13,7 @@ public class Prenotazione {
 	}
 
 	private Associazione associazione;
-	private Integer durataLavoro;
+	private int durataLavoro;
 	
 	public Prenotazione(Associazione associazione,Integer durataLavoro){
 		this.associazione=associazione;
@@ -28,7 +28,7 @@ public class Prenotazione {
 		this.associazione = associazione;
 	}
 
-	public Integer getDurataLavoro() {
+	public int getDurataLavoro() {
 		return durataLavoro;
 	}
 

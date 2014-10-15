@@ -58,5 +58,31 @@ public class Associazione {
 	public GregorianCalendar getDataFine(){
 		return ric.getDataFine();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Associazione other = (Associazione) obj;
+		if (confermata != other.confermata)
+			return false;
+		if (mac == null) {
+			if (other.mac != null)
+				return false;
+		} else if (!mac.equals(other.mac))
+			return false;
+		if (ric == null) {
+			if (other.ric != null)
+				return false;
+		} else if (!ric.equals(other.ric))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

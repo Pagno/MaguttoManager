@@ -3,35 +3,31 @@ package model.organizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Observable;
+
 import java.util.Observer;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import org.apache.derby.impl.sql.compile.InsertNode;
 
 import view.lavoro.addNode;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
-import model.organizer.data.RichiestaCamion;
-import model.organizer.data.RichiestaEscavatore;
-import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
-import model.organizer.data.RichiestaRuspa;
 
 
 
 
 public class ModelCantiere extends DefaultTreeModel{
 
+	//TODO lavoroObserver e RichiestaObserver servono ancora? li ho commentati e non mi risultano errori in altre classi
+	//TODO anche per addRichiestaObserver vale la stessa cosa
 	
 	private ArrayList<Cantiere> listaCantieri;
-	private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
-	private ArrayList<Observer> richiestaObserver=new ArrayList<Observer>();
+	/*private ArrayList<Observer> lavoroObserver=new ArrayList<Observer>();
+	private ArrayList<Observer> richiestaObserver=new ArrayList<Observer>();*/
 	
 	private int codice;
 
@@ -63,6 +59,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
 
+		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
@@ -71,6 +68,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
+		
 		//Lavoro lav=(Lavoro) c.getFirstChild();
 	}
 
@@ -81,6 +79,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
 		
+		
 		SimpleDateFormat df = new SimpleDateFormat();
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
@@ -88,6 +87,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		observer.update(null, v1);//notifyObservers(v1);
 		addNode add=new addNode("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
+		
 	}
 
 
@@ -99,12 +99,14 @@ public class ModelCantiere extends DefaultTreeModel{
 				item.setDataApertura(dataApertura);
 				item.setDataChiusura(dataChiusura);
 				item.setPriorita(priorita);
+				
 				SimpleDateFormat df = new SimpleDateFormat();
 			    df.applyPattern("dd/MM/yyyy");
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 				//setChanged();
 				//notifyObservers(v1);
 				observer.update(null, v1);//notifyObservers(v1);
+				
 			}
 		}
 	}
@@ -168,7 +170,6 @@ public class ModelCantiere extends DefaultTreeModel{
 	//aggiungo nuovi lavori
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
-		System.out.println("codiceCantiere: "+codiceCantiere);
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		
 
@@ -197,9 +198,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		addNode add=new addNode("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
 	}
+	
 	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
-		cantiere.rimuoviLavoro(codiceLavoro);
+		if(cantiere!=null){
+			cantiere.rimuoviLavoro(codiceLavoro);
+		}
 	}
 	
 	public boolean rimuoviLavoro(int codiceLavoro){
@@ -226,17 +230,22 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro lav=can.getLavoro(codiceLavoro);
-			lav.setNome(nome);
-			lav.setDataInizio(dataInizio);
-			lav.setDataFine(dataFine);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro lav=can.getLavoro(codiceLavoro);
+				lav.setNome(nome);
+				lav.setDataInizio(dataInizio);
+				lav.setDataFine(dataFine);
+			}
 		}
 	}
 	
 	public ArrayList<Lavoro> getListaLavori(int codiceCantiere){
 		Cantiere can=getCantiere(codiceCantiere);
-		return can.getElencoLavori();
+		if(can!=null){
+			return can.getElencoLavori();
+		}
+		else return new ArrayList<Lavoro>();
 	}
 	
 	public ArrayList<Lavoro> getListaLavori(){
@@ -246,22 +255,18 @@ public class ModelCantiere extends DefaultTreeModel{
 				totLavori.add(l);
 			}
 		}
-		if(totLavori.size()==0){
-			return null;
-		}
 		return totLavori;
 	}
 	
 	public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
-		for(Lavoro l:can.getElencoLavori()){
-			if(l.isScoperto()){
-				temp.add(l);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				if(l.isScoperto()){
+					temp.add(l);
+				}
 			}
-		}
-		if(temp.size()==0){
-			return null;
 		}
 		return temp;
 	}
@@ -275,22 +280,18 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(temp.size()==0){
-			return null;
-		}
 		return temp;
 	}
 	
 	public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
-		for(Lavoro l:can.getElencoLavori()){
-			if(!l.isScoperto()){
-				temp.add(l);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				if(!l.isScoperto()){
+					temp.add(l);
+				}
 			}
-		}
-		if(temp.size()==0){
-			return null;
 		}
 		return temp;
 	}
@@ -304,18 +305,21 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(temp.size()==0){
-			return null;
-		}
 		return temp;
+	}
+	
+	int getNextCodiceLavoro(){
+		int code=this.codiceLavoro+1;
+		return code;
 	}
 	
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
 
 
-	public void addRichiestaObserver(Observer observer) {
+	/*public void addRichiestaObserver(Observer observer) {
 		richiestaObserver.add(observer);
-	}	
+	}	*/
+	
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -327,17 +331,18 @@ public class ModelCantiere extends DefaultTreeModel{
 		return null;
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
 	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
-		System.out.print("CodiceLavoro: "+codiceLavoro);
-		if(item.hasLavoro(codiceLavoro)){
-			Lavoro l=item.getLavoro(codiceLavoro);
-			l.inserisciRichiesta(caratteristiche);
+		if(item!=null){
+			if(item.hasLavoro(codiceLavoro)){
+				Lavoro l=item.getLavoro(codiceLavoro);
+				l.inserisciRichiesta(caratteristiche);
+			}
 		}
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
+	//Aggiunge una nuova richiesta, che quindi non è soddisfatta
 	public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
@@ -351,9 +356,11 @@ public class ModelCantiere extends DefaultTreeModel{
 	//Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
 	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
 		Cantiere item=getCantiere(codiceCantiere);
-		if(item.hasLavoro(codiceLavoro)){
-			Lavoro l=item.getLavoro(codiceLavoro);
-			l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
+		if(item!=null){
+			if(item.hasLavoro(codiceLavoro)){
+				Lavoro l=item.getLavoro(codiceLavoro);
+				l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
+			}
 		}
 	}
 	
@@ -382,10 +389,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.soddisfaRichiesta(codiceRichiesta, m);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.soddisfaRichiesta(codiceRichiesta, m);
+				}
 			}
 		}
 	}
@@ -417,11 +426,13 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
-				l.liberaRichiesta(codiceRichiesta);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.getRichiesta(codiceRichiesta).setCaratteristiche(caratteristiche);
+					l.liberaRichiesta(codiceRichiesta);
+				}
 			}
 		}
 	}
@@ -451,10 +462,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.liberaRichiesta(codiceRichiesta);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.liberaRichiesta(codiceRichiesta);
+				}
 			}
 		}
 	}
@@ -485,41 +498,42 @@ public class ModelCantiere extends DefaultTreeModel{
 	
 	public void rimuoviRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			Lavoro l=getLavoro(codiceLavoro);
-			if(l.hasRichiesta(codiceRichiesta)){
-				l.eliminaRichiesta(codiceRichiesta);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				Lavoro l=getLavoro(codiceLavoro);
+				if(l.hasRichiesta(codiceRichiesta)){
+					l.eliminaRichiesta(codiceRichiesta);
+				}
 			}
 		}
 	}
-	
+
 	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere, int codiceLavoro){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			ArrayList<Richiesta>temp=new ArrayList<Richiesta>();
-			for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
-				if(r.isSoddisfatta()){
-					temp.add(r);
+		if(can!=null) {
+			if(can.hasLavoro(codiceLavoro)){
+				for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
+					if(r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
 				}
 			}
-			if(temp.size()!=0){
-				return temp;
-			}
 		}
-		return null;
+		return totRichieste;
 	}
 	
 	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
-		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta r:l.getListaRichieste()){
-				if(r.isSoddisfatta()){
-					totRichieste.add(r);
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					if(r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
 				}
 			}
-		}
-		if(totRichieste.size()==0){
-			return null;
 		}
 		return totRichieste;
 	}
@@ -535,39 +549,35 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(totRichieste.size()==0){
-			return null;
+		return totRichieste;
+	}
+
+	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
+					if(!r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
+				}
+			}
 		}
 		return totRichieste;
 	}
 	
-	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
-		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			ArrayList<Richiesta>temp=new ArrayList<Richiesta>();
-			for(Richiesta r:can.getLavoro(codiceLavoro).getListaRichieste()){
-				if(!r.isSoddisfatta()){
-					temp.add(r);
-				}
-			}
-			if(temp.size()!=0){
-				return temp;
-			}
-		}
-		return null;
-	}
-	
 	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
-		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta r:l.getListaRichieste()){
-				if(!r.isSoddisfatta()){
-					totRichieste.add(r);
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					if(!r.isSoddisfatta()){
+						totRichieste.add(r);
+					}
 				}
 			}
-		}
-		if(totRichieste.size()==0){
-			return null;
 		}
 		return totRichieste;
 	}
@@ -583,29 +593,28 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(totRichieste.size()==0){
-			return null;
-		}
 		return totRichieste;
 	}
 	
 	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere, int codiceLavoro){
 		Cantiere can=getCantiere(codiceCantiere);
-		if(can.hasLavoro(codiceLavoro)){
-			return can.getLavoro(codiceLavoro).getListaRichieste();
-		}
-		return null;
-	}
-	
-	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
-		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
-		for(Lavoro l:getCantiere(codiceCantiere).getElencoLavori()){
-			for(Richiesta r:l.getListaRichieste()){
-				totRichieste.add(r);
+		if(can!=null){
+			if(can.hasLavoro(codiceLavoro)){
+				return can.getLavoro(codiceLavoro).getListaRichieste();
 			}
 		}
-		if(totRichieste.size()==0){
-			return null;
+		return new ArrayList<Richiesta>();
+	}
+
+	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
+		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
+		Cantiere can=getCantiere(codiceCantiere);
+		if(can!=null){
+			for(Lavoro l:can.getElencoLavori()){
+				for(Richiesta r:l.getListaRichieste()){
+					totRichieste.add(r);
+				}
+			}
 		}
 		return totRichieste;
 	}
@@ -619,9 +628,6 @@ public class ModelCantiere extends DefaultTreeModel{
 				}
 			}
 		}
-		if(totRichieste.size()==0){
-			return null;
-		}
 		return totRichieste;
 	}
 //OPERAZIONI GENERICHE---------------------------------------------------------------------------------------------------------------
@@ -634,6 +640,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return tmp;
 	}
 
+	Observer observer;
+	public void addObserver(Observer ob) {
+		this.observer=ob;
+	}
+	
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	
@@ -648,9 +659,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
-	Observer observer;
-	public void addObserver(Observer ob) {
-		this.observer=ob;
+	public void svuotaCantieriForTest(){
+		codice=0;
+		codiceLavoro=0;
+		Richiesta.initCodice();
+		listaCantieri.clear();
 	}
 
 

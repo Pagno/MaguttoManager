@@ -150,7 +150,7 @@ public class ModelCamionTest {
 		Camion b=new Camion(7, "Iveco", "Daily", 12,12, 13);
 		Camion c=new Camion(9, "Volkswagen", "Crafter", 1680, 1000, 1);
 		ArrayList<Camion> listaCamion=new ArrayList<Camion>(Arrays.asList(a,c));
-		mc.addCamion(a);mc.addCamion(b);mc.addCamion(c);
+		mc.addCamionForTest(a);mc.addCamionForTest(b);mc.addCamionForTest(c);
 		
 		
 		Cantiere cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);

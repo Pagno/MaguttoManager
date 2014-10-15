@@ -33,6 +33,27 @@ public class AssociazioneTest {
 	}
 
 	@Test
+	public void testAssociazione(){
+		
+		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
+				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
+		cantiere.addLavoro(lavoro);
+		
+		assertEquals(a.getRichiesta(),richiesta);
+		assertEquals(a.getMacchina(),macchina);
+		assertFalse(a.getConfermata());
+		a.setConfermata(true);
+		assertTrue(a.getConfermata());
+		Richiesta r2=new Richiesta(new RichiestaRuspa( 5, 10, 5, 10, 5, 10), lavoro);
+		Ruspa m2=new Ruspa(105, "Yamaha", "Ruspa", 8, 8, 8);
+		a=new Associazione(r2, m2);
+		assertEquals(a.getRichiesta(),r2);
+		assertEquals(a.getMacchina(),m2);
+		assertFalse(a.getConfermata());
+	}
+	
+	@Test
 	public void testGetRichiesta() {
 		assertEquals(a.getRichiesta(),richiesta);
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
@@ -96,7 +117,16 @@ public class AssociazioneTest {
 		a.concretizza();
 		assertTrue(richiesta.isSoddisfatta());
 		assertEquals(a.getRichiesta().getMacchina(), macchina);
-		
+		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
+				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
+		cantiere.addLavoro(lavoro);
+		Richiesta r2=new Richiesta(new RichiestaRuspa( 5, 10, 5, 10, 5, 10), lavoro);
+		Ruspa m2=new Ruspa(105, "Yamaha", "Ruspa", 40, 40, 40);
+		Associazione b=new Associazione(r2, m2);
+		b.concretizza();
+		assertFalse(r2.isSoddisfatta());
+		assertEquals(b.getRichiesta().getMacchina(), null);
 	}
 
 	@Test

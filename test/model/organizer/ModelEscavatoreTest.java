@@ -3,9 +3,14 @@ package model.organizer;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
+import java.util.GregorianCalendar;
 
 import model.organizer.data.Escavatore;
+import model.organizer.data.Gru;
+import model.organizer.data.Lavoro;
+import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaEscavatore;
+import model.organizer.data.RichiestaGru;
 
 import org.junit.Test;
 
@@ -27,6 +32,7 @@ public class ModelEscavatoreTest {
 		mr.caricaEscavatore(5,"Liebherr","R9250",16,32,4,3);
 		mr.caricaEscavatore(6, "Hyundai", "R55-9", 9,15, 5,3);
 		mr.caricaEscavatore(9, "Hyndai", "R260LC-9A", 25,50, 5, 4);
+		
 	}
 	
 	/**
@@ -134,6 +140,37 @@ public class ModelEscavatoreTest {
 		String str= a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
 		assertEquals(mr.toString(),str);
 		
+	}
+	
+	@Test
+	public void testGetDisponibili() {
+		//capacita, portata, altezza, profondita);
+				//25,50,5,4
+		ArrayList<Escavatore>test=mr.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertEquals(test.size(),3); 
+		Escavatore e1=mr.getEscavatore(5);
+		Escavatore e2=mr.getEscavatore(6);
+		Escavatore e3=mr.getEscavatore(9);
+		assertTrue(test.contains(e1));
+		assertTrue(test.contains(e2));
+		assertTrue(test.contains(e3));
+		Lavoro l=new Lavoro(1, "Lavoro", null, new GregorianCalendar(2014,1,1), new GregorianCalendar(2014,10,10));
+		RichiestaEscavatore re=new RichiestaEscavatore(1, 30, 1, 60, 1, 6, 1, 5);
+		Richiesta ric2=new Richiesta(re, l, 2);
+		ric2.setMacchina(e2);
+		test=mr.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertEquals(test.size(),2);
+		assertTrue(test.contains(e1));
+		assertTrue(test.contains(e3));
+		Richiesta ric1=new Richiesta(re, l, 1);
+		ric1.setMacchina(e1);
+		test=mr.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertEquals(test.size(),1);
+		assertTrue(test.contains(e3));
+		Richiesta ric3=new Richiesta(re, l, 3);
+		ric3.setMacchina(e3);
+		test=mr.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
+		assertTrue(test.isEmpty());
 	}
 
 }

@@ -2,6 +2,8 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
+import java.util.GregorianCalendar;
+
 import org.junit.Test;
 
 // 
@@ -108,4 +110,79 @@ public class EscavatoreTest {
 		assertFalse(e.equals(null));
 	}
 
+	@Test
+	public void testAddRichiesta(){
+		Richiesta.initCodice();
+		RichiestaEscavatore re=new RichiestaEscavatore(5, 10, 5, 10, 5, 10,5,10);
+		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta r=new Richiesta(re,lavoro);
+		e.addRichiesta(r);
+		Richiesta test=e.getRichiesta(1);
+		assertEquals(r,test);
+		test=e.getRichiesta(99);
+		assertEquals(test,null);
+	}
+	
+	@Test
+	public void testRemoveRichiesta(){
+		Richiesta.initCodice();
+		RichiestaEscavatore re=new RichiestaEscavatore(5, 10, 5, 10, 5, 10,5,10);
+		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta r=new Richiesta(re,lavoro);
+		e.addRichiesta(r);
+		Richiesta test=e.getRichiesta(1);
+		assertEquals(r,test);
+		e.removeRichiesta(r);
+		test=e.getRichiesta(1);
+		assertEquals(test,null);
+	}
+	
+	@Test
+	public void testIsFree(){
+		Richiesta.initCodice();
+		RichiestaEscavatore re=new RichiestaEscavatore(5, 10, 5, 10, 5, 10,5,10);
+		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 4, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta r=new Richiesta(re,lavoro);
+		e.addRichiesta(r);
+		assertTrue(e.isFree(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2013, 9, 01)));
+		assertFalse(e.isFree(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2014, 9, 01)));
+		assertFalse(e.isFree(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2014, 9, 01)));
+		assertFalse(e.isFree(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2018, 9, 01)));
+		assertTrue(e.isFree(new GregorianCalendar(2017, 6, 01), new GregorianCalendar(2018, 9, 01)));
+	}
+	
+	@Test
+	public void testLiberaRichieste(){
+		Richiesta.initCodice();
+		RichiestaEscavatore re=new RichiestaEscavatore(90, 110, 90, 110, 90, 110,90,110);
+		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta r1=new Richiesta(re,lavoro);
+		e.addRichiesta(r1);
+		Richiesta r2=new Richiesta(re,lavoro);
+		e.addRichiesta(r2);
+		Richiesta r3=new Richiesta(re,lavoro);
+		e.addRichiesta(r3);
+		Richiesta test=e.getRichiesta(1);
+		test.setMacchina(e);
+		assertEquals(test.getMacchina(),e);
+		assertEquals(r1,test);
+		test=e.getRichiesta(2);
+		test.setMacchina(e);
+		assertEquals(test.getMacchina(),e);
+		assertEquals(r2,test);
+		test=e.getRichiesta(3);
+		test.setMacchina(e);
+		assertEquals(test.getMacchina(),e);
+		assertEquals(r3,test);
+		e.liberaRichieste();
+		test=e.getRichiesta(1);
+		assertEquals(test,null);
+		test=e.getRichiesta(2);
+		assertEquals(test,null);
+		test=e.getRichiesta(3);
+		assertEquals(test,null);
+		assertEquals(r1.getMacchina(),null);
+		assertEquals(r2.getMacchina(),null);
+		assertEquals(r3.getMacchina(),null);
+	}
 }

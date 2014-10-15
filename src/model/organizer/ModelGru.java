@@ -3,7 +3,6 @@ package model.organizer;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import model.organizer.data.Camion;
 import model.organizer.data.Gru;
 
 
@@ -190,7 +189,7 @@ public class ModelGru extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	static void resetForTest(){
+	public static void resetForTest(){
 		if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;

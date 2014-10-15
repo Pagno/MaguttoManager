@@ -34,6 +34,30 @@ public class PrenotazioneTest {
 
 
 	@Test
+	public void testPrenotazione(){
+		assertEquals(prenotazione.getAssociazione(),a);
+		assertEquals(prenotazione.getDurataLavoro(),12);
+		
+		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
+				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
+		cantiere.addLavoro(lavoro);
+		
+		Richiesta r1=new Richiesta(new RichiestaRuspa( 5, 10, 5, 10, 5, 10), lavoro);
+		Ruspa m1=new Ruspa(150, "New Holland", "R101", 8, 8, 8);
+		Associazione a2=new Associazione(r1, m1);
+		prenotazione=new Prenotazione(a2,87);
+		assertEquals(prenotazione.getAssociazione(),a2);
+		assertEquals(prenotazione.getDurataLavoro(),87);
+	}
+	
+	@Test
+	public void testToString(){
+		assertEquals(prenotazione.toString(),"Prenotazione [associazione=" + a + ", durataLavoro=12]");
+	
+	}
+	
+	@Test
 	public void testGetAssociazione() {
 		assertEquals(prenotazione.getAssociazione(), a);
 	}
@@ -49,18 +73,18 @@ public class PrenotazioneTest {
 
 	@Test
 	public void testGetDurataLavoro() {
-		assertEquals(prenotazione.getDurataLavoro(), new Integer(12));
-		assertNotEquals(prenotazione.getDurataLavoro(), new Integer(11));
-		assertNotEquals(prenotazione.getDurataLavoro(), new Integer(13));
+		assertEquals(prenotazione.getDurataLavoro(), 12);
+		assertNotEquals(prenotazione.getDurataLavoro(), 11);
+		assertNotEquals(prenotazione.getDurataLavoro(), 13);
 	}
 
 	@Test
 	public void testSetDurataLavoro() {
 		prenotazione.setDurataLavoro(15);
-		assertEquals(prenotazione.getDurataLavoro(), new Integer(15));
-		assertNotEquals(prenotazione.getDurataLavoro(), new Integer(14));
-		assertNotEquals(prenotazione.getDurataLavoro(), new Integer(16));
-		assertNotEquals(prenotazione.getDurataLavoro(), new Integer(12));
+		assertEquals(prenotazione.getDurataLavoro(), 15);
+		assertNotEquals(prenotazione.getDurataLavoro(), 14);
+		assertNotEquals(prenotazione.getDurataLavoro(), 16);
+		assertNotEquals(prenotazione.getDurataLavoro(), 12);
 	}
 
 	@Test
