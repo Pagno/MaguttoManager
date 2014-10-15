@@ -81,14 +81,14 @@ public class ModelCantiereTest {
 		assertSame(mc,prova);
 		ModelCantiere.resetForTest();
 		mc=ModelCantiere.getModelCantiere();
-		assertEquals(mc.getNextCodice(),1);
+		assertEquals(mc.getProssimoCodice(),1);
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView(ControllerConnector.getControllerConnector(m));
 		mc=ModelCantiere.getModelCantiere();
 		mc.svuotaCantieriForTest();
-		assertEquals(mc.getNextCodice(),1);
-		assertEquals(mc.getNextCodiceLavoro(),1);
+		assertEquals(mc.getProssimoCodice(),1);
+		assertEquals(mc.getProssimoCodiceLavoro(),1);
 		assertTrue(mc.getListaCantieri().isEmpty());
 	}
 
@@ -97,9 +97,9 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testAggiungiCantiere() {
-		assertEquals(mc.getNextCodice(),21);
+		assertEquals(mc.getProssimoCodice(),21);
 		mc.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);
-		assertEquals(mc.getNextCodice(),22);
+		assertEquals(mc.getProssimoCodice(),22);
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Cantiere(21,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA)));
@@ -112,9 +112,9 @@ public class ModelCantiereTest {
 	@Test
 	public void testCaricaCantiere() {
 		mc.caricaCantiere(1,"Passerella sul Brembo","Dalmine",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
-		assertEquals(mc.getNextCodice(),21);
+		assertEquals(mc.getProssimoCodice(),21);
 		mc.caricaCantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
-		assertEquals(mc.getNextCodice(),26);
+		assertEquals(mc.getProssimoCodice(),26);
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),5);
 		assertTrue(lista.contains(new Cantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA)));
@@ -126,9 +126,9 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testModificaCantiere() {
-		assertEquals(mc.getNextCodice(),21);
+		assertEquals(mc.getProssimoCodice(),21);
 		mc.modificaCantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
-		assertEquals(mc.getNextCodice(),21);
+		assertEquals(mc.getProssimoCodice(),21);
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Cantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA)));
@@ -182,7 +182,7 @@ public class ModelCantiereTest {
 	@Test
 	public void testAggiungiLavoro(){
 		mc.aggiungiLavoro(16, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
-		assertEquals(mc.getLavoro(mc.getNextCodiceLavoro()-1),new Lavoro(mc.getNextCodiceLavoro()-1, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
+		assertEquals(mc.getLavoro(mc.getProssimoCodiceLavoro()-1),new Lavoro(mc.getProssimoCodiceLavoro()-1, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		assertEquals(mc.getLavoro(99),null);
 	}
 	
@@ -191,12 +191,12 @@ public class ModelCantiereTest {
 		mc.caricaLavoro(16, 22, "Scavo", new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		assertEquals(mc.getLavoro(99),null);
-		assertEquals(mc.getNextCodiceLavoro()-1,22);
+		assertEquals(mc.getProssimoCodiceLavoro()-1,22);
 		mc.caricaLavoro(7, 5, "Svuotamento", new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20));
 		assertEquals(mc.getLavoro(22),new Lavoro(22, "Scavo", mc.getCantiere(16),  new GregorianCalendar(2014,02,01),new GregorianCalendar(2014,05,01)));
 		assertEquals(mc.getLavoro(5),new Lavoro(5, "Svuotamento", mc.getCantiere(7),  new GregorianCalendar(2014,03,01),new GregorianCalendar(2014,03,20)));
 		assertEquals(mc.getLavoro(99),null);
-		assertEquals(mc.getNextCodiceLavoro()-1,22);
+		assertEquals(mc.getProssimoCodiceLavoro()-1,22);
 	}
 	
 	@Test

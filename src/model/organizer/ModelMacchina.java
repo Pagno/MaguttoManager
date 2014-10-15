@@ -52,7 +52,7 @@ public abstract class ModelMacchina extends Observable{
 	 *
 	 * @return   next codice
 	 */
-	int getNextCodice(){
+	int getProssimoCodice(){
 		return getCodice()+1;
 	}
 }

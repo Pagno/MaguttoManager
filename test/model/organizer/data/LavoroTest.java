@@ -17,7 +17,7 @@ public class LavoroTest {
 	public LavoroTest(){
 		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priorita.ALTA);
 		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 	}
 
 	/**
@@ -133,10 +133,10 @@ public class LavoroTest {
 	}
 
 	@Test
-	public void testInserisciRichiesta() {
+	public void testAggiungiRichiesta() {
 		Richiesta.initCodice();
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
-		int code=lavoro.inserisciRichiesta(rc);
+		int code=lavoro.aggiungiRichiesta(rc);
 		Richiesta r1=lavoro.getRichiesta(1);
 		assertEquals(r1.getMacchina(),null);
 		assertEquals(r1.getCaratteristiche(),rc);
@@ -177,8 +177,8 @@ public class LavoroTest {
 		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		assertEquals(lavoro.getRichiesta(50).getCaratteristiche(),rc);
 		assertEquals(lavoro.getRichiesta(51).getCaratteristiche(),rc);
 		assertEquals(lavoro.getRichiesta(52).getCaratteristiche(),rc);
@@ -196,8 +196,8 @@ public class LavoroTest {
 		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		assertTrue(lavoro.hasRichiesta(50));
 		assertTrue(lavoro.hasRichiesta(51));
 		assertTrue(lavoro.hasRichiesta(52));
@@ -212,8 +212,8 @@ public class LavoroTest {
 		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		Richiesta r1=lavoro.getRichiesta(50);
 		assertEquals(r1.getMacchina(),null);
 		assertEquals(r1.getCaratteristiche(),rc);
@@ -245,8 +245,8 @@ public class LavoroTest {
 		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		assertTrue(lavoro.hasRichiesta(50));
 		assertTrue(lavoro.hasRichiesta(51));
 		assertTrue(lavoro.hasRichiesta(52));
@@ -296,8 +296,8 @@ public class LavoroTest {
 		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		ArrayList<Richiesta>test=lavoro.getListaRichieste();
 		assertFalse(test.isEmpty());
 		assertEquals(test.size(),4);
@@ -314,8 +314,8 @@ public class LavoroTest {
 		Camion c=new Camion(5,"Yamaha","Camion grande",9,9,9);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
 		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
 		assertEquals(lavoro.getRichiesta(52).getMacchina(),null);
@@ -355,8 +355,8 @@ public class LavoroTest {
 		Camion c=new Camion(5,"Yamaha","Camion grande",9,9,9);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		lavoro.soddisfaRichiesta(52, m);
 		lavoro.soddisfaRichiesta(53, c);
 		lavoro.soddisfaRichiesta(50, m);
@@ -399,8 +399,8 @@ public class LavoroTest {
 		Camion c=new Camion(5,"Yamaha","Camion grande",9,9,9);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, m);
-		lavoro.inserisciRichiesta(rc);
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		lavoro.soddisfaRichiesta(52, m);
 		lavoro.soddisfaRichiesta(53, c);
 		lavoro.soddisfaRichiesta(50, m);
@@ -437,7 +437,7 @@ public class LavoroTest {
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, new Camion(3,"Yamaha","Camion",6,6,6));
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		assertTrue(lavoro.isScoperto());
 		lavoro.soddisfaRichiesta(52, new Camion(4,"Yamaha","Camion",6,6,6));
 		assertTrue(lavoro.isScoperto());
@@ -459,7 +459,7 @@ public class LavoroTest {
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		lavoro.caricaRichiesta(rc, 50, null);
 		lavoro.caricaRichiesta(rc, 51, new Camion(3,"Yamaha","Camion",6,6,6));
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		ArrayList<Richiesta>test=new ArrayList<Richiesta>();
 		test.add(lavoro.getRichiesta(50));
 		test.add(lavoro.getRichiesta(52));
@@ -479,7 +479,7 @@ public class LavoroTest {
 		assertEquals(test.size(),2);
 		assertEquals(test.get(0),lavoro.getRichiesta(50));
 		assertEquals(test.get(1),lavoro.getRichiesta(51));
-		lavoro.inserisciRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
 		test=lavoro.getListaRichieste();
 		assertEquals(test.size(),3);
 		assertEquals(test.get(0),lavoro.getRichiesta(50));
@@ -500,17 +500,17 @@ public class LavoroTest {
 	}
 
 	@Test
-	public void testGetRelatedWorks() {
+	public void testGetLavoriConnessi() {
 		Lavoro l2=new Lavoro(6,"Fondamenta",cantiere, new GregorianCalendar(2015, 9, 01),new GregorianCalendar(2015, 11, 1));
-		cantiere.addLavoro(l2);
+		cantiere.aggiungiLavoro(l2);
 		Lavoro l3=new Lavoro(7,"Muratura",cantiere, new GregorianCalendar(2016, 9, 01),new GregorianCalendar(2016, 11, 1));
-		cantiere.addLavoro(l3);
+		cantiere.aggiungiLavoro(l3);
 		ArrayList<Lavoro>test=new ArrayList<Lavoro>();
 		test.add(lavoro);
 		test.add(l2);
 		test.add(l3);
-		assertEquals(lavoro.getRelatedWorks(),cantiere.getElencoLavori());
-		assertEquals(lavoro.getRelatedWorks(),test);
+		assertEquals(lavoro.getLavoriConnessi(),cantiere.getElencoLavori());
+		assertEquals(lavoro.getLavoriConnessi(),test);
 	}
 
 	@Test

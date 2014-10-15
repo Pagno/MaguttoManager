@@ -125,6 +125,18 @@ public class ModelConnector implements ModelInterface{
 	public void aggiungiCantiereObserver(Observer observer){
 		lc.aggiungiObserver(observer);
 	}
+
+
+	/*@Override
+	public void aggiungiLavoroObserver(Observer observer){
+		lc.aggiungiLavoroObserver(observer);
+	}
+
+	@Override
+	public void aggiungiRichiestaObserver(Observer observer) {
+		lc.aggiungiRichiestaObserver(observer);
+	}*/
+
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -597,7 +609,7 @@ public class ModelConnector implements ModelInterface{
 							res.getInt("AltezzaMax"),res.getInt("ProfonditaMin"),res.getInt("ProfonditaMax"));
 					
 				}
-				int codiceRichiesta=lavoro.inserisciRichiesta(richiesta);
+				int codiceRichiesta=lavoro.aggiungiRichiesta(richiesta);
 				if(res.getInt("CodiceMacchina")!=0){
 					soddisfaRichiesta(codiceRichiesta, res.getInt("CodiceMacchina"));
 				}

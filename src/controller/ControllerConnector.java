@@ -143,7 +143,7 @@ public class ControllerConnector implements ControllerInterface{
 	}
 
 	@Override
-	public ArrayList<Associazione> generateAssociations() {
+	public ArrayList<Associazione> generaAssociazioni() {
 		return canCtrl.generaAssociazioni();
 	}
 
@@ -221,5 +221,7 @@ public class ControllerConnector implements ControllerInterface{
 			int profondita) {
 		return insCtrl.modificaEscavatore(codiceEscavatore, produttore, modello, capacita, portata, altezza, profondita);
 	}
+
+
 
 }

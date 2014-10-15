@@ -62,6 +62,10 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 		return model.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
 	}
 
+	/*public void aggiungiRichiestaObserver(Observer observer ) {
+		model.aggiungiLavoroObserver(observer);
+	}*/
+
 	public boolean eliminaLavoro(int codiceLavoro) {
 		return model.eliminaLavoro(codiceLavoro);
 	}

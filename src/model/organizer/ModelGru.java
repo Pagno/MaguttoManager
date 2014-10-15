@@ -166,7 +166,7 @@ public class ModelGru extends ModelMacchina{
 		ArrayList<Gru> listaLibera=new ArrayList<Gru>();
 		
 		for(Gru gru:listaGru){
-			if(gru.isFree(dataInizio, dataFine))
+			if(gru.isLibera(dataInizio, dataFine))
 				listaLibera.add(gru);
 		}
 		return listaLibera;

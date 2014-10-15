@@ -200,7 +200,7 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 
 	public void setMacchina(Macchina macchina) {
 		if(this.macchina!=null){
-			this.macchina.removeRichiesta(this);
+			this.macchina.rimuoviRichiesta(this);
 		}
 		if(macchina==null){
 			this.macchina=null;
@@ -208,7 +208,7 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		else{
 			if(this.rispettaRichiesta(macchina)){
 				this.macchina = macchina;
-				this.macchina.addRichiesta(this);
+				this.macchina.aggiungiRichiesta(this);
 			}
 			else{
 				this.macchina=null;
@@ -250,8 +250,8 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		return lavoro;
 	}
 	
-	public ArrayList<Lavoro> getRelatedWorks(){
-		return lavoro.getRelatedWorks();
+	public ArrayList<Lavoro> getLavoriConnessi(){
+		return lavoro.getLavoriConnessi();
 	}
 	
 	public int getDurata(){

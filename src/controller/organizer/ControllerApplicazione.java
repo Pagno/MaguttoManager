@@ -58,6 +58,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	private ControllerApplicazione(ModelInterface modelConnector){
 		model = modelConnector;
 	}
+
 	public void aggiungiGruObserver(Observer observer){
 		model.aggiungiGruObserver(observer);
 	}

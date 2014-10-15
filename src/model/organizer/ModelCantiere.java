@@ -183,7 +183,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
 
 		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
@@ -207,7 +207,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
 		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
@@ -322,7 +322,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		return temp;
 	}
 	
-	int getNextCodiceLavoro(){
+	int getProssimoCodiceLavoro(){
 		int code=this.codiceLavoro+1;
 		return code;
 	}
@@ -349,7 +349,7 @@ public class ModelCantiere extends DefaultTreeModel{
 
 		if(item!=null){
 			if(item.hasLavoro(codiceLavoro)){			Lavoro l=item.getLavoro(codiceLavoro);
-			l.inserisciRichiesta(caratteristiche);
+			l.aggiungiRichiesta(caratteristiche);
 			return true;
 			}
 
@@ -362,7 +362,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				Lavoro l=item.getLavoro(codiceLavoro);
-				l.inserisciRichiesta(caratteristiche);
+				l.aggiungiRichiesta(caratteristiche);
 				break;
 			}
 		}
@@ -662,7 +662,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	
-	int getNextCodice(){
+	int getProssimoCodice(){
 		return codice+1;
 	}
 		
@@ -681,12 +681,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
-	public void aggiungiLavoroObserver(Observer observer) {
+	/*public void aggiungiLavoroObserver(Observer observer) {
 		lavoroObserver=observer;
 	}
 
 	public void aggiungiRichiestaObserver(Observer observer) {
 		richiestaObserver=observer;
-	}	
+	}*/
 
 }

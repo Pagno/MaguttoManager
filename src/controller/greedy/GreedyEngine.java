@@ -247,7 +247,7 @@ public class GreedyEngine {
 	static ArrayList<Prenotazione> generaPrenotazioni(ArrayList<Richiesta> sortedRichieste){
 		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
 		for(Richiesta ric:sortedRichieste){
-			for(Lavoro lav:ric.getRelatedWorks()){
+			for(Lavoro lav:ric.getLavoriConnessi()){
 				if(lavoroFinisceMenoDiUnaSettimanaPrima(lav,ric.getLavoro())||lavoroIniziaMenoDiUnaSettimanaDopo(lav,ric.getLavoro())){
 					prenotaMacchineDaLavoro(ric, lav, prenotazioni);
 				}
@@ -270,7 +270,7 @@ public class GreedyEngine {
 			for(Richiesta item:lav.getListaRichieste()){
 				if(item.isSoddisfatta()){
 					if(ric.rispettaRichiesta(item.getMacchina())){
-						if(item.getMacchina().isFree(ric.getDataInizio(), ric.getDataFine())){
+						if(item.getMacchina().isLibera(ric.getDataInizio(), ric.getDataFine())){
 							prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
 						}
 					}

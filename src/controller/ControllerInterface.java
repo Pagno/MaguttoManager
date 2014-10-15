@@ -30,6 +30,9 @@ public interface ControllerInterface {
 	public  Cantiere getCantiere(int codiceCantiere);
 	public  boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita );
 	public  boolean aggiungiLavoro(int codiceCantiere,String nomeLavoro,GregorianCalendar dataInizio,GregorianCalendar dataFine);
+
+
+	//public  void aggiungiRichiestaObserver(Observer observer );
 	
 	public  boolean eliminaLavoro(int codiceLavoro);
 	public  boolean eliminaRichiesta(int codiceRichiesta);
@@ -38,7 +41,7 @@ public interface ControllerInterface {
 	public  boolean liberaRichiesta(int codiceRichiesta);
 	public  boolean aggiungiRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta);
 	public  boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina) ;
-	public  ArrayList<Associazione> generateAssociations();
+	public  ArrayList<Associazione> generaAssociazioni();
 	public  void confermaAssociazioniListener(ArrayList<Associazione> data);
 	public  void modificaLavoro(int codiceLavoro, String nome,GregorianCalendar inizio, GregorianCalendar fine);
 

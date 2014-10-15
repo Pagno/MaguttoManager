@@ -46,7 +46,7 @@ public class ModelGruTest {
 		assertSame(mg,prova);
 		ModelGru.resetForTest();
 		mg=ModelGru.getModelGru();
-		assertEquals(mg.getNextCodice(),1);
+		assertEquals(mg.getProssimoCodice(),1);
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class ModelGruTest {
 	 */
 	@Test
 	public void testAggiungiGru() {
-		assertEquals(mg.getNextCodice(),27);
+		assertEquals(mg.getProssimoCodice(),27);
 		mg.aggiungiGru("Raimondi", "MRT33+3", 360, 2000, 35,30);
-		assertEquals(mg.getNextCodice(),28);
+		assertEquals(mg.getProssimoCodice(),28);
 		ArrayList<Gru>lista=mg.getLista();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Gru(27,"Raimondi", "MRT33+3", 360, 2000, 35,30)));
@@ -67,9 +67,9 @@ public class ModelGruTest {
 	 */
 	@Test
 	public void testCaricaGru() {
-		assertEquals(mg.getNextCodice(),27);
+		assertEquals(mg.getProssimoCodice(),27);
 		mg.caricaGru(31, "Raimondi", "MRT33+3", 360, 2000, 35,30);
-		assertEquals(mg.getNextCodice(),32);
+		assertEquals(mg.getProssimoCodice(),32);
 		ArrayList<Gru>lista=mg.getLista();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Gru(31, "Raimondi", "MRT33+3", 360, 2000, 35,30)));
@@ -80,9 +80,9 @@ public class ModelGruTest {
 	 */
 	@Test
 	public void testModificaGru() {
-		assertEquals(mg.getNextCodice(),27);
+		assertEquals(mg.getProssimoCodice(),27);
 		mg.modificaGru(3, "Vicaro", "OMV 168 A", 23, 1500, 20,26);
-		assertEquals(mg.getNextCodice(),27);
+		assertEquals(mg.getProssimoCodice(),27);
 		ArrayList<Gru>lista=mg.getLista();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Gru(3, "Vicaro", "OMV 168 A", 23, 1500, 20,26)));

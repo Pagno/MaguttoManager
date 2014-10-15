@@ -25,7 +25,7 @@ public class AssociazioneTest {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
 				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		
 		richiesta=new Richiesta(new RichiestaRuspa( -1, -1, 300, 400, -1, -1), lavoro);
 		macchina=new Ruspa(101, "New Holland", "R101", 1200, 350, 3);
@@ -38,7 +38,7 @@ public class AssociazioneTest {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
 				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		
 		assertEquals(a.getRichiesta(),richiesta);
 		assertEquals(a.getMacchina(),macchina);
@@ -120,7 +120,7 @@ public class AssociazioneTest {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
 				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		Richiesta r2=new Richiesta(new RichiestaRuspa( 5, 10, 5, 10, 5, 10), lavoro);
 		Ruspa m2=new Ruspa(105, "Yamaha", "Ruspa", 40, 40, 40);
 		Associazione b=new Associazione(r2, m2);

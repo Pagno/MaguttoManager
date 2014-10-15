@@ -136,7 +136,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		return true;
 	}
 
-	public int inserisciRichiesta(RichiestaMacchina caratteristiche){
+	public int aggiungiRichiesta(RichiestaMacchina caratteristiche){
 		Richiesta r=new Richiesta(caratteristiche,this);
 		macchinariRichiesti.add(r);
 		add(r);
@@ -265,7 +265,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		return cantiere.getCodice();
 	}
 	
-	public ArrayList<Lavoro> getRelatedWorks(){
+	public ArrayList<Lavoro> getLavoriConnessi(){
 		return cantiere.getElencoLavori();
 	}
 	
