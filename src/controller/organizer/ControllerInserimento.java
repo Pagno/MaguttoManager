@@ -270,7 +270,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditRuspaListener( ViewRuspa editRuspa,final int codice) {
+	public ActionListener ModificaRuspaListener( ViewRuspa editRuspa,final int codice) {
 		final ViewRuspa dialog=editRuspa;
 		return new ActionListener() {
 			@Override
@@ -306,7 +306,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditCamionListener( ViewCamion editCamion,final int codice) {
+	public ActionListener ModificaCamionListener( ViewCamion editCamion,final int codice) {
 		final ViewCamion dialog=editCamion;
 		return new ActionListener() {
 			@Override
@@ -342,7 +342,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditEscavatoreListener( ViewEscavatore editEscavatore,final int codice) {
+	public ActionListener ModificaEscavatoreListener( ViewEscavatore editEscavatore,final int codice) {
 		final ViewEscavatore dialog=editEscavatore;
 		return new ActionListener() {
 			@Override

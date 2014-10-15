@@ -89,12 +89,12 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}
 
 	 
-	public boolean addRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
+	public boolean aggiungiRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
 		return model.aggiungiRichiesta( codiceCantiere, codiceLavoro, richiesta);
 	}
 	
 
-	public ArrayList<Associazione> generateAssociations(){
+	public ArrayList<Associazione> generaAssociazioni(){
 		return controller.greedy.GreedyEngine.generaAssociazioni(model);
 	}
 

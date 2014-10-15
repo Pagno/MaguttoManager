@@ -121,7 +121,7 @@ public class ControllerConnector implements ControllerInterface{
 	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
 
-		return canCtrl.addRichiesta(codiceCantiere, codiceLavoro, richiesta);
+		return canCtrl.aggiungiRichiesta(codiceCantiere, codiceLavoro, richiesta);
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class ControllerConnector implements ControllerInterface{
 
 	@Override
 	public ArrayList<Associazione> generateAssociations() {
-		return canCtrl.generateAssociations();
+		return canCtrl.generaAssociazioni();
 	}
 
 	@Override
