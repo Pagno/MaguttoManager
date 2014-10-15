@@ -12,7 +12,6 @@ import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priority;
 import model.organizer.data.RichiestaMacchina;
-import controller.Interface.ControllerInterface;
 import controller.data.Associazione;
 import controller.organizer.*;
 

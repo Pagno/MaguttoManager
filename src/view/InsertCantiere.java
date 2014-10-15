@@ -27,7 +27,6 @@ import model.organizer.data.Priority;
 import com.toedter.calendar.JDateChooser;
 
 import controller.ControllerConnector;
-import controller.Interface.AbstractInsertController;
 
 // 
 /**

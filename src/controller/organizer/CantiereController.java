@@ -12,7 +12,6 @@ import model.organizer.data.Priority;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
-import controller.Interface.AbstractCantieriController;
 import controller.data.Associazione;
 
 public class CantiereController{// implements AbstractCantieriController{

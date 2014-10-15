@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.ControllerConnector;
-import controller.Interface.AbstractInsertController;
 
 // 
 /**

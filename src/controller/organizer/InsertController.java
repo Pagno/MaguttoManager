@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import controller.Interface.AbstractInsertController;
 import view.EditCamion;
 import view.EditEscavatore;
 import view.EditGru;

@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 
 import controller.ControllerConnector;
-import controller.Interface.AbstractCantieriController;
 import controller.data.Associazione;
 
 public class GreedyEngineView extends JDialog {

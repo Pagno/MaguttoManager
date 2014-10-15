@@ -19,9 +19,6 @@ import javax.swing.JButton;
 
 import view.lavoro.EditLavoro;
 import controller.ControllerConnector;
-import controller.Interface.AbstractApplicationController;
-import controller.Interface.AbstractCantieriController;
-import controller.Interface.AbstractInsertController;
 
 import java.awt.event.WindowAdapter;
 import java.lang.reflect.Method;

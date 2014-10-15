@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import controller.Interface.AbstractApplicationController;
 import view.EditCamion;
 import view.InsertCantiere;
 import view.EditEscavatore;
