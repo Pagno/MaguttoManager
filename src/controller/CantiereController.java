@@ -13,7 +13,7 @@ import model.organizer.data.RichiestaMacchina;
 import controller.Interface.AbstractCantieriController;
 import controller.data.Associazione;
 
-public class CantiereController extends AbstractCantieriController{
+public class CantiereController implements AbstractCantieriController{
 
 	/**   model. */
 	ModelInterface model;
@@ -119,7 +119,7 @@ public class CantiereController extends AbstractCantieriController{
 					model.modificaLavoro(codiceLavoro, editLavoro.getNomeLavoro(), newStartDate, newEndDate); 
 				}
 				else{
-					JOptionPane.showMessageDialog(editLavoro, "Non è stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(editLavoro, "Non �� stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
 				}
 				System.out.println("CodiceLavoro: "+codiceLavoro);	
 		*/

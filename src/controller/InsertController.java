@@ -23,7 +23,7 @@ import model.organizer.data.Priority;
  * e alla modifica di quelli esistenti
  * 
  */
-public class InsertController extends AbstractInsertController{
+public class InsertController implements AbstractInsertController{
 
 	/**   model. */
 	ModelInterface model;
