@@ -32,7 +32,7 @@ import database.Database;
 public class GreedyEngineTest {
 
 	@Test
-	public void testGenerateAssociations() {
+	public void testgeneraAssociazioni() {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
@@ -110,7 +110,7 @@ public class GreedyEngineTest {
 		
 		//Esecuzione metodo
 
-		ArrayList<Associazione>test=GreedyEngine.generateAssociations(m);
+		ArrayList<Associazione>test=GreedyEngine.generaAssociazioni(m);
 		
 		//Associazioni che devono esser generate per questo caso di test
 		
@@ -153,7 +153,7 @@ public class GreedyEngineTest {
 			}
 		}
 		
-		test=GreedyEngine.generateAssociations(m);
+		test=GreedyEngine.generaAssociazioni(m);
 		
 		assertEquals(test.size(),4);
 		assertTrue(test.contains(asso1));
@@ -168,17 +168,17 @@ public class GreedyEngineTest {
 	}
 
 	@Test
-	public void testInsertAssociation() {
+	public void testinserisciAssociazione() {
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
 		assertTrue(a.isEmpty());
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
-		GreedyEngine.insertAssociation(new Richiesta(rc,null,20), new Camion(1,"Yamaha","Camion",15,15,15), a);
+		GreedyEngine.inserisciAssociazione(new Richiesta(rc,null,20), new Camion(1,"Yamaha","Camion",15,15,15), a);
 		assertFalse(a.isEmpty());
 		assertEquals(a.size(),1);
 		assertTrue(a.get(0).getMacchina().equals(new Camion(1,"Yamaha","Camion",15,15,15)));
 		assertTrue(a.get(0).getRichiesta().equals(new Richiesta(rc,null,20)));
 		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
-		GreedyEngine.insertAssociation(new Richiesta(rr,null,21), new Ruspa(40,"Yamaha","Ruspa",15,15,15), a);
+		GreedyEngine.inserisciAssociazione(new Richiesta(rr,null,21), new Ruspa(40,"Yamaha","Ruspa",15,15,15), a);
 		assertFalse(a.isEmpty());
 		assertEquals(a.size(),2);
 		assertTrue(a.get(0).getMacchina().equals(new Camion(1,"Yamaha","Camion",15,15,15)));
@@ -188,7 +188,7 @@ public class GreedyEngineTest {
 	}
 
 	@Test
-	public void testSelectMacchinaWithoutReservation() {
+	public void testselezionaMacchinaSenzaPrenotazioni() {
 		ArrayList<Camion>cList=new ArrayList<Camion>();
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
@@ -202,14 +202,14 @@ public class GreedyEngineTest {
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		Richiesta ric1=new Richiesta(rc,l,20);
 		//Caso lista di macchine libere vuota
-		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, a, p);
 		assertTrue(a.isEmpty());
 		//Caso di macchine associate nel periodo della prenotazione
 		Camion cam1=new Camion(10,"Yamaha","Camion1",15,15,15);
 		Associazione asso1=new Associazione(new Richiesta(rc,l2,30),cam1);
 		a.add(asso1);
 		cList.add(cam1);
-		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, a, p);
 		assertFalse(a.isEmpty());
 		assertEquals(a.size(),1);
 		assertTrue(a.contains(asso1));
@@ -224,7 +224,7 @@ public class GreedyEngineTest {
 		cList.add(cam2);
 		cList.add(cam3);
 		cList.add(cam4);
-		a=GreedyEngine.selectMacchinaWithoutReservation(ric1, cList, a, p);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, a, p);
 		assertEquals(a.size(),3);
 		assertTrue(a.contains(asso1));
 		assertTrue(a.contains(asso2));
@@ -234,7 +234,7 @@ public class GreedyEngineTest {
 		Prenotazione p2=new Prenotazione(new Associazione(new Richiesta(rc,l2,33),cam4),20);
 		p.add(p2);
 		Richiesta ric2=new Richiesta(rc,l,21);
-		a=GreedyEngine.selectMacchinaWithoutReservation(ric2, cList, a, p);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric2, cList, a, p);
 		assertEquals(a.size(),4);
 		assertTrue(a.contains(asso1));
 		assertTrue(a.contains(asso2));
@@ -245,18 +245,18 @@ public class GreedyEngineTest {
 		//caso richiesta gi� soddisfatta
 		Richiesta ric3=new Richiesta(rc,l,22);
 		ric3.setMacchina(new Camion(99,"Yamaha","Camion",15,15,15));
-		ArrayList<Associazione>b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
+		ArrayList<Associazione>b=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, a, p);
 		assertEquals(b,a);
 		//caso richiesta gi� associata
 		ric3.setMacchina(null);
 		a.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
-		b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
+		b=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, a, p);
 		assertEquals(b,a);
 		
 	}
 
 	@Test
-	public void testRemoveReservationsByRequest() {
+	public void testrimuoviPrenotazioniPerRichiesta() {
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		c.addLavoro(l);
@@ -264,7 +264,7 @@ public class GreedyEngineTest {
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		Richiesta ric1=new Richiesta(rc,l,20);
 		Richiesta ric2=new Richiesta(rc,l,30);
-		p=GreedyEngine.removeReservationsByRequest(p, ric1);
+		p=GreedyEngine.rimuoviPrenotazioniPerRichiesta(p, ric1);
 		assertTrue(p.isEmpty());
 		Associazione a1=new Associazione(ric1,new Camion(1,"Yamaha","Camion",15,15,15));
 		Prenotazione p1=new Prenotazione(a1,10);
@@ -279,19 +279,19 @@ public class GreedyEngineTest {
 		p.add(p2);
 		p.add(p4);
 		assertEquals(p.size(),4);
-		p=GreedyEngine.removeReservationsByRequest(p, new Richiesta(rc,null,40));
+		p=GreedyEngine.rimuoviPrenotazioniPerRichiesta(p, new Richiesta(rc,null,40));
 		assertEquals(p.size(),4);
 		assertTrue(p.contains(p1));
 		assertTrue(p.contains(p2));
 		assertTrue(p.contains(p3));
 		assertTrue(p.contains(p4));
-		p=GreedyEngine.removeReservationsByRequest(p, ric1);
+		p=GreedyEngine.rimuoviPrenotazioniPerRichiesta(p, ric1);
 		assertEquals(2,p.size());
 		assertFalse(p.contains(p1));
 		assertFalse(p.contains(p2));
 		assertTrue(p.contains(p3));
 		assertTrue(p.contains(p4));
-		p=GreedyEngine.removeReservationsByRequest(p, ric2);
+		p=GreedyEngine.rimuoviPrenotazioniPerRichiesta(p, ric2);
 		assertTrue(p.isEmpty());
 		assertFalse(p.contains(p1));
 		assertFalse(p.contains(p2));
@@ -300,7 +300,7 @@ public class GreedyEngineTest {
 	}
 
 	@Test
-	public void testSelectMostPromisingReservation() {
+	public void testselezionaPrenotazionePiuPromettente() {
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
@@ -310,17 +310,17 @@ public class GreedyEngineTest {
 		l.caricaRichiesta(rc, 10, null);
 		Richiesta r=l.getRichiesta(10);
 		//Senza alcuna prenotazione, restituisce null
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),null);
 		Camion cam1=new Camion(20, "Yamaha", "Camioncino", 15, 15, 15);
 		Prenotazione p1=new Prenotazione(new Associazione(r,cam1),10 );
 		p.add(p1);
 		//Con una prenotazione, restituisce l'unica disponibile
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p1);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),p1);
 		Camion cam2=new Camion(21, "Yamaha", "Camioncino", 15, 15, 15);
 		Prenotazione p2=new Prenotazione(new Associazione(r,cam2),4 );
 		p.add(p2);
 		//Con due prenotazioni, restituisce la pi� promettente
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p2);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),p2);
 		Camion cam3=new Camion(22, "Yamaha", "Camioncino", 15, 15, 15);
 		Prenotazione p3=new Prenotazione(new Associazione(r,cam3),2 );
 		p.add(p3);
@@ -328,13 +328,13 @@ public class GreedyEngineTest {
 		Prenotazione p4=new Prenotazione(new Associazione(r,cam4),20 );
 		p.add(p4);
 		//Con pi� prenotazioni, restituisce la pi� promettente
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p3);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),p3);
 		Ruspa rus=new Ruspa(40,"Yamaha","Ruspa",15,15,15);
 		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
 		Prenotazione p5=new Prenotazione(new Associazione(new Richiesta(rr,l,40),rus),1);
 		p.add(p5);
 		//Considera solo le prenotazioni per la richiesta corrente, ignorando le prenotazioni pi� promettenti di altri
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p3);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),p3);
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,05),new GregorianCalendar(2014,04,15));
 		a.add(new Associazione(new Richiesta(rc,l2,11), cam3));
 		Lavoro l3=new Lavoro(5,"l3",c,new GregorianCalendar(2017,04,05),new GregorianCalendar(2017,04,15));
@@ -342,27 +342,27 @@ public class GreedyEngineTest {
 		Lavoro l4=new Lavoro(6,"l4",c,new GregorianCalendar(2012,04,05),new GregorianCalendar(2012,04,15));
 		a.add(new Associazione(new Richiesta(rc,l4,20), cam2));
 		//Se la prenotazione pi� promettente � gi� occupata, seleziona la pi� promettente libera
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p2);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),p2);
 		//Anche se ci sono prenotazioni promettenti per altre richieste, restituisce null se non ce ne sono per la richiesta attuale
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,new Richiesta(rc,l2,15)),null);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,new Richiesta(rc,l2,15)),null);
 		a.add(new Associazione(new Richiesta(rc,l2,16), cam1));
 		a.add(new Associazione(new Richiesta(rc,l2,17), cam2));
 		a.add(new Associazione(new Richiesta(rc,l2,18), cam4));
 		//Se tutte le prenotazioni per tale richiesta sono occupate, restituisce null
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),null);
 		a.clear();
 		r.setMacchina(new Camion(22, "Yamaha", "Camioncino", 15, 15, 15));
 		//Se la richiesta attuale � gi� soddisfatta, anche se ha prenotazioni disponibili, restituisco null
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),null);
 		r.setMacchina(null);
 		a.add(new Associazione(r, cam3));
 		//Se la richiesta attuale � gi� stata associata, ma non � ancora soddisfatta, restituisco null
-		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,p,r),null);
 		
 	}
 
 	@Test
-	public void testGenerateReservations(){
+	public void testGeneraPrenotazioni(){
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,02),new GregorianCalendar(2014,10,27),Priorita.MEDIA);
 		Lavoro base=new Lavoro(100,"base",c,new GregorianCalendar(2014,05,15),new GregorianCalendar(2014,05,20));
 		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,05,02),new GregorianCalendar(2014,05,04));
@@ -426,7 +426,7 @@ public class GreedyEngineTest {
 		sortedRichieste.add(r8);
 		sortedRichieste.add(r9);
 		sortedRichieste.add(b2);
-		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generateReservations(sortedRichieste);
+		ArrayList<Prenotazione>prenotazioni=GreedyEngine.generaPrenotazioni(sortedRichieste);
 		
 		assertEquals(prenotazioni.get(0).getRichiesta(),r2);
 		assertEquals(prenotazioni.get(0).getMacchina(),c1);
@@ -469,7 +469,7 @@ public class GreedyEngineTest {
 	}
 	
 	@Test
-	public void testReserveMacchineFromLavoro() {
+	public void testPrenotaMacchineDaLavoro() {
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		assertTrue(p.isEmpty());
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
@@ -485,26 +485,26 @@ public class GreedyEngineTest {
 		l1.caricaRichiesta(rc, 10, null);
 		Richiesta r=l1.getRichiesta(10);
 		//Caso null
-		GreedyEngine.reserveMacchineFromLavoro(r,null,p);
+		GreedyEngine.prenotaMacchineDaLavoro(r,null,p);
 		assertTrue(p.isEmpty());
 		//Caso lavoro senza alcuna richiesta
-		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
+		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste non soddisfatte
 		l2.caricaRichiesta(rc, 11, null);
-		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
+		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che per� non possono soddisfare ric
 		l2.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 12, new Ruspa(30,"Yamaha","Ruspa",15,15,15));
 		l2.caricaRichiesta(new RichiestaCamion(5,10,5,10,5,10), 13, new Camion(40,"Yamaha","Camioncino",7,7,7));
-		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
+		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric ma non sono libere per ric
 		Camion cam=new Camion(40,"Yamaha","Camion",15,15,15);
 		l3.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 14, cam);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 15, cam);
 		assertFalse(cam.isFree(l1.getDataInizio(), l1.getDataFine()));
-		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
+		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric e che sono libere per ric
 		Camion c1=new Camion(41,"Yamaha","Camion",15,15,15);
@@ -512,7 +512,7 @@ public class GreedyEngineTest {
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 16, c1);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 17, c2);
 		l4.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 18, c2);
-		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
+		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
 		assertFalse(p.isEmpty());
 		assertEquals(p.size(),2);
 		assertEquals(p.get(0).getRichiesta(),r);
@@ -524,55 +524,55 @@ public class GreedyEngineTest {
 	}
 
 	@Test
-	public void testLavoroEndsLessThanAWeekBefore() {
+	public void testLavoroFinisceMenoDiUnaSettimanaPrima() {
 		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		Lavoro base=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,15),new GregorianCalendar(2014,04,20));
 		Lavoro element=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,02));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,13));
-		assertTrue(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertTrue(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,11));
-		assertTrue(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertTrue(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,18));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,17));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,25));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,23));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,31));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,30));
-		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
+		assertFalse(GreedyEngine.lavoroFinisceMenoDiUnaSettimanaPrima(element,base));
 	}
 
 	@Test
-	public void testLavoroStartsLessThanAWeekAfter() {
+	public void testLavoroIniziaMenoDiUnaSettimanaDopo() {
 		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		Lavoro base=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,15),new GregorianCalendar(2014,04,20));
 		Lavoro element=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,02));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,13));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,11));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,18));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,17));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,25));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,23));
-		assertTrue(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertTrue(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataFine(new GregorianCalendar(2014,04,29));
-		assertTrue(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertTrue(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 		element.setDataInizio(new GregorianCalendar(2014,04,28));
-		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
+		assertFalse(GreedyEngine.lavoroIniziaMenoDiUnaSettimanaDopo(element,base));
 	}
 
 	@Test
-	public void testSortRequests() {
+	public void testOrdinaRichieste() {
 		
 				ArrayList<Richiesta> richieste=new ArrayList<Richiesta>();
 				ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
@@ -669,7 +669,7 @@ public class GreedyEngineTest {
 				assertEquals(richieste.get(7),r312);
 				assertEquals(richieste.get(8),r321);
 				assertEquals(richieste.get(9),r211);
-				sortedRichieste=GreedyEngine.sortRequests(richieste);
+				sortedRichieste=GreedyEngine.ordinaRichieste(richieste);
 				assertEquals(sortedRichieste.size(),richieste.size());
 				assertEquals(sortedRichieste.size(),10);
 				assertEquals(sortedRichieste.get(0),r121);
@@ -709,7 +709,7 @@ public class GreedyEngineTest {
 				assertEquals(richieste.get(7),r311);
 				assertEquals(richieste.get(8),r211);
 				assertEquals(richieste.get(9),r321);
-				sortedRichieste=GreedyEngine.sortRequests(richieste);
+				sortedRichieste=GreedyEngine.ordinaRichieste(richieste);
 				assertEquals(sortedRichieste.size(),richieste.size());
 				assertEquals(sortedRichieste.size(),10);
 				assertEquals(sortedRichieste.get(0),r121);
@@ -751,7 +751,7 @@ public class GreedyEngineTest {
 				assertEquals(richieste.get(7),r421);
 				assertEquals(richieste.get(8),r312);
 				assertEquals(richieste.get(9),r211);
-				sortedRichieste=GreedyEngine.sortRequests(richieste);
+				sortedRichieste=GreedyEngine.ordinaRichieste(richieste);
 				assertEquals(sortedRichieste.size(),richieste.size());
 				assertEquals(sortedRichieste.size(),10);
 				assertEquals(sortedRichieste.get(0),r121);
@@ -767,7 +767,7 @@ public class GreedyEngineTest {
 	}
 	
 	@Test
-	public void testSortByPriorita() {
+	public void testOrdinaPerPriorita() {
 		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		Cantiere c2=new Cantiere(2,"c2","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Cantiere c3=new Cantiere(3,"c3","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);
@@ -799,56 +799,56 @@ public class GreedyEngineTest {
 		
 		//Priorit� diverse
 		//Alta-Media
-		assertTrue(GreedyEngine.sortByPriorita(r1_2, r2_1));
-		assertFalse(GreedyEngine.sortByDuration(r1_2, r2_1));
-		assertTrue(GreedyEngine.sortByPriorita(r1_1, r2_2));
-		assertTrue(GreedyEngine.sortByDuration(r1_1, r2_2));
+		assertTrue(GreedyEngine.ordinaPerPriorita(r1_2, r2_1));
+		assertFalse(GreedyEngine.ordinaPerDurata(r1_2, r2_1));
+		assertTrue(GreedyEngine.ordinaPerPriorita(r1_1, r2_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r1_1, r2_2));
 		//Alta-Bassa
-		assertTrue(GreedyEngine.sortByPriorita(r1_2, r3_1));
-		assertFalse(GreedyEngine.sortByDuration(r1_2, r3_1));
-		assertTrue(GreedyEngine.sortByPriorita(r1_1, r3_2));
-		assertTrue(GreedyEngine.sortByDuration(r1_1, r3_2));
+		assertTrue(GreedyEngine.ordinaPerPriorita(r1_2, r3_1));
+		assertFalse(GreedyEngine.ordinaPerDurata(r1_2, r3_1));
+		assertTrue(GreedyEngine.ordinaPerPriorita(r1_1, r3_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r1_1, r3_2));
 		//Media-Alta
-		assertFalse(GreedyEngine.sortByPriorita(r2_1, r1_2));
-		assertTrue(GreedyEngine.sortByDuration(r2_1, r1_2));
-		assertFalse(GreedyEngine.sortByPriorita(r2_2, r1_1));
-		assertFalse(GreedyEngine.sortByDuration(r2_2, r1_1));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r2_1, r1_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r2_1, r1_2));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r2_2, r1_1));
+		assertFalse(GreedyEngine.ordinaPerDurata(r2_2, r1_1));
 		//Media-Bassa
-		assertTrue(GreedyEngine.sortByPriorita(r2_2, r3_1));
-		assertFalse(GreedyEngine.sortByDuration(r2_2, r3_1));
-		assertTrue(GreedyEngine.sortByPriorita(r2_1, r3_2));
-		assertTrue(GreedyEngine.sortByDuration(r2_1, r3_2));
+		assertTrue(GreedyEngine.ordinaPerPriorita(r2_2, r3_1));
+		assertFalse(GreedyEngine.ordinaPerDurata(r2_2, r3_1));
+		assertTrue(GreedyEngine.ordinaPerPriorita(r2_1, r3_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r2_1, r3_2));
 		//Bassa-Alta
-		assertFalse(GreedyEngine.sortByPriorita(r3_1, r1_2));
-		assertTrue(GreedyEngine.sortByDuration(r3_1, r1_2));
-		assertFalse(GreedyEngine.sortByPriorita(r3_2, r1_1));
-		assertFalse(GreedyEngine.sortByDuration(r3_2, r1_1));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r3_1, r1_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r3_1, r1_2));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r3_2, r1_1));
+		assertFalse(GreedyEngine.ordinaPerDurata(r3_2, r1_1));
 		//Bassa-Media
-		assertFalse(GreedyEngine.sortByPriorita(r3_1, r2_2));
-		assertTrue(GreedyEngine.sortByDuration(r3_1, r1_2));
-		assertFalse(GreedyEngine.sortByPriorita(r3_2, r2_1));
-		assertFalse(GreedyEngine.sortByDuration(r3_2, r1_1));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r3_1, r2_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r3_1, r1_2));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r3_2, r2_1));
+		assertFalse(GreedyEngine.ordinaPerDurata(r3_2, r1_1));
 		
 		//Priorit� uguali
 		//Alta-Alta
-		assertEquals(GreedyEngine.sortByPriorita(r1_1, r1_2),GreedyEngine.sortByDuration(r1_1, r1_2));
-		assertTrue(GreedyEngine.sortByDuration(r1_1, r1_2));
-		assertEquals(GreedyEngine.sortByPriorita(r1_2, r1_1),GreedyEngine.sortByDuration(r1_2, r1_1));
-		assertFalse(GreedyEngine.sortByPriorita(r1_2, r1_1));
+		assertEquals(GreedyEngine.ordinaPerPriorita(r1_1, r1_2),GreedyEngine.ordinaPerDurata(r1_1, r1_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r1_1, r1_2));
+		assertEquals(GreedyEngine.ordinaPerPriorita(r1_2, r1_1),GreedyEngine.ordinaPerDurata(r1_2, r1_1));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r1_2, r1_1));
 		//Media-Media
-		assertEquals(GreedyEngine.sortByPriorita(r2_1, r2_2),GreedyEngine.sortByDuration(r2_1, r2_2));
-		assertTrue(GreedyEngine.sortByDuration(r2_1, r2_2));
-		assertEquals(GreedyEngine.sortByPriorita(r2_2, r2_1),GreedyEngine.sortByDuration(r2_2, r2_1));
-		assertFalse(GreedyEngine.sortByPriorita(r2_2, r2_1));
+		assertEquals(GreedyEngine.ordinaPerPriorita(r2_1, r2_2),GreedyEngine.ordinaPerDurata(r2_1, r2_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r2_1, r2_2));
+		assertEquals(GreedyEngine.ordinaPerPriorita(r2_2, r2_1),GreedyEngine.ordinaPerDurata(r2_2, r2_1));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r2_2, r2_1));
 		//Bassa-Bassa
-		assertEquals(GreedyEngine.sortByPriorita(r3_1, r3_2),GreedyEngine.sortByDuration(r3_1, r3_2));
-		assertTrue(GreedyEngine.sortByDuration(r3_1, r3_2));
-		assertEquals(GreedyEngine.sortByPriorita(r3_2, r3_1),GreedyEngine.sortByDuration(r3_2, r3_1));
-		assertFalse(GreedyEngine.sortByPriorita(r3_2, r3_1));
+		assertEquals(GreedyEngine.ordinaPerPriorita(r3_1, r3_2),GreedyEngine.ordinaPerDurata(r3_1, r3_2));
+		assertTrue(GreedyEngine.ordinaPerDurata(r3_1, r3_2));
+		assertEquals(GreedyEngine.ordinaPerPriorita(r3_2, r3_1),GreedyEngine.ordinaPerDurata(r3_2, r3_1));
+		assertFalse(GreedyEngine.ordinaPerPriorita(r3_2, r3_1));
 	}
 
 	@Test
-	public void testSortByDuration() {
+	public void testOrdinaPerDurata() {
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,23),new GregorianCalendar(2015,01,23));
@@ -860,26 +860,26 @@ public class GreedyEngineTest {
 		r2=l2.getRichiesta(7);
 		
 		//Se le durate sono uguali, vado a valutare le date d'inizio
-		assertEquals(GreedyEngine.sortByDuration(r1, r2),GreedyEngine.sortByStartDate(r1, r2));
-		assertTrue(GreedyEngine.sortByStartDate(r1, r2));
-		assertEquals(GreedyEngine.sortByDuration(r2, r1),GreedyEngine.sortByStartDate(r2, r1));
-		assertFalse(GreedyEngine.sortByStartDate(r2, r1));
+		assertEquals(GreedyEngine.ordinaPerDurata(r1, r2),GreedyEngine.ordinaPerDataIniziale(r1, r2));
+		assertTrue(GreedyEngine.ordinaPerDataIniziale(r1, r2));
+		assertEquals(GreedyEngine.ordinaPerDurata(r2, r1),GreedyEngine.ordinaPerDataIniziale(r2, r1));
+		assertFalse(GreedyEngine.ordinaPerDataIniziale(r2, r1));
 		
 		//Se le durate sono diverse (nei lavori), allora le valuto
 		l1.setDataInizio(new GregorianCalendar(2014,03,01));
 		l2.setDataInizio(new GregorianCalendar(2014,03,02));
 		l1.setDataFine(new GregorianCalendar(2014,03,15));
 		l2.setDataFine(new GregorianCalendar(2014,03,07));
-		//d1>d2, quindi sortByDuration(r1, r2, d1, d2) restituisce false anche se sortByStartDate(r1, r2) � true
-		assertFalse(GreedyEngine.sortByDuration(r1, r2));
-		assertTrue(GreedyEngine.sortByStartDate(r1, r2));
-		//d2>d1, quindi sortByDuration(r2, r1, d2, d1) restituisce true anche se sortByStartDate(r2, r1) � false
-		assertTrue(GreedyEngine.sortByDuration(r2, r1));
-		assertFalse(GreedyEngine.sortByStartDate(r2, r1));
+		//d1>d2, quindi ordinaPerDurata(r1, r2, d1, d2) restituisce false anche se ordinaPerDataIniziale(r1, r2) � true
+		assertFalse(GreedyEngine.ordinaPerDurata(r1, r2));
+		assertTrue(GreedyEngine.ordinaPerDataIniziale(r1, r2));
+		//d2>d1, quindi ordinaPerDurata(r2, r1, d2, d1) restituisce true anche se ordinaPerDataIniziale(r2, r1) � false
+		assertTrue(GreedyEngine.ordinaPerDurata(r2, r1));
+		assertFalse(GreedyEngine.ordinaPerDataIniziale(r2, r1));
 	}
 
 	@Test
-	public void testSortByStartDate() {
+	public void testOrdinaPerDataIniziale() {
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
@@ -891,24 +891,24 @@ public class GreedyEngineTest {
 		r2=l2.getRichiesta(7);
 		
 		//Se le date iniziali sono uguali, vado a valutare i codici
-		assertEquals(GreedyEngine.sortByStartDate(r1, r2),GreedyEngine.sortByCodes(r1, r2));
-		assertTrue(GreedyEngine.sortByCodes(r1, r2));
-		assertEquals(GreedyEngine.sortByStartDate(r2, r1),GreedyEngine.sortByCodes(r2, r1));
-		assertFalse(GreedyEngine.sortByCodes(r2, r1));
+		assertEquals(GreedyEngine.ordinaPerDataIniziale(r1, r2),GreedyEngine.ordinaPerCodice(r1, r2));
+		assertTrue(GreedyEngine.ordinaPerCodice(r1, r2));
+		assertEquals(GreedyEngine.ordinaPerDataIniziale(r2, r1),GreedyEngine.ordinaPerCodice(r2, r1));
+		assertFalse(GreedyEngine.ordinaPerCodice(r2, r1));
 		
 		//Se le date sono diverse (nei lavori), allora le valuto
 		l2.setDataInizio(new GregorianCalendar(2014,03,12));
-		//r1>r2, quindi sortByStartDate(r1, r2) restituisce false anche se sortByCodes(r1, r2) � true
-		assertFalse(GreedyEngine.sortByStartDate(r1, r2));
-		assertTrue(GreedyEngine.sortByCodes(r1, r2));
-		//r1>r2, quindi sortByStartDate(r2, r1) restituisce true anche se sortByCodes(r2, r1) � false
-		assertTrue(GreedyEngine.sortByStartDate(r2, r1));
-		assertFalse(GreedyEngine.sortByCodes(r2, r1));
+		//r1>r2, quindi ordinaPerDataIniziale(r1, r2) restituisce false anche se ordinaPerCodice(r1, r2) � true
+		assertFalse(GreedyEngine.ordinaPerDataIniziale(r1, r2));
+		assertTrue(GreedyEngine.ordinaPerCodice(r1, r2));
+		//r1>r2, quindi ordinaPerDataIniziale(r2, r1) restituisce true anche se ordinaPerCodice(r2, r1) � false
+		assertTrue(GreedyEngine.ordinaPerDataIniziale(r2, r1));
+		assertFalse(GreedyEngine.ordinaPerCodice(r2, r1));
 		
 	}
 
 	@Test
-	public void testSortByCodes() {
+	public void testOrdinaPerCodice() {
 		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Cantiere c2=new Cantiere(2,"c2","Milano",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		
@@ -930,21 +930,21 @@ public class GreedyEngineTest {
 		//Diverso cantiere
 		r1=l1.getRichiesta(6);
 		r2=l3.getRichiesta(17);
-		assertTrue(GreedyEngine.sortByCodes(r1, r2));
-		assertFalse(GreedyEngine.sortByCodes(r2, r1));
+		assertTrue(GreedyEngine.ordinaPerCodice(r1, r2));
+		assertFalse(GreedyEngine.ordinaPerCodice(r2, r1));
 		
 		//Uguale cantiere, diverso lavoro
 		r2=l2.getRichiesta(10);
-		assertTrue(GreedyEngine.sortByCodes(r1, r2));
-		assertFalse(GreedyEngine.sortByCodes(r2, r1));
+		assertTrue(GreedyEngine.ordinaPerCodice(r1, r2));
+		assertFalse(GreedyEngine.ordinaPerCodice(r2, r1));
 		
 		//Uguale cantiere, uguale lavoro, diversa richiesta
 		r2=l1.getRichiesta(7);
-		assertTrue(GreedyEngine.sortByCodes(r1, r2));
-		assertFalse(GreedyEngine.sortByCodes(r2, r1));
+		assertTrue(GreedyEngine.ordinaPerCodice(r1, r2));
+		assertFalse(GreedyEngine.ordinaPerCodice(r2, r1));
 		
 		//Stessa richiesta
-		assertFalse(GreedyEngine.sortByCodes(r1, r1));
+		assertFalse(GreedyEngine.ordinaPerCodice(r1, r1));
 		
 		
 	}
