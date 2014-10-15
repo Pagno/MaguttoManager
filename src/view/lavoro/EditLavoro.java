@@ -43,7 +43,6 @@ import view.lavoro.panel.VisualizzaRichiestaPanel;
 import javax.swing.JCheckBox;
 
 import controller.ControllerConnector;
-import controller.Interface.AbstractCantieriController;
 
 
 public class EditLavoro extends JDialog implements Observer{
