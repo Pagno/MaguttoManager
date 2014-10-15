@@ -24,10 +24,10 @@ import controller.data.Prenotazione;
 public class GreedyEngine {
 	
 	
-	public static ArrayList<Associazione> generateAssociations(ModelInterface model){
+	public static ArrayList<Associazione> generaAssociazioni(ModelInterface model){
 		//ORDINAMENTO RICHIESTE PER PRIORITA'
 		
-		ArrayList<Richiesta> sortedRichieste=GreedyEngine.sortRequests(model.getRichiesteScoperte());
+		ArrayList<Richiesta> sortedRichieste=GreedyEngine.ordinaRichieste(model.getRichiesteScoperte());
 		
 		//sortedRichieste contiene le richieste ordinate per priorità, indice più basso corrisponde a priorità maggiore.
 		//durate contiene le durate relative alle richieste, nelle medesime posizioni
@@ -340,7 +340,7 @@ public class GreedyEngine {
 	
 	//FUNZIONI DI ORDINAMENTO-------------------------------------------------------------------------------------------------
 	
-	static ArrayList<Richiesta> sortRequests(ArrayList<Richiesta> richieste){
+	static ArrayList<Richiesta> ordinaRichieste(ArrayList<Richiesta> richieste){
 		//Utilizzo il metodo Collections.sort(List<T> list, Comparator<? super T> c)
 		//Tale metodo implementa l'algoritmo MergeSort, che garantisce una complessità O(n log n)
 		ArrayList<Richiesta> sortedRichieste=(ArrayList<Richiesta>)richieste.clone();
@@ -353,10 +353,10 @@ public class GreedyEngine {
 	 *se tale priorità è minore, restituisce false.
 	 *se le priorità sono uguali, passo al confronto della durata dei lavori.
 	 */
-	static boolean sortByPriorita(Richiesta ins, Richiesta arr){
+	static boolean ordinaPerPriorita(Richiesta ins, Richiesta arr){
 		if(ins.getPriorita()==Priorita.ALTA){
 			if(arr.getPriorita()==Priorita.ALTA){
-				return sortByDuration(ins, arr);
+				return ordinaPerDurata(ins, arr);
 			}
 			else{
 				return true;
@@ -367,7 +367,7 @@ public class GreedyEngine {
 				return false;
 			}
 			else if(arr.getPriorita()==Priorita.MEDIA){
-				return sortByDuration(ins, arr);
+				return ordinaPerDurata(ins, arr);
 			}
 			else{
 				return true;
@@ -378,7 +378,7 @@ public class GreedyEngine {
 				return false;
 			}
 			else{
-				return sortByDuration(ins, arr);
+				return ordinaPerDurata(ins, arr);
 			}
 		}
 	}
@@ -388,7 +388,7 @@ public class GreedyEngine {
 	 *se tale durata è maggiore, restituisce false.
 	 *se le durate sono uguali, passo al confronto della data d'inizio del lavoro.
 	 */
-	static boolean sortByDuration(Richiesta ins, Richiesta arr){
+	static boolean ordinaPerDurata(Richiesta ins, Richiesta arr){
 		int dIns=ins.getDurata();
 		int dArr=arr.getDurata();
 		if( dIns<arr.getDurata()){
@@ -398,7 +398,7 @@ public class GreedyEngine {
 			return false;
 		}
 		else{
-			return sortByStartDate(ins, arr);
+			return ordinaPerDataIniziale(ins, arr);
 		}
 	}
 	
@@ -407,7 +407,7 @@ public class GreedyEngine {
 	 *se tale data d'inizio è maggiore, restituisce false.
 	 *se le data d'inizio sono uguali, passo al confronto dei codici.
 	 */
-	static boolean sortByStartDate(Richiesta ins, Richiesta arr){
+	static boolean ordinaPerDataIniziale(Richiesta ins, Richiesta arr){
 		if(ins.getDataInizio().before(arr.getDataInizio())){
 			return true;
 		}
@@ -415,7 +415,7 @@ public class GreedyEngine {
 			return false;
 		}
 		else{
-			return sortByCodes(ins,arr);
+			return ordinaPerCodice(ins,arr);
 		}
 	}
 	
@@ -430,7 +430,7 @@ public class GreedyEngine {
 	 *se il codice di ins è minore del codice di arr, restituisco true.
 	 *se tale codice è maggiore, restituisco false.
 	 */
-	static boolean sortByCodes(Richiesta ins, Richiesta arr){
+	static boolean ordinaPerCodice(Richiesta ins, Richiesta arr){
 		if(ins.getCodiceCantiere()<arr.getCodiceCantiere()){
 			return true;
 		}
@@ -462,7 +462,7 @@ public class GreedyEngine {
 				return 0;
 			}
 			else{
-				if(GreedyEngine.sortByPriorita(r1, r2)){
+				if(GreedyEngine.ordinaPerPriorita(r1, r2)){
 					return -1;
 				}
 				else{
