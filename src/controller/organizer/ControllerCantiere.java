@@ -95,7 +95,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	
 
 	public ArrayList<Associazione> generateAssociations(){
-		return controller.greedy.GreedyEngine.generateAssociations(model);
+		return controller.greedy.GreedyEngine.generaAssociazioni(model);
 	}
 
 	 
