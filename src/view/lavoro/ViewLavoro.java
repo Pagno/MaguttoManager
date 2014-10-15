@@ -374,7 +374,7 @@ public class ViewLavoro extends JDialog implements Observer{
 							pnlAddRichiesta.getMinProfondita(),
 							pnlAddRichiesta.getMaxProfondita());
 				}
-				cCtr.addRichiesta(codiceCantiere,codiceLavoro, richiesta);
+				cCtr.aggiungiRichiesta(codiceCantiere,codiceLavoro, richiesta);
 
 				reloadModel();
 			}

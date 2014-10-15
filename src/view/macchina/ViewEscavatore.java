@@ -112,7 +112,7 @@ public class ViewEscavatore extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					if(insCtr.inserisciNuovoEscavatore(txtProduttore.getText(),txtModello.getText(),
+					if(insCtr.aggiungiEscavatore(txtProduttore.getText(),txtModello.getText(),
 						Integer.parseInt(txtCapacita.getText()), 
 						Integer.parseInt(txtPortataMax.getText()), 
 						Integer.parseInt(txtAltezza.getText()),

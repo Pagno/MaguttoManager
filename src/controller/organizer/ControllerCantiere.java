@@ -58,7 +58,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 	public boolean aggiungiLavoro(int codiceCantiere, String nomeLavoro,
 			GregorianCalendar dataInizio, GregorianCalendar dataFine) {
-		model.insertLavoro(nomeLavoro, dataInizio, dataFine, codiceCantiere);
+		model.aggiungiLavoro(nomeLavoro, dataInizio, dataFine, codiceCantiere);
 		return true;
 	}
 
@@ -72,11 +72,11 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}
 
 	public boolean eliminaLavoro(int codiceLavoro) {
-		return model.deleteLavoro(codiceLavoro);
+		return model.eliminaLavoro(codiceLavoro);
 	}
 
 	public boolean eliminaRichiesta(int codiceRichiesta) {
-		return model.deleteRichiesta(codiceRichiesta);
+		return model.eliminaRichiesta(codiceRichiesta);
 	}
 
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta) {
@@ -90,7 +90,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 	 
 	public boolean addRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
-		return model.addRichiesta( codiceCantiere, codiceLavoro, richiesta);
+		return model.aggiungiRichiesta( codiceCantiere, codiceLavoro, richiesta);
 	}
 	
 

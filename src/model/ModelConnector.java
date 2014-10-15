@@ -88,7 +88,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addGruObserver(Observer observer){
+	public void aggiungiGruObserver(Observer observer){
 		mg.addObserver(observer);
 	}
 	/**
@@ -96,7 +96,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addRuspaObserver(Observer observer){
+	public void aggiungiRuspaObserver(Observer observer){
 		mr.addObserver(observer);
 	}
 	
@@ -105,7 +105,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addCamionObserver(Observer observer){
+	public void aggiungiCamionObserver(Observer observer){
 		mc.addObserver(observer);
 	}
 	
@@ -114,7 +114,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addEscavatoreObserver(Observer observer){
+	public void aggiungiEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
 	
@@ -124,7 +124,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addCantiereObserver(Observer observer){
+	public void aggiungiCantiereObserver(Observer observer){
 		lc.addObserver(observer);
 	}
 
@@ -715,7 +715,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Ruspa> elencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Ruspa> getElencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
@@ -735,7 +735,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Gru> elencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Gru> getElencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
 		
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
@@ -755,7 +755,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Camion> elencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Camion> getElencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
@@ -775,7 +775,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param fine   fine
 	 * @return   array list
 	 */
-	public ArrayList<Escavatore> elencoEscavatoriDisponibili(int codiceRichiesta,int codiceLavoro){
+	public ArrayList<Escavatore> getElencoEscavatoriDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
@@ -808,7 +808,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void insertLavoro(String nome, GregorianCalendar inizio,
+	public void aggiungiLavoro(String nome, GregorianCalendar inizio,
 			GregorianCalendar fine, int idCantiere) {
 		 lc.aggiungiLavoro(idCantiere, nome, inizio, fine);
 	}
@@ -878,18 +878,18 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,
+	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
 		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
 	@Override
-	public boolean deleteRichiesta(int codiceRichiesta) {
+	public boolean eliminaRichiesta(int codiceRichiesta) {
 		return lc.rimuoviRichiesta(codiceRichiesta);
 	}
 
 	@Override
-	public boolean deleteLavoro(int codiceLavoro) {
+	public boolean eliminaLavoro(int codiceLavoro) {
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
 	/**

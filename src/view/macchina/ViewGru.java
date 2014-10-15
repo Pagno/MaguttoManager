@@ -114,7 +114,7 @@ public class ViewGru extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (insCtr.aggiungiNuovaGru(txtProduttore.getText(),
+					if (insCtr.aggiungiGru(txtProduttore.getText(),
 							txtModello.getText(),
 							Integer.parseInt(txtAngoloRotazione.getText()),
 							Integer.parseInt(txtPortataMax.getText()),

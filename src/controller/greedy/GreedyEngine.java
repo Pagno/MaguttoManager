@@ -55,20 +55,20 @@ public class GreedyEngine {
 				//Cerca quindi di selezionare una macchina non prenotata da altri,
 				//altrimenti una macchina prenotata, rubandola da una richiesta a bassa priorità
 				if(ric.getCaratteristiche() instanceof RichiestaCamion){
-					ArrayList<Camion>disp=model.elencoCamionDisponibili(ric.getCodice(), ric.getCodiceLavoro());
+					ArrayList<Camion>disp=model.getElencoCamionDisponibili(ric.getCodice(), ric.getCodiceLavoro());
 					selectMacchinaWithoutReservation(ric,disp,associazioni,prenotazioni);
 				}
 				else if(ric.getCaratteristiche() instanceof RichiestaGru){
-					ArrayList<Gru>disp=model.elencoGruDisponibili(ric.getCodice(), ric.getCodiceLavoro());
+					ArrayList<Gru>disp=model.getElencoGruDisponibili(ric.getCodice(), ric.getCodiceLavoro());
 					selectMacchinaWithoutReservation(ric,disp,associazioni,prenotazioni);
 				}
 				else if(ric.getCaratteristiche() instanceof RichiestaRuspa){
-					ArrayList<Ruspa>disp=model.elencoRuspeDisponibili(ric.getCodice(), ric.getCodiceLavoro());
+					ArrayList<Ruspa>disp=model.getElencoRuspeDisponibili(ric.getCodice(), ric.getCodiceLavoro());
 					selectMacchinaWithoutReservation(ric,disp,associazioni,prenotazioni);
 				}
 				else{
 					//Resta solo il caso escavatore
-					ArrayList<Escavatore>disp=model.elencoEscavatoriDisponibili(ric.getCodice(), ric.getCodiceLavoro());
+					ArrayList<Escavatore>disp=model.getElencoEscavatoriDisponibili(ric.getCodice(), ric.getCodiceLavoro());
 					selectMacchinaWithoutReservation(ric,disp,associazioni,prenotazioni);
 				}
 			}

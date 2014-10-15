@@ -32,18 +32,18 @@ public interface ControllerInterface {
 	public   ArrayList<Macchina>  getElencoMacchineDisponibili(int codiceRichiesta);
 	
 	public  boolean liberaRichiesta(int codiceRichiesta);
-	public  boolean addRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta);
+	public  boolean aggiungiRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta);
 	public  boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina) ;
 	public  ArrayList<Associazione> generateAssociations();
 	public  void confermaAssociazioniListener(ArrayList<Associazione> data);
 	public  void modificaLavoro(int codiceLavoro, String nome,GregorianCalendar inizio, GregorianCalendar fine);
 
 	//Insert Interface
-	public  boolean aggiungiNuovaGru(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza);
-	public  boolean inserisciNuovaRuspa(String produttore, String modello,int capacita,int portata,int altezza);
-	public  boolean inserisciNuovoEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita);
-	public  boolean inserisciNuovoCamion(String produttore,String Modello,int capacita,int portata,int lunghezza);
-	public  boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita );
+	public  boolean aggiungiGru(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza);
+	public  boolean aggiungiRuspa(String produttore, String modello,int capacita,int portata,int altezza);
+	public  boolean aggiungiEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita);
+	public  boolean aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza);
+	public  boolean aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita );
 	
 	
 	

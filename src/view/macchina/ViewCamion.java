@@ -112,7 +112,7 @@ public class ViewCamion extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (insCtr.inserisciNuovoCamion(txtProduttore.getText(),
+					if (insCtr.aggiungiCamion(txtProduttore.getText(),
 							txtModello.getText(),
 							Integer.parseInt(txtCapacita.getText()),
 							Integer.parseInt(txtPortata.getText()),

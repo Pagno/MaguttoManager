@@ -107,7 +107,7 @@ public class ViewRuspa extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					if(insCtr.inserisciNuovaRuspa(txtProduttore.getText(),txtModello.getText(),
+					if(insCtr.aggiungiRuspa(txtProduttore.getText(),txtModello.getText(),
 						Integer.parseInt(txtCapacita.getText()), 
 						Integer.parseInt(txtPortataMax.getText()), 
 						Integer.parseInt(txtAltezza.getText())))

@@ -118,7 +118,7 @@ public class ControllerConnector implements ControllerInterface{
 	}
 
 	@Override
-	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,
+	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
 
 		return canCtrl.addRichiesta(codiceCantiere, codiceLavoro, richiesta);
@@ -147,34 +147,34 @@ public class ControllerConnector implements ControllerInterface{
 	}
 
 	@Override
-	public boolean aggiungiNuovaGru(String produttore, String modello,
+	public boolean aggiungiGru(String produttore, String modello,
 			int rotazione, int portata, int lunghezza, int altezza) {
 		
 		return insCtrl.aggiungiNuovaGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
 	@Override
-	public boolean inserisciNuovaRuspa(String produttore, String modello,
+	public boolean aggiungiRuspa(String produttore, String modello,
 			int capacita, int portata, int altezza) {
 		
 		return insCtrl.inserisciNuovaRuspa(produttore, modello, capacita, portata, altezza);
 	}
 
 	@Override
-	public boolean inserisciNuovoEscavatore(String produttore, String modello,
+	public boolean aggiungiEscavatore(String produttore, String modello,
 			int capacita, int portata, int altezza, int profondita) {
 		return insCtrl.inserisciNuovoEscavatore(produttore, modello, capacita, portata, altezza, profondita);
 	}
 
 	@Override
-	public boolean inserisciNuovoCamion(String produttore, String modello,
+	public boolean aggiungiCamion(String produttore, String modello,
 			int capacita, int portata, int lunghezza) {
 
 		return insCtrl.inserisciNuovoCamion(produttore, modello, capacita, portata, lunghezza);
 	}
 
 	@Override
-	public boolean inserisciNuovoCantiere(String nomeCantiere,
+	public boolean aggiungiCantiere(String nomeCantiere,
 			String indirizzo, GregorianCalendar dataApertura,
 			GregorianCalendar dataChiusura, Priorita priorita) {
 

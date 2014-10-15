@@ -178,7 +178,7 @@ public class ViewCantiere extends JDialog implements PropertyChangeListener {
 					GregorianCalendar inizio,fine;
 					(inizio=new GregorianCalendar()).setTime(getDataInizio());
 					(fine=new GregorianCalendar()).setTime(getDataFine());
-					if (insCtr.inserisciNuovoCantiere(txtNome.getText(),
+					if (insCtr.aggiungiCantiere(txtNome.getText(),
 							txtIndirizzo.getText(),
 							inizio,fine,
 							Priorita.valueOf((String)priorita.getSelectedItem()))) {
