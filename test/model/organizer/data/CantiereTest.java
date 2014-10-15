@@ -146,7 +146,7 @@ public class CantiereTest {
 	}
 	
 	@Test
-	public void testaggiungiLavoro(){
+	public void testAggiungiLavoro(){
 		ArrayList<Lavoro>lista=c.getElencoLavori();
 		assertTrue(lista.equals(new ArrayList<Lavoro>()));
 		assertEquals(lista.size(),0);
@@ -284,11 +284,11 @@ public class CantiereTest {
 		c.aggiungiLavoro(l3);
 		assertFalse(c.isScoperto());
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
-		l2.inserisciRichiesta(rc);
+		l2.aggiungiRichiesta(rc);
 		assertTrue(c.isScoperto());
 		l2.soddisfaRichiesta(1, new Camion(1,"Yamaha","Camion",7,7,7));
 		assertFalse(c.isScoperto());
-		l3.inserisciRichiesta(rc);
+		l3.aggiungiRichiesta(rc);
 		assertTrue(c.isScoperto());
 	}
 	

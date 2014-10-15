@@ -102,7 +102,7 @@ public class CamionTest {
 	}
 	
 	@Test
-	public void testaggiungiRichiesta(){
+	public void testAggiungiRichiesta(){
 		Richiesta.initCodice();
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
@@ -115,7 +115,7 @@ public class CamionTest {
 	}
 	
 	@Test
-	public void testrimuoviRichiesta(){
+	public void testRimuoviRichiesta(){
 		Richiesta.initCodice();
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));

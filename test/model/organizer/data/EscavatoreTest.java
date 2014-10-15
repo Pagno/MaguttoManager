@@ -111,7 +111,7 @@ public class EscavatoreTest {
 	}
 
 	@Test
-	public void testaggiungiRichiesta(){
+	public void testAggiungiRichiesta(){
 		Richiesta.initCodice();
 		RichiestaEscavatore re=new RichiestaEscavatore(5, 10, 5, 10, 5, 10,5,10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
@@ -124,7 +124,7 @@ public class EscavatoreTest {
 	}
 	
 	@Test
-	public void testrimuoviRichiesta(){
+	public void testRimuoviRichiesta(){
 		Richiesta.initCodice();
 		RichiestaEscavatore re=new RichiestaEscavatore(5, 10, 5, 10, 5, 10,5,10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));

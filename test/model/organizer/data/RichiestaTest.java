@@ -146,7 +146,7 @@ public class RichiestaTest {
 	}
 
 	@Test
-	public void testGetNextCodice() {
+	public void testGetProssimoCodice() {
 		assertEquals(Richiesta.getNextCodice(),23);
 		Richiesta.initCodice();
 		assertEquals(Richiesta.getNextCodice(),1);
@@ -208,7 +208,7 @@ public class RichiestaTest {
 	}
 	
 	@Test
-	public void testgetLavoriConnessi(){
+	public void testGetLavoriConnessi(){
 		Lavoro l2=new Lavoro(6,"Fondamenta",cantiere, new GregorianCalendar(2015, 9, 01),new GregorianCalendar(2015, 11, 1));
 		cantiere.aggiungiLavoro(l2);
 		Lavoro l3=new Lavoro(7,"Muratura",cantiere, new GregorianCalendar(2016, 9, 01),new GregorianCalendar(2016, 11, 1));

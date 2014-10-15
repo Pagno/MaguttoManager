@@ -100,7 +100,7 @@ public class RichiestaRuspaTest {
 	}
 
 	@Test
-	public void testtoString(){
+	public void testToString(){
 		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 300-500 10-15");
 	}
 }

@@ -107,7 +107,7 @@ public class RichiestaGruTest {
 		}
 
 	@Test
-	public void testtoString(){
+	public void testToString(){
 		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-4000 90-120");
 	}
 }

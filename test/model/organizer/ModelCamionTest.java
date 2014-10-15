@@ -157,7 +157,7 @@ public class ModelCamionTest {
 		Lavoro lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 10, 10),new GregorianCalendar(2014, 11, 11));
 
 		RichiestaCamion rc=new RichiestaCamion(10, 20, 10, 20, 10, 20);
-		int codice=lavoro.inserisciRichiesta(rc);
+		int codice=lavoro.aggiungiRichiesta(rc);
 
 		lavoro.soddisfaRichiesta(codice, b);
 		

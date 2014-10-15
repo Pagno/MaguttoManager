@@ -113,7 +113,7 @@ public class GruTest {
 
 
 	@Test
-	public void testaggiungiRichiesta(){
+	public void testAggiungiRichiesta(){
 		Richiesta.initCodice();
 		RichiestaGru rg=new RichiestaGru(5, 10, 5, 10, 5, 10,5,10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
@@ -126,7 +126,7 @@ public class GruTest {
 	}
 	
 	@Test
-	public void testrimuoviRichiesta(){
+	public void testRimuoviRichiesta(){
 		Richiesta.initCodice();
 		RichiestaGru rg=new RichiestaGru(5, 10, 5, 10, 5, 10,5,10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));

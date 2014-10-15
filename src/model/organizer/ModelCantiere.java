@@ -345,7 +345,7 @@ public class ModelCantiere extends DefaultTreeModel{
 
 		if(item!=null){
 			if(item.hasLavoro(codiceLavoro)){			Lavoro l=item.getLavoro(codiceLavoro);
-			l.inserisciRichiesta(caratteristiche);
+			l.aggiungiRichiesta(caratteristiche);
 			return true;
 			}
 
@@ -358,7 +358,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				Lavoro l=item.getLavoro(codiceLavoro);
-				l.inserisciRichiesta(caratteristiche);
+				l.aggiungiRichiesta(caratteristiche);
 				break;
 			}
 		}

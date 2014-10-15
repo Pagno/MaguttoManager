@@ -609,7 +609,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 							res.getInt("AltezzaMax"),res.getInt("ProfonditaMin"),res.getInt("ProfonditaMax"));
 					
 				}
-				int codiceRichiesta=lavoro.inserisciRichiesta(richiesta);
+				int codiceRichiesta=lavoro.aggiungiRichiesta(richiesta);
 				if(res.getInt("CodiceMacchina")!=0){
 					soddisfaRichiesta(codiceRichiesta, res.getInt("CodiceMacchina"));
 				}
