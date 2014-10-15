@@ -8,12 +8,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.ControllerConnector;
+import controller.Interface.AbstractInsertController;
 
 // 
 /**
@@ -39,17 +43,41 @@ public class EditRuspa extends JDialog {
 	/**   ok button. */
 	private JButton okButton;
 
+	private ControllerConnector insCtr;
 	/**
 	 * Create   dialog.
 	 *
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditRuspa(JFrame view, Object[] obj) {
-		this(view);
+	public EditRuspa(JFrame view, final Object[] obj,ControllerConnector aCtr) {
+		super(view);
+		insCtr=aCtr;
 		setTitle("Modifica Ruspa");
+		createLayout();
 		setTextBox(obj);
 		okButton.setText("Modifica");
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					if(insCtr.modificaRuspa((Integer)obj[0],
+							txtProduttore.getText(),txtModello.getText(),
+							Integer.parseInt(txtCapacita.getText()), 
+							Integer.parseInt(txtPortataMax.getText()), 
+							Integer.parseInt(txtAltezza.getText())))
+						{	
+							dispose();
+						}
+				}catch(java.lang.NumberFormatException ex){
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 	}
 	
 	/**
@@ -71,9 +99,33 @@ public class EditRuspa extends JDialog {
 	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
-	public EditRuspa(JFrame view) {
+	public EditRuspa(JFrame view,ControllerConnector aCtr) {
 		super(view);
+		insCtr=aCtr;
 		setTitle("Aggiungi nuova Ruspa");
+		createLayout();
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					if(insCtr.inserisciNuovaRuspa(txtProduttore.getText(),txtModello.getText(),
+						Integer.parseInt(txtCapacita.getText()), 
+						Integer.parseInt(txtPortataMax.getText()), 
+						Integer.parseInt(txtAltezza.getText())))
+					{	
+						dispose();
+					}
+				}catch(java.lang.NumberFormatException ex){
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"I campi:\n - Capacita\n - Altezza\n - Portata Massima\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+	}
+	private void createLayout(){
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -214,6 +266,7 @@ public class EditRuspa extends JDialog {
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
 		okButton.setName("OK");
+		
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 

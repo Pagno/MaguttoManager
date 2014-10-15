@@ -1,12 +1,15 @@
 import java.sql.SQLException;
 import java.text.ParseException;
+
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
-
-import controller.MainController;
+import controller.ControllerConnector;
+import controller.organizer.ApplicationController;
+import controller.organizer.CantiereController;
+import controller.organizer.InsertController;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
@@ -45,8 +48,11 @@ public class Main {
 
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
-		MainView mainView = new MainView();
-		new MainController(m,mainView);
+		MainView mainView=null ;
+		mainView = new MainView();
+		ControllerConnector controller=ControllerConnector.getControllerConnector(m, mainView);
+		mainView.setControllerConnector(controller);
+		
 
 	}
 

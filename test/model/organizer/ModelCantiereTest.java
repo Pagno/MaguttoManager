@@ -36,7 +36,7 @@ import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
-import controller.MainController;
+import controller.ControllerConnector;
 import database.Database;
 import view.MainView;
 import view.MyTableModel;
@@ -57,7 +57,7 @@ public class ModelCantiereTest {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		new MainController(m,mainView);
+		ControllerConnector.getControllerConnector(m,mainView);
 		mc=ModelCantiere.getModelCantiere();
 		m.ResetAllForTest();
 		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
@@ -86,7 +86,7 @@ public class ModelCantiereTest {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		new MainController(m,mainView);
+		ControllerConnector.getControllerConnector(m,mainView);
 		mc=ModelCantiere.getModelCantiere();
 		mc.svuotaCantieriForTest();
 		assertEquals(mc.getNextCodice(),1);

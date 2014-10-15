@@ -208,7 +208,7 @@ public interface ModelInterface {
 	 * @param richiesta   Richiesta da Inserire
 	 * 
 	 */
-	public void addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
 	/**
 	 * Cancella Richiesta.
 	 *
@@ -224,7 +224,7 @@ public interface ModelInterface {
 	 * @param codiceMacchina  codice della macchina da associare
 	 * 
 	 */
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);	
+	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);	
 	public Cantiere getCantiere(int codiceCantiere);
 	
 	
@@ -244,13 +244,14 @@ public interface ModelInterface {
 	public void addCamionObserver(Observer observer);	
 	public void addEscavatoreObserver(Observer observer);	
 	public void addCantiereObserver(Observer observer);
-	
+	public void aggiungiLavoroObserver(Observer observer);
+	public void aggiungiRichiestaObserver(Observer observer);
 	
 
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere);
 	
-	public void liberaRichiesta(int codiceRichiesta);
+	public boolean liberaRichiesta(int codiceRichiesta);
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta);
 
 	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro);

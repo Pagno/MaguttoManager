@@ -128,6 +128,15 @@ public class ModelConnector extends Observable implements ModelInterface{
 		lc.addObserver(observer);
 	}
 
+	@Override
+	public void aggiungiLavoroObserver(Observer observer){
+		lc.aggiungiLavoroObserver(observer);
+	}
+
+	@Override
+	public void aggiungiRichiestaObserver(Observer observer) {
+		lc.aggiungiRichiestaObserver(observer);
+	}
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -869,9 +878,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void addRichiesta(int codiceCantiere, int codiceLavoro,
+	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
-		lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
+		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
 	@Override
@@ -919,21 +928,22 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void liberaRichiesta(int codiceRichiesta) {
-		lc.liberaRichiesta(codiceRichiesta);		
+	public boolean liberaRichiesta(int codiceRichiesta) {
+		return lc.liberaRichiesta(codiceRichiesta);		
 	}
 	
 	@Override
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
+	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
 		Macchina macchina=getMacchina(codiceMacchina);
-		lc.soddisfaRichiesta(codiceRichiesta, macchina);
+		return lc.soddisfaRichiesta(codiceRichiesta, macchina);
 	}
 	
 	@Override
 	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro){
 		return lc.getLavoro(codicelavoro).getListaRichieste();
 	}
-	
+
+	@Override
 	public ArrayList<Richiesta> getRichiesteScoperte(){
 		return lc.getListaInsoddisfatte();
 	}

@@ -141,6 +141,7 @@ public class CantierePanel extends JPanel {
 		txtNomeCantiere.setText("");
 		btnAdd.setText("Inserisci");
 	}
+	
 	public void btnAddActionListener(ActionListener act){
 		for( ActionListener al : btnAdd.getActionListeners() ) {
 			btnAdd.removeActionListener( al );

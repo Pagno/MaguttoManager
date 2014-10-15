@@ -24,7 +24,7 @@ import model.organizer.data.Ruspa;
 import org.junit.Test;
 
 import view.MainView;
-import controller.MainController;
+import controller.ControllerConnector;
 import controller.data.Associazione;
 import controller.data.Prenotazione;
 import database.Database;
@@ -36,7 +36,7 @@ public class GreedyEngineTest {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		new MainController(m,mainView);
+		ControllerConnector.getControllerConnector(m,mainView);
 		m.ResetAllForTest();
 		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.BASSA);//Cantiere 1
 		m.insertLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1
@@ -55,7 +55,7 @@ public class GreedyEngineTest {
 		
 		m.addRichiesta(1, 1, new RichiestaCamion(6,8,6,8,6,8));//Richiesta 3
 		
-		//Due richieste si contendono una macchina, solo la più prioritaria la prende
+		//Due richieste si contendono una macchina, solo la piï¿½ prioritaria la prende
 		
 		m.aggiungiCantiere("Pedemontana","Monza",new GregorianCalendar(2014,4,3),new GregorianCalendar(2016,10,19),Priority.MEDIA);//Cantiere 2
 		m.insertLavoro("Scavo", new GregorianCalendar(2014,2,3),new GregorianCalendar(2014,7,7), 2);//Lavoro 2
@@ -64,7 +64,7 @@ public class GreedyEngineTest {
 		m.aggiungiRuspa("Yamaha", "Ruspa", 15, 15, 15);//Macchina 2
 		
 		//Richieste di diversi cantieri con lavoro in stesso periodo e richiesta su stessa macchina, 
-		//solo quello che ha prenotazione su macchina la prende, l’altra no
+		//solo quello che ha prenotazione su macchina la prende, lï¿½altra no
 		
 		m.addRichiesta(2,2,new RichiestaGru(8,18,8,18,8,18,8,18));//Richiesta 6
 		m.addRichiesta(1,1,new RichiestaGru(7,17,7,17,7,17,7,17));//Richiesta 7
@@ -73,7 +73,7 @@ public class GreedyEngineTest {
 		m.aggiungiGru("Yamaha", "Gru", 10, 10, 10, 10);//Macchina 3
 		m.soddisfaRichiesta(8, 3);
 		
-		//Tre richieste (priorità alta,media,bassa) soddisfatte da tre macchine, la prima non ha prenotazioni, 
+		//Tre richieste (prioritï¿½ alta,media,bassa) soddisfatte da tre macchine, la prima non ha prenotazioni, 
 		//la seconda prenota la seconda macchina e la terza prenota la prima e la terza, 
 		//verificare che la prima richiesta prende la terza macchina, la seconda prende la seconda macchina 
 		//e la terza prende la prima macchina
@@ -242,12 +242,12 @@ public class GreedyEngineTest {
 		assertEquals(a.get(2).getMacchina(),cam2);
 		assertEquals(a.get(3).getRichiesta(),ric2);
 		assertEquals(a.get(3).getMacchina(),cam4);
-		//caso richiesta già soddisfatta
+		//caso richiesta giï¿½ soddisfatta
 		Richiesta ric3=new Richiesta(rc,l,22);
 		ric3.setMacchina(new Camion(99,"Yamaha","Camion",15,15,15));
 		ArrayList<Associazione>b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
 		assertEquals(b,a);
-		//caso richiesta già associata
+		//caso richiesta giï¿½ associata
 		ric3.setMacchina(null);
 		a.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
 		b=GreedyEngine.selectMacchinaWithoutReservation(ric3, cList, a, p);
@@ -319,7 +319,7 @@ public class GreedyEngineTest {
 		Camion cam2=new Camion(21, "Yamaha", "Camioncino", 15, 15, 15);
 		Prenotazione p2=new Prenotazione(new Associazione(r,cam2),4 );
 		p.add(p2);
-		//Con due prenotazioni, restituisce la più promettente
+		//Con due prenotazioni, restituisce la piï¿½ promettente
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p2);
 		Camion cam3=new Camion(22, "Yamaha", "Camioncino", 15, 15, 15);
 		Prenotazione p3=new Prenotazione(new Associazione(r,cam3),2 );
@@ -327,13 +327,13 @@ public class GreedyEngineTest {
 		Camion cam4=new Camion(23, "Yamaha", "Camioncino", 15, 15, 15);
 		Prenotazione p4=new Prenotazione(new Associazione(r,cam4),20 );
 		p.add(p4);
-		//Con più prenotazioni, restituisce la più promettente
+		//Con piï¿½ prenotazioni, restituisce la piï¿½ promettente
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p3);
 		Ruspa rus=new Ruspa(40,"Yamaha","Ruspa",15,15,15);
 		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
 		Prenotazione p5=new Prenotazione(new Associazione(new Richiesta(rr,l,40),rus),1);
 		p.add(p5);
-		//Considera solo le prenotazioni per la richiesta corrente, ignorando le prenotazioni più promettenti di altri
+		//Considera solo le prenotazioni per la richiesta corrente, ignorando le prenotazioni piï¿½ promettenti di altri
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p3);
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,05),new GregorianCalendar(2014,04,15));
 		a.add(new Associazione(new Richiesta(rc,l2,11), cam3));
@@ -341,7 +341,7 @@ public class GreedyEngineTest {
 		a.add(new Associazione(new Richiesta(rc,l3,19), cam2));
 		Lavoro l4=new Lavoro(6,"l4",c,new GregorianCalendar(2012,04,05),new GregorianCalendar(2012,04,15));
 		a.add(new Associazione(new Richiesta(rc,l4,20), cam2));
-		//Se la prenotazione più promettente è già occupata, seleziona la più promettente libera
+		//Se la prenotazione piï¿½ promettente ï¿½ giï¿½ occupata, seleziona la piï¿½ promettente libera
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),p2);
 		//Anche se ci sono prenotazioni promettenti per altre richieste, restituisce null se non ce ne sono per la richiesta attuale
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,new Richiesta(rc,l2,15)),null);
@@ -352,11 +352,11 @@ public class GreedyEngineTest {
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
 		a.clear();
 		r.setMacchina(new Camion(22, "Yamaha", "Camioncino", 15, 15, 15));
-		//Se la richiesta attuale è già soddisfatta, anche se ha prenotazioni disponibili, restituisco null
+		//Se la richiesta attuale ï¿½ giï¿½ soddisfatta, anche se ha prenotazioni disponibili, restituisco null
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
 		r.setMacchina(null);
 		a.add(new Associazione(r, cam3));
-		//Se la richiesta attuale è già stata associata, ma non è ancora soddisfatta, restituisco null
+		//Se la richiesta attuale ï¿½ giï¿½ stata associata, ma non ï¿½ ancora soddisfatta, restituisco null
 		assertEquals(GreedyEngine.selectMostPromisingReservation(a,p,r),null);
 		
 	}
@@ -494,7 +494,7 @@ public class GreedyEngineTest {
 		l2.caricaRichiesta(rc, 11, null);
 		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
 		assertTrue(p.isEmpty());
-		//Caso lavoro con richieste soddisfatte che però non possono soddisfare ric
+		//Caso lavoro con richieste soddisfatte che perï¿½ non possono soddisfare ric
 		l2.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 12, new Ruspa(30,"Yamaha","Ruspa",15,15,15));
 		l2.caricaRichiesta(new RichiestaCamion(5,10,5,10,5,10), 13, new Camion(40,"Yamaha","Camioncino",7,7,7));
 		GreedyEngine.reserveMacchineFromLavoro(r,l2,p);
@@ -625,12 +625,12 @@ public class GreedyEngineTest {
 				// L'ordine ottenuto dalla funzione dovrebbe essere:
 				// r121, r111, r221, r211, r311, r312, r321, r231, r421, r411
 				
-				/* L'analisi dell'ordine è questa: 
+				/* L'analisi dell'ordine ï¿½ questa: 
 				 * Le parentesi corrispondono alla selezione esatta della posizione, che non richiede ulteriori analisi.
-				 * In realtà l'ordinamento delle priorità avviene secondo l'ordine con cui le richieste sono poste in "richieste"
+				 * In realtï¿½ l'ordinamento delle prioritï¿½ avviene secondo l'ordine con cui le richieste sono poste in "richieste"
 				 * quindi l'algoritmo usato qui non equivale a quello utilizzato dal programma, ma il risultato deve esser lo stesso.
 				 *
-				 *        | Richiesta | PrioritàCan | DurataLav |  DataInizio  |  CodCan  |  CodLav  |  CodRic   |
+				 *        | Richiesta | Prioritï¿½Can | DurataLav |  DataInizio  |  CodCan  |  CodLav  |  CodRic   |
 				 *        |   r111    |    ALTA     |   10 (2)  |      X       |    X     |    X     |    X      |
 				 *        |   r121    |    ALTA     |   2  (1)  |      X       |    X     |    X     |    X      |
 				 *        |   r211    |    MEDIA    |   10      |  03/02/15    |    2 (4) |    X     |    X      |
@@ -797,7 +797,7 @@ public class GreedyEngineTest {
 		Richiesta r3_1=l3_1.getRichiesta(105);
 		Richiesta r3_2=l3_2.getRichiesta(106);
 		
-		//Priorità diverse
+		//Prioritï¿½ diverse
 		//Alta-Media
 		assertTrue(GreedyEngine.sortByPriority(r1_2, r2_1));
 		assertFalse(GreedyEngine.sortByDuration(r1_2, r2_1));
@@ -829,7 +829,7 @@ public class GreedyEngineTest {
 		assertFalse(GreedyEngine.sortByPriority(r3_2, r2_1));
 		assertFalse(GreedyEngine.sortByDuration(r3_2, r1_1));
 		
-		//Priorità uguali
+		//Prioritï¿½ uguali
 		//Alta-Alta
 		assertEquals(GreedyEngine.sortByPriority(r1_1, r1_2),GreedyEngine.sortByDuration(r1_1, r1_2));
 		assertTrue(GreedyEngine.sortByDuration(r1_1, r1_2));
@@ -870,10 +870,10 @@ public class GreedyEngineTest {
 		l2.setDataInizio(new GregorianCalendar(2014,03,02));
 		l1.setDataFine(new GregorianCalendar(2014,03,15));
 		l2.setDataFine(new GregorianCalendar(2014,03,07));
-		//d1>d2, quindi sortByDuration(r1, r2, d1, d2) restituisce false anche se sortByStartDate(r1, r2) è true
+		//d1>d2, quindi sortByDuration(r1, r2, d1, d2) restituisce false anche se sortByStartDate(r1, r2) ï¿½ true
 		assertFalse(GreedyEngine.sortByDuration(r1, r2));
 		assertTrue(GreedyEngine.sortByStartDate(r1, r2));
-		//d2>d1, quindi sortByDuration(r2, r1, d2, d1) restituisce true anche se sortByStartDate(r2, r1) è false
+		//d2>d1, quindi sortByDuration(r2, r1, d2, d1) restituisce true anche se sortByStartDate(r2, r1) ï¿½ false
 		assertTrue(GreedyEngine.sortByDuration(r2, r1));
 		assertFalse(GreedyEngine.sortByStartDate(r2, r1));
 	}
@@ -898,10 +898,10 @@ public class GreedyEngineTest {
 		
 		//Se le date sono diverse (nei lavori), allora le valuto
 		l2.setDataInizio(new GregorianCalendar(2014,03,12));
-		//r1>r2, quindi sortByStartDate(r1, r2) restituisce false anche se sortByCodes(r1, r2) è true
+		//r1>r2, quindi sortByStartDate(r1, r2) restituisce false anche se sortByCodes(r1, r2) ï¿½ true
 		assertFalse(GreedyEngine.sortByStartDate(r1, r2));
 		assertTrue(GreedyEngine.sortByCodes(r1, r2));
-		//r1>r2, quindi sortByStartDate(r2, r1) restituisce true anche se sortByCodes(r2, r1) è false
+		//r1>r2, quindi sortByStartDate(r2, r1) restituisce true anche se sortByCodes(r2, r1) ï¿½ false
 		assertTrue(GreedyEngine.sortByStartDate(r2, r1));
 		assertFalse(GreedyEngine.sortByCodes(r2, r1));
 		
