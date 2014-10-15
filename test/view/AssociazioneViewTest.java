@@ -27,8 +27,7 @@ public class AssociazioneViewTest {
 	public AssociazioneViewTest() {
 		Database db = Database.getDatabase();
 		ModelConnector m = ModelConnector.getModelConnector(db);
-		MainView mainView = new MainView();
-		ControllerConnector.getControllerConnector(m, mainView);
+		MainView mainView = new MainView(ControllerConnector.getControllerConnector(m));
 		frame = new FrameFixture(mainView);
 
 		//Aggiungo una Ruspa

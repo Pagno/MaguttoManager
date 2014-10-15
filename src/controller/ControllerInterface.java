@@ -19,13 +19,17 @@ public interface ControllerInterface {
 	public void caricaDatiListener();
 	public void salvaDatiListener();
 	public void chiusuraProgramma();
+	//
+	public void aggiungiGruObserver(Observer observer);
+	public void aggiungiRuspaObserver(Observer observer);
+	public void aggiungiCamionObserver(Observer observer);	
+	public void aggiungiEscavatoreObserver(Observer observer);	
+	public void aggiungiCantiereObserver(Observer observer);
 	
 	//CantieriInterface
 	public  Cantiere getCantiere(int codiceCantiere);
 	public  boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita );
 	public  boolean aggiungiLavoro(int codiceCantiere,String nomeLavoro,GregorianCalendar dataInizio,GregorianCalendar dataFine);
-	
-	public  void aggiungiRichiestaObserver(Observer observer );
 	
 	public  boolean eliminaLavoro(int codiceLavoro);
 	public  boolean eliminaRichiesta(int codiceRichiesta);

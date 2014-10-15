@@ -2,15 +2,10 @@ package controller.organizer;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Observer;
-
 import model.ModelInterface;
-import model.organizer.ModelGru;
 import model.organizer.data.Cantiere;
-import model.organizer.data.Gru;
 import model.organizer.data.Priorita;
 import model.organizer.data.Macchina;
-import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import controller.data.Associazione;
 
@@ -26,7 +21,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized ControllerCantiere getCantiereController(ModelInterface modelConnector){
+	public static synchronized ControllerCantiere getControllerCantiere(ModelInterface modelConnector){
 		if(istanza==null){
 			istanza=new ControllerCantiere(modelConnector);
 		}
@@ -67,10 +62,6 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 		return model.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
 	}
 
-	public void aggiungiRichiestaObserver(Observer observer ) {
-		model.aggiungiLavoroObserver(observer);
-	}
-
 	public boolean eliminaLavoro(int codiceLavoro) {
 		return model.eliminaLavoro(codiceLavoro);
 	}
@@ -89,12 +80,12 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}
 
 	 
-	public boolean addRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
+	public boolean aggiungiRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
 		return model.aggiungiRichiesta( codiceCantiere, codiceLavoro, richiesta);
 	}
 	
 
-	public ArrayList<Associazione> generateAssociations(){
+	public ArrayList<Associazione> generaAssociazioni(){
 		return controller.greedy.GreedyEngine.generaAssociazioni(model);
 	}
 

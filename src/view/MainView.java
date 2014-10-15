@@ -73,7 +73,8 @@ public class MainView extends JFrame {
 	/**
 	 * Create frame.
 	 */
-	public MainView() {
+	public MainView(ControllerConnector aCtr) {
+		controller = aCtr;
 		setTitle("MaguttoManager");
 		mainView = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,11 +127,19 @@ public class MainView extends JFrame {
 		center.add(southPanel, BorderLayout.SOUTH);
 		contentPane.add(center, BorderLayout.CENTER);
 		listener();
+		setObserver();
+		controller.caricaDatiListener();
+		setVisible(true);
+	}
+	
+	private void setObserver(){
+		controller.aggiungiGruObserver(dataModelGru);
+		controller.aggiungiRuspaObserver(dataModelRuspa);
+		controller.aggiungiCamionObserver(dataModelCamion);	
+		controller.aggiungiEscavatoreObserver(dataModelEscavatore);	
+		controller.aggiungiCantiereObserver(dataModelCantiere);		
 	}
 
-	public void setControllerConnector(ControllerConnector aCtr) {
-		controller = aCtr;
-	}
 	/**
 	 * Adds window closing listener.
 	 *

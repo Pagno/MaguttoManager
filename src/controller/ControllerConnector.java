@@ -29,18 +29,36 @@ public class ControllerConnector implements ControllerInterface{
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized ControllerConnector getControllerConnector(ModelInterface modelInterface,MainView view){
+	public static synchronized ControllerConnector getControllerConnector(ModelInterface modelInterface){
 		if(istanza==null){
-			istanza=new ControllerConnector(modelInterface,view);
+			istanza=new ControllerConnector(modelInterface);
 		}
 		return istanza;
 	}
 	
-	private ControllerConnector(ModelInterface modelConnector,MainView view) {
-		appCtrl=ControllerApplicazione.getApplicationController(modelConnector, view);
-		insCtrl=ControllerInserimento.getInsertController(modelConnector);
-		canCtrl=ControllerCantiere.getCantiereController(modelConnector);
+	private ControllerConnector(ModelInterface modelConnector) {
+		appCtrl=ControllerApplicazione.getControllerApplicazione(modelConnector);
+		insCtrl=ControllerInserimento.getControllerInserimento(modelConnector);
+		canCtrl=ControllerCantiere.getControllerCantiere(modelConnector);
 	}
+	
+
+	public void aggiungiGruObserver(Observer observer){
+		appCtrl.aggiungiGruObserver(observer);
+	}
+	public void aggiungiRuspaObserver(Observer observer){
+		appCtrl.aggiungiRuspaObserver(observer);
+	}
+	public void aggiungiCamionObserver(Observer observer){
+		appCtrl.aggiungiCamionObserver(observer);
+	}	
+	public void aggiungiEscavatoreObserver(Observer observer){
+		appCtrl.aggiungiEscavatoreObserver(observer);
+	}
+	public void aggiungiCantiereObserver(Observer observer){
+		appCtrl.aggiungiCantiereObserver(observer);
+	}
+	
 	
 	@Override
 	public boolean eliminaMacchina(Integer codiceMacchina) {
@@ -93,11 +111,6 @@ public class ControllerConnector implements ControllerInterface{
 	}
 
 	@Override
-	public void aggiungiRichiestaObserver(Observer observer) {
-		canCtrl.aggiungiRichiestaObserver(observer);
-	}
-
-	@Override
 	public boolean eliminaLavoro(int codiceLavoro) {
 		return canCtrl.eliminaLavoro(codiceLavoro);
 	}
@@ -121,7 +134,7 @@ public class ControllerConnector implements ControllerInterface{
 	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
 
-		return canCtrl.addRichiesta(codiceCantiere, codiceLavoro, richiesta);
+		return canCtrl.aggiungiRichiesta(codiceCantiere, codiceLavoro, richiesta);
 	}
 
 	@Override
@@ -131,7 +144,7 @@ public class ControllerConnector implements ControllerInterface{
 
 	@Override
 	public ArrayList<Associazione> generateAssociations() {
-		return canCtrl.generateAssociations();
+		return canCtrl.generaAssociazioni();
 	}
 
 	@Override
@@ -150,27 +163,27 @@ public class ControllerConnector implements ControllerInterface{
 	public boolean aggiungiGru(String produttore, String modello,
 			int rotazione, int portata, int lunghezza, int altezza) {
 		
-		return insCtrl.aggiungiNuovaGru(produttore, modello, rotazione, portata, lunghezza, altezza);
+		return insCtrl.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
 	@Override
 	public boolean aggiungiRuspa(String produttore, String modello,
 			int capacita, int portata, int altezza) {
 		
-		return insCtrl.inserisciNuovaRuspa(produttore, modello, capacita, portata, altezza);
+		return insCtrl.aggiungiRuspa(produttore, modello, capacita, portata, altezza);
 	}
 
 	@Override
 	public boolean aggiungiEscavatore(String produttore, String modello,
 			int capacita, int portata, int altezza, int profondita) {
-		return insCtrl.inserisciNuovoEscavatore(produttore, modello, capacita, portata, altezza, profondita);
+		return insCtrl.aggiungiEscavatore(produttore, modello, capacita, portata, altezza, profondita);
 	}
 
 	@Override
 	public boolean aggiungiCamion(String produttore, String modello,
 			int capacita, int portata, int lunghezza) {
 
-		return insCtrl.inserisciNuovoCamion(produttore, modello, capacita, portata, lunghezza);
+		return insCtrl.aggiungiCamion(produttore, modello, capacita, portata, lunghezza);
 	}
 
 	@Override
@@ -178,7 +191,7 @@ public class ControllerConnector implements ControllerInterface{
 			String indirizzo, GregorianCalendar dataApertura,
 			GregorianCalendar dataChiusura, Priorita priorita) {
 
-		return insCtrl.inserisciNuovoCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
+		return insCtrl.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}
 
 	@Override

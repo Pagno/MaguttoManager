@@ -45,10 +45,8 @@ public class Main {
 
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
-		MainView mainView=null ;
-		mainView = new MainView();
-		ControllerConnector controller=ControllerConnector.getControllerConnector(m, mainView);
-		mainView.setControllerConnector(controller);
+		ControllerConnector controller=ControllerConnector.getControllerConnector(m);
+		MainView mainView = new MainView(controller);
 		
 
 	}

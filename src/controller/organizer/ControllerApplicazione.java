@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
@@ -35,7 +36,6 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	private ModelInterface model;
 	
 	/**   main view. */
-	private MainView mainView;
 	private static ControllerApplicazione istanza;
 
 	/**
@@ -43,9 +43,9 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized ControllerApplicazione getApplicationController(ModelInterface modelConnector,MainView view){
+	public static synchronized ControllerApplicazione getControllerApplicazione(ModelInterface modelConnector){
 		if(istanza==null){
-			istanza=new ControllerApplicazione(modelConnector,view);
+			istanza=new ControllerApplicazione(modelConnector);
 		}
 		return istanza;
 	}
@@ -55,24 +55,23 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
 	 * @param view per registrare gli eventi generati dalla view
 	 */
-	private ControllerApplicazione(ModelInterface modelConnector,MainView view) {
+	private ControllerApplicazione(ModelInterface modelConnector){
 		model = modelConnector;
-		mainView = view;
-		setObserver();
-		model.refreshData();
-		mainView.setVisible(true);
-		model.pubblicaContenuto();
 	}
-	
-	/**
-	 * Imposta le classi observer della view.
-	 */
-	private void setObserver(){
-		model.aggiungiGruObserver(mainView.dataModelGru);
-		model.aggiungiRuspaObserver(mainView.dataModelRuspa);
-		model.aggiungiCamionObserver(mainView.dataModelCamion);	
-		model.aggiungiEscavatoreObserver(mainView.dataModelEscavatore);	
-		model.aggiungiCantiereObserver(mainView.dataModelCantiere);		
+	public void aggiungiGruObserver(Observer observer){
+		model.aggiungiGruObserver(observer);
+	}
+	public void aggiungiRuspaObserver(Observer observer){
+		model.aggiungiRuspaObserver(observer);
+	}
+	public void aggiungiCamionObserver(Observer observer){
+		model.aggiungiCamionObserver(observer);
+	}	
+	public void aggiungiEscavatoreObserver(Observer observer){
+		model.aggiungiEscavatoreObserver(observer);
+	}
+	public void aggiungiCantiereObserver(Observer observer){
+		model.aggiungiCantiereObserver(observer);
 	}
 	
 	//MENU FILE LISTENER

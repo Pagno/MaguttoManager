@@ -35,8 +35,7 @@ public class GreedyEngineTest {
 	public void testgeneraAssociazioni() {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
-		MainView mainView = new MainView();
-		ControllerConnector.getControllerConnector(m,mainView);
+		MainView mainView = new MainView(ControllerConnector.getControllerConnector(m));
 		m.ResetAllForTest();
 		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);//Cantiere 1
 		m.aggiungiLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1

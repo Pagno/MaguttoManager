@@ -6,9 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Observable;
 import java.util.Observer;
-
 import model.organizer.ModelCamion;
 import model.organizer.ModelCantiere;
 import model.organizer.ModelEscavatore;
@@ -36,7 +34,7 @@ import database.DatabaseInterface;
 /**
  *   Class ModelConnector.
  */
-public class ModelConnector extends Observable implements ModelInterface{
+public class ModelConnector implements ModelInterface{
 
 	/**   mg. */
 	private ModelGru mg;
@@ -125,17 +123,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @param observer   observer
 	 */
 	public void aggiungiCantiereObserver(Observer observer){
-		lc.addObserver(observer);
-	}
-
-	@Override
-	public void aggiungiLavoroObserver(Observer observer){
-		lc.aggiungiLavoroObserver(observer);
-	}
-
-	@Override
-	public void aggiungiRichiestaObserver(Observer observer) {
-		lc.aggiungiRichiestaObserver(observer);
+		lc.aggiungiObserver(observer);
 	}
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
@@ -885,12 +873,12 @@ public class ModelConnector extends Observable implements ModelInterface{
 
 	@Override
 	public boolean eliminaRichiesta(int codiceRichiesta) {
-		return lc.rimuoviRichiesta(codiceRichiesta);
+		return lc.eliminaRichiesta(codiceRichiesta);
 	}
 
 	@Override
 	public boolean eliminaLavoro(int codiceLavoro) {
-		return lc.rimuoviLavoro(codiceLavoro);
+		return lc.eliminaLavoro(codiceLavoro);
 	}
 	/**
 	 * Elenco macchine disponibili per una data richiesta.

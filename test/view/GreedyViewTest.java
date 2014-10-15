@@ -34,8 +34,7 @@ public class GreedyViewTest {
 	public GreedyViewTest() {
 		Database db = Database.getDatabase();
 		model = ModelConnector.getModelConnector(db);
-		MainView mainView = new MainView();
-		ControllerConnector.getControllerConnector(model, mainView);
+		MainView mainView = new MainView(ControllerConnector.getControllerConnector(model));
 		frame = new FrameFixture(mainView);
 
 		// INSERISCO I DATI DI PARTENZA

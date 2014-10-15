@@ -38,7 +38,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized ControllerInserimento getInsertController(ModelInterface modelConnector){
+	public static synchronized ControllerInserimento getControllerInserimento(ModelInterface modelConnector){
 		if(istanza==null){
 			istanza=new ControllerInserimento(modelConnector);
 		}
@@ -65,7 +65,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public boolean aggiungiNuovaGru(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza){
+	public boolean aggiungiGru(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza){
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -102,7 +102,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public boolean inserisciNuovaRuspa(String produttore, String modello,int capacita,int portata,int altezza) {
+	public boolean aggiungiRuspa(String produttore, String modello,int capacita,int portata,int altezza) {
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -128,7 +128,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	}
 	
 	
-	public boolean inserisciNuovoEscavatore(String produttore, String modello,int capacita,int portata,int altezza,int profondita){
+	public boolean aggiungiEscavatore(String produttore, String modello,int capacita,int portata,int altezza,int profondita){
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -155,7 +155,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	
 	
 	
-	public boolean inserisciNuovoCamion(String produttore,String modello,int capacita,int portata,int lunghezza){
+	public boolean aggiungiCamion(String produttore,String modello,int capacita,int portata,int lunghezza){
 		if(produttore=="" || modello==""){
 			JOptionPane
 			.showMessageDialog(
@@ -183,7 +183,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	
 	
 
-	public boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
+	public boolean aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
 			.showMessageDialog(

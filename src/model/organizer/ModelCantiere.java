@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.tree.DefaultTreeModel;
+
 
 
 
@@ -71,9 +73,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		//setChanged();
 		//notifyObservers(v1);
-		cantiereObserver.update(null, v1);//notifyObservers(v1);
-		NodeAdder add=new NodeAdder("Aggiungi nuovo Lavoro");
-		insertNodeInto(add, c, 0);
+		if(cantiereObserver!=null){
+			cantiereObserver.update(null, v1);//notifyObservers(v1);
+			NodeAdder add=new NodeAdder("Aggiungi nuovo Lavoro");
+			insertNodeInto(add, c, 0);
+		}
 	}
 
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
@@ -209,14 +213,14 @@ public class ModelCantiere extends DefaultTreeModel{
 		insertNodeInto(add, lavoro, 0);
 	}
 	
-	public void rimuoviLavoro(int codiceCantiere,int codiceLavoro){
+	public void eliminaLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		if(cantiere!=null){
 			cantiere.rimuoviLavoro(codiceLavoro);
 		}
 	}
 	
-	public boolean rimuoviLavoro(int codiceLavoro){
+	public boolean eliminaLavoro(int codiceLavoro){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				item.rimuoviLavoro(codiceLavoro);
@@ -484,7 +488,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
-	public boolean rimuoviRichiesta(int codiceRichiesta){
+	public boolean eliminaRichiesta(int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
@@ -495,7 +499,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		return false;
 	}
 	
-	public void rimuoviRichiesta(int codiceLavoro,int codiceRichiesta){
+	public void eliminaRichiesta(int codiceLavoro,int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
 				Lavoro l=getLavoro(codiceLavoro);
@@ -507,7 +511,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
-	public void rimuoviRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
+	public void eliminaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -651,9 +655,8 @@ public class ModelCantiere extends DefaultTreeModel{
 		return tmp;
 	}
 
-	Observer observer;
-	public void addObserver(Observer ob) {
-		this.observer=ob;
+	public void aggiungiObserver(Observer ob) {
+		this.cantiereObserver=ob;
 	}
 	
 	//Metodi realizzati appositamente per il testing della classe.
@@ -685,6 +688,5 @@ public class ModelCantiere extends DefaultTreeModel{
 	public void aggiungiRichiestaObserver(Observer observer) {
 		richiestaObserver=observer;
 	}	
-	
 
 }

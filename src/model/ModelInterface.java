@@ -244,8 +244,6 @@ public interface ModelInterface {
 	public void aggiungiCamionObserver(Observer observer);	
 	public void aggiungiEscavatoreObserver(Observer observer);	
 	public void aggiungiCantiereObserver(Observer observer);
-	public void aggiungiLavoroObserver(Observer observer);
-	public void aggiungiRichiestaObserver(Observer observer);
 	
 
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);
