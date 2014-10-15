@@ -56,7 +56,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	 *
 	 * @param Richiesta richiesta
 	 */
-	public void addLavoro(Lavoro r) {
+	public void aggiungiLavoro(Lavoro r) {
 		lavori.add(r);
 
 	}

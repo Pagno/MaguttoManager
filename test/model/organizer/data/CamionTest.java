@@ -102,12 +102,12 @@ public class CamionTest {
 	}
 	
 	@Test
-	public void testAddRichiesta(){
+	public void testaggiungiRichiesta(){
 		Richiesta.initCodice();
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta r=new Richiesta(rc,lavoro);
-		c.addRichiesta(r);
+		c.aggiungiRichiesta(r);
 		Richiesta test=c.getRichiesta(1);
 		assertEquals(r,test);
 		test=c.getRichiesta(99);
@@ -115,31 +115,31 @@ public class CamionTest {
 	}
 	
 	@Test
-	public void testRemoveRichiesta(){
+	public void testrimuoviRichiesta(){
 		Richiesta.initCodice();
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta r=new Richiesta(rc,lavoro);
-		c.addRichiesta(r);
+		c.aggiungiRichiesta(r);
 		Richiesta test=c.getRichiesta(1);
 		assertEquals(r,test);
-		c.removeRichiesta(r);
+		c.rimuoviRichiesta(r);
 		test=c.getRichiesta(1);
 		assertEquals(test,null);
 	}
 	
 	@Test
-	public void testIsFree(){
+	public void testIsLibera(){
 		Richiesta.initCodice();
 		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 4, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta r=new Richiesta(rc,lavoro);
-		c.addRichiesta(r);
-		assertTrue(c.isFree(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2013, 9, 01)));
-		assertFalse(c.isFree(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2014, 9, 01)));
-		assertFalse(c.isFree(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2014, 9, 01)));
-		assertFalse(c.isFree(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2018, 9, 01)));
-		assertTrue(c.isFree(new GregorianCalendar(2017, 6, 01), new GregorianCalendar(2018, 9, 01)));
+		c.aggiungiRichiesta(r);
+		assertTrue(c.isLibera(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2013, 9, 01)));
+		assertFalse(c.isLibera(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2014, 9, 01)));
+		assertFalse(c.isLibera(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2014, 9, 01)));
+		assertFalse(c.isLibera(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2018, 9, 01)));
+		assertTrue(c.isLibera(new GregorianCalendar(2017, 6, 01), new GregorianCalendar(2018, 9, 01)));
 	}
 	
 	@Test
@@ -148,11 +148,11 @@ public class CamionTest {
 		RichiestaCamion rc=new RichiestaCamion(90, 110, 90, 110, 90, 110);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta r1=new Richiesta(rc,lavoro);
-		c.addRichiesta(r1);
+		c.aggiungiRichiesta(r1);
 		Richiesta r2=new Richiesta(rc,lavoro);
-		c.addRichiesta(r2);
+		c.aggiungiRichiesta(r2);
 		Richiesta r3=new Richiesta(rc,lavoro);
-		c.addRichiesta(r3);
+		c.aggiungiRichiesta(r3);
 		Richiesta test=c.getRichiesta(1);
 		test.setMacchina(c);
 		assertEquals(test.getMacchina(),c);

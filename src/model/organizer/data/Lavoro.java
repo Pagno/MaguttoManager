@@ -265,7 +265,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		return cantiere.getCodice();
 	}
 	
-	public ArrayList<Lavoro> getRelatedWorks(){
+	public ArrayList<Lavoro> getLavoriConnessi(){
 		return cantiere.getElencoLavori();
 	}
 	

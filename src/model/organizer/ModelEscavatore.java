@@ -165,7 +165,7 @@ public class ModelEscavatore extends ModelMacchina{
 	public ArrayList<Escavatore> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		ArrayList<Escavatore>listaLibera=new ArrayList<Escavatore>();
 		for(Escavatore escavatore:listaEscavatori){
-			if(escavatore.isFree(dataInizio, dataFine)){
+			if(escavatore.isLibera(dataInizio, dataFine)){
 				listaLibera.add(escavatore);
 			}
 		}

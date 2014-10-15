@@ -197,8 +197,8 @@ public class GreedyEngineTest {
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,23));
 		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,23));
-		c.addLavoro(l);
-		c.addLavoro(l2);
+		c.aggiungiLavoro(l);
+		c.aggiungiLavoro(l2);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		Richiesta ric1=new Richiesta(rc,l,20);
 		//Caso lista di macchine libere vuota
@@ -259,7 +259,7 @@ public class GreedyEngineTest {
 	public void testrimuoviPrenotazioniPerRichiesta() {
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
-		c.addLavoro(l);
+		c.aggiungiLavoro(l);
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		Richiesta ric1=new Richiesta(rc,l,20);
@@ -305,7 +305,7 @@ public class GreedyEngineTest {
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
-		c.addLavoro(l);
+		c.aggiungiLavoro(l);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		l.caricaRichiesta(rc, 10, null);
 		Richiesta r=l.getRichiesta(10);
@@ -375,17 +375,17 @@ public class GreedyEngineTest {
 		Lavoro l8=new Lavoro(8,"l8",c,new GregorianCalendar(2014,05,26),new GregorianCalendar(2014,05,28));
 		Lavoro l9=new Lavoro(9,"l9",c,new GregorianCalendar(2014,05,28),new GregorianCalendar(2014,05,30));
 		Lavoro loccupa=new Lavoro(10,"l10",c,new GregorianCalendar(2014,05,26),new GregorianCalendar(2014,06,10));
-		c.addLavoro(base);
-		c.addLavoro(l1);
-		c.addLavoro(l2);
-		c.addLavoro(l3);
-		c.addLavoro(l4);
-		c.addLavoro(l5);
-		c.addLavoro(l6);
-		c.addLavoro(l7);
-		c.addLavoro(l8);
-		c.addLavoro(l9);
-		c.addLavoro(loccupa);
+		c.aggiungiLavoro(base);
+		c.aggiungiLavoro(l1);
+		c.aggiungiLavoro(l2);
+		c.aggiungiLavoro(l3);
+		c.aggiungiLavoro(l4);
+		c.aggiungiLavoro(l5);
+		c.aggiungiLavoro(l6);
+		c.aggiungiLavoro(l7);
+		c.aggiungiLavoro(l8);
+		c.aggiungiLavoro(l9);
+		c.aggiungiLavoro(loccupa);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		Camion c1=new Camion(1,"Yamaha","Camion",15,15,15);
 		Camion c2=new Camion(2,"Yamaha","Camion",15,15,15);
@@ -477,10 +477,10 @@ public class GreedyEngineTest {
 		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,8));
 		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,15));
 		Lavoro l4=new Lavoro(44,"l4",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,15));
-		c.addLavoro(l1);
-		c.addLavoro(l2);
-		c.addLavoro(l3);
-		c.addLavoro(l4);
+		c.aggiungiLavoro(l1);
+		c.aggiungiLavoro(l2);
+		c.aggiungiLavoro(l3);
+		c.aggiungiLavoro(l4);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		l1.caricaRichiesta(rc, 10, null);
 		Richiesta r=l1.getRichiesta(10);
@@ -503,7 +503,7 @@ public class GreedyEngineTest {
 		Camion cam=new Camion(40,"Yamaha","Camion",15,15,15);
 		l3.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 14, cam);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 15, cam);
-		assertFalse(cam.isFree(l1.getDataInizio(), l1.getDataFine()));
+		assertFalse(cam.isLibera(l1.getDataInizio(), l1.getDataFine()));
 		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric e che sono libere per ric
@@ -591,15 +591,15 @@ public class GreedyEngineTest {
 				Lavoro l32=new Lavoro(9,"l32",c3,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
 				Lavoro l41=new Lavoro(4,"l41",c4,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
 				Lavoro l42=new Lavoro(6,"l42",c4,new GregorianCalendar(2015,02,9),new GregorianCalendar(2015,02,11));
-				c1.addLavoro(l11);
-				c1.addLavoro(l12);
-				c2.addLavoro(l21);
-				c2.addLavoro(l22);
-				c2.addLavoro(l23);
-				c3.addLavoro(l31);
-				c3.addLavoro(l32);
-				c4.addLavoro(l41);
-				c4.addLavoro(l42);
+				c1.aggiungiLavoro(l11);
+				c1.aggiungiLavoro(l12);
+				c2.aggiungiLavoro(l21);
+				c2.aggiungiLavoro(l22);
+				c2.aggiungiLavoro(l23);
+				c3.aggiungiLavoro(l31);
+				c3.aggiungiLavoro(l32);
+				c4.aggiungiLavoro(l41);
+				c4.aggiungiLavoro(l42);
 				RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 				l11.caricaRichiesta(rc, 1, null);
 				l12.caricaRichiesta(rc, 5, null);
@@ -777,12 +777,12 @@ public class GreedyEngineTest {
 		Lavoro l2_2=new Lavoro(14,"l4",c2,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,10));
 		Lavoro l3_1=new Lavoro(15,"l5",c3,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,05));
 		Lavoro l3_2=new Lavoro(16,"l6",c3,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,10));
-		c1.addLavoro(l1_1);
-		c1.addLavoro(l1_2);
-		c2.addLavoro(l2_1);
-		c2.addLavoro(l2_2);
-		c3.addLavoro(l3_1);
-		c3.addLavoro(l3_2);
+		c1.aggiungiLavoro(l1_1);
+		c1.aggiungiLavoro(l1_2);
+		c2.aggiungiLavoro(l2_1);
+		c2.aggiungiLavoro(l2_2);
+		c3.aggiungiLavoro(l3_1);
+		c3.aggiungiLavoro(l3_2);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		l1_1.caricaRichiesta(rc,101,null);
 		l1_2.caricaRichiesta(rc,102,null);
@@ -915,9 +915,9 @@ public class GreedyEngineTest {
 		Lavoro l1=new Lavoro(3,"l1",c1,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l2=new Lavoro(4,"l2",c1,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l3=new Lavoro(10,"l3",c2,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
-		c1.addLavoro(l1);
-		c1.addLavoro(l2);
-		c2.addLavoro(l3);
+		c1.aggiungiLavoro(l1);
+		c1.aggiungiLavoro(l2);
+		c2.aggiungiLavoro(l3);
 		
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		l1.caricaRichiesta(rc, 6, null);

@@ -15,7 +15,7 @@ public class RichiestaTest {
 	public RichiestaTest(){
 		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priorita.ALTA);
 		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
 	}
 	
@@ -208,17 +208,17 @@ public class RichiestaTest {
 	}
 	
 	@Test
-	public void testGetRelatedWorks(){
+	public void testgetLavoriConnessi(){
 		Lavoro l2=new Lavoro(6,"Fondamenta",cantiere, new GregorianCalendar(2015, 9, 01),new GregorianCalendar(2015, 11, 1));
-		cantiere.addLavoro(l2);
+		cantiere.aggiungiLavoro(l2);
 		Lavoro l3=new Lavoro(7,"Muratura",cantiere, new GregorianCalendar(2016, 9, 01),new GregorianCalendar(2016, 11, 1));
-		cantiere.addLavoro(l3);
+		cantiere.aggiungiLavoro(l3);
 		ArrayList<Lavoro>test=new ArrayList<Lavoro>();
 		test.add(lavoro);
 		test.add(l2);
 		test.add(l3);
-		assertEquals(r.getRelatedWorks(),lavoro.getRelatedWorks());
-		assertEquals(r.getRelatedWorks(),test);
+		assertEquals(r.getLavoriConnessi(),lavoro.getLavoriConnessi());
+		assertEquals(r.getLavoriConnessi(),test);
 	}
 	
 	@Test

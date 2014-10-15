@@ -160,7 +160,7 @@ public class ModelCamion extends ModelMacchina{
 		ArrayList<Camion> listaLibera=new ArrayList<Camion>();
 		
 		for(Camion camion:listaCamion){
-			if(camion.isFree(dataInizio, dataFine))
+			if(camion.isLibera(dataInizio, dataFine))
 				listaLibera.add(camion);
 		}
 		return listaLibera;

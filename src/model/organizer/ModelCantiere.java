@@ -179,7 +179,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
 
 		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
@@ -203,7 +203,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Lavoro lavoro=new Lavoro(codiceLavoro,nome,cantiere,dataInizio,dataFine);
 
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
 		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);

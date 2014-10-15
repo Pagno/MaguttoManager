@@ -96,7 +96,7 @@ public abstract class Macchina{
 		return false;
 	}
 	
-	public void addRichiesta(Richiesta r){
+	public void aggiungiRichiesta(Richiesta r){
 		elencoRichiesta.add(r);
 	}
 	
@@ -109,10 +109,10 @@ public abstract class Macchina{
 		return null;
 	}
 	
-	public void removeRichiesta(Richiesta r){
+	public void rimuoviRichiesta(Richiesta r){
 		elencoRichiesta.remove(r);
 	}
-	public boolean isFree(GregorianCalendar inizio,GregorianCalendar fine){
+	public boolean isLibera(GregorianCalendar inizio,GregorianCalendar fine){
 		//if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
 		for(Richiesta richiesta:elencoRichiesta){
 			if(!(fine.before(richiesta.getDataInizio()) || inizio.after(richiesta.getDataFine())))

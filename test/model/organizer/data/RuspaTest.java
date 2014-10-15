@@ -102,12 +102,12 @@ public class RuspaTest {
 
 
 	@Test
-	public void testAddRichiesta(){
+	public void testaggiungiRichiesta(){
 		Richiesta.initCodice();
 		RichiestaRuspa rr=new RichiestaRuspa(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta ric=new Richiesta(rr,lavoro);
-		r.addRichiesta(ric);
+		r.aggiungiRichiesta(ric);
 		Richiesta test=r.getRichiesta(1);
 		assertEquals(ric,test);
 		test=r.getRichiesta(99);
@@ -115,31 +115,31 @@ public class RuspaTest {
 	}
 	
 	@Test
-	public void testRemoveRichiesta(){
+	public void testrimuoviRichiesta(){
 		Richiesta.initCodice();
 		RichiestaRuspa rr=new RichiestaRuspa(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta ric=new Richiesta(rr,lavoro);
-		r.addRichiesta(ric);
+		r.aggiungiRichiesta(ric);
 		Richiesta test=r.getRichiesta(1);
 		assertEquals(ric,test);
-		r.removeRichiesta(ric);
+		r.rimuoviRichiesta(ric);
 		test=r.getRichiesta(1);
 		assertEquals(test,null);
 	}
 	
 	@Test
-	public void testIsFree(){
+	public void testIsLibera(){
 		Richiesta.initCodice();
 		RichiestaRuspa rr=new RichiestaRuspa(5, 10, 5, 10, 5, 10);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 4, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta ric=new Richiesta(rr,lavoro);
-		r.addRichiesta(ric);
-		assertTrue(r.isFree(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2013, 9, 01)));
-		assertFalse(r.isFree(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2014, 9, 01)));
-		assertFalse(r.isFree(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2014, 9, 01)));
-		assertFalse(r.isFree(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2018, 9, 01)));
-		assertTrue(r.isFree(new GregorianCalendar(2017, 6, 01), new GregorianCalendar(2018, 9, 01)));
+		r.aggiungiRichiesta(ric);
+		assertTrue(r.isLibera(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2013, 9, 01)));
+		assertFalse(r.isLibera(new GregorianCalendar(2012, 9, 01), new GregorianCalendar(2014, 9, 01)));
+		assertFalse(r.isLibera(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2014, 9, 01)));
+		assertFalse(r.isLibera(new GregorianCalendar(2014, 6, 01), new GregorianCalendar(2018, 9, 01)));
+		assertTrue(r.isLibera(new GregorianCalendar(2017, 6, 01), new GregorianCalendar(2018, 9, 01)));
 	}
 	
 	@Test
@@ -148,11 +148,11 @@ public class RuspaTest {
 		RichiestaRuspa rr=new RichiestaRuspa(90, 110, 90, 110, 90, 110);
 		Lavoro lavoro=new Lavoro(5,"Scavi",null, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta r1=new Richiesta(rr,lavoro);
-		r.addRichiesta(r1);
+		r.aggiungiRichiesta(r1);
 		Richiesta r2=new Richiesta(rr,lavoro);
-		r.addRichiesta(r2);
+		r.aggiungiRichiesta(r2);
 		Richiesta r3=new Richiesta(rr,lavoro);
-		r.addRichiesta(r3);
+		r.aggiungiRichiesta(r3);
 		Richiesta test=r.getRichiesta(1);
 		test.setMacchina(r);
 		assertEquals(test.getMacchina(),r);

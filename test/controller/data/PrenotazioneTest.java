@@ -24,7 +24,7 @@ public class PrenotazioneTest {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
 				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		
 		richiesta=new Richiesta(new RichiestaRuspa( -1, -1, 300, 400, -1, -1), lavoro);
 		macchina=new Ruspa(101, "New Holland", "R101", 1200, 350, 3);
@@ -41,7 +41,7 @@ public class PrenotazioneTest {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
 				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
-		cantiere.addLavoro(lavoro);
+		cantiere.aggiungiLavoro(lavoro);
 		
 		Richiesta r1=new Richiesta(new RichiestaRuspa( 5, 10, 5, 10, 5, 10), lavoro);
 		Ruspa m1=new Ruspa(150, "New Holland", "R101", 8, 8, 8);
