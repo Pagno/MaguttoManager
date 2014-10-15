@@ -878,9 +878,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void addRichiesta(int codiceCantiere, int codiceLavoro,
+	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
-		lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
+		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
 	@Override
@@ -933,9 +933,9 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 	
 	@Override
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
+	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
 		Macchina macchina=getMacchina(codiceMacchina);
-		lc.soddisfaRichiesta(codiceRichiesta, macchina);
+		return lc.soddisfaRichiesta(codiceRichiesta, macchina);
 	}
 	
 	@Override

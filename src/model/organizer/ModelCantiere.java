@@ -333,13 +333,15 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
-	public void aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
+	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
 		System.out.print("CodiceLavoro: "+codiceLavoro);
 		if(item.hasLavoro(codiceLavoro)){
 			Lavoro l=item.getLavoro(codiceLavoro);
 			l.inserisciRichiesta(caratteristiche);
+			return true;
 		}
+		return false;
 	}
 	
 	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
@@ -362,15 +364,15 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
-	public void soddisfaRichiesta(int codiceRichiesta, Macchina m){
+	public boolean soddisfaRichiesta(int codiceRichiesta, Macchina m){
 		ciclo:for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
-					lav.soddisfaRichiesta(codiceRichiesta, m);
-					break ciclo;
+					return lav.soddisfaRichiesta(codiceRichiesta, m);
 				}
 			}
 		}
+		return false;
 	}
 	
 	public void soddisfaRichiesta(int codiceLavoro,int codiceRichiesta, Macchina m){
@@ -469,8 +471,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
-					lav.eliminaRichiesta(codiceRichiesta);
-					return true;
+					return lav.eliminaRichiesta(codiceRichiesta);
 				}
 			}
 		}

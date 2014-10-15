@@ -1,25 +1,6 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
-import javax.swing.JOptionPane;
-
-import controller.data.Associazione;
-import model.organizer.data.Cantiere;
-import model.organizer.data.Priority;
-import model.organizer.data.Richiesta;
-import model.organizer.data.RichiestaCamion;
-import model.organizer.data.RichiestaEscavatore;
-import model.organizer.data.RichiestaGru;
-import model.organizer.data.RichiestaMacchina;
-import model.organizer.data.RichiestaRuspa;
 import model.ModelInterface;
-import view.AssociaMacchina;
-import view.InsertCantiere;
-import view.lavoro.EditLavoro;
 
 
 /**

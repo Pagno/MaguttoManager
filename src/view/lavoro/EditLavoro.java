@@ -29,6 +29,11 @@ import javax.swing.tree.TreePath;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
+import model.organizer.data.RichiestaCamion;
+import model.organizer.data.RichiestaEscavatore;
+import model.organizer.data.RichiestaGru;
+import model.organizer.data.RichiestaMacchina;
+import model.organizer.data.RichiestaRuspa;
 import view.AssociaMacchina;
 import view.lavoro.panel.CantierePanel;
 import view.lavoro.panel.LavoroPanel;
@@ -106,6 +111,7 @@ public class EditLavoro extends JDialog implements Observer{
 		//pnlCantiere.setDatiCantiere(datiCantiere);
 		pnlLavoro= new LavoroPanel(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
 		pnlAddRichiesta= new RichiestaPanel();
+		pnlAddRichiesta.btnAdd.addActionListener(aggiungiRichiestaListener());
 		pnlVisualizzaPanel=new VisualizzaRichiestaPanel();
 		
 		
@@ -164,7 +170,8 @@ public class EditLavoro extends JDialog implements Observer{
 				pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
 				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuovo Lavoro")){
 					btnDelete.setEnabled(false);
-					pnlLavoro.clear();pnlLavoro.btnAddActionListener(AddLavoroListener());
+					pnlLavoro.clear();
+					pnlLavoro.btnAddActionListener(aggiungiLavoroListener());
 					pnlLavoro.btnLavoro.setText("Inserisci");
 				}else{
 					Lavoro lavoro=((Lavoro)tp.getPath()[tp.getPathCount()-1]);
@@ -178,6 +185,7 @@ public class EditLavoro extends JDialog implements Observer{
 					pnlLavoro.fill(l);
 					
 
+					pnlLavoro.btnAddActionListener(modificaLavoroListener());
 					btnDelete.setEnabled(true);				
 					for( ActionListener al : btnDelete.getActionListeners() ) {
 						btnDelete.removeActionListener( al );
@@ -189,6 +197,9 @@ public class EditLavoro extends JDialog implements Observer{
 			}else if(tp.getPathCount()==3){
 				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuova Richiesta")){
 					cl.show(cardPanel,"richiesta");
+					addNode addNode=(addNode)tp.getPath()[tp.getPath().length-1];
+					Lavoro lavoro=(Lavoro)addNode.getParent();
+					codiceLavoro=lavoro.getCodice();
 				}else{
 					btnDelete.setEnabled(true);
 					for( ActionListener al : btnDelete.getActionListeners() ) {
@@ -220,25 +231,15 @@ public class EditLavoro extends JDialog implements Observer{
 		}
 	}	
 	
-	public ItemListener check(){
+	private ItemListener check(){
 		return new ItemListener() {
-			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				renderer.set(!chckbxNewCheckBox.isSelected());
 				treeModel.reload();
 			}
 		};
-	}
-	
-	
-	public void setAddCantiereListeners(ActionListener act) {
-		pnlCantiere.setAddCantiereListeners(act);
-	}
-
-	
-	
-	
+	}	
 	
 	private void addLavoro(ArrayList<String> work){
 		treeModel.addWork(work);
@@ -252,7 +253,7 @@ public class EditLavoro extends JDialog implements Observer{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				cCtr.liberaRichiesta(codiceRichiesta);
-				editLavoro.aggiornaRichiesta();
+				aggiornaRichiesta();
 			}
 		};
 	}
@@ -261,12 +262,22 @@ public class EditLavoro extends JDialog implements Observer{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				AssociaMacchina am=new AssociaMacchina(editLavoro, cCtr.getElencoMacchineDisponibili(codiceRichiesta));
-				//am.addBtnAssociaListener(new associaMacchina(codiceRichiesta, editLavoro, am));
+				am.addBtnAssociaListener(aggiungiAssociazioneMacchinaListener( am,codiceRichiesta));
 			}
 		};
 	}
-	
-	public ActionListener AddLavoroListener(){
+	public ActionListener aggiungiAssociazioneMacchinaListener(final AssociaMacchina am,final int codiceRichiesta){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int codiceMacchina=am.getCodiceMacchinaSelezionata();
+				cCtr.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
+				aggiornaRichiesta();
+				am.dispose();
+			}
+		};
+	}
+	public ActionListener aggiungiLavoroListener(){
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -290,14 +301,82 @@ public class EditLavoro extends JDialog implements Observer{
 			}
 		};
 	}
-	
-	
-	
-	public ActionListener deleteRichiestaListener(final int codiceRichiesta) {
+	public ActionListener modificaLavoroListener(){
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(pnlLavoro.getDataInizioLavoro()==null || pnlLavoro.getDataFineLavoro()==null
+						|| pnlLavoro.getNomeLavoro()==""){
+					JOptionPane.showMessageDialog(null,"Compilare tutti campi.","Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					String nome=pnlLavoro.getNomeLavoro();
+					GregorianCalendar inizio=new GregorianCalendar();
+					inizio.setTime(pnlLavoro.getDataInizioLavoro());
+					GregorianCalendar fine=new GregorianCalendar();
+					fine.setTime(pnlLavoro.getDataFineLavoro());
+					
+					//Aggiungi il lavoro
+					cCtr.modificaLavoro(codiceCantiere,nome, inizio, fine);
+					
+					//ricarico il modello
+					reloadModel();
+				}
+			}
+		};
+	}
+	public ActionListener aggiungiRichiestaListener() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cCtr.eliminaLavoro(codiceRichiesta);
+				RichiestaMacchina richiesta = null;
+
+				if (pnlAddRichiesta.getTipoMacchina() == "Gru") {
+					richiesta = new RichiestaGru(pnlAddRichiesta.getMinLunghezza(),
+							pnlAddRichiesta.getMaxLunghezza(),
+							pnlAddRichiesta.getMinAltezza(),
+							pnlAddRichiesta.getMaxAltezza(),
+							pnlAddRichiesta.getMinPortata(),
+							pnlAddRichiesta.getMaxPortata(),
+							pnlAddRichiesta.getMinRotazione(),
+							pnlAddRichiesta.getMaxRotazione());
+				} else if (pnlAddRichiesta.getTipoMacchina() == "Ruspa") {
+					richiesta = new RichiestaRuspa(pnlAddRichiesta.getMinCapacita(),
+							pnlAddRichiesta.getMaxCapacita(),
+							pnlAddRichiesta.getMinPortata(),
+							pnlAddRichiesta.getMaxPortata(),
+							pnlAddRichiesta.getMinAltezza(),
+							pnlAddRichiesta.getMaxAltezza());
+				} else if (pnlAddRichiesta.getTipoMacchina() == "Camion") {
+					richiesta = new RichiestaCamion(
+							pnlAddRichiesta.getMinCapacita(),
+							pnlAddRichiesta.getMaxCapacita(),
+							pnlAddRichiesta.getMinPortata(),
+							pnlAddRichiesta.getMaxPortata(),
+							pnlAddRichiesta.getMinLunghezza(),
+							pnlAddRichiesta.getMaxLunghezza());
+				} else if (pnlAddRichiesta.getTipoMacchina() == "Escavatore") {
+					richiesta = new RichiestaEscavatore(
+							pnlAddRichiesta.getMinCapacita(),
+							pnlAddRichiesta.getMaxCapacita(),
+							pnlAddRichiesta.getMinPortata(),
+							pnlAddRichiesta.getMaxPortata(),
+							pnlAddRichiesta.getMinAltezza(),
+							pnlAddRichiesta.getMaxAltezza(),
+							pnlAddRichiesta.getMinProfondita(),
+							pnlAddRichiesta.getMaxProfondita());
+				}
+				cCtr.addRichiesta(codiceCantiere,codiceLavoro, richiesta);
+
+				reloadModel();
+			}
+		};
+	}
+	
+	private ActionListener deleteRichiestaListener(final int codiceRichiesta) {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cCtr.eliminaRichiesta(codiceRichiesta);
 				reloadModel();
 			}
 		};
@@ -308,7 +387,7 @@ public class EditLavoro extends JDialog implements Observer{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cCtr.eliminaLavoro(codiceLavoro);
-				reloadModel();
+				
 			}
 		};
 	}
@@ -316,10 +395,10 @@ public class EditLavoro extends JDialog implements Observer{
 	
 	
 
-	public void reloadModel(){
+	private void reloadModel(){
 		treeModel.reload();
 	}
-	public void aggiornaRichiesta(){
+	private void aggiornaRichiesta(){
 		TreePath tp=tree.getSelectionPath();
 		btnDelete.setEnabled(true);
 		for( ActionListener al : btnDelete.getActionListeners() ) {

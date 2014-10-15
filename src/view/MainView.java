@@ -214,6 +214,7 @@ public class MainView extends JFrame {
 		menuCantiere.add(itemAddCantiere);
 		menuCantiere.addSeparator();
 		itemGreedyEngine = new JMenuItem("Associa Macchina in modo automatico");
+		itemGreedyEngine.addActionListener(greedyEngineListener());
 		menuCantiere.add(itemGreedyEngine);
 
 		menuBar.add(menuFile);
@@ -279,8 +280,13 @@ public class MainView extends JFrame {
 	 * @param act
 	 *            act
 	 */
-	public void addGreedyEngineListener(ActionListener act) {
-		itemGreedyEngine.addActionListener(act);
+	public ActionListener greedyEngineListener() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new GreedyEngineView(mainView, cantiereController);
+			}
+		};
 	}
 
 	// MENU ADD LISTENER

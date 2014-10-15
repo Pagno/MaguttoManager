@@ -271,16 +271,5 @@ public class ApplicationController implements AbstractApplicationController{
 			
 		};
 	}*/
-	public ActionListener addGreedyEngineView(){
-		return new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				view.GreedyEngine greedyEngine=new view.GreedyEngine(mainView);
-				CantieriController ctr = new CantieriController(model);
-				//greedyEngine.addBtnGeneraMigliorAssociazioneListener(ctr.greedyEngineListener(greedyEngine));
-				//greedyEngine.addBtnConfermaAssociazioniListener(ctr.confermaAssociazioniListener(greedyEngine));
-			}
-		};
-	}
 }

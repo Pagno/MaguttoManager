@@ -187,6 +187,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public boolean eliminaRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
+				remove(item);
 				item.setMacchina(null);
 				macchinariRichiesti.remove(item);
 				return true;
@@ -203,15 +204,17 @@ public class Lavoro extends DefaultMutableTreeNode{
 		macchinariRichiesti.clear();
 	}
 	
-	public void soddisfaRichiesta(Integer codice,Macchina mac){
+	public boolean soddisfaRichiesta(Integer codice,Macchina mac){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
 				if(item.rispettaRichiesta(mac)){
 					item.setMacchina(mac);
 					mac.addRichiesta(item);//TODO mac.addRichiesta è gia presente in setMacchina()
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
 	//vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente

@@ -208,7 +208,7 @@ public interface ModelInterface {
 	 * @param richiesta   Richiesta da Inserire
 	 * 
 	 */
-	public void addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
 	/**
 	 * Cancella Richiesta.
 	 *
@@ -224,7 +224,7 @@ public interface ModelInterface {
 	 * @param codiceMacchina  codice della macchina da associare
 	 * 
 	 */
-	public void soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);	
+	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina);	
 	public Cantiere getCantiere(int codiceCantiere);
 	
 	

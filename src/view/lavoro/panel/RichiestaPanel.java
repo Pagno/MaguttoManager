@@ -309,7 +309,7 @@ public class RichiestaPanel extends JPanel {
 	public int getMinRotazione() {
 		return txtMinRotazione.getText().equals("")?-1:Integer.parseInt(txtMinRotazione.getText());
 	}
-	public String getType() {
+	public String getTipoMacchina() {
 		return (String)Type.getSelectedItem();
 	}
 	

@@ -68,7 +68,7 @@ public class AssociaMacchina extends JDialog {
 		btnAssocia.addActionListener(act);
 	}
 
-	public int getMacchinaSelezionata() {
+	public int getCodiceMacchinaSelezionata() {
 		return listaMacchine.get(cmbListaMacchine.getSelectedIndex()).getCodice();
 	}
 
