@@ -45,10 +45,10 @@ public class GreedyViewTest {
 		model.aggiungiCantiere("Bottanuco", "Chiusa", new GregorianCalendar(
 				2014, 10, 11), new GregorianCalendar(2015, 11, 11),
 				Priorita.BASSA);//codiceCantiere 1
-		model.insertLavoro("Scavi", new GregorianCalendar(2014, 10, 11),
+		model.aggiungiLavoro("Scavi", new GregorianCalendar(2014, 10, 11),
 				new GregorianCalendar(2014, 11, 11), 1);//codiceLavoro 1
-		model.addRichiesta(1, 1, new RichiestaRuspa(300, 400, -1, -1, -1, -1));//codiceRichiesta 1
-		model.addRichiesta(1, 1, new RichiestaGru(-1, -1, -1, -1, 250, 400, -1,-1));//codiceRichiesta 2
+		model.aggiungiRichiesta(1, 1, new RichiestaRuspa(300, 400, -1, -1, -1, -1));//codiceRichiesta 1
+		model.aggiungiRichiesta(1, 1, new RichiestaGru(-1, -1, -1, -1, 250, 400, -1,-1));//codiceRichiesta 2
 		model.soddisfaRichiesta(2, 2);
 
 	}

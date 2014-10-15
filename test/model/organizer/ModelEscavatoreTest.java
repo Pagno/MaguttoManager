@@ -49,7 +49,7 @@ public class ModelEscavatoreTest {
 		assertSame(mr,prova);
 		ModelEscavatore.resetForTest();
 		mr=ModelEscavatore.getModelEscavatore();
-		assertEquals(mr.getNextCodice(),1);
+		assertEquals(mr.getProssimoCodice(),1);
 	}
 
 	/**
@@ -57,9 +57,9 @@ public class ModelEscavatoreTest {
 	 */
 	@Test
 	public void testAggiungiEscavatore() {
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		mr.aggiungiEscavatore("JCB", "JS115", 6,12, 4, 2);
-		assertEquals(mr.getNextCodice(),11);
+		assertEquals(mr.getProssimoCodice(),11);
 		ArrayList<Escavatore>lista=mr.getLista();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Escavatore(10,"JCB", "JS115", 6,12, 4, 2)));
@@ -70,9 +70,9 @@ public class ModelEscavatoreTest {
 	 */
 	@Test
 	public void testCaricaEscavatore() {
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		mr.caricaEscavatore(13,"Komatsu", "PC88MR-8", 4,8, 5, 2);
-		assertEquals(mr.getNextCodice(),14);
+		assertEquals(mr.getProssimoCodice(),14);
 		ArrayList<Escavatore> lista=mr.getLista();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Escavatore(13,"Komatsu", "PC88MR-8", 4,8, 5, 2)));
@@ -83,9 +83,9 @@ public class ModelEscavatoreTest {
 	 */
 	@Test
 	public void testModificaEscavatore() {
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		mr.modificaEscavatore(6,"XCMG", "XE215CLL",15,33,5, 3);
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		ArrayList<Escavatore>lista=mr.getLista();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Escavatore(6,"XCMG", "XE215CLL",15,33,5, 3)));

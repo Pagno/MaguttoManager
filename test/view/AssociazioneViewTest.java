@@ -37,7 +37,7 @@ public class AssociazioneViewTest {
 
 		m.aggiungiRuspa("Ruspa", "R203", 350, 1500, 6);
 		m.aggiungiCantiere("Bottanuco", "Chiusa", new GregorianCalendar(2014, 10, 11), new GregorianCalendar(2015, 11, 11), Priorita.BASSA);
-		m.insertLavoro("Scavi", new GregorianCalendar(2014, 10, 11), new GregorianCalendar(2014, 11, 11), 1);
+		m.aggiungiLavoro("Scavi", new GregorianCalendar(2014, 10, 11), new GregorianCalendar(2014, 11, 11), 1);
 
 
 	}

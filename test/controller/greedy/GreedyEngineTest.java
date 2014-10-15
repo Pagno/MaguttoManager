@@ -39,37 +39,37 @@ public class GreedyEngineTest {
 		ControllerConnector.getControllerConnector(m,mainView);
 		m.ResetAllForTest();
 		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);//Cantiere 1
-		m.insertLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1
+		m.aggiungiLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1
 		
 		//Richiesta coperta
 		
-		m.addRichiesta(1, 1, new RichiestaCamion(5,10,5,10,5,10));//Richiesta 1
+		m.aggiungiRichiesta(1, 1, new RichiestaCamion(5,10,5,10,5,10));//Richiesta 1
 		m.aggiungiCamion("Yamaha", "Camion", 7, 7, 7);//Macchina 1
 		m.soddisfaRichiesta(1, 1);
 		
 		//Richiesta scoperta ma senza macchine per soddisfarla
 		
-		m.addRichiesta(1, 1, new RichiestaEscavatore(100,200,100,200,100,200,100,200));//Richiesta 2
+		m.aggiungiRichiesta(1, 1, new RichiestaEscavatore(100,200,100,200,100,200,100,200));//Richiesta 2
 		
 		//Richiesta scoperta ma senza macchine libere per soddisfarla
 		
-		m.addRichiesta(1, 1, new RichiestaCamion(6,8,6,8,6,8));//Richiesta 3
+		m.aggiungiRichiesta(1, 1, new RichiestaCamion(6,8,6,8,6,8));//Richiesta 3
 		
 		//Due richieste si contendono una macchina, solo la pi� prioritaria la prende
 		
 		m.aggiungiCantiere("Pedemontana","Monza",new GregorianCalendar(2014,4,3),new GregorianCalendar(2016,10,19),Priorita.MEDIA);//Cantiere 2
-		m.insertLavoro("Scavo", new GregorianCalendar(2014,2,3),new GregorianCalendar(2014,7,7), 2);//Lavoro 2
-		m.addRichiesta(2, 2, new RichiestaRuspa(10, 20, 10, 20, 10, 20));//Richiesta 4
-		m.addRichiesta(1, 1, new RichiestaRuspa(12, 22, 12, 22, 12, 22));//Richiesta 5
+		m.aggiungiLavoro("Scavo", new GregorianCalendar(2014,2,3),new GregorianCalendar(2014,7,7), 2);//Lavoro 2
+		m.aggiungiRichiesta(2, 2, new RichiestaRuspa(10, 20, 10, 20, 10, 20));//Richiesta 4
+		m.aggiungiRichiesta(1, 1, new RichiestaRuspa(12, 22, 12, 22, 12, 22));//Richiesta 5
 		m.aggiungiRuspa("Yamaha", "Ruspa", 15, 15, 15);//Macchina 2
 		
 		//Richieste di diversi cantieri con lavoro in stesso periodo e richiesta su stessa macchina, 
 		//solo quello che ha prenotazione su macchina la prende, l�altra no
 		
-		m.addRichiesta(2,2,new RichiestaGru(8,18,8,18,8,18,8,18));//Richiesta 6
-		m.addRichiesta(1,1,new RichiestaGru(7,17,7,17,7,17,7,17));//Richiesta 7
-		m.insertLavoro("Svuotamento", new GregorianCalendar(2014,03,24), new GregorianCalendar(2014,05,24), 1);//Lavoro 3
-		m.addRichiesta(1,3,new RichiestaGru(9,19,9,19,9,19,9,19));//Richiesta 8
+		m.aggiungiRichiesta(2,2,new RichiestaGru(8,18,8,18,8,18,8,18));//Richiesta 6
+		m.aggiungiRichiesta(1,1,new RichiestaGru(7,17,7,17,7,17,7,17));//Richiesta 7
+		m.aggiungiLavoro("Svuotamento", new GregorianCalendar(2014,03,24), new GregorianCalendar(2014,05,24), 1);//Lavoro 3
+		m.aggiungiRichiesta(1,3,new RichiestaGru(9,19,9,19,9,19,9,19));//Richiesta 8
 		m.aggiungiGru("Yamaha", "Gru", 10, 10, 10, 10);//Macchina 3
 		m.soddisfaRichiesta(8, 3);
 		
@@ -79,17 +79,17 @@ public class GreedyEngineTest {
 		//e la terza prende la prima macchina
 		
 		m.aggiungiCantiere("Aeroporto Bergamo","Orio al Serio",new GregorianCalendar(2014,1,1),new GregorianCalendar(2020,10,10),Priorita.ALTA);//Cantiere 3
-		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 1);//Lavoro 4
-		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 2);//Lavoro 5
-		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 3);//Lavoro 6
-		m.addRichiesta(1,4,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 9 Bassa
-		m.addRichiesta(2,5,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 10 Media
-		m.addRichiesta(3,6,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 11 Alta
-		m.insertLavoro("Asfalto", new GregorianCalendar(2014,7,5), new GregorianCalendar(2014,9,1), 2);//Lavoro 7
-		m.insertLavoro("Asfalto", new GregorianCalendar(2014,7,5), new GregorianCalendar(2014,9,1), 1);//Lavoro 8
-		m.addRichiesta(2,7,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 12 Media
-		m.addRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 13 Bassa
-		m.addRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 14 Bassa
+		m.aggiungiLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 1);//Lavoro 4
+		m.aggiungiLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 2);//Lavoro 5
+		m.aggiungiLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 3);//Lavoro 6
+		m.aggiungiRichiesta(1,4,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 9 Bassa
+		m.aggiungiRichiesta(2,5,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 10 Media
+		m.aggiungiRichiesta(3,6,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 11 Alta
+		m.aggiungiLavoro("Asfalto", new GregorianCalendar(2014,7,5), new GregorianCalendar(2014,9,1), 2);//Lavoro 7
+		m.aggiungiLavoro("Asfalto", new GregorianCalendar(2014,7,5), new GregorianCalendar(2014,9,1), 1);//Lavoro 8
+		m.aggiungiRichiesta(2,7,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 12 Media
+		m.aggiungiRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 13 Bassa
+		m.aggiungiRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 14 Bassa
 		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 4
 		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 5
 		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 6
@@ -99,10 +99,10 @@ public class GreedyEngineTest {
 		
 		//Camion, escavatore, gru, ruspa
 		
-		m.addRichiesta(1,1,new RichiestaCamion(1,2,1,2,1,2));//Richiesta 15
-		m.addRichiesta(1,1,new RichiestaGru(1,2,1,2,1,2,1,2));//Richiesta 16
-		m.addRichiesta(1,1,new RichiestaRuspa(1,2,1,2,1,2));//Richiesta 17
-		m.addRichiesta(1,1,new RichiestaEscavatore(1,2,1,2,1,2,1,2));//Richiesta 18
+		m.aggiungiRichiesta(1,1,new RichiestaCamion(1,2,1,2,1,2));//Richiesta 15
+		m.aggiungiRichiesta(1,1,new RichiestaGru(1,2,1,2,1,2,1,2));//Richiesta 16
+		m.aggiungiRichiesta(1,1,new RichiestaRuspa(1,2,1,2,1,2));//Richiesta 17
+		m.aggiungiRichiesta(1,1,new RichiestaEscavatore(1,2,1,2,1,2,1,2));//Richiesta 18
 		m.aggiungiCamion("Yamaha", "Camioncino", 2, 2, 2);//Macchina 7
 		m.aggiungiGru("Yamaha", "Gru piccola", 2, 2, 2, 2);//Macchina 8
 		m.aggiungiRuspa("Yamaha", "Ruspetta", 2, 2, 2);//Macchina 9

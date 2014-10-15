@@ -92,10 +92,10 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.aggiungiLavoro(codiceCantiere, nomeLavoro, dataInizio, dataFine);
 	}
 
-	@Override
+	/*@Override
 	public void aggiungiRichiestaObserver(Observer observer) {
 		canCtrl.aggiungiRichiestaObserver(observer);
-	}
+	}*/
 
 	@Override
 	public boolean eliminaLavoro(int codiceLavoro) {
@@ -208,5 +208,7 @@ public class ControllerConnector implements ControllerInterface{
 			int profondita) {
 		return insCtrl.modificaEscavatore(codiceEscavatore, produttore, modello, capacita, portata, altezza, profondita);
 	}
+
+
 
 }

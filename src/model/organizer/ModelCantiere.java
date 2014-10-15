@@ -318,7 +318,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		return temp;
 	}
 	
-	int getNextCodiceLavoro(){
+	int getProssimoCodiceLavoro(){
 		int code=this.codiceLavoro+1;
 		return code;
 	}
@@ -652,14 +652,14 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 	Observer observer;
-	public void addObserver(Observer ob) {
+	public void aggiungiObserver(Observer ob) {
 		this.observer=ob;
 	}
 	
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	
-	int getNextCodice(){
+	int getProssimoCodice(){
 		return codice+1;
 	}
 		
@@ -678,13 +678,13 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
-	public void aggiungiLavoroObserver(Observer observer) {
+	/*public void aggiungiLavoroObserver(Observer observer) {
 		lavoroObserver=observer;
 	}
 
 	public void aggiungiRichiestaObserver(Observer observer) {
 		richiestaObserver=observer;
-	}	
+	}	*/
 	
 
 }

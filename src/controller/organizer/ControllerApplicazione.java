@@ -68,11 +68,11 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 * Imposta le classi observer della view.
 	 */
 	private void setObserver(){
-		model.addGruObserver(mainView.dataModelGru);
-		model.addRuspaObserver(mainView.dataModelRuspa);
-		model.addCamionObserver(mainView.dataModelCamion);	
-		model.addEscavatoreObserver(mainView.dataModelEscavatore);	
-		model.addCantiereObserver(mainView.dataModelCantiere);		
+		model.aggiungiGruObserver(mainView.dataModelGru);
+		model.aggiungiRuspaObserver(mainView.dataModelRuspa);
+		model.aggiungiCamionObserver(mainView.dataModelCamion);	
+		model.aggiungiEscavatoreObserver(mainView.dataModelEscavatore);	
+		model.aggiungiCantiereObserver(mainView.dataModelCantiere);		
 	}
 	
 	//MENU FILE LISTENER

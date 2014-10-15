@@ -179,7 +179,7 @@ public interface ModelInterface {
 	 * @param idCantiere   Codice del cantiere cui appartiene il lavoro
 	 * 
 	 */
-	public void insertLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
+	public void aggiungiLavoro(String nome,GregorianCalendar inizio,GregorianCalendar fine,int idCantiere);
 	
 	/**
 	 * Modifica un Lavoro.
@@ -198,7 +198,7 @@ public interface ModelInterface {
 	 * @param codiceRichiesta   Codice del lavoro da cancellare
 	 * 
 	 */
-	public boolean deleteLavoro(int codiceLavoro);
+	public boolean rimuoviLavoro(int codiceLavoro);
 	
 	/**
 	 * Aggiungi Richiesta.
@@ -208,14 +208,14 @@ public interface ModelInterface {
 	 * @param richiesta   Richiesta da Inserire
 	 * 
 	 */
-	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
+	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina richiesta);
 	/**
 	 * Cancella Richiesta.
 	 *
 	 * @param codiceRichiesta   Codice della richiesta da cancellare
 	 * 
 	 */
-	public boolean deleteRichiesta(int codiceRichiesta);
+	public boolean rimuoviRichiesta(int codiceRichiesta);
 	
 	/**
 	 * Associa una macchina ad una richiesta.
@@ -239,13 +239,13 @@ public interface ModelInterface {
 	
 	public void pubblicaContenuto();
 
-	public void addGruObserver(Observer observer);
-	public void addRuspaObserver(Observer observer);
-	public void addCamionObserver(Observer observer);	
-	public void addEscavatoreObserver(Observer observer);	
-	public void addCantiereObserver(Observer observer);
-	public void aggiungiLavoroObserver(Observer observer);
-	public void aggiungiRichiestaObserver(Observer observer);
+	public void aggiungiGruObserver(Observer observer);
+	public void aggiungiRuspaObserver(Observer observer);
+	public void aggiungiCamionObserver(Observer observer);	
+	public void aggiungiEscavatoreObserver(Observer observer);	
+	public void aggiungiCantiereObserver(Observer observer);
+	/*public void aggiungiLavoroObserver(Observer observer);
+	public void aggiungiRichiestaObserver(Observer observer);*/
 	
 
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere);

@@ -88,7 +88,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addGruObserver(Observer observer){
+	public void aggiungiGruObserver(Observer observer){
 		mg.addObserver(observer);
 	}
 	/**
@@ -96,7 +96,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addRuspaObserver(Observer observer){
+	public void aggiungiRuspaObserver(Observer observer){
 		mr.addObserver(observer);
 	}
 	
@@ -105,7 +105,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addCamionObserver(Observer observer){
+	public void aggiungiCamionObserver(Observer observer){
 		mc.addObserver(observer);
 	}
 	
@@ -114,7 +114,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addEscavatoreObserver(Observer observer){
+	public void aggiungiEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
 	
@@ -124,11 +124,11 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 *
 	 * @param observer   observer
 	 */
-	public void addCantiereObserver(Observer observer){
-		lc.addObserver(observer);
+	public void aggiungiCantiereObserver(Observer observer){
+		lc.aggiungiObserver(observer);
 	}
 
-	@Override
+	/*@Override
 	public void aggiungiLavoroObserver(Observer observer){
 		lc.aggiungiLavoroObserver(observer);
 	}
@@ -136,7 +136,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	@Override
 	public void aggiungiRichiestaObserver(Observer observer) {
 		lc.aggiungiRichiestaObserver(observer);
-	}
+	}*/
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -808,7 +808,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public void insertLavoro(String nome, GregorianCalendar inizio,
+	public void aggiungiLavoro(String nome, GregorianCalendar inizio,
 			GregorianCalendar fine, int idCantiere) {
 		 lc.aggiungiLavoro(idCantiere, nome, inizio, fine);
 	}
@@ -878,18 +878,18 @@ public class ModelConnector extends Observable implements ModelInterface{
 	}
 
 	@Override
-	public boolean addRichiesta(int codiceCantiere, int codiceLavoro,
+	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
 		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
 	@Override
-	public boolean deleteRichiesta(int codiceRichiesta) {
+	public boolean rimuoviRichiesta(int codiceRichiesta) {
 		return lc.rimuoviRichiesta(codiceRichiesta);
 	}
 
 	@Override
-	public boolean deleteLavoro(int codiceLavoro) {
+	public boolean rimuoviLavoro(int codiceLavoro) {
 		return lc.rimuoviLavoro(codiceLavoro);
 	}
 	/**

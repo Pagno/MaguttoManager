@@ -46,7 +46,7 @@ public class ModelRuspaTest {
 		assertSame(mr,prova);
 		ModelRuspa.resetForTest();
 		mr=ModelRuspa.getModelRuspa();
-		assertEquals(mr.getNextCodice(),1);
+		assertEquals(mr.getProssimoCodice(),1);
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class ModelRuspaTest {
 	 */
 	@Test
 	public void testCaricaRuspa() {
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		mr.caricaRuspa(19,"XCMG", "LW500KL", 3, 17000, 5);
-		assertEquals(mr.getNextCodice(),20);
+		assertEquals(mr.getProssimoCodice(),20);
 		ArrayList<Ruspa> lista=mr.getLista();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Ruspa(19,"XCMG", "LW500KL", 3, 17000, 5)));
@@ -67,9 +67,9 @@ public class ModelRuspaTest {
 	 */
 	@Test
 	public void testAggiungiRuspa() {
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		mr.aggiungiRuspa("Hyundai", "HL730-9", 2, 9800, 3);
-		assertEquals(mr.getNextCodice(),11);
+		assertEquals(mr.getProssimoCodice(),11);
 		ArrayList<Ruspa>lista=mr.getLista();
 		assertEquals(lista.size(),4);
 		assertTrue(lista.contains(new Ruspa(10,"Hyundai", "HL730-9", 2, 9800, 3)));
@@ -81,9 +81,9 @@ public class ModelRuspaTest {
 	 */
 	@Test
 	public void testModificaRuspa() {
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		mr.modificaRuspa(5,"XCMG", "LW500", 2, 2700, 3);
-		assertEquals(mr.getNextCodice(),10);
+		assertEquals(mr.getProssimoCodice(),10);
 		ArrayList<Ruspa>lista=mr.getLista();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Ruspa(5,"XCMG", "LW500", 2, 2700, 3)));
