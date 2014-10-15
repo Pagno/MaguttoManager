@@ -21,7 +21,7 @@ import view.utils.JDateChooserFixture;
 
 import com.toedter.calendar.JDateChooser;
 
-import controller.MainController;
+import controller.ControllerConnector;
 import database.Database;
 
 @GUITest
@@ -35,7 +35,7 @@ public class GreedyViewTest {
 		Database db = Database.getDatabase();
 		model = ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		new MainController(model, mainView);
+		ControllerConnector.getControllerConnector(model, mainView);
 		frame = new FrameFixture(mainView);
 
 		// INSERISCO I DATI DI PARTENZA
@@ -62,7 +62,7 @@ public class GreedyViewTest {
 		String[] content = associaMacchina.list("listModel").contents();
 		associaMacchina.button("confermaAssociazioni").click();
 
-		// Controllo se la macchina associata è corretta
+		// Controllo se la macchina associata �� corretta
 		String[] s = { "Cantiere:Bottanuco Lavoro:Scavi -->  Macchina: Ruspa - R203" };
 		assertArrayEquals(content, s);
 	}

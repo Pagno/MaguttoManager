@@ -15,7 +15,7 @@ import view.utils.JDateChooserFixture;
 
 import com.toedter.calendar.JDateChooser;
 
-import controller.MainController;
+import controller.ControllerConnector;
 import database.Database;
 
 @GUITest
@@ -27,7 +27,7 @@ public class CantiereViewTest {
 		Database db = Database.getDatabase();
 		ModelConnector m = ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView();
-		new MainController(m, mainView);
+		ControllerConnector.getControllerConnector(m, mainView);
 		frame = new FrameFixture(mainView);
 		
 		
