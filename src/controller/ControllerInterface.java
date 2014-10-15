@@ -32,9 +32,9 @@ public interface ControllerInterface {
 	public   ArrayList<Macchina>  getElencoMacchineDisponibili(int codiceRichiesta);
 	
 	public  boolean liberaRichiesta(int codiceRichiesta);
-	public  boolean addRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta);
+	public  boolean aggiungiRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta);
 	public  boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina) ;
-	public  ArrayList<Associazione> generateAssociations();
+	public  ArrayList<Associazione> generaAssociazioni();
 	public  void confermaAssociazioniListener(ArrayList<Associazione> data);
 	public  void modificaLavoro(int codiceLavoro, String nome,GregorianCalendar inizio, GregorianCalendar fine);
 

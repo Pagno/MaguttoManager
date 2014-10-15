@@ -88,7 +88,7 @@ public class ViewGreedyEngine extends JDialog {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Associazione> assGreedy=cCtr.generateAssociations();
+				ArrayList<Associazione> assGreedy=cCtr.generaAssociazioni();
 				setData(assGreedy);
 			}
 		};
