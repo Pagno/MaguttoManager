@@ -234,7 +234,7 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 
 	}
 	
-	public Priority getPriorita(){
+	public Priorita getPriorita(){
 		return lavoro.getPriorita();
 	}
 	

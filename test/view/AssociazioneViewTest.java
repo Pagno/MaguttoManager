@@ -3,7 +3,7 @@ package view;
 import java.util.GregorianCalendar;
 
 import model.ModelConnector;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 
 import org.fest.swing.annotation.GUITest;
 import org.fest.swing.fixture.DialogFixture;
@@ -36,7 +36,7 @@ public class AssociazioneViewTest {
 		frame.table("table").requireContents(new String[0][0]);
 
 		m.aggiungiRuspa("Ruspa", "R203", 350, 1500, 6);
-		m.aggiungiCantiere("Bottanuco", "Chiusa", new GregorianCalendar(2014, 10, 11), new GregorianCalendar(2015, 11, 11), Priority.BASSA);
+		m.aggiungiCantiere("Bottanuco", "Chiusa", new GregorianCalendar(2014, 10, 11), new GregorianCalendar(2015, 11, 11), Priorita.BASSA);
 		m.insertLavoro("Scavi", new GregorianCalendar(2014, 10, 11), new GregorianCalendar(2014, 11, 11), 1);
 
 

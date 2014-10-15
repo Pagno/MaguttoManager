@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Macchina;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaRuspa;
 import model.organizer.data.Ruspa;
@@ -22,7 +22,7 @@ public class PrenotazioneTest {
 	
 	public PrenotazioneTest(){
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		cantiere.addLavoro(lavoro);
 		
@@ -39,7 +39,7 @@ public class PrenotazioneTest {
 		assertEquals(prenotazione.getDurataLavoro(),12);
 		
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		cantiere.addLavoro(lavoro);
 		

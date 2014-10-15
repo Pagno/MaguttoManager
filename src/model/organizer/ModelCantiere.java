@@ -17,7 +17,7 @@ import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 
 
 
@@ -59,7 +59,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 //OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
 
-	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
+	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		codice++;
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
@@ -75,7 +75,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		insertNodeInto(add, c, 0);
 	}
 
-	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
+	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		if(this.codice<codice){
 			this.codice=codice;
 		}
@@ -94,7 +94,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
-	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita){
+	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice()==codice){
 				item.setNomeCantiere(nomeCantiere);

@@ -257,7 +257,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 
 	
-	public Priority getPriorita(){
+	public Priorita getPriorita(){
 		return cantiere.getPriorita();
 	}
 	

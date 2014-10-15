@@ -15,7 +15,7 @@ public class LavoroTest {
 	 * Instantiates a new Lavoro test.
 	 */
 	public LavoroTest(){
-		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
+		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priorita.ALTA);
 		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		cantiere.addLavoro(lavoro);
 	}
@@ -33,8 +33,8 @@ public class LavoroTest {
 
 	@Test
 	public void testSetCantiere() {
-		lavoro.setCantiere(new Cantiere(50,"Bergamo","Mura",new GregorianCalendar(2015, 5, 5),new GregorianCalendar(2016,9,24),Priority.MEDIA));
-		assertEquals(lavoro.getCantiere(),new Cantiere(50,"Bergamo","Mura",new GregorianCalendar(2015, 5, 5),new GregorianCalendar(2016,9,24),Priority.MEDIA));
+		lavoro.setCantiere(new Cantiere(50,"Bergamo","Mura",new GregorianCalendar(2015, 5, 5),new GregorianCalendar(2016,9,24),Priorita.MEDIA));
+		assertEquals(lavoro.getCantiere(),new Cantiere(50,"Bergamo","Mura",new GregorianCalendar(2015, 5, 5),new GregorianCalendar(2016,9,24),Priorita.MEDIA));
 	}
 
 	/**
@@ -490,7 +490,7 @@ public class LavoroTest {
 	@Test
 	public void testGetPriorita() {
 		assertEquals(lavoro.getPriorita(),cantiere.getPriorita());
-		assertEquals(lavoro.getPriorita(),Priority.ALTA);
+		assertEquals(lavoro.getPriorita(),Priorita.ALTA);
 	}
 
 	@Test

@@ -10,7 +10,7 @@ import model.organizer.ModelGru;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.RichiestaMacchina;
 import controller.data.Associazione;
 import controller.organizer.*;
@@ -80,7 +80,7 @@ public class ControllerConnector implements ControllerInterface{
 	@Override
 	public boolean modificaCantiere(int codiceCantiere, String nomeCantiere,
 			String indirizzo, GregorianCalendar dataApertura,
-			GregorianCalendar dataChiusura, Priority priorita) {
+			GregorianCalendar dataChiusura, Priorita priorita) {
 		
 		return canCtrl.modificaCantiere(codiceCantiere, nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}
@@ -176,7 +176,7 @@ public class ControllerConnector implements ControllerInterface{
 	@Override
 	public boolean inserisciNuovoCantiere(String nomeCantiere,
 			String indirizzo, GregorianCalendar dataApertura,
-			GregorianCalendar dataChiusura, Priority priorita) {
+			GregorianCalendar dataChiusura, Priorita priorita) {
 
 		return insCtrl.inserisciNuovoCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}

@@ -22,7 +22,7 @@ public class CantiereTest {
 	 * Instantiates a new cantiere test.
 	 */
 	public CantiereTest(){
-		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		c=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class CantiereTest {
 		assertEquals(c.getIndirizzo(),"Messina");
 		assertEquals(c.getDataApertura(),new GregorianCalendar(2060,1,1));
 		assertEquals(c.getDataChiusura(),new GregorianCalendar(2090,11,31));
-		assertEquals(c.getPriorita(),Priority.MEDIA);
+		assertEquals(c.getPriorita(),Priorita.MEDIA);
 	}
 
 	/**
@@ -88,18 +88,18 @@ public class CantiereTest {
 	 */
 	@Test
 	public void testSetPriorita() {
-		c.setPriorita(Priority.ALTA);
-		assertEquals(c.getPriorita(),Priority.ALTA);
+		c.setPriorita(Priorita.ALTA);
+		assertEquals(c.getPriorita(),Priorita.ALTA);
 	}
 
 	@Test
 	public void testToString(){
 		//GregorianCalendar parte da 00
-		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Media" );
-		c.setPriorita(Priority.ALTA);
-		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Alta" );
-		c.setPriorita(Priority.BASSA);
-		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Priorità Bassa" );
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Prioritï¿½ Media" );
+		c.setPriorita(Priorita.ALTA);
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Prioritï¿½ Alta" );
+		c.setPriorita(Priorita.BASSA);
+		assertEquals(c.toString(), 11 + " Ponte sullo stretto Messina 2060-02-01 2090-12-31 - Prioritï¿½ Bassa" );
 	}
 	
 	@Test
@@ -107,31 +107,31 @@ public class CantiereTest {
 		assertTrue(c.equals(c));
 		assertFalse(c.equals(null));
 		assertFalse(c.equals("Stringa"));
-		assertTrue(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
-		assertFalse(c.equals(new Cantiere(12,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
-		assertFalse(c.equals(new Cantiere(11,"Ponte stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Reggio",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA)));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31),Priority.MEDIA)));
-		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.BASSA)));
-		Cantiere test=new Cantiere(11,"Ponte sullo stretto","Messina",null,new GregorianCalendar(2090,11,31),Priority.MEDIA);
-		Cantiere test2=new Cantiere(11,"Ponte sullo stretto","Messina",null,new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		assertTrue(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA)));
+		assertFalse(c.equals(new Cantiere(12,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Reggio",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2061,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2091,11,31),Priorita.MEDIA)));
+		assertFalse(c.equals(new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.BASSA)));
+		Cantiere test=new Cantiere(11,"Ponte sullo stretto","Messina",null,new GregorianCalendar(2090,11,31),Priorita.MEDIA);
+		Cantiere test2=new Cantiere(11,"Ponte sullo stretto","Messina",null,new GregorianCalendar(2090,11,31),Priorita.MEDIA);
 		assertFalse(test.equals(c));
 		assertTrue(test.equals(test2));
 		assertFalse(c.equals(test));
-		test=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),null,Priority.MEDIA);
+		test=new Cantiere(11,"Ponte sullo stretto","Messina",new GregorianCalendar(2060,1,1),null,Priorita.MEDIA);
 		test2.setDataApertura(new GregorianCalendar(2060,1,1));
 		test2.setDataChiusura(null);
 		assertFalse(test.equals(c));
 		assertTrue(test.equals(test2));
 		assertFalse(c.equals(test));
-		test=new Cantiere(11,"Ponte sullo stretto",null,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		test=new Cantiere(11,"Ponte sullo stretto",null,new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA);
 		test2.setDataChiusura(new GregorianCalendar(2090,11,31));
 		test2.setIndirizzo(null);
 		assertFalse(test.equals(c));
 		assertTrue(test.equals(test2));
 		assertFalse(c.equals(test));
-		test=new Cantiere(11,null,"Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priority.MEDIA);
+		test=new Cantiere(11,null,"Messina",new GregorianCalendar(2060,1,1),new GregorianCalendar(2090,11,31),Priorita.MEDIA);
 		test2.setIndirizzo("Messina");
 		test2.setNomeCantiere(null);
 		assertFalse(test.equals(c));
@@ -295,9 +295,9 @@ public class CantiereTest {
 	@Test
 	public void testGetPrioritaString(){
 		assertEquals(c.getPrioritaString(),"MEDIA");
-		c.setPriorita(Priority.ALTA);
+		c.setPriorita(Priorita.ALTA);
 		assertEquals(c.getPrioritaString(),"ALTA");
-		c.setPriorita(Priority.BASSA);
+		c.setPriorita(Priorita.BASSA);
 		assertEquals(c.getPrioritaString(),"BASSA");
 	}
 }

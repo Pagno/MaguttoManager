@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.GregorianCalendar;
 
 import model.ModelConnector;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaRuspa;
 
@@ -44,7 +44,7 @@ public class GreedyViewTest {
 		model.aggiungiRuspa("Ruspa", "R3002", 750, 3500, 8);//CodiceMacchina 3
 		model.aggiungiCantiere("Bottanuco", "Chiusa", new GregorianCalendar(
 				2014, 10, 11), new GregorianCalendar(2015, 11, 11),
-				Priority.BASSA);//codiceCantiere 1
+				Priorita.BASSA);//codiceCantiere 1
 		model.insertLavoro("Scavi", new GregorianCalendar(2014, 10, 11),
 				new GregorianCalendar(2014, 11, 11), 1);//codiceLavoro 1
 		model.addRichiesta(1, 1, new RichiestaRuspa(300, 400, -1, -1, -1, -1));//codiceRichiesta 1

@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import model.organizer.data.Cantiere;
 import model.organizer.data.Macchina;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.RichiestaMacchina;
 import controller.data.Associazione;
 
@@ -22,7 +22,7 @@ public interface ControllerInterface {
 	
 	//CantieriInterface
 	public  Cantiere getCantiere(int codiceCantiere);
-	public  boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita );
+	public  boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita );
 	public  boolean aggiungiLavoro(int codiceCantiere,String nomeLavoro,GregorianCalendar dataInizio,GregorianCalendar dataFine);
 	
 	public  void aggiungiRichiestaObserver(Observer observer );
@@ -43,7 +43,7 @@ public interface ControllerInterface {
 	public  boolean inserisciNuovaRuspa(String produttore, String modello,int capacita,int portata,int altezza);
 	public  boolean inserisciNuovoEscavatore(String produttore, String Modello,int capacita,int portata,int altezza,int profondita);
 	public  boolean inserisciNuovoCamion(String produttore,String Modello,int capacita,int portata,int lunghezza);
-	public  boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita );
+	public  boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita );
 	
 	
 	

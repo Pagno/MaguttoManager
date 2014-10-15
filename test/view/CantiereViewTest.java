@@ -3,7 +3,7 @@ package view;
 import java.util.GregorianCalendar;
 
 import model.ModelConnector;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 
 import org.fest.swing.annotation.GUITest;
 import org.fest.swing.fixture.DialogFixture;
@@ -96,7 +96,7 @@ public class CantiereViewTest {
 		JDateChooserFixture dateFineFixture = new JDateChooserFixture(
 				editCantiere.robot, dataFine);
 		dateFineFixture.requireDate((new GregorianCalendar(2014, 11, 11)).getTime());// i mesi partono da 0=Gennaio
-		editCantiere.panel("pnlCantiere").comboBox("prioritaCantiere").requireSelection(Priority.BASSA.toString());
+		editCantiere.panel("pnlCantiere").comboBox("prioritaCantiere").requireSelection(Priorita.BASSA.toString());
 		
 		
 		//Modifico i dati del Cantiere
@@ -106,7 +106,7 @@ public class CantiereViewTest {
 		dateInizioFixture.setDate((new GregorianCalendar(2014, 9, 11).getTime()));
 		dateFineFixture = new JDateChooserFixture(editCantiere.robot, dataFine);
 		dateFineFixture.setDate((new GregorianCalendar(2014, 11, 21)).getTime());
-		editCantiere.panel("pnlCantiere").comboBox("prioritaCantiere").selectItem(Priority.ALTA.toString());
+		editCantiere.panel("pnlCantiere").comboBox("prioritaCantiere").selectItem(Priorita.ALTA.toString());
 		
 		editCantiere.panel("pnlCantiere").button("edit").click();
 		

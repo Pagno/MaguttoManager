@@ -11,7 +11,7 @@ import model.organizer.data.Camion;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Macchina;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
@@ -353,20 +353,20 @@ public class GreedyEngine {
 	 *se tale priorità è minore, restituisce false.
 	 *se le priorità sono uguali, passo al confronto della durata dei lavori.
 	 */
-	static boolean sortByPriority(Richiesta ins, Richiesta arr){
-		if(ins.getPriorita()==Priority.ALTA){
-			if(arr.getPriorita()==Priority.ALTA){
+	static boolean sortByPriorita(Richiesta ins, Richiesta arr){
+		if(ins.getPriorita()==Priorita.ALTA){
+			if(arr.getPriorita()==Priorita.ALTA){
 				return sortByDuration(ins, arr);
 			}
 			else{
 				return true;
 			}
 		}
-		else if(ins.getPriorita()==Priority.MEDIA){
-			if(arr.getPriorita()==Priority.ALTA){
+		else if(ins.getPriorita()==Priorita.MEDIA){
+			if(arr.getPriorita()==Priorita.ALTA){
 				return false;
 			}
-			else if(arr.getPriorita()==Priority.MEDIA){
+			else if(arr.getPriorita()==Priorita.MEDIA){
 				return sortByDuration(ins, arr);
 			}
 			else{
@@ -374,7 +374,7 @@ public class GreedyEngine {
 			}
 		}
 		else{
-			if(arr.getPriorita()==Priority.ALTA||arr.getPriorita()==Priority.MEDIA){
+			if(arr.getPriorita()==Priorita.ALTA||arr.getPriorita()==Priorita.MEDIA){
 				return false;
 			}
 			else{
@@ -462,7 +462,7 @@ public class GreedyEngine {
 				return 0;
 			}
 			else{
-				if(GreedyEngine.sortByPriority(r1, r2)){
+				if(GreedyEngine.sortByPriorita(r1, r2)){
 					return -1;
 				}
 				else{

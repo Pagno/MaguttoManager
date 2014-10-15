@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
 
@@ -153,7 +153,7 @@ public class ModelCamionTest {
 		mc.addCamionForTest(a);mc.addCamionForTest(b);mc.addCamionForTest(c);
 		
 		
-		Cantiere cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
+		Cantiere cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 10, 10),new GregorianCalendar(2014, 11, 11));
 
 		RichiestaCamion rc=new RichiestaCamion(10, 20, 10, 20, 10, 20);

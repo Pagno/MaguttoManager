@@ -22,7 +22,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -181,7 +181,7 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener {
 					if (insCtr.inserisciNuovoCantiere(txtNome.getText(),
 							txtIndirizzo.getText(),
 							inizio,fine,
-							Priority.valueOf((String)priorita.getSelectedItem()))) {
+							Priorita.valueOf((String)priorita.getSelectedItem()))) {
 						dispose();
 					}
 

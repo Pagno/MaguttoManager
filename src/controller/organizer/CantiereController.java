@@ -8,7 +8,7 @@ import model.ModelInterface;
 import model.organizer.ModelGru;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Gru;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
@@ -49,7 +49,7 @@ public class CantiereController{// implements AbstractCantieriController{
 
 	public boolean modificaCantiere(int codiceCantiere, String nomeCantiere,
 			String indirizzo, GregorianCalendar dataApertura,
-			GregorianCalendar dataChiusura, Priority priorita) {
+			GregorianCalendar dataChiusura, Priorita priorita) {
 		
 		
 		return false;
@@ -133,7 +133,7 @@ public class CantiereController{// implements AbstractCantieriController{
 					model.modificaLavoro(codiceLavoro, editLavoro.getNomeLavoro(), newStartDate, newEndDate); 
 				}
 				else{
-					JOptionPane.showMessageDialog(editLavoro, "Non �� stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(editLavoro, "Non ������ stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
 				}
 				System.out.println("CodiceLavoro: "+codiceLavoro);	
 		*/

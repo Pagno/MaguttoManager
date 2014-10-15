@@ -15,7 +15,7 @@ import view.EditRuspa;
 import model.ModelInterface;
 import model.organizer.ModelGru;
 import model.organizer.data.Gru;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 
 
 /**
@@ -183,7 +183,7 @@ public class InsertController{// implements AbstractInsertController{
 	
 	
 
-	public boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+	public boolean inserisciNuovoCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
 			.showMessageDialog(
@@ -203,7 +203,7 @@ public class InsertController{// implements AbstractInsertController{
 		return true;
 	}
 
-	public boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+	public boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
 			.showMessageDialog(

@@ -1,5 +1,5 @@
 package model.organizer.data;
 
-public enum Priority {
+public enum Priorita {
 	BASSA,MEDIA,ALTA
 }

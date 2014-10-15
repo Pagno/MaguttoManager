@@ -13,7 +13,7 @@ import model.organizer.ModelCantiere;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
 import model.organizer.data.RichiestaEscavatore;
@@ -38,7 +38,7 @@ public class GreedyEngineTest {
 		MainView mainView = new MainView();
 		ControllerConnector.getControllerConnector(m,mainView);
 		m.ResetAllForTest();
-		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.BASSA);//Cantiere 1
+		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);//Cantiere 1
 		m.insertLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1
 		
 		//Richiesta coperta
@@ -57,7 +57,7 @@ public class GreedyEngineTest {
 		
 		//Due richieste si contendono una macchina, solo la pi� prioritaria la prende
 		
-		m.aggiungiCantiere("Pedemontana","Monza",new GregorianCalendar(2014,4,3),new GregorianCalendar(2016,10,19),Priority.MEDIA);//Cantiere 2
+		m.aggiungiCantiere("Pedemontana","Monza",new GregorianCalendar(2014,4,3),new GregorianCalendar(2016,10,19),Priorita.MEDIA);//Cantiere 2
 		m.insertLavoro("Scavo", new GregorianCalendar(2014,2,3),new GregorianCalendar(2014,7,7), 2);//Lavoro 2
 		m.addRichiesta(2, 2, new RichiestaRuspa(10, 20, 10, 20, 10, 20));//Richiesta 4
 		m.addRichiesta(1, 1, new RichiestaRuspa(12, 22, 12, 22, 12, 22));//Richiesta 5
@@ -78,7 +78,7 @@ public class GreedyEngineTest {
 		//verificare che la prima richiesta prende la terza macchina, la seconda prende la seconda macchina 
 		//e la terza prende la prima macchina
 		
-		m.aggiungiCantiere("Aeroporto Bergamo","Orio al Serio",new GregorianCalendar(2014,1,1),new GregorianCalendar(2020,10,10),Priority.ALTA);//Cantiere 3
+		m.aggiungiCantiere("Aeroporto Bergamo","Orio al Serio",new GregorianCalendar(2014,1,1),new GregorianCalendar(2020,10,10),Priorita.ALTA);//Cantiere 3
 		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 1);//Lavoro 4
 		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 2);//Lavoro 5
 		m.insertLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 3);//Lavoro 6
@@ -193,7 +193,7 @@ public class GreedyEngineTest {
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		assertTrue(a.isEmpty());
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,23));
 		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,23));
@@ -257,7 +257,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testRemoveReservationsByRequest() {
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		c.addLavoro(l);
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
@@ -303,7 +303,7 @@ public class GreedyEngineTest {
 	public void testSelectMostPromisingReservation() {
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		c.addLavoro(l);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
@@ -363,7 +363,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testGenerateReservations(){
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,02),new GregorianCalendar(2014,10,27),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,02),new GregorianCalendar(2014,10,27),Priorita.MEDIA);
 		Lavoro base=new Lavoro(100,"base",c,new GregorianCalendar(2014,05,15),new GregorianCalendar(2014,05,20));
 		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,05,02),new GregorianCalendar(2014,05,04));
 		Lavoro l2=new Lavoro(2,"l2",c,new GregorianCalendar(2014,05,07),new GregorianCalendar(2014,05,9));
@@ -472,7 +472,7 @@ public class GreedyEngineTest {
 	public void testReserveMacchineFromLavoro() {
 		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
 		assertTrue(p.isEmpty());
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,8));
 		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,15));
@@ -525,7 +525,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testLavoroEndsLessThanAWeekBefore() {
-		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
+		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		Lavoro base=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,15),new GregorianCalendar(2014,04,20));
 		Lavoro element=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,02));
 		assertFalse(GreedyEngine.lavoroEndsLessThanAWeekBefore(element,base));
@@ -549,7 +549,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testLavoroStartsLessThanAWeekAfter() {
-		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
+		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		Lavoro base=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,15),new GregorianCalendar(2014,04,20));
 		Lavoro element=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,02));
 		assertFalse(GreedyEngine.lavoroStartsLessThanAWeekAfter(element,base));
@@ -578,10 +578,10 @@ public class GreedyEngineTest {
 				ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
 				assertTrue(richieste.isEmpty());
 				assertTrue(sortedRichieste.isEmpty());
-				Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.ALTA);
-				Cantiere c2=new Cantiere(2,"c2","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.MEDIA);
-				Cantiere c3=new Cantiere(3,"c3","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.MEDIA);
-				Cantiere c4=new Cantiere(4,"c4","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priority.BASSA);
+				Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priorita.ALTA);
+				Cantiere c2=new Cantiere(2,"c2","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priorita.MEDIA);
+				Cantiere c3=new Cantiere(3,"c3","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priorita.MEDIA);
+				Cantiere c4=new Cantiere(4,"c4","Bergamo",new GregorianCalendar(2015,01,01),new GregorianCalendar(2015,10,20),Priorita.BASSA);
 				Lavoro l11=new Lavoro(1,"l11",c1,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
 				Lavoro l12=new Lavoro(5,"l12",c1,new GregorianCalendar(2015,02,9),new GregorianCalendar(2015,02,11));
 				Lavoro l21=new Lavoro(2,"l21",c2,new GregorianCalendar(2015,02,03),new GregorianCalendar(2015,02,13));
@@ -767,10 +767,10 @@ public class GreedyEngineTest {
 	}
 	
 	@Test
-	public void testSortByPriority() {
-		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
-		Cantiere c2=new Cantiere(2,"c2","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
-		Cantiere c3=new Cantiere(3,"c3","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.BASSA);
+	public void testSortByPriorita() {
+		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
+		Cantiere c2=new Cantiere(2,"c2","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Cantiere c3=new Cantiere(3,"c3","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);
 		Lavoro l1_1=new Lavoro(11,"l1",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,05));
 		Lavoro l1_2=new Lavoro(12,"l2",c1,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,10));
 		Lavoro l2_1=new Lavoro(13,"l3",c2,new GregorianCalendar(2014,04,01),new GregorianCalendar(2014,04,05));
@@ -799,57 +799,57 @@ public class GreedyEngineTest {
 		
 		//Priorit� diverse
 		//Alta-Media
-		assertTrue(GreedyEngine.sortByPriority(r1_2, r2_1));
+		assertTrue(GreedyEngine.sortByPriorita(r1_2, r2_1));
 		assertFalse(GreedyEngine.sortByDuration(r1_2, r2_1));
-		assertTrue(GreedyEngine.sortByPriority(r1_1, r2_2));
+		assertTrue(GreedyEngine.sortByPriorita(r1_1, r2_2));
 		assertTrue(GreedyEngine.sortByDuration(r1_1, r2_2));
 		//Alta-Bassa
-		assertTrue(GreedyEngine.sortByPriority(r1_2, r3_1));
+		assertTrue(GreedyEngine.sortByPriorita(r1_2, r3_1));
 		assertFalse(GreedyEngine.sortByDuration(r1_2, r3_1));
-		assertTrue(GreedyEngine.sortByPriority(r1_1, r3_2));
+		assertTrue(GreedyEngine.sortByPriorita(r1_1, r3_2));
 		assertTrue(GreedyEngine.sortByDuration(r1_1, r3_2));
 		//Media-Alta
-		assertFalse(GreedyEngine.sortByPriority(r2_1, r1_2));
+		assertFalse(GreedyEngine.sortByPriorita(r2_1, r1_2));
 		assertTrue(GreedyEngine.sortByDuration(r2_1, r1_2));
-		assertFalse(GreedyEngine.sortByPriority(r2_2, r1_1));
+		assertFalse(GreedyEngine.sortByPriorita(r2_2, r1_1));
 		assertFalse(GreedyEngine.sortByDuration(r2_2, r1_1));
 		//Media-Bassa
-		assertTrue(GreedyEngine.sortByPriority(r2_2, r3_1));
+		assertTrue(GreedyEngine.sortByPriorita(r2_2, r3_1));
 		assertFalse(GreedyEngine.sortByDuration(r2_2, r3_1));
-		assertTrue(GreedyEngine.sortByPriority(r2_1, r3_2));
+		assertTrue(GreedyEngine.sortByPriorita(r2_1, r3_2));
 		assertTrue(GreedyEngine.sortByDuration(r2_1, r3_2));
 		//Bassa-Alta
-		assertFalse(GreedyEngine.sortByPriority(r3_1, r1_2));
+		assertFalse(GreedyEngine.sortByPriorita(r3_1, r1_2));
 		assertTrue(GreedyEngine.sortByDuration(r3_1, r1_2));
-		assertFalse(GreedyEngine.sortByPriority(r3_2, r1_1));
+		assertFalse(GreedyEngine.sortByPriorita(r3_2, r1_1));
 		assertFalse(GreedyEngine.sortByDuration(r3_2, r1_1));
 		//Bassa-Media
-		assertFalse(GreedyEngine.sortByPriority(r3_1, r2_2));
+		assertFalse(GreedyEngine.sortByPriorita(r3_1, r2_2));
 		assertTrue(GreedyEngine.sortByDuration(r3_1, r1_2));
-		assertFalse(GreedyEngine.sortByPriority(r3_2, r2_1));
+		assertFalse(GreedyEngine.sortByPriorita(r3_2, r2_1));
 		assertFalse(GreedyEngine.sortByDuration(r3_2, r1_1));
 		
 		//Priorit� uguali
 		//Alta-Alta
-		assertEquals(GreedyEngine.sortByPriority(r1_1, r1_2),GreedyEngine.sortByDuration(r1_1, r1_2));
+		assertEquals(GreedyEngine.sortByPriorita(r1_1, r1_2),GreedyEngine.sortByDuration(r1_1, r1_2));
 		assertTrue(GreedyEngine.sortByDuration(r1_1, r1_2));
-		assertEquals(GreedyEngine.sortByPriority(r1_2, r1_1),GreedyEngine.sortByDuration(r1_2, r1_1));
-		assertFalse(GreedyEngine.sortByPriority(r1_2, r1_1));
+		assertEquals(GreedyEngine.sortByPriorita(r1_2, r1_1),GreedyEngine.sortByDuration(r1_2, r1_1));
+		assertFalse(GreedyEngine.sortByPriorita(r1_2, r1_1));
 		//Media-Media
-		assertEquals(GreedyEngine.sortByPriority(r2_1, r2_2),GreedyEngine.sortByDuration(r2_1, r2_2));
+		assertEquals(GreedyEngine.sortByPriorita(r2_1, r2_2),GreedyEngine.sortByDuration(r2_1, r2_2));
 		assertTrue(GreedyEngine.sortByDuration(r2_1, r2_2));
-		assertEquals(GreedyEngine.sortByPriority(r2_2, r2_1),GreedyEngine.sortByDuration(r2_2, r2_1));
-		assertFalse(GreedyEngine.sortByPriority(r2_2, r2_1));
+		assertEquals(GreedyEngine.sortByPriorita(r2_2, r2_1),GreedyEngine.sortByDuration(r2_2, r2_1));
+		assertFalse(GreedyEngine.sortByPriorita(r2_2, r2_1));
 		//Bassa-Bassa
-		assertEquals(GreedyEngine.sortByPriority(r3_1, r3_2),GreedyEngine.sortByDuration(r3_1, r3_2));
+		assertEquals(GreedyEngine.sortByPriorita(r3_1, r3_2),GreedyEngine.sortByDuration(r3_1, r3_2));
 		assertTrue(GreedyEngine.sortByDuration(r3_1, r3_2));
-		assertEquals(GreedyEngine.sortByPriority(r3_2, r3_1),GreedyEngine.sortByDuration(r3_2, r3_1));
-		assertFalse(GreedyEngine.sortByPriority(r3_2, r3_1));
+		assertEquals(GreedyEngine.sortByPriorita(r3_2, r3_1),GreedyEngine.sortByDuration(r3_2, r3_1));
+		assertFalse(GreedyEngine.sortByPriorita(r3_2, r3_1));
 	}
 
 	@Test
 	public void testSortByDuration() {
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,23),new GregorianCalendar(2015,01,23));
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
@@ -880,7 +880,7 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testSortByStartDate() {
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l2=new Lavoro(4,"l2",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
@@ -909,8 +909,8 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testSortByCodes() {
-		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
-		Cantiere c2=new Cantiere(2,"c2","Milano",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Cantiere c2=new Cantiere(2,"c2","Milano",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		
 		Lavoro l1=new Lavoro(3,"l1",c1,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Lavoro l2=new Lavoro(4,"l2",c1,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
@@ -951,7 +951,7 @@ public class GreedyEngineTest {
 	
 	@Test
 	public void testRichiesteComparator(){
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2015,01,22));
 		Richiesta r1=new Richiesta(rc, l, 1);

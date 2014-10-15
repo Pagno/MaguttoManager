@@ -8,7 +8,7 @@ import model.organizer.data.Cantiere;
 import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Macchina;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaRuspa;
@@ -23,7 +23,7 @@ public class AssociazioneTest {
 	
 	public AssociazioneTest() {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		cantiere.addLavoro(lavoro);
 		
@@ -36,7 +36,7 @@ public class AssociazioneTest {
 	public void testAssociazione(){
 		
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		cantiere.addLavoro(lavoro);
 		
@@ -57,7 +57,7 @@ public class AssociazioneTest {
 	public void testGetRichiesta() {
 		assertEquals(a.getRichiesta(),richiesta);
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		Richiesta richiesta2=new Richiesta(new RichiestaRuspa(- -1, -1, 300, 400, -1, -1), lavoro);
 		assertNotEquals(richiesta2, a.getRichiesta());
@@ -66,7 +66,7 @@ public class AssociazioneTest {
 	@Test
 	public void testSetRichiesta() {
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		Richiesta richiesta2=new Richiesta(new RichiestaGru(-1, -1, -1, -1, 300, 400, -1, -1), lavoro);
 		a.setRichiesta(richiesta2);
@@ -118,7 +118,7 @@ public class AssociazioneTest {
 		assertTrue(richiesta.isSoddisfatta());
 		assertEquals(a.getRichiesta().getMacchina(), macchina);
 		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
-				new GregorianCalendar(2015, 10, 1), Priority.ALTA);
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
 		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
 		cantiere.addLavoro(lavoro);
 		Richiesta r2=new Richiesta(new RichiestaRuspa( 5, 10, 5, 10, 5, 10), lavoro);

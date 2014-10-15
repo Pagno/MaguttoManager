@@ -13,7 +13,7 @@ public class RichiestaTest {
 	Cantiere cantiere;
 	
 	public RichiestaTest(){
-		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priority.ALTA);
+		cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priorita.ALTA);
 		lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		cantiere.addLavoro(lavoro);
 		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
@@ -189,7 +189,7 @@ public class RichiestaTest {
 	
 	@Test
 	public void testGetPriorita(){
-		assertEquals(r.getPriorita(),Priority.ALTA);
+		assertEquals(r.getPriorita(),Priorita.ALTA);
 	}
 	
 	@Test

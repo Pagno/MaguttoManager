@@ -26,7 +26,7 @@ import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
 import model.organizer.data.RichiestaEscavatore;
@@ -60,9 +60,9 @@ public class ModelCantiereTest {
 		ControllerConnector.getControllerConnector(m,mainView);
 		mc=ModelCantiere.getModelCantiere();
 		m.ResetAllForTest();
-		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
-		mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA);
-		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA);
+		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
+		mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA);
+		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priorita.BASSA);
 		
 		
 	}
@@ -74,10 +74,10 @@ public class ModelCantiereTest {
 	public void testGetModelCantiere() {
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),3);
-		assertTrue(lista.contains(new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA)));
-		assertTrue(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA)));
-		assertTrue(lista.contains(new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA)));
-		assertFalse(lista.contains(new Cantiere(21,"Asfalto Viale","Dalmine",new GregorianCalendar(2015,06,06),new GregorianCalendar(2018,04,04),Priority.MEDIA)));
+		assertTrue(lista.contains(new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA)));
+		assertTrue(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA)));
+		assertTrue(lista.contains(new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priorita.BASSA)));
+		assertFalse(lista.contains(new Cantiere(21,"Asfalto Viale","Dalmine",new GregorianCalendar(2015,06,06),new GregorianCalendar(2018,04,04),Priorita.MEDIA)));
 		ModelCantiere prova=ModelCantiere.getModelCantiere();
 		assertSame(mc,prova);
 		ModelCantiere.resetForTest();
@@ -100,12 +100,12 @@ public class ModelCantiereTest {
 	@Test
 	public void testAggiungiCantiere() {
 		assertEquals(mc.getNextCodice(),21);
-		mc.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.BASSA);
+		mc.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);
 		assertEquals(mc.getNextCodice(),22);
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),4);
-		assertTrue(lista.contains(new Cantiere(21,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.BASSA)));
-		assertFalse(lista.contains(new Cantiere(21,"Asfalto Viale","Dalmine",new GregorianCalendar(2015,06,06),new GregorianCalendar(2018,04,04),Priority.MEDIA)));
+		assertTrue(lista.contains(new Cantiere(21,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA)));
+		assertFalse(lista.contains(new Cantiere(21,"Asfalto Viale","Dalmine",new GregorianCalendar(2015,06,06),new GregorianCalendar(2018,04,04),Priorita.MEDIA)));
 	}
 
 	/**
@@ -113,14 +113,14 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testCaricaCantiere() {
-		mc.caricaCantiere(1,"Passerella sul Brembo","Dalmine",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.MEDIA);
+		mc.caricaCantiere(1,"Passerella sul Brembo","Dalmine",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		assertEquals(mc.getNextCodice(),21);
-		mc.caricaCantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
+		mc.caricaCantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		assertEquals(mc.getNextCodice(),26);
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),5);
-		assertTrue(lista.contains(new Cantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA)));
-		assertFalse(lista.contains(new Cantiere(21,"Asfalto Viale","Dalmine",new GregorianCalendar(2015,06,06),new GregorianCalendar(2018,04,04),Priority.MEDIA)));
+		assertTrue(lista.contains(new Cantiere(25,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA)));
+		assertFalse(lista.contains(new Cantiere(21,"Asfalto Viale","Dalmine",new GregorianCalendar(2015,06,06),new GregorianCalendar(2018,04,04),Priorita.MEDIA)));
 	}
 
 	/**
@@ -129,12 +129,12 @@ public class ModelCantiereTest {
 	@Test
 	public void testModificaCantiere() {
 		assertEquals(mc.getNextCodice(),21);
-		mc.modificaCantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
+		mc.modificaCantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
 		assertEquals(mc.getNextCodice(),21);
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),3);
-		assertTrue(lista.contains(new Cantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA)));
-		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA)));
+		assertTrue(lista.contains(new Cantiere(16,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA)));
+		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA)));
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class ModelCantiereTest {
 		assertTrue(mc.rimuoviCantiere("Pedemontana"));
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),2);
-		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA)));
+		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA)));
 		assertFalse(mc.rimuoviCantiere("Aeroporto Orio al Serio"));
 	}
 
@@ -157,7 +157,7 @@ public class ModelCantiereTest {
 		assertTrue(mc.rimuoviCantiere(16));
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),2);
-		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA)));
+		assertFalse(lista.contains(new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA)));
 		assertFalse(mc.rimuoviCantiere(99));
 	}
 
@@ -166,17 +166,17 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testGetCantiere() {
-		assertEquals(mc.getCantiere(16),new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA));
-		assertEquals(mc.getCantiere(7),new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA));
-		assertEquals(mc.getCantiere(20),new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA));
+		assertEquals(mc.getCantiere(16),new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA));
+		assertEquals(mc.getCantiere(7),new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA));
+		assertEquals(mc.getCantiere(20),new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priorita.BASSA));
 		assertEquals(mc.getCantiere(1),null);
 	}
 	
 	@Test
 	public void testToString() {
-		Cantiere a=new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priority.ALTA);
-		Cantiere b=new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priority.MEDIA);
-		Cantiere c=new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priority.BASSA);
+		Cantiere a=new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
+		Cantiere b=new Cantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA);
+		Cantiere c=new Cantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priorita.BASSA);
 		String str=a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n";
 		assertEquals(mc.toString(),str);
 	}

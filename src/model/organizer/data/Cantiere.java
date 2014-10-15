@@ -28,7 +28,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	/**   Elenco richieste macchine.  */
 	private ArrayList<Lavoro> lavori;
 	
-	private Priority priorita;
+	private Priorita priorita;
 	
 	/**
 	 * Instantiates a new cantiere.
@@ -39,7 +39,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	 * @param dataApertura data apertura del Cantiere
 	 * @param dataChiusura data chiusura del Cantiere
 	 */
-	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priority priorita ){
+	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		super(null);
 		this.setCodice(codice);
 		this.priorita=priorita;
@@ -255,14 +255,14 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	 */
 	public String toString(){
 		String priStr;
-		if(priorita==Priority.ALTA){
-			priStr="Priorità Alta";
+		if(priorita==Priorita.ALTA){
+			priStr="Prioritï¿½ Alta";
 		}
-		else if(priorita==Priority.MEDIA){
-			priStr="Priorità Media";
+		else if(priorita==Priorita.MEDIA){
+			priStr="Prioritï¿½ Media";
 		}
 		else{
-			priStr="Priorità Bassa";
+			priStr="Prioritï¿½ Bassa";
 		}
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura() + " - " + priStr;
 	}
@@ -312,7 +312,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 
 
-	public Priority getPriorita() {
+	public Priorita getPriorita() {
 		return priorita;
 	}
 	
@@ -320,7 +320,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 		return priorita.toString();
 	}
 
-	public void setPriorita(Priority priorita) {
+	public void setPriorita(Priorita priorita) {
 		this.priorita = priorita;
 	}
 	

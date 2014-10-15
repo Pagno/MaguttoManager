@@ -28,7 +28,7 @@ import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.RichiestaRuspa;
 import model.organizer.data.Ruspa;
-import model.organizer.data.Priority;
+import model.organizer.data.Priorita;
 import database.DBException;
 import database.DatabaseInterface;
 
@@ -407,7 +407,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @see model.ModelInterface#aggiungiCantiere(java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
 	@Override
-	public void aggiungiCantiere(String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura, Priority priorita) {
+	public void aggiungiCantiere(String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura, Priorita priorita) {
 		lc.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 	}
 
@@ -415,7 +415,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 	 * @see model.ModelInterface#modificaCantiere(int, java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
 	@Override
-	public void modificaCantiere(int codice, String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura, Priority priorita) {
+	public void modificaCantiere(int codice, String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura, Priorita priorita) {
 			lc.modificaCantiere(codice, nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}
 
@@ -545,7 +545,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 			String qry="select * from APP.Cantiere";
 			ResultSet res=db.interrogate(qry);
 			while(res.next()){
-				lc.caricaCantiere(res.getInt("Codice"), res.getString("Nome"), res.getString("Indirizzo"), convertToDate(res.getString("DataApertura")), convertToDate(res.getString("DataChiusura")),Priority.valueOf(res.getString("Priorita")));
+				lc.caricaCantiere(res.getInt("Codice"), res.getString("Nome"), res.getString("Indirizzo"), convertToDate(res.getString("DataApertura")), convertToDate(res.getString("DataChiusura")),Priorita.valueOf(res.getString("Priorita")));
 			}
 			//db.disconnect();
 		} catch (DBException e) {
