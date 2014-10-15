@@ -17,9 +17,9 @@ import controller.organizer.*;
 
 
 public class ControllerConnector implements ControllerInterface{
-	private ApplicationController appCtrl;
-	private InsertController insCtrl;
-	private CantiereController canCtrl;
+	private ControllerApplicazione appCtrl;
+	private ControllerInserimento insCtrl;
+	private ControllerCantiere canCtrl;
 	
 	private static ControllerConnector istanza;
 
@@ -37,9 +37,9 @@ public class ControllerConnector implements ControllerInterface{
 	}
 	
 	private ControllerConnector(ModelInterface modelConnector,MainView view) {
-		appCtrl=ApplicationController.getApplicationController(modelConnector, view);
-		insCtrl=InsertController.getInsertController(modelConnector);
-		canCtrl=CantiereController.getCantiereController(modelConnector);
+		appCtrl=ControllerApplicazione.getApplicationController(modelConnector, view);
+		insCtrl=ControllerInserimento.getInsertController(modelConnector);
+		canCtrl=ControllerCantiere.getCantiereController(modelConnector);
 	}
 	
 	@Override

@@ -14,21 +14,21 @@ import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import controller.data.Associazione;
 
-public class CantiereController{// implements AbstractCantieriController{
+public class ControllerCantiere{// implements AbstractCantieriController{
 
 	/**   model. */
 	ModelInterface model;
 
-	private static CantiereController istanza;
+	private static ControllerCantiere istanza;
 
 	/**
 	 * Gets   model gru.
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized CantiereController getCantiereController(ModelInterface modelConnector){
+	public static synchronized ControllerCantiere getCantiereController(ModelInterface modelConnector){
 		if(istanza==null){
-			istanza=new CantiereController(modelConnector);
+			istanza=new ControllerCantiere(modelConnector);
 		}
 		return istanza;
 	}
@@ -38,7 +38,7 @@ public class CantiereController{// implements AbstractCantieriController{
 	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
-	private CantiereController(ModelInterface modelConnector) {
+	private ControllerCantiere(ModelInterface modelConnector) {
 		model = modelConnector;
 	}
 

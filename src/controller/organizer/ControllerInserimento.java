@@ -25,12 +25,12 @@ import model.organizer.data.Priorita;
  * e alla modifica di quelli esistenti
  * 
  */
-public class InsertController{// implements AbstractInsertController{
+public class ControllerInserimento{// implements AbstractInsertController{
 
 	/**   model. */
 	ModelInterface model;
 
-	private static InsertController istanza;
+	private static ControllerInserimento istanza;
 
 
 	/**
@@ -38,9 +38,9 @@ public class InsertController{// implements AbstractInsertController{
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized InsertController getInsertController(ModelInterface modelConnector){
+	public static synchronized ControllerInserimento getInsertController(ModelInterface modelConnector){
 		if(istanza==null){
-			istanza=new InsertController(modelConnector);
+			istanza=new ControllerInserimento(modelConnector);
 		}
 		return istanza;
 	}
@@ -50,7 +50,7 @@ public class InsertController{// implements AbstractInsertController{
 	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
-	private InsertController(ModelInterface modelConnector) {
+	private ControllerInserimento(ModelInterface modelConnector) {
 		model = modelConnector;
 	}
 	

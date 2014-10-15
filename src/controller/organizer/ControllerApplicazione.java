@@ -29,23 +29,23 @@ import model.organizer.data.Gru;
  * @see MainView
  * 
  */
-public class ApplicationController{// implements AbstractApplicationController{
+public class ControllerApplicazione{// implements AbstractApplicationController{
 
 	/**   model. */
 	private ModelInterface model;
 	
 	/**   main view. */
 	private MainView mainView;
-	private static ApplicationController istanza;
+	private static ControllerApplicazione istanza;
 
 	/**
 	 * Gets   model gru.
 	 *
 	 * @return   model gru
 	 */
-	public static synchronized ApplicationController getApplicationController(ModelInterface modelConnector,MainView view){
+	public static synchronized ControllerApplicazione getApplicationController(ModelInterface modelConnector,MainView view){
 		if(istanza==null){
-			istanza=new ApplicationController(modelConnector,view);
+			istanza=new ControllerApplicazione(modelConnector,view);
 		}
 		return istanza;
 	}
@@ -55,7 +55,7 @@ public class ApplicationController{// implements AbstractApplicationController{
 	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
 	 * @param view per registrare gli eventi generati dalla view
 	 */
-	private ApplicationController(ModelInterface modelConnector,MainView view) {
+	private ControllerApplicazione(ModelInterface modelConnector,MainView view) {
 		model = modelConnector;
 		mainView = view;
 		setObserver();

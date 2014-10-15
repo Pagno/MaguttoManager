@@ -7,9 +7,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
 import controller.ControllerConnector;
-import controller.organizer.ApplicationController;
-import controller.organizer.CantiereController;
-import controller.organizer.InsertController;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
@@ -20,7 +17,7 @@ import database.DBException;
  *   Class Main.
  */
 public class Main {
-	//TODO per tutte le classi: se c'è un ciclo e all'interno si rimuovono degli elementi, controllare che funzioni!!!
+	//TODO per tutte le classi: se c'ï¿½ un ciclo e all'interno si rimuovono degli elementi, controllare che funzioni!!!
 	/**
 	 *   main method.
 	 *
