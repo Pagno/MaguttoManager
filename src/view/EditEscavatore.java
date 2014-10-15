@@ -16,6 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import controller.ControllerConnector;
 import controller.Interface.AbstractInsertController;
 
 // 
@@ -42,14 +43,14 @@ public class EditEscavatore extends JDialog {
 	private JButton okButton;
 
 
-	private AbstractInsertController insCtr;
+	private ControllerConnector insCtr;
 	/**
 	 * Create   dialog.
 	 *
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditEscavatore(JFrame view, final Object[] obj,AbstractInsertController aCtr) {
+	public EditEscavatore(JFrame view, final Object[] obj,ControllerConnector aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Escavatore");
@@ -100,7 +101,7 @@ public class EditEscavatore extends JDialog {
 	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
-	public EditEscavatore(JFrame view,AbstractInsertController aCtr) {
+	public EditEscavatore(JFrame view,ControllerConnector aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Aggiungi un nuovo Escavatore");

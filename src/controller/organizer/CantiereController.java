@@ -1,11 +1,13 @@
-package controller;
+package controller.organizer;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observer;
 
 import model.ModelInterface;
+import model.organizer.ModelGru;
 import model.organizer.data.Cantiere;
+import model.organizer.data.Gru;
 import model.organizer.data.Priority;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
@@ -13,26 +15,39 @@ import model.organizer.data.RichiestaMacchina;
 import controller.Interface.AbstractCantieriController;
 import controller.data.Associazione;
 
-public class CantiereController implements AbstractCantieriController{
+public class CantiereController{// implements AbstractCantieriController{
 
 	/**   model. */
 	ModelInterface model;
 
+	private static CantiereController istanza;
+
+	/**
+	 * Gets   model gru.
+	 *
+	 * @return   model gru
+	 */
+	public static synchronized CantiereController getCantiereController(ModelInterface modelConnector){
+		if(istanza==null){
+			istanza=new CantiereController(modelConnector);
+		}
+		return istanza;
+	}
 	/**
 	 * Istanzia un nuovo controllore InsertController.
 	 *
 	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
-	public CantiereController(ModelInterface modelConnector) {
+	private CantiereController(ModelInterface modelConnector) {
 		model = modelConnector;
 	}
-	@Override
+
 	public Cantiere getCantiere(int codiceCantiere) {
 		return model.getCantiere(codiceCantiere);
 	}
 
-	@Override
+
 	public boolean modificaCantiere(int codiceCantiere, String nomeCantiere,
 			String indirizzo, GregorianCalendar dataApertura,
 			GregorianCalendar dataChiusura, Priority priorita) {
@@ -41,57 +56,57 @@ public class CantiereController implements AbstractCantieriController{
 		return false;
 	}
 
-	@Override
+
 	public boolean aggiungiLavoro(int codiceCantiere, String nomeLavoro,
 			GregorianCalendar dataInizio, GregorianCalendar dataFine) {
 		model.insertLavoro(nomeLavoro, dataInizio, dataFine, codiceCantiere);
 		return true;
 	}
 
-	@Override
+
 	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
 		return model.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
 	}
-	@Override
+
 	public void aggiungiRichiestaObserver(Observer observer ) {
 		model.aggiungiLavoroObserver(observer);
 	}
-	@Override
+
 	public boolean eliminaLavoro(int codiceLavoro) {
 		return model.deleteLavoro(codiceLavoro);
 	}
-	@Override
+
 	public boolean eliminaRichiesta(int codiceRichiesta) {
 		return model.deleteRichiesta(codiceRichiesta);
 	}
-	@Override
+
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta) {
 		return model.getElencoMacchineDisponibili(codiceRichiesta);
 	}
 	
-	@Override
+	 
 	public boolean liberaRichiesta(int codiceRichiesta){
 		return model.liberaRichiesta(codiceRichiesta);
 	}
 
-	@Override
+	 
 	public boolean addRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
 		return model.addRichiesta( codiceCantiere, codiceLavoro, richiesta);
 	}
 	
-	@Override
+
 	public ArrayList<Associazione> generateAssociations(){
 		return controller.greedy.GreedyEngine.generateAssociations(model);
 	}
 
-	@Override
+	 
 	public void confermaAssociazioniListener(ArrayList<Associazione> data) {
 		for(Associazione associazione:data){
 			associazione.concretizza();
 		}		
 	}
 	
-	@Override
+	 
 	public void modificaLavoro(int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
 		model.modificaLavoro(codiceLavoro, nome, inizio, fine);

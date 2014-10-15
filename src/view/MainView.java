@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 
 import view.lavoro.EditLavoro;
+import controller.ControllerConnector;
 import controller.Interface.AbstractApplicationController;
 import controller.Interface.AbstractCantieriController;
 import controller.Interface.AbstractInsertController;
@@ -62,9 +63,7 @@ public class MainView extends JFrame {
 	/** item file esci. */
 	private JMenuItem itemFileSalva, itemFileCarica, itemFileEsci;
 
-	private AbstractApplicationController appController;
-	private AbstractInsertController insController;
-	private AbstractCantieriController cantiereController;
+	private ControllerConnector controller;
 	private String elimina = "Gru";
 
 	/**
@@ -121,16 +120,8 @@ public class MainView extends JFrame {
 		listener();
 	}
 
-	public void setApplicationController(AbstractApplicationController aCtr) {
-		appController = aCtr;
-	}
-
-	public void setInsertController(AbstractInsertController aCtr) {
-		insController = aCtr;
-	}
-
-	public void setCantiereController(AbstractCantieriController aCtr) {
-		cantiereController = aCtr;
+	public void setControllerConnector(ControllerConnector aCtr) {
+		controller = aCtr;
 	}
 	/**
 	 * Adds window closing listener.
@@ -141,7 +132,7 @@ public class MainView extends JFrame {
 	private WindowAdapter addWindowClosingListener() {
 		return new WindowAdapter() {
 			public void windowClosing(WindowEvent w) {
-				appController.exitManager();
+				controller.exitManager();
 				dispose();
 			}
 		};
@@ -284,7 +275,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GreedyEngineView(mainView, cantiereController);
+				new GreedyEngineView(mainView, controller);
 			}
 		};
 	}
@@ -300,7 +291,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditGru(mainView, insController);
+				new EditGru(mainView, controller);
 			}
 		};
 	}
@@ -308,7 +299,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditEscavatore(mainView, insController);
+				new EditEscavatore(mainView, controller);
 			}
 		};
 	}
@@ -322,7 +313,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditRuspa(mainView, insController);
+				new EditRuspa(mainView, controller);
 			}
 		};
 	}
@@ -337,7 +328,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditCamion(mainView, insController);
+				new EditCamion(mainView, controller);
 			}
 		};
 	}
@@ -345,7 +336,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new InsertCantiere(mainView, insController);
+				new InsertCantiere(mainView, controller);
 			}
 		};
 	}
@@ -360,7 +351,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				appController.salvaDatiListener();
+				controller.salvaDatiListener();
 			}
 		};
 	}
@@ -380,7 +371,7 @@ public class MainView extends JFrame {
 				dataModelEscavatore.resetData();
 				dataModelGru.resetData();
 				dataModelCantiere.resetData();
-				appController.caricaDatiListener();
+				controller.caricaDatiListener();
 			}
 		};
 	}
@@ -395,7 +386,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				appController.exitManager();
+				controller.exitManager();
 			}
 		};
 	}
@@ -424,7 +415,7 @@ public class MainView extends JFrame {
 						else
 							m = c.getMethod("elimina" + elimina, Integer.class);
 
-						Boolean deleted = (Boolean) m.invoke(appController,
+						Boolean deleted = (Boolean) m.invoke(controller,
 								(Integer) v[0]);
 						if (deleted) {
 							removeSelectedRow();
@@ -448,15 +439,15 @@ public class MainView extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					if(elimina=="Gru"){
-						new EditGru(mainView,v,insController);
+						new EditGru(mainView,v,controller);
 					}else if(elimina=="Camion"){
-						new EditCamion(mainView,v, insController);
+						new EditCamion(mainView,v, controller);
 					}else if(elimina=="Escavatore"){
-						new EditEscavatore(mainView,v, insController);
+						new EditEscavatore(mainView,v, controller);
 					}else if(elimina=="Ruspa"){
-						new EditRuspa(mainView,v, insController);
+						new EditRuspa(mainView,v, controller);
 					}else if(elimina=="Cantiere"){
-						new EditLavoro(mainView, cantiereController.getCantiere((Integer)v[0]),cantiereController);
+						new EditLavoro(mainView, controller.getCantiere((Integer)v[0]),controller);
 					}
 				}
 			}

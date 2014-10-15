@@ -1,9 +1,10 @@
-package controller;
+package controller.organizer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,8 @@ import view.EditRuspa;
 import view.MainView;
 import view.lavoro.EditLavoro;
 import model.ModelInterface;
+import model.organizer.ModelGru;
+import model.organizer.data.Gru;
 
 // 
 /**
@@ -27,21 +30,33 @@ import model.ModelInterface;
  * @see MainView
  * 
  */
-public class ApplicationController implements AbstractApplicationController{
+public class ApplicationController{// implements AbstractApplicationController{
 
 	/**   model. */
 	private ModelInterface model;
 	
 	/**   main view. */
 	private MainView mainView;
+	private static ApplicationController istanza;
 
+	/**
+	 * Gets   model gru.
+	 *
+	 * @return   model gru
+	 */
+	public static synchronized ApplicationController getApplicationController(ModelInterface modelConnector,MainView view){
+		if(istanza==null){
+			istanza=new ApplicationController(modelConnector,view);
+		}
+		return istanza;
+	}
 	/**
 	 * Istanzia un nuovo controllore MainController.
 	 *
 	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
 	 * @param view per registrare gli eventi generati dalla view
 	 */
-	public ApplicationController(ModelInterface modelConnector,MainView view) {
+	private ApplicationController(ModelInterface modelConnector,MainView view) {
 		model = modelConnector;
 		mainView = view;
 		setObserver();

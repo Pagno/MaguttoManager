@@ -16,6 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import controller.ControllerConnector;
 import controller.Interface.AbstractApplicationController;
 import controller.Interface.AbstractInsertController;
 
@@ -43,7 +44,7 @@ public class EditGru extends JDialog {
 	/** ok button. */
 	private JButton okButton;
 
-	private AbstractInsertController insCtr;
+	private ControllerConnector insCtr;
 
 	/**
 	 * Create dialog.
@@ -53,7 +54,7 @@ public class EditGru extends JDialog {
 	 * @param obj
 	 *            obj
 	 */
-	public EditGru(JFrame view, final Object[] obj,AbstractInsertController aCtr) {
+	public EditGru(JFrame view, final Object[] obj,ControllerConnector aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Gru");
@@ -104,7 +105,7 @@ public class EditGru extends JDialog {
 	 * @param view
 	 *            view
 	 */
-	public EditGru(JFrame view, AbstractInsertController aCtr) {
+	public EditGru(JFrame view, ControllerConnector aCtr) {
 		super(view);
 		insCtr = aCtr;
 		setTitle("Aggiungi nuova Gru");

@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 
+import controller.ControllerConnector;
 import controller.Interface.AbstractCantieriController;
 import controller.data.Associazione;
 
@@ -31,8 +32,8 @@ public class GreedyEngineView extends JDialog {
 	private DefaultListModel<Associazione> listModel;
 	private JButton btnGeneraMigliorAssociazione,btnEliminaAssociazione,okButton;
 	private ArrayList<Associazione> data=new ArrayList<Associazione>();
-	private AbstractCantieriController cCtr;
-	public GreedyEngineView(JFrame view,AbstractCantieriController aCtr) {
+	private ControllerConnector cCtr;
+	public GreedyEngineView(JFrame view,ControllerConnector aCtr) {
 		super(view);
 		cCtr=aCtr;
 		setBounds(100, 100, 450, 300);

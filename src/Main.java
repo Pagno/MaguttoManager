@@ -6,9 +6,10 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
-import controller.ApplicationController;
-import controller.CantiereController;
-import controller.InsertController;
+import controller.ControllerConnector;
+import controller.organizer.ApplicationController;
+import controller.organizer.CantiereController;
+import controller.organizer.InsertController;
 import model.ModelConnector;
 import database.Database;
 import database.DBException;
@@ -49,12 +50,8 @@ public class Main {
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView=null ;
 		mainView = new MainView();
-		ApplicationController aCtr=new ApplicationController(m,mainView);
-		InsertController iCtr=new InsertController(m);
-		CantiereController cCtr=new CantiereController(m);
-		mainView.setApplicationController(aCtr);
-		mainView.setInsertController(iCtr);
-		mainView.setCantiereController(cCtr);
+		ControllerConnector controller=ControllerConnector.getControllerConnector(m, mainView);
+		mainView.setControllerConnector(controller);
 		
 
 	}

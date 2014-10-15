@@ -26,6 +26,7 @@ import model.organizer.data.Priority;
 
 import com.toedter.calendar.JDateChooser;
 
+import controller.ControllerConnector;
 import controller.Interface.AbstractInsertController;
 
 // 
@@ -67,7 +68,7 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener {
 	 *            view
 	 * @wbp.parser.constructor
 	 */
-	public InsertCantiere(JFrame view, final AbstractInsertController insCtr) {
+	public InsertCantiere(JFrame view, final ControllerConnector insCtr) {
 		super(view);
 		setTitle("Aggiungi un nuovo Cantiere");
 		setResizable(true);

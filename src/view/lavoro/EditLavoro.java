@@ -42,6 +42,7 @@ import view.lavoro.panel.VisualizzaRichiestaPanel;
 
 import javax.swing.JCheckBox;
 
+import controller.ControllerConnector;
 import controller.Interface.AbstractCantieriController;
 
 
@@ -69,8 +70,8 @@ public class EditLavoro extends JDialog implements Observer{
 	/**
 	 * Create the dialog.
 	 */
-	private AbstractCantieriController cCtr;
-	public EditLavoro(JFrame view,Cantiere cantiere,AbstractCantieriController aCtr) {
+	private ControllerConnector cCtr;
+	public EditLavoro(JFrame view,Cantiere cantiere,ControllerConnector aCtr) {
 		super(view);
 		editLavoro=this;
 		cCtr=aCtr;

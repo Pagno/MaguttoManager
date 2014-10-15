@@ -1,7 +1,8 @@
-package controller;
+package controller.organizer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -13,6 +14,8 @@ import view.EditEscavatore;
 import view.EditGru;
 import view.EditRuspa;
 import model.ModelInterface;
+import model.organizer.ModelGru;
+import model.organizer.data.Gru;
 import model.organizer.data.Priority;
 
 
@@ -23,18 +26,32 @@ import model.organizer.data.Priority;
  * e alla modifica di quelli esistenti
  * 
  */
-public class InsertController implements AbstractInsertController{
+public class InsertController{// implements AbstractInsertController{
 
 	/**   model. */
 	ModelInterface model;
 
+	private static InsertController istanza;
+
+
+	/**
+	 * Gets   model gru.
+	 *
+	 * @return   model gru
+	 */
+	public static synchronized InsertController getInsertController(ModelInterface modelConnector){
+		if(istanza==null){
+			istanza=new InsertController(modelConnector);
+		}
+		return istanza;
+	}
 	/**
 	 * Istanzia un nuovo controllore InsertController.
 	 *
 	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
-	public InsertController(ModelInterface modelConnector) {
+	private InsertController(ModelInterface modelConnector) {
 		model = modelConnector;
 	}
 	

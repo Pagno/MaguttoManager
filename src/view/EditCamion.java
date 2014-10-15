@@ -16,6 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import controller.ControllerConnector;
 import controller.Interface.AbstractInsertController;
 
 // 
@@ -40,7 +41,7 @@ public class EditCamion extends JDialog {
 
 	/** ok button. */
 	private JButton okButton;
-	private AbstractInsertController insCtr;
+	private ControllerConnector insCtr;
 
 	/**
 	 * Create dialog.
@@ -51,7 +52,7 @@ public class EditCamion extends JDialog {
 	 *            obj
 	 */
 	public EditCamion(JFrame view, final Object[] obj,
-			AbstractInsertController aCtr) {
+			ControllerConnector aCtr) {
 		super(view);
 		insCtr = aCtr;
 		setTitle("Modifica Camion");
@@ -102,7 +103,7 @@ public class EditCamion extends JDialog {
 	 *            view
 	 * @wbp.parser.constructor
 	 */
-	public EditCamion(JFrame view, AbstractInsertController aCtr) {
+	public EditCamion(JFrame view, ControllerConnector aCtr) {
 		super(view);
 		insCtr = aCtr;
 		setTitle("Aggiungi un nuovo Camion");
