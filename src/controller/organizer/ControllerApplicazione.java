@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import view.EditCamion;
-import view.InsertCantiere;
-import view.EditEscavatore;
-import view.EditGru;
-import view.EditRuspa;
 import view.MainView;
-import view.lavoro.EditLavoro;
+import view.cantiere.ViewCantiere;
+import view.lavoro.ViewLavoro;
+import view.macchina.ViewCamion;
+import view.macchina.ViewEscavatore;
+import view.macchina.ViewGru;
+import view.macchina.ViewRuspa;
 import model.ModelInterface;
 import model.organizer.ModelGru;
 import model.organizer.data.Gru;

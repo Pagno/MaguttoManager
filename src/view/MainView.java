@@ -17,7 +17,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
-import view.lavoro.EditLavoro;
+import view.cantiere.ViewCantiere;
+import view.greedy.ViewGreedyEngine;
+import view.lavoro.ViewLavoro;
+import view.macchina.ViewCamion;
+import view.macchina.ViewEscavatore;
+import view.macchina.ViewGru;
+import view.macchina.ViewRuspa;
 import controller.ControllerConnector;
 import controller.organizer.ControllerCantiere;
 
@@ -44,7 +50,7 @@ public class MainView extends JFrame {
 	private JScrollPane scrollpane;
 
 	/** data model cantiere. */
-	public MyTableModel dataModelGru, dataModelRuspa, dataModelCamion,
+	public MainViewTableModel dataModelGru, dataModelRuspa, dataModelCamion,
 			dataModelEscavatore, dataModelCantiere;
 
 	/** btn add associazione. */
@@ -84,20 +90,20 @@ public class MainView extends JFrame {
 		String[] columnNamesGru = { "Produttore", "Modello",
 				"Lunghezza Braccio", "Altezza Gancio", "Portata Massima",
 				"Angolo Rotazione" };
-		dataModelGru = new MyTableModel(columnNamesGru);
+		dataModelGru = new MainViewTableModel(columnNamesGru);
 		String[] columnNamesRuspa = { "Produttore", "Modello",
 				"Altezza Scarico", "Capacita", "Portata Massima" };
-		dataModelRuspa = new MyTableModel(columnNamesRuspa);
+		dataModelRuspa = new MainViewTableModel(columnNamesRuspa);
 		String[] columnNamesCamion = { "Produttore", "Modello", "Lunghezza",
 				"Capacita", "Portata Massima" };
-		dataModelCamion = new MyTableModel(columnNamesCamion);
+		dataModelCamion = new MainViewTableModel(columnNamesCamion);
 		String[] columnNamesEscavatore = { "Produttore", "Modello",
 				"Altezza Scarico", "Profondita Scavo", "Capacita",
 				"Portata Massima" };
-		dataModelEscavatore = new MyTableModel(columnNamesEscavatore);
+		dataModelEscavatore = new MainViewTableModel(columnNamesEscavatore);
 		String[] columnNamesCantiere = { "Nome", "Indirizzo", "Data Apertura",
 				"Data Chiusura", "Priorita" };
-		dataModelCantiere = new MyTableModel(columnNamesCantiere);
+		dataModelCantiere = new MainViewTableModel(columnNamesCantiere);
 
 		table = new JTable();
 		table.setName("table");
@@ -170,7 +176,7 @@ public class MainView extends JFrame {
 	 * @return selected data
 	 */
 	public Object[] getSelectedData() {
-		return table.getSelectedRow() == -1 ? null : ((MyTableModel) table
+		return table.getSelectedRow() == -1 ? null : ((MainViewTableModel) table
 				.getModel()).getRowData(table.getSelectedRow());
 	}
 
@@ -290,7 +296,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GreedyEngineView(mainView, controller);
+				new ViewGreedyEngine(mainView, controller);
 			}
 		};
 	}
@@ -306,7 +312,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditGru(mainView, controller);
+				new ViewGru(mainView, controller);
 			}
 		};
 	}
@@ -314,7 +320,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditEscavatore(mainView, controller);
+				new ViewEscavatore(mainView, controller);
 			}
 		};
 	}
@@ -328,7 +334,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditRuspa(mainView, controller);
+				new ViewRuspa(mainView, controller);
 			}
 		};
 	}
@@ -343,7 +349,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditCamion(mainView, controller);
+				new ViewCamion(mainView, controller);
 			}
 		};
 	}
@@ -351,7 +357,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new InsertCantiere(mainView, controller);
+				new ViewCantiere(mainView, controller);
 			}
 		};
 	}
@@ -454,15 +460,15 @@ public class MainView extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					if(elimina=="Gru"){
-						new EditGru(mainView,v,controller);
+						new ViewGru(mainView,v,controller);
 					}else if(elimina=="Camion"){
-						new EditCamion(mainView,v, controller);
+						new ViewCamion(mainView,v, controller);
 					}else if(elimina=="Escavatore"){
-						new EditEscavatore(mainView,v, controller);
+						new ViewEscavatore(mainView,v, controller);
 					}else if(elimina=="Ruspa"){
-						new EditRuspa(mainView,v, controller);
+						new ViewRuspa(mainView,v, controller);
 					}else if(elimina=="Cantiere"){
-						new EditLavoro(mainView, controller.getCantiere((Integer)v[0]),controller);
+						new ViewLavoro(mainView, controller.getCantiere((Integer)v[0]),controller);
 					}
 				}
 			}
@@ -514,7 +520,7 @@ public class MainView extends JFrame {
 	 * Removes selected.
 	 */
 	public void removeSelectedRow() {
-		((MyTableModel) table.getModel()).removeData(table.getSelectedRow());
+		((MainViewTableModel) table.getModel()).removeData(table.getSelectedRow());
 	}
 
 }

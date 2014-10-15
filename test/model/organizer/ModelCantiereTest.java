@@ -39,7 +39,7 @@ import org.junit.Test;
 import controller.ControllerConnector;
 import database.Database;
 import view.MainView;
-import view.MyTableModel;
+import view.MainViewTableModel;
 
 // 
 /**

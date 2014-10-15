@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class VisualizzaRichiestaPanel extends JPanel {
+public class PanelVisualizzaRichiesta extends JPanel {
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class VisualizzaRichiestaPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public VisualizzaRichiestaPanel() {
+	public PanelVisualizzaRichiesta() {
 		super();
 		createPanel();
 	}

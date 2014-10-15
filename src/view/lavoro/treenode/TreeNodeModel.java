@@ -1,4 +1,4 @@
-package view.lavoro;
+package view.lavoro.treenode;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,30 +9,30 @@ import javax.swing.tree.DefaultTreeModel;
 import model.organizer.data.Cantiere;
 
 
-public class treeModel extends DefaultTreeModel  implements Observer{
+public class TreeNodeModel extends DefaultTreeModel  implements Observer{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8141324938219265208L;
 
-	ArrayList<workNode> listaLavori=new ArrayList<workNode>();  
+	ArrayList<NodeWork> listaLavori=new ArrayList<NodeWork>();  
 	Cantiere c;
-	public treeModel(Cantiere cantiere) {
+	public TreeNodeModel(Cantiere cantiere) {
 		super(null);
 		setRoot(cantiere);
 	}
 	public void addWork(ArrayList<String> work){
-		workNode a=new workNode(work);
+		NodeWork a=new NodeWork(work);
 		//insertNodeInto(a, getRoot(), 0);
 		
 		listaLavori.add(a);//aggiungo il nodo
 	}
 	public void addRichiesta(ArrayList<String> richiesta){
-		for(workNode wn:listaLavori){
+		for(NodeWork wn:listaLavori){
 			if(wn.getCodiceLavoro()==Integer.parseInt(richiesta.get(0))){
 				wn.addRichiesta(richiesta);
-				richiestaNode a=new richiestaNode(richiesta);
+				NodeRichiesta a=new NodeRichiesta(richiesta);
 				insertNodeInto(a, wn, 0);
 			}
 				

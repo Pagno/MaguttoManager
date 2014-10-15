@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 /**
  *   Class MyTableModel.
  */
-public class MyTableModel extends AbstractTableModel implements Observer{ 
+public class MainViewTableModel extends AbstractTableModel implements Observer{ 
  	
 	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class MyTableModel extends AbstractTableModel implements Observer{
      *
      * @param column   column
      */
-    public MyTableModel(String[] column){
+    public MainViewTableModel(String[] column){
     	columnNames=column;
     }
     

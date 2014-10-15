@@ -1,4 +1,4 @@
-package view;
+package view.greedy;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -19,7 +19,7 @@ import javax.swing.JList;
 import controller.ControllerConnector;
 import controller.data.Associazione;
 
-public class GreedyEngineView extends JDialog {
+public class ViewGreedyEngine extends JDialog {
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class GreedyEngineView extends JDialog {
 	private JButton btnGeneraMigliorAssociazione,btnEliminaAssociazione,okButton;
 	private ArrayList<Associazione> data=new ArrayList<Associazione>();
 	private ControllerConnector cCtr;
-	public GreedyEngineView(JFrame view,ControllerConnector aCtr) {
+	public ViewGreedyEngine(JFrame view,ControllerConnector aCtr) {
 		super(view);
 		cCtr=aCtr;
 		setBounds(100, 100, 450, 300);

@@ -1,4 +1,4 @@
-package view;
+package view.macchina;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -22,7 +22,7 @@ import controller.ControllerConnector;
 /**
  *   Class EditRuspa.
  */
-public class EditRuspa extends JDialog {
+public class ViewRuspa extends JDialog {
 
 	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 4043996596294833629L;
@@ -49,7 +49,7 @@ public class EditRuspa extends JDialog {
 	 * @param view   view
 	 * @param obj   obj
 	 */
-	public EditRuspa(JFrame view, final Object[] obj,ControllerConnector aCtr) {
+	public ViewRuspa(JFrame view, final Object[] obj,ControllerConnector aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Ruspa");
@@ -98,7 +98,7 @@ public class EditRuspa extends JDialog {
 	 * @param view   view
 	 * @wbp.parser.constructor 
 	 */
-	public EditRuspa(JFrame view,ControllerConnector aCtr) {
+	public ViewRuspa(JFrame view,ControllerConnector aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Aggiungi nuova Ruspa");

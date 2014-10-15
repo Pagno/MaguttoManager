@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-public class CantierePanel extends JPanel {
+public class PanelCantiere extends JPanel {
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class CantierePanel extends JPanel {
 	String[] priority={"BASSA","MEDIA","ALTA"};
 	private JComboBox<String> priorita=new JComboBox<String>(priority);
 	
-	public CantierePanel() {
+	public PanelCantiere() {
 		setLayout(new BorderLayout());
 		createPanel();
 		btnReset.setVisible(false);

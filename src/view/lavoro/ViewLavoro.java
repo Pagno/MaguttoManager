@@ -34,43 +34,46 @@ import model.organizer.data.RichiestaEscavatore;
 import model.organizer.data.RichiestaGru;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.RichiestaRuspa;
-import view.AssociaMacchina;
-import view.lavoro.panel.CantierePanel;
-import view.lavoro.panel.LavoroPanel;
-import view.lavoro.panel.RichiestaPanel;
-import view.lavoro.panel.VisualizzaRichiestaPanel;
+import view.lavoro.panel.PanelCantiere;
+import view.lavoro.panel.PanelLavoro;
+import view.lavoro.panel.PanelRichiesta;
+import view.lavoro.panel.PanelVisualizzaRichiesta;
+import view.lavoro.treenode.NodeAdder;
+import view.lavoro.treenode.NodeRendererAdder;
+import view.lavoro.treenode.TreeNodeModel;
+import view.macchina.AssociaMacchina;
 
 import javax.swing.JCheckBox;
 
 import controller.ControllerConnector;
 
 
-public class EditLavoro extends JDialog implements Observer{
+public class ViewLavoro extends JDialog implements Observer{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2004768729465641055L;
 	private JPanel contentPane,cardPanel;
-	public RichiestaPanel pnlAddRichiesta;
-	private LavoroPanel pnlLavoro;
-	private CantierePanel pnlCantiere;
-	private VisualizzaRichiestaPanel pnlVisualizzaPanel;
+	public PanelRichiesta pnlAddRichiesta;
+	private PanelLavoro pnlLavoro;
+	private PanelCantiere pnlCantiere;
+	private PanelVisualizzaRichiesta pnlVisualizzaPanel;
 	private JButton btnDelete;
 	//MODELLI TABELLA JTREE
-	public treeModel treeModel;
+	public TreeNodeModel treeModel;
 	private JTree tree;
 	private JScrollPane scrollpane;
 	private int codiceCantiere;
 	private JCheckBox chckbxNewCheckBox;
-	private addNodeRenderer renderer;
-	private EditLavoro editLavoro;
+	private NodeRendererAdder renderer;
+	private ViewLavoro editLavoro;
 	//LAVORO PANEL
 	/**
 	 * Create the dialog.
 	 */
 	private ControllerConnector cCtr;
-	public EditLavoro(JFrame view,Cantiere cantiere,ControllerConnector aCtr) {
+	public ViewLavoro(JFrame view,Cantiere cantiere,ControllerConnector aCtr) {
 		super(view);
 		editLavoro=this;
 		cCtr=aCtr;
@@ -101,7 +104,7 @@ public class EditLavoro extends JDialog implements Observer{
 		
 		//CARICO I PANNELLI
 		cardPanel= new JPanel(new CardLayout());
-		pnlCantiere= new CantierePanel();
+		pnlCantiere= new PanelCantiere();
 		pnlCantiere.setNomeCantiere(cantiere.getNomeCantiere());
 		pnlCantiere.setIndirizzoCantiere(cantiere.getIndirizzo());
 		pnlCantiere.setPrioritaCantiere(cantiere.getPrioritaString());
@@ -110,12 +113,12 @@ public class EditLavoro extends JDialog implements Observer{
 		pnlCantiere.setName("pnlCantiere");
 		
 		//pnlCantiere.setDatiCantiere(datiCantiere);
-		pnlLavoro= new LavoroPanel(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
+		pnlLavoro= new PanelLavoro(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
 		pnlLavoro.setName("pnlLavoro");
-		pnlAddRichiesta= new RichiestaPanel();
+		pnlAddRichiesta= new PanelRichiesta();
 		pnlAddRichiesta.setName("pnlAddRichiesta");
 		pnlAddRichiesta.btnAdd.addActionListener(aggiungiRichiestaListener());
-		pnlVisualizzaPanel=new VisualizzaRichiestaPanel();
+		pnlVisualizzaPanel=new PanelVisualizzaRichiesta();
 		pnlVisualizzaPanel.setName("pnlVisualizzaPanel");
 		
 		cardPanel.add(pnlLavoro,"lavoro");
@@ -125,12 +128,12 @@ public class EditLavoro extends JDialog implements Observer{
 
 		contentPane.add(cardPanel,BorderLayout.CENTER);
 		
-		treeModel = new treeModel(cantiere); 
+		treeModel = new TreeNodeModel(cantiere); 
 		treeModel.reload(cantiere);
 		tree=new JTree(treeModel);
 		tree.setSize(200, 500);
 
-		renderer = new addNodeRenderer();
+		renderer = new NodeRendererAdder();
 	    tree.setCellRenderer(renderer);
 	    tree.setName("tree");
 	    
@@ -203,7 +206,7 @@ public class EditLavoro extends JDialog implements Observer{
 			}else if(tp.getPathCount()==3){
 				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuova Richiesta")){
 					cl.show(cardPanel,"richiesta");
-					addNode addNode=(addNode)tp.getPath()[tp.getPath().length-1];
+					NodeAdder addNode=(NodeAdder)tp.getPath()[tp.getPath().length-1];
 					Lavoro lavoro=(Lavoro)addNode.getParent();
 					codiceLavoro=lavoro.getCodice();
 				}else{

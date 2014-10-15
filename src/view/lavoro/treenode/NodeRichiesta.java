@@ -1,17 +1,17 @@
-package view.lavoro;
+package view.lavoro.treenode;
 
 import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-class richiestaNode extends DefaultMutableTreeNode{
+class NodeRichiesta extends DefaultMutableTreeNode{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6286210896311354098L;
 	ArrayList<String> richiesta;
 
-	public richiestaNode(ArrayList<String> newRichiesta) {
+	public NodeRichiesta(ArrayList<String> newRichiesta) {
 		richiesta = newRichiesta;
 	}
 	public String getCodiceRichiesta(){

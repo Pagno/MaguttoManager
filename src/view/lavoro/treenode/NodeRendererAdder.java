@@ -1,4 +1,4 @@
-package view.lavoro;
+package view.lavoro.treenode;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -12,7 +12,7 @@ import javax.swing.tree.TreeCellRenderer;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 
-public class addNodeRenderer implements TreeCellRenderer {
+public class NodeRendererAdder implements TreeCellRenderer {
 	Boolean showSoddisfatta=true;
 	JLabel lbl,lblAdd;
 	DefaultTreeCellRenderer defaultRenderer = new DefaultTreeCellRenderer();
@@ -21,7 +21,7 @@ public class addNodeRenderer implements TreeCellRenderer {
 		showSoddisfatta=bo;
 	}
 	
-	public addNodeRenderer(){
+	public NodeRendererAdder(){
 		lblAdd=new JLabel();
 		lbl=new JLabel();
 		lblAdd.setBackground(Color.blue);
@@ -50,7 +50,7 @@ public class addNodeRenderer implements TreeCellRenderer {
 						lbl.setText("");
 				}
 				returnValue=lbl;
-			}else  if((DefaultMutableTreeNode) arg1 instanceof addNode){
+			}else  if((DefaultMutableTreeNode) arg1 instanceof NodeAdder){
 				lblAdd.setText(showSoddisfatta==false?"":arg1.toString());
 				returnValue=lblAdd;
 			}

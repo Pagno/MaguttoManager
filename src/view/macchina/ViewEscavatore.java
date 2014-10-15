@@ -1,4 +1,4 @@
-package view;
+package view.macchina;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -20,119 +20,118 @@ import controller.ControllerConnector;
 
 // 
 /**
- * Class EditCamion.
+ *   Class EditEscavatore.
  */
-public class EditCamion extends JDialog {
+public class ViewEscavatore extends JDialog {
 
-	/** Constant serialVersionUID. */
+	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
-
-	/** content panel. */
+	
+	/**   content panel. */
 	private final JPanel contentPanel = new JPanel();
-
-	/** txt capacita. */
-	private JTextField txtProduttore, txtModello, txtLunghezza, txtPortata,
-			txtCapacita;
-
-	/** lbl cap. */
-	private JLabel lblProduttore, lblModello, lblLunghezza, lblPortataMax,
-			lblCapacita, lblMetri, lblTon, lblCap;
-
-	/** ok button. */
+	
+	/**   txt profondita. */
+	private JTextField txtProduttore, txtModello, txtAltezza,txtPortataMax, txtCapacita,txtProfondita;
+	
+	/**   lbl cap. */
+	private JLabel lblProduttore, lblModello, lblAltezza,lblProfondita,
+			lblPortataMax, lblCapacita, lblMetri, lblTon,lblMetri2,
+			lblCap;
+	
+	/**   ok button. */
 	private JButton okButton;
-	private ControllerConnector insCtr;
 
+
+	private ControllerConnector insCtr;
 	/**
-	 * Create dialog.
+	 * Create   dialog.
 	 *
-	 * @param view
-	 *            view
-	 * @param obj
-	 *            obj
+	 * @param view   view
+	 * @param obj   obj
 	 */
-	public EditCamion(JFrame view, final Object[] obj,
-			ControllerConnector aCtr) {
+	public ViewEscavatore(JFrame view, final Object[] obj,ControllerConnector aCtr) {
 		super(view);
-		insCtr = aCtr;
-		setTitle("Modifica Camion");
+		insCtr=aCtr;
+		setTitle("Modifica Escavatore");
 		createLayout();
 		setTextBox(obj);
 		okButton.setText("Modifica");
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if (insCtr.modificaCamion((Integer) obj[0],
-							txtProduttore.getText(), txtModello.getText(),
-							Integer.parseInt(txtCapacita.getText()),
-							Integer.parseInt(txtPortata.getText()),
-							Integer.parseInt(txtLunghezza.getText()))) {
-						dispose();
-					}
-				} catch (java.lang.NumberFormatException ex) {
+				try{
+					if(insCtr.modificaEscavatore((Integer)obj[0],
+							txtProduttore.getText(),txtModello.getText(),
+							Integer.parseInt(txtCapacita.getText()), 
+							Integer.parseInt(txtPortataMax.getText()), 
+							Integer.parseInt(txtAltezza.getText()),
+							Integer.parseInt(txtProfondita.getText())))
+						{	
+							dispose();
+						}
+				}catch(java.lang.NumberFormatException ex){
 					JOptionPane
-							.showMessageDialog(
-									null,
-									"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
-									"Alert", JOptionPane.ERROR_MESSAGE);
+					.showMessageDialog(
+							null,
+							"I campi:\n - Profondita\n - Altezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-
 	}
-
+	
 	/**
-	 * Sets text box.
+	 * Sets   text box.
 	 *
-	 * @param v
-	 *            new text box
+	 * @param v   new text box
 	 */
-	private void setTextBox(Object[] v) {
+	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
-		txtLunghezza.setText(v[3].toString());
-		txtCapacita.setText(v[4].toString());
-		txtPortata.setText(v[5].toString());
+		txtAltezza.setText(v[3].toString());
+		txtProfondita.setText(v[4].toString());
+		txtCapacita.setText(v[5].toString());
+		txtPortataMax.setText(v[6].toString());
 	}
 
 	/**
-	 * Instantiates a new edits camion.
+	 * Instantiates a new edits   escavatore.
 	 *
-	 * @param view
-	 *            view
-	 * @wbp.parser.constructor
+	 * @param view   view
+	 * @wbp.parser.constructor 
 	 */
-	public EditCamion(JFrame view, ControllerConnector aCtr) {
+	public ViewEscavatore(JFrame view,ControllerConnector aCtr) {
 		super(view);
-		insCtr = aCtr;
-		setTitle("Aggiungi un nuovo Camion");
-		setName("editCamion");
+		insCtr=aCtr;
+		setTitle("Aggiungi un nuovo Escavatore");
+
+		setName("editEscavatore");
+
 		createLayout();
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if (insCtr.inserisciNuovoCamion(txtProduttore.getText(),
-							txtModello.getText(),
-							Integer.parseInt(txtCapacita.getText()),
-							Integer.parseInt(txtPortata.getText()),
-							Integer.parseInt(txtLunghezza.getText()))) {
+				try{
+					if(insCtr.inserisciNuovoEscavatore(txtProduttore.getText(),txtModello.getText(),
+						Integer.parseInt(txtCapacita.getText()), 
+						Integer.parseInt(txtPortataMax.getText()), 
+						Integer.parseInt(txtAltezza.getText()),
+						Integer.parseInt(txtProfondita.getText())))
+					{	
 						dispose();
 					}
-
-				} catch (java.lang.NumberFormatException ex) {
+				}catch(java.lang.NumberFormatException ex){
 					JOptionPane
-							.showMessageDialog(
-									null,
-									"I campi:\n - Lunghezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
-									"Alert", JOptionPane.ERROR_MESSAGE);
+					.showMessageDialog(
+							null,
+							"I campi:\n - Profondita\n - Altezza\n - Capacita\n - Portata Massima\ndevono contenere numeri. ",
+							"Alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-
+		
 	}
-
-	private void createLayout() {
+	private void createLayout(){
 		setResizable(true);
 		setBounds(100, 100, 332, 282);
 		getContentPane().setLayout(new BorderLayout());
@@ -141,12 +140,14 @@ public class EditCamion extends JDialog {
 
 		lblProduttore = new JLabel("Produttore:");
 		lblModello = new JLabel("Modello:");
-		lblLunghezza = new JLabel("Lunghezza:");
+		lblAltezza = new JLabel("Lunghezza:");
 		lblPortataMax = new JLabel("Portata Massima:");
+		lblProfondita = new JLabel("Profondita:");
 		lblCapacita = new JLabel("Capacita Massima:");
 		lblMetri = new JLabel("metri");
 		lblTon = new JLabel("Kg");
 		lblCap = new JLabel("metri cubi");
+		lblMetri2=new JLabel("Metri");
 
 		txtProduttore = new JTextField();
 		txtProduttore.setColumns(15);
@@ -154,15 +155,18 @@ public class EditCamion extends JDialog {
 		txtModello = new JTextField();
 		txtModello.setColumns(15);
 		txtModello.setName("modello");
-		txtLunghezza = new JTextField();
-		txtLunghezza.setColumns(5);
-		txtLunghezza.setName("lunghezza");
-		txtPortata = new JTextField();
-		txtPortata.setColumns(5);
-		txtPortata.setName("portata");
+		txtAltezza = new JTextField();
+		txtAltezza.setColumns(5);
+		txtAltezza.setName("altezza");
+		txtPortataMax = new JTextField();
+		txtPortataMax.setColumns(5);
+		txtPortataMax.setName("portata");
 		txtCapacita = new JTextField();
 		txtCapacita.setColumns(5);
 		txtCapacita.setName("capacita");
+		txtProfondita = new JTextField();
+		txtProfondita.setColumns(5);
+		txtProfondita.setName("profondita");
 
 		GroupLayout layout = new GroupLayout(contentPanel);
 		layout.setAutoCreateContainerGaps(true);
@@ -174,9 +178,10 @@ public class EditCamion extends JDialog {
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblProduttore)
 								.addComponent(lblModello)
-								.addComponent(lblLunghezza)
+								.addComponent(lblAltezza)
 								.addComponent(lblPortataMax)
-								.addComponent(lblCapacita))
+								.addComponent(lblCapacita)
+								.addComponent(lblProfondita))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtProduttore,
@@ -190,7 +195,7 @@ public class EditCamion extends JDialog {
 								.addGroup(
 										layout.createSequentialGroup()
 												.addComponent(
-														txtLunghezza,
+														txtAltezza,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
@@ -198,7 +203,7 @@ public class EditCamion extends JDialog {
 								.addGroup(
 										layout.createSequentialGroup()
 												.addComponent(
-														txtPortata,
+														txtPortataMax,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
@@ -210,7 +215,16 @@ public class EditCamion extends JDialog {
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblCap))));
+												.addComponent(lblCap))
+								.addGroup(
+										layout.createSequentialGroup()
+												.addComponent(
+														txtProfondita,
+														GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblMetri2))));
+
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
 				.addGroup(
@@ -229,12 +243,12 @@ public class EditCamion extends JDialog {
 										GroupLayout.PREFERRED_SIZE))
 				.addGroup(
 						layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblLunghezza)
+								.addComponent(lblAltezza)
 								.addGroup(
 										layout.createParallelGroup(
 												Alignment.LEADING)
 												.addComponent(
-														txtLunghezza,
+														txtAltezza,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
@@ -246,7 +260,7 @@ public class EditCamion extends JDialog {
 										layout.createParallelGroup(
 												Alignment.LEADING)
 												.addComponent(
-														txtPortata,
+														txtPortataMax,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
@@ -262,7 +276,19 @@ public class EditCamion extends JDialog {
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblCap))));
+												.addComponent(lblCap)))
+				.addGroup(
+						layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblProfondita)
+								.addGroup(
+										layout.createParallelGroup(
+												Alignment.LEADING)
+												.addComponent(
+														txtProfondita,
+														GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblMetri2))));
 
 		contentPanel.setLayout(layout);
 
@@ -273,7 +299,6 @@ public class EditCamion extends JDialog {
 		okButton = new JButton("Inserisci");
 		okButton.setActionCommand("OK");
 		okButton.setName("OK");
-		
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
@@ -283,8 +308,9 @@ public class EditCamion extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				txtProduttore.setText("");
 				txtModello.setText("");
-				txtLunghezza.setText("");
-				txtPortata.setText("");
+				txtAltezza.setText("");
+				txtPortataMax.setText("");
+				txtProfondita.setText("");
 				txtCapacita.setText("");
 			}
 		});
@@ -296,6 +322,7 @@ public class EditCamion extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+
 			}
 		});
 		chiudiBtn.setActionCommand("Cancel");
@@ -305,58 +332,67 @@ public class EditCamion extends JDialog {
 	}
 
 	/**
-	 * Sets insert button listeners.
+	 * Sets   insert button listeners.
 	 *
-	 * @param act
-	 *            new insert button listeners
+	 * @param act   new insert button listeners
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets produttore.
+	 * Gets   produttore.
 	 *
-	 * @return produttore
+	 * @return   produttore
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets modello.
+	 * Gets   modello.
 	 *
-	 * @return modello
+	 * @return   modello
 	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
-	/**
-	 * Gets lunghezza.
-	 *
-	 * @return lunghezza
-	 */
-	public String getLunghezza() {
-		return txtLunghezza.getText();
-	}
 
 	/**
-	 * Gets capacita.
+	 * Gets   altezza.
 	 *
-	 * @return capacita
+	 * @return   altezza
+	 */
+	public String getAltezza() {
+		return txtAltezza.getText();
+	}
+	
+	/**
+	 * Gets   profondita.
+	 *
+	 * @return   profondita
+	 */
+	public String getProfondita() {
+		return txtProfondita.getText();
+	}
+	
+	/**
+	 * Gets   capacita.
+	 *
+	 * @return   capacita
 	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
 	/**
-	 * Gets portata massima.
+	 * Gets   portata massima.
 	 *
-	 * @return portata massima
+	 * @return   portata massima
 	 */
 	public String getPortataMassima() {
-		return txtPortata.getText();
+		return txtPortataMax.getText();
 	}
 
 }

@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-public class LavoroPanel extends JPanel implements PropertyChangeListener {
+public class PanelLavoro extends JPanel implements PropertyChangeListener {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class LavoroPanel extends JPanel implements PropertyChangeListener {
 
 	Date minDataInizio, maxDataFine;
 
-	public LavoroPanel(Date inizio, Date fine) {// Data Inizio e fine del
+	public PanelLavoro(Date inizio, Date fine) {// Data Inizio e fine del
 												// cantiere
 		setLayout(new BorderLayout());
 		createPanel();

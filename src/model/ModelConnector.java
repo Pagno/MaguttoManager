@@ -29,7 +29,7 @@ import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.RichiestaRuspa;
 import model.organizer.data.Ruspa;
 import model.organizer.data.Priorita;
-import database.DBException;
+import database.DatabaseException;
 import database.DatabaseInterface;
 
 // 
@@ -211,7 +211,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 			}
 			db.disconnect();
 		} 
-		catch (DBException e) {
+		catch (DatabaseException e) {
 			e.printStackTrace();
 		}
 	}
@@ -313,7 +313,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 			}
 			db.disconnect();
 		} 
-		catch (DBException e) {
+		catch (DatabaseException e) {
 			e.printStackTrace();
 		}
 	}
@@ -460,7 +460,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				mc.caricaCamion(res.getInt("Codice"),res.getString("Produttore"), res.getString("Modello"), res.getInt("CapacitaMax"), res.getInt("PortataMax"), res.getInt("LunghezzaMax"));
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -482,7 +482,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				me.caricaEscavatore(res.getInt("Codice"), res.getString("Produttore"), res.getString("Modello"), res.getInt("CapacitaMax"), res.getInt("PortataMax"), res.getInt("AltezzaMax"), res.getInt("ProfonditaMax"));
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -504,7 +504,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				mr.caricaRuspa(res.getInt("Codice"), res.getString("Produttore"), res.getString("Modello"), res.getInt("CapacitaMax"), res.getInt("PortataMax"), res.getInt("AltezzaMax"));
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -526,7 +526,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				mg.caricaGru(res.getInt("Codice"), res.getString("Produttore"), res.getString("Modello"), res.getInt("RotazioneMax"), res.getInt("PortataMax"), res.getInt("LunghezzaMax"), res.getInt("AltezzaMax"));
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -548,7 +548,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				lc.caricaCantiere(res.getInt("Codice"), res.getString("Nome"), res.getString("Indirizzo"), convertToDate(res.getString("DataApertura")), convertToDate(res.getString("DataChiusura")),Priorita.valueOf(res.getString("Priorita")));
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -569,7 +569,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				lc.caricaLavoro(res.getInt("CodiceCantiere"), res.getInt("codice"), res.getString("Nome"), convertToDate(res.getString("DataInizio")), convertToDate(res.getString("DataFine")));
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -615,7 +615,7 @@ public class ModelConnector extends Observable implements ModelInterface{
 				}
 			}
 			//db.disconnect();
-		} catch (DBException e) {
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();

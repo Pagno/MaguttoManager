@@ -58,17 +58,17 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Connessione al DB.
 	 *
-	 * @throws DBException   java db exception
+	 * @throws DatabaseException   java db exception
 	 */
 	@Override
-	public void connect() throws DBException{
+	public void connect() throws DatabaseException{
 		// Load   driver derby
 		driver = "org.apache.derby.jdbc.EmbeddedDriver";
 		try {
 			Class.forName(driver);
 		}
 		catch(Exception e){
-			throw new DBException(1);
+			throw new DatabaseException(1);
 		}
 		// Create   connection string
 		String url = "jdbc:derby:MyDB;create=true";
@@ -81,7 +81,7 @@ public class Database implements DatabaseInterface{
 
 		}
 		catch(SQLException e){
-			throw new DBException(2);
+			throw new DatabaseException(2);
 		}
 	}
 
@@ -92,10 +92,10 @@ public class Database implements DatabaseInterface{
 	 * Controlla se esistono le tabelle nel DB.
 	 *
 	 * @return true, if is empty
-	 * @throws DBException   java db exception
+	 * @throws DatabaseException   java db exception
 	 */
 	@Override
-	public boolean isEmpty() throws DBException{
+	public boolean isEmpty() throws DatabaseException{
 		try{
 			ResultSet table = con.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
 			if(!table.next()){		// se non ci sono le tabelle
@@ -104,7 +104,7 @@ public class Database implements DatabaseInterface{
 			else return false;
 			}
 		catch(SQLException e){
-			throw new DBException(3);
+			throw new DatabaseException(3);
 		}
 	}
 
@@ -114,17 +114,17 @@ public class Database implements DatabaseInterface{
 	 *
 	 * @param qry   qry
 	 * @return   result set
-	 * @throws DBException   java db exception
+	 * @throws DatabaseException   java db exception
 	 */
 	@Override
-	public ResultSet interrogate(String qry) throws DBException{
+	public ResultSet interrogate(String qry) throws DatabaseException{
 		a = true;
 
 		// Query and save   results in a ResultSet object
 		try {
 			res = cmd.executeQuery(qry);
 		} catch (SQLException e) {
-			throw new DBException(4);	
+			throw new DatabaseException(4);	
 		}
 		return res;
 	}
@@ -135,15 +135,15 @@ public class Database implements DatabaseInterface{
 	 * Update table into DB.
 	 *
 	 * @param qry   qry
-	 * @throws DBException   java db exception
+	 * @throws DatabaseException   java db exception
 	 */
 	@Override
-	public void update(String qry) throws DBException {
+	public void update(String qry) throws DatabaseException {
 		a = false;
 		try {
 			cmd.executeUpdate(qry);
 		} catch (SQLException e) {
-			throw new DBException(5);
+			throw new DatabaseException(5);
 		}
 	}
 
@@ -152,28 +152,28 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Disconnect from DB.
 	 *
-	 * @throws DBException   java db exception
+	 * @throws DatabaseException   java db exception
 	 */
 	@Override
-	public void disconnect() throws DBException {
+	public void disconnect() throws DatabaseException {
 		if(a==true){		// if it is a query
 			try {
 				res.close();
 			} 
 			catch (SQLException e) {
-				throw new DBException(6);
+				throw new DatabaseException(6);
 			}
 		} 
 		try {
 			cmd.close();
 		} catch (SQLException e) {
-			throw new DBException(7);
+			throw new DatabaseException(7);
 		}
 		try {
 			con.close();
 			System.out.println("Disconnection done");
 		} catch (SQLException e) {
-			throw new DBException(8);
+			throw new DatabaseException(8);
 		}
 	}
 
@@ -182,12 +182,12 @@ public class Database implements DatabaseInterface{
 	 * @see database.DatabaseInterface#emptyTable(java.lang.String)
 	 */
 	@Override
-	public void emptyTable(String tableName) throws DBException{
+	public void emptyTable(String tableName) throws DatabaseException{
 		String qry = "delete from APP." + tableName;
 		try {
 			cmd.executeUpdate(qry);
 		} catch (SQLException e) {
-			throw new DBException(9);
+			throw new DatabaseException(9);
 		}
 	}
 

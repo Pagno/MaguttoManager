@@ -1,4 +1,4 @@
-package view;
+package view.cantiere;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -32,7 +32,7 @@ import controller.ControllerConnector;
 /**
  * Class EditCantiere.
  */
-public class InsertCantiere extends JDialog implements PropertyChangeListener {
+public class ViewCantiere extends JDialog implements PropertyChangeListener {
 
 	/** Constant serialVersionUID. */
 	private static final long serialVersionUID = 8556951976345173917L;
@@ -67,7 +67,7 @@ public class InsertCantiere extends JDialog implements PropertyChangeListener {
 	 *            view
 	 * @wbp.parser.constructor
 	 */
-	public InsertCantiere(JFrame view, final ControllerConnector insCtr) {
+	public ViewCantiere(JFrame view, final ControllerConnector insCtr) {
 		super(view);
 		setName("insertCantiere");
 		setTitle("Aggiungi un nuovo Cantiere");

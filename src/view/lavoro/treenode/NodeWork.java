@@ -1,9 +1,9 @@
-package view.lavoro;
+package view.lavoro.treenode;
 import java.util.ArrayList;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
-	public class workNode extends DefaultMutableTreeNode{
+	public class NodeWork extends DefaultMutableTreeNode{
 		/**
 		 * 
 		 */
@@ -12,7 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 		ArrayList<String> work;
 		ArrayList<ArrayList<String>> listaRichieste;
 
-		public workNode(ArrayList<String> w) {
+		public NodeWork(ArrayList<String> w) {
 			work=w;
 			listaRichieste=new ArrayList<ArrayList<String>>();
 		}

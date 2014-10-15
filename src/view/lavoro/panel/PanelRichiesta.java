@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class RichiestaPanel extends JPanel {
+public class PanelRichiesta extends JPanel {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class RichiestaPanel extends JPanel {
 	String[] str= {"Gru","Ruspa","Camion","Escavatore"};
 	public JComboBox<String> Type=new JComboBox<String>(str);
 	
-	public RichiestaPanel() {
+	public PanelRichiesta() {
 		setLayout(new BorderLayout());
 		btnReset=new JButton("Reset");
 		btnReset.setName("reset");

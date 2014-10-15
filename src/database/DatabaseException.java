@@ -6,7 +6,7 @@ package database;
  * 
  * @author Mauro
  */
-public class DBException extends Exception {
+public class DatabaseException extends Exception {
 
 	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -17,7 +17,7 @@ public class DBException extends Exception {
 	/**
 	 * Istanzia una nuova eccezione java db.
 	 */
-	public DBException() {
+	public DatabaseException() {
 		super();
 	}
 	
@@ -26,7 +26,7 @@ public class DBException extends Exception {
 	 *
 	 * @param errorCode il codice errore
 	 */
-	public DBException(int errorCode){
+	public DatabaseException(int errorCode){
 		exceptionDBManager(errorCode);
 	}
 	

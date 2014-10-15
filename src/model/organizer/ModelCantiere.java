@@ -5,13 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
-
 import java.util.Observer;
 
 import javax.swing.tree.DefaultTreeModel;
 
 
-import view.lavoro.addNode;
+
+
+import view.lavoro.treenode.NodeAdder;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
@@ -71,7 +72,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		//setChanged();
 		//notifyObservers(v1);
 		cantiereObserver.update(null, v1);//notifyObservers(v1);
-		addNode add=new addNode("Aggiungi nuovo Lavoro");
+		NodeAdder add=new NodeAdder("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
 	}
 
@@ -88,7 +89,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		//setChanged();
 		cantiereObserver.update(null, v1);//notifyObservers(v1);
-		addNode add=new addNode("Aggiungi nuovo Lavoro");
+		NodeAdder add=new NodeAdder("Aggiungi nuovo Lavoro");
 		insertNodeInto(add, c, 0);
 		
 	}
@@ -181,7 +182,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		cantiere.addLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
 
-		addNode add=new addNode("Aggiungi nuova Richiesta");
+		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
 		
 
@@ -204,7 +205,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		//Aggiungo il nuovo lavoro all'elenco dei lavoro del cantiere
 		cantiere.addLavoro(lavoro);
 		insertNodeInto(lavoro, cantiere, 0);
-		addNode add=new addNode("Aggiungi nuova Richiesta");
+		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
 	}
 	

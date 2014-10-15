@@ -9,7 +9,7 @@ import view.MainView;
 import controller.ControllerConnector;
 import model.ModelConnector;
 import database.Database;
-import database.DBException;
+import database.DatabaseException;
 
 
 // 
@@ -22,13 +22,13 @@ public class Main {
 	 *   main method.
 	 *
 	 * @param args   arguments
-	 * @throws DBException   DB exception
+	 * @throws DatabaseException   DB exception
 	 * @throws SQLException   SQL exception
 	 * @throws UnsupportedLookAndFeelException   unsupported look and feel exception
 	 * @throws ParseException   parse exception
 	 * @throws InterruptedException   interrupted exception
 	 */
-	public static void main(String[] args) throws DBException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
+	public static void main(String[] args) throws DatabaseException, SQLException, UnsupportedLookAndFeelException, ParseException, InterruptedException {
 		// 
 
 		try {

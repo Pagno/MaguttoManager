@@ -1,4 +1,4 @@
-package view;
+package view.macchina;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -22,7 +22,7 @@ import controller.ControllerConnector;
 /**
  * Class EditGru.
  */
-public class EditGru extends JDialog {
+public class ViewGru extends JDialog {
 
 	/** Constant serialVersionUID. */
 	private static final long serialVersionUID = -1364300169692664613L;
@@ -52,7 +52,7 @@ public class EditGru extends JDialog {
 	 * @param obj
 	 *            obj
 	 */
-	public EditGru(JFrame view, final Object[] obj,ControllerConnector aCtr) {
+	public ViewGru(JFrame view, final Object[] obj,ControllerConnector aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Gru");
@@ -103,7 +103,7 @@ public class EditGru extends JDialog {
 	 * @param view
 	 *            view
 	 */
-	public EditGru(JFrame view, ControllerConnector aCtr) {
+	public ViewGru(JFrame view, ControllerConnector aCtr) {
 		super(view);
 
 		setName("editGru");

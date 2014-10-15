@@ -8,10 +8,10 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import view.EditCamion;
-import view.EditEscavatore;
-import view.EditGru;
-import view.EditRuspa;
+import view.macchina.ViewCamion;
+import view.macchina.ViewEscavatore;
+import view.macchina.ViewGru;
+import view.macchina.ViewRuspa;
 import model.ModelInterface;
 import model.organizer.ModelGru;
 import model.organizer.data.Gru;
@@ -270,8 +270,8 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditRuspaListener( EditRuspa editRuspa,final int codice) {
-		final EditRuspa dialog=editRuspa;
+	public ActionListener EditRuspaListener( ViewRuspa editRuspa,final int codice) {
+		final ViewRuspa dialog=editRuspa;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -306,8 +306,8 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditCamionListener( EditCamion editCamion,final int codice) {
-		final EditCamion dialog=editCamion;
+	public ActionListener EditCamionListener( ViewCamion editCamion,final int codice) {
+		final ViewCamion dialog=editCamion;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -342,8 +342,8 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener EditEscavatoreListener( EditEscavatore editEscavatore,final int codice) {
-		final EditEscavatore dialog=editEscavatore;
+	public ActionListener EditEscavatoreListener( ViewEscavatore editEscavatore,final int codice) {
+		final ViewEscavatore dialog=editEscavatore;
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
