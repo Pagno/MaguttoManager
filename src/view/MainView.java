@@ -19,6 +19,7 @@ import javax.swing.JButton;
 
 import view.lavoro.EditLavoro;
 import controller.ControllerConnector;
+import controller.organizer.CantiereController;
 
 import java.awt.event.WindowAdapter;
 import java.lang.reflect.Method;
@@ -423,7 +424,7 @@ public class MainView extends JFrame {
 				} else {
 					Method m;
 					try {
-						Class<AbstractApplicationController> c = AbstractApplicationController.class;
+						Class<CantiereController> c = CantiereController.class;
 						if (elimina != "Cantiere")
 							m = c.getMethod("eliminaMacchina", Integer.class);
 						else
