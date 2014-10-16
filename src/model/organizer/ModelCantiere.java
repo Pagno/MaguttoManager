@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 
 
+
 import view.lavoro.treenode.NodeAdder;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
@@ -92,9 +93,11 @@ public class ModelCantiere extends DefaultTreeModel{
 	    df.applyPattern("dd/MM/yyyy");
 		Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 		//setChanged();
-		cantiereObserver.update(null, v1);//notifyObservers(v1);
-		NodeAdder add=new NodeAdder("Aggiungi nuovo Lavoro");
-		insertNodeInto(add, c, 0);
+		if(cantiereObserver!=null){
+			cantiereObserver.update(null, v1);//notifyObservers(v1);
+			NodeAdder add=new NodeAdder("Aggiungi nuovo Lavoro");
+			insertNodeInto(add, c, 0);
+		}
 		
 	}
 
@@ -113,7 +116,9 @@ public class ModelCantiere extends DefaultTreeModel{
 				Object[] v1={codice,nomeCantiere,indirizzo,df.format(dataApertura.getTime()),df.format(dataChiusura.getTime()),priorita.toString()};
 				//setChanged();
 				//notifyObservers(v1);
-				cantiereObserver.update(null, v1);//notifyObservers(v1);
+				if(cantiereObserver!=null){
+					cantiereObserver.update(null, v1);//notifyObservers(v1);
+				}
 			}
 		}
 	}
@@ -672,11 +677,13 @@ public class ModelCantiere extends DefaultTreeModel{
 			istanza=null;
 		}
 	}
-
 	public void svuotaCantieriForTest(){
 		codice=0;
 		codiceLavoro=0;
 		Richiesta.initCodice();
+		for(Cantiere c:listaCantieri){
+			c.svuotaLavori();
+		}
 		listaCantieri.clear();
 	}
 

@@ -29,8 +29,8 @@ public class ModelCamionTest {
 	 * Instantiates a new model camion test.
 	 */
 	public ModelCamionTest() {
-		ModelCamion.resetForTest();
 		mc=ModelCamion.getModelCamion();
+		mc.resetForTest();
 		mc.caricaCamion(5, "Iveco", "Daily 35C10", 2000, 1340, 4);
 		mc.caricaCamion(7, "Iveco", "Daily", 1800,1045, 3);
 		mc.caricaCamion(9, "Volkswagen", "Crafter", 1680, 1000, 1);
@@ -48,8 +48,8 @@ public class ModelCamionTest {
 		assertTrue(lista.contains(new Camion(9, "Volkswagen", "Crafter", 1680, 1000, 1)));
 		ModelCamion prova=ModelCamion.getModelCamion();
 		assertSame(mc,prova);
-		ModelCamion.resetForTest();
 		mc=ModelCamion.getModelCamion();
+		mc.resetForTest();
 		assertEquals(mc.getProssimoCodice(),1);
 	}
 

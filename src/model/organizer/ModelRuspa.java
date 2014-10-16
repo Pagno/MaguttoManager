@@ -186,10 +186,16 @@ public class ModelRuspa extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	public static void resetForTest(){
-		if(istanza!=null){
+	public void resetForTest(){
+		/*if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;
-		}
+		}*/
+		ModelMacchina.initCodice();
+		listaRuspe.clear();
+	}
+	public void aggiungiRuspaForTest(Ruspa ruspa){
+		aggiornaCodice(ruspa.getCodice());
+		listaRuspe.add(ruspa);
 	}
 }

@@ -25,8 +25,8 @@ public class ModelRuspaTest {
 	 * Instantiates a new model ruspa test.
 	 */
 	public ModelRuspaTest() {
-		ModelRuspa.resetForTest();
 		mr=ModelRuspa.getModelRuspa();
+		mr.resetForTest();
 		mr.caricaRuspa(5,"Caterpillar","Ruspona",1,5000,2);
 		mr.caricaRuspa(6, "Hitachi", "ZW65", 2,3500, 3);
 		mr.caricaRuspa(9, "Liebherr", "L524", 1, 2000, 2);
@@ -44,8 +44,8 @@ public class ModelRuspaTest {
 		assertTrue(lista.contains(new Ruspa(9, "Liebherr", "L524", 1, 2000, 2)));
 		ModelRuspa prova=ModelRuspa.getModelRuspa();
 		assertSame(mr,prova);
-		ModelRuspa.resetForTest();
 		mr=ModelRuspa.getModelRuspa();
+		mr.resetForTest();
 		assertEquals(mr.getProssimoCodice(),1);
 	}
 

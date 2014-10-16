@@ -27,8 +27,8 @@ public class ModelEscavatoreTest {
 	 * Instantiates a new model escavatore test.
 	 */
 	public ModelEscavatoreTest() {
-		ModelEscavatore.resetForTest();
 		mr=ModelEscavatore.getModelEscavatore();
+		mr.resetForTest();
 		mr.caricaEscavatore(5,"Liebherr","R9250",16,32,4,3);
 		mr.caricaEscavatore(6, "Hyundai", "R55-9", 9,15, 5,3);
 		mr.caricaEscavatore(9, "Hyndai", "R260LC-9A", 25,50, 5, 4);
@@ -47,8 +47,8 @@ public class ModelEscavatoreTest {
 		assertTrue(lista.contains(new Escavatore(9, "Hyndai", "R260LC-9A", 25,50, 5, 4)));
 		ModelEscavatore prova=ModelEscavatore.getModelEscavatore();
 		assertSame(mr,prova);
-		ModelEscavatore.resetForTest();
 		mr=ModelEscavatore.getModelEscavatore();
+		mr.resetForTest();
 		assertEquals(mr.getProssimoCodice(),1);
 	}
 

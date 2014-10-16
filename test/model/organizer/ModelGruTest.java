@@ -25,8 +25,8 @@ public class ModelGruTest {
 	 * Instantiates a new model gru test.
 	 */
 	public ModelGruTest(){
-		ModelGru.resetForTest();
 		mg=ModelGru.getModelGru();
+		mg.resetForTest();
 		mg.caricaGru(3, "Raimondi", "MRT33+3", 360, 2000, 35,30);
 		mg.caricaGru(11, "Vicaro", "OMV 168 A", 23, 1500, 20,26);
 		mg.caricaGru(26, "Cattaneo", "CM 78A", 45, 2200, 28,27);
@@ -44,8 +44,8 @@ public class ModelGruTest {
 		assertTrue(lista.contains(new Gru(26, "Cattaneo", "CM 78A", 45, 2200, 28,27)));
 		ModelGru prova=ModelGru.getModelGru();
 		assertSame(mg,prova);
-		ModelGru.resetForTest();
 		mg=ModelGru.getModelGru();
+		mg.resetForTest();
 		assertEquals(mg.getProssimoCodice(),1);
 	}
 

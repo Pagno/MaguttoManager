@@ -2,6 +2,9 @@ package controller.organizer;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
+import javax.swing.JOptionPane;
+
 import model.ModelInterface;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Priorita;
@@ -46,8 +49,23 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 			String indirizzo, GregorianCalendar dataApertura,
 			GregorianCalendar dataChiusura, Priorita priorita) {
 		
-		
-		return false;
+		if(nomeCantiere=="" || indirizzo==""){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Nome cantiere\n - Indirizzo Cantiere\ndevono essere compilati. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}else if(dataChiusura.before(dataApertura)){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"La data di inizio deve essere inferiore alla data di chiusura. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		model.modificaCantiere(codiceCantiere,nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
+		return true;
 	}
 
 

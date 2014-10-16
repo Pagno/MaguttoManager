@@ -203,7 +203,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		return true;
 	}
 
-	public boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
+	/*public boolean modificaCantiere(int codiceCantiere,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
 			.showMessageDialog(
@@ -221,7 +221,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		}
 		model.modificaCantiere(codiceCantiere,nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 		return true;
-	}
+	}*/
 	//EDIT LISTENER
 	/**
 	 * Gestisce la modifica di una <em>"Gru"</em>.
@@ -270,7 +270,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener ModificaRuspaListener( ViewRuspa editRuspa,final int codice) {
+	/*public ActionListener ModificaRuspaListener( ViewRuspa editRuspa,final int codice) {
 		final ViewRuspa dialog=editRuspa;
 		return new ActionListener() {
 			@Override
@@ -293,7 +293,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 				}
 			}
 		};
-	}
+	}*/
 	
 	/**
 	 * Gestisce la modifica di un <em>"Camion"</em>.
@@ -306,7 +306,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener ModificaCamionListener( ViewCamion editCamion,final int codice) {
+	/*public ActionListener ModificaCamionListener( ViewCamion editCamion,final int codice) {
 		final ViewCamion dialog=editCamion;
 		return new ActionListener() {
 			@Override
@@ -329,7 +329,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 				}
 			}
 		};
-	}
+	}*/
 	
 	/**
 	 * Gestisce la modifica di un <em>"Escavatore"</em>.
@@ -342,7 +342,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
-	public ActionListener ModificaEscavatoreListener( ViewEscavatore editEscavatore,final int codice) {
+	/*public ActionListener ModificaEscavatoreListener( ViewEscavatore editEscavatore,final int codice) {
 		final ViewEscavatore dialog=editEscavatore;
 		return new ActionListener() {
 			@Override
@@ -365,5 +365,5 @@ public class ControllerInserimento{// implements AbstractInsertController{
 				}
 			}
 		};
-	}
+	}*/
 }

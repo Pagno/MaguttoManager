@@ -188,10 +188,16 @@ public class ModelEscavatore extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	public static void resetForTest(){
-		if(istanza!=null){
+	public void resetForTest(){
+		/*if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;
-		}
+		}*/
+		ModelMacchina.initCodice();
+		listaEscavatori.clear();
+	}
+	public void aggiungiEscavatoreForTest(Escavatore ruspa){
+		aggiornaCodice(ruspa.getCodice());
+		listaEscavatori.add(ruspa);
 	}
 }

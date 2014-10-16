@@ -70,7 +70,6 @@ public class ModelCamion extends ModelMacchina{
 		aggiornaCodice(codice);
 		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
-
 		Object[] v1={cm.getCodice(),produttore,Modello,lunghezza,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
@@ -183,17 +182,19 @@ public class ModelCamion extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	public static void resetForTest(){
-		if(istanza!=null){
-			ModelMacchina.initCodice();
+	public void resetForTest(){
+		/*if(istanza!=null){
 			istanza=null;
-		}
+		}*/
+		ModelMacchina.initCodice();
+		listaCamion.clear();
 	}
 	
 	/**
 	 * Add Camion for Test.
 	 */
-	void aggiungiCamionForTest(Camion camion){
+	public void aggiungiCamionForTest(Camion camion){
+		aggiornaCodice(camion.getCodice());
 		listaCamion.add(camion);
 	}
 	

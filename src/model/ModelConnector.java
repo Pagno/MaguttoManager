@@ -970,11 +970,10 @@ public class ModelConnector implements ModelInterface{
 	
 	//Metodi realizzati appositamente per il testing della classe.
 	public void ResetAllForTest(){
-		lc.svuotaCantieriForTest();
-		ModelCamion.resetForTest();
-		ModelRuspa.resetForTest();
-		ModelEscavatore.resetForTest();
-		ModelGru.resetForTest();
+		mc.resetForTest();
+		mr.resetForTest();
+		me.resetForTest();
+		mg.resetForTest();
 		lc.svuotaCantieriForTest();
 	}
 }

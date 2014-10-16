@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import model.organizer.data.Gru;
+import model.organizer.data.Ruspa;
 
 
 // 
@@ -189,10 +190,16 @@ public class ModelGru extends ModelMacchina{
 	/**
 	 * Reset for test.
 	 */
-	public static void resetForTest(){
-		if(istanza!=null){
+	public void resetForTest(){
+		/*if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;
-		}
+		}*/
+		ModelMacchina.initCodice();
+		listaGru.clear();
+	}
+	public void aggiungiGruForTest(Gru gru){
+		aggiornaCodice(gru.getCodice());
+		listaGru.add(gru);
 	}
 }
