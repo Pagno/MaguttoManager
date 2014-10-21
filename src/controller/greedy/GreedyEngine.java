@@ -1,8 +1,10 @@
 package controller.greedy;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 
 import model.ModelInterface;
 import model.organizer.data.Macchina;
@@ -297,7 +299,19 @@ public class GreedyEngine {
 				if(item.isSoddisfatta()){
 					if(ric.rispettaRichiesta(item.getMacchina())){
 						if(item.getMacchina().isLibera(ric.getDataInizio(), ric.getDataFine())){
-							prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
+							boolean isPresente=false;
+							for(int i=0; i<prenotazioni.size();i++){
+								if(prenotazioni.get(i).getMacchina().equals(item.getMacchina())){
+									isPresente=true;
+									if(d<prenotazioni.get(i).getDurataLavoro()){
+										prenotazioni.get(i).setDurataLavoro(d);
+									}
+									break;
+								}
+							}
+							if(!isPresente){
+								prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
+							}
 						}
 					}
 				}
@@ -307,10 +321,17 @@ public class GreedyEngine {
 	
 	//Verifico se il lavoro element finisce meno di una settimana prima rispetto a base
 	static boolean lavoroFinisceMenoDiUnaSettimanaPrima(Lavoro element, Lavoro base){
-		
+		GregorianCalendar sx,dx;
+		int d;
 		if(!element.equals(base)){
 			if(element.getDataFine().before(base.getDataInizio())){
-				int d=element.getDurata();
+				sx=(GregorianCalendar)element.getDataFine().clone();
+				dx=(GregorianCalendar)base.getDataInizio().clone();
+				d=0;
+				while(sx.before(dx)&&d<8){
+					sx.add(Calendar.DAY_OF_MONTH, 1);
+					d++;
+				}
 				if(d<=7){
 					return true;
 				}
@@ -329,9 +350,17 @@ public class GreedyEngine {
 	
 	//Verifico se il lavoro element inizia meno di una settimana dopo rispetto a base
 	static boolean lavoroIniziaMenoDiUnaSettimanaDopo(Lavoro element, Lavoro base){
+		GregorianCalendar sx,dx;
+		int d;
 		if(!element.equals(base)){
 			if(element.getDataInizio().after(base.getDataFine())){
-				int d=element.getDurata();
+				sx=(GregorianCalendar)base.getDataFine().clone();
+				dx=(GregorianCalendar)element.getDataInizio().clone();
+				d=0;
+				while(sx.before(dx)&&d<8){
+					sx.add(Calendar.DAY_OF_MONTH, 1);
+					d++;
+				}
 				if(d<=7){
 					return true;
 				}

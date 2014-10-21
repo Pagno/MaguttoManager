@@ -58,7 +58,6 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	 */
 	public void aggiungiLavoro(Lavoro r) {
 		lavori.add(r);
-
 	}
 	
 	/**
