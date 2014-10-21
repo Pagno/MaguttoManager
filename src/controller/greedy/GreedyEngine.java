@@ -177,65 +177,31 @@ public class GreedyEngine {
 		ArrayList<Associazione>alreadySelected=new ArrayList<Associazione>();
 		alreadySelected.addAll(associazioniDaPrenotazioni);
 		alreadySelected.addAll(associazioniDaLibere);
-
-		//RIMUOVI
-		System.out.println("Check 0");
-		//END RIMUOVI
 		
 		/*Se non ci sono macchine disponibili (non controllo le già associate) o la richiesta è già soddisfatta
 		  non seleziono nulla */
 		if(ric.isSoddisfatta()||disp.size()==0){ 
-			//RIMUOVI
-			System.out.println("Check 1 - END");
-			//END RIMUOVI
 			return null;                         
 		}
 		else{
 			//In tal caso è possibile che ci siano macchine disponibili, ma già associate.
-			//RIMUOVI
-			System.out.println("Check 2");
-			//END RIMUOVI
 			ArrayList<T>nonAssociate=new ArrayList<T>();
 			nonAssociate.addAll(disp); //Per ora inserisco tutte le macchine disponibili nella lista
 			boolean isAssociata=false;
 			boolean isCleaned=true;
 			for(Associazione a:alreadySelected){
-				//RIMUOVI
-				System.out.println("Check 3");
-				//END RIMUOVI
 				if(a.getRichiesta().equals(ric)){
-					//RIMUOVI
-					System.out.println("Check 4");
-					//END RIMUOVI
 					isAssociata=true; //Approfittiamo del ciclo per controllare se la richiesta è già stata associata.
 					break;            //Se la richiesta è già associata, possiamo terminare il ciclo.
 				}
-				//RIMUOVI
-				System.out.println("Check 5");
-				//END RIMUOVI
-				//RIMUOVI
-				System.out.println("Ci sono " + nonAssociate.size() + " macchine");
-				//END RIMUOVI
 				for(int j=0;j<nonAssociate.size();j++){ //Cerchiamo le macchine nella lista che sono già state associate
 					T mac=nonAssociate.get(j);
-					//RIMUOVI
-					System.out.println("Check 6");
-					//END RIMUOVI
-					//RIMUOVI
-					System.out.println("Analizzo " + mac);
-					//END RIMUOVI
 					//controllo che la macchina non sia già  associata e quindi occupata temporaneamente
 					//Le macchine erano già  libere, il controllo viene effettuato in reserveMacchineFromLavoro
 					if(mac!=null){
 						if(mac.equals(a.getMacchina())){
-							//RIMUOVI
-							System.out.println("Check 7");
-							//END RIMUOVI
 							if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
 								//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già  associata
-								//RIMUOVI
-								System.out.println("Check 8");
-								//END RIMUOVI
 								nonAssociate.set(j, null); //Quindi la rimuovo dalla lista delle non associate
 								isCleaned=false;
 							}
@@ -244,36 +210,21 @@ public class GreedyEngine {
 				}
 			}
 			if(isAssociata){
-				//RIMUOVI
-				System.out.println("Check 9 - END");
-				//END RIMUOVI
 				return null; //Se la richiesta è già stata associata, non si genera una nuova associazione.
 			}
 			else{
-				//RIMUOVI
-				System.out.println("Check 10");
-				//END RIMUOVI
 				while(!isCleaned){ //La prima volta lo effettua solo se ho trovato macchine già associate
-					//RIMUOVI
-					System.out.println("Check 11");
-					//END RIMUOVI
 					isCleaned=!(nonAssociate.remove(null)); //Le macchine già associate sono state poste a null, quindi rimuovo tali occorrenze dalla lista
 				}
 				
 				if(nonAssociate.size()==0){
 					//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
 					//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
-					//RIMUOVI
-					System.out.println("Check 12 - END");
-					//END RIMUOVI
 					return null;
 				}
 				else{
 					//Se arrivo qui, c'è almeno una macchina libera o ancora non associata che soddisfa la richiesta
 					//Quindi è possibile sicuramente soddisfare la richiesta con almeno una macchina
-					//RIMUOVI
-					System.out.println("Check 13 - END");
-					//END RIMUOVI
 					Associazione genAsso=new Associazione(ric,nonAssociate.get(0));
 					return genAsso;
 				}
