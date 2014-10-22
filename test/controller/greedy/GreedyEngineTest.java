@@ -12,6 +12,7 @@ import model.organizer.ModelCamion;
 import model.organizer.ModelCantiere;
 import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
+import model.organizer.data.Escavatore;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
@@ -168,17 +169,195 @@ public class GreedyEngineTest {
 
 	@Test
 	public void testRubaMacchineAdAssociazioni(){
+		//TODO
 		fail("Not yet implemented.");
 	}
 	
 	@Test
 	public void testMacchineLibere(){
+		//TODO
 		fail("Not yet implemented.");
 	}
 	
 	@Test
-	public void testConPrenotazioni(){
-		fail("Not yet implemented.");
+	public void testSelezionaConPrenotazioni(){
+		ArrayList<Associazione>test;
+		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
+		ArrayList<Richiesta>check=new ArrayList<Richiesta>();
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		c.aggiungiLavoro(l);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		l.caricaRichiesta(rc, 10, null);
+		Richiesta r1=l.getRichiesta(10);
+		sortedRichieste.add(l.getRichiesta(10));
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		//Senza alcuna prenotazione, non crea associazioni
+		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,28),new GregorianCalendar(2014,05,1));
+		c.aggiungiLavoro(l2);
+		Camion cam1=new Camion(20, "Yamaha", "Camioncino", 15, 15, 15);
+		l2.caricaRichiesta(rc, 11, cam1);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertTrue(test.isEmpty());
+		assertEquals(sortedRichieste,check);
+		//Con una prenotazione, restituisce l'unica disponibile
+		l2.setDataInizio(new GregorianCalendar(2014,04,22));
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam1));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Con due prenotazioni, restituisce la più promettente
+		Camion cam2=new Camion(21, "Yamaha", "Camioncino", 15, 15, 15);
+		Lavoro l3=new Lavoro(13,"l3",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,26));
+		c.aggiungiLavoro(l3);
+		l3.caricaRichiesta(rc, 12, cam2);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam2));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Con più prenotazioni, restituisce la più promettente
+		Camion cam3=new Camion(22, "Yamaha", "Camioncino", 15, 15, 15);
+		Lavoro l4=new Lavoro(14,"l4",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,24));
+		c.aggiungiLavoro(l4);
+		l4.caricaRichiesta(rc, 13, cam3);
+		Camion cam4=new Camion(23, "Yamaha", "Camioncino", 15, 15, 15);
+		Lavoro l5=new Lavoro(15,"l5",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,11));
+		c.aggiungiLavoro(l5);
+		l5.caricaRichiesta(rc, 14, cam4);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam3));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Se ci sono macchine prenotabili, anche più promettenti, ma di altro tipo le ignora
+		Ruspa rus=new Ruspa(40,"Yamaha","Ruspa",15,15,15);
+		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
+		Lavoro l6=new Lavoro(16,"l6",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,23));
+		c.aggiungiLavoro(l6);
+		l6.caricaRichiesta(rr, 15, rus);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam3));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Se la prenotazione più promettente è già occupata, seleziona la più promettente libera
+		Lavoro lpiuprom=new Lavoro(30,"l30",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,19));
+		c.aggiungiLavoro(lpiuprom);
+		lpiuprom.caricaRichiesta(rc, 30, null);
+		Richiesta r2=lpiuprom.getRichiesta(30);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),2);
+		assertEquals(test.get(0),new Associazione(r2,cam3));
+		assertEquals(test.get(1),new Associazione(r1,cam2));
+		assertEquals(sortedRichieste.size(),check.size()-2);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Se più richieste si contendono la stessa macchina, solo la richiesta più prioritaria può ottenerla
+		l.caricaRichiesta(rc, 31, cam1);
+		l.caricaRichiesta(rc, 32, cam2);
+		l.caricaRichiesta(rc, 33, cam3);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r2,cam4));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertTrue(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertEquals(sortedRichieste.size(),1);
+		//Se una richiesta non genera prenotazioni, non viene associata anche se la macchina è libera
+		Lavoro lesc=new Lavoro(31,"l31",c,new GregorianCalendar(2014,07,10),new GregorianCalendar(2014,07,20));
+		c.aggiungiLavoro(lesc);
+		lesc.caricaRichiesta(new RichiestaEscavatore(10,20,10,20,10,20,10,20), 35, new Escavatore(90,"Yamaha","esc",15,15,15,15));
+		l.eliminaRichiesta(31);
+		l.eliminaRichiesta(32);
+		l.eliminaRichiesta(33);
+		lpiuprom.caricaRichiesta(new RichiestaEscavatore(10,20,10,20,10,20,10,20), 34, null);
+		Richiesta r3=lpiuprom.getRichiesta(34);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r3);
+		sortedRichieste.add(r1);
+		check=GreedyEngine.ordinaRichieste(sortedRichieste);
+		sortedRichieste.clear();
+		sortedRichieste.addAll(check);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),2);
+		assertEquals(test.get(0),new Associazione(r2,cam3));
+		assertEquals(test.get(1),new Associazione(r1,cam2));
+		assertEquals(sortedRichieste.size(),check.size()-2);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.contains(r3));
+		assertTrue(check.contains(r3));
+		assertEquals(sortedRichieste.size(),1);
+		//Se la richiesta attuale è già soddisfatta, anche se ha prenotazioni disponibili, non genero associazioni
+		r1.setMacchina(new Camion(22, "Yamaha", "Camioncino", 15, 15, 15));
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r3);
+		sortedRichieste.add(r1);
+		check=GreedyEngine.ordinaRichieste(sortedRichieste);
+		sortedRichieste.clear();
+		sortedRichieste.addAll(check);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r2,cam3));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertTrue(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.contains(r3));
+		assertTrue(check.contains(r3));
+		assertEquals(sortedRichieste.size(),2);
 	}
 	
 	@Test
