@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import model.organizer.data.Escavatore;
 import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
@@ -168,6 +169,19 @@ public class ModelGruTest {
 		test=mg.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
 		assertTrue(test.isEmpty());
 	}
-
+	@Test
+	public void testAggiungiGruForTest(){
+		Gru e=new Gru(17, "Escavatore", "E104", 360,2000, 49, 45);
+		mg.aggiungiGruForTest(e);
+		Gru a=mg.getGru(17);
+		assertEquals(e.getCodice(),a.getCodice());
+		assertEquals(e.getProduttore(), a.getProduttore());
+		assertEquals(e.getModello(),a.getModello() );
+		assertEquals(e.getAltezza(),a.getAltezza());
+		assertEquals(e.getPortataMassima(),a.getPortataMassima() );
+		assertEquals(e.getAngoloRotazione(),a.getAngoloRotazione());
+		assertEquals(e.getLunghezza(),a.getLunghezza() );
+		
+	}
 	
 }

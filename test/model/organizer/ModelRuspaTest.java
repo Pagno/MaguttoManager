@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaRuspa;
@@ -168,5 +169,16 @@ public class ModelRuspaTest {
 		assertEquals(mr.toString(),str);
 		
 	}
-
+	@Test
+	public void testAggiungiRuspaForTest(){
+		Ruspa e=new Ruspa(17, "Ruspa", "R104", 2000, 450, 9);
+		mr.aggiungiRuspaForTest(e);
+		Ruspa a=mr.getRuspa(17);
+		assertEquals(e.getCodice(),a.getCodice());
+		assertEquals(e.getProduttore(), a.getProduttore());
+		assertEquals(e.getModello(),a.getModello() );
+		assertEquals(e.getAltezzaMassima(),a.getAltezzaMassima());
+		assertEquals(e.getPortataMassima(),a.getPortataMassima() );
+		assertEquals(e.getCapacitaMassima(),a.getCapacitaMassima());		
+	}
 }
