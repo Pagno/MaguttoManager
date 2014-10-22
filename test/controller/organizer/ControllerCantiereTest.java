@@ -2,17 +2,24 @@ package controller.organizer;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import model.ModelConnector;
 import model.organizer.ModelCantiere;
 import model.organizer.ModelGru;
 import model.organizer.data.Cantiere;
+import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
+import model.organizer.data.Macchina;
 import model.organizer.data.Priorita;
+import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaGru;
 
+import org.fest.util.Arrays;
 import org.junit.Test;
+
+import controller.data.Associazione;
 
 import database.Database;
 
@@ -48,12 +55,50 @@ public class ControllerCantiereTest {
 		assertEquals(new GregorianCalendar(2015, 12, 22),m.getDataChiusura());
 		assertEquals(Priorita.ALTA,m.getPriorita());
 	}
-
+	@Test
+	public void testConfermaAssociazioniListener(){
+		model.ResetAllForTest();
+		ModelGru.getModelGru().caricaGru(17, "Gru", "G405", 360, 3000, 30, 21);
+		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
+		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
+		Lavoro lavoro=ModelCantiere.getModelCantiere().getLavoro(21);
+		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
+		//ModelCantiere.getModelCantiere().caricaRichiesta(21, 45, 3, richiestaGru, null);
+		Richiesta richiesta=new Richiesta(richiestaGru, lavoro);
+		assertFalse(richiesta.isSoddisfatta());
+		
+		Associazione a=new Associazione(richiesta, model.getMacchina(17));
+		ArrayList<Associazione> data=new ArrayList<Associazione>();
+		data.add(a);
+		canCtrl.confermaAssociazioniListener(data);
+		
+		assertTrue(richiesta.isSoddisfatta());
+	}
+	@Test
+	public void testGetElencoMacchineDisponibili(){
+		model.ResetAllForTest();
+		Gru g=new Gru(17, "Gru", "G405", 360, 3000, 30, 21);
+		
+		ModelGru.getModelGru().aggiungiGruForTest(g);
+		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
+		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
+		Lavoro lavoro=ModelCantiere.getModelCantiere().getLavoro(21);
+		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
+		Richiesta richiesta=new Richiesta(richiestaGru, lavoro);
+		
+		ArrayList<Macchina> arr=canCtrl.getElencoMacchineDisponibili(richiesta.getCodice());
+		ArrayList<Macchina> arr2=new ArrayList<Macchina>(java.util.Arrays.asList(g));
+		assertEquals(arr, arr2);
+	}
+	
 	@Test
 	public void testModificaCantiere() {
 		model.ResetAllForTest();
 
 		ModelCantiere.getModelCantiere().caricaCantiere(12,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
+		canCtrl.modificaCantiere(12,"", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2016, 12, 22), Priorita.BASSA);
+		
+		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2013, 12, 22), Priorita.BASSA);
 		
 		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2016, 12, 22), Priorita.BASSA);
 		

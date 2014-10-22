@@ -41,9 +41,10 @@ public class ControllerInserimentoTest {
 	public void testAggiungiGru() {
 		model.ResetAllForTest();
 
+		insCtrl.aggiungiGru("", "G402", 360, 3000, 45, 60);
 		insCtrl.aggiungiGru("Gru", "G402", 360, 3000, 45, 60);
 		Gru m=(Gru)model.getMacchina(1);
-
+		
 		
 		assertEquals("Gru",m.getProduttore());
 		assertEquals("G402",m.getModello());
@@ -68,6 +69,7 @@ public class ControllerInserimentoTest {
 		g.setModello("G309");
 		g.setPortataMassima(2500);
 
+		insCtrl.modificaGru(1, "", "G309", 300, 2500, 21, 25);
 		insCtrl.modificaGru(1, "GRu1", "G309", 300, 2500, 21, 25);
 
 		assertEquals(g, model.getMacchina(1));
@@ -77,7 +79,8 @@ public class ControllerInserimentoTest {
 	@Test
 	public void testAggiungiRuspa() {
 		model.ResetAllForTest();
-		
+
+		insCtrl.aggiungiRuspa("", "R908", 1500, 450, 9);
 		insCtrl.aggiungiRuspa("Ruspa", "R908", 1500, 450, 9);
 		Ruspa g=(Ruspa)model.getMacchina(1);
 
@@ -103,6 +106,7 @@ public class ControllerInserimentoTest {
 		g.setPortataMassima(560);
 		g.setAltezzaMassima(11);
 
+		insCtrl.modificaRuspa(1, "", "R809", 1750, 560, 11);
 		insCtrl.modificaRuspa(1, "RUSPA1", "R809", 1750, 560, 11);
 		assertEquals(g, model.getMacchina(1));
 	}
@@ -111,6 +115,7 @@ public class ControllerInserimentoTest {
 	public void testAggiungiEscavatore() {
 		model.ResetAllForTest();
 
+		insCtrl.aggiungiEscavatore("", "E456", 2300, 780, 13,9);
 		insCtrl.aggiungiEscavatore("Escavatore", "E456", 2300, 780, 13,9);
 		Escavatore m=(Escavatore)model.getMacchina(1);
 
@@ -129,6 +134,7 @@ public class ControllerInserimentoTest {
 		
 		insCtrl.aggiungiEscavatore("Escavatore", "E501", 2100, 130, 9, 6);
 
+		insCtrl.modificaEscavatore(1, "", "E498", 1750, 560, 11,5);
 		insCtrl.modificaEscavatore(1, "Escavatore2000", "E498", 1750, 560, 11,5);
 		Escavatore g=(Escavatore)model.getMacchina(1);
 		
@@ -145,6 +151,7 @@ public class ControllerInserimentoTest {
 	public void testAggiungiCamion() {
 		model.ResetAllForTest();
 
+		insCtrl.aggiungiCamion("","C121", 9800, 3200, 23);
 		insCtrl.aggiungiCamion("Camion","C121", 9800, 3200, 23);
 		Camion m=(Camion)model.getMacchina(1);
 
@@ -165,6 +172,7 @@ public class ControllerInserimentoTest {
 		Camion m=(Camion)model.getMacchina(1);
 		
 
+		insCtrl.modificaCamion(1,"","SC2100", 7000, 1200, 13);
 		insCtrl.modificaCamion(1,"SCANIA","SC2100", 7000, 1200, 13);
 		
 		assertEquals("SCANIA",m.getProduttore());
@@ -177,7 +185,8 @@ public class ControllerInserimentoTest {
 	@Test
 	public void testAggiungiCantiere() {
 		model.ResetAllForTest();
-
+		insCtrl.aggiungiCantiere("", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
+		insCtrl.aggiungiCantiere("Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2013, 12, 22), Priorita.ALTA);
 		insCtrl.aggiungiCantiere("Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		Cantiere m=(Cantiere)model.getCantiere(1);
 

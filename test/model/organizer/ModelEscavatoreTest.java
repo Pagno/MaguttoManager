@@ -172,5 +172,18 @@ public class ModelEscavatoreTest {
 		test=mr.getDisponibili(new GregorianCalendar(2014,2,2), new GregorianCalendar(2014,9,9));
 		assertTrue(test.isEmpty());
 	}
-
+	@Test
+	public void testAggiungiEscavatoreForTest(){
+		Escavatore e=new Escavatore(17, "Escavatore", "E104", 2000, 380, 9, 5);
+		mr.aggiungiEscavatoreForTest(e);
+		Escavatore a=mr.getEscavatore(17);
+		assertEquals(e.getCodice(),a.getCodice());
+		assertEquals(e.getProduttore(), a.getProduttore());
+		assertEquals(e.getModello(),a.getModello() );
+		assertEquals(e.getAltezzaMassima(),a.getAltezzaMassima());
+		assertEquals(e.getPortataMassima(),a.getPortataMassima() );
+		assertEquals(e.getProfonditaMassima(),a.getProfonditaMassima());
+		assertEquals(e.getCapacitaMassima(),a.getCapacitaMassima() );
+		
+	}
 }
