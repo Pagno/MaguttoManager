@@ -91,6 +91,7 @@ public class GreedyEngine {
 							if(ric.rispettaRichiesta(asso.getMacchina())){ 
 								//RIMUOVERE
 								System.out.println("check 6");
+								
 								//END RIMUOVERE
 								//in tal caso ric ha priorità più alta, e la macchina rispetta la richiesta. 
 								//Quindi rubo la macchina.

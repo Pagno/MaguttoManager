@@ -220,6 +220,7 @@ public class GreedyEngineTest {
 		assertEquals(aLibere.size(),1);
 		assertTrue(aPrenotate.isEmpty());
 		
+		
 		//Caso con più associazioni compatibili inferiori, scelgo quella con priorità minore tra tutte
 		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,17));
 		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
