@@ -44,98 +44,91 @@ public class JDateChooserFixture extends ComponentFixture<JDateChooser>
 
 	@Override
 	public FocusableComponentFixture focus() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public FocusableComponentFixture requireFocused() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public KeyboardInputSimulationFixture pressAndReleaseKeys(int... keyCodes) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public KeyboardInputSimulationFixture pressKey(int keyCode) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public KeyboardInputSimulationFixture pressAndReleaseKey(
 			KeyPressInfo keyPressInfo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public KeyboardInputSimulationFixture releaseKey(int keyCode) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MouseInputSimulationFixture click() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MouseInputSimulationFixture click(MouseButton button) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MouseInputSimulationFixture click(MouseClickInfo mouseClickInfo) {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public MouseInputSimulationFixture doubleClick() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public MouseInputSimulationFixture rightClick() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public StateVerificationFixture requireDisabled() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public StateVerificationFixture requireEnabled() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public StateVerificationFixture requireEnabled(Timeout timeout) {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public StateVerificationFixture requireNotVisible() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 
 	@Override
 	public StateVerificationFixture requireVisible() {
-		// TODO Auto-generated method stub
+		 
 		return null;
 	}
 

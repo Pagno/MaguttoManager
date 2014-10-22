@@ -93,6 +93,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 */
 	public void caricaDatiListener(){
 		model.refreshData();
+		model.pubblicaContenuto();
 	}
 	
 	/**

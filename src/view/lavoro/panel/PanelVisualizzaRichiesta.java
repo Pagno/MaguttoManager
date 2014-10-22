@@ -17,7 +17,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	private ArrayList<String> data;
 	
 
-	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
+	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione,lblMacchina;
 	public JButton btnAssociaMacchina;
 	/**
 	 * Create the panel.
@@ -35,6 +35,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		lblAltezza=new JLabel("Altezza");
 		lblProfondita=new JLabel("Profondita");
 		lblRotazione=new JLabel("Rotazione");
+		lblMacchina=new JLabel("");
 		btnAssociaMacchina=new JButton("Associa Macchina");
 		btnAssociaMacchina.setName("associaMacchina");
 		
@@ -61,6 +62,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		btnAssociaMacchina.addActionListener(act);
 	}
 	public void loadData(ArrayList<String> dati){
+		//TODO Migliorare la visualizzazione della richiesta
 		data=dati;
 		lblTipo.setText(data.get(1));
 		lblCapacita.setText(data.get(2)+" <Capactia< "+data.get(3));
@@ -69,8 +71,13 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		lblAltezza.setText(data.get(8)+" <Altezza< "+data.get(9));
 		lblProfondita.setText(data.get(10)+" <Profondità< "+data.get(11));
 		lblRotazione.setText(data.get(12)+" <Rotazione< "+data.get(13));
+		lblMacchina.setVisible(false);
 	}
 	public ArrayList<String> getData(){
 		return data;
+	}
+	public void setMacchina(String string) {
+		lblMacchina.setVisible(false);
+		lblMacchina.setText("Macchina Associata: "+string);		
 	}
 }

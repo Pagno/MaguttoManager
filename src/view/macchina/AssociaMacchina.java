@@ -29,7 +29,7 @@ public class AssociaMacchina extends JDialog {
 		setName("associaMacchina");
 		this.view = v;
 		view.setEnabled(false);
-		setTitle("Associazione Greedy Macchina");
+		setTitle("Associa Macchina");
 
 		setBounds(0, 0, 200, 100);
 		listaMacchine = macchine;

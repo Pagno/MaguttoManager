@@ -182,6 +182,8 @@ public class ViewLavoro extends JDialog implements Observer{
 					pnlLavoro.btnLavoro.setText("Inserisci");
 				}else{
 					Lavoro lavoro=((Lavoro)tp.getPath()[tp.getPathCount()-1]);
+					codiceLavoro=lavoro.getCodice();
+					
 					ArrayList<String> l=new ArrayList<String>();
 					l.add(Integer.toString(lavoro.getCodice()));
 					l.add(lavoro.getNome());
@@ -190,7 +192,7 @@ public class ViewLavoro extends JDialog implements Observer{
 					l.add(df.format(lavoro.getDataInizio().getTime()));
 					l.add(df.format(lavoro.getDataFine().getTime()));
 					pnlLavoro.fill(l);
-					
+
 
 					pnlLavoro.btnAddActionListener(modificaLavoroListener());
 					btnDelete.setEnabled(true);				
@@ -200,7 +202,6 @@ public class ViewLavoro extends JDialog implements Observer{
 
 					btnDelete.addActionListener(deleteLavoroListener(lavoro.getCodice()));
 
-					codiceLavoro=lavoro.getCodice();
 					pnlLavoro.btnLavoro.setText("Modifica");
 				}
 			}else if(tp.getPathCount()==3){
@@ -230,7 +231,9 @@ public class ViewLavoro extends JDialog implements Observer{
 					}
 					ArrayList<String> data=richiesta.getData();
 					pnlVisualizzaPanel.loadData(data);
-
+					if(richiesta.isSoddisfatta()){
+						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().toString());
+					}
 					cl.show(cardPanel,"visualizza");
 				}	
 			}
@@ -325,7 +328,7 @@ public class ViewLavoro extends JDialog implements Observer{
 					fine.setTime(pnlLavoro.getDataFineLavoro());
 					
 					//Aggiungi il lavoro
-					cCtr.modificaLavoro(codiceCantiere,nome, inizio, fine);
+					cCtr.modificaLavoro(codiceLavoro,nome, inizio, fine);
 					
 					//ricarico il modello
 					reloadModel();
