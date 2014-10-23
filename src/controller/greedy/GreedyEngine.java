@@ -47,11 +47,6 @@ public class GreedyEngine {
 		 * quindi vengono spostate nell'altra lista di associazioni, costruendo così l'output dell'algoritmo.
 		 */
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, associazioniDaPrenotazioni, associazioni);
-		//RIMUOVI
-		for(Associazione a:associazioni){
-			System.out.println(a.getRichiesta().getCodice() + " " + a.getMacchina().getCodice());
-		}
-		//END RIMUOVI
 		return associazioni;
 	}
 	
@@ -86,6 +81,9 @@ public class GreedyEngine {
 								//Reinserisco la richiesta a cui ho rubato la macchina nelle richieste scoperte, 
 								//potrebbe a sua volta rubarne un'altra in seguito
 								boolean reinserito=false;
+								//RIMUOVERE
+								System.out.println("Check " + sortedRichieste);
+								//END RIMUOVERE
 								for(int i=0; i<sortedRichieste.size();i++){ //Inserisco la richiesta scoperta nell'array alla giusta posizione
 									if(comp.compare(asso.getRichiesta(), sortedRichieste.get(i))<0){ //Appena trovo una richiesta con priorità minore
 										sortedRichieste.add(i, asso.getRichiesta());

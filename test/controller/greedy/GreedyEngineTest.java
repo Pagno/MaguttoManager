@@ -239,12 +239,26 @@ public class GreedyEngineTest {
 		//La richiesta r4 non riesce a sua volta a rubare una macchina, quindi resta scoperta.
 		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,17));
 		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		Cantiere can2=new Cantiere(2,"c2","Saluzzo",new GregorianCalendar(2020,02,22),new GregorianCalendar(2022,02,22),Priorita.BASSA);
+		Cantiere can3=new Cantiere(3,"c3","Zurigo",new GregorianCalendar(2020,02,22),new GregorianCalendar(2022,02,22),Priorita.ALTA);
+		Lavoro l5=new Lavoro(5,"l5",can2,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		Lavoro l6=new Lavoro(6,"l6",can3,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		Lavoro l7=new Lavoro(7,"l7",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,22));
 		c.aggiungiLavoro(l3);
 		c.aggiungiLavoro(l4);
+		c.aggiungiLavoro(l7);
+		can2.aggiungiLavoro(l5);
+		can3.aggiungiLavoro(l6);
 		l3.caricaRichiesta(rc1, 3, null);
 		l4.caricaRichiesta(rc1, 4, null);
+		l5.caricaRichiesta(rc1, 9, null);
+		l6.caricaRichiesta(new RichiestaGru(5,10,5,10,5,10,5,10), 10, null);
+		l7.caricaRichiesta(new RichiestaGru(5,10,5,10,5,10,5,10), 11, null);
 		Richiesta r3=l3.getRichiesta(3);
 		Richiesta r4=l4.getRichiesta(4);
+		Richiesta r9=l5.getRichiesta(9);
+		Richiesta r10=l6.getRichiesta(10);
+		Richiesta r11=l7.getRichiesta(11);
 		Camion c2=new Camion(2,"Yamaha","Camion",1,1,1);
 		Camion c3=new Camion(3,"Yamaha","Camion",1,1,1);
 		aPrenotate.clear();
@@ -257,7 +271,11 @@ public class GreedyEngineTest {
 		assertEquals(aPrenotate.get(0),new Associazione(r3,c2));
 		assertEquals(aPrenotate.get(1),new Associazione(r1,c1));
 		assertEquals(aPrenotate.get(2),new Associazione(r4,c3));
+		sortedRichieste.add(r10);
 		sortedRichieste.add(r2);
+		sortedRichieste.add(r11);
+		sortedRichieste.add(r9);
+		sortedRichieste=GreedyEngine.ordinaRichieste(sortedRichieste);
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
 		assertTrue(sortedRichieste.isEmpty());
 		assertTrue(aPrenotate.isEmpty());
