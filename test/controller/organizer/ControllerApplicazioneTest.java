@@ -35,7 +35,11 @@ public class ControllerApplicazioneTest {
 		model = ModelConnector.getModelConnector(db);
 		appCtrl = ControllerApplicazione.getControllerApplicazione(model);
 	}
-
+	@Test
+	public void testConstructor(){
+		appCtrl.initForTest();
+		assertNotNull(ControllerApplicazione.getControllerApplicazione(model));
+	}
 	@Test
 	public void testGetControllerApplicazione() {
 		assertEquals(appCtrl,ControllerApplicazione.getControllerApplicazione(model));

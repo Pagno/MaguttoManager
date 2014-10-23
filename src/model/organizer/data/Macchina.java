@@ -115,8 +115,9 @@ public abstract class Macchina{
 	public boolean isLibera(GregorianCalendar inizio,GregorianCalendar fine){
 		//if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
 		for(Richiesta richiesta:elencoRichiesta){
-			if(!(fine.before(richiesta.getDataInizio()) || inizio.after(richiesta.getDataFine())))
+			if(!(fine.before(richiesta.getDataInizio()) || inizio.after(richiesta.getDataFine()))){
 				return false;
+			}
 		}
 		
 		return true;

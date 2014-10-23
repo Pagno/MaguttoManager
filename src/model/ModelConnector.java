@@ -903,25 +903,30 @@ public class ModelConnector implements ModelInterface{
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
 		
 		ArrayList<Macchina> elencoMacchineDisponibili=new ArrayList<Macchina>();
+		
 		if(richiesta.getCaratteristiche() instanceof RichiestaRuspa){
 			for(Ruspa e:mr.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
-				if(richiesta.rispettaRichiesta(e))
+				if(richiesta.rispettaRichiesta(e)){
 					elencoMacchineDisponibili.add(e);
+				}
 			}
 		}else if(richiesta.getCaratteristiche() instanceof RichiestaGru){
 			for(Gru e:mg.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
-				if(richiesta.rispettaRichiesta(e))
+				if(richiesta.rispettaRichiesta(e)){
 					elencoMacchineDisponibili.add(e);
+				}
 			}
 		}else if(richiesta.getCaratteristiche() instanceof RichiestaCamion){
 			for(Camion e:mc.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
-				if(richiesta.rispettaRichiesta(e))
+				if(richiesta.rispettaRichiesta(e)){
 					elencoMacchineDisponibili.add(e);
+				}
 			}
 		}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore){
 			for(Escavatore e:me.getDisponibili(richiesta.getDataInizio(), richiesta.getDataFine())){
-				if(richiesta.rispettaRichiesta(e))
+				if(richiesta.rispettaRichiesta(e)){
 					elencoMacchineDisponibili.add(e);
+				}
 			}
 		}
 		return elencoMacchineDisponibili;
