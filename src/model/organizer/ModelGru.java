@@ -198,6 +198,12 @@ public class ModelGru extends ModelMacchina{
 		ModelMacchina.initCodice();
 		listaGru.clear();
 	}
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
+	}
 	public void aggiungiGruForTest(Gru gru){
 		aggiornaCodice(gru.getCodice());
 		listaGru.add(gru);

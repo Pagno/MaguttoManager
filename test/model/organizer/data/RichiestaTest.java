@@ -35,7 +35,7 @@ public class RichiestaTest {
 	public void testRichiestaRichiestaMacchinaInt() {
 		assertEquals(r.getCaratteristiche(),new RichiestaRuspa(5,10,5,10,5,10));
 		assertEquals(r.getCodice(),22);
-		assertEquals(Richiesta.getNextCodice(),23);
+		assertEquals(Richiesta.getNextCodice(),101);
 		assertEquals(r.getMacchina(),null);
 		assertFalse(r.isSoddisfatta());
 	}
@@ -156,6 +156,12 @@ public class RichiestaTest {
 		assertEquals(Richiesta.getNextCodice(),100);
 		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro);
 		assertEquals(Richiesta.getNextCodice(),101);
+	}
+	@Test
+	public void testCompareTo() {
+		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro);
+		assertEquals(0, r.compareTo(r));
 	}
 
 	@Test

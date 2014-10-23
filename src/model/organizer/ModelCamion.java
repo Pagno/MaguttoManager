@@ -197,5 +197,10 @@ public class ModelCamion extends ModelMacchina{
 		aggiornaCodice(camion.getCodice());
 		listaCamion.add(camion);
 	}
-	
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
+	}
 }
