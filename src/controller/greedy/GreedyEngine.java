@@ -55,13 +55,9 @@ public class GreedyEngine {
 	//FUNZIONI DI SELEZIONE
 	
 	static void rubaMacchineAdAssociazioni(ArrayList<Richiesta>sortedRichieste,ArrayList<Associazione> associazioniDaPrenotazioni,ArrayList<Associazione> associazioni){
-		System.out.println("---------------------------------");
 		boolean isCleaned=true;
 		Comparator<Richiesta>comp=new RichiesteComparator();
 		while(!sortedRichieste.isEmpty()){
-			//RIMUOVERE
-			System.out.println("check 1");
-			//END RIMUOVERE
 			isCleaned=true;
 			boolean isRubata=false;
 			boolean isInferiore=false;
@@ -69,30 +65,11 @@ public class GreedyEngine {
 			sortedRichieste.remove(0); //E la elimino dalla coda, non servirà più analizzarla
 			//Le associazioni sono in ordine di priorità di richiesta decrescente, quindi scorro la lista al contrario
 			for(int j=associazioniDaPrenotazioni.size()-1; j>=0;j--){ 
-				//RIMUOVERE
-				System.out.println("check 2 - " + j + " " );
-				//END RIMUOVERE
 				Associazione asso=associazioniDaPrenotazioni.get(j);
 				if(!isInferiore){
-					//RIMUOVERE
-					System.out.println("check 3");
-					//END RIMUOVERE
 					if(comp.compare(ric, asso.getRichiesta())<0){ //Se ric ha priorità più alta, restituisce -1
-						//RIMUOVERE
-						System.out.println("check 4");
-						//END RIMUOVERE
-						//RIMUOVERE
-						System.out.println(ric + " più prioritario di " + asso.getRichiesta());
-						//END RIMUOVERE
 						if(!isRubata){ //Se non ho ancora rubato la macchina devo controllare se rispetta la richiesta
-							//RIMUOVERE
-							System.out.println("check 5");
-							//END RIMUOVERE
 							if(ric.rispettaRichiesta(asso.getMacchina())){ 
-								//RIMUOVERE
-								System.out.println("check 6");
-								
-								//END RIMUOVERE
 								//in tal caso ric ha priorità più alta, e la macchina rispetta la richiesta. 
 								//Quindi rubo la macchina.
 								Associazione rubata=new Associazione(ric,asso.getMacchina());
@@ -105,22 +82,13 @@ public class GreedyEngine {
 								//potrebbe a sua volta rubarne un'altra in seguito
 								boolean reinserito=false;
 								for(int i=0; i<sortedRichieste.size();i++){ //Inserisco la richiesta scoperta nell'array alla giusta posizione
-									//RIMUOVERE
-									System.out.println("check 7");
-									//END RIMUOVERE
 									if(comp.compare(asso.getRichiesta(), sortedRichieste.get(i))<0){ //Appena trovo una richiesta con priorità minore
-										//RIMUOVERE
-										System.out.println("check 8");
-										//END RIMUOVERE
 										sortedRichieste.add(i, asso.getRichiesta());
 										reinserito=true;
 										break;
 									}
 								}
 								if(!reinserito){ //In tal caso è la richiesta scoperta di più bassa priorità, la inserisco in fondo
-									//RIMUOVERE
-									System.out.println("check 9");
-									//END RIMUOVERE
 									sortedRichieste.add(asso.getRichiesta());
 								}
 								//Elimino la vecchia associazione, che non esiste più
@@ -131,9 +99,6 @@ public class GreedyEngine {
 						}
 					}
 					else{
-						//RIMUOVERE
-						System.out.println("check 10");
-						//END RIMUOVERE
 						isInferiore=true;
 						associazioni.add(asso);
 						associazioniDaPrenotazioni.set(j,null);
@@ -141,29 +106,21 @@ public class GreedyEngine {
 					}
 				}
 				else{
-					//RIMUOVERE
-					System.out.println("check 11");
-					//END RIMUOVERE
 					associazioni.add(asso);
 					associazioniDaPrenotazioni.set(j,null);
 					isCleaned=false;
 				}
 			}
 			while(!isCleaned){
-				//RIMUOVERE
-				System.out.println("check 12");
-				//END RIMUOVERE
 				isCleaned=!(associazioniDaPrenotazioni.remove(null));
 			}
 		}
-		if(!associazioniDaPrenotazioni.isEmpty()){ 
-			//RIMUOVERE
-			System.out.println("check 13");
-			//END RIMUOVERE
+		if(!associazioniDaPrenotazioni.isEmpty()){
 			//Se l'ultima richiesta scoperta era più alta di una richiesta non scoperta,
 			//ci sono ancora delle associazioni da prenotazioni non ancora confermate.
 			//Provvedo quindi a spostarle in associazioni
 			associazioni.addAll(associazioniDaPrenotazioni);
+			associazioniDaPrenotazioni.clear();
 		}
 	}
 	

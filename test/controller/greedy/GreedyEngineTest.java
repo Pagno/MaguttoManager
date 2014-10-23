@@ -186,6 +186,8 @@ public class GreedyEngineTest {
 		assertEquals(aLibere.size(),2);
 		assertTrue(aLibere.containsAll(check));
 		assertTrue(aLibere.contains(new Associazione(new Richiesta(rc1,null,1),c1)));
+		assertTrue(aPrenotate.isEmpty());
+		
 		
 		//Caso nessuna associazione da prenotazioni
 		aPrenotate.clear();
@@ -196,6 +198,7 @@ public class GreedyEngineTest {
 		assertEquals(aLibere.size(),1);
 		assertEquals(aLibere,check);
 		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
 		
 		//Caso con associazioni compatibili ma non inferiori alla richiesta scoperta
 		aPrenotate.clear();
@@ -222,6 +225,7 @@ public class GreedyEngineTest {
 		
 		
 		//Caso con più associazioni compatibili inferiori, scelgo quella con priorità minore tra tutte
+		//La richiesta r4 non riesce a sua volta a rubare una macchina, quindi resta scoperta.
 		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,17));
 		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
 		c.aggiungiLavoro(l3);
@@ -250,6 +254,51 @@ public class GreedyEngineTest {
 		assertTrue(aLibere.contains(new Associazione(r1,c1)));
 		assertTrue(aLibere.contains(new Associazione(r2,c3)));
 		assertEquals(aLibere.size(),3);
+		
+		//Caso richiesta con priorità alta ma nessuna associazione a cui rubare
+		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
+		l2.caricaRichiesta(rr, 5, null);
+		Richiesta r5=l2.getRichiesta(5);
+		aPrenotate.clear();
+		aLibere.clear();
+		aPrenotate.add(new Associazione(r3,c2));
+		aPrenotate.add(new Associazione(r1,c1));
+		aPrenotate.add(new Associazione(r4,c3));
+		sortedRichieste.clear();
+		sortedRichieste.add(r5);
+		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		assertTrue(aLibere.contains(new Associazione(r3,c2)));
+		assertTrue(aLibere.contains(new Associazione(r1,c1)));
+		assertTrue(aLibere.contains(new Associazione(r4,c3)));
+		assertEquals(aLibere.size(),3);
+		
+		//Caso richiesta a cui rubo la macchina, che a sua volta può rubare la macchina a un altro
+		RichiestaEscavatore re1=new RichiestaEscavatore(10,30,10,20,10,20,10,20);
+		RichiestaEscavatore re2=new RichiestaEscavatore(20,50,10,20,10,20,10,20);
+		RichiestaEscavatore re3=new RichiestaEscavatore(40,60,10,20,10,20,10,20);
+		Escavatore e1=new Escavatore(4,"Yamaha","Escavatore piccolo",25,15,15,15);
+		Escavatore e2=new Escavatore(5,"Yamaha","Escavatore grande",45,15,15,15);
+		l2.caricaRichiesta(re1, 6, null);
+		l3.caricaRichiesta(re2, 7, null);
+		l4.caricaRichiesta(re3, 8, null);
+		l3.soddisfaRichiesta(7, e1);
+		l4.soddisfaRichiesta(8, e2);
+		Richiesta r6=l2.getRichiesta(6);
+		Richiesta r7=l3.getRichiesta(7);
+		Richiesta r8=l4.getRichiesta(8);
+		aPrenotate.clear();
+		aLibere.clear();
+		aPrenotate.add(new Associazione(r7,e1));
+		aPrenotate.add(new Associazione(r8,e2));
+		sortedRichieste.add(r6);
+		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		assertTrue(aLibere.contains(new Associazione(r6,e1)));
+		assertTrue(aLibere.contains(new Associazione(r7,e2)));
+		assertEquals(aLibere.size(),2);
 	}
 	
 	@Test
