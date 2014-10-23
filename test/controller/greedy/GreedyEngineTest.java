@@ -170,12 +170,90 @@ public class GreedyEngineTest {
 	@Test
 	public void testRubaMacchineAdAssociazioni(){
 		//TODO
-		fail("Not yet implemented.");
+		ArrayList<Associazione> aLibere=new ArrayList<Associazione>();
+		ArrayList<Associazione> aPrenotate=new ArrayList<Associazione>();
+		ArrayList<Associazione> check=new ArrayList<Associazione>();
+		ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
+		RichiestaCamion rc1=new RichiestaCamion(1,2,1,2,1,2); 
+		
+		//Caso nessuna richiesta scoperta
+		Camion c1=new Camion(1,"Yamaha","Camion",1,1,1);
+		aPrenotate.add(new Associazione(new Richiesta(rc1,null,1),c1));
+		aLibere.add(new Associazione(new Richiesta(rc1,null,2),new Camion(2,"Yamaha","Camion",1,1,1)));
+		check.addAll(aLibere);
+		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertEquals(aLibere.size(),2);
+		assertTrue(aLibere.containsAll(check));
+		assertTrue(aLibere.contains(new Associazione(new Richiesta(rc1,null,1),c1)));
+		
+		//Caso nessuna associazione da prenotazioni
+		aPrenotate.clear();
+		aLibere.clear();
+		aLibere.addAll(check);
+		sortedRichieste.add(new Richiesta(rc1,null,1));
+		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertEquals(aLibere.size(),1);
+		assertEquals(aLibere,check);
+		assertTrue(sortedRichieste.isEmpty());
+		
+		//Caso con associazioni compatibili ma non inferiori alla richiesta scoperta
+		aPrenotate.clear();
+		aLibere.clear();
+		check.clear();
+		sortedRichieste.clear();
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		Lavoro l2=new Lavoro(2,"l2",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,15));
+		c.aggiungiLavoro(l1);
+		c.aggiungiLavoro(l2);
+		l1.caricaRichiesta(rc1, 1, null);
+		l2.caricaRichiesta(rc1, 2, null);
+		Richiesta r1=l1.getRichiesta(1);
+		Richiesta r2=l2.getRichiesta(2);
+		aPrenotate.add(new Associazione(r2,c1));
+		sortedRichieste.add(r1);
+		assertEquals(check,aLibere);
+		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aLibere.contains(new Associazione(r2,c1)));
+		assertEquals(aLibere.size(),1);
+		assertTrue(aPrenotate.isEmpty());
+		
+		
+		//Caso con più associazioni compatibili inferiori, scelgo quella con priorità minore tra tutte
+		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,17));
+		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		c.aggiungiLavoro(l3);
+		c.aggiungiLavoro(l4);
+		l3.caricaRichiesta(rc1, 3, null);
+		l4.caricaRichiesta(rc1, 4, null);
+		Richiesta r3=l3.getRichiesta(3);
+		Richiesta r4=l4.getRichiesta(4);
+		Camion c2=new Camion(2,"Yamaha","Camion",1,1,1);
+		Camion c3=new Camion(3,"Yamaha","Camion",1,1,1);
+		aPrenotate.clear();
+		aLibere.clear();
+		check.clear();
+		sortedRichieste.clear();
+		aPrenotate.add(new Associazione(r3,c2));
+		aPrenotate.add(new Associazione(r1,c1));
+		aPrenotate.add(new Associazione(r4,c3));
+		assertEquals(aPrenotate.get(0),new Associazione(r3,c2));
+		assertEquals(aPrenotate.get(1),new Associazione(r1,c1));
+		assertEquals(aPrenotate.get(2),new Associazione(r4,c3));
+		sortedRichieste.add(r2);
+		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		assertTrue(aLibere.contains(new Associazione(r3,c2)));
+		assertTrue(aLibere.contains(new Associazione(r1,c1)));
+		assertTrue(aLibere.contains(new Associazione(r2,c3)));
+		assertEquals(aLibere.size(),3);
 	}
 	
 	@Test
 	public void testSelezionaMacchineLibere(){
-		//TODO
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView(ControllerConnector.getControllerConnector(m));
