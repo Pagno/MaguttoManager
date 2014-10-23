@@ -47,6 +47,11 @@ public class GreedyEngine {
 		 * quindi vengono spostate nell'altra lista di associazioni, costruendo così l'output dell'algoritmo.
 		 */
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, associazioniDaPrenotazioni, associazioni);
+		//RIMUOVI
+		for(Associazione a:associazioni){
+			System.out.println(a.getRichiesta().getCodice() + " " + a.getMacchina().getCodice());
+		}
+		//END RIMUOVI
 		return associazioni;
 	}
 	
@@ -121,6 +126,9 @@ public class GreedyEngine {
 			//Provvedo quindi a spostarle in associazioni
 			associazioni.addAll(associazioniDaPrenotazioni);
 			associazioniDaPrenotazioni.clear();
+		}
+		for(Associazione a:associazioni){
+			a.setConfermata(true);
 		}
 	}
 	

@@ -55,7 +55,7 @@ public class GreedyEngineTest {
 		
 		m.aggiungiRichiesta(1, 1, new RichiestaCamion(6,8,6,8,6,8));//Richiesta 3
 		
-		//Due richieste si contendono una macchina, solo la piï¿½ prioritaria la prende
+		//Due richieste si contendono una macchina, solo la più prioritaria la prende
 		
 		m.aggiungiCantiere("Pedemontana","Monza",new GregorianCalendar(2014,4,3),new GregorianCalendar(2016,10,19),Priorita.MEDIA);//Cantiere 2
 		m.aggiungiLavoro("Scavo", new GregorianCalendar(2014,2,3),new GregorianCalendar(2014,7,7), 2);//Lavoro 2
@@ -64,16 +64,17 @@ public class GreedyEngineTest {
 		m.aggiungiRuspa("Yamaha", "Ruspa", 15, 15, 15);//Macchina 2
 		
 		//Richieste di diversi cantieri con lavoro in stesso periodo e richiesta su stessa macchina, 
-		//solo quello che ha prenotazione su macchina la prende, lï¿½altra no
+		//solo quello che ha prenotazione su macchina la prende, l'altra no
 		
 		m.aggiungiRichiesta(2,2,new RichiestaGru(8,18,8,18,8,18,8,18));//Richiesta 6
 		m.aggiungiRichiesta(1,1,new RichiestaGru(7,17,7,17,7,17,7,17));//Richiesta 7
 		m.aggiungiLavoro("Svuotamento", new GregorianCalendar(2014,03,24), new GregorianCalendar(2014,05,24), 1);//Lavoro 3
 		m.aggiungiRichiesta(1,3,new RichiestaGru(9,19,9,19,9,19,9,19));//Richiesta 8
 		m.aggiungiGru("Yamaha", "Gru", 10, 10, 10, 10);//Macchina 3
+		m.aggiungiGru("Yamaha", "Gru", 10, 10, 10, 10);//Macchina 4
 		m.soddisfaRichiesta(8, 3);
 		
-		//Tre richieste (prioritï¿½ alta,media,bassa) soddisfatte da tre macchine, la prima non ha prenotazioni, 
+		//Tre richieste (priorità alta,media,bassa) soddisfatte da tre macchine, la prima non ha prenotazioni, 
 		//la seconda prenota la seconda macchina e la terza prenota la prima e la terza, 
 		//verificare che la prima richiesta prende la terza macchina, la seconda prende la seconda macchina 
 		//e la terza prende la prima macchina
@@ -90,12 +91,12 @@ public class GreedyEngineTest {
 		m.aggiungiRichiesta(2,7,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 12 Media
 		m.aggiungiRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 13 Bassa
 		m.aggiungiRichiesta(1,8,new RichiestaCamion(30,40,30,40,30,40));//Richiesta 14 Bassa
-		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 4
 		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 5
 		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 6
-		m.soddisfaRichiesta(12, 5);
-		m.soddisfaRichiesta(13, 4);
-		m.soddisfaRichiesta(14, 6);
+		m.aggiungiCamion("Yamaha", "Camion Grande", 35, 35, 35);//Macchina 7
+		m.soddisfaRichiesta(12, 6);
+		m.soddisfaRichiesta(13, 5);
+		m.soddisfaRichiesta(14, 7);
 		
 		//Camion, escavatore, gru, ruspa
 		
@@ -103,9 +104,9 @@ public class GreedyEngineTest {
 		m.aggiungiRichiesta(1,1,new RichiestaGru(1,2,1,2,1,2,1,2));//Richiesta 16
 		m.aggiungiRichiesta(1,1,new RichiestaRuspa(1,2,1,2,1,2));//Richiesta 17
 		m.aggiungiRichiesta(1,1,new RichiestaEscavatore(1,2,1,2,1,2,1,2));//Richiesta 18
-		m.aggiungiCamion("Yamaha", "Camioncino", 2, 2, 2);//Macchina 7
-		m.aggiungiGru("Yamaha", "Gru piccola", 2, 2, 2, 2);//Macchina 8
-		m.aggiungiRuspa("Yamaha", "Ruspetta", 2, 2, 2);//Macchina 9
+		m.aggiungiCamion("Yamaha", "Camioncino", 2, 2, 2);//Macchina 8
+		m.aggiungiGru("Yamaha", "Gru piccola", 2, 2, 2, 2);//Macchina 9
+		m.aggiungiRuspa("Yamaha", "Ruspetta", 2, 2, 2);//Macchina 10
 		m.aggiungiEscavatore("Yamaha", "Escavatore piccolo", 2, 2, 2, 2);//Macchina 10
 		
 		//Esecuzione metodo
@@ -116,13 +117,14 @@ public class GreedyEngineTest {
 		
 		Associazione asso1=new Associazione(m.getRichiesta(4),m.getMacchina(2));
 		Associazione asso2=new Associazione(m.getRichiesta(7),m.getMacchina(3));
-		Associazione asso3=new Associazione(m.getRichiesta(11),m.getMacchina(6));
-		Associazione asso4=new Associazione(m.getRichiesta(10),m.getMacchina(5));
-		Associazione asso5=new Associazione(m.getRichiesta(9),m.getMacchina(4));
-		Associazione asso6=new Associazione(m.getRichiesta(15),m.getMacchina(7));
-		Associazione asso7=new Associazione(m.getRichiesta(16),m.getMacchina(8));
-		Associazione asso8=new Associazione(m.getRichiesta(17),m.getMacchina(9));
-		Associazione asso9=new Associazione(m.getRichiesta(18),m.getMacchina(10));
+		Associazione asso3=new Associazione(m.getRichiesta(11),m.getMacchina(7));
+		Associazione asso4=new Associazione(m.getRichiesta(10),m.getMacchina(6));
+		Associazione asso5=new Associazione(m.getRichiesta(9),m.getMacchina(5));
+		Associazione asso6=new Associazione(m.getRichiesta(15),m.getMacchina(8));
+		Associazione asso7=new Associazione(m.getRichiesta(16),m.getMacchina(9));
+		Associazione asso8=new Associazione(m.getRichiesta(17),m.getMacchina(10));
+		Associazione asso9=new Associazione(m.getRichiesta(18),m.getMacchina(11));
+		Associazione asso10=new Associazione(m.getRichiesta(6),m.getMacchina(4));
 		asso1.setConfermata(true);
 		asso2.setConfermata(true);
 		asso3.setConfermata(true);
@@ -132,10 +134,11 @@ public class GreedyEngineTest {
 		asso7.setConfermata(true);
 		asso8.setConfermata(true);
 		asso9.setConfermata(true);
+		asso10.setConfermata(true);
 		
 		//Controllo
 
-		assertEquals(test.size(),9);
+		assertEquals(test.size(),10);
 		assertTrue(test.contains(asso1));
 		assertTrue(test.contains(asso2));
 		assertTrue(test.contains(asso3));
@@ -145,6 +148,7 @@ public class GreedyEngineTest {
 		assertTrue(test.contains(asso7));
 		assertTrue(test.contains(asso8));
 		assertTrue(test.contains(asso9));
+		assertTrue(test.contains(asso10));
 		
 		//provo a concretizzare alcune delle selezioni, e rilancio l'algoritmo
 		for(Associazione a:test){
@@ -155,7 +159,7 @@ public class GreedyEngineTest {
 		
 		test=GreedyEngine.generaAssociazioni(m);
 		
-		assertEquals(test.size(),4);
+		assertEquals(test.size(),5);
 		assertTrue(test.contains(asso1));
 		assertFalse(test.contains(asso2));
 		assertFalse(test.contains(asso3));
@@ -165,11 +169,11 @@ public class GreedyEngineTest {
 		assertTrue(test.contains(asso7));
 		assertFalse(test.contains(asso8));
 		assertTrue(test.contains(asso9));
+		assertTrue(test.contains(asso10));
 	}
 
 	@Test
 	public void testRubaMacchineAdAssociazioni(){
-		//TODO
 		ArrayList<Associazione> aLibere=new ArrayList<Associazione>();
 		ArrayList<Associazione> aPrenotate=new ArrayList<Associazione>();
 		ArrayList<Associazione> check=new ArrayList<Associazione>();
@@ -185,7 +189,9 @@ public class GreedyEngineTest {
 		assertTrue(sortedRichieste.isEmpty());
 		assertEquals(aLibere.size(),2);
 		assertTrue(aLibere.containsAll(check));
-		assertTrue(aLibere.contains(new Associazione(new Richiesta(rc1,null,1),c1)));
+		Associazione temp1=new Associazione(new Richiesta(rc1,null,1),c1);
+		temp1.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
 		assertTrue(aPrenotate.isEmpty());
 		
 		
@@ -196,6 +202,9 @@ public class GreedyEngineTest {
 		sortedRichieste.add(new Richiesta(rc1,null,1));
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
 		assertEquals(aLibere.size(),1);
+		for(Associazione a:check){
+			a.setConfermata(true);
+		}
 		assertEquals(aLibere,check);
 		assertTrue(sortedRichieste.isEmpty());
 		assertTrue(aPrenotate.isEmpty());
@@ -219,7 +228,9 @@ public class GreedyEngineTest {
 		assertEquals(check,aLibere);
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
 		assertTrue(sortedRichieste.isEmpty());
-		assertTrue(aLibere.contains(new Associazione(r2,c1)));
+		temp1=new Associazione(r2,c1);
+		temp1.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
 		assertEquals(aLibere.size(),1);
 		assertTrue(aPrenotate.isEmpty());
 		
@@ -250,9 +261,15 @@ public class GreedyEngineTest {
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
 		assertTrue(sortedRichieste.isEmpty());
 		assertTrue(aPrenotate.isEmpty());
-		assertTrue(aLibere.contains(new Associazione(r3,c2)));
-		assertTrue(aLibere.contains(new Associazione(r1,c1)));
-		assertTrue(aLibere.contains(new Associazione(r2,c3)));
+		temp1=new Associazione(r3,c2);
+		Associazione temp2=new Associazione(r1,c1);
+		Associazione temp3=new Associazione(r2,c3);
+		temp1.setConfermata(true);
+		temp2.setConfermata(true);
+		temp3.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aLibere.contains(temp2));
+		assertTrue(aLibere.contains(temp3));
 		assertEquals(aLibere.size(),3);
 		
 		//Caso richiesta con priorità alta ma nessuna associazione a cui rubare
@@ -269,9 +286,15 @@ public class GreedyEngineTest {
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
 		assertTrue(sortedRichieste.isEmpty());
 		assertTrue(aPrenotate.isEmpty());
-		assertTrue(aLibere.contains(new Associazione(r3,c2)));
-		assertTrue(aLibere.contains(new Associazione(r1,c1)));
-		assertTrue(aLibere.contains(new Associazione(r4,c3)));
+		temp1=new Associazione(r3,c2);
+		temp2=new Associazione(r1,c1);
+		temp3=new Associazione(r4,c3);
+		temp1.setConfermata(true);
+		temp2.setConfermata(true);
+		temp3.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aLibere.contains(temp2));
+		assertTrue(aLibere.contains(temp3));
 		assertEquals(aLibere.size(),3);
 		
 		//Caso richiesta a cui rubo la macchina, che a sua volta può rubare la macchina a un altro
@@ -296,8 +319,12 @@ public class GreedyEngineTest {
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
 		assertTrue(sortedRichieste.isEmpty());
 		assertTrue(aPrenotate.isEmpty());
-		assertTrue(aLibere.contains(new Associazione(r6,e1)));
-		assertTrue(aLibere.contains(new Associazione(r7,e2)));
+		temp1=new Associazione(r6,e1);
+		temp2=new Associazione(r7,e2);
+		temp1.setConfermata(true);
+		temp2.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aLibere.contains(temp2));
 		assertEquals(aLibere.size(),2);
 	}
 	
