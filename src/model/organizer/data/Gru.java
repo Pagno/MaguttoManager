@@ -103,19 +103,36 @@ public class Gru extends Macchina{
 	public String toString(){
 		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getLunghezza() + " " + this.getPortataMassima() + " " + this.getAltezza() + " " + this.getAngoloRotazione();
 	}
-	
-	/* (non-Javadoc)
-	 * @see model.Macchina#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj){
-		if(!(super.equals(obj))){
-			return false;
-		}
-		Gru g=(Gru)obj;
-		if((this.angoloRotazione==g.getAngoloRotazione()) &&(this.portataMax==g.getPortataMassima())&&(this.lunghezza==g.getLunghezza())&&(this.altezza==g.getAltezza())){
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + altezza;
+		result = prime * result + angoloRotazione;
+		result = prime * result + lunghezza;
+		result = prime * result + portataMax;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		else return false;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Gru other = (Gru) obj;
+		if (altezza != other.altezza)
+			return false;
+		if (angoloRotazione != other.angoloRotazione)
+			return false;
+		if (lunghezza != other.lunghezza)
+			return false;
+		if (portataMax != other.portataMax)
+			return false;
+		return true;
 	}
 	
 }

@@ -85,19 +85,34 @@ public class Ruspa extends Macchina{
 	public String toString(){
 		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getAltezzaMassima();
 	}
-	
-	/* (non-Javadoc)
-	 * @see model.Macchina#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj){
-		if(!(super.equals(obj))){
-			return false;
-		}
-		Ruspa r=(Ruspa)obj;
-		if((this.portataMax==r.getPortataMassima())&&(this.capacitaMax==r.getCapacitaMassima())&&(this.altezzaMax==r.getAltezzaMassima())){
-			return true;
-		}
-		else return false;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + altezzaMax;
+		result = prime * result + capacitaMax;
+		result = prime * result + portataMax;
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ruspa other = (Ruspa) obj;
+		if (altezzaMax != other.altezzaMax)
+			return false;
+		if (capacitaMax != other.capacitaMax)
+			return false;
+		if (portataMax != other.portataMax)
+			return false;
+		return true;
+	}
+	
 	
 }

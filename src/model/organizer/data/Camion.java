@@ -85,19 +85,35 @@ public class Camion extends Macchina {
 	public String toString(){
 		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getLunghezza();
 	}
-	
-	/* (non-Javadoc)
-	 * @see model.Macchina#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj){
-		if(!(super.equals(obj))){
-			return false;
-		}
-		Camion c=(Camion)obj;
-		if((this.capacitaMax==c.getCapacitaMassima()) &&(this.portataMax==c.getPortataMassima())&&(this.lunghezza==c.getLunghezza())){
-			return true;
-		}
-		else return false;
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + capacitaMax;
+		result = prime * result + lunghezza;
+		result = prime * result + portataMax;
+		return result;
 	}
 
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Camion other = (Camion) obj;
+		if (capacitaMax != other.capacitaMax)
+			return false;
+		if (lunghezza != other.lunghezza)
+			return false;
+		if (portataMax != other.portataMax)
+			return false;
+		return true;
+	}
+	
 }

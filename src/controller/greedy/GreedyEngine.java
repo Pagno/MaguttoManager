@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Set;
 
 import model.ModelInterface;
 import model.organizer.data.Macchina;
@@ -148,6 +150,58 @@ public class GreedyEngine {
 		return associazioniDaPrenotazioni;
 	}
 	
+	static Associazione selezionaPrenotazionePiuPromettente(ArrayList<Associazione>alreadySelected, Richiesta ric){
+		//Se la richiesta ï¿½ soddisfatta, non seleziono alcuna prenotazione
+		if(ric.isSoddisfatta()){
+			return null;
+		}
+		else{
+
+			
+			for(Associazione asso:alreadySelected){
+				//Se la richiesta ï¿½ giï¿½ stata associata, non seleziono alcuna prenotazione
+				if(asso.getRichiesta().equals(ric)){
+					return null;
+				}
+			}
+			
+
+			HashMap<Macchina,Prenotazione>prenotazioniHashMap=generaPrenotazioni(ric);
+			
+			
+			for(Associazione asso:alreadySelected){
+					//Se l'associazione è sovrapposta alla richiesta, può eliminare delle associazioni
+					if(!((ric.getDataFine().before(asso.getDataInizio()))||(ric.getDataInizio().after(asso.getDataFine())))){
+						//Se la macchina associata è presente, la prenotazione relativa viene annullata
+						if(prenotazioniHashMap.containsKey(asso.getMacchina())){
+							prenotazioniHashMap.remove(asso.getMacchina());
+						}
+					}
+				
+			}
+			
+			Boolean selezionata=false;
+			Prenotazione temp=new Prenotazione(null,-1);
+			Set<Macchina>keys=prenotazioniHashMap.keySet();
+
+			for(Macchina m:keys){
+				Prenotazione pre=prenotazioniHashMap.get(m);
+				if(!selezionata||pre.getDurataLavoro()<temp.getDurataLavoro()){
+					temp=pre;
+					selezionata=true;
+				}
+			}
+
+			if(!selezionata){
+				return null;
+			}
+			else{
+				return temp.getAssociazione();
+			}
+		}
+
+	}
+	
 	static ArrayList<Associazione>selezionaMacchineLibere(ModelInterface model, ArrayList<Richiesta>sortedRichieste,ArrayList<Associazione> associazioniDaPrenotazioni ){
 		ArrayList<Associazione> associazioniDaLibere=new ArrayList<Associazione>();
 		boolean isCleaned=true;
@@ -179,156 +233,86 @@ public class GreedyEngine {
 		return associazioniDaLibere;
 	}
 	
-
-	
 	static <T extends Macchina> Associazione selezionaMacchinaSenzaPrenotazioni(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioniDaLibere,ArrayList<Associazione>associazioniDaPrenotazioni){
-
 		ArrayList<Associazione>alreadySelected=new ArrayList<Associazione>();
 		alreadySelected.addAll(associazioniDaPrenotazioni);
 		alreadySelected.addAll(associazioniDaLibere);
 		
-		/*Se non ci sono macchine disponibili (non controllo le giï¿½ associate) o la richiesta ï¿½ giï¿½ soddisfatta
-		  non seleziono nulla */
+		HashMap<T,T>macchineAssociateHashMap=new HashMap<T,T>();
+		
+		//Se non ci sono macchine disponibili (non controllo le giï¿½ associate) o la richiesta ï¿½ giï¿½ soddisfatta
+		//non seleziono nulla 
 		if(ric.isSoddisfatta()||disp.size()==0){ 
 			return null;                         
 		}
 		else{
-			//In tal caso ï¿½ possibile che ci siano macchine disponibili, ma giï¿½ associate.
-			ArrayList<T>nonAssociate=new ArrayList<T>();
-			nonAssociate.addAll(disp); //Per ora inserisco tutte le macchine disponibili nella lista
-			boolean isAssociata=false;
 			
+
+			//Riempio l'hashmap delle macchine già associate in conflitto con la richiesta
 			for(Associazione a:alreadySelected){
+				//Se la richiesta è già associata restituisce null
 				if(a.getRichiesta().equals(ric)){
-					isAssociata=true; //Approfittiamo del ciclo per controllare se la richiesta ï¿½ giï¿½ stata associata.
-					break;            //Se la richiesta ï¿½ giï¿½ associata, possiamo terminare il ciclo.
+					return null;
 				}
-				boolean isCleaned=true;
-				for(int j=0;j<nonAssociate.size();j++){ //Cerchiamo le macchine nella lista che sono giï¿½ state associate
-					T mac=nonAssociate.get(j);
-					//controllo che la macchina non sia giï¿½ associata e quindi occupata temporaneamente
-					//Le macchine erano giï¿½ libere, il controllo viene effettuato in reserveMacchineFromLavoro
-					if(mac!=null){
-						if(mac.equals(a.getMacchina())){
-							if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-								//se la macchina ï¿½ la stessa e gli intervalli si sovrappongono, la macchina ï¿½ giï¿½ associata
-								nonAssociate.set(j, null); //Quindi la rimuovo dalla lista delle non associate
-								isCleaned=false;
-							}
-						}
+				if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
+					//in tal caso l'associazione e la richiesta si riferiscono allo stesso periodo, 
+					//quindi sono potenzialmente in conflitto
+					if(ric.rispettaRichiesta(a.getMacchina())){
+						//In tal caso la macchina potrebbe essere tra le disponibili, quindi la devo considerare
+							macchineAssociateHashMap.put((T)a.getMacchina(), (T)a.getMacchina());
 					}
 				}
-				while(!isCleaned){ //La prima volta lo effettua solo se ho trovato macchine giï¿½ associate
-					isCleaned=!(nonAssociate.remove(null)); //Le macchine giï¿½ associate sono state poste a null, quindi rimuovo tali occorrenze dalla lista
-				}
 			}
-			if(isAssociata){
-				return null; //Se la richiesta ï¿½ giï¿½ stata associata, non si genera una nuova associazione.
+						
+			//Se la macchina non è contenuta nell'hashmap, allora è libera e posso selezionarla
+			for(T mac:disp) {
+				if(!macchineAssociateHashMap.containsValue(mac)){
+			    	Associazione a=new Associazione(ric,mac);
+			    	return a;
+			     }
 			}
-			else{
-				if(nonAssociate.size()==0){
-					//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
-					//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
-					return null;
-				}
-				else{
-					//Se arrivo qui, c'ï¿½ almeno una macchina libera o ancora non associata che soddisfa la richiesta
-					//Quindi ï¿½ possibile sicuramente soddisfare la richiesta con almeno una macchina
-					Associazione genAsso=new Associazione(ric,nonAssociate.get(0));
-					return genAsso;
-				}
-			}
-		}
-	}
-	
-	static Associazione selezionaPrenotazionePiuPromettente(ArrayList<Associazione>alreadySelected, Richiesta ric){
-		//Se la richiesta ï¿½ soddisfatta, non seleziono alcuna prenotazione
-		if(ric.isSoddisfatta()){
 			return null;
 		}
-		else{
-
-			//Se la richiesta ï¿½ giï¿½ stata associata, non seleziono alcuna prenotazione
-			boolean isAssociato=false;
-			for(Associazione asso:alreadySelected){
-				if(asso.getRichiesta().equals(ric)){
-					isAssociato=true;
-					break;
-				}
-			}
-			if(isAssociato){
-				return null;
-			}
-			else{
-				Prenotazione temp=new Prenotazione(null,-1);
-				ArrayList<Prenotazione>list=generaPrenotazioni(ric);
-				for(Prenotazione coppia:list){
-						if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
-							boolean valid=true;
-							for(Associazione a:alreadySelected){ //Scorre le associazioni generate in precedenza
-								//controllo che la prenotazione non coinvolga una macchina giï¿½ associata e quindi occupata temporaneamente
-								//Le macchine erano giï¿½ libere, il controllo viene effettuato in reserveMacchineFromLavoro
-								if(coppia.getMacchina().equals(a.getMacchina())){
-									if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-										//se la macchina ï¿½ la stessa e le tempistiche si sovrappongono, la macchina ï¿½ giï¿½ occupata
-										valid=false;
-										break;
-									}
-								}
-							}
-							if(valid){
-								temp=coppia;
-							}
-						}
-				}
-				
-				if(temp.getDurataLavoro()==-1){
-					return null;
-				}
-				else{
-					return temp.getAssociazione();
-				}
-			}
-		}
 	}
-	
 	
 	//FUNZIONI DI VERIFICA DEL CRITERIO DI PRENOTAZIONE
 	
-	static ArrayList<Prenotazione> generaPrenotazioni(Richiesta ric){
-		ArrayList<Prenotazione>prenotazioni=new ArrayList<Prenotazione>();
+	static HashMap<Macchina,Prenotazione> generaPrenotazioni(Richiesta ric){
+		HashMap<Macchina,Prenotazione>prenotazioni=new HashMap<Macchina,Prenotazione>();
 			for(Lavoro lav:ric.getLavoriConnessi()){
 				if(lavoroFinisceMenoDiUnaSettimanaPrima(lav,ric.getLavoro())||lavoroIniziaMenoDiUnaSettimanaDopo(lav,ric.getLavoro())){
-					prenotaMacchineDaLavoro(ric, lav, prenotazioni);
+					prenotazioni.putAll(prenotaMacchineDaLavoro(ric, lav));
 				}
 			}
 		return prenotazioni;
 	}
 	
-	static void prenotaMacchineDaLavoro(Richiesta ric, Lavoro lav,ArrayList<Prenotazione>prenotazioni){
-		if(lav!=null){
+	static HashMap<Macchina,Prenotazione> prenotaMacchineDaLavoro(Richiesta ric, Lavoro lav){
+		if(lav==null){
+			return null;
+		}
+		else{
+			HashMap<Macchina,Prenotazione>prenotazioni=new HashMap<Macchina,Prenotazione>();
 			int d=lav.getDurata();
 			for(Richiesta item:lav.getListaRichieste()){
 				if(item.isSoddisfatta()){
-					if(ric.rispettaRichiesta(item.getMacchina())){
-						if(item.getMacchina().isLibera(ric.getDataInizio(), ric.getDataFine())){
-							boolean isPresente=false;
-							for(int i=0; i<prenotazioni.size();i++){
-								if(prenotazioni.get(i).getMacchina().equals(item.getMacchina())){
-									isPresente=true;
-									if(d<prenotazioni.get(i).getDurataLavoro()){
-										prenotazioni.get(i).setDurataLavoro(d);
-									}
-									break;
+					Macchina mac=item.getMacchina();
+					if(ric.rispettaRichiesta(mac)){
+						if(mac.isLibera(ric.getDataInizio(), ric.getDataFine())){
+							if(prenotazioni.containsKey(mac)){
+								Prenotazione p=prenotazioni.get(mac);
+								if(d<p.getDurataLavoro()){
+									p.setDurataLavoro(d);
 								}
 							}
-							if(!isPresente){
-								prenotazioni.add(new Prenotazione(new Associazione(ric,item.getMacchina()),d));
+							else{
+								prenotazioni.put(mac, new Prenotazione(new Associazione(ric,item.getMacchina()),d));
 							}
 						}
 					}
 				}
 			}
+			return prenotazioni;
 		}
 	}
 	

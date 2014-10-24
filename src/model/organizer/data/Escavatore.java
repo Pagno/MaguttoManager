@@ -105,18 +105,38 @@ public class Escavatore extends Macchina{
 	public String toString(){
 		return this.getCodice() + " " + this.getProduttore() + " " + this.getModello() + " " + this.getCapacitaMassima() + " " + this.getPortataMassima() + " " + this.getAltezzaMassima() + " " + this.getProfonditaMassima();
 	}
-	
-	/* (non-Javadoc)
-	 * @see model.Macchina#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj){
-		if(!(super.equals(obj))){
-			return false;
-		}
-		Escavatore e=(Escavatore)obj;
-		if((this.profonditaMax==e.getProfonditaMassima()) &&(this.portataMax==e.getPortataMassima())&&(this.capacitaMax==e.getCapacitaMassima())&&(this.altezzaMax==e.getAltezzaMassima())){
-			return true;
-		}
-		else return false;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + altezzaMax;
+		result = prime * result + capacitaMax;
+		result = prime * result + portataMax;
+		result = prime * result + profonditaMax;
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Escavatore other = (Escavatore) obj;
+		if (altezzaMax != other.altezzaMax)
+			return false;
+		if (capacitaMax != other.capacitaMax)
+			return false;
+		if (portataMax != other.portataMax)
+			return false;
+		if (profonditaMax != other.profonditaMax)
+			return false;
+		return true;
+	}
+	
+	
+	
 }

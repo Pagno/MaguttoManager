@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import model.ModelConnector;
 import model.organizer.ModelCamion;
@@ -14,6 +15,7 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Lavoro;
+import model.organizer.data.Macchina;
 import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
@@ -755,7 +757,7 @@ public class GreedyEngineTest {
 	@Test
 	public void testSelezionaPrenotazionePiuPromettente() {
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
-		ArrayList<Prenotazione>p;
+		HashMap<Macchina,Prenotazione>p;
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		c.aggiungiLavoro(l);
@@ -898,7 +900,7 @@ public class GreedyEngineTest {
 		sortedRichieste.add(r9);
 		sortedRichieste.add(b2);
 		*/
-		ArrayList<Prenotazione>prenotazioni;
+		HashMap<Macchina,Prenotazione>prenotazioni;
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r1);
 		assertTrue(prenotazioni.isEmpty());
@@ -966,7 +968,7 @@ public class GreedyEngineTest {
 	
 	@Test
 	public void testPrenotaMacchineDaLavoro() {
-		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
+		HashMap<Macchina,Prenotazione>p=new HashMap<Macchina,Prenotazione>();
 		assertTrue(p.isEmpty());
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
@@ -981,26 +983,26 @@ public class GreedyEngineTest {
 		l1.caricaRichiesta(rc, 10, null);
 		Richiesta r=l1.getRichiesta(10);
 		//Caso null
-		GreedyEngine.prenotaMacchineDaLavoro(r,null,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,null);
 		assertTrue(p.isEmpty());
 		//Caso lavoro senza alcuna richiesta
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste non soddisfatte
 		l2.caricaRichiesta(rc, 11, null);
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che però non possono soddisfare ric
 		l2.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 12, new Ruspa(30,"Yamaha","Ruspa",15,15,15));
 		l2.caricaRichiesta(new RichiestaCamion(5,10,5,10,5,10), 13, new Camion(40,"Yamaha","Camioncino",7,7,7));
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric ma non sono libere per ric
 		Camion cam=new Camion(40,"Yamaha","Camion",15,15,15);
 		l3.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 14, cam);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 15, cam);
 		assertFalse(cam.isLibera(l1.getDataInizio(), l1.getDataFine()));
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric e che sono libere per ric
 		Camion c1=new Camion(41,"Yamaha","Camion",15,15,15);
@@ -1008,7 +1010,7 @@ public class GreedyEngineTest {
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 16, c1);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 17, c2);
 		l4.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 18, c2);
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertFalse(p.isEmpty());
 		//assertEquals(p.size(),2);
 		assertEquals(p.get(0).getRichiesta(),r);
