@@ -35,16 +35,16 @@ public class GreedyEngine {
 		//Fase 2: Seleziono le macchine rimaste libere
 		associazioni=GreedyEngine.selezionaMacchineLibere(model, sortedRichieste, associazioniDaPrenotazioni);
 		
-		/*Fase 3: Le macchine sono state associate alle richieste prima per prenotazione e poi per disponibilità.
-		 * Può però accadere che alcune richieste ad alta priorità siano rimaste scoperte perché richieste a basso livello 
-		 * avevano prenotato una macchina disponibile, ottenendo così l'associazione ed impedendo alla richiesta ad alto livello 
+		/*Fase 3: Le macchine sono state associate alle richieste prima per prenotazione e poi per disponibilitï¿½.
+		 * Puï¿½ perï¿½ accadere che alcune richieste ad alta prioritï¿½ siano rimaste scoperte perchï¿½ richieste a basso livello 
+		 * avevano prenotato una macchina disponibile, ottenendo cosï¿½ l'associazione ed impedendo alla richiesta ad alto livello 
 		 * di ottenerla.
-		 * Ora si procede quindi ad analizzare le richieste scoperte per priorità: nel caso in cui venga trovata una macchina 
-		 * adatta a soddisfare la richiesta ad alta priorità ma associata ad una richiesta a bassa priorità, essa viene rubata
+		 * Ora si procede quindi ad analizzare le richieste scoperte per prioritï¿½: nel caso in cui venga trovata una macchina 
+		 * adatta a soddisfare la richiesta ad alta prioritï¿½ ma associata ad una richiesta a bassa prioritï¿½, essa viene rubata
 		 * dalla richiesta ad alto livello.
-		 * Si effettua poi un controllo delle associazioni da prenotazione: se si sta analizzando una richiesta di una certa priorità,
-		 * poiché esse vengono analizzate per priorità decrescenti tutte le associazioni con priorità superiori possono essere confermate,
-		 * quindi vengono spostate nell'altra lista di associazioni, costruendo così l'output dell'algoritmo.
+		 * Si effettua poi un controllo delle associazioni da prenotazione: se si sta analizzando una richiesta di una certa prioritï¿½,
+		 * poichï¿½ esse vengono analizzate per prioritï¿½ decrescenti tutte le associazioni con prioritï¿½ superiori possono essere confermate,
+		 * quindi vengono spostate nell'altra lista di associazioni, costruendo cosï¿½ l'output dell'algoritmo.
 		 */
 		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, associazioniDaPrenotazioni, associazioni);
 		return associazioni;
@@ -61,42 +61,42 @@ public class GreedyEngine {
 			isCleaned=true;
 			boolean isRubata=false;
 			boolean isInferiore=false;
-			Richiesta ric=sortedRichieste.get(0);//Prendo la richiesta scoperta con più alta priorità
-			sortedRichieste.remove(0); //E la elimino dalla coda, non servirà più analizzarla
-			//Le associazioni sono in ordine di priorità di richiesta decrescente, quindi scorro la lista al contrario
+			Richiesta ric=sortedRichieste.get(0);//Prendo la richiesta scoperta con piï¿½ alta prioritï¿½
+			sortedRichieste.remove(0); //E la elimino dalla coda, non servirï¿½ piï¿½ analizzarla
+			//Le associazioni sono in ordine di prioritï¿½ di richiesta decrescente, quindi scorro la lista al contrario
 			for(int j=associazioniDaPrenotazioni.size()-1; j>=0;j--){ 
 				Associazione asso=associazioniDaPrenotazioni.get(j);
 				if(!isInferiore){
-					if(comp.compare(ric, asso.getRichiesta())<0){ //Se ric ha priorità più alta, restituisce -1
+					if(comp.compare(ric, asso.getRichiesta())<0){ //Se ric ha prioritï¿½ piï¿½ alta, restituisce -1
 						if(!isRubata){ //Se non ho ancora rubato la macchina devo controllare se rispetta la richiesta
 							if(ric.rispettaRichiesta(asso.getMacchina())){ 
-								//in tal caso ric ha priorità più alta, e la macchina rispetta la richiesta. 
+								//in tal caso ric ha prioritï¿½ piï¿½ alta, e la macchina rispetta la richiesta. 
 								//Quindi rubo la macchina.
 								Associazione rubata=new Associazione(ric,asso.getMacchina());
-								//Visto che le richieste scoperte di priorità superiore sono già state analizzate, 
+								//Visto che le richieste scoperte di prioritï¿½ superiore sono giï¿½ state analizzate, 
 								//posso confermare questa associazione inserendola nelle associazioni definitive.
 								associazioni.add(rubata);
-								//Visto che ho già rubato la macchina, non devo più fare controlli sulle macchine
+								//Visto che ho giï¿½ rubato la macchina, non devo piï¿½ fare controlli sulle macchine
 								isRubata=true;
 								//Reinserisco la richiesta a cui ho rubato la macchina nelle richieste scoperte, 
 								//potrebbe a sua volta rubarne un'altra in seguito
 								boolean reinserito=false;
 								//RIMUOVERE
-								System.out.println("Check " + sortedRichieste);
+								//System.out.println("Check " + sortedRichieste);
 								//END RIMUOVERE
 								for(int i=0; i<sortedRichieste.size();i++){ //Inserisco la richiesta scoperta nell'array alla giusta posizione
-									if(comp.compare(asso.getRichiesta(), sortedRichieste.get(i))<0){ //Appena trovo una richiesta con priorità minore
+									if(comp.compare(asso.getRichiesta(), sortedRichieste.get(i))<0){ //Appena trovo una richiesta con prioritï¿½ minore
 										sortedRichieste.add(i, asso.getRichiesta());
 										reinserito=true;
 										break;
 									}
 								}
-								if(!reinserito){ //In tal caso è la richiesta scoperta di più bassa priorità, la inserisco in fondo
+								if(!reinserito){ //In tal caso ï¿½ la richiesta scoperta di piï¿½ bassa prioritï¿½, la inserisco in fondo
 									sortedRichieste.add(asso.getRichiesta());
 								}
-								//Elimino la vecchia associazione, che non esiste più
+								//Elimino la vecchia associazione, che non esiste piï¿½
 								associazioniDaPrenotazioni.set(j, null);
-								//L'array contiene quindi elementi inutili, segnalo la necessità di fare pulizia
+								//L'array contiene quindi elementi inutili, segnalo la necessitï¿½ di fare pulizia
 								isCleaned=false;
 							}
 						}
@@ -119,7 +119,7 @@ public class GreedyEngine {
 			}
 		}
 		if(!associazioniDaPrenotazioni.isEmpty()){
-			//Se l'ultima richiesta scoperta era più alta di una richiesta non scoperta,
+			//Se l'ultima richiesta scoperta era piï¿½ alta di una richiesta non scoperta,
 			//ci sono ancora delle associazioni da prenotazioni non ancora confermate.
 			//Provvedo quindi a spostarle in associazioni
 			associazioni.addAll(associazioniDaPrenotazioni);
@@ -128,6 +128,24 @@ public class GreedyEngine {
 		for(Associazione a:associazioni){
 			a.setConfermata(true);
 		}
+	}
+	
+	static ArrayList<Associazione>selezionaConPrenotazioni(ArrayList<Richiesta>sortedRichieste){
+		ArrayList<Associazione> associazioniDaPrenotazioni=new ArrayList<Associazione>();
+		boolean isCleaned=true;
+		for(int i=0; i<sortedRichieste.size();i++){
+			Richiesta ric=sortedRichieste.get(i);
+			Associazione a=GreedyEngine.selezionaPrenotazionePiuPromettente(associazioniDaPrenotazioni, ric);
+			if(a!=null){
+				associazioniDaPrenotazioni.add(a);
+				sortedRichieste.set(i, null);
+				isCleaned=false;
+			}
+		}
+		while(!isCleaned){
+			isCleaned=!(sortedRichieste.remove(null));
+		}
+		return associazioniDaPrenotazioni;
 	}
 	
 	static ArrayList<Associazione>selezionaMacchineLibere(ModelInterface model, ArrayList<Richiesta>sortedRichieste,ArrayList<Associazione> associazioniDaPrenotazioni ){
@@ -161,23 +179,7 @@ public class GreedyEngine {
 		return associazioniDaLibere;
 	}
 	
-	static ArrayList<Associazione>selezionaConPrenotazioni(ArrayList<Richiesta>sortedRichieste){
-		ArrayList<Associazione> associazioniDaPrenotazioni=new ArrayList<Associazione>();
-		boolean isCleaned=true;
-		for(int i=0; i<sortedRichieste.size();i++){
-			Richiesta ric=sortedRichieste.get(i);
-			Associazione a=GreedyEngine.selezionaPrenotazionePiuPromettente(associazioniDaPrenotazioni, ric);
-			if(a!=null){
-				associazioniDaPrenotazioni.add(a);
-				sortedRichieste.set(i, null);
-				isCleaned=false;
-			}
-		}
-		while(!isCleaned){
-			isCleaned=!(sortedRichieste.remove(null));
-		}
-		return associazioniDaPrenotazioni;
-	}
+
 	
 	static <T extends Macchina> Associazione selezionaMacchinaSenzaPrenotazioni(Richiesta ric,ArrayList<T>disp,ArrayList<Associazione>associazioniDaLibere,ArrayList<Associazione>associazioniDaPrenotazioni){
 
@@ -185,53 +187,53 @@ public class GreedyEngine {
 		alreadySelected.addAll(associazioniDaPrenotazioni);
 		alreadySelected.addAll(associazioniDaLibere);
 		
-		/*Se non ci sono macchine disponibili (non controllo le già associate) o la richiesta è già soddisfatta
+		/*Se non ci sono macchine disponibili (non controllo le giï¿½ associate) o la richiesta ï¿½ giï¿½ soddisfatta
 		  non seleziono nulla */
 		if(ric.isSoddisfatta()||disp.size()==0){ 
 			return null;                         
 		}
 		else{
-			//In tal caso è possibile che ci siano macchine disponibili, ma già associate.
+			//In tal caso ï¿½ possibile che ci siano macchine disponibili, ma giï¿½ associate.
 			ArrayList<T>nonAssociate=new ArrayList<T>();
 			nonAssociate.addAll(disp); //Per ora inserisco tutte le macchine disponibili nella lista
 			boolean isAssociata=false;
-			boolean isCleaned=true;
+			
 			for(Associazione a:alreadySelected){
 				if(a.getRichiesta().equals(ric)){
-					isAssociata=true; //Approfittiamo del ciclo per controllare se la richiesta è già stata associata.
-					break;            //Se la richiesta è già associata, possiamo terminare il ciclo.
+					isAssociata=true; //Approfittiamo del ciclo per controllare se la richiesta ï¿½ giï¿½ stata associata.
+					break;            //Se la richiesta ï¿½ giï¿½ associata, possiamo terminare il ciclo.
 				}
-				for(int j=0;j<nonAssociate.size();j++){ //Cerchiamo le macchine nella lista che sono già state associate
+				boolean isCleaned=true;
+				for(int j=0;j<nonAssociate.size();j++){ //Cerchiamo le macchine nella lista che sono giï¿½ state associate
 					T mac=nonAssociate.get(j);
-					//controllo che la macchina non sia già  associata e quindi occupata temporaneamente
-					//Le macchine erano già  libere, il controllo viene effettuato in reserveMacchineFromLavoro
+					//controllo che la macchina non sia giï¿½ associata e quindi occupata temporaneamente
+					//Le macchine erano giï¿½ libere, il controllo viene effettuato in reserveMacchineFromLavoro
 					if(mac!=null){
 						if(mac.equals(a.getMacchina())){
 							if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-								//se la macchina è la stessa e gli intervalli si sovrappongono, la macchina è già  associata
+								//se la macchina ï¿½ la stessa e gli intervalli si sovrappongono, la macchina ï¿½ giï¿½ associata
 								nonAssociate.set(j, null); //Quindi la rimuovo dalla lista delle non associate
 								isCleaned=false;
 							}
 						}
 					}
 				}
+				while(!isCleaned){ //La prima volta lo effettua solo se ho trovato macchine giï¿½ associate
+					isCleaned=!(nonAssociate.remove(null)); //Le macchine giï¿½ associate sono state poste a null, quindi rimuovo tali occorrenze dalla lista
+				}
 			}
 			if(isAssociata){
-				return null; //Se la richiesta è già stata associata, non si genera una nuova associazione.
+				return null; //Se la richiesta ï¿½ giï¿½ stata associata, non si genera una nuova associazione.
 			}
 			else{
-				while(!isCleaned){ //La prima volta lo effettua solo se ho trovato macchine già associate
-					isCleaned=!(nonAssociate.remove(null)); //Le macchine già associate sono state poste a null, quindi rimuovo tali occorrenze dalla lista
-				}
-				
 				if(nonAssociate.size()==0){
 					//In tal caso non ho nessuna macchina libera o non associata per soddisfare la richiesta
 					//L'algoritmo non suggerisce alcuna macchina da inserire per tale richiesta
 					return null;
 				}
 				else{
-					//Se arrivo qui, c'è almeno una macchina libera o ancora non associata che soddisfa la richiesta
-					//Quindi è possibile sicuramente soddisfare la richiesta con almeno una macchina
+					//Se arrivo qui, c'ï¿½ almeno una macchina libera o ancora non associata che soddisfa la richiesta
+					//Quindi ï¿½ possibile sicuramente soddisfare la richiesta con almeno una macchina
 					Associazione genAsso=new Associazione(ric,nonAssociate.get(0));
 					return genAsso;
 				}
@@ -240,13 +242,13 @@ public class GreedyEngine {
 	}
 	
 	static Associazione selezionaPrenotazionePiuPromettente(ArrayList<Associazione>alreadySelected, Richiesta ric){
-		//Se la richiesta è soddisfatta, non seleziono alcuna prenotazione
+		//Se la richiesta ï¿½ soddisfatta, non seleziono alcuna prenotazione
 		if(ric.isSoddisfatta()){
 			return null;
 		}
 		else{
 
-			//Se la richiesta è già  stata associata, non seleziono alcuna prenotazione
+			//Se la richiesta ï¿½ giï¿½ stata associata, non seleziono alcuna prenotazione
 			boolean isAssociato=false;
 			for(Associazione asso:alreadySelected){
 				if(asso.getRichiesta().equals(ric)){
@@ -264,11 +266,11 @@ public class GreedyEngine {
 						if(temp.getDurataLavoro()==-1||coppia.getDurataLavoro()<temp.getDurataLavoro()){
 							boolean valid=true;
 							for(Associazione a:alreadySelected){ //Scorre le associazioni generate in precedenza
-								//controllo che la prenotazione non coinvolga una macchina già associata e quindi occupata temporaneamente
-								//Le macchine erano già  libere, il controllo viene effettuato in reserveMacchineFromLavoro
+								//controllo che la prenotazione non coinvolga una macchina giï¿½ associata e quindi occupata temporaneamente
+								//Le macchine erano giï¿½ libere, il controllo viene effettuato in reserveMacchineFromLavoro
 								if(coppia.getMacchina().equals(a.getMacchina())){
 									if(!((ric.getDataFine().before(a.getDataInizio()))||(ric.getDataInizio().after(a.getDataFine())))){
-										//se la macchina è la stessa e le tempistiche si sovrappongono, la macchina è già  occupata
+										//se la macchina ï¿½ la stessa e le tempistiche si sovrappongono, la macchina ï¿½ giï¿½ occupata
 										valid=false;
 										break;
 									}
