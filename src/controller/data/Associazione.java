@@ -83,6 +83,12 @@ public class Associazione {
 		return true;
 	}
 	
+	public boolean collide(Richiesta other){
+		return this.ric.collide(other);
+	}
 	
+	public boolean collide(Associazione other){
+		return this.ric.collide(other.getRichiesta());
+	}
 	
 }

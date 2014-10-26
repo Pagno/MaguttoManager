@@ -257,5 +257,78 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	public int getDurata(){
 		return lavoro.getDurata();
 	}
+	
+	public boolean collide(Richiesta other){
+		if(this.getDataInizio().after(other.getDataFine())||this.getDataFine().before(other.getDataInizio())){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	
+	public boolean inConflitto(Richiesta other){
+		if(this.caratteristiche instanceof RichiestaCamion){
+			if(other.getCaratteristiche() instanceof RichiestaCamion){
+				RichiestaCamion rt,ro;
+				rt=(RichiestaCamion)this.caratteristiche;
+				ro=(RichiestaCamion)other.getCaratteristiche();
+				if(!(rt.getMinCapacita()>ro.getMaxCapacita()||(ro.getMinCapacita()>rt.getMaxCapacita()))){
+					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
+						if(!(rt.getMinLunghezza()>ro.getMaxLunghezza()||(ro.getMinLunghezza()>rt.getMaxLunghezza()))){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		if(this.caratteristiche instanceof RichiestaRuspa){
+			if(other.getCaratteristiche() instanceof RichiestaRuspa){
+				RichiestaRuspa rt,ro;
+				rt=(RichiestaRuspa)this.caratteristiche;
+				ro=(RichiestaRuspa)other.getCaratteristiche();
+				if(!(rt.getMinCapacita()>ro.getMaxCapacita()||(ro.getMinCapacita()>rt.getMaxCapacita()))){
+					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
+						if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		if(this.caratteristiche instanceof RichiestaGru){
+			if(other.getCaratteristiche() instanceof RichiestaGru){
+				RichiestaGru rt,ro;
+				rt=(RichiestaGru)this.caratteristiche;
+				ro=(RichiestaGru)other.getCaratteristiche();
+				if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
+					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
+						if(!(rt.getMinLunghezza()>ro.getMaxLunghezza()||(ro.getMinLunghezza()>rt.getMaxLunghezza()))){
+							if(!(rt.getMinAngoloRotazione()>ro.getMaxAngoloRotazione()||(ro.getMinAngoloRotazione()>rt.getMaxAngoloRotazione()))){
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		if(this.caratteristiche instanceof RichiestaEscavatore){
+			if(other.getCaratteristiche() instanceof RichiestaEscavatore){
+				RichiestaEscavatore rt,ro;
+				rt=(RichiestaEscavatore)this.caratteristiche;
+				ro=(RichiestaEscavatore)other.getCaratteristiche();
+				if(!(rt.getMinCapacita()>ro.getMaxCapacita()||(ro.getMinCapacita()>rt.getMaxCapacita()))){
+					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
+						if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
+							if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
 
