@@ -16,7 +16,7 @@ import model.organizer.data.Richiesta;
 import controller.data.Associazione;
 import controller.data.Prenotazione;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class GreedyEngine.
  */

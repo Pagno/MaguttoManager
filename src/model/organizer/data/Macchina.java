@@ -72,6 +72,11 @@ public abstract class Macchina{
 	 */
 	public void setModello(String Modello){		this.modello=Modello;	}
 	
+	/**
+	 * Aggiunge una richiesta.
+	 *
+	 * @param r   richiesta da aggiungere
+	 */
 	public void aggiungiRichiesta(Richiesta r){
 		elencoRichiesta.add(r);
 	}
@@ -118,6 +123,11 @@ public abstract class Macchina{
 		return true;
 	}
 
+	/**
+	 * Gets richiesta.
+	 *
+	 * @param codiceRichiesta il codice della richiesta desiderata
+	 */
 	public Richiesta getRichiesta(int codiceRichiesta){
 		for(Richiesta item:elencoRichiesta){
 			if(item.getCodice()==codiceRichiesta){
@@ -127,11 +137,22 @@ public abstract class Macchina{
 		return null;
 	}
 	
+	/**
+	 * Delete richiesta.
+	 *
+	 * @param La richiesta da eliminare
+	 */
 	public void rimuoviRichiesta(Richiesta r){
 		elencoRichiesta.remove(r);
 	}
+	
+	/**
+	 * Ritorna true se la macchina è libera nel periodo indicato dalle due date.
+	 *
+	 * @param inizio la data iniziale
+	 * @param fine la data finale
+	 */
 	public boolean isLibera(GregorianCalendar inizio,GregorianCalendar fine){
-		//if(!(fine.before(lavoro.getDataInizio()) || inizio.after(lavoro.getDataFine())))
 		for(Richiesta richiesta:elencoRichiesta){
 			if(!(fine.before(richiesta.getDataInizio()) || inizio.after(richiesta.getDataFine()))){
 				return false;
@@ -141,6 +162,9 @@ public abstract class Macchina{
 		return true;
 	}
 	
+	/**
+	 * Elimina la macchina da tutte le richieste che la occupavano
+	 */
 	public void liberaRichieste(){
 		ArrayList<Richiesta>list=new ArrayList<Richiesta>();
 		for(Richiesta richiesta:elencoRichiesta){
