@@ -1,43 +1,33 @@
 package controller.organizer;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
-import view.macchina.ViewCamion;
-import view.macchina.ViewEscavatore;
-import view.macchina.ViewGru;
-import view.macchina.ViewRuspa;
 import model.ModelInterface;
-import model.organizer.ModelGru;
 import model.organizer.ModelMacchina;
-import model.organizer.data.Gru;
 import model.organizer.data.Priorita;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 
  * Questa classe permette di gestire gli eventi,
  * legati all'inserimento di nuovi macchinari 
- * e alla modifica di quelli esistenti
- * 
+ * e alla modifica di quelli esistenti.
  */
 public class ControllerInserimento{// implements AbstractInsertController{
 
 	/**   model. */
 	ModelInterface model;
 
+	/** The istanza. */
 	private static ControllerInserimento istanza;
 
 
 	/**
-	 * Gets   model gru.
+	 * Ritorna l'istanza di ControllerInserimento. Se non era ancora instanziato la crea.
 	 *
-	 * @return   model gru
+	 * @param ModelInterface per manipolare i dati gestiti dall'applicazione
+	 * @return  Istanza di ControllerInserimento
 	 */
 	public static synchronized ControllerInserimento getControllerInserimento(ModelInterface modelConnector){
 		if(istanza==null){
@@ -48,7 +38,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	/**
 	 * Istanzia un nuovo controllore InsertController.
 	 *
-	 * @param modelConnector per manipolare i dati inseriti nell'applicazione
+	 * @param ModelInterface per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
 	private ControllerInserimento(ModelInterface modelConnector) {
@@ -57,14 +47,15 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	
 	//INSERT LISTENER
 	/**
-	 * Gestisce l'inserimento di una nuova <em>"Gru"</em>.
+	 * Inserisci una nuova <em>"Gru"</em>.
 	 *
-	 * @param editGru view da cui leggere i dati della nuova Gru
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
-	 *
+	 * @param produttore Produttore della Gru
+	 * @param modello Modello della Gru
+	 * @param rotazione Massima rotazione della Gru
+	 * @param portata Massima portata della Gru
+	 * @param lunghezza Massima lunghezza della Gru
+	 * @param altezza Massima altezza della Gru
+	 * @return <strong>True</strong> se la gru viene correttamente inserita nel parco Macchine
 	 */
 	public boolean aggiungiGru(String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza){
 		if(produttore=="" || modello==""){
@@ -80,6 +71,18 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	}
 	
 	
+	/**
+	 * Modifica gru esistente.
+	 *
+	 * @param codiceGru Codice della gru da modificare
+	 * @param produttore Produttore della gru da modificare
+	 * @param modello Modello della gru da modificare
+	 * @param rotazione Rotazione della gru da modificare
+	 * @param portata Portata della gru da modificare
+	 * @param lunghezza Lunghezza della gru da modificare
+	 * @param altezza Altezza della gru da modificare
+	 * @return <strong>True</strong> se la gru viene correttamente modifica.
+	 */
 	public boolean modificaGru(int codiceGru,String produttore,String modello,int rotazione, int portata,int lunghezza,int altezza) {
 		if(produttore=="" || modello==""){
 			JOptionPane
@@ -94,13 +97,14 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	}
 	
 	/**
-	 * Gestisce l'inserimento di una nuova <em>"Ruspa"</em>.
+	 * Inserisci una nuova <em>"Ruspa"</em>.
 	 *
-	 * @param editRuspa view da cui leggere i dati del nuovo Ruspa
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
+	 * @param produttore Nome produttore della Gru
+	 * @param modello Nome modello della Gru
+	 * @param capacita Massima capacita della Gru
+	 * @param portata Massima portata della Gru
+	 * @param altezza Massima altezza della Gru
+	 * @return <strong>True</strong> se la Ruspa viene correttamente inserita nel parco Macchine
 	 *
 	 */
 	public boolean aggiungiRuspa(String produttore, String modello,int capacita,int portata,int altezza) {
@@ -115,6 +119,19 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		model.aggiungiRuspa(produttore,modello,capacita,portata,altezza);
 		return true;
 	}
+	
+	/**
+	 * Modifica ruspa.
+	 *
+	 * @param codiceRuspa Codice della Ruspa da modificare.
+	 * @param produttore Produttore della Ruspa da modificare.
+	 * @param modello Modello della Ruspa da modificare.
+	 * @param capacita Capacita della Ruspa da modificare.
+	 * @param portata Portata della Ruspa da modificare.
+	 * @param altezza Altezza della Ruspa da modificare.
+	 * 
+	 * @return <strong>True</strong> se la gru viene correttamente modificata.
+	 */
 	public boolean modificaRuspa(int codiceRuspa,String produttore, String modello,int capacita,int portata,int altezza) {
 		if(produttore=="" || modello==""){
 			JOptionPane
@@ -129,6 +146,17 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	}
 	
 	
+	/**
+	 * Inserisci un nuovo <em>"Escavatore"</em>.
+	 *
+	 * @param produttore Nome produttore dell'Escavatore
+	 * @param modello Nome modello dell'Escavatore
+	 * @param capacita Massima capacita dell'Escavatore
+	 * @param portata Massima portata dell'Escavatore
+	 * @param altezza Massima altezza dell'Escavatore
+	 * @param profondita Massima profondita dell'Escavatore
+	 * @return <strong>True</strong> se l'Escavatore viene correttamente inserito nel parco Macchine
+	 */
 	public boolean aggiungiEscavatore(String produttore, String modello,int capacita,int portata,int altezza,int profondita){
 		if(produttore=="" || modello==""){
 			JOptionPane
@@ -141,6 +169,20 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		model.aggiungiEscavatore(produttore, modello, capacita, portata, altezza, profondita);
 		return true;
 	}
+	
+	/**
+	 * Modifica escavatore esistente.
+	 *
+	 * @param codiceEscavatore Codice escavatore da modificare
+	 * @param produttore Nome produttore da modificare
+	 * @param modello Modello da modificare
+	 * @param capacita Capacita da modificare
+	 * @param portata Portata da modificare
+	 * @param altezza Altezza da modificare
+	 * @param profondita Profondita da modificare
+	 * 
+	 * @return <strong>True</strong> se l'escavatore viene correttamente modificato.
+	 */
 	public boolean modificaEscavatore(int codiceEscavatore,String produttore, String modello,int capacita,int portata,int altezza,int profondita){
 		if(produttore=="" || modello==""){
 			JOptionPane
@@ -156,6 +198,16 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	
 	
 	
+	/**
+	 * Inserisci un nuovo <em>"Camion"</em>.
+	 *
+	 * @param produttore Produttore del camion.
+	 * @param modello Modello del camion.
+	 * @param capacita Massima  capacita del camion.
+	 * @param portata Massima  portata del camion.
+	 * @param lunghezza Massima  lunghezza del camion.
+	 * @return <strong>True</strong> se il Camion viene correttamente inserito nel parco Macchine
+	 */
 	public boolean aggiungiCamion(String produttore,String modello,int capacita,int portata,int lunghezza){
 		if(produttore=="" || modello==""){
 			JOptionPane
@@ -168,6 +220,18 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		model.aggiungiCamion(produttore, modello, capacita, portata, lunghezza);
 		return true;
 	}
+	
+	/**
+	 * Modifica camion esistente.
+	 *
+	 * @param codiceCamion Codice camion da modificare
+	 * @param produttore Nome produttore da modificare
+	 * @param modello Nome modello da modificare
+	 * @param capacita Capacita da modificare
+	 * @param portata Portata da modificare
+	 * @param lunghezza Lunghezza da modificare
+	 * @return <strong>True</strong> se il camion viene correttamente modificato.
+	 */
 	public boolean modificaCamion(int codiceCamion,String produttore,String modello,int capacita,int portata,int lunghezza){
 		if(produttore=="" || modello==""){
 			JOptionPane
@@ -184,6 +248,16 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	
 	
 
+	/**
+	 * Aggiungi nuovo cantiere.
+	 *
+	 * @param nomeCantiere Nome cantiere
+	 * @param indirizzo Indirizzo
+	 * @param dataApertura Data apertura
+	 * @param dataChiusura Data chiusura
+	 * @param priorita Priorita associata al cantiere
+	* @return <strong>True</strong> se il Cantiere viene correttamente inserito.
+	 */
 	public boolean aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
@@ -224,16 +298,12 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		return true;
 	}*/
 	//EDIT LISTENER
-	/**
+	/*
 	 * Gestisce la modifica di una <em>"Gru"</em>.
 	 *
-	 *@param editGru view da cui leggere i nuovi dati della Gru
-	 *@param codice codice  della Gru da modificare
-	 *
-	 * @return istanza classe ActionListener 
+	 * @return istanza classe ActionListener
 	 * che implementa il metodo <strong>actionPerformed</strong>
 	 * contenente il comportamento legato all'evento generato.
-	 *
 	 */
 	/*public ActionListener EditGruListener( EditGru editGru,final int codice) {
 		final EditGru dialog=editGru;
@@ -260,7 +330,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 			}
 		};
 	}*/
-	/**
+	/*
 	 * Gestisce la modifica di una <em>"Ruspa"</em>.
 	 *
 	 * @param editRuspa view da cui leggere i nuovi dati della Ruspa
@@ -296,7 +366,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		};
 	}*/
 	
-	/**
+	/*
 	 * Gestisce la modifica di un <em>"Camion"</em>.
 	 *
 	 * @param editCamion view da cui leggere i nuovi dati del Camion
@@ -332,7 +402,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 		};
 	}*/
 	
-	/**
+	/*
 	 * Gestisce la modifica di un <em>"Escavatore"</em>.
 	 *
 	 * @param editEscavatore view da cui leggere i nuovi dati dell'escavatore

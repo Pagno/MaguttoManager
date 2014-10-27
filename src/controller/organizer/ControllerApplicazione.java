@@ -5,6 +5,7 @@ import view.MainView;
 import model.ModelInterface;
 import model.organizer.ModelMacchina;
 
+// TODO: Auto-generated Javadoc
 // 
 /**
  * 
@@ -12,7 +13,6 @@ import model.organizer.ModelMacchina;
  * legati all'interazione con le view,
  * provenienti dalla View Principale.
  * 
- * @see MainView
  * 
  */
 public class ControllerApplicazione{// implements AbstractApplicationController{
@@ -24,9 +24,10 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	private static ControllerApplicazione istanza;
 
 	/**
-	 * Gets   model gru.
+	 * Ritorna l'istanza di ControllerApplicazione. Se non era ancora instanziato la crea.
 	 *
-	 * @return   model gru
+	 * @param ModelInterface per manipolare i dati gestiti dall'applicazione
+	 * @return  Istanza di ControllerApplicazione
 	 */
 	public static synchronized ControllerApplicazione getControllerApplicazione(ModelInterface modelConnector){
 		if(istanza==null){
@@ -34,39 +35,64 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 		}
 		return istanza;
 	}
+	
 	/**
 	 * Istanzia un nuovo controllore MainController.
 	 *
-	 * @param modelConnector per manipolare i dati gestiti dall'applicazione
-	 * @param view per registrare gli eventi generati dalla view
+	 * @param ModelInterface per manipolare i dati gestiti dall'applicazione
 	 */
 	private ControllerApplicazione(ModelInterface modelConnector){
 		model = modelConnector;
 	}
 
+	/**
+	 * Aggiungi gru observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void aggiungiGruObserver(Observer observer){
 		model.aggiungiGruObserver(observer);
 	}
+	
+	/**
+	 * Aggiungi ruspa observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void aggiungiRuspaObserver(Observer observer){
 		model.aggiungiRuspaObserver(observer);
 	}
+	
+	/**
+	 * Aggiungi camion observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void aggiungiCamionObserver(Observer observer){
 		model.aggiungiCamionObserver(observer);
 	}	
+	
+	/**
+	 * Aggiungi escavatore observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void aggiungiEscavatoreObserver(Observer observer){
 		model.aggiungiEscavatoreObserver(observer);
 	}
+	
+	/**
+	 * Aggiungi cantiere observer.
+	 *
+	 * @param observer the observer
+	 */
 	public void aggiungiCantiereObserver(Observer observer){
 		model.aggiungiCantiereObserver(observer);
 	}
 	
 	//MENU FILE LISTENER
 	/**
-	 * Gestisce l'evento legato alla pressione del menu <em>"Esci"</em>.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
+	 * Gestisce la chiusura dell'applicazione salvando tutti i dati caricati dall'utente.
 	 *
 	 */
 	public void exitManager(){
@@ -74,11 +100,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	}
 	
 	/**
-	 * Gestisce l'evento legato alla pressione del menu <em>"Salva"</em>.
-	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
+	 * Salva tutti i dati caricati dall'utente.
 	 *
 	 */
 	public void salvaDatiListener(){
@@ -86,11 +108,8 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	}
 	
 	/**
-	 * Gestisce l'evento legato alla pressione del menu <em>"Carica"</em>.
+	 * Carica i dati dell'applicazione.
 	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
 	 *
 	 */
 	public void caricaDatiListener(){
@@ -99,15 +118,14 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	}
 	
 	/**
-	 * Gestisce la chiusura dell'applicazione
+	 * Gestisce la chiusura dell'applicazione salvando tutti i dati caricati dall'utente.
 	 *
-	 * @return   window adapter
 	 */
 	public void chiusuraProgramma(){
 		model.storeData();
 	}
 	
-	/**
+	/*
 	 * Visualizza la view per modificare i dati di una Ruspa.
 	 *
 	 * @return istanza classe ActionListener 
@@ -132,7 +150,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 		};
 	}*/
 	
-	/**
+	/*
 	 * Visualizza la view per modificare i dati di un Camion.
 	 *
 	 * @return istanza classe ActionListener 
@@ -160,10 +178,10 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	/**
 	 * Visualizza la view per modificare i dati di un Escavatore.
 	 *
-	 * @return istanza classe ActionListener 
+	 * @param codiceMacchina the codice macchina
+	 * @return istanza classe ActionListener
 	 * che implementa il metodo <strong>actionPerformed</strong>
 	 * contenente il comportamento legato all'evento generato.
-	 *
 	 */
 	/*public ActionListener visualizzaModificaEscavatoreView() {
 		return new ActionListener() {
@@ -208,12 +226,12 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	}*/
 	//DELETE
 	/**
-	 * Elimina la macchina selezionata nella tabella. Se la macchina presenta delle associazioni con
-	 * dei cantieri appare un messaggio in cui viene chiesta la conferma all'utente dell'eliminazione
+	 * Elimina una macchina.Tutte le richieste ad essa associate vengono liberate.
 	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
+	 * @param codiceMacchina Codice della macchina da eliminare
+	 * 
+	 * @return <strong>True</strong> Se la macchina viene correttamente eliminata,
+	 * <strong>False</strong> Se non viene eliminata.
 	 *
 	 */
 	public boolean eliminaMacchina(Integer codiceMacchina){
@@ -225,18 +243,19 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	}
 	
 	/**
-	 * Elimina il cantiere selezionato nella tabella.
+	 * Elimina un cantiere.
 	 *
-	 * @return istanza classe ActionListener 
-	 * che implementa il metodo <strong>actionPerformed</strong>
-	 * contenente il comportamento legato all'evento generato.
+	 * @param codiceCantiere Codice del cantiere da eliminare
+	 * 
+	 * @return <strong>True</strong> Se il cantiere viene correttamente eliminato,
+	 * <strong>False</strong> Se non viene eliminato.
 	 *
 	 */
 	public boolean eliminaCantiere(Integer codiceCantiere){
 		return model.eliminaCantiere(codiceCantiere);
 	}
 	
-	/**
+	/*
 	 * Visualizza la view per aggiungere Associazioni ad un cantiere.
 	 *
 	 * @return istanza classe ActionListener 

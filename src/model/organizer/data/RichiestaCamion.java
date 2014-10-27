@@ -1,13 +1,41 @@
 package model.organizer.data;
 
+import java.util.GregorianCalendar;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RichiestaCamion.
+ */
 public class RichiestaCamion extends RichiestaMacchina {
+	
+	/** The min capacita. */
 	public int minCapacita;
+	
+	/** The min portata. */
 	public int minPortata;
+	
+	/** The min lunghezza. */
 	public int minLunghezza;
+	
+	/** The max capacita. */
 	public int maxCapacita;
+	
+	/** The max portata. */
 	public int maxPortata;
+	
+	/** The max lunghezza. */
 	public int maxLunghezza;
 	
+	/**
+	 * Crea una nuova richiesta per i camion.
+	 *
+	 * @param minCapacita Minima capacita richiesta
+	 * @param maxCapacita the Massima capacita richiesta
+	 * @param minPortata the Minima portata richiesta
+	 * @param maxPortata the Massima portata richiesta
+	 * @param minLunghezza the Minima lunghezza richiesta
+	 * @param maxLunghezza the Massima lunghezza richiesta
+	 */
 	public RichiestaCamion(int minCapacita, int maxCapacita, int minPortata, int maxPortata, int minLunghezza, int maxLunghezza) {
 		super();
 		this.minCapacita = minCapacita;
@@ -19,54 +47,117 @@ public class RichiestaCamion extends RichiestaMacchina {
 		
 	}
 
+	/**
+	 * Ritorna minima capacita.
+	 *
+	 * @return minima capacita
+	 */
 	public int getMinCapacita() {
 		return minCapacita;
 	}
 
+	/**
+	 * Assegna minima capacita.
+	 *
+	 * @param minCapacita minima capacita
+	 */
 	public void setMinCapacita(int minCapacita) {
 		this.minCapacita = minCapacita;
 	}
 
+	/**
+	 * Ritorna minima portata.
+	 *
+	 * @return minima portata
+	 */
 	public int getMinPortata() {
 		return minPortata;
 	}
 
+	/**
+	 * Assegna minima portata.
+	 *
+	 * @param minPortata minima portata
+	 */
 	public void setMinPortata(int minPortata) {
 		this.minPortata = minPortata;
 	}
 
+	/**
+	 * Ritorna minima lunghezza.
+	 *
+	 * @return minima lunghezza
+	 */
 	public int getMinLunghezza() {
 		return minLunghezza;
 	}
 
+	/**
+	 * Assegna minima lunghezza.
+	 *
+	 * @param minLunghezza minima lunghezza
+	 */
 	public void setMinLunghezza(int minLunghezza) {
 		this.minLunghezza = minLunghezza;
 	}
 
+	/**
+	 * Ritorna massima capacita.
+	 *
+	 * @return massima capacita
+	 */
 	public int getMaxCapacita() {
 		return maxCapacita;
 	}
 
+	/**
+	 * Assegna massima capacita.
+	 *
+	 * @param maxCapacita massima capacita
+	 */
 	public void setMaxCapacita(int maxCapacita) {
 		this.maxCapacita = maxCapacita;
 	}
 
+	/**
+	 * Ritorna massima portata.
+	 *
+	 * @return massima portata
+	 */
 	public int getMaxPortata() {
 		return maxPortata;
 	}
 
+	/**
+	 * Assegna massima portata.
+	 *
+	 * @param maxPortata massima portata
+	 */
 	public void setMaxPortata(int maxPortata) {
 		this.maxPortata = maxPortata;
 	}
 
+	/**
+	 * Ritorna massima lunghezza.
+	 *
+	 * @return massima lunghezza
+	 */
 	public int getMaxLunghezza() {
 		return maxLunghezza;
 	}
 
+	/**
+	 * Assegna massima lunghezza.
+	 *
+	 * @param maxLunghezza massima lunghezza
+	 */
 	public void setMaxLunghezza(int maxLunghezza) {
 		this.maxLunghezza = maxLunghezza;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return  "Richiesta:Camion " + minCapacita + "-"
@@ -75,6 +166,9 @@ public class RichiestaCamion extends RichiestaMacchina {
 				+ "-" + maxLunghezza ;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -99,6 +193,9 @@ public class RichiestaCamion extends RichiestaMacchina {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.organizer.data.RichiestaMacchina#rispettaRichiesta(model.organizer.data.Macchina)
+	 */
 	@Override
 	public boolean rispettaRichiesta(Macchina m) {
 		if (m == null)

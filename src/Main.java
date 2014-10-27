@@ -17,7 +17,6 @@ import database.DatabaseException;
  *   Class Main.
  */
 public class Main {
-	//TODO per tutte le classi: se c'� un ciclo e all'interno si rimuovono degli elementi, controllare che funzioni!!!
 	/**
 	 *   main method.
 	 *

@@ -3,9 +3,7 @@ package model.organizer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.GregorianCalendar;
-import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.tree.DefaultTreeModel;
@@ -26,27 +24,41 @@ import model.organizer.data.Priorita;
 
 
 
-public class ModelCantiere extends DefaultTreeModel{
 
-	//TODO lavoroObserver e RichiestaObserver servono ancora? li ho commentati e non mi risultano errori in altre classi
-	//TODO anche per addRichiestaObserver vale la stessa cosa
+/**
+ * The Class ModelCantiere.
+ * Questa classe permette di gestire i cantieri, i lavori e le richieste
+ */
+public class ModelCantiere extends DefaultTreeModel{
 	
+	/** The lista cantieri. */
 	private ArrayList<Cantiere> listaCantieri;
 
+	/** The lavoro observer. */
 	private Observer lavoroObserver;
+	
+	/** The richiesta observer. */
 	private Observer richiestaObserver;
+	
+	/** The cantiere observer. */
 	private Observer cantiereObserver;
 	
 	
+	/** codice. */
 	private int codice;
 
 	
+	/** codice lavoro. */
 	private int codiceLavoro;
 	
 	
+	/** istanza. */
 	private static ModelCantiere istanza;
 
 
+	/**
+	 * Instantiates a new model cantiere.
+	 */
 	private ModelCantiere(){
 		super(null);
 		listaCantieri=new ArrayList<Cantiere>();
@@ -55,6 +67,11 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 
+	/**
+	 * Getter che permette l'adozione del pattern singleton.
+	 *
+	 * @return model cantiere
+	 */
 	public static synchronized ModelCantiere getModelCantiere(){
 		if(istanza==null){
 			istanza=new ModelCantiere();
@@ -63,7 +80,16 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 //OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
 
-	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
+	/**
+ * Aggiungi cantiere.
+ *
+ * @param nomeCantiere nome del cantiere
+ * @param indirizzo indirizzo
+ * @param dataApertura data apertura
+ * @param dataChiusura data chiusura
+ * @param priorita priorita del cantiere
+ */
+public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		codice++;
 		Cantiere c=new Cantiere(codice,nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 		this.listaCantieri.add(c);
@@ -81,6 +107,16 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
+	/**
+	 * Carica cantiere.
+	 *
+	 * @param codice codice del cantiere
+	 * @param nomeCantiere nome cantiere
+	 * @param indirizzo indirizzo
+	 * @param dataApertura data apertura
+	 * @param dataChiusura data chiusura
+	 * @param priorita priorita del cantiere
+	 */
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		if(this.codice<codice){
 			this.codice=codice;
@@ -102,6 +138,16 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
+	/**
+	 * Modifica cantiere.
+	 *
+	 * @param codice codice del cantiere
+	 * @param nomeCantiere nome del cantiere
+	 * @param indirizzo indirizzo
+	 * @param dataApertura data apertura
+	 * @param dataChiusura data chiusura
+	 * @param priorita priorita
+	 */
 	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice()==codice){
@@ -124,6 +170,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
+	/**
+	 * Rimuovi cantiere.
+	 *
+	 * @param nomeCantiere nome del cantiere
+	 * @return true, if successful
+	 */
 	public boolean rimuoviCantiere(String nomeCantiere){
 		/*TODO controllare se viene utilizzato:
 		 * se non viene utilizzato eliminarlo
@@ -141,6 +193,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
+	/**
+	 * Rimuovi cantiere.
+	 *
+	 * @param codice codice del cantiere
+	 * @return true, if successful
+	 */
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere cantiere:listaCantieri){
 			if(cantiere.getCodice() == codice){
@@ -154,11 +212,22 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 
 
+	/**
+	 * Gets the lista cantieri.
+	 *
+	 * @return lista dei cantieri
+	 */
 	public ArrayList<Cantiere> getListaCantieri(){
 		    return listaCantieri;
 	}
 
 
+	/**
+	 * Gets the cantiere.
+	 *
+	 * @param codice the codice
+	 * @return the cantiere
+	 */
 	public Cantiere getCantiere(Integer codice){
 		for(Cantiere item:listaCantieri){
 			if(item.getCodice()==codice){
@@ -170,7 +239,13 @@ public class ModelCantiere extends DefaultTreeModel{
 
 //OPERAZIONI SUI LAVORI----------------------------------------------------------------------------------------------------------------
 	
-	public Lavoro getLavoro(Integer codiceLavoro){
+	/**
+ * Gets the lavoro.
+ *
+ * @param codiceLavoro codice del lavoro
+ * @return lavoro
+ */
+public Lavoro getLavoro(Integer codiceLavoro){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				return item.getLavoro(codiceLavoro);
@@ -179,7 +254,15 @@ public class ModelCantiere extends DefaultTreeModel{
 		return null;
 	}
 	
-	//aggiungo nuovi lavori
+	
+	/**
+	 * Aggiungi lavoro.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param nome nome del lavoro
+	 * @param dataInizio data inizio del lavoro
+	 * @param dataFine data fine del lavoro
+	 */
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
 		Cantiere cantiere=getCantiere(codiceCantiere);
@@ -203,7 +286,16 @@ public class ModelCantiere extends DefaultTreeModel{
 */
 	}
 	
-	//carico i lavori presenti a database
+
+	/**
+	 * Carica lavoro presente nel database.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param nome nomedel lavoro
+	 * @param dataInizio data inizio del lavoro
+	 * @param dataFine data fine del lavoro
+	 */
 	public void caricaLavoro(int codiceCantiere,int codiceLavoro,String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		if(this.codiceLavoro<codiceLavoro){
 			this.codiceLavoro=codiceLavoro;
@@ -218,6 +310,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		insertNodeInto(add, lavoro, 0);
 	}
 	
+	/**
+	 * Elimina lavoro.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 */
 	public void eliminaLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		if(cantiere!=null){
@@ -225,6 +323,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Elimina lavoro.
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @return true, if successful
+	 */
 	public boolean eliminaLavoro(int codiceLavoro){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
@@ -235,6 +339,14 @@ public class ModelCantiere extends DefaultTreeModel{
 		return false;
 	}
 	
+	/**
+	 * Modifica lavoro.
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @param nome nome del lavoro
+	 * @param dataInizio data inizio del lavoro
+	 * @param dataFine data fine del lavoro
+	 */
 	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
@@ -247,6 +359,15 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Modifica lavoro.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param nome nome del lavoro
+	 * @param dataInizio data inizio del lavoro
+	 * @param dataFine data fine del lavoro
+	 */
 	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -259,6 +380,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Gets the lista lavori.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @return lista dei lavori
+	 */
 	public ArrayList<Lavoro> getListaLavori(int codiceCantiere){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -267,6 +394,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		else return new ArrayList<Lavoro>();
 	}
 	
+	/**
+	 * Gets lista dei lavori.
+	 *
+	 * @return lista dei lavori
+	 */
 	public ArrayList<Lavoro> getListaLavori(){
 		ArrayList<Lavoro>totLavori=new ArrayList<Lavoro>();
 		for(Cantiere item:listaCantieri){
@@ -277,6 +409,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totLavori;
 	}
 	
+	/**
+	 * Gets lista dei lavori scoperti.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @return lista dei lavori scoperti del cantiere
+	 */
 	public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -290,6 +428,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return temp;
 	}
 	
+	/**
+	 * Gets the lista scoperti.
+	 *
+	 * @return lista dei lavori scoperti
+	 */
 	public ArrayList<Lavoro> getListaScoperti(){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		for(Cantiere item:listaCantieri){
@@ -302,6 +445,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return temp;
 	}
 	
+	/**
+	 * Gets the lista coperti.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @return lista dei lavori coperti del cantiere
+	 */
 	public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -315,6 +464,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return temp;
 	}
 	
+	/**
+	 * Gets the lista coperti.
+	 *
+	 * @return lista dei lavori coperti
+	 */
 	public ArrayList<Lavoro> getListaCoperti(){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		for(Cantiere item:listaCantieri){
@@ -327,6 +481,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return temp;
 	}
 	
+	/**
+	 * Gets the prossimo codice lavoro.
+	 *
+	 * @return il prossimo codice lavoro da assegnare
+	 */
 	int getProssimoCodiceLavoro(){
 		int code=this.codiceLavoro+1;
 		return code;
@@ -335,7 +494,13 @@ public class ModelCantiere extends DefaultTreeModel{
 //OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
 
 
-	public Richiesta getRichiesta(Integer codiceRichiesta){
+	/**
+ * Gets the richiesta.
+ *
+ * @param codiceRichiesta codice della richiesta
+ * @return richiesta
+ */
+public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
@@ -347,7 +512,14 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 
-	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
+	/**
+	 * Aggiunge una nuova richiesta, che quindi non � soddisfatta
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param caratteristiche caratteristiche richieste
+	 * @return true, if successful
+	 */
 	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 
 		Cantiere item=getCantiere(codiceCantiere);
@@ -362,7 +534,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		return false;
 	}
 	
-	//Aggiunge una nuova richiesta, che quindi non � soddisfatta
+
+	/**
+	 * Aggiunge una nuova richiesta, che quindi non � soddisfatta
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @param caratteristiche caratteristiche
+	 */
 	public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
@@ -373,7 +551,16 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
-	//Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
+
+	/**
+	 * Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 * @param caratteristiche caratteristiche richieste
+	 * @param macchina la macchina che soddisfa la richiesta
+	 */
 	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
 		Cantiere item=getCantiere(codiceCantiere);
 		if(item!=null){
@@ -384,8 +571,15 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Soddisfa richiesta.
+	 *
+	 * @param codiceRichiesta codice della richiesta
+	 * @param m la macchina
+	 * @return true, if successful
+	 */
 	public boolean soddisfaRichiesta(int codiceRichiesta, Macchina m){
-		ciclo:for(Cantiere can:listaCantieri){
+		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
 					return lav.soddisfaRichiesta(codiceRichiesta, m);
@@ -395,6 +589,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		return false;
 	}
 	
+	/**
+	 * Soddisfa richiesta.
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 * @param m la macchina
+	 */
 	public void soddisfaRichiesta(int codiceLavoro,int codiceRichiesta, Macchina m){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
@@ -407,6 +608,14 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Soddisfa richiesta.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 * @param m la macchina
+	 */
 	public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -419,6 +628,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Modifica richiesta.
+	 *
+	 * @param codiceRichiesta codice della richiesta
+	 * @param caratteristiche caratteristiche richieste
+	 */
 	public void modificaRichiesta(int codiceRichiesta, RichiestaMacchina caratteristiche){
 		ciclo:for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -431,6 +646,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Modifica richiesta.
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 * @param caratteristiche caratteristiche richieste
+	 */
 	public void modificaRichiesta(int codiceLavoro,int codiceRichiesta, RichiestaMacchina caratteristiche){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
@@ -444,6 +666,14 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Modifica richiesta.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 * @param caratteristiche caratteristiche richieste
+	 */
 	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -457,8 +687,14 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Libera richiesta.
+	 *
+	 * @param codiceRichiesta codice della richiesta
+	 * @return true, if successful
+	 */
 	public boolean liberaRichiesta(int codiceRichiesta){
-		ciclo:for(Cantiere can:listaCantieri){
+		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
 					lav.liberaRichiesta(codiceRichiesta);
@@ -469,6 +705,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return false;
 	}
 	
+	/**
+	 * Libera richiesta.
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 */
 	public void liberaRichiesta(int codiceLavoro,int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
@@ -481,6 +723,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Libera richiesta.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 */
 	public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -493,6 +742,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Elimina richiesta.
+	 *
+	 * @param codiceRichiesta codice della richiesta
+	 * @return true, if successful
+	 */
 	public boolean eliminaRichiesta(int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
@@ -504,6 +759,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return false;
 	}
 	
+	/**
+	 * Elimina richiesta.
+	 *
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 */
 	public void eliminaRichiesta(int codiceLavoro,int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
@@ -516,6 +777,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 	
+	/**
+	 * Elimina richiesta.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @param codiceRichiesta codice della richiesta
+	 */
 	public void eliminaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -528,6 +796,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}
 
+	/**
+	 * Gets the lista soddisfatte.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @return lista delle richieste soddisfatte
+	 */
 	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere, int codiceLavoro){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -543,6 +818,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 	
+	/**
+	 * Gets the lista soddisfatte.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @return lista delle richieste soddisfatte
+	 */
 	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -558,6 +839,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 	
+	/**
+	 * Gets the lista soddisfatte.
+	 *
+	 * @return the lista delle richieste soddisfatte
+	 */
 	public ArrayList<Richiesta> getListaSoddisfatte(){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		for(Cantiere c:listaCantieri){
@@ -572,6 +858,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 
+	/**
+	 * Gets the lista insoddisfatte.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @return lista delle richieste insoddisfatte
+	 */
 	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -587,6 +880,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 	
+	/**
+	 * Gets the lista insoddisfatte.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @return lista delle richieste insoddisfatte
+	 */
 	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -602,6 +901,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 	
+	/**
+	 * Gets the lista insoddisfatte.
+	 *
+	 * @return lista delle richieste insoddisfatte
+	 */
 	public ArrayList<Richiesta> getListaInsoddisfatte(){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		for(Cantiere c:listaCantieri){
@@ -616,6 +920,13 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 	
+	/**
+	 * Gets the lista richieste.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @param codiceLavoro codice del lavoro
+	 * @return lista delle richieste soddisfatte
+	 */
 	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere, int codiceLavoro){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -626,6 +937,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		return new ArrayList<Richiesta>();
 	}
 
+	/**
+	 * Gets the lista richieste.
+	 *
+	 * @param codiceCantiere codice del cantiere
+	 * @return lista delle richieste
+	 */
 	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
@@ -639,6 +956,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return totRichieste;
 	}
 	
+	/**
+	 * Gets the lista richieste.
+	 *
+	 * @return lista delle richieste
+	 */
 	public ArrayList<Richiesta> getListaRichieste(){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		for(Cantiere c:listaCantieri){
@@ -652,7 +974,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 //OPERAZIONI GENERICHE---------------------------------------------------------------------------------------------------------------
 
-	public String toString(){
+	/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+public String toString(){
 		String tmp = "";
 		for(Cantiere item:listaCantieri){
 			tmp = tmp + item.toString() + "\n";
@@ -660,6 +985,11 @@ public class ModelCantiere extends DefaultTreeModel{
 		return tmp;
 	}
 
+	/**
+	 * Aggiungi observer.
+	 *
+	 * @param ob the observer
+	 */
 	public void aggiungiObserver(Observer ob) {
 		this.cantiereObserver=ob;
 	}
@@ -667,16 +997,28 @@ public class ModelCantiere extends DefaultTreeModel{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	
+	/**
+	 * Gets the prossimo codice.
+	 *
+	 * @return il prossimo codice da assegnare
+	 */
 	int getProssimoCodice(){
 		return codice+1;
 	}
 		
 	
+	/**
+	 * Reset for test.
+	 */
 	static void resetForTest(){
 		if(istanza!=null){
 			istanza=null;
 		}
 	}
+	
+	/**
+	 * Svuota cantieri for test.
+	 */
 	public void svuotaCantieriForTest(){
 		codice=0;
 		codiceLavoro=0;
@@ -686,14 +1028,5 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 		listaCantieri.clear();
 	}
-
-
-	/*public void aggiungiLavoroObserver(Observer observer) {
-		lavoroObserver=observer;
-	}
-
-	public void aggiungiRichiestaObserver(Observer observer) {
-		richiestaObserver=observer;
-	}*/
 
 }
