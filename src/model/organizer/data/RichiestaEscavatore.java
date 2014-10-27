@@ -140,7 +140,7 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 	/**
 	 * Assegna minima altezza.
 	 *
-	 * @param minPortata minima altezza
+	 * @param minAltezza minima altezza
 	 */
 	public void setMinAltezza(int minAltezza) {
 		this.minAltezza = minAltezza;
