@@ -30,7 +30,11 @@ public class ControllerInserimentoTest {
 		model = ModelConnector.getModelConnector(db);
 		insCtrl = ControllerInserimento.getControllerInserimento(model);
 	}
-
+	@Test
+	public void testConstructor(){
+		insCtrl.initForTest();
+		assertNotNull(ControllerInserimento.getControllerInserimento(model));
+	}
 	@Test
 	public void testGetControllerInserimento() {
 		assertEquals(insCtrl,

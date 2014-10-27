@@ -198,4 +198,11 @@ public class ModelRuspa extends ModelMacchina{
 		aggiornaCodice(ruspa.getCodice());
 		listaRuspe.add(ruspa);
 	}
+
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
+	}
 }

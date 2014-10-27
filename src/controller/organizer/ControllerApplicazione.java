@@ -1,7 +1,9 @@
 package controller.organizer;
 import java.util.Observer;
+
 import view.MainView;
 import model.ModelInterface;
+import model.organizer.ModelMacchina;
 
 // 
 /**
@@ -269,5 +271,10 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 			
 		};
 	}*/
-
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
+	}
 }

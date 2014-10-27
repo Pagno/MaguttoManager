@@ -181,4 +181,10 @@ public class ModelRuspaTest {
 		assertEquals(e.getPortataMassima(),a.getPortataMassima() );
 		assertEquals(e.getCapacitaMassima(),a.getCapacitaMassima());		
 	}
+
+	@Test
+	public void testConstructor(){
+		mr.initForTest();
+		assertNotNull(ModelRuspa.getModelRuspa());
+	}
 }

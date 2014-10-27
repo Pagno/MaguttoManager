@@ -20,7 +20,6 @@ import org.fest.util.Arrays;
 import org.junit.Test;
 
 import controller.data.Associazione;
-
 import database.Database;
 
 public class ControllerCantiereTest {
@@ -40,7 +39,11 @@ public class ControllerCantiereTest {
 	public void testGetControllerCantiere() {
 		assertEquals(canCtrl,ControllerCantiere.getControllerCantiere(model));
 	}
-
+	@Test
+	public void testConstructor(){
+		canCtrl.initForTest();
+		assertNotNull(ControllerCantiere.getControllerCantiere(model));
+	}
 	@Test
 	public void testGetCantiere() {
 		model.ResetAllForTest();
@@ -82,13 +85,16 @@ public class ControllerCantiereTest {
 		ModelGru.getModelGru().aggiungiGruForTest(g);
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
-		Lavoro lavoro=ModelCantiere.getModelCantiere().getLavoro(21);
+
 		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
-		Richiesta richiesta=new Richiesta(richiestaGru, lavoro);
+		ModelCantiere.getModelCantiere().caricaRichiesta(21, 45, 17, richiestaGru, null);
 		
-		ArrayList<Macchina> arr=canCtrl.getElencoMacchineDisponibili(richiesta.getCodice());
+		ArrayList<Macchina> arr=canCtrl.getElencoMacchineDisponibili(17);
 		ArrayList<Macchina> arr2=new ArrayList<Macchina>(java.util.Arrays.asList(g));
 		assertEquals(arr, arr2);
+		canCtrl.soddisfaRichiesta(17,17);
+		arr=canCtrl.getElencoMacchineDisponibili(17);
+		assertNotEquals(arr, arr2);
 	}
 	
 	@Test
