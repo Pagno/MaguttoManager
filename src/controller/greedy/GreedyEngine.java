@@ -48,49 +48,17 @@ public class GreedyEngine {
 		}
 		
 		//FASE 2: SELEZIONE DI UNA MACCHINA LIBERA------------------------------------------------------------------------------- 
-		
+
 		static Associazione selezionaMacchinaLibera(ModelInterface model,ArrayList<Richiesta>sortedRichieste,ArrayList<Associazione>alreadySelected,int i){
 			Richiesta ric=sortedRichieste.get(i);
 			Associazione a=null;
-			if(ric.getCaratteristiche() instanceof RichiestaCamion){
-				ArrayList<Camion>disp=model.getElencoCamionDisponibili(ric.getCodice(), ric.getCodiceLavoro());
-				disp=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
-				if(i==sortedRichieste.size()-1){
-					a=selezionaMacchinaSenzaPrenotazioni(ric, disp);
-				}
-				else{
-					a=selezionaMacchinaSenzaPrenotazioni(ric,sortedRichieste, disp, i);
-				}
+			ArrayList<Macchina>disp=model.getElencoMacchineDisponibili(ric.getCodice());
+			disp=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
+			if(i==sortedRichieste.size()-1){
+				a=selezionaMacchinaSenzaPrenotazioni(ric, disp);
 			}
-			else if(ric.getCaratteristiche() instanceof RichiestaRuspa){
-				ArrayList<Ruspa>disp=model.getElencoRuspeDisponibili(ric.getCodice(), ric.getCodiceLavoro());
-				disp=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
-				if(i==sortedRichieste.size()-1){
-					a=selezionaMacchinaSenzaPrenotazioni(ric, disp);
-				}
-				else{
-					a=selezionaMacchinaSenzaPrenotazioni(ric,sortedRichieste, disp, i);
-				}
-			}
-			else if(ric.getCaratteristiche() instanceof RichiestaGru){
-				ArrayList<Gru>disp=model.getElencoGruDisponibili(ric.getCodice(), ric.getCodiceLavoro());
-				disp=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
-				if(i==sortedRichieste.size()-1){
-					a=selezionaMacchinaSenzaPrenotazioni(ric, disp);
-				}
-				else{
-					a=selezionaMacchinaSenzaPrenotazioni(ric,sortedRichieste, disp, i);
-				}
-			}
-			else if(ric.getCaratteristiche() instanceof RichiestaEscavatore){
-				ArrayList<Escavatore>disp=model.getElencoEscavatoriDisponibili(ric.getCodice(), ric.getCodiceLavoro());
-				disp=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
-				if(i==sortedRichieste.size()-1){
-					a=selezionaMacchinaSenzaPrenotazioni(ric, disp);
-				}
-				else{
-					a=selezionaMacchinaSenzaPrenotazioni(ric,sortedRichieste, disp, i);
-				}
+			else{
+				a=selezionaMacchinaSenzaPrenotazioni(ric,sortedRichieste, disp, i);
 			}
 			return a;
 		}
@@ -392,6 +360,7 @@ public class GreedyEngine {
 		}
 	}
 	
+
 	
 	//FASE 0: ORDINAMENTO-------------------------------------------------------------------------------------------------
 	
