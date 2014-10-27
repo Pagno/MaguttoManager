@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 import model.ModelInterface;
+import model.organizer.ModelMacchina;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Priorita;
 import model.organizer.data.Macchina;
@@ -146,10 +147,16 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 					model.modificaLavoro(codiceLavoro, editLavoro.getNomeLavoro(), newStartDate, newEndDate); 
 				}
 				else{
-					JOptionPane.showMessageDialog(editLavoro, "Non ������ stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(editLavoro, "Non ������������������ stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
 				}
 				System.out.println("CodiceLavoro: "+codiceLavoro);	
 		*/
+	}
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
 	}
 }
 

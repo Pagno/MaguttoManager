@@ -33,6 +33,11 @@ public class ModelGruTest {
 		mg.caricaGru(26, "Cattaneo", "CM 78A", 45, 2200, 28,27);
 	}
 	
+	@Test
+	public void testConstructor(){
+		mg.initForTest();
+		assertNotNull(ModelGru.getModelGru());
+	}
 	/**
 	 * Test get model gru.
 	 */

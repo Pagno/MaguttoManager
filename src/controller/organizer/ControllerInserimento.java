@@ -14,6 +14,7 @@ import view.macchina.ViewGru;
 import view.macchina.ViewRuspa;
 import model.ModelInterface;
 import model.organizer.ModelGru;
+import model.organizer.ModelMacchina;
 import model.organizer.data.Gru;
 import model.organizer.data.Priorita;
 
@@ -366,4 +367,10 @@ public class ControllerInserimento{// implements AbstractInsertController{
 			}
 		};
 	}*/
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
+	}
 }

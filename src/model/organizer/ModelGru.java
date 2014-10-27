@@ -167,8 +167,9 @@ public class ModelGru extends ModelMacchina{
 		ArrayList<Gru> listaLibera=new ArrayList<Gru>();
 		
 		for(Gru gru:listaGru){
-			if(gru.isLibera(dataInizio, dataFine))
+			if(gru.isLibera(dataInizio, dataFine)){
 				listaLibera.add(gru);
+			}
 		}
 		return listaLibera;
 	}
@@ -197,6 +198,12 @@ public class ModelGru extends ModelMacchina{
 		}*/
 		ModelMacchina.initCodice();
 		listaGru.clear();
+	}
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
 	}
 	public void aggiungiGruForTest(Gru gru){
 		aggiornaCodice(gru.getCodice());

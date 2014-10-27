@@ -167,4 +167,11 @@ public class ModelCamionTest {
 		
 
 	}
+	
+
+	@Test
+	public void testConstructor(){
+		mc.initForTest();
+		assertNotNull(ModelCamion.getModelCamion());
+	}
 }

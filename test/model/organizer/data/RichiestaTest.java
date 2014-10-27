@@ -35,7 +35,7 @@ public class RichiestaTest {
 	public void testRichiestaRichiestaMacchinaInt() {
 		assertEquals(r.getCaratteristiche(),new RichiestaRuspa(5,10,5,10,5,10));
 		assertEquals(r.getCodice(),22);
-		assertEquals(Richiesta.getNextCodice(),23);
+		assertEquals(Richiesta.getNextCodice(),101);
 		assertEquals(r.getMacchina(),null);
 		assertFalse(r.isSoddisfatta());
 	}
@@ -90,9 +90,15 @@ public class RichiestaTest {
 		a.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,7));
 		assertFalse(r.equals(a));
 		assertFalse(a.equals(r));
-		r.setMacchina(new Ruspa(7,"Yamaha","Ruspa",7,7,7));
-		assertTrue(r.equals(a));
-		assertTrue(a.equals(r));
+		
+		
+		//Ruspa ruspa=new Ruspa(7,"Yamaha","Ruspa",7,7,7);
+		//r.setMacchina(ruspa);
+		//assertTrue(r.equals(a));
+		//assertTrue(a.equals(r));
+		
+		
+		
 		a.setMacchina(new Ruspa(8,"Yamaha","Ruspa",7,7,7));
 		assertFalse(r.equals(a));
 		assertFalse(a.equals(r));
@@ -157,6 +163,24 @@ public class RichiestaTest {
 		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro);
 		assertEquals(Richiesta.getNextCodice(),101);
 	}
+	@Test
+	public void testCompareTo() {
+		r=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
+		r=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro,12);
+		assertEquals(0, r.compareTo(r));
+		
+		Lavoro lavoro2=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta r2=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro2,22);
+		
+		System.out.println(r.compareTo(r2));
+		
+		lavoro2=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 10, 01),new GregorianCalendar(2014, 11, 1));
+		r2=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro2,22);
+		
+
+		assertEquals(-1,r.compareTo(r2));
+		
+		}
 
 	@Test
 	public void testSetMacchina() {
@@ -167,7 +191,13 @@ public class RichiestaTest {
 		assertEquals(r.getMacchina(),null);
 		r.setMacchina(new Ruspa(10,"Pippo","Pippo",7,7,7));
 		assertTrue(r.isSoddisfatta());
-		assertEquals(r.getMacchina(),new Ruspa(10,"Pippo","Pippo",7,7,7));
+		assertTrue(r.getMacchina() instanceof Ruspa);
+		assertEquals(r.getMacchina().getCodice(),10);
+		assertEquals(r.getMacchina().getProduttore(),"Pippo");
+		assertEquals(r.getMacchina().getModello(),"Pippo");
+		assertEquals(((Ruspa)r.getMacchina()).getCapacitaMassima(),7);
+		assertEquals(((Ruspa)r.getMacchina()).getAltezzaMassima(),7);
+		assertEquals(((Ruspa)r.getMacchina()).getPortataMassima(),7);
 		r.setMacchina(new Camion(10,"Pippo","Pippo",7,7,7));
 		assertFalse(r.isSoddisfatta());
 		assertEquals(r.getMacchina(),null);
@@ -317,5 +347,43 @@ public class RichiestaTest {
 		assertEquals(test.get(13),"0");//MaxAngoloRotazione
 		assertEquals(test.size(),14);
 	}
-	
+
+	@Test
+	public void testInConflitto(){
+		Richiesta ric1=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,1);
+		Richiesta ric2=new Richiesta(new RichiestaRuspa(7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric1.inConflitto(ric2));
+		
+		ric1=new Richiesta(new RichiestaCamion(5,10,5,10,5,10),lavoro,1);
+		ric2=new Richiesta(new RichiestaCamion(7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric1.inConflitto(ric2));
+		
+		ric1=new Richiesta(new RichiestaGru(5,10,5,10,5,10,5,10),lavoro,1);
+		ric2=new Richiesta(new RichiestaGru(7,12,7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric1.inConflitto(ric2));
+		
+		ric1=new Richiesta(new RichiestaEscavatore(5,10,5,10,5,10,5,10),lavoro,1);
+		ric2=new Richiesta(new RichiestaEscavatore(7,12,7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric1.inConflitto(ric2));
+		
+		ric1=new Richiesta(new RichiestaEscavatore(5,10,5,10,5,10,5,10),lavoro,1);
+		ric2=new Richiesta(new RichiestaEscavatore(17,112,17,112,17,112,17,112),lavoro,2);
+		assertFalse(ric1.inConflitto(ric2));
+		
+	}
+	@Test
+	public void testCollide(){
+		//cantiere=new Cantiere(23,"Bottanuco","via Chiusa,18",new GregorianCalendar(2014, 9, 24),new GregorianCalendar(2015,7,12),Priorita.ALTA);
+		Lavoro lavoro=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 8, 01),new GregorianCalendar(2014, 10, 1));
+		//cantiere.aggiungiLavoro(lavoro);
+		Richiesta ric1=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,22);
+		Lavoro lavoro2=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
+		Richiesta ric2=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro2,12);
+		assertTrue(ric1.collide(ric2));
+		
+		Lavoro lavoro3=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2015, 9, 01),new GregorianCalendar(2015, 11, 1));
+		Richiesta ric3=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro3,12);
+		
+		assertFalse(ric1.collide(ric3));
+	}
 }

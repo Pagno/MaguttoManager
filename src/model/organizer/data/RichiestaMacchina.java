@@ -9,9 +9,5 @@ public abstract class RichiestaMacchina{
 	}
 	
 	public abstract boolean rispettaRichiesta(Macchina m);
-	
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+
 }
