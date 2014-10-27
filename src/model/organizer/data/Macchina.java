@@ -72,34 +72,52 @@ public abstract class Macchina{
 	 */
 	public void setModello(String Modello){		this.modello=Modello;	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj){
-		if(this==obj){
-			return true;
-		}
-		if(obj==null){
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Macchina m=(Macchina)obj;
-		if(this.codice==m.getCodice()){
-			if(this.produttore.equals(m.getProduttore())){
-				if(this.modello.equals(m.getModello())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
 	public void aggiungiRichiesta(Richiesta r){
 		elencoRichiesta.add(r);
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codice;
+		result = prime * result
+				+ ((elencoRichiesta == null) ? 0 : elencoRichiesta.hashCode());
+		result = prime * result + ((modello == null) ? 0 : modello.hashCode());
+		result = prime * result
+				+ ((produttore == null) ? 0 : produttore.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Macchina other = (Macchina) obj;
+		if (codice != other.codice)
+			return false;
+		if (elencoRichiesta == null) {
+			if (other.elencoRichiesta != null)
+				return false;
+		} else if (!elencoRichiesta.equals(other.elencoRichiesta))
+			return false;
+		if (modello == null) {
+			if (other.modello != null)
+				return false;
+		} else if (!modello.equals(other.modello))
+			return false;
+		if (produttore == null) {
+			if (other.produttore != null)
+				return false;
+		} else if (!produttore.equals(other.produttore))
+			return false;
+		return true;
+	}
+
 	public Richiesta getRichiesta(int codiceRichiesta){
 		for(Richiesta item:elencoRichiesta){
 			if(item.getCodice()==codiceRichiesta){

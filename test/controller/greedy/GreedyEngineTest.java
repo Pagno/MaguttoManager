@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import model.ModelConnector;
 import model.organizer.ModelCamion;
@@ -14,6 +15,7 @@ import model.organizer.data.Camion;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Escavatore;
 import model.organizer.data.Lavoro;
+import model.organizer.data.Macchina;
 import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
@@ -76,8 +78,10 @@ public class GreedyEngineTest {
 		
 		//Tre richieste (priorit� alta,media,bassa) soddisfatte da tre macchine, la prima non ha prenotazioni, 
 		//la seconda prenota la seconda macchina e la terza prenota la prima e la terza, 
-		//verificare che la prima richiesta prende la terza macchina, la seconda prende la seconda macchina 
-		//e la terza prende la prima macchina
+		//La macchina con priorit� alta non ha prenotazioni, quindi sceglie una macchina libera ignorando le prenotazioni altrui
+		//In questo caso le tre macchine soddisfano tutte due richieste (9 e 10), quindi seleziona la prima macchina (5).
+		//La macchina con priorit� media ha una priorit�, e la rispetta (6)
+		//La terza macchina conserva ancora una priorit�, e la rispetta (7)
 		
 		m.aggiungiCantiere("Aeroporto Bergamo","Orio al Serio",new GregorianCalendar(2014,1,1),new GregorianCalendar(2020,10,10),Priorita.ALTA);//Cantiere 3
 		m.aggiungiLavoro("Fondamenta", new GregorianCalendar(2014,6,1), new GregorianCalendar(2014,7,1), 1);//Lavoro 4
@@ -117,9 +121,9 @@ public class GreedyEngineTest {
 		
 		Associazione asso1=new Associazione(m.getRichiesta(4),m.getMacchina(2));
 		Associazione asso2=new Associazione(m.getRichiesta(7),m.getMacchina(3));
-		Associazione asso3=new Associazione(m.getRichiesta(11),m.getMacchina(7));
+		Associazione asso3=new Associazione(m.getRichiesta(11),m.getMacchina(5));
 		Associazione asso4=new Associazione(m.getRichiesta(10),m.getMacchina(6));
-		Associazione asso5=new Associazione(m.getRichiesta(9),m.getMacchina(5));
+		Associazione asso5=new Associazione(m.getRichiesta(9),m.getMacchina(7));
 		Associazione asso6=new Associazione(m.getRichiesta(15),m.getMacchina(8));
 		Associazione asso7=new Associazione(m.getRichiesta(16),m.getMacchina(9));
 		Associazione asso8=new Associazione(m.getRichiesta(17),m.getMacchina(10));
@@ -173,589 +177,176 @@ public class GreedyEngineTest {
 	}
 
 	@Test
-	public void testRubaMacchineAdAssociazioni(){
-		ArrayList<Associazione> aLibere=new ArrayList<Associazione>();
-		ArrayList<Associazione> aPrenotate=new ArrayList<Associazione>();
-		ArrayList<Associazione> check=new ArrayList<Associazione>();
-		ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
-		RichiestaCamion rc1=new RichiestaCamion(1,2,1,2,1,2); 
-		
-		//Caso nessuna richiesta scoperta
-		Camion c1=new Camion(1,"Yamaha","Camion",1,1,1);
-		aPrenotate.add(new Associazione(new Richiesta(rc1,null,1),c1));
-		aLibere.add(new Associazione(new Richiesta(rc1,null,2),new Camion(2,"Yamaha","Camion",1,1,1)));
-		check.addAll(aLibere);
-		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
-		assertTrue(sortedRichieste.isEmpty());
-		assertEquals(aLibere.size(),2);
-		assertTrue(aLibere.containsAll(check));
-		Associazione temp1=new Associazione(new Richiesta(rc1,null,1),c1);
-		temp1.setConfermata(true);
-		assertTrue(aLibere.contains(temp1));
-		assertTrue(aPrenotate.isEmpty());
-		
-		
-		//Caso nessuna associazione da prenotazioni
-		aPrenotate.clear();
-		aLibere.clear();
-		aLibere.addAll(check);
-		sortedRichieste.add(new Richiesta(rc1,null,1));
-		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
-		assertEquals(aLibere.size(),1);
-		for(Associazione a:check){
-			a.setConfermata(true);
-		}
-		assertEquals(aLibere,check);
-		assertTrue(sortedRichieste.isEmpty());
-		assertTrue(aPrenotate.isEmpty());
-		
-		//Caso con associazioni compatibili ma non inferiori alla richiesta scoperta
-		aPrenotate.clear();
-		aLibere.clear();
-		check.clear();
-		sortedRichieste.clear();
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
-		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
-		Lavoro l2=new Lavoro(2,"l2",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,15));
-		c.aggiungiLavoro(l1);
-		c.aggiungiLavoro(l2);
-		l1.caricaRichiesta(rc1, 1, null);
-		l2.caricaRichiesta(rc1, 2, null);
-		Richiesta r1=l1.getRichiesta(1);
-		Richiesta r2=l2.getRichiesta(2);
-		aPrenotate.add(new Associazione(r2,c1));
-		sortedRichieste.add(r1);
-		assertEquals(check,aLibere);
-		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
-		assertTrue(sortedRichieste.isEmpty());
-		temp1=new Associazione(r2,c1);
-		temp1.setConfermata(true);
-		assertTrue(aLibere.contains(temp1));
-		assertEquals(aLibere.size(),1);
-		assertTrue(aPrenotate.isEmpty());
-		
-		
-		//Caso con pi� associazioni compatibili inferiori, scelgo quella con priorit� minore tra tutte
-		//La richiesta r4 non riesce a sua volta a rubare una macchina, quindi resta scoperta.
-		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,17));
-		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
-		Cantiere can2=new Cantiere(2,"c2","Saluzzo",new GregorianCalendar(2020,02,22),new GregorianCalendar(2022,02,22),Priorita.BASSA);
-		Cantiere can3=new Cantiere(3,"c3","Zurigo",new GregorianCalendar(2020,02,22),new GregorianCalendar(2022,02,22),Priorita.ALTA);
-		Lavoro l5=new Lavoro(5,"l5",can2,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
-		Lavoro l6=new Lavoro(6,"l6",can3,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
-		Lavoro l7=new Lavoro(7,"l7",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,22));
-		c.aggiungiLavoro(l3);
-		c.aggiungiLavoro(l4);
-		c.aggiungiLavoro(l7);
-		can2.aggiungiLavoro(l5);
-		can3.aggiungiLavoro(l6);
-		l3.caricaRichiesta(rc1, 3, null);
-		l4.caricaRichiesta(rc1, 4, null);
-		l5.caricaRichiesta(rc1, 9, null);
-		l6.caricaRichiesta(new RichiestaGru(5,10,5,10,5,10,5,10), 10, null);
-		l7.caricaRichiesta(new RichiestaGru(5,10,5,10,5,10,5,10), 11, null);
-		Richiesta r3=l3.getRichiesta(3);
-		Richiesta r4=l4.getRichiesta(4);
-		Richiesta r9=l5.getRichiesta(9);
-		Richiesta r10=l6.getRichiesta(10);
-		Richiesta r11=l7.getRichiesta(11);
-		Camion c2=new Camion(2,"Yamaha","Camion",1,1,1);
-		Camion c3=new Camion(3,"Yamaha","Camion",1,1,1);
-		aPrenotate.clear();
-		aLibere.clear();
-		check.clear();
-		sortedRichieste.clear();
-		aPrenotate.add(new Associazione(r3,c2));
-		aPrenotate.add(new Associazione(r1,c1));
-		aPrenotate.add(new Associazione(r4,c3));
-		assertEquals(aPrenotate.get(0),new Associazione(r3,c2));
-		assertEquals(aPrenotate.get(1),new Associazione(r1,c1));
-		assertEquals(aPrenotate.get(2),new Associazione(r4,c3));
-		sortedRichieste.add(r10);
-		sortedRichieste.add(r2);
-		sortedRichieste.add(r11);
-		sortedRichieste.add(r9);
-		sortedRichieste=GreedyEngine.ordinaRichieste(sortedRichieste);
-		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
-		assertTrue(sortedRichieste.isEmpty());
-		assertTrue(aPrenotate.isEmpty());
-		temp1=new Associazione(r3,c2);
-		Associazione temp2=new Associazione(r1,c1);
-		Associazione temp3=new Associazione(r2,c3);
-		temp1.setConfermata(true);
-		temp2.setConfermata(true);
-		temp3.setConfermata(true);
-		assertTrue(aLibere.contains(temp1));
-		assertTrue(aLibere.contains(temp2));
-		assertTrue(aLibere.contains(temp3));
-		assertEquals(aLibere.size(),3);
-		
-		//Caso richiesta con priorit� alta ma nessuna associazione a cui rubare
-		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
-		l2.caricaRichiesta(rr, 5, null);
-		Richiesta r5=l2.getRichiesta(5);
-		aPrenotate.clear();
-		aLibere.clear();
-		aPrenotate.add(new Associazione(r3,c2));
-		aPrenotate.add(new Associazione(r1,c1));
-		aPrenotate.add(new Associazione(r4,c3));
-		sortedRichieste.clear();
-		sortedRichieste.add(r5);
-		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
-		assertTrue(sortedRichieste.isEmpty());
-		assertTrue(aPrenotate.isEmpty());
-		temp1=new Associazione(r3,c2);
-		temp2=new Associazione(r1,c1);
-		temp3=new Associazione(r4,c3);
-		temp1.setConfermata(true);
-		temp2.setConfermata(true);
-		temp3.setConfermata(true);
-		assertTrue(aLibere.contains(temp1));
-		assertTrue(aLibere.contains(temp2));
-		assertTrue(aLibere.contains(temp3));
-		assertEquals(aLibere.size(),3);
-		
-		//Caso richiesta a cui rubo la macchina, che a sua volta pu� rubare la macchina a un altro
-		RichiestaEscavatore re1=new RichiestaEscavatore(10,30,10,20,10,20,10,20);
-		RichiestaEscavatore re2=new RichiestaEscavatore(20,50,10,20,10,20,10,20);
-		RichiestaEscavatore re3=new RichiestaEscavatore(40,60,10,20,10,20,10,20);
-		Escavatore e1=new Escavatore(4,"Yamaha","Escavatore piccolo",25,15,15,15);
-		Escavatore e2=new Escavatore(5,"Yamaha","Escavatore grande",45,15,15,15);
-		l2.caricaRichiesta(re1, 6, null);
-		l3.caricaRichiesta(re2, 7, null);
-		l4.caricaRichiesta(re3, 8, null);
-		l3.soddisfaRichiesta(7, e1);
-		l4.soddisfaRichiesta(8, e2);
-		Richiesta r6=l2.getRichiesta(6);
-		Richiesta r7=l3.getRichiesta(7);
-		Richiesta r8=l4.getRichiesta(8);
-		aPrenotate.clear();
-		aLibere.clear();
-		aPrenotate.add(new Associazione(r7,e1));
-		aPrenotate.add(new Associazione(r8,e2));
-		sortedRichieste.add(r6);
-		GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
-		assertTrue(sortedRichieste.isEmpty());
-		assertTrue(aPrenotate.isEmpty());
-		temp1=new Associazione(r6,e1);
-		temp2=new Associazione(r7,e2);
-		temp1.setConfermata(true);
-		temp2.setConfermata(true);
-		assertTrue(aLibere.contains(temp1));
-		assertTrue(aLibere.contains(temp2));
-		assertEquals(aLibere.size(),2);
-	}
-	
-	@Test
-	public void testSelezionaMacchineLibere(){
+	public void testSelezionaMacchinaLibera() {
 		Database db=Database.getDatabase();
 		ModelConnector m=ModelConnector.getModelConnector(db);
 		MainView mainView = new MainView(ControllerConnector.getControllerConnector(m));
 		m.ResetAllForTest();
-		ArrayList<Associazione>test;
-		ArrayList<Associazione>aPrenotate=new ArrayList<Associazione>();
-		ArrayList<Associazione>checkPrenotate=new ArrayList<Associazione>();
-		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
-		ArrayList<Richiesta>check=new ArrayList<Richiesta>();
-		m.aggiungiCantiere("c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);//Cantiere 1
+		m.aggiungiCantiere("MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.BASSA);//Cantiere 1
 		Cantiere c=m.getCantiere(1);
-		m.aggiungiLavoro("l1",new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20),1);//Lavoro 1
-		
-		//Caso senza macchine libere
-		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
-		m.aggiungiRichiesta(1, 1, rc);//Richiesta 1
-		Richiesta r1=m.getRichiesta(1);
-		m.aggiungiRichiesta(1, 1, rc);//Richiesta 2
-		m.aggiungiCamion("Yamaha", "Camioncino", 15, 15, 15);//Macchina 1
-		m.soddisfaRichiesta(2, 1);
-		sortedRichieste.add(r1);
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		assertEquals(checkPrenotate, aPrenotate);
-		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
-		assertEquals(checkPrenotate, aPrenotate);
-		assertEquals(check, sortedRichieste);
-		assertTrue(check.contains(r1));
-		assertEquals(check.size(),1);
-		assertTrue(test.isEmpty());
-		
-		//Caso con macchine libere ma gi� associate nella fase a prenotazioni
-		m.aggiungiLavoro("l2",new GregorianCalendar(2014,04,21),new GregorianCalendar(2014,04,27),1);//Lavoro 2
-		m.aggiungiRichiesta(1, 2, rc);//Richiesta 3
-		m.aggiungiCamion("Yamaha", "Camioncino", 15, 15, 15);//Macchina 2
-		m.soddisfaRichiesta(3, 2);
-		//Genero una falsa associazione per fingere una prenotazione evoluta in associazione
-		assertEquals(checkPrenotate, aPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		//La richiesta nella associazione fittizia � Richiesta 4
-		aPrenotate.add(new Associazione(new Richiesta(rc,new Lavoro(3,"lfittizio",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,06,19))), m.getMacchina(2)));
-		checkPrenotate.addAll(aPrenotate);
-		assertEquals(check, sortedRichieste);
-		assertTrue(check.contains(r1));
-		assertEquals(check.size(),1);
-		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
-		assertEquals(checkPrenotate, aPrenotate);
-		assertEquals(check, sortedRichieste);
-		assertTrue(check.contains(r1));
-		assertEquals(check.size(),1);
-		assertTrue(test.isEmpty());
-		
-		//Caso con macchine libere e non associate tramite prenotazioni, ma prenotate in precedenza da una richiesta pi� prioritaria
-		aPrenotate.clear();
-		checkPrenotate.clear();
-		m.aggiungiLavoro("l3",new GregorianCalendar(2014,04,13),new GregorianCalendar(2014,04,20),1);//Lavoro 3
-		m.aggiungiRichiesta(1, 3, rc);//Richiesta 5
-		Richiesta r2=m.getRichiesta(5);
-		sortedRichieste.clear();
-		check.clear();
-		check.add(r2);
-		check.add(r1);
-		sortedRichieste=GreedyEngine.ordinaRichieste(check);
-		assertEquals(sortedRichieste.size(),2);
-		assertEquals(sortedRichieste.get(0),r2);
-		assertEquals(sortedRichieste.get(1),r1);
-		check.clear();
-		check.addAll(sortedRichieste);
-		assertEquals(aPrenotate,checkPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
-		assertEquals(checkPrenotate, aPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		assertTrue(check.contains(r1));
-		assertTrue(check.contains(r2));
-		assertTrue(sortedRichieste.contains(r1));
-		assertFalse(sortedRichieste.contains(r2));
-		assertEquals(check.size(),2);
-		assertEquals(sortedRichieste.size(),1);
-		assertFalse(test.isEmpty());
-		assertEquals(test.size(),1);
-		assertTrue(test.contains(new Associazione(r2,m.getMacchina(2))));
-		
-		//Caso con tutte le richieste soddisfatte
-		sortedRichieste.clear();
-		check.clear();
-		check.add(r2);
-		check.add(r1);
-		sortedRichieste=GreedyEngine.ordinaRichieste(check);
-		assertEquals(sortedRichieste.size(),2);
-		assertEquals(sortedRichieste.get(0),r2);
-		assertEquals(sortedRichieste.get(1),r1);
-		check.clear();
-		check.addAll(sortedRichieste);
-		assertEquals(aPrenotate,checkPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		m.aggiungiRichiesta(1, 2, rc);//Richiesta 6
-		m.aggiungiCamion("Yamaha", "Camioncino", 15, 15, 15);//Macchina 3
-		m.soddisfaRichiesta(6, 3);
-		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
-		assertEquals(checkPrenotate, aPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		assertTrue(check.contains(r1));
-		assertTrue(check.contains(r2));
-		assertFalse(sortedRichieste.contains(r1));
-		assertFalse(sortedRichieste.contains(r2));
-		assertEquals(check.size(),2);
-		assertTrue(sortedRichieste.isEmpty());
-		assertFalse(test.isEmpty());
-		assertEquals(test.size(),2);
-		assertTrue(test.contains(new Associazione(r2,m.getMacchina(2))));
-		assertTrue(test.contains(new Associazione(r1,m.getMacchina(3))));
-		
-		//Caso camion,ruspa,escavatore,gru
-		m.aggiungiRichiesta(1, 1, new RichiestaGru(10,20,10,20,10,20,10,20));//Richiesta 7
-		m.aggiungiGru("Yamaha", "Gru", 15, 15, 15, 15);//Macchina 4
-		m.aggiungiRichiesta(1, 1, new RichiestaEscavatore(10,20,10,20,10,20,10,20));//Richiesta 8
-		m.aggiungiEscavatore("Yamaha", "Escavatore", 15, 15, 15, 15);//Macchina 5
-		m.aggiungiRichiesta(1, 1, new RichiestaRuspa(10,20,10,20,10,20));//Richiesta 9
-		m.aggiungiRuspa("Yamaha", "Ruspa", 15, 15, 15);//Macchina 6
-		sortedRichieste.clear();
-		check.clear();
-		check.add(r2);
-		check.add(r1);
-		check.add(m.getRichiesta(7));
-		check.add(m.getRichiesta(8));
-		check.add(m.getRichiesta(9));
-		sortedRichieste=GreedyEngine.ordinaRichieste(check);
-		assertEquals(sortedRichieste.size(),5);
-		assertEquals(sortedRichieste.get(0),r2);
-		assertEquals(sortedRichieste.get(1),r1);
-		assertEquals(sortedRichieste.get(2),m.getRichiesta(7));
-		assertEquals(sortedRichieste.get(3),m.getRichiesta(8));
-		assertEquals(sortedRichieste.get(4),m.getRichiesta(9));
-		check.clear();
-		check.addAll(sortedRichieste);
-		assertEquals(aPrenotate,checkPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
-		assertEquals(checkPrenotate, aPrenotate);
-		assertTrue(aPrenotate.isEmpty());
-		assertTrue(check.contains(r1));
-		assertTrue(check.contains(r2));
-		assertTrue(check.contains(m.getRichiesta(7)));
-		assertTrue(check.contains(m.getRichiesta(8)));
-		assertTrue(check.contains(m.getRichiesta(9)));
-		assertFalse(sortedRichieste.contains(r1));
-		assertFalse(sortedRichieste.contains(r2));
-		assertFalse(sortedRichieste.contains(m.getRichiesta(7)));
-		assertFalse(sortedRichieste.contains(m.getRichiesta(8)));
-		assertFalse(sortedRichieste.contains(m.getRichiesta(9)));
-		assertEquals(check.size(),5);
-		assertTrue(sortedRichieste.isEmpty());
-		assertFalse(test.isEmpty());
-		assertEquals(test.size(),5);
-		assertTrue(test.contains(new Associazione(r2,m.getMacchina(2))));
-		assertTrue(test.contains(new Associazione(r1,m.getMacchina(3))));
-		assertTrue(test.contains(new Associazione(m.getRichiesta(7),m.getMacchina(4))));
-		assertTrue(test.contains(new Associazione(m.getRichiesta(8),m.getMacchina(5))));
-		assertTrue(test.contains(new Associazione(m.getRichiesta(9),m.getMacchina(6))));
-	}
-	
-	@Test
-	public void testSelezionaConPrenotazioni(){
-		ArrayList<Associazione>test;
+		m.aggiungiLavoro("Paratie", new GregorianCalendar(2014,02,22), new GregorianCalendar(2014,03,22), 1);//Lavoro 1
+		m.aggiungiRichiesta(1, 1, new RichiestaCamion(1,5,1,5,1,5));//Richiesta 1
+		m.aggiungiRichiesta(1, 1, new RichiestaCamion(5,20,5,20,5,20));//Richiesta 2
+		m.aggiungiRichiesta(1, 1, new RichiestaGru(5,20,5,20,5,20,5,20));//Richiesta 3
+		m.aggiungiRichiesta(1, 1, new RichiestaRuspa(5,20,5,20,5,20));//Richiesta 4
+		m.aggiungiRichiesta(1, 1, new RichiestaEscavatore(5,20,5,20,5,20,5,20));//Richiesta 5
+		m.aggiungiRichiesta(1, 1, new RichiestaCamion(5,10,5,10,5,10));//Richiesta 6
+		m.aggiungiCamion("Yamaha", "Camion", 2, 2, 2);//Macchina 1
+		m.aggiungiCamion("Yamaha", "Camion", 7, 7, 7);//Macchina 2
+		m.aggiungiCamion("Yamaha", "Camion", 11, 11, 11);//Macchina 3
+		m.aggiungiGru("Yamaha", "Gru", 7, 7, 7, 7);//Macchina 4
+		m.aggiungiGru("Yamaha", "Gru", 11, 11, 11, 11);//Macchina 5
+		m.aggiungiRuspa("Yamaha", "Ruspa", 7, 7, 7);//Macchina 6
+		m.aggiungiRuspa("Yamaha", "Ruspa", 11, 11, 11);//Macchina 7
+		m.aggiungiEscavatore("Yamaha", "Escavatore", 7, 7, 7, 7);//Macchina 8
+		m.aggiungiEscavatore("Yamaha", "Escavatore", 11, 11, 11, 11);//Macchina 9
+		m.aggiungiCamion("Yamaha", "Camion", 7, 7, 7);//Macchina 10
+		m.aggiungiGru("Yamaha", "Gru", 7, 7, 7, 7);//Macchina 11
+		m.aggiungiRuspa("Yamaha", "Ruspa", 7, 7, 7);//Macchina 12
+		m.aggiungiEscavatore("Yamaha", "Escavatore", 7, 7, 7, 7);//Macchina 13
 		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
-		ArrayList<Richiesta>check=new ArrayList<Richiesta>();
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
-		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
-		c.aggiungiLavoro(l);
-		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
-		l.caricaRichiesta(rc, 10, null);
-		Richiesta r1=l.getRichiesta(10);
-		sortedRichieste.add(l.getRichiesta(10));
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		//Senza alcuna prenotazione, non crea associazioni
-		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,28),new GregorianCalendar(2014,05,1));
-		c.aggiungiLavoro(l2);
-		Camion cam1=new Camion(20, "Yamaha", "Camioncino", 15, 15, 15);
-		l2.caricaRichiesta(rc, 11, cam1);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertTrue(test.isEmpty());
-		assertEquals(sortedRichieste,check);
-		//Con una prenotazione, restituisce l'unica disponibile
-		l2.setDataInizio(new GregorianCalendar(2014,04,22));
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),1);
-		assertEquals(test.get(0),new Associazione(r1,cam1));
-		assertEquals(sortedRichieste.size(),check.size()-1);
-		assertFalse(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.isEmpty());
-		//Con due prenotazioni, restituisce la pi� promettente
-		Camion cam2=new Camion(21, "Yamaha", "Camioncino", 15, 15, 15);
-		Lavoro l3=new Lavoro(13,"l3",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,26));
-		c.aggiungiLavoro(l3);
-		l3.caricaRichiesta(rc, 12, cam2);
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r1);
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),1);
-		assertEquals(test.get(0),new Associazione(r1,cam2));
-		assertEquals(sortedRichieste.size(),check.size()-1);
-		assertFalse(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.isEmpty());
-		//Con pi� prenotazioni, restituisce la pi� promettente
-		Camion cam3=new Camion(22, "Yamaha", "Camioncino", 15, 15, 15);
-		Lavoro l4=new Lavoro(14,"l4",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,24));
-		c.aggiungiLavoro(l4);
-		l4.caricaRichiesta(rc, 13, cam3);
-		Camion cam4=new Camion(23, "Yamaha", "Camioncino", 15, 15, 15);
-		Lavoro l5=new Lavoro(15,"l5",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,11));
-		c.aggiungiLavoro(l5);
-		l5.caricaRichiesta(rc, 14, cam4);
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r1);
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),1);
-		assertEquals(test.get(0),new Associazione(r1,cam3));
-		assertEquals(sortedRichieste.size(),check.size()-1);
-		assertFalse(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.isEmpty());
-		//Se ci sono macchine prenotabili, anche pi� promettenti, ma di altro tipo le ignora
-		Ruspa rus=new Ruspa(40,"Yamaha","Ruspa",15,15,15);
-		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
-		Lavoro l6=new Lavoro(16,"l6",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,23));
-		c.aggiungiLavoro(l6);
-		l6.caricaRichiesta(rr, 15, rus);
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r1);
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),1);
-		assertEquals(test.get(0),new Associazione(r1,cam3));
-		assertEquals(sortedRichieste.size(),check.size()-1);
-		assertFalse(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.isEmpty());
-		//Se la prenotazione pi� promettente � gi� occupata, seleziona la pi� promettente libera
-		Lavoro lpiuprom=new Lavoro(30,"l30",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,19));
-		c.aggiungiLavoro(lpiuprom);
-		lpiuprom.caricaRichiesta(rc, 30, null);
-		Richiesta r2=lpiuprom.getRichiesta(30);
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r2);
-		sortedRichieste.add(r1);
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),2);
-		assertEquals(test.get(0),new Associazione(r2,cam3));
-		assertEquals(test.get(1),new Associazione(r1,cam2));
-		assertEquals(sortedRichieste.size(),check.size()-2);
-		assertFalse(sortedRichieste.contains(r2));
-		assertTrue(check.contains(r2));
-		assertFalse(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.isEmpty());
-		//Se pi� richieste si contendono la stessa macchina, solo la richiesta pi� prioritaria pu� ottenerla
-		l.caricaRichiesta(rc, 31, cam1);
-		l.caricaRichiesta(rc, 32, cam2);
-		l.caricaRichiesta(rc, 33, cam3);
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r2);
-		sortedRichieste.add(r1);
-		check.addAll(sortedRichieste);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),1);
-		assertEquals(test.get(0),new Associazione(r2,cam4));
-		assertEquals(sortedRichieste.size(),check.size()-1);
-		assertFalse(sortedRichieste.contains(r2));
-		assertTrue(check.contains(r2));
-		assertTrue(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertEquals(sortedRichieste.size(),1);
-		//Se una richiesta non genera prenotazioni, non viene associata anche se la macchina � libera
-		Lavoro lesc=new Lavoro(31,"l31",c,new GregorianCalendar(2014,07,10),new GregorianCalendar(2014,07,20));
-		c.aggiungiLavoro(lesc);
-		lesc.caricaRichiesta(new RichiestaEscavatore(10,20,10,20,10,20,10,20), 35, new Escavatore(90,"Yamaha","esc",15,15,15,15));
-		l.eliminaRichiesta(31);
-		l.eliminaRichiesta(32);
-		l.eliminaRichiesta(33);
-		lpiuprom.caricaRichiesta(new RichiestaEscavatore(10,20,10,20,10,20,10,20), 34, null);
-		Richiesta r3=lpiuprom.getRichiesta(34);
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r2);
-		sortedRichieste.add(r3);
-		sortedRichieste.add(r1);
-		check=GreedyEngine.ordinaRichieste(sortedRichieste);
-		sortedRichieste.clear();
-		sortedRichieste.addAll(check);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),2);
-		assertEquals(test.get(0),new Associazione(r2,cam3));
-		assertEquals(test.get(1),new Associazione(r1,cam2));
-		assertEquals(sortedRichieste.size(),check.size()-2);
-		assertFalse(sortedRichieste.contains(r2));
-		assertTrue(check.contains(r2));
-		assertFalse(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.contains(r3));
-		assertTrue(check.contains(r3));
-		assertEquals(sortedRichieste.size(),1);
-		//Se la richiesta attuale � gi� soddisfatta, anche se ha prenotazioni disponibili, non genero associazioni
-		r1.setMacchina(new Camion(22, "Yamaha", "Camioncino", 15, 15, 15));
-		sortedRichieste.clear();
-		check.clear();
-		sortedRichieste.add(r2);
-		sortedRichieste.add(r3);
-		sortedRichieste.add(r1);
-		check=GreedyEngine.ordinaRichieste(sortedRichieste);
-		sortedRichieste.clear();
-		sortedRichieste.addAll(check);
-		assertEquals(check, sortedRichieste);
-		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
-		assertEquals(test.size(),1);
-		assertEquals(test.get(0),new Associazione(r2,cam3));
-		assertEquals(sortedRichieste.size(),check.size()-1);
-		assertFalse(sortedRichieste.contains(r2));
-		assertTrue(check.contains(r2));
-		assertTrue(sortedRichieste.contains(r1));
-		assertTrue(check.contains(r1));
-		assertTrue(sortedRichieste.contains(r3));
-		assertTrue(check.contains(r3));
-		assertEquals(sortedRichieste.size(),2);
+		ArrayList<Associazione>alreadySelected=new ArrayList<Associazione>();
+		sortedRichieste.add(m.getRichiesta(1));
+		sortedRichieste.add(m.getRichiesta(2));
+		sortedRichieste.add(m.getRichiesta(3));
+		sortedRichieste.add(m.getRichiesta(4));
+		sortedRichieste.add(m.getRichiesta(5));
+		sortedRichieste.add(m.getRichiesta(6));
+		//Controllo il funzionamento 
+		Associazione a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 0);
+		assertEquals(a,new Associazione(sortedRichieste.get(0),m.getMacchina(1)));
+		alreadySelected.add(a);
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 1);
+		assertEquals(a,new Associazione(sortedRichieste.get(1),m.getMacchina(3)));
+		alreadySelected.add(a);
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 5);
+		assertEquals(a,new Associazione(sortedRichieste.get(5),m.getMacchina(2)));
+		
+		m.aggiungiRichiesta(1, 1, new RichiestaGru(5,10,5,10,5,10,5,10));//Richiesta 7
+		sortedRichieste.add(m.getRichiesta(7));
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 2);
+		assertEquals(a,new Associazione(sortedRichieste.get(2),m.getMacchina(5)));
+		alreadySelected.add(a);
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 6);
+		assertEquals(a,new Associazione(sortedRichieste.get(6),m.getMacchina(4)));
+		
+		m.aggiungiRichiesta(1, 1, new RichiestaRuspa(5,10,5,10,5,10));//Richiesta 8
+		sortedRichieste.add(m.getRichiesta(8));
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 3);
+		assertEquals(a,new Associazione(sortedRichieste.get(3),m.getMacchina(7)));
+		alreadySelected.add(a);
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 7);
+		assertEquals(a,new Associazione(sortedRichieste.get(7),m.getMacchina(6)));
+		
+		m.aggiungiRichiesta(1, 1, new RichiestaEscavatore(5,10,5,10,5,10,5,10));//Richiesta 9
+		sortedRichieste.add(m.getRichiesta(9));
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 4);
+		assertEquals(a,new Associazione(sortedRichieste.get(4),m.getMacchina(9)));
+		alreadySelected.add(a);
+		a=GreedyEngine.selezionaMacchinaLibera(m, sortedRichieste, alreadySelected, 8);
+		assertEquals(a,new Associazione(sortedRichieste.get(8),m.getMacchina(8)));
 	}
 	
 	@Test
 	public void testSelezionaMacchinaSenzaPrenotazioni() {
-		ArrayList<Camion>cList=new ArrayList<Camion>();
-		Associazione a;
-		ArrayList<Associazione>aLibere=new ArrayList<Associazione>();
-		ArrayList<Associazione>aPrenotate=new ArrayList<Associazione>();
-		assertTrue(aLibere.isEmpty());
-		assertTrue(aPrenotate.isEmpty());
-		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
-		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
-		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,23));
-		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,23));
-		c.aggiungiLavoro(l);
-		c.aggiungiLavoro(l2);
-		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
-		Richiesta ric1=new Richiesta(rc,l,20);
-		//Caso lista di macchine libere vuota
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
+		Cantiere can=new Cantiere(1,"can","Dalmine",new GregorianCalendar(2014,1,1),new GregorianCalendar(2014,10,10),Priorita.ALTA);
+		Lavoro l1=new Lavoro(1,"l1",can,new GregorianCalendar(2014,1,1),new GregorianCalendar(2014,3,10));
+		Lavoro l2=new Lavoro(2,"l2",can,new GregorianCalendar(2014,4,1),new GregorianCalendar(2014,5,10));
+		Richiesta ric=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),l1,2);
+		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
+		sortedRichieste.add(new Richiesta(new RichiestaCamion(10,20,10,20,10,20),l1,1));
+		sortedRichieste.add(ric);
+		ArrayList<Camion>disp=new ArrayList<Camion>();
+		//Senza macchine non genero associazioni
+		Associazione a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, sortedRichieste, disp, 1);
 		assertEquals(a,null);
-		//Caso di macchine associate nel periodo della prenotazione
-		Camion cam1=new Camion(10,"Yamaha","Camion1",15,15,15);
-		Associazione asso1=new Associazione(new Richiesta(rc,l2,30),cam1);
-		aLibere.add(asso1);
-		cList.add(cam1);
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
-		assertEquals(a,null);
-		Camion cam5=new Camion(15,"Yamaha","Camion1",15,15,15);
-		Associazione asso3=new Associazione(new Richiesta(rc,l2,30),cam5);
-		aPrenotate.add(asso3);
-		cList.add(cam5);
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
-		assertEquals(a,null);
-		//Caso di macchina libera
-		Camion cam2=new Camion(11,"Yamaha","Camion2",15,15,15);
-		Camion cam3=new Camion(12,"Yamaha","Camion3",15,15,15);
-		Camion cam4=new Camion(13,"Yamaha","Camion4",15,15,15);
-		Associazione asso2=new Associazione(new Richiesta(rc,l3,31),cam2);
-		aLibere.add(asso2);
-		cList.add(cam2);
-		cList.add(cam3);
-		cList.add(cam4);
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
-		assertEquals(a.getRichiesta(),ric1);
-		assertEquals(a.getMacchina(),cam2);
-		//caso richiesta gi� soddisfatta
-		Richiesta ric3=new Richiesta(rc,l,22);
-		ric3.setMacchina(new Camion(99,"Yamaha","Camion",15,15,15));
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, aLibere, aPrenotate);
-		assertEquals(a,null);
-		//caso richiesta gi� associata
-		ric3.setMacchina(null);
-		aLibere.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, aLibere, aPrenotate);
-		assertEquals(a,null);
-		aLibere.remove(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
-		aPrenotate.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
-		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, aLibere, aPrenotate);
-		assertEquals(a,null);
-		
+		//Con una macchina seleziona l'unica macchina presente
+		Camion c=new Camion(1,"Yamaha","Camion",15,15,15);
+		disp.add(c);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, sortedRichieste, disp, 1);
+		assertEquals(a,new Associazione(ric,c));
+		//Con pi� macchine e nessuna richiesta successiva seleziona la prima
+		Camion c2=new Camion(2,"Yamaha","Camion",18,18,18);
+		disp.add(c2);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, sortedRichieste, disp, 1);
+		assertEquals(a,new Associazione(ric,c));
+		//Aggiungere richieste successive non in collisione non modifica il risultato
+		sortedRichieste.add(new Richiesta(new RichiestaCamion(30,40,30,40,30,40),l1,3));
+		sortedRichieste.add(new Richiesta(new RichiestaRuspa(30,40,30,40,30,40),l1,4));
+		sortedRichieste.add(new Richiesta(new RichiestaCamion(10,20,10,20,10,20),l2,5));
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, sortedRichieste, disp, 1);
+		assertEquals(a,new Associazione(ric,c));
+		//Una richiesta successiva in collisione provoca la scelta della macchina che pu� soddisfare meno richieste successive
+		sortedRichieste.add(new Richiesta(new RichiestaCamion(10,16,10,16,10,16),l1,5));
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, sortedRichieste, disp, 1);
+		assertEquals(a,new Associazione(ric,c2));
 	}
-
+	
+	@Test
+	public void testSelezionaMacchinaSenzaPrenotazioniEnd() {
+		Richiesta ric=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),null,1);
+		ArrayList<Camion>disp=new ArrayList<Camion>();
+		//Senza macchine non genero associazioni
+		Associazione a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, disp);
+		assertEquals(a,null);
+		//Con una macchina seleziona l'unica macchina presente
+		Camion c=new Camion(1,"Yamaha","Corteccia",15,15,15);
+		disp.add(c);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, disp);
+		assertEquals(a,new Associazione(ric,c));
+		//Con pi� macchine seleziona la prima
+		Camion c2=new Camion(2,"Yamaha","Bufera",18,18,18);
+		disp.add(c2);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric, disp);
+		assertEquals(a,new Associazione(ric,c));
+	}
+	
+	@Test
+	public void testRimuoviMacchineAssociate() {
+		ArrayList<Camion>disp=new ArrayList<Camion>();
+		ArrayList<Associazione>alreadySelected=new ArrayList<Associazione>();
+		Cantiere can1=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Lavoro l1=new Lavoro(1,"l1",can1,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		Lavoro l2=new Lavoro(2,"l2",can1,new GregorianCalendar(2014,8,10),new GregorianCalendar(2014,9,20));
+		Richiesta ric=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),l1,1);
+		//Senza macchine libere, restituisce la lista vuota
+		ArrayList<Camion>test=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
+		assertTrue(test.isEmpty());
+		//Con macchine libere, ma senza associazioni, restituisce la lista delle disponibili
+		Camion c1=new Camion(1,"Yamaha","Camion",18,18,18);
+		Camion c2=new Camion(2,"Yamaha","Camion",15,15,15);
+		disp.add(c1);
+		disp.add(c2);
+		test=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
+		assertEquals(disp,test);
+		//Se le associazioni non collidono, o contengono macchine non compatibili con la richiesta, la lista resta invariata
+		//Questa richiesta contiene una macchina compatibile, ma non collide temporalmente
+		alreadySelected.add(new Associazione(new Richiesta(new RichiestaCamion(10,20,10,20,10,20),l2,2),c2));
+		//Questa richiesta collide temporalmente, ma la macchina contenuta non soddisfa ric
+		alreadySelected.add(new Associazione(new Richiesta(new RichiestaCamion(10,30,10,30,10,30),l1,3),new Camion(3,"Yamaha","Camion",25,25,25)));
+		//Questa richiesta contiene un tipo di macchina diversa da quella di ric
+		alreadySelected.add(new Associazione(new Richiesta(new RichiestaRuspa(10,20,10,20,10,20),l1,4),new Ruspa(4,"Yamaha","Ruspa",15,15,15)));
+		test=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
+		assertEquals(disp,test);
+		//Se una associazione collide con la richiesta, e tale associazione contiene una macchina della lista, tale macchina viene rimossa dalla lista
+		Camion c3=new Camion(3,"Yamaha","Camion",12,12,12);
+		disp.add(c3);
+		alreadySelected.add(new Associazione(new Richiesta(new RichiestaCamion(10,30,10,30,10,30),l1,5),c2));
+		test=GreedyEngine.rimuoviMacchineAssociate(disp, alreadySelected, ric);
+		assertEquals(disp.size(),3);
+		assertTrue(disp.contains(c1));
+		assertTrue(disp.contains(c2));
+		assertTrue(disp.contains(c3));
+		assertEquals(test.size(),2);
+		assertTrue(test.contains(c1));
+		assertFalse(test.contains(c2));
+		assertTrue(test.contains(c3));
+	}
+	
 	@Test
 	public void testSelezionaPrenotazionePiuPromettente() {
 		ArrayList<Associazione>a=new ArrayList<Associazione>();
-		ArrayList<Prenotazione>p;
+		HashMap<Macchina,Prenotazione>p;
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
 		c.aggiungiLavoro(l);
@@ -773,7 +364,7 @@ public class GreedyEngineTest {
 		p=GreedyEngine.generaPrenotazioni(r);
 		assertEquals(p.size(),1);
 		//Con una prenotazione, restituisce l'unica disponibile
-		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(0).getAssociazione());
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(cam1).getAssociazione());
 		Camion cam2=new Camion(21, "Yamaha", "Camioncino", 15, 15, 15);
 		Lavoro l3=new Lavoro(13,"l3",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,26));
 		c.aggiungiLavoro(l3);
@@ -781,7 +372,7 @@ public class GreedyEngineTest {
 		p=GreedyEngine.generaPrenotazioni(r);
 		assertEquals(p.size(),2);
 		//Con due prenotazioni, restituisce la pi� promettente
-		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(1).getAssociazione());
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(cam2).getAssociazione());
 		Camion cam3=new Camion(22, "Yamaha", "Camioncino", 15, 15, 15);
 		Lavoro l4=new Lavoro(14,"l4",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,24));
 		c.aggiungiLavoro(l4);
@@ -793,7 +384,7 @@ public class GreedyEngineTest {
 		p=GreedyEngine.generaPrenotazioni(r);
 		assertEquals(p.size(),4);
 		//Con pi� prenotazioni, restituisce la pi� promettente
-		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(2).getAssociazione());
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(cam3).getAssociazione());
 		Ruspa rus=new Ruspa(40,"Yamaha","Ruspa",15,15,15);
 		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
 		Lavoro l6=new Lavoro(16,"l6",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,23));
@@ -802,7 +393,7 @@ public class GreedyEngineTest {
 		p=GreedyEngine.generaPrenotazioni(r);
 		assertEquals(p.size(),4);
 		//Considera solo le prenotazioni per la richiesta corrente, ignorando le prenotazioni pi� promettenti di altri
-		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(2).getAssociazione());
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(cam3).getAssociazione());
 		Lavoro l7=new Lavoro(7,"l7",c,new GregorianCalendar(2014,04,05),new GregorianCalendar(2014,04,15));
 		a.add(new Associazione(new Richiesta(rc,l7,20), cam3));
 		Lavoro l8=new Lavoro(8,"l8",c,new GregorianCalendar(2017,04,05),new GregorianCalendar(2017,04,15));
@@ -810,7 +401,7 @@ public class GreedyEngineTest {
 		Lavoro l9=new Lavoro(9,"l9",c,new GregorianCalendar(2012,04,05),new GregorianCalendar(2012,04,15));
 		a.add(new Associazione(new Richiesta(rc,l9,22), cam2));
 		//Se la prenotazione pi� promettente � gi� occupata, seleziona la pi� promettente libera
-		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(1).getAssociazione());
+		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,r),p.get(cam2).getAssociazione());
 		//Anche se ci sono prenotazioni promettenti per altre richieste, restituisce null se non ce ne sono per la richiesta attuale
 		assertEquals(GreedyEngine.selezionaPrenotazionePiuPromettente(a,new Richiesta(rc,l2,15)),null);
 		a.add(new Associazione(new Richiesta(rc,l7,36), cam1));
@@ -884,47 +475,33 @@ public class GreedyEngineTest {
 		base.caricaRichiesta(rc, 103, c2);
 		base.caricaRichiesta(rc, 104, c3);
 		base.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 105, new Ruspa(4,"Yamaha","Ruspa",15,15,15));
-		Richiesta b2=base.getRichiesta(102);
-		/*
-		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
-		sortedRichieste.add(r1);
-		sortedRichieste.add(r2);
-		sortedRichieste.add(r3);
-		sortedRichieste.add(r4);
-		sortedRichieste.add(r5);
-		sortedRichieste.add(r6);
-		sortedRichieste.add(r7);
-		sortedRichieste.add(r8);
-		sortedRichieste.add(r9);
-		sortedRichieste.add(b2);
-		*/
-		ArrayList<Prenotazione>prenotazioni;
+		HashMap<Macchina,Prenotazione>prenotazioni;
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r1);
 		assertTrue(prenotazioni.isEmpty());
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r2);
-		assertEquals(prenotazioni.get(0).getRichiesta(),r2);
-		assertEquals(prenotazioni.get(0).getMacchina(),c1);
-		assertEquals(prenotazioni.get(0).getDurataLavoro(),5);
-		assertEquals(prenotazioni.get(1).getRichiesta(),r2);
-		assertEquals(prenotazioni.get(1).getMacchina(),c2);
-		assertEquals(prenotazioni.get(1).getDurataLavoro(),5);
-		assertEquals(prenotazioni.get(2).getRichiesta(),r2);
-		assertEquals(prenotazioni.get(2).getMacchina(),c3);
-		assertEquals(prenotazioni.get(2).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c1).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(c1).getMacchina(),c1);
+		assertEquals(prenotazioni.get(c1).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c2).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(c2).getMacchina(),c2);
+		assertEquals(prenotazioni.get(c2).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c3).getRichiesta(),r2);
+		assertEquals(prenotazioni.get(c3).getMacchina(),c3);
+		assertEquals(prenotazioni.get(c3).getDurataLavoro(),5);
 		assertEquals(prenotazioni.size(),3);
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r3);
-		assertEquals(prenotazioni.get(0).getRichiesta(),r3);
-		assertEquals(prenotazioni.get(0).getMacchina(),c1);
-		assertEquals(prenotazioni.get(0).getDurataLavoro(),5);
-		assertEquals(prenotazioni.get(1).getRichiesta(),r3);
-		assertEquals(prenotazioni.get(1).getMacchina(),c2);
-		assertEquals(prenotazioni.get(1).getDurataLavoro(),5);
-		assertEquals(prenotazioni.get(2).getRichiesta(),r3);
-		assertEquals(prenotazioni.get(2).getMacchina(),c3);
-		assertEquals(prenotazioni.get(2).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c1).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(c1).getMacchina(),c1);
+		assertEquals(prenotazioni.get(c1).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c2).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(c2).getMacchina(),c2);
+		assertEquals(prenotazioni.get(c2).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c3).getRichiesta(),r3);
+		assertEquals(prenotazioni.get(c3).getMacchina(),c3);
+		assertEquals(prenotazioni.get(c3).getDurataLavoro(),5);
 		assertEquals(prenotazioni.size(),3);
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r4);
@@ -937,36 +514,33 @@ public class GreedyEngineTest {
 		assertTrue(prenotazioni.isEmpty());
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r7);
-		assertEquals(prenotazioni.get(0).getRichiesta(),r7);
-		assertEquals(prenotazioni.get(0).getMacchina(),c1);
-		assertEquals(prenotazioni.get(0).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c1).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(c1).getMacchina(),c1);
+		assertEquals(prenotazioni.get(c1).getDurataLavoro(),5);
 		//Per c2, si ha che c2 � occupato sia da un lavoro lungo 5 giorni sia da loccupa, che dura due giorni.
 		//Si ha quindi una sola prenotazione per c2, che considera solamente il lavoro pi� corto tra i due.
-		assertEquals(prenotazioni.get(1).getRichiesta(),r7);
-		assertEquals(prenotazioni.get(1).getMacchina(),c2);
-		assertEquals(prenotazioni.get(1).getDurataLavoro(),2);
-		assertEquals(prenotazioni.get(2).getRichiesta(),r7);
-		assertEquals(prenotazioni.get(2).getMacchina(),c3);
-		assertEquals(prenotazioni.get(2).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c2).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(c2).getMacchina(),c2);
+		assertEquals(prenotazioni.get(c2).getDurataLavoro(),2);
+		assertEquals(prenotazioni.get(c3).getRichiesta(),r7);
+		assertEquals(prenotazioni.get(c3).getMacchina(),c3);
+		assertEquals(prenotazioni.get(c3).getDurataLavoro(),5);
 		assertEquals(prenotazioni.size(),3);
 		
 		prenotazioni=GreedyEngine.generaPrenotazioni(r8);
-		assertEquals(prenotazioni.get(0).getRichiesta(),r8);
-		assertEquals(prenotazioni.get(0).getMacchina(),c1);
-		assertEquals(prenotazioni.get(0).getDurataLavoro(),5);
-		assertEquals(prenotazioni.get(1).getRichiesta(),r8);
-		assertEquals(prenotazioni.get(1).getMacchina(),c3);
-		assertEquals(prenotazioni.get(1).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c1).getRichiesta(),r8);
+		assertEquals(prenotazioni.get(c1).getMacchina(),c1);
+		assertEquals(prenotazioni.get(c1).getDurataLavoro(),5);
+		assertEquals(prenotazioni.get(c3).getRichiesta(),r8);
+		assertEquals(prenotazioni.get(c3).getMacchina(),c3);
+		assertEquals(prenotazioni.get(c3).getDurataLavoro(),5);
 		assertEquals(prenotazioni.size(),2);
-		
-		prenotazioni=GreedyEngine.generaPrenotazioni(b2);
-		assertTrue(prenotazioni.isEmpty());
 		
 	}
 	
-	@Test
+	/*@Test
 	public void testPrenotaMacchineDaLavoro() {
-		ArrayList<Prenotazione>p=new ArrayList<Prenotazione>();
+		HashMap<Macchina,Prenotazione>p=new HashMap<Macchina,Prenotazione>();
 		assertTrue(p.isEmpty());
 		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
 		Lavoro l1=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
@@ -981,26 +555,26 @@ public class GreedyEngineTest {
 		l1.caricaRichiesta(rc, 10, null);
 		Richiesta r=l1.getRichiesta(10);
 		//Caso null
-		GreedyEngine.prenotaMacchineDaLavoro(r,null,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,null);
 		assertTrue(p.isEmpty());
 		//Caso lavoro senza alcuna richiesta
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste non soddisfatte
 		l2.caricaRichiesta(rc, 11, null);
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che per� non possono soddisfare ric
 		l2.caricaRichiesta(new RichiestaRuspa(10,20,10,20,10,20), 12, new Ruspa(30,"Yamaha","Ruspa",15,15,15));
 		l2.caricaRichiesta(new RichiestaCamion(5,10,5,10,5,10), 13, new Camion(40,"Yamaha","Camioncino",7,7,7));
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric ma non sono libere per ric
 		Camion cam=new Camion(40,"Yamaha","Camion",15,15,15);
 		l3.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 14, cam);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 15, cam);
 		assertFalse(cam.isLibera(l1.getDataInizio(), l1.getDataFine()));
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertTrue(p.isEmpty());
 		//Caso lavoro con richieste soddisfatte che soddisfano ric e che sono libere per ric
 		Camion c1=new Camion(41,"Yamaha","Camion",15,15,15);
@@ -1008,7 +582,7 @@ public class GreedyEngineTest {
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 16, c1);
 		l2.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 17, c2);
 		l4.caricaRichiesta(new RichiestaCamion(10,20,10,20,10,20), 18, c2);
-		GreedyEngine.prenotaMacchineDaLavoro(r,l2,p);
+		p=GreedyEngine.prenotaMacchineDaLavoro(r,l2);
 		assertFalse(p.isEmpty());
 		//assertEquals(p.size(),2);
 		assertEquals(p.get(0).getRichiesta(),r);
@@ -1017,7 +591,7 @@ public class GreedyEngineTest {
 		assertEquals(p.get(1).getRichiesta(),r);
 		assertEquals(p.get(1).getMacchina(),c2);
 		assertEquals(7,p.get(1).getDurataLavoro());
-	}
+	}*/
 
 	@Test
 	public void testLavoroFinisceMenoDiUnaSettimanaPrima() {
@@ -1459,3 +1033,653 @@ public class GreedyEngineTest {
 	}
 
 }
+
+	
+	
+	
+	
+	
+	
+/*	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Test
+	public void testRubaMacchineAdAssociazioni(){
+		ArrayList<Associazione> aLibere=new ArrayList<Associazione>();
+		ArrayList<Associazione> aPrenotate=new ArrayList<Associazione>();
+		ArrayList<Associazione> check=new ArrayList<Associazione>();
+		ArrayList<Richiesta> sortedRichieste=new ArrayList<Richiesta>();
+		RichiestaCamion rc1=new RichiestaCamion(1,2,1,2,1,2); 
+		
+		//Caso nessuna richiesta scoperta
+		Camion c1=new Camion(1,"Yamaha","Camion",1,1,1);
+		aPrenotate.add(new Associazione(new Richiesta(rc1,null,1),c1));
+		aLibere.add(new Associazione(new Richiesta(rc1,null,2),new Camion(2,"Yamaha","Camion",1,1,1)));
+		check.addAll(aLibere);
+		//GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertEquals(aLibere.size(),2);
+		assertTrue(aLibere.containsAll(check));
+		Associazione temp1=new Associazione(new Richiesta(rc1,null,1),c1);
+		temp1.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aPrenotate.isEmpty());
+		
+		
+		//Caso nessuna associazione da prenotazioni
+		aPrenotate.clear();
+		aLibere.clear();
+		aLibere.addAll(check);
+		sortedRichieste.add(new Richiesta(rc1,null,1));
+		//GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertEquals(aLibere.size(),1);
+		for(Associazione a:check){
+			a.setConfermata(true);
+		}
+		assertEquals(aLibere,check);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		
+		//Caso con associazioni compatibili ma non inferiori alla richiesta scoperta
+		aPrenotate.clear();
+		aLibere.clear();
+		check.clear();
+		sortedRichieste.clear();
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Lavoro l1=new Lavoro(1,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		Lavoro l2=new Lavoro(2,"l2",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,15));
+		c.aggiungiLavoro(l1);
+		c.aggiungiLavoro(l2);
+		l1.caricaRichiesta(rc1, 1, null);
+		l2.caricaRichiesta(rc1, 2, null);
+		Richiesta r1=l1.getRichiesta(1);
+		Richiesta r2=l2.getRichiesta(2);
+		aPrenotate.add(new Associazione(r2,c1));
+		sortedRichieste.add(r1);
+		assertEquals(check,aLibere);
+		//GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		temp1=new Associazione(r2,c1);
+		temp1.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertEquals(aLibere.size(),1);
+		assertTrue(aPrenotate.isEmpty());
+		
+		
+		//Caso con pi� associazioni compatibili inferiori, scelgo quella con priorit� minore tra tutte
+		//La richiesta r4 non riesce a sua volta a rubare una macchina, quindi resta scoperta.
+		Lavoro l3=new Lavoro(3,"l3",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,17));
+		Lavoro l4=new Lavoro(4,"l4",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		Cantiere can2=new Cantiere(2,"c2","Saluzzo",new GregorianCalendar(2020,02,22),new GregorianCalendar(2022,02,22),Priorita.BASSA);
+		Cantiere can3=new Cantiere(3,"c3","Zurigo",new GregorianCalendar(2020,02,22),new GregorianCalendar(2022,02,22),Priorita.ALTA);
+		Lavoro l5=new Lavoro(5,"l5",can2,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		Lavoro l6=new Lavoro(6,"l6",can3,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,28));
+		Lavoro l7=new Lavoro(7,"l7",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,22));
+		c.aggiungiLavoro(l3);
+		c.aggiungiLavoro(l4);
+		c.aggiungiLavoro(l7);
+		can2.aggiungiLavoro(l5);
+		can3.aggiungiLavoro(l6);
+		l3.caricaRichiesta(rc1, 3, null);
+		l4.caricaRichiesta(rc1, 4, null);
+		l5.caricaRichiesta(rc1, 9, null);
+		l6.caricaRichiesta(new RichiestaGru(5,10,5,10,5,10,5,10), 10, null);
+		l7.caricaRichiesta(new RichiestaGru(5,10,5,10,5,10,5,10), 11, null);
+		Richiesta r3=l3.getRichiesta(3);
+		Richiesta r4=l4.getRichiesta(4);
+		Richiesta r9=l5.getRichiesta(9);
+		Richiesta r10=l6.getRichiesta(10);
+		Richiesta r11=l7.getRichiesta(11);
+		Camion c2=new Camion(2,"Yamaha","Camion",1,1,1);
+		Camion c3=new Camion(3,"Yamaha","Camion",1,1,1);
+		aPrenotate.clear();
+		aLibere.clear();
+		check.clear();
+		sortedRichieste.clear();
+		aPrenotate.add(new Associazione(r3,c2));
+		aPrenotate.add(new Associazione(r1,c1));
+		aPrenotate.add(new Associazione(r4,c3));
+		assertEquals(aPrenotate.get(0),new Associazione(r3,c2));
+		assertEquals(aPrenotate.get(1),new Associazione(r1,c1));
+		assertEquals(aPrenotate.get(2),new Associazione(r4,c3));
+		sortedRichieste.add(r10);
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r11);
+		sortedRichieste.add(r9);
+		sortedRichieste=GreedyEngine.ordinaRichieste(sortedRichieste);
+		//GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		temp1=new Associazione(r3,c2);
+		Associazione temp2=new Associazione(r1,c1);
+		Associazione temp3=new Associazione(r2,c3);
+		temp1.setConfermata(true);
+		temp2.setConfermata(true);
+		temp3.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aLibere.contains(temp2));
+		assertTrue(aLibere.contains(temp3));
+		assertEquals(aLibere.size(),3);
+		
+		//Caso richiesta con priorit� alta ma nessuna associazione a cui rubare
+		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
+		l2.caricaRichiesta(rr, 5, null);
+		Richiesta r5=l2.getRichiesta(5);
+		aPrenotate.clear();
+		aLibere.clear();
+		aPrenotate.add(new Associazione(r3,c2));
+		aPrenotate.add(new Associazione(r1,c1));
+		aPrenotate.add(new Associazione(r4,c3));
+		sortedRichieste.clear();
+		sortedRichieste.add(r5);
+		//GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		temp1=new Associazione(r3,c2);
+		temp2=new Associazione(r1,c1);
+		temp3=new Associazione(r4,c3);
+		temp1.setConfermata(true);
+		temp2.setConfermata(true);
+		temp3.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aLibere.contains(temp2));
+		assertTrue(aLibere.contains(temp3));
+		assertEquals(aLibere.size(),3);
+		
+		//Caso richiesta a cui rubo la macchina, che a sua volta pu� rubare la macchina a un altro
+		RichiestaEscavatore re1=new RichiestaEscavatore(10,30,10,20,10,20,10,20);
+		RichiestaEscavatore re2=new RichiestaEscavatore(20,50,10,20,10,20,10,20);
+		RichiestaEscavatore re3=new RichiestaEscavatore(40,60,10,20,10,20,10,20);
+		Escavatore e1=new Escavatore(4,"Yamaha","Escavatore piccolo",25,15,15,15);
+		Escavatore e2=new Escavatore(5,"Yamaha","Escavatore grande",45,15,15,15);
+		l2.caricaRichiesta(re1, 6, null);
+		l3.caricaRichiesta(re2, 7, null);
+		l4.caricaRichiesta(re3, 8, null);
+		l3.soddisfaRichiesta(7, e1);
+		l4.soddisfaRichiesta(8, e2);
+		Richiesta r6=l2.getRichiesta(6);
+		Richiesta r7=l3.getRichiesta(7);
+		Richiesta r8=l4.getRichiesta(8);
+		aPrenotate.clear();
+		aLibere.clear();
+		aPrenotate.add(new Associazione(r7,e1));
+		aPrenotate.add(new Associazione(r8,e2));
+		sortedRichieste.add(r6);
+		//GreedyEngine.rubaMacchineAdAssociazioni(sortedRichieste, aPrenotate, aLibere);
+		assertTrue(sortedRichieste.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		temp1=new Associazione(r6,e1);
+		temp2=new Associazione(r7,e2);
+		temp1.setConfermata(true);
+		temp2.setConfermata(true);
+		assertTrue(aLibere.contains(temp1));
+		assertTrue(aLibere.contains(temp2));
+		assertEquals(aLibere.size(),2);
+	}
+	
+	@Test
+	public void testSelezionaMacchinaLibera(){
+		Database db=Database.getDatabase();
+		ModelConnector m=ModelConnector.getModelConnector(db);
+		MainView mainView = new MainView(ControllerConnector.getControllerConnector(m));
+		m.ResetAllForTest();
+		ArrayList<Associazione>test;
+		ArrayList<Associazione>aPrenotate=new ArrayList<Associazione>();
+		ArrayList<Associazione>checkPrenotate=new ArrayList<Associazione>();
+		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
+		ArrayList<Richiesta>check=new ArrayList<Richiesta>();
+		m.aggiungiCantiere("c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);//Cantiere 1
+		Cantiere c=m.getCantiere(1);
+		m.aggiungiLavoro("l1",new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20),1);//Lavoro 1
+		
+		//Caso senza macchine libere
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		m.aggiungiRichiesta(1, 1, rc);//Richiesta 1
+		Richiesta r1=m.getRichiesta(1);
+		m.aggiungiRichiesta(1, 1, rc);//Richiesta 2
+		m.aggiungiCamion("Yamaha", "Camioncino", 15, 15, 15);//Macchina 1
+		m.soddisfaRichiesta(2, 1);
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		assertEquals(checkPrenotate, aPrenotate);
+		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
+		assertEquals(checkPrenotate, aPrenotate);
+		assertEquals(check, sortedRichieste);
+		assertTrue(check.contains(r1));
+		assertEquals(check.size(),1);
+		assertTrue(test.isEmpty());
+		
+		//Caso con macchine libere ma gi� associate nella fase a prenotazioni
+		m.aggiungiLavoro("l2",new GregorianCalendar(2014,04,21),new GregorianCalendar(2014,04,27),1);//Lavoro 2
+		m.aggiungiRichiesta(1, 2, rc);//Richiesta 3
+		m.aggiungiCamion("Yamaha", "Camioncino", 15, 15, 15);//Macchina 2
+		m.soddisfaRichiesta(3, 2);
+		//Genero una falsa associazione per fingere una prenotazione evoluta in associazione
+		assertEquals(checkPrenotate, aPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		//La richiesta nella associazione fittizia � Richiesta 4
+		aPrenotate.add(new Associazione(new Richiesta(rc,new Lavoro(3,"lfittizio",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,06,19))), m.getMacchina(2)));
+		checkPrenotate.addAll(aPrenotate);
+		assertEquals(check, sortedRichieste);
+		assertTrue(check.contains(r1));
+		assertEquals(check.size(),1);
+		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
+		assertEquals(checkPrenotate, aPrenotate);
+		assertEquals(check, sortedRichieste);
+		assertTrue(check.contains(r1));
+		assertEquals(check.size(),1);
+		assertTrue(test.isEmpty());
+		
+		//Caso con macchine libere e non associate tramite prenotazioni, ma prenotate in precedenza da una richiesta pi� prioritaria
+		aPrenotate.clear();
+		checkPrenotate.clear();
+		m.aggiungiLavoro("l3",new GregorianCalendar(2014,04,13),new GregorianCalendar(2014,04,20),1);//Lavoro 3
+		m.aggiungiRichiesta(1, 3, rc);//Richiesta 5
+		Richiesta r2=m.getRichiesta(5);
+		sortedRichieste.clear();
+		check.clear();
+		check.add(r2);
+		check.add(r1);
+		sortedRichieste=GreedyEngine.ordinaRichieste(check);
+		assertEquals(sortedRichieste.size(),2);
+		assertEquals(sortedRichieste.get(0),r2);
+		assertEquals(sortedRichieste.get(1),r1);
+		check.clear();
+		check.addAll(sortedRichieste);
+		assertEquals(aPrenotate,checkPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
+		assertEquals(checkPrenotate, aPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		assertTrue(check.contains(r1));
+		assertTrue(check.contains(r2));
+		assertTrue(sortedRichieste.contains(r1));
+		assertFalse(sortedRichieste.contains(r2));
+		assertEquals(check.size(),2);
+		assertEquals(sortedRichieste.size(),1);
+		assertFalse(test.isEmpty());
+		assertEquals(test.size(),1);
+		assertTrue(test.contains(new Associazione(r2,m.getMacchina(2))));
+		
+		//Caso con tutte le richieste soddisfatte
+		sortedRichieste.clear();
+		check.clear();
+		check.add(r2);
+		check.add(r1);
+		sortedRichieste=GreedyEngine.ordinaRichieste(check);
+		assertEquals(sortedRichieste.size(),2);
+		assertEquals(sortedRichieste.get(0),r2);
+		assertEquals(sortedRichieste.get(1),r1);
+		check.clear();
+		check.addAll(sortedRichieste);
+		assertEquals(aPrenotate,checkPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		m.aggiungiRichiesta(1, 2, rc);//Richiesta 6
+		m.aggiungiCamion("Yamaha", "Camioncino", 15, 15, 15);//Macchina 3
+		m.soddisfaRichiesta(6, 3);
+		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
+		assertEquals(checkPrenotate, aPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		assertTrue(check.contains(r1));
+		assertTrue(check.contains(r2));
+		assertFalse(sortedRichieste.contains(r1));
+		assertFalse(sortedRichieste.contains(r2));
+		assertEquals(check.size(),2);
+		assertTrue(sortedRichieste.isEmpty());
+		assertFalse(test.isEmpty());
+		assertEquals(test.size(),2);
+		assertTrue(test.contains(new Associazione(r2,m.getMacchina(2))));
+		assertTrue(test.contains(new Associazione(r1,m.getMacchina(3))));
+		
+		//Caso camion,ruspa,escavatore,gru
+		m.aggiungiRichiesta(1, 1, new RichiestaGru(10,20,10,20,10,20,10,20));//Richiesta 7
+		m.aggiungiGru("Yamaha", "Gru", 15, 15, 15, 15);//Macchina 4
+		m.aggiungiRichiesta(1, 1, new RichiestaEscavatore(10,20,10,20,10,20,10,20));//Richiesta 8
+		m.aggiungiEscavatore("Yamaha", "Escavatore", 15, 15, 15, 15);//Macchina 5
+		m.aggiungiRichiesta(1, 1, new RichiestaRuspa(10,20,10,20,10,20));//Richiesta 9
+		m.aggiungiRuspa("Yamaha", "Ruspa", 15, 15, 15);//Macchina 6
+		sortedRichieste.clear();
+		check.clear();
+		check.add(r2);
+		check.add(r1);
+		check.add(m.getRichiesta(7));
+		check.add(m.getRichiesta(8));
+		check.add(m.getRichiesta(9));
+		sortedRichieste=GreedyEngine.ordinaRichieste(check);
+		assertEquals(sortedRichieste.size(),5);
+		assertEquals(sortedRichieste.get(0),r2);
+		assertEquals(sortedRichieste.get(1),r1);
+		assertEquals(sortedRichieste.get(2),m.getRichiesta(7));
+		assertEquals(sortedRichieste.get(3),m.getRichiesta(8));
+		assertEquals(sortedRichieste.get(4),m.getRichiesta(9));
+		check.clear();
+		check.addAll(sortedRichieste);
+		assertEquals(aPrenotate,checkPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		test=GreedyEngine.selezionaMacchineLibere(m, sortedRichieste, aPrenotate);
+		assertEquals(checkPrenotate, aPrenotate);
+		assertTrue(aPrenotate.isEmpty());
+		assertTrue(check.contains(r1));
+		assertTrue(check.contains(r2));
+		assertTrue(check.contains(m.getRichiesta(7)));
+		assertTrue(check.contains(m.getRichiesta(8)));
+		assertTrue(check.contains(m.getRichiesta(9)));
+		assertFalse(sortedRichieste.contains(r1));
+		assertFalse(sortedRichieste.contains(r2));
+		assertFalse(sortedRichieste.contains(m.getRichiesta(7)));
+		assertFalse(sortedRichieste.contains(m.getRichiesta(8)));
+		assertFalse(sortedRichieste.contains(m.getRichiesta(9)));
+		assertEquals(check.size(),5);
+		assertTrue(sortedRichieste.isEmpty());
+		assertFalse(test.isEmpty());
+		assertEquals(test.size(),5);
+		assertTrue(test.contains(new Associazione(r2,m.getMacchina(2))));
+		assertTrue(test.contains(new Associazione(r1,m.getMacchina(3))));
+		assertTrue(test.contains(new Associazione(m.getRichiesta(7),m.getMacchina(4))));
+		assertTrue(test.contains(new Associazione(m.getRichiesta(8),m.getMacchina(5))));
+		assertTrue(test.contains(new Associazione(m.getRichiesta(9),m.getMacchina(6))));
+	}
+	
+	@Test
+	public void testSelezionaConPrenotazioni(){
+		ArrayList<Associazione>test;
+		ArrayList<Richiesta>sortedRichieste=new ArrayList<Richiesta>();
+		ArrayList<Richiesta>check=new ArrayList<Richiesta>();
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		c.aggiungiLavoro(l);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		l.caricaRichiesta(rc, 10, null);
+		Richiesta r1=l.getRichiesta(10);
+		sortedRichieste.add(l.getRichiesta(10));
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		//Senza alcuna prenotazione, non crea associazioni
+		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,28),new GregorianCalendar(2014,05,1));
+		c.aggiungiLavoro(l2);
+		Camion cam1=new Camion(20, "Yamaha", "Camioncino", 15, 15, 15);
+		l2.caricaRichiesta(rc, 11, cam1);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertTrue(test.isEmpty());
+		assertEquals(sortedRichieste,check);
+		//Con una prenotazione, restituisce l'unica disponibile
+		l2.setDataInizio(new GregorianCalendar(2014,04,22));
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam1));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Con due prenotazioni, restituisce la pi� promettente
+		Camion cam2=new Camion(21, "Yamaha", "Camioncino", 15, 15, 15);
+		Lavoro l3=new Lavoro(13,"l3",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,26));
+		c.aggiungiLavoro(l3);
+		l3.caricaRichiesta(rc, 12, cam2);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam2));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Con pi� prenotazioni, restituisce la pi� promettente
+		Camion cam3=new Camion(22, "Yamaha", "Camioncino", 15, 15, 15);
+		Lavoro l4=new Lavoro(14,"l4",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,04,24));
+		c.aggiungiLavoro(l4);
+		l4.caricaRichiesta(rc, 13, cam3);
+		Camion cam4=new Camion(23, "Yamaha", "Camioncino", 15, 15, 15);
+		Lavoro l5=new Lavoro(15,"l5",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,11));
+		c.aggiungiLavoro(l5);
+		l5.caricaRichiesta(rc, 14, cam4);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam3));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Se ci sono macchine prenotabili, anche pi� promettenti, ma di altro tipo le ignora
+		Ruspa rus=new Ruspa(40,"Yamaha","Ruspa",15,15,15);
+		RichiestaRuspa rr=new RichiestaRuspa(10,20,10,20,10,20);
+		Lavoro l6=new Lavoro(16,"l6",c,new GregorianCalendar(2014,04,22),new GregorianCalendar(2014,05,23));
+		c.aggiungiLavoro(l6);
+		l6.caricaRichiesta(rr, 15, rus);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r1,cam3));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Se la prenotazione pi� promettente � gi� occupata, seleziona la pi� promettente libera
+		Lavoro lpiuprom=new Lavoro(30,"l30",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,19));
+		c.aggiungiLavoro(lpiuprom);
+		lpiuprom.caricaRichiesta(rc, 30, null);
+		Richiesta r2=lpiuprom.getRichiesta(30);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),2);
+		assertEquals(test.get(0),new Associazione(r2,cam3));
+		assertEquals(test.get(1),new Associazione(r1,cam2));
+		assertEquals(sortedRichieste.size(),check.size()-2);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.isEmpty());
+		//Se pi� richieste si contendono la stessa macchina, solo la richiesta pi� prioritaria pu� ottenerla
+		l.caricaRichiesta(rc, 31, cam1);
+		l.caricaRichiesta(rc, 32, cam2);
+		l.caricaRichiesta(rc, 33, cam3);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r1);
+		check.addAll(sortedRichieste);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r2,cam4));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertTrue(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertEquals(sortedRichieste.size(),1);
+		//Se una richiesta non genera prenotazioni, non viene associata anche se la macchina � libera
+		Lavoro lesc=new Lavoro(31,"l31",c,new GregorianCalendar(2014,07,10),new GregorianCalendar(2014,07,20));
+		c.aggiungiLavoro(lesc);
+		lesc.caricaRichiesta(new RichiestaEscavatore(10,20,10,20,10,20,10,20), 35, new Escavatore(90,"Yamaha","esc",15,15,15,15));
+		l.eliminaRichiesta(31);
+		l.eliminaRichiesta(32);
+		l.eliminaRichiesta(33);
+		lpiuprom.caricaRichiesta(new RichiestaEscavatore(10,20,10,20,10,20,10,20), 34, null);
+		Richiesta r3=lpiuprom.getRichiesta(34);
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r3);
+		sortedRichieste.add(r1);
+		check=GreedyEngine.ordinaRichieste(sortedRichieste);
+		sortedRichieste.clear();
+		sortedRichieste.addAll(check);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),2);
+		assertEquals(test.get(0),new Associazione(r2,cam3));
+		assertEquals(test.get(1),new Associazione(r1,cam2));
+		assertEquals(sortedRichieste.size(),check.size()-2);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertFalse(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.contains(r3));
+		assertTrue(check.contains(r3));
+		assertEquals(sortedRichieste.size(),1);
+		//Se la richiesta attuale � gi� soddisfatta, anche se ha prenotazioni disponibili, non genero associazioni
+		r1.setMacchina(new Camion(22, "Yamaha", "Camioncino", 15, 15, 15));
+		sortedRichieste.clear();
+		check.clear();
+		sortedRichieste.add(r2);
+		sortedRichieste.add(r3);
+		sortedRichieste.add(r1);
+		check=GreedyEngine.ordinaRichieste(sortedRichieste);
+		sortedRichieste.clear();
+		sortedRichieste.addAll(check);
+		assertEquals(check, sortedRichieste);
+		test=GreedyEngine.selezionaConPrenotazioni(sortedRichieste);
+		assertEquals(test.size(),1);
+		assertEquals(test.get(0),new Associazione(r2,cam3));
+		assertEquals(sortedRichieste.size(),check.size()-1);
+		assertFalse(sortedRichieste.contains(r2));
+		assertTrue(check.contains(r2));
+		assertTrue(sortedRichieste.contains(r1));
+		assertTrue(check.contains(r1));
+		assertTrue(sortedRichieste.contains(r3));
+		assertTrue(check.contains(r3));
+		assertEquals(sortedRichieste.size(),2);
+	}
+	
+	@Test
+	public void testSelezionaMacchinaSenzaPrenotazioni() {
+		ArrayList<Camion>cList=new ArrayList<Camion>();
+		Associazione a;
+		ArrayList<Associazione>aLibere=new ArrayList<Associazione>();
+		ArrayList<Associazione>aPrenotate=new ArrayList<Associazione>();
+		assertTrue(aLibere.isEmpty());
+		assertTrue(aPrenotate.isEmpty());
+		Cantiere c=new Cantiere(1,"c1","Bergamo",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.MEDIA);
+		Lavoro l=new Lavoro(3,"l1",c,new GregorianCalendar(2014,04,10),new GregorianCalendar(2014,04,20));
+		Lavoro l2=new Lavoro(12,"l2",c,new GregorianCalendar(2014,04,9),new GregorianCalendar(2014,04,23));
+		Lavoro l3=new Lavoro(33,"l3",c,new GregorianCalendar(2015,04,9),new GregorianCalendar(2015,04,23));
+		c.aggiungiLavoro(l);
+		c.aggiungiLavoro(l2);
+		RichiestaCamion rc=new RichiestaCamion(10,20,10,20,10,20);
+		Richiesta ric1=new Richiesta(rc,l,20);
+		//Caso lista di macchine libere vuota
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
+		assertEquals(a,null);
+		//Caso di macchine associate nel periodo della prenotazione
+		Camion cam1=new Camion(10,"Yamaha","Camion1",15,15,15);
+		Associazione asso1=new Associazione(new Richiesta(rc,l2,30),cam1);
+		aLibere.add(asso1);
+		cList.add(cam1);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
+		assertEquals(a,null);
+		Camion cam5=new Camion(15,"Yamaha","Camion1",15,15,15);
+		Associazione asso3=new Associazione(new Richiesta(rc,l2,30),cam5);
+		aPrenotate.add(asso3);
+		cList.add(cam5);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
+		assertEquals(a,null);
+		//Caso di macchina libera
+		Camion cam2=new Camion(11,"Yamaha","Camion2",15,15,15);
+		Camion cam3=new Camion(12,"Yamaha","Camion3",15,15,15);
+		Camion cam4=new Camion(13,"Yamaha","Camion4",15,15,15);
+		Associazione asso2=new Associazione(new Richiesta(rc,l3,31),cam2);
+		aLibere.add(asso2);
+		cList.add(cam2);
+		cList.add(cam3);
+		cList.add(cam4);
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric1, cList, aLibere, aPrenotate);
+		assertEquals(a.getRichiesta(),ric1);
+		assertEquals(a.getMacchina(),cam2);
+		//caso richiesta gi� soddisfatta
+		Richiesta ric3=new Richiesta(rc,l,22);
+		ric3.setMacchina(new Camion(99,"Yamaha","Camion",15,15,15));
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, aLibere, aPrenotate);
+		assertEquals(a,null);
+		//caso richiesta gi� associata
+		ric3.setMacchina(null);
+		aLibere.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, aLibere, aPrenotate);
+		assertEquals(a,null);
+		aLibere.remove(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
+		aPrenotate.add(new Associazione(ric3,new Camion(99,"Yamaha","Camion",15,15,15)));
+		a=GreedyEngine.selezionaMacchinaSenzaPrenotazioni(ric3, cList, aLibere, aPrenotate);
+		assertEquals(a,null);
+		
+	}*/
