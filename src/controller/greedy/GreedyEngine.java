@@ -44,12 +44,6 @@ public class GreedyEngine {
 					}
 				}
 			}
-			//RIMUOVERE
-			
-			for(int i=0;i<associazioni.size();i++){
-				System.out.println("Posizione: " + i + " - Richiesta " + associazioni.get(i).getRichiesta().getCodice() + " Macchina " + associazioni.get(i).getMacchina().getCodice());
-			}
-			//END RIMUOVERE
 			return associazioni;
 		}
 		
