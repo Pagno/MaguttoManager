@@ -1,5 +1,15 @@
 package model.organizer.data;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum Priorita.
+ */
 public enum Priorita {
-	BASSA,MEDIA,ALTA
+
+	/** Priorità bassa. */
+	BASSA,
+	/** Priorità media. */
+	MEDIA,
+	/** Priorità alta. */
+	ALTA
 }
