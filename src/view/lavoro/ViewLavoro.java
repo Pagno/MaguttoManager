@@ -45,35 +45,69 @@ import view.macchina.AssociaMacchina;
 
 import javax.swing.JCheckBox;
 
-import controller.ControllerConnector;
+import controller.ControllerInterface;
 
 
+/**
+ * The Class ViewLavoro.
+ */
 public class ViewLavoro extends JDialog implements Observer{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2004768729465641055L;
+	
+	/** The card panel. */
 	private JPanel contentPane,cardPanel;
+	
+	/** The pnl add richiesta. */
 	public PanelRichiesta pnlAddRichiesta;
+	
+	/** The pnl lavoro. */
 	private PanelLavoro pnlLavoro;
+	
+	/** The pnl cantiere. */
 	private PanelCantiere pnlCantiere;
+	
+	/** The pnl visualizza panel. */
 	private PanelVisualizzaRichiesta pnlVisualizzaPanel;
+	
+	/** The btn delete. */
 	private JButton btnDelete;
 	//MODELLI TABELLA JTREE
+	/** The tree model. */
 	public TreeNodeModel treeModel;
+	
+	/** The tree. */
 	private JTree tree;
+	
+	/** The scrollpane. */
 	private JScrollPane scrollpane;
+	
+	/** The codice cantiere. */
 	private int codiceCantiere;
+	
+	/** The chckbx new check box. */
 	private JCheckBox chckbxNewCheckBox;
+	
+	/** The renderer. */
 	private NodeRendererAdder renderer;
+	
+	/** The edit lavoro. */
 	private ViewLavoro editLavoro;
 	//LAVORO PANEL
 	/**
 	 * Create the dialog.
 	 */
-	private ControllerConnector cCtr;
-	public ViewLavoro(JFrame view,Cantiere cantiere,ControllerConnector aCtr) {
+	private ControllerInterface cCtr;
+	
+	/**
+	 * Instantiates a new view lavoro.
+	 *
+	 * @param view the view
+	 * @param cantiere the cantiere
+	 * @param aCtr the a ctr
+	 */
+	public ViewLavoro(JFrame view,Cantiere cantiere,ControllerInterface aCtr) {
 		super(view);
 		editLavoro=this;
 		cCtr=aCtr;
@@ -163,8 +197,14 @@ public class ViewLavoro extends JDialog implements Observer{
 		setVisible(true);
 	}
 	
+	/** The codice lavoro. */
 	private int codiceLavoro;
 	//Aggiornamento dei pannelli
+	/**
+	 * Do mouse clicked.
+	 *
+	 * @param me the me
+	 */
 	void doMouseClicked(MouseEvent me) {
 		TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
 		CardLayout  cl = (CardLayout)(cardPanel.getLayout());
@@ -243,6 +283,11 @@ public class ViewLavoro extends JDialog implements Observer{
 		}
 	}	
 	
+	/**
+	 * Check.
+	 *
+	 * @return the item listener
+	 */
 	private ItemListener check(){
 		return new ItemListener() {
 			@Override
@@ -253,13 +298,30 @@ public class ViewLavoro extends JDialog implements Observer{
 		};
 	}	
 	
+	/**
+	 * Adds the lavoro.
+	 *
+	 * @param work the work
+	 */
 	private void addLavoro(ArrayList<String> work){
 		treeModel.addWork(work);
 	}
+	
+	/**
+	 * Adds the richiesta.
+	 *
+	 * @param associazione the associazione
+	 */
 	private void addRichiesta(ArrayList<String> associazione){
 		treeModel.addRichiesta(associazione);
 	}
 	
+	/**
+	 * Libera richiesta listener.
+	 *
+	 * @param codiceRichiesta the codice richiesta
+	 * @return the action listener
+	 */
 	public ActionListener liberaRichiestaListener(final int codiceRichiesta){
 		return new ActionListener() {
 			@Override
@@ -269,6 +331,13 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
+	
+	/**
+	 * Associa macchina listener.
+	 *
+	 * @param codiceRichiesta the codice richiesta
+	 * @return the action listener
+	 */
 	public ActionListener associaMacchinaListener(final int codiceRichiesta){
 		return new ActionListener() {
 			@Override
@@ -278,6 +347,14 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
+	
+	/**
+	 * Aggiungi associazione macchina listener.
+	 *
+	 * @param am the am
+	 * @param codiceRichiesta the codice richiesta
+	 * @return the action listener
+	 */
 	public ActionListener aggiungiAssociazioneMacchinaListener(final AssociaMacchina am,final int codiceRichiesta){
 		return new ActionListener() {
 			@Override
@@ -289,6 +366,12 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
+	
+	/**
+	 * Aggiungi lavoro listener.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener aggiungiLavoroListener(){
 		return new ActionListener() {
 			@Override
@@ -313,6 +396,12 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
+	
+	/**
+	 * Modifica lavoro listener.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener modificaLavoroListener(){
 		return new ActionListener() {
 			@Override
@@ -336,6 +425,12 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
+	
+	/**
+	 * Aggiungi richiesta listener.
+	 *
+	 * @return the action listener
+	 */
 	public ActionListener aggiungiRichiestaListener() {
 		return new ActionListener() {
 			@Override
@@ -384,6 +479,12 @@ public class ViewLavoro extends JDialog implements Observer{
 		};
 	}
 	
+	/**
+	 * Delete richiesta listener.
+	 *
+	 * @param codiceRichiesta the codice richiesta
+	 * @return the action listener
+	 */
 	private ActionListener deleteRichiestaListener(final int codiceRichiesta) {
 		return new ActionListener() {
 			@Override
@@ -394,6 +495,12 @@ public class ViewLavoro extends JDialog implements Observer{
 		};
 	}
 	
+	/**
+	 * Delete lavoro listener.
+	 *
+	 * @param codiceLavoro the codice lavoro
+	 * @return the action listener
+	 */
 	public ActionListener deleteLavoroListener(final int codiceLavoro) {
 		return new ActionListener() {
 			@Override
@@ -407,9 +514,16 @@ public class ViewLavoro extends JDialog implements Observer{
 	
 	
 
+	/**
+	 * Reload model.
+	 */
 	private void reloadModel(){
 		treeModel.reload();
 	}
+	
+	/**
+	 * Aggiorna richiesta.
+	 */
 	private void aggiornaRichiesta(){
 		TreePath tp=tree.getSelectionPath();
 		btnDelete.setEnabled(true);
@@ -433,6 +547,9 @@ public class ViewLavoro extends JDialog implements Observer{
 		pnlVisualizzaPanel.loadData(data);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		ArrayList<String> arg=new ArrayList<String>(Arrays.asList((String[])arg1));

@@ -8,24 +8,31 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Panello necessario per la visualizzazione dei dati della richiesta.
+ */
 public class PanelVisualizzaRichiesta extends JPanel {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8632987215239339395L;
+	
+	/** The data. */
 	private ArrayList<String> data;
 	
 
+	/** The lbl macchina. */
 	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione,lblMacchina;
+	
+	/** The btn associa macchina. */
 	public JButton btnAssociaMacchina;
 	/**
-	 * Create the panel.
+	 * Istanzia il nuovo pannello
 	 */
 	public PanelVisualizzaRichiesta() {
 		super();
 		createPanel();
 	}
+
 	private void createPanel(){
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		lblTipo=new JLabel();
@@ -48,19 +55,12 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		add(lblRotazione);
 		add(btnAssociaMacchina);
 	}
-
-	public void addSoddisfaRichiestaListener(ActionListener act){
-		for(ActionListener action:btnAssociaMacchina.getActionListeners()){
-			btnAssociaMacchina.removeActionListener(action);
-		}
-		btnAssociaMacchina.addActionListener(act);
-	}
-	public void addLiberaRichiestaListener(ActionListener act){
-		for(ActionListener action:btnAssociaMacchina.getActionListeners()){
-			btnAssociaMacchina.removeActionListener(action);
-		}
-		btnAssociaMacchina.addActionListener(act);
-	}
+	
+	/**
+	 * Carica i dati relativi alla richiesta da visualizzare.
+	 *
+	 * @param dati dati della richiesta da visualizzare.
+	 */
 	public void loadData(ArrayList<String> dati){
 		//TODO Migliorare la visualizzazione della richiesta
 		data=dati;
@@ -69,13 +69,25 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		lblPortata.setText(data.get(4)+" <Portata< "+data.get(5));
 		lblLunghezza.setText(data.get(6)+" <Lunghezza< "+data.get(7));
 		lblAltezza.setText(data.get(8)+" <Altezza< "+data.get(9));
-		lblProfondita.setText(data.get(10)+" <Profondità< "+data.get(11));
+		lblProfondita.setText(data.get(10)+" <Profondit??< "+data.get(11));
 		lblRotazione.setText(data.get(12)+" <Rotazione< "+data.get(13));
 		lblMacchina.setVisible(false);
 	}
+	
+	/**
+	 * Ritorna i dati della richiesta visualizzata
+	 *
+	 * @return dati della richiesta visualizzata
+	 */
 	public ArrayList<String> getData(){
 		return data;
 	}
+	
+	/**
+	 * Imposta la macchina associata alla richiesta.
+	 *
+	 * @param string macchina associata alla richiesta.
+	 */
 	public void setMacchina(String string) {
 		lblMacchina.setVisible(false);
 		lblMacchina.setText("Macchina Associata: "+string);		

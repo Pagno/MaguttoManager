@@ -25,17 +25,18 @@ import view.macchina.ViewEscavatore;
 import view.macchina.ViewGru;
 import view.macchina.ViewRuspa;
 import controller.ControllerConnector;
+import controller.ControllerInterface;
 import controller.organizer.ControllerCantiere;
 
 import java.awt.event.WindowAdapter;
 import java.lang.reflect.Method;
 
-// 
 /**
  * Class MainView.
  */
 public class MainView extends JFrame {
 
+	/** The main view. */
 	MainView mainView;
 	/** Constant serialVersionUID. */
 	private static final long serialVersionUID = 6003480805602305099L;
@@ -67,13 +68,18 @@ public class MainView extends JFrame {
 	/** item file esci. */
 	private JMenuItem itemFileSalva, itemFileCarica, itemFileEsci;
 
-	private ControllerConnector controller;
+	/** The controller. */
+	private ControllerInterface controller;
+	
+	/** The elimina. */
 	private String elimina = "Gru";
 
 	/**
-	 * Create frame.
+	 * Crea il frame.
+	 *
+	 * @param aCtr istanza del ControllerInterface per interagire con i datidell'applicazione.
 	 */
-	public MainView(ControllerConnector aCtr) {
+	public MainView(ControllerInterface aCtr) {
 		controller = aCtr;
 		setTitle("MaguttoManager");
 		mainView = this;
@@ -132,6 +138,9 @@ public class MainView extends JFrame {
 		setVisible(true);
 	}
 	
+	/**
+	 * Assegna gli observer del model.
+	 */
 	private void setObserver(){
 		controller.aggiungiGruObserver(dataModelGru);
 		controller.aggiungiRuspaObserver(dataModelRuspa);
@@ -143,8 +152,7 @@ public class MainView extends JFrame {
 	/**
 	 * Adds window closing listener.
 	 *
-	 * @param e
-	 *            e
+	 * @return WindowAdapter
 	 */
 	private WindowAdapter addWindowClosingListener() {
 		return new WindowAdapter() {
@@ -156,7 +164,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Left menu.
+	 * Inizializza il menu laterale sinitro.
 	 */
 	private void leftMenu() {
 		leftMenu = new JPanel();
@@ -180,9 +188,9 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Gets selected data.
+	 * Ritorna i dati relativi alla riga selezionata nella tabella principale
 	 *
-	 * @return selected data
+	 * @return Dati relativi alla riga selezionata nella tabella principale
 	 */
 	public Object[] getSelectedData() {
 		return table.getSelectedRow() == -1 ? null : ((MainViewTableModel) table
@@ -190,7 +198,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Menu.
+	 * Crea il menu della view Principale.
 	 */
 	private void menu() {
 		JMenuBar menuBar = new JMenuBar();
@@ -244,6 +252,9 @@ public class MainView extends JFrame {
 	}
 
 	// VIEW LISTENER
+	/**
+	 * Assegna i diversi listener ai bottone della view.
+	 */
 	public void listener() {
 		btnViewGru.addActionListener(visualizzaElenco(this));
 		btnViewRuspa.addActionListener(visualizzaElenco(this));
@@ -267,8 +278,8 @@ public class MainView extends JFrame {
 	/**
 	 * Adds button gru listener.
 	 *
-	 * @param act
-	 *            act
+	 * @param visualizza i dati caricati nell'applicazione.
+	 * @return ActionListener
 	 */
 	public ActionListener visualizzaElenco(final MainView mainView) {
 		return new ActionListener() {
@@ -296,10 +307,9 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Adds button gru listener.
+	 * Evento legato alla pressione al menu greedyEngine.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener greedyEngineListener() {
 		return new ActionListener() {
@@ -312,10 +322,9 @@ public class MainView extends JFrame {
 
 	// MENU ADD LISTENER
 	/**
-	 * Adds aggiungi gru listener.
+	 *Evento legato alla pressione al menu Aggiungi Gru.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener visualizzaInserimentoGru() {
 		return new ActionListener() {
@@ -325,6 +334,12 @@ public class MainView extends JFrame {
 			}
 		};
 	}
+	
+	/**
+	 * Evento legato alla pressione al menu Aggiungi Escavatore.
+	 *
+	 * @return ActionListener
+	 */
 	public ActionListener visualizzaInserimentoEscavatore() {
 		return new ActionListener() {
 			@Override
@@ -333,11 +348,11 @@ public class MainView extends JFrame {
 			}
 		};
 	}
+	
 	/**
-	 * Adds aggiungi ruspa listener.
+	 * Evento legato alla pressione al menu Aggiungi Ruspa.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener visualizzaInserimentoRuspa() {
 		return new ActionListener() {
@@ -349,10 +364,9 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Adds aggiungi camion listener.
+	 *  Evento legato alla pressione al menu Aggiungi Camion.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener visualizzaInserimentoCamion() {
 		return new ActionListener() {
@@ -362,6 +376,12 @@ public class MainView extends JFrame {
 			}
 		};
 	}
+	
+	/**
+	 * Evento legato alla pressione al menu Aggiungi Cantiere.
+	 *
+	 * @return ActionListener
+	 */
 	public ActionListener visualizzaInserimentoCantiere() {
 		return new ActionListener() {
 			@Override
@@ -372,10 +392,9 @@ public class MainView extends JFrame {
 	}
 	// MENU FILE LISTENER
 	/**
-	 * Adds btn salva listener.
+	 * Evento legato alla pressione al menu Salva.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener addBtnSalvaListener() {
 		return new ActionListener() {
@@ -387,10 +406,9 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Adds btn carica listener.
+	 * Evento legato alla pressione al menu Carica.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener addBtnCaricaListener() {
 		return new ActionListener() {
@@ -407,10 +425,9 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Adds btn esci listener.
+	 * Evento legato alla pressione al menu Esci.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	public ActionListener addBtnEsciListener() {
 		return new ActionListener() {
@@ -422,10 +439,9 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Adds elimina listener.
+	 * Evento legato alla pressione del bottone Elimina.
 	 *
-	 * @param act
-	 *            act
+	 * @return ActionListener
 	 */
 	private ActionListener addEliminaListener() {
 		return new ActionListener() {
@@ -458,6 +474,11 @@ public class MainView extends JFrame {
 		};
 	}
 
+	/**
+	 * Evento legato alla pressione del bottone Modifica.
+	 *
+	 * @return ActionListener 
+	 */
 	private ActionListener addBtnModificaListener() {
 		return new ActionListener() {
 			@Override
@@ -486,7 +507,7 @@ public class MainView extends JFrame {
 
 	// GESTIONE DEI TABLEMODEL
 	/**
-	 * Show gru data.
+	 * Mostra nella tabella i dati delle gru caricate.
 	 */
 	public void showGruData() {
 		table.setModel(dataModelGru);
@@ -494,7 +515,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Show ruspa data.
+	 * Mostra nella tabella i dati delle ruspe caricate.
 	 */
 	public void showRuspaData() {
 		table.setModel(dataModelRuspa);
@@ -502,7 +523,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Show camion data.
+	 * Mostra nella tabella i dati dei camion caricati.
 	 */
 	public void showCamionData() {
 		table.setModel(dataModelCamion);
@@ -510,7 +531,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Show escavatore data.
+	 * Mostra nella tabella i dati degli escavatori caricati
 	 */
 	public void showEscavatoreData() {
 		table.setModel(dataModelEscavatore);
@@ -518,7 +539,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Show cantiere data.
+	 * Mostra nella tabella i dati dei cantieri caricati.
 	 */
 	public void showCantiereData() {
 		table.setModel(dataModelCantiere);
@@ -526,7 +547,7 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Removes selected.
+	 * Rimuovi l'elemento selezionato nella tabella.
 	 */
 	public void removeSelectedRow() {
 		((MainViewTableModel) table.getModel()).removeData(table.getSelectedRow());

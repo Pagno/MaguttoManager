@@ -13,11 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+/**
+ * Panello necessario per l'inserimento dei dati della richiesta.
+ */
 public class PanelRichiesta extends JPanel {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6633814599841251596L;
 	/**
 	 * Create the panel.
@@ -26,14 +27,25 @@ public class PanelRichiesta extends JPanel {
 
 
 	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
+	
+	/** The txt min rotazione. */
 	private JTextField txtMinPortata,txtMinCapacita,txtMinLunghezza,txtMinAltezza,txtMinProfondita,txtMinRotazione;
+	
+	/** The txt max rotazione. */
 	private JTextField txtMaxPortata,txtMaxCapacita,txtMaxLunghezza,txtMaxAltezza,txtMaxProfondita,txtMaxRotazione;
 	
+	/** The btn add. */
 	public JButton btnReset,btnAdd;
 	
+	/** The str. */
 	String[] str= {"Gru","Ruspa","Camion","Escavatore"};
+	
+	/** The Type. */
 	public JComboBox<String> Type=new JComboBox<String>(str);
 	
+	/**
+	 * Istanzia il nuovo pannello
+	 */
 	public PanelRichiesta() {
 		setLayout(new BorderLayout());
 		btnReset=new JButton("Reset");
@@ -254,6 +266,9 @@ public class PanelRichiesta extends JPanel {
 		};
 	}
 	
+	/**
+	 * Pulisce i dati inseriti nei campi.
+	 */
 	public void clear(){
 		txtMinPortata.setText("");
 		txtMinCapacita.setText("");
@@ -261,13 +276,6 @@ public class PanelRichiesta extends JPanel {
 		txtMinAltezza.setText("");
 		txtMinProfondita.setText("");
 		txtMinRotazione.setText("");
-	}
-	public void btnAddActionListener(ActionListener act){
-		for( ActionListener al : btnReset.getActionListeners() ) {
-			btnAdd.removeActionListener( al );
-	    }
-		btnAdd.addActionListener(act);
-		
 	}
 	private void setVisibilitaCapacita(Boolean vis){
 		lblCapacita.setVisible(vis);
@@ -289,11 +297,13 @@ public class PanelRichiesta extends JPanel {
 		txtMinAltezza.setVisible(vis);
 		txtMaxAltezza.setVisible(vis);
 	}
+
 	private void setVisibilitaProfondita(Boolean vis){
 		lblProfondita.setVisible(vis);
 		txtMinProfondita.setVisible(vis);
 		txtMaxProfondita.setVisible(vis);
 	}
+
 	private void setVisibilitaRotazione(Boolean vis){
 		lblRotazione.setVisible(vis);
 		txtMinRotazione.setVisible(vis);
@@ -306,47 +316,127 @@ public class PanelRichiesta extends JPanel {
 		btnReset.setText("Modifica");
 	}*/
 	
+	/**
+	 * Ritorna   portata minima.
+	 *
+	 * @return portata minima
+	 */
 	public int getMinPortata() {
 		return txtMinPortata.getText().equals("")?-1:Integer.parseInt(txtMinPortata.getText());
 	}
+	
+	/**
+	 * Ritorna capacita minima.
+	 *
+	 * @return capacita minima
+	 */
 	public int getMinCapacita() {
 		return txtMinCapacita.getText().equals("")?-1:Integer.parseInt(txtMinCapacita.getText());
 	}
+	
+	/**
+	 * Ritorna lunghezza minima.
+	 *
+	 * @return lunghezza minima
+	 */
 	public int getMinLunghezza() {
 		return txtMinLunghezza.getText().equals("")?-1:Integer.parseInt(txtMinLunghezza.getText());
 	}
+	
+	/**
+	 * Ritorna altezza minima.
+	 *
+	 * @return altezza minima
+	 */
 	public int getMinAltezza() {
 		return txtMinAltezza.getText().equals("")?-1:Integer.parseInt(txtMinAltezza.getText());
 	}
+	
+	/**
+	 * Ritorna profondita minima.
+	 *
+	 * @return profondita minima
+	 */
 	public int getMinProfondita() {
 		return txtMinProfondita.getText().equals("")?-1:Integer.parseInt(txtMinProfondita.getText());
 	}
+	
+	/**
+	 * Ritorna rotazione minima.
+	 *
+	 * @return rotazione minima
+	 */
 	public int getMinRotazione() {
 		return txtMinRotazione.getText().equals("")?-1:Integer.parseInt(txtMinRotazione.getText());
 	}
+	
+	/**
+	 * Ritorna tipo macchina.
+	 *
+	 * @return tipo macchina
+	 */
 	public String getTipoMacchina() {
 		return (String)Type.getSelectedItem();
 	}
 	
 	
+	/**
+	 * Ritorna portata.
+	 *
+	 * @return portata massima.
+	 */
 	public int getMaxPortata() {
 		return txtMaxPortata.getText().equals("")?-1:Integer.parseInt(txtMaxPortata.getText());
 	}
+	
+	/**
+	 * Ritorna capacita.
+	 *
+	 * @return capacita massima.
+	 */
 	public int getMaxCapacita() {
 		return txtMaxCapacita.getText().equals("")?-1:Integer.parseInt(txtMaxCapacita.getText());
 	}
+	
+	/**
+	 * Ritorna lunghezza.
+	 *
+	 * @return lunghezza massima.
+	 */
 	public int getMaxLunghezza() {
 		return txtMaxLunghezza.getText().equals("")?-1:Integer.parseInt(txtMaxLunghezza.getText());
 	}
+	
+	/**
+	 * Ritorna altezza.
+	 *
+	 * @return altezza massima.
+	 */
 	public int getMaxAltezza() {
 		return txtMaxAltezza.getText().equals("")?-1:Integer.parseInt(txtMaxAltezza.getText());
 	}
+	
+	/**
+	 * Ritorna profondita.
+	 *
+	 * @return profondita massima.
+	 */
 	public int getMaxProfondita() {
 		return txtMaxProfondita.getText().equals("")?-1:Integer.parseInt(txtMaxProfondita.getText());
 	}
+	
+	/**
+	 * Ritorna rotazione.
+	 *
+	 * @return rotazione massima.
+	 */
 	public int getMaxRotazione() {
 		return txtMaxRotazione.getText().equals("")?-1:Integer.parseInt(txtMaxRotazione.getText());
 	}
+	
+	/**
+	 * Clear data.
+	 */
 	public void clearData() {
 
 		txtMinPortata.setText("");

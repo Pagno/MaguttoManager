@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -21,16 +20,14 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import model.organizer.data.Priorita;
-
 import com.toedter.calendar.JDateChooser;
+import controller.ControllerInterface;
 
-import controller.ControllerConnector;
-
+// TODO: Auto-generated Javadoc
 // 
 /**
- * Class EditCantiere.
+ * Frame dedicato all'inserimento e modifica dei Cantieri
  */
 public class ViewCantiere extends JDialog implements PropertyChangeListener {
 
@@ -47,7 +44,10 @@ public class ViewCantiere extends JDialog implements PropertyChangeListener {
 	private JLabel lblPriorita, lblNome, lblIndirizzo, lblDataInizio,
 			lblDataFine;
 
+	/** The priority. */
 	String[] priority = { "BASSA", "MEDIA", "ALTA" };
+	
+	/** The priorita. */
 	private JComboBox<String> priorita = new JComboBox<String>(priority);
 
 	/** ok button. */
@@ -56,18 +56,19 @@ public class ViewCantiere extends JDialog implements PropertyChangeListener {
 	/** data fine. */
 	private JDateChooser dataInizio, dataFine;
 
+	/** The edit. */
 	private boolean edit = false;
 
+	/** The df. */
 	private GregorianCalendar di, df;
 
 	/**
-	 * Instantiates a new edits cantiere.
+	 * Crea un nuovo frame per l'inserimento di una nuovo cantiere.
 	 *
-	 * @param view
-	 *            view
-	 * @wbp.parser.constructor
+	 * @param view view padre
+	 * @param insCtr Interfaccia del componente controller necessario per comunicare con i dati dell'applicazione
 	 */
-	public ViewCantiere(JFrame view, final ControllerConnector insCtr) {
+	public ViewCantiere(JFrame view, final ControllerInterface insCtr) {
 		super(view);
 		setName("insertCantiere");
 		setTitle("Aggiungi un nuovo Cantiere");
@@ -227,47 +228,23 @@ public class ViewCantiere extends JDialog implements PropertyChangeListener {
 		dataFine.addPropertyChangeListener(this);
 	}
 
-	/**
-	 * Gets data inizio.
-	 *
-	 * @return data inizio
-	 */
 	private Date getDataInizio() {
 		return dataInizio.getDate();
 	}
 
-	/**
-	 * Gets data fine.
-	 *
-	 * @return data fine
-	 */
 	private Date getDataFine() {
 		return dataFine.getDate();
 	}
 
-	/**
-	 * Sets minima data fine.
-	 *
-	 * @param d
-	 *            new minima data fine
-	 */
-
-	public void setMinimaDataFine(Date d) {
+	private void setMinimaDataFine(Date d) {
 		dataFine.setMinSelectableDate(d);
 	}
 
-	public void setMassimaDataInizio(Date d) {
+	private void setMassimaDataInizio(Date d) {
 		dataInizio.setMaxSelectableDate(d);
 	}
 
-	/**
-	 * Sets data inizio changed listener.
-	 *
-	 * @param list
-	 *            new data inizio changed listener
-	 */
-
-	public void setDataInizioChangedListener(PropertyChangeListener list) {
+	private void setDataInizioChangedListener(PropertyChangeListener list) {
 		dataInizio.addPropertyChangeListener(list);
 	}
 
@@ -309,10 +286,4 @@ public class ViewCantiere extends JDialog implements PropertyChangeListener {
 			setMassimaDataInizio(getDataFine());
 		}
 	}
-
-	/**
-	 * Gets associazioni list.
-	 *
-	 * @return associazioni list
-	 */
 }

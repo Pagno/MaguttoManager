@@ -20,27 +20,46 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+/**
+ * Panello necessario per l'inserimento dei dati del cantiere.
+ */
 public class PanelCantiere extends JPanel {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8114659454885608761L;
 	
 
 
+	/** The txt indirizzo. */
 	private JTextField txtNomeCantiere, txtIndirizzo;
+	
+	/** The lbl data fine cantiere. */
 	private JLabel lblPriorita,lblNomeCantiere, lblIndirizzoCantiere, lblDataInizioCantiere,lblDataFineCantiere;
+	
+	/** The data fine cantiere. */
 	private JDateChooser dataInizioCantiere,dataFineCantiere;
+	
+	/** The btn reset. */
 	private JButton btnAdd,btnReset;
+	
+	/** The priority. */
 	String[] priority={"BASSA","MEDIA","ALTA"};
+	
+	/** The priorita. */
 	private JComboBox<String> priorita=new JComboBox<String>(priority);
 	
+	/**
+	 * Instanzia il pannello.
+	 */
 	public PanelCantiere() {
 		setLayout(new BorderLayout());
 		createPanel();
 		btnReset.setVisible(false);
 	}
+
+	/**
+	 * Creates the panel.
+	 */
 	private void createPanel(){
 		lblNomeCantiere = new JLabel("Nome:");
 		lblPriorita = new JLabel("Priorita:");
@@ -135,30 +154,22 @@ public class PanelCantiere extends JPanel {
 		this.setLayout(layout);
 	}
 	
-	public void clear(){
+	/**
+	 * Pulisce i dati inseriti nei campi.
+	 */
+	private void clear(){
 		dataInizioCantiere.setDate(null);
 		dataFineCantiere.setDate(null);
 		txtNomeCantiere.setText("");
 		btnAdd.setText("Inserisci");
 	}
 	
-	public void btnAddActionListener(ActionListener act){
-		for( ActionListener al : btnAdd.getActionListeners() ) {
-			btnAdd.removeActionListener( al );
-	    }
-		btnAdd.addActionListener(act);
-		
-	}
-	/*public void fill(ArrayList<String> data){
-		dataInizioCantiere.setDate(null);
-		dataFineCantiere.setDate(null);
-		txtNomeCantiere.setText(data.get(1));
-		btnAddCantiere.setText("Modifica");
-	}*/
-	
-
-	//private GregorianCalendar di,df;
-	public void setDatiCantiere(Object[] v){
+	/**
+	 * Imposta i dati del cantiere
+	 *
+	 * @param v dati del cantiere
+	 */
+	private void setDatiCantiere(Object[] v){
 		
 		txtNomeCantiere.setText(v[1].toString());
 		txtIndirizzo.setText(v[2].toString());
@@ -173,27 +184,102 @@ public class PanelCantiere extends JPanel {
 		}
 		priorita.setSelectedItem(v[5]);
 	}
-	
-	public void setAddCantiereListeners(ActionListener act) {
-		btnAdd.addActionListener(act);
-	}
-	public String getNomeCantiere() {return txtNomeCantiere.getText();}
-	public String getPrioritaCantiere() {return (String)priorita.getSelectedItem();}
+
+	/**
+	 * Ritorna indirizzo cantiere.
+	 *
+	 * @return Indirizzo cantiere
+	 */
 	public String getIndirizzoCantiere() {return txtIndirizzo.getText();}
+
+	/**
+	 * Ritorna data inizio cantiere.
+	 *
+	 * @return SSta inizio cantiere
+	 */
 	public Date getDataInizioCantiere(){return dataInizioCantiere.getDate();}
+
+	/**
+	 * Ritorna data fine cantiere.
+	 *
+	 * @return data fine cantiere
+	 */
 	public Date getDataFineCantiere(){return dataFineCantiere.getDate();}
 
+	/**
+	 * Assegna il nome cantiere.
+	 *
+	 * @param nome nome cantiere
+	 */
 	public void setNomeCantiere(String nome) {txtNomeCantiere.setText(nome);}
+
+	/**
+	 * Assegna la priorita cantiere.
+	 *
+	 * @param priorita priorita cantiere
+	 */
 	public void setPrioritaCantiere(String priorita) {this.priorita.setSelectedItem(priorita); }
+
+	/**
+	 * Assegna l'indirizzo cantiere.
+	 *
+	 * @param Indirizzo indirizzo cantiere
+	 */
 	public void setIndirizzoCantiere(String Indirizzo) {txtIndirizzo.setText(Indirizzo);}
+
+	/**
+	 * Assegna la data inizio cantiere.
+	 *
+	 * @param inizio data inizio cantiere
+	 */
 	public void setDataInizioCantiere(GregorianCalendar inizio){dataInizioCantiere.setDate(inizio.getTime());}
+	
+
+	/**
+	 * Assegna la data fine cantiere.
+	 *
+	 * @param fine data fine cantiere
+	 */
 	public void setDataFineCantiere(GregorianCalendar fine){dataFineCantiere.setDate(fine.getTime());}
 	
 	
+
+	/**
+	 * Assegna la data inizio cantiere.
+	 *
+	 * @param list the new data inizio cantiere changed listener
+	 */
 	public void setDataInizioCantiereChangedListener(PropertyChangeListener list){dataInizioCantiere.addPropertyChangeListener(list);}
+	
+
+	/**
+	 * Assegna la  minima data fine cantiere.
+	 *
+	 * @param d minima data fine cantiere
+	 */
 	public void setMinimaDataFineCantiere(Date d){dataFineCantiere.setMinSelectableDate(d);}
+	
+
+	/**
+	 * Assegna la massima data inizio cantiere.
+	 *
+	 * @param d massima data inizio cantiere
+	 */
 	public void setMassimaDataInizioCantiere(Date d){dataInizioCantiere.setMaxSelectableDate(d);}
+	
+
+	/**
+	 * Assegna la minima data fine.
+	 *
+	 * @param d minima data fine
+	 */
 	public void setMinimaDataFine(Date d){dataFineCantiere.setMinSelectableDate(d);}
+
+	/**
+	 * Assegna la massima data inizio.
+	 *
+	 * @param d massima data inizio
+	 */
 	public void setMassimaDataInizio(Date d){dataInizioCantiere.setMaxSelectableDate(d);}
 
 }

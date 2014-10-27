@@ -6,9 +6,9 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-//
 /**
- *   Class MyTableModel.
+ *   Classe dedicata alla visualizzazione dei dati nella tabella nella view Principale
+ *   @see MainView
  */
 public class MainViewTableModel extends AbstractTableModel implements Observer{ 
  	
@@ -22,19 +22,19 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
 			
     /**
-     * Instantiates a new my table model.
+     * Inizializzo la classe con il nome delle colonne della tabella
      *
-     * @param column   column
+     * @param column Array di stringhe contenente il nome delle colonne
      */
     public MainViewTableModel(String[] column){
     	columnNames=column;
     }
     
     /**
-     * Adds   data.
+     * Aggiungi nuovi dati alla tabella
      *
-     * @param obj   obj
-     * @return true, if successful
+     * @param obj dati da inserire nella tabella
+     * @return true se correttamente inseriti
      */
     public boolean addData(Object[] obj){
     	data.add(obj);
@@ -43,10 +43,10 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
     }
     
     /**
-     * Removes   data.
+     * Rimuove la i-esima riga dalla tabella 
      *
-     * @param i   i
-     * @return true, if successful
+     * @param i indice della riga da rimuovere
+     * @return true se correttamente rimossi.
      */
     public boolean removeData(int i){
     	try{
@@ -59,10 +59,10 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
     }
     
     /**
-     * Remve data.
+     * Rimuove i dati i dalla tabella
      *
-     * @param data   data
-     * @return true, if successful
+     * @param data dati da rimuovere dalla tabella.
+     * @return true se correttamente rimossi.
      */
     public boolean removeData(Object[] data){
     	if(this.data.remove(data)){
@@ -73,16 +73,16 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
     }
     
     /**
-     * Reset data.
+     * Assegna i nuovi dati da visualizzare nella tabella, i precedenti verranno persi.
      *
-     * @param d   d
+     * @param d dati da visualizzare.
      */
     public void resetData(ArrayList<Object[]> d){
     	data=d;
     }
     
     /**
-     * Reset data.
+     * Elimino tutti i dati dalla tabella.
      */
     public void resetData(){
     	data.clear();
@@ -123,9 +123,9 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
 	}
 	
 	/**
-	 * Removes   row.
+	 * rimuovi a dati dalla tabella
 	 *
-	 * @param row   row
+	 * @param row indice della riga da rimuovere
 	 */
 	public void removeRow(int row){
 		data.remove(row);
@@ -152,10 +152,10 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
 	}
 	
 	/**
-	 * Gets   row data.
+	 * Ritorna i dati salvati nella i-esima riga della tabella
 	 *
-	 * @param row   row
-	 * @return   row data
+	 * @param row indice della riga 
+	 * @return dati della riga i-esima
 	 */
 	public Object[] getRowData(int row){
 		return data.get(row);

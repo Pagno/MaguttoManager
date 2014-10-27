@@ -20,23 +20,37 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+/**
+ * Panello necessario per l'inserimento dei dati del lavoro.
+ */
 public class PanelLavoro extends JPanel implements PropertyChangeListener {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4417739288868546177L;
 	/**
 	 * Create the panel.
 	 */
 
 	public JTextField txtNomeLavoro;
+	
+	/** The lbl data fine lavoro. */
 	public JLabel lblNomeLavoro, lblDataInizioLavoro, lblDataFineLavoro;
+	
+	/** The data fine lavoro. */
 	public JDateChooser dataInizioLavoro, dataFineLavoro;
+	
+	/** The btn reset. */
 	public JButton btnLavoro, btnReset;
 
+	/** The max data fine. */
 	Date minDataInizio, maxDataFine;
 
+	/**
+	 * iIstanzia il panel lavoro.
+	 *
+	 * @param inizio minima data di inizio del lavoro
+	 * @param fine massima data di fine del lavoro
+	 */
 	public PanelLavoro(Date inizio, Date fine) {// Data Inizio e fine del
 												// cantiere
 		setLayout(new BorderLayout());
@@ -54,6 +68,9 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 
 	}
 
+	/**
+	 * Crea il panelllo.
+	 */
 	private void createPanel() {
 		lblNomeLavoro = new JLabel("NomeLavoro:");
 		lblDataInizioLavoro = new JLabel("Data Inizio:");
@@ -137,6 +154,12 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 
 	}
 
+	/**
+	 * Assegna il la minima e massina data per la creazione di una lavoro.
+	 *
+	 * @param inizio minima data di inizio del lavoro
+	 * @param fine massima data di fine del lavoro
+	 */
 	public void setRangeDate(Date inizio, Date fine) {
 		dataInizioLavoro.setMinSelectableDate(inizio);
 		dataInizioLavoro.setMaxSelectableDate(fine);
@@ -144,20 +167,20 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 		dataFineLavoro.setMaxSelectableDate(fine);
 	}
 
+	/**
+	 * Pulisce i dati inseriti nei campi
+	 */
 	public void clear() {
 		dataInizioLavoro.setDate(null);
 		dataFineLavoro.setDate(null);
 		txtNomeLavoro.setText("");
 	}
 
-	public void btnAddActionListener(ActionListener act) {
-		for (ActionListener al : btnLavoro.getActionListeners()) {
-			btnLavoro.removeActionListener(al);
-		}
-		btnLavoro.addActionListener(act);
-
-	}
-
+	/**
+	 * Carica i dati del cantiere
+	 *
+	 * @param data i dati del cantiere
+	 */
 	public void fill(ArrayList<String> data) {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		try {
@@ -171,18 +194,36 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 		btnLavoro.setText("Modifica");
 	}
 
+	/**
+	 * Ritorna il nome lavoro.
+	 *
+	 * @return nome lavoro
+	 */
 	public String getNomeLavoro() {
 		return txtNomeLavoro.getText();
 	}
 
+	/**
+	 * Ritorna la data inizio lavoro.
+	 *
+	 * @return data inizio lavoro
+	 */
 	public Date getDataInizioLavoro() {
 		return dataInizioLavoro.getDate();
 	}
 
+	/**
+	 * Ritorna la data fine lavoro.
+	 *
+	 * @return data fine lavoro
+	 */
 	public Date getDataFineLavoro() {
 		return dataFineLavoro.getDate();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		JDateChooser event = (JDateChooser) evt.getSource();
