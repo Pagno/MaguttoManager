@@ -19,6 +19,7 @@ import model.organizer.data.Priorita;
 public class ModelCantiere extends DefaultTreeModel{
 	/** The lista cantieri. */
 	private ArrayList<Cantiere> listaCantieri;
+	
 	/** The lavoro observer. */
 	private Observer lavoroObserver;
 	/** The richiesta observer. */
