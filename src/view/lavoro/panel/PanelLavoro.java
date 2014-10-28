@@ -228,7 +228,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		JDateChooser event = (JDateChooser) evt.getSource();
 		try {
-			if (event.getName().compareTo("dataInizio") == 0
+			if (event.getName().compareTo("dataInizioLavoro") == 0
 					&& dataFineLavoro.getDate() != null
 					&& dataInizioLavoro.getDate() != null) {
 
@@ -238,7 +238,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 					dataFineLavoro.setMinSelectableDate(dataInizioLavoro.getDate());
 				}
 			}
-			if (event.getName().compareTo("dataFine") == 0
+			if (event.getName().compareTo("dataFineLavoro") == 0
 					&& dataInizioLavoro.getDate() != null
 					&& dataFineLavoro.getDate() != null) {
 				if (dataFineLavoro.getDate().before(dataInizioLavoro.getDate())) {

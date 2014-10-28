@@ -56,7 +56,7 @@ public class PanelRichiesta extends JPanel {
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clear();
+				clearData();
 			}
 		});
 		createPanel();
@@ -266,17 +266,6 @@ public class PanelRichiesta extends JPanel {
 		};
 	}
 	
-	/**
-	 * Pulisce i dati inseriti nei campi.
-	 */
-	public void clear(){
-		txtMinPortata.setText("");
-		txtMinCapacita.setText("");
-		txtMinLunghezza.setText("");
-		txtMinAltezza.setText("");
-		txtMinProfondita.setText("");
-		txtMinRotazione.setText("");
-	}
 	private void setVisibilitaCapacita(Boolean vis){
 		lblCapacita.setVisible(vis);
 		txtMinCapacita.setVisible(vis);
