@@ -246,6 +246,7 @@ public class ViewLavoro extends JDialog implements Observer{
 				}
 			}else if(tp.getPathCount()==3){
 				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuova Richiesta")){
+					pnlAddRichiesta.clearData();
 					cl.show(cardPanel,"richiesta");
 					NodeAdder addNode=(NodeAdder)tp.getPath()[tp.getPath().length-1];
 					Lavoro lavoro=(Lavoro)addNode.getParent();
