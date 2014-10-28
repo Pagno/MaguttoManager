@@ -262,18 +262,17 @@ public class ViewLavoro extends JDialog implements Observer{
 
 					btnDelete.addActionListener(deleteRichiestaListener(richiesta.getCodice()));
 					codiceLavoro=richiesta.getCodiceLavoro();
+
+					ArrayList<String> data=richiesta.getData();
+					pnlVisualizzaPanel.loadData(data);
 					
 					if(richiesta.isSoddisfatta()){
 						pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
 						pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta.getCodice()));
+						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
 					}else{
 						pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener(richiesta.getCodice()));
 						pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
-					}
-					ArrayList<String> data=richiesta.getData();
-					pnlVisualizzaPanel.loadData(data);
-					if(richiesta.isSoddisfatta()){
-						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().toString());
 					}
 					cl.show(cardPanel,"visualizza");
 				}	
@@ -536,16 +535,18 @@ public class ViewLavoro extends JDialog implements Observer{
 		Richiesta richiesta=(Richiesta)tp.getPath()[tp.getPath().length-1];
 		btnDelete.addActionListener(deleteRichiestaListener(richiesta.getCodice()));
 		
+		ArrayList<String> data=richiesta.getData();
+		pnlVisualizzaPanel.loadData(data);
+		
 		if(richiesta.isSoddisfatta()){
 			pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
 			pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta.getCodice()));
+			pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
 		}else{
 			pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener(richiesta.getCodice()));
 			pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
 		}
 		
-		ArrayList<String> data=richiesta.getData();
-		pnlVisualizzaPanel.loadData(data);
 	}
 
 	/* (non-Javadoc)

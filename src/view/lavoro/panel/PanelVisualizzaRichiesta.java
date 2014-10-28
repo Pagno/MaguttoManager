@@ -53,6 +53,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		add(lblAltezza);
 		add(lblProfondita);
 		add(lblRotazione);
+		add(lblMacchina);
 		add(btnAssociaMacchina);
 	}
 	
@@ -120,7 +121,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	 * @param string macchina associata alla richiesta.
 	 */
 	public void setMacchina(String string) {
-		lblMacchina.setVisible(false);
+		lblMacchina.setVisible(true);
 		lblMacchina.setText("Macchina Associata: "+string);		
 	}
 
