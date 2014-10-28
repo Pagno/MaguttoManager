@@ -200,4 +200,11 @@ public class ModelEscavatore extends ModelMacchina{
 		aggiornaCodice(ruspa.getCodice());
 		listaEscavatori.add(ruspa);
 	}
+	
+	public void initForTest(){
+		if(istanza!=null){
+			ModelMacchina.initCodice();
+			istanza=null;
+		}
+	}
 }

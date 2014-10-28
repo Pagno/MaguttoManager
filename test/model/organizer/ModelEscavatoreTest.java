@@ -186,4 +186,12 @@ public class ModelEscavatoreTest {
 		assertEquals(e.getCapacitaMassima(),a.getCapacitaMassima() );
 		
 	}
+	
+	@Test
+	public void testConstructor(){
+		mr.initForTest();
+		assertNotNull(ModelEscavatore.getModelEscavatore());
+	}
+	
+	
 }
