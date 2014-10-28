@@ -248,14 +248,14 @@ public class Lavoro extends DefaultMutableTreeNode{
 	 * @param codice Codice della richeista
 	 * @param m macchinada associare
 	 */
-	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
+	/*public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
 		Richiesta r=new Richiesta(caratteristiche,this,codice);
 		if(r.rispettaRichiesta(m)){
 			r.setMacchina(m);
 		}
 		add(r);
 		macchinariRichiesti.add(r);
-	}
+	}*/
 	
 	/**
 	 * Modifica richiesta.
@@ -263,13 +263,13 @@ public class Lavoro extends DefaultMutableTreeNode{
 	 * @param codice Codice della richiesta da modificare.
 	 * @param caratteristiche Caratteristiche della macchina richieste per il lavoro
 	 */
-	public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche){
+	/*public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
 				item.setCaratteristiche(caratteristiche);
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * Controlla se il lavoro contiere una richiesta con quel dato codice.
@@ -349,9 +349,9 @@ public class Lavoro extends DefaultMutableTreeNode{
 		return false;
 	}
 	
-	//vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente
+	
 	/**
-	 * Libera richiesta.
+	 * vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente
 	 *
 	 * @param codiceRichiesta Codice richiesta
 	 */
@@ -363,13 +363,13 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 	}
 	
-	//Libera le richieste con associata una data macchina
+	/*
 	/**
-	 * Libera macchina.
+	 * Libera le richieste con associata una data macchina.
 	 *
 	 * @param codiceMacchina Codice macchina
 	 */
-	public void liberaMacchina(int codiceMacchina){
+	/*public void liberaMacchina(int codiceMacchina){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getMacchina()!=null){
 				if(item.getMacchina().getCodice()==codiceMacchina){
@@ -377,11 +377,11 @@ public class Lavoro extends DefaultMutableTreeNode{
 				}
 			}
 		}
-	}
+	}*/
 	
-	//Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
+	
 	/**
-	 * Controlla se la richiesta è scoperta.
+	 * Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
 	 *
 	 * @return true, se è scoperta
 	 */
@@ -394,12 +394,12 @@ public class Lavoro extends DefaultMutableTreeNode{
 		return false;
 	}
 	
-	/**
+	/*/**
 	 * Where scoperto.
 	 *
 	 * @return the array list
 	 */
-	public ArrayList<Richiesta> whereScoperto(){
+	/*public ArrayList<Richiesta> whereScoperto(){
 		ArrayList<Richiesta>richScoperte=new ArrayList<Richiesta>();
 		for(Richiesta item:macchinariRichiesti){
 			if(!item.isSoddisfatta()){
@@ -407,7 +407,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 			}
 		}
 		return richScoperte;
-	}
+	}*/
 
 	/**
 	 * Ritorna Lista richieste.
