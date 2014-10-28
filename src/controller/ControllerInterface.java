@@ -16,6 +16,8 @@ import controller.data.Associazione;
  */
 public interface ControllerInterface {
 	
+	
+	
 	//Application Interface
 	/**
 	 * Elimina macchina.
