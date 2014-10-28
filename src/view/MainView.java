@@ -292,7 +292,6 @@ public class MainView extends JFrame {
 							+ ((JButton) arg0.getSource()).getText() + "Data");
 					m.invoke(mainView);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				// disableBtnModifica(false);

@@ -1,6 +1,6 @@
 package model.organizer.data;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Priorita.
  */

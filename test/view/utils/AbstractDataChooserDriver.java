@@ -48,7 +48,6 @@ public class AbstractDataChooserDriver extends JComponentDriver implements
 
 	@Override
 	public void requireText(JDateChooser component, String expected) {
-		// TODO Auto-generated method stub
 		
 	}
 }

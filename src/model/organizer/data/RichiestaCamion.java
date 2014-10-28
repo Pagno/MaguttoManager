@@ -1,8 +1,7 @@
 package model.organizer.data;
 
-import java.util.GregorianCalendar;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RichiestaCamion.
  */

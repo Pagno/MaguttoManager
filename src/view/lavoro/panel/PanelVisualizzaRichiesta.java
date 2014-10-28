@@ -62,7 +62,6 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	 * @param dati dati della richiesta da visualizzare.
 	 */
 	public void loadData(ArrayList<String> dati){
-		//TODO Migliorare la visualizzazione della richiesta
 		data=dati;
 		lblTipo.setText(data.get(1));
 		lblCapacita.setText(data.get(2)+" <Capactia< "+data.get(3));

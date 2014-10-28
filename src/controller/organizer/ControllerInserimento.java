@@ -8,7 +8,6 @@ import model.organizer.ModelMacchina;
 import model.organizer.data.Priorita;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * Questa classe permette di gestire gli eventi,
  * legati all'inserimento di nuovi macchinari 

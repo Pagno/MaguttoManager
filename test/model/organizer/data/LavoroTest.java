@@ -93,7 +93,6 @@ public class LavoroTest {
 
 	@Test
 	public void testEquals() {
-		//TODO
 		Lavoro l=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		assertTrue(lavoro.equals(lavoro));
 		assertTrue(lavoro.equals(l));

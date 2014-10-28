@@ -5,8 +5,8 @@ import view.MainView;
 import model.ModelInterface;
 import model.organizer.ModelMacchina;
 
-// TODO: Auto-generated Javadoc
-// 
+
+
 /**
  * 
  * Questa Classe permette di gestire gli eventi,
@@ -235,9 +235,6 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 *
 	 */
 	public boolean eliminaMacchina(Integer codiceMacchina){
-		//TODO Mostrare a messaggio il codice dei lavori che sono associati a tale macchina
-		//int confirm=JOptionPane.showConfirmDialog(mainView,"Eliminando questa macchina verranno eliminate anche le associazioni con i lavori associati. \n Si desidera continuare con l'eliminazione?","Elimina Macchina", JOptionPane.YES_NO_OPTION);		
-		//if(confirm==JOptionPane.OK_OPTION){
 			return model.eliminaMacchina(codiceMacchina);
 		//}
 	}
