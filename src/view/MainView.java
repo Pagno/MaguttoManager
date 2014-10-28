@@ -454,12 +454,13 @@ public class MainView extends JFrame {
 				} else {
 					Method m;
 					try {
-						Class<ControllerCantiere> c = ControllerCantiere.class;
-						if (elimina != "Cantiere")
+						System.out.println(elimina);
+						Class<ControllerConnector> c = ControllerConnector.class;
+						if (elimina != "Cantiere"){
 							m = c.getMethod("eliminaMacchina", Integer.class);
-						else
+						}else{
 							m = c.getMethod("elimina" + elimina, Integer.class);
-
+						}
 						Boolean deleted = (Boolean) m.invoke(controller,
 								(Integer) v[0]);
 						if (deleted) {
