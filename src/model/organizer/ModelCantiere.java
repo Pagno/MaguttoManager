@@ -270,6 +270,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	public boolean eliminaLavoro(int codiceLavoro){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
+				item.remove(item.getLavoro(codiceLavoro));
 				item.rimuoviLavoro(codiceLavoro);
 				return true;
 			}

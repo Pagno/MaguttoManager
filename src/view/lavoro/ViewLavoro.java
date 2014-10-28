@@ -506,7 +506,7 @@ public class ViewLavoro extends JDialog implements Observer{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cCtr.eliminaLavoro(codiceLavoro);
-				
+				reloadModel();
 			}
 		};
 	}
