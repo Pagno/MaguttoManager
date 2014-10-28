@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 
 import controller.ControllerConnector;
+import controller.ControllerInterface;
 import controller.data.Associazione;
 
 public class ViewGreedyEngine extends JDialog {
@@ -31,8 +32,8 @@ public class ViewGreedyEngine extends JDialog {
 	private DefaultListModel<Associazione> listModel;
 	private JButton btnGeneraMigliorAssociazione,btnEliminaAssociazione,okButton;
 	private ArrayList<Associazione> data=new ArrayList<Associazione>();
-	private ControllerConnector cCtr;
-	public ViewGreedyEngine(JFrame view,ControllerConnector aCtr) {
+	private ControllerInterface cCtr;
+	public ViewGreedyEngine(JFrame view,ControllerInterface aCtr) {
 		super(view);
 		cCtr=aCtr;
 		setBounds(100, 100, 450, 300);

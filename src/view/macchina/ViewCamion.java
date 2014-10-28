@@ -16,11 +16,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controller.ControllerConnector;
+import controller.ControllerInterface;
 
-// 
 /**
- * Class EditCamion.
+*   View per inserimento e modifica degli Escavatori.
  */
 public class ViewCamion extends JDialog {
 
@@ -40,18 +39,17 @@ public class ViewCamion extends JDialog {
 
 	/** ok button. */
 	private JButton okButton;
-	private ControllerConnector insCtr;
+	private ControllerInterface insCtr;
 
 	/**
-	 * Create dialog.
+	 * Inizializza il frame
 	 *
-	 * @param view
-	 *            view
-	 * @param obj
-	 *            obj
+	 * @param view view principale.
+	 * @param obj dati dei Camion da modificare.
+	 * @param aCtr Interfaccia del conroller per comunicare con il model.
 	 */
 	public ViewCamion(JFrame view, final Object[] obj,
-			ControllerConnector aCtr) {
+			ControllerInterface aCtr) {
 		super(view);
 		insCtr = aCtr;
 		setTitle("Modifica Camion");
@@ -81,12 +79,6 @@ public class ViewCamion extends JDialog {
 
 	}
 
-	/**
-	 * Sets text box.
-	 *
-	 * @param v
-	 *            new text box
-	 */
 	private void setTextBox(Object[] v) {
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
@@ -95,14 +87,15 @@ public class ViewCamion extends JDialog {
 		txtPortata.setText(v[5].toString());
 	}
 
+
 	/**
-	 * Instantiates a new edits camion.
+	 * Inizializza il frame.
 	 *
-	 * @param view
-	 *            view
-	 * @wbp.parser.constructor
+	 * @param view view principale.
+	 * @param aCtr Interfaccia del conroller per comunicare con il model.
+	 *
 	 */
-	public ViewCamion(JFrame view, ControllerConnector aCtr) {
+	public ViewCamion(JFrame view, ControllerInterface aCtr) {
 		super(view);
 		insCtr = aCtr;
 		setTitle("Aggiungi un nuovo Camion");
@@ -305,55 +298,53 @@ public class ViewCamion extends JDialog {
 	}
 
 	/**
-	 * Sets insert button listeners.
+	 * Assegna i listener per il bottone di inserimento.
 	 *
-	 * @param act
-	 *            new insert button listeners
+	 * @param act  ActionListener.
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets produttore.
+	 * Ritorna produttore inserito.
 	 *
-	 * @return produttore
+	 * @return   produttore inserito.
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets modello.
+	 * Ritorna modello inserito.
 	 *
-	 * @return modello
+	 * @return   modello inserito.
 	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
-
 	/**
-	 * Gets lunghezza.
+	 * Ritorna lunghezza inserita.
 	 *
-	 * @return lunghezza
+	 * @return lunghezza inserita.
 	 */
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
-
+	
 	/**
-	 * Gets capacita.
+	 * Ritorna capacita inserita.
 	 *
-	 * @return capacita
+	 * @return capacita inserita.
 	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
 	/**
-	 * Gets portata massima.
+	 * Ritorna portata massima inserita.
 	 *
-	 * @return portata massima
+	 * @return   portata massima inserita.
 	 */
 	public String getPortataMassima() {
 		return txtPortata.getText();

@@ -251,4 +251,11 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 
 		}
 	}
+
+	public void btnAddActionListener(ActionListener aggiungiLavoroListener) {
+		for(ActionListener act:btnLavoro.getActionListeners()){
+			btnLavoro.removeActionListener(act);
+		}
+		btnLavoro.addActionListener(aggiungiLavoroListener);
+	}
 }

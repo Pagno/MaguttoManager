@@ -16,7 +16,7 @@ import model.organizer.data.Macchina;
 
 public class AssociaMacchina extends JDialog {
 	/**
-	 * 
+	 *  View usata per l'associazione di una richiesta ad una macchina.
 	 */
 	private static final long serialVersionUID = 1L;
 	private JButton btnAssocia, btnCancel;
@@ -24,6 +24,12 @@ public class AssociaMacchina extends JDialog {
 	private ArrayList<Macchina> listaMacchine = null;
 	private JDialog view;
 
+	/**
+	 * Inizializza il frame
+	 *
+	 * @param v view principale.
+	 * @param macchine Elenco delle macchina disponibili per una data richiesta.
+	 */
 	public AssociaMacchina(JDialog v, ArrayList<Macchina> macchine) {
 		super(v);
 		setName("associaMacchina");
@@ -66,11 +72,19 @@ public class AssociaMacchina extends JDialog {
 		});
 
 	}
-
+	/**
+	 * Assegna i listener per il bottone di associazione.
+	 *
+	 * @param act  ActionListener.
+	 */
 	public void addBtnAssociaListener(ActionListener act) {
 		btnAssocia.addActionListener(act);
 	}
-
+	/**
+	 * Ritorna il codice della macchina da associare alla richiesta.
+	 *
+	 * @return codice della macchina da associare alla richiesta.
+	 */
 	public int getCodiceMacchinaSelezionata() {
 		return listaMacchine.get(cmbListaMacchine.getSelectedIndex()).getCodice();
 	}

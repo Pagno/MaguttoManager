@@ -92,4 +92,20 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		lblMacchina.setVisible(false);
 		lblMacchina.setText("Macchina Associata: "+string);		
 	}
+
+	public void addLiberaRichiestaListener(ActionListener associaMacchinaListener) {
+		for(ActionListener act:btnAssociaMacchina.getActionListeners()){
+			btnAssociaMacchina.removeActionListener(act);
+		}
+		btnAssociaMacchina.addActionListener(associaMacchinaListener);
+	}
+
+	public void addSoddisfaRichiestaListener(
+			ActionListener liberaRichiestaListener) {
+		for(ActionListener act:btnAssociaMacchina.getActionListeners()){
+			btnAssociaMacchina.removeActionListener(act);
+		}
+		btnAssociaMacchina.addActionListener(liberaRichiestaListener);
+		
+	}
 }

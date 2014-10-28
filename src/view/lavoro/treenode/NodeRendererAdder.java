@@ -12,15 +12,28 @@ import javax.swing.tree.TreeCellRenderer;
 import model.organizer.data.Lavoro;
 import model.organizer.data.Richiesta;
 
+/**
+ * Classe usate per definire uno stile di visualizzazione della 
+ * JTree nella view {@link view.lavoro.ViewLavoro}
+ */
 public class NodeRendererAdder implements TreeCellRenderer {
 	Boolean showSoddisfatta=true;
 	JLabel lbl,lblAdd;
 	DefaultTreeCellRenderer defaultRenderer = new DefaultTreeCellRenderer();
 	
+	/**
+	 * Imposta quali Richieste visualizzare all'interno della JTree nella view
+	 * {@link view.lavoro.ViewLavoro}
+	 * 
+	 * @param bo <strong>True</strong> se si desidera mostrare tutte le richieste,
+	 * <strong>False</strong> se si desidera mostrare solamente le richieste ancora insoddisfatte.
+	 */
 	public void set(boolean bo){
 		showSoddisfatta=bo;
 	}
-	
+	/**
+	 * Crea la view
+	 */
 	public NodeRendererAdder(){
 		lblAdd=new JLabel();
 		lbl=new JLabel();

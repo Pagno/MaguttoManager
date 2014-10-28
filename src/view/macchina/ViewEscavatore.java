@@ -17,10 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.ControllerConnector;
+import controller.ControllerInterface;
 
-// 
+
 /**
- *   Class EditEscavatore.
+*   View per inserimento e modifica degli Escavatori.
  */
 public class ViewEscavatore extends JDialog {
 
@@ -42,14 +43,15 @@ public class ViewEscavatore extends JDialog {
 	private JButton okButton;
 
 
-	private ControllerConnector insCtr;
+	private ControllerInterface insCtr;
 	/**
-	 * Create   dialog.
+	 * Inizializza il frame
 	 *
-	 * @param view   view
-	 * @param obj   obj
+	 * @param view view principale.
+	 * @param obj dati degli Escavatori da modificare.
+	 * @param aCtr Interfaccia del conroller per comunicare con il model.
 	 */
-	public ViewEscavatore(JFrame view, final Object[] obj,ControllerConnector aCtr) {
+	public ViewEscavatore(JFrame view, final Object[] obj,ControllerInterface aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Escavatore");
@@ -79,12 +81,7 @@ public class ViewEscavatore extends JDialog {
 			}
 		});
 	}
-	
-	/**
-	 * Sets   text box.
-	 *
-	 * @param v   new text box
-	 */
+
 	private void setTextBox( Object[] v){
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
@@ -95,12 +92,13 @@ public class ViewEscavatore extends JDialog {
 	}
 
 	/**
-	 * Instantiates a new edits   escavatore.
+	 * Inizializza il frame.
 	 *
-	 * @param view   view
-	 * @wbp.parser.constructor 
+	 * @param view view principale.
+	 * @param aCtr Interfaccia del conroller per comunicare con il model.
+	 *
 	 */
-	public ViewEscavatore(JFrame view,ControllerConnector aCtr) {
+	public ViewEscavatore(JFrame view,ControllerInterface aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Aggiungi un nuovo Escavatore");
@@ -332,27 +330,27 @@ public class ViewEscavatore extends JDialog {
 	}
 
 	/**
-	 * Sets   insert button listeners.
+	 * Assegna i listener per il bottone di inserimento.
 	 *
-	 * @param act   new insert button listeners
+	 * @param act  ActionListener.
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
 	/**
-	 * Gets   produttore.
+	 * Ritorna produttore inserito.
 	 *
-	 * @return   produttore
+	 * @return   produttore inserito.
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets   modello.
+	 * Ritorna modello inserito.
 	 *
-	 * @return   modello
+	 * @return   modello inserito.
 	 */
 	public String getModello() {
 		return txtModello.getText();
@@ -360,36 +358,36 @@ public class ViewEscavatore extends JDialog {
 
 
 	/**
-	 * Gets   altezza.
+	 * Ritorna altezza inserita.
 	 *
-	 * @return   altezza
+	 * @return   altezza inserita.
 	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
-	
 	/**
-	 * Gets   profondita.
+	 * Ritorna profondita inserita.
 	 *
-	 * @return   profondita
+	 * @return profondita inserita.
 	 */
 	public String getProfondita() {
 		return txtProfondita.getText();
 	}
 	
 	/**
-	 * Gets   capacita.
+	 * Ritorna capacita inserita.
 	 *
-	 * @return   capacita
+	 * @return capacita inserita.
 	 */
 	public String getCapacita() {
 		return txtCapacita.getText();
 	}
 
+
 	/**
-	 * Gets   portata massima.
+	 * Ritorna portata massima inserita.
 	 *
-	 * @return   portata massima
+	 * @return   portata massima inserita.
 	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();

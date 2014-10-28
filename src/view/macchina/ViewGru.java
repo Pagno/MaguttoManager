@@ -17,10 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.ControllerConnector;
+import controller.ControllerInterface;
 
-// 
+
 /**
- * Class EditGru.
+*   View per inserimento e modifica delle Gru.
  */
 public class ViewGru extends JDialog {
 
@@ -42,17 +43,16 @@ public class ViewGru extends JDialog {
 	/** ok button. */
 	private JButton okButton;
 
-	private ControllerConnector insCtr;
-
+	private ControllerInterface insCtr;
+	
 	/**
-	 * Create dialog.
+	 * Inizializza il frame
 	 *
-	 * @param view
-	 *            view
-	 * @param obj
-	 *            obj
+	 * @param view view principale.
+	 * @param obj dati della Gru da modificare.
+	 * @param aCtr Interfaccia del conroller per comunicare con il model.
 	 */
-	public ViewGru(JFrame view, final Object[] obj,ControllerConnector aCtr) {
+	public ViewGru(JFrame view, final Object[] obj,ControllerInterface aCtr) {
 		super(view);
 		insCtr=aCtr;
 		setTitle("Modifica Gru");
@@ -82,12 +82,6 @@ public class ViewGru extends JDialog {
 		});
 	}
 
-	/**
-	 * Sets text box.
-	 *
-	 * @param v
-	 *            new text box
-	 */
 	private void setTextBox(Object[] v) {
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
@@ -98,12 +92,13 @@ public class ViewGru extends JDialog {
 	}
 
 	/**
-	 * Instantiates a new edits gru.
+	 * Inizializza il frame.
 	 *
-	 * @param view
-	 *            view
+	 * @param view view principale.
+	 * @param aCtr Interfaccia del conroller per comunicare con il model.
+	 *
 	 */
-	public ViewGru(JFrame view, ControllerConnector aCtr) {
+	public ViewGru(JFrame view, ControllerInterface aCtr) {
 		super(view);
 
 		setName("editGru");
@@ -333,64 +328,64 @@ public class ViewGru extends JDialog {
 	}
 
 	/**
-	 * Sets insert button listeners.
+	 * Assegna i listener per il bottone di inserimento.
 	 *
-	 * @param act
-	 *            new insert button listeners
+	 * @param act  ActionListener.
 	 */
 	public void setInsertButtonListeners(ActionListener act) {
 		okButton.addActionListener(act);
 	}
 
+
 	/**
-	 * Gets produttore.
+	 * Ritorna produttore inserito.
 	 *
-	 * @return produttore
+	 * @return   produttore inserito.
 	 */
 	public String getProduttore() {
 		return txtProduttore.getText();
 	}
 
 	/**
-	 * Gets modello.
+	 * Ritorna modello inserito.
 	 *
-	 * @return modello
+	 * @return   modello inserito.
 	 */
 	public String getModello() {
 		return txtModello.getText();
 	}
 
 	/**
-	 * Gets lunghezza.
+	 * Ritorna lunghezza inserita.
 	 *
-	 * @return lunghezza
+	 * @return lunghezza inserita.
 	 */
 	public String getLunghezza() {
 		return txtLunghezza.getText();
 	}
 
 	/**
-	 * Gets altezza.
+	 * Ritorna altezza inserita.
 	 *
-	 * @return altezza
+	 * @return altezza inserita.
 	 */
 	public String getAltezza() {
 		return txtAltezza.getText();
 	}
 
 	/**
-	 * Gets angolo rotazione.
+	 * Ritorna angolo rotazione inserito.
 	 *
-	 * @return angolo rotazione
+	 * @return angolo rotazione inserito.
 	 */
 	public String getAngoloRotazione() {
 		return txtAngoloRotazione.getText();
 	}
 
 	/**
-	 * Gets portata massima.
+	 * Ritorna portata massima inserita.
 	 *
-	 * @return portata massima
+	 * @return   portata massima inserita.
 	 */
 	public String getPortataMassima() {
 		return txtPortataMax.getText();

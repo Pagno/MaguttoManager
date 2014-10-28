@@ -435,7 +435,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Clear data.
+	 * Pulisci i campi dai dati inseriti.
 	 */
 	public void clearData() {
 

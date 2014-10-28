@@ -12,7 +12,7 @@ import database.Database;
 import database.DatabaseException;
 
 
-// 
+
 /**
  *   Class Main.
  */
