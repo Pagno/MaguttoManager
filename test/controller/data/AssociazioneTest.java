@@ -149,5 +149,52 @@ public class AssociazioneTest {
 		assertNotEquals(a.getDataFine(), new GregorianCalendar(2014, 11, 29));
 		assertNotEquals(a.getDataFine(), new GregorianCalendar(2014,11, 31));
 	}
+	@Test
+	public void testCollide() {
+		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
+		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
+			Richiesta richiesta2=new Richiesta(new RichiestaGru(-1, -1, -1, -1, 300, 400, -1, -1), lavoro);
+		assertTrue(a.collide(richiesta2));
+		
+		Gru g=new Gru(34, "Gru", "G", 360, 350, 45, 50);
+		Associazione a2=new Associazione(richiesta2, g);
+		assertTrue(a.collide(a2));
+	}
+	
+	@Test
+	public void testEquals() {
+		assertTrue(a.equals(a));
+		assertFalse(a.equals(null));
+		assertFalse(a.equals(macchina));
+		Cantiere cantiere=new Cantiere(1, "Bottanuco", "via Chiusa,18",new GregorianCalendar(2014, 9, 30),
+				new GregorianCalendar(2015, 10, 1), Priorita.ALTA);
+		Lavoro lavoro=new Lavoro(1, "Scavi", cantiere, new GregorianCalendar(2014, 9, 30), new GregorianCalendar(2014, 11, 30)); 
+			Richiesta richiesta2=new Richiesta(new RichiestaGru(-1, -1, -1, -1, 300, 400, -1, -1), lavoro);
+		assertTrue(a.collide(richiesta2));
+		
+		Gru g=new Gru(34, "Gru", "G", 360, 350, 45, 50);
+		Associazione a2=new Associazione(richiesta2, macchina);
+		a.setConfermata(true);
+		assertFalse(a.equals(a2));
+		a2.setConfermata(true);
+		a.setMacchina(null);
+		assertFalse(a.equals(a2));
+		a.setMacchina(macchina);
+		a2.setMacchina(null);
+		assertFalse(a.equals(a2));
+		a2.setMacchina(macchina);
+		
+		a.setRichiesta(null);
+		a2.setRichiesta(richiesta2);
+		assertFalse(a.equals(a2));
+		a2.setRichiesta(richiesta2);
+		assertFalse(a.equals(a2));
+		a.setRichiesta(richiesta);
+		assertFalse(a.equals(a2));
 
+		a2.setRichiesta(richiesta);
+		assertTrue(a.equals(a2));
+		
+	}
 }

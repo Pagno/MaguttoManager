@@ -222,13 +222,69 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 				RichiestaCamion rt,ro;
 				rt=(RichiestaCamion)this.caratteristiche;
 				ro=(RichiestaCamion)other.getCaratteristiche();
-				if(!(rt.getMinCapacita()>ro.getMaxCapacita()||(ro.getMinCapacita()>rt.getMaxCapacita()))){
-					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
-						if(!(rt.getMinLunghezza()>ro.getMaxLunghezza()||(ro.getMinLunghezza()>rt.getMaxLunghezza()))){
-							return true;
-						}
-					}
+				boolean conflitto=false;
+				//Caso capacità illimitate per una delle due richieste
+				if((rt.getMinCapacita()==-1 && rt.getMaxCapacita()==-1)||(rt.getMinCapacita()==-1 && rt.getMaxCapacita()==-1)){
+					conflitto=true;
 				}
+				//Caso capacità illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinCapacita()==-1&&ro.getMinCapacita()==-1)||(rt.getMinCapacita()==-1&&ro.getMinCapacita()<rt.getMaxCapacita())||(ro.getMinCapacita()==-1&&rt.getMinCapacita()<ro.getMaxCapacita()))){
+					conflitto=true;
+				}
+				//Caso capacità illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxCapacita()==-1&&ro.getMaxCapacita()==-1)||(rt.getMaxCapacita()==-1&&ro.getMaxCapacita()>rt.getMinCapacita())||(ro.getMaxCapacita()==-1&&rt.getMaxCapacita()>ro.getMinCapacita()))){
+					conflitto=true;
+				}
+				//Caso capacità limitate
+				if(!conflitto&&(!((rt.getMinCapacita()>ro.getMaxCapacita())||(ro.getMinCapacita()>rt.getMaxCapacita())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso portate illimitate per una delle due richieste
+				if((rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)||(rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)){
+					conflitto=true;
+				}
+				//Caso portata illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinPortata()==-1&&ro.getMinPortata()==-1)||(rt.getMinPortata()==-1&&ro.getMinPortata()<rt.getMaxPortata())||(ro.getMinPortata()==-1&&rt.getMinPortata()<ro.getMaxPortata()))){
+					conflitto=true;
+				}
+				//Caso portata illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxPortata()==-1&&ro.getMaxPortata()==-1)||(rt.getMaxPortata()==-1&&ro.getMaxPortata()>rt.getMinPortata())||(ro.getMaxPortata()==-1&&rt.getMaxPortata()>ro.getMinPortata()))){
+					conflitto=true;
+				}
+				//Caso portate limitate
+				if(!conflitto&&(!((rt.getMinPortata()>ro.getMaxPortata())||(ro.getMinPortata()>rt.getMaxPortata())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso lunghezze illimitate per una delle due richieste
+				if((rt.getMinLunghezza()==-1 && rt.getMaxLunghezza()==-1)||(rt.getMinLunghezza()==-1 && rt.getMaxLunghezza()==-1)){
+					conflitto=true;
+				}
+				//Caso lunghezza illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinLunghezza()==-1&&ro.getMinLunghezza()==-1)||(rt.getMinLunghezza()==-1&&ro.getMinLunghezza()<rt.getMaxLunghezza())||(ro.getMinLunghezza()==-1&&rt.getMinLunghezza()<ro.getMaxLunghezza()))){
+					conflitto=true;
+				}
+				//Caso lunghezza illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxLunghezza()==-1&&ro.getMaxLunghezza()==-1)||(rt.getMaxLunghezza()==-1&&ro.getMaxLunghezza()>rt.getMinLunghezza())||(ro.getMaxLunghezza()==-1&&rt.getMaxLunghezza()>ro.getMinLunghezza()))){
+					conflitto=true;
+				}
+				//Caso lunghezze limitate
+				if(!conflitto&&(!((rt.getMinLunghezza()>ro.getMaxLunghezza())||(ro.getMinLunghezza()>rt.getMaxLunghezza())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				return true;
+				
+				
 			}
 		}
 		if(this.caratteristiche instanceof RichiestaRuspa){
@@ -236,13 +292,68 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 				RichiestaRuspa rt,ro;
 				rt=(RichiestaRuspa)this.caratteristiche;
 				ro=(RichiestaRuspa)other.getCaratteristiche();
-				if(!(rt.getMinCapacita()>ro.getMaxCapacita()||(ro.getMinCapacita()>rt.getMaxCapacita()))){
-					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
-						if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
-							return true;
-						}
-					}
+				
+				boolean conflitto=false;
+				//Caso capacità illimitate per una delle due richieste
+				if((rt.getMinCapacita()==-1 && rt.getMaxCapacita()==-1)||(rt.getMinCapacita()==-1 && rt.getMaxCapacita()==-1)){
+					conflitto=true;
 				}
+				//Caso capacità illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinCapacita()==-1&&ro.getMinCapacita()==-1)||(rt.getMinCapacita()==-1&&ro.getMinCapacita()<rt.getMaxCapacita())||(ro.getMinCapacita()==-1&&rt.getMinCapacita()<ro.getMaxCapacita()))){
+					conflitto=true;
+				}
+				//Caso capacità illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxCapacita()==-1&&ro.getMaxCapacita()==-1)||(rt.getMaxCapacita()==-1&&ro.getMaxCapacita()>rt.getMinCapacita())||(ro.getMaxCapacita()==-1&&rt.getMaxCapacita()>ro.getMinCapacita()))){
+					conflitto=true;
+				}
+				//Caso capacità limitate
+				if(!conflitto&&(!((rt.getMinCapacita()>ro.getMaxCapacita())||(ro.getMinCapacita()>rt.getMaxCapacita())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso portate illimitate per una delle due richieste
+				if((rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)||(rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)){
+					conflitto=true;
+				}
+				//Caso portata illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinPortata()==-1&&ro.getMinPortata()==-1)||(rt.getMinPortata()==-1&&ro.getMinPortata()<rt.getMaxPortata())||(ro.getMinPortata()==-1&&rt.getMinPortata()<ro.getMaxPortata()))){
+					conflitto=true;
+				}
+				//Caso portata illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxPortata()==-1&&ro.getMaxPortata()==-1)||(rt.getMaxPortata()==-1&&ro.getMaxPortata()>rt.getMinPortata())||(ro.getMaxPortata()==-1&&rt.getMaxPortata()>ro.getMinPortata()))){
+					conflitto=true;
+				}
+				//Caso portate limitate
+				if(!conflitto&&(!((rt.getMinPortata()>ro.getMaxPortata())||(ro.getMinPortata()>rt.getMaxPortata())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso altezze illimitate per una delle due richieste
+				if((rt.getMinAltezza()==-1 && rt.getMaxAltezza()==-1)||(rt.getMinAltezza()==-1 && rt.getMaxAltezza()==-1)){
+					conflitto=true;
+				}
+				//Caso altezza illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinAltezza()==-1&&ro.getMinAltezza()==-1)||(rt.getMinAltezza()==-1&&ro.getMinAltezza()<rt.getMaxAltezza())||(ro.getMinAltezza()==-1&&rt.getMinAltezza()<ro.getMaxAltezza()))){
+					conflitto=true;
+				}
+				//Caso altezza illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxAltezza()==-1&&ro.getMaxAltezza()==-1)||(rt.getMaxAltezza()==-1&&ro.getMaxAltezza()>rt.getMinAltezza())||(ro.getMaxAltezza()==-1&&rt.getMaxAltezza()>ro.getMinAltezza()))){
+					conflitto=true;
+				}
+				//Caso altezze limitate
+				if(!conflitto&&(!((rt.getMinAltezza()>ro.getMaxAltezza())||(ro.getMinAltezza()>rt.getMaxAltezza())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				return true;
 			}
 		}
 		if(this.caratteristiche instanceof RichiestaGru){
@@ -250,15 +361,88 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 				RichiestaGru rt,ro;
 				rt=(RichiestaGru)this.caratteristiche;
 				ro=(RichiestaGru)other.getCaratteristiche();
-				if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
-					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
-						if(!(rt.getMinLunghezza()>ro.getMaxLunghezza()||(ro.getMinLunghezza()>rt.getMaxLunghezza()))){
-							if(!(rt.getMinAngoloRotazione()>ro.getMaxAngoloRotazione()||(ro.getMinAngoloRotazione()>rt.getMaxAngoloRotazione()))){
-								return true;
-							}
-						}
-					}
+				
+				boolean conflitto=false;
+				//Caso lunghezze illimitate per una delle due richieste
+				if((rt.getMinLunghezza()==-1 && rt.getMaxLunghezza()==-1)||(rt.getMinLunghezza()==-1 && rt.getMaxLunghezza()==-1)){
+					conflitto=true;
 				}
+				//Caso lunghezza illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinLunghezza()==-1&&ro.getMinLunghezza()==-1)||(rt.getMinLunghezza()==-1&&ro.getMinLunghezza()<rt.getMaxLunghezza())||(ro.getMinLunghezza()==-1&&rt.getMinLunghezza()<ro.getMaxLunghezza()))){
+					conflitto=true;
+				}
+				//Caso lunghezza illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxLunghezza()==-1&&ro.getMaxLunghezza()==-1)||(rt.getMaxLunghezza()==-1&&ro.getMaxLunghezza()>rt.getMinLunghezza())||(ro.getMaxLunghezza()==-1&&rt.getMaxLunghezza()>ro.getMinLunghezza()))){
+					conflitto=true;
+				}
+				//Caso lunghezze limitate
+				if(!conflitto&&(!((rt.getMinLunghezza()>ro.getMaxLunghezza())||(ro.getMinLunghezza()>rt.getMaxLunghezza())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso portate illimitate per una delle due richieste
+				if((rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)||(rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)){
+					conflitto=true;
+				}
+				//Caso portata illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinPortata()==-1&&ro.getMinPortata()==-1)||(rt.getMinPortata()==-1&&ro.getMinPortata()<rt.getMaxPortata())||(ro.getMinPortata()==-1&&rt.getMinPortata()<ro.getMaxPortata()))){
+					conflitto=true;
+				}
+				//Caso portata illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxPortata()==-1&&ro.getMaxPortata()==-1)||(rt.getMaxPortata()==-1&&ro.getMaxPortata()>rt.getMinPortata())||(ro.getMaxPortata()==-1&&rt.getMaxPortata()>ro.getMinPortata()))){
+					conflitto=true;
+				}
+				//Caso portate limitate
+				if(!conflitto&&(!((rt.getMinPortata()>ro.getMaxPortata())||(ro.getMinPortata()>rt.getMaxPortata())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso angoli rotazione illimitati per una delle due richieste
+				if((rt.getMinAngoloRotazione()==-1 && rt.getMaxAngoloRotazione()==-1)||(rt.getMinAngoloRotazione()==-1 && rt.getMaxAngoloRotazione()==-1)){
+					conflitto=true;
+				}
+				//Caso angolo rotazione illimitato a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinAngoloRotazione()==-1&&ro.getMinAngoloRotazione()==-1)||(rt.getMinAngoloRotazione()==-1&&ro.getMinAngoloRotazione()<rt.getMaxAngoloRotazione())||(ro.getMinAngoloRotazione()==-1&&rt.getMinAngoloRotazione()<ro.getMaxAngoloRotazione()))){
+					conflitto=true;
+				}
+				//Caso angolo rotazione illimitato a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxAngoloRotazione()==-1&&ro.getMaxAngoloRotazione()==-1)||(rt.getMaxAngoloRotazione()==-1&&ro.getMaxAngoloRotazione()>rt.getMinAngoloRotazione())||(ro.getMaxAngoloRotazione()==-1&&rt.getMaxAngoloRotazione()>ro.getMinAngoloRotazione()))){
+					conflitto=true;
+				}
+				//Caso angoli rotazione limitati
+				if(!conflitto&&(!((rt.getMinAngoloRotazione()>ro.getMaxAngoloRotazione())||(ro.getMinAngoloRotazione()>rt.getMaxAngoloRotazione())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso altezze illimitate per una delle due richieste
+				if((rt.getMinAltezza()==-1 && rt.getMaxAltezza()==-1)||(rt.getMinAltezza()==-1 && rt.getMaxAltezza()==-1)){
+					conflitto=true;
+				}
+				//Caso altezza illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinAltezza()==-1&&ro.getMinAltezza()==-1)||(rt.getMinAltezza()==-1&&ro.getMinAltezza()<rt.getMaxAltezza())||(ro.getMinAltezza()==-1&&rt.getMinAltezza()<ro.getMaxAltezza()))){
+					conflitto=true;
+				}
+				//Caso altezza illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxAltezza()==-1&&ro.getMaxAltezza()==-1)||(rt.getMaxAltezza()==-1&&ro.getMaxAltezza()>rt.getMinAltezza())||(ro.getMaxAltezza()==-1&&rt.getMaxAltezza()>ro.getMinAltezza()))){
+					conflitto=true;
+				}
+				//Caso altezze limitate
+				if(!conflitto&&(!((rt.getMinAltezza()>ro.getMaxAltezza())||(ro.getMinAltezza()>rt.getMaxAltezza())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				return true;
 			}
 		}
 		if(this.caratteristiche instanceof RichiestaEscavatore){
@@ -266,15 +450,88 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 				RichiestaEscavatore rt,ro;
 				rt=(RichiestaEscavatore)this.caratteristiche;
 				ro=(RichiestaEscavatore)other.getCaratteristiche();
-				if(!(rt.getMinCapacita()>ro.getMaxCapacita()||(ro.getMinCapacita()>rt.getMaxCapacita()))){
-					if(!(rt.getMinPortata()>ro.getMaxPortata()||(ro.getMinPortata()>rt.getMaxPortata()))){
-						if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
-							if(!(rt.getMinAltezza()>ro.getMaxAltezza()||(ro.getMinAltezza()>rt.getMaxAltezza()))){
-								return true;
-							}
-						}
-					}
+				
+				boolean conflitto=false;
+				//Caso capacità illimitate per una delle due richieste
+				if((rt.getMinCapacita()==-1 && rt.getMaxCapacita()==-1)||(rt.getMinCapacita()==-1 && rt.getMaxCapacita()==-1)){
+					conflitto=true;
 				}
+				//Caso capacità illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinCapacita()==-1&&ro.getMinCapacita()==-1)||(rt.getMinCapacita()==-1&&ro.getMinCapacita()<rt.getMaxCapacita())||(ro.getMinCapacita()==-1&&rt.getMinCapacita()<ro.getMaxCapacita()))){
+					conflitto=true;
+				}
+				//Caso capacità illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxCapacita()==-1&&ro.getMaxCapacita()==-1)||(rt.getMaxCapacita()==-1&&ro.getMaxCapacita()>rt.getMinCapacita())||(ro.getMaxCapacita()==-1&&rt.getMaxCapacita()>ro.getMinCapacita()))){
+					conflitto=true;
+				}
+				//Caso capacità limitate
+				if(!conflitto&&(!((rt.getMinCapacita()>ro.getMaxCapacita())||(ro.getMinCapacita()>rt.getMaxCapacita())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso portate illimitate per una delle due richieste
+				if((rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)||(rt.getMinPortata()==-1 && rt.getMaxPortata()==-1)){
+					conflitto=true;
+				}
+				//Caso portata illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinPortata()==-1&&ro.getMinPortata()==-1)||(rt.getMinPortata()==-1&&ro.getMinPortata()<rt.getMaxPortata())||(ro.getMinPortata()==-1&&rt.getMinPortata()<ro.getMaxPortata()))){
+					conflitto=true;
+				}
+				//Caso portata illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxPortata()==-1&&ro.getMaxPortata()==-1)||(rt.getMaxPortata()==-1&&ro.getMaxPortata()>rt.getMinPortata())||(ro.getMaxPortata()==-1&&rt.getMaxPortata()>ro.getMinPortata()))){
+					conflitto=true;
+				}
+				//Caso portate limitate
+				if(!conflitto&&(!((rt.getMinPortata()>ro.getMaxPortata())||(ro.getMinPortata()>rt.getMaxPortata())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso profondità illimitate per una delle due richieste
+				if((rt.getMinProfondita()==-1 && rt.getMaxProfondita()==-1)||(rt.getMinProfondita()==-1 && rt.getMaxProfondita()==-1)){
+					conflitto=true;
+				}
+				//Caso profondità illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinProfondita()==-1&&ro.getMinProfondita()==-1)||(rt.getMinProfondita()==-1&&ro.getMinProfondita()<rt.getMaxProfondita())||(ro.getMinProfondita()==-1&&rt.getMinProfondita()<ro.getMaxProfondita()))){
+					conflitto=true;
+				}
+				//Caso profondità illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxProfondita()==-1&&ro.getMaxProfondita()==-1)||(rt.getMaxProfondita()==-1&&ro.getMaxProfondita()>rt.getMinProfondita())||(ro.getMaxProfondita()==-1&&rt.getMaxProfondita()>ro.getMinProfondita()))){
+					conflitto=true;
+				}
+				//Caso profondità limitate
+				if(!conflitto&&(!((rt.getMinProfondita()>ro.getMaxProfondita())||(ro.getMinProfondita()>rt.getMaxProfondita())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				conflitto=false;
+				//Caso altezze illimitate per una delle due richieste
+				if((rt.getMinAltezza()==-1 && rt.getMaxAltezza()==-1)||(rt.getMinAltezza()==-1 && rt.getMaxAltezza()==-1)){
+					conflitto=true;
+				}
+				//Caso altezza illimitata a sx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMinAltezza()==-1&&ro.getMinAltezza()==-1)||(rt.getMinAltezza()==-1&&ro.getMinAltezza()<rt.getMaxAltezza())||(ro.getMinAltezza()==-1&&rt.getMinAltezza()<ro.getMaxAltezza()))){
+					conflitto=true;
+				}
+				//Caso altezza illimitata a dx per almeno una delle due richieste
+				if(!conflitto&&((rt.getMaxAltezza()==-1&&ro.getMaxAltezza()==-1)||(rt.getMaxAltezza()==-1&&ro.getMaxAltezza()>rt.getMinAltezza())||(ro.getMaxAltezza()==-1&&rt.getMaxAltezza()>ro.getMinAltezza()))){
+					conflitto=true;
+				}
+				//Caso altezze limitate
+				if(!conflitto&&(!((rt.getMinAltezza()>ro.getMaxAltezza())||(ro.getMinAltezza()>rt.getMaxAltezza())))){
+					conflitto=true;
+				}
+				if(!conflitto){
+					return false;
+				}
+				return true;
 			}
 		}
 		return false;
