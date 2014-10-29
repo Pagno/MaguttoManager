@@ -311,7 +311,7 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		return false;
 	}
 	
-	boolean gestisciLimiti(int aMin,int aMax,int bMin, int bMax){
+	static boolean gestisciLimiti(int aMin,int aMax,int bMin, int bMax){
 		boolean conflitto=false;
 		//Caso caratteristiche illimitate per una delle due richieste
 		if((aMin==-1 && aMax==-1)||(bMin==-1 && bMax==-1)){
