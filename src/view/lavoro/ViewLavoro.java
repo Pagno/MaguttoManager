@@ -145,6 +145,7 @@ public class ViewLavoro extends JDialog implements Observer{
 		pnlCantiere.setPrioritaCantiere(cantiere.getPrioritaString());
 		pnlCantiere.setDataInizioCantiere(cantiere.getDataApertura());
 		pnlCantiere.setDataFineCantiere(cantiere.getDataChiusura());
+		//pnlCantiere.setRangeDate(cantiere.getDataApertura(), cantiere.getDataChiusura(),cantiere.getElencoLavori().size()!=0);
 		pnlCantiere.setName("pnlCantiere");
 		pnlCantiere.addModificaCantiereListener(modificaCantiere());
 		

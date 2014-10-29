@@ -2,6 +2,7 @@ package controller.organizer;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 import javax.swing.JOptionPane;
 
 import model.ModelInterface;
@@ -9,6 +10,7 @@ import model.organizer.ModelMacchina;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Priorita;
 import model.organizer.data.Macchina;
+import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import controller.data.Associazione;
 
@@ -96,11 +98,6 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 			GregorianCalendar inizio=model.getCantiere(codiceCantiere).getDataApertura();
 			GregorianCalendar fine=model.getCantiere(codiceCantiere).getDataChiusura();
 			if(dataApertura.after(inizio) || dataChiusura.before(fine)){
-				System.out.println("Inizio cantiere"+inizio.getTime().toGMTString());
-				System.out.println("Fine cantiere"+fine.getTime().toGMTString());
-
-				System.out.println("Inizio nuovo cantiere"+dataApertura.getTime().toGMTString());
-				System.out.println("Fine nuovo cantiere"+dataChiusura.getTime().toGMTString());
 				JOptionPane
 				.showMessageDialog(
 						null,
@@ -127,6 +124,26 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	 */
 	public boolean aggiungiLavoro(int codiceCantiere, String nomeLavoro,
 			GregorianCalendar dataInizio, GregorianCalendar dataFine) {
+		Cantiere c=model.getCantiere(codiceCantiere);
+		if(nomeLavoro==""){
+
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"I campi:\n - Nome cantiere\n devono essere compilati. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+		}
+		if(dataInizio.before(c.getDataApertura()) ||  dataInizio.after(c.getDataChiusura())){
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"Le date del nuovo lavoro devono essere comprese tra le date di apertura e chiusura del cantiere. ",
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		
+		
 		model.aggiungiLavoro(nomeLavoro, dataInizio, dataFine, codiceCantiere);
 		return true;
 	}
@@ -232,37 +249,38 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	 * @param inizio Nuova data di inizio
 	 * @param fine Nuova data di fine
 	 */
-	public void modificaLavoro(int codiceLavoro, String nome,
+	public boolean modificaLavoro(int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
-		model.modificaLavoro(codiceLavoro, nome, inizio, fine);
 		
-		/*
-		 * ArrayList<Richiesta> richieste=model.getElencoRichieste(codiceLavoro);
-				//Prendo le vecchie date
-				oldStartDate=((richieste.get(0)).getDataInizio());
-				oldEndDate=((richieste.get(0)).getDataFine());
-				/*
-				 * Se la nuova data di inizio e posteriore alla vecchia data di inizio e la 
-				 * se la nuova data di fine e antecedente alla vecchia data di fine 
-				 * posso tranquillamente modificare il lavoro
-				 * 
-				boolean modifica=true;
-				if(newStartDate.before(oldStartDate) || newEndDate.after(oldStartDate)){
-					for(Richiesta richiesta:richieste){
-						if(newStartDate.before(oldStartDate))
-							modifica=modifica&&richiesta.getMacchina().isFree(newStartDate, oldStartDate);
-						if(newEndDate.after(oldStartDate))
-							modifica=modifica&&richiesta.getMacchina().isFree(oldEndDate, newEndDate);
-					}
-				}
-				if(modifica){
-					model.modificaLavoro(codiceLavoro, editLavoro.getNomeLavoro(), newStartDate, newEndDate); 
-				}
-				else{
-					JOptionPane.showMessageDialog(editLavoro, "Non ������������������ stato possibile modificare il lavoro. Potrebbero esserci sovrapposizioni con le date di altri lavori.", "Error",JOptionPane.ERROR_MESSAGE);
-				}
-				System.out.println("CodiceLavoro: "+codiceLavoro);	
-		*/
+		
+		  ArrayList<Richiesta> richieste=model.getElencoRichieste(codiceLavoro);
+		  
+		  ArrayList<Integer> codiceRichieste=new ArrayList<Integer>();
+		  
+		  for(Richiesta richiesta:richieste){
+			  if(richiesta.isSoddisfatta()){
+				  if(!richiesta.getMacchina().isLibera(inizio, fine)){
+					  codiceRichieste.add(richiesta.getCodice());
+				  }
+			  }
+		  }
+		  
+		  if(codiceRichieste.size()!=0){
+			  int i=JOptionPane.showConfirmDialog(null, "La macchina è occupata da altre richieste.", "",JOptionPane.YES_NO_OPTION);
+			  if(i==JOptionPane.YES_OPTION){
+				  for(Integer codice:codiceRichieste){
+					  model.liberaRichiesta(codice);
+				  }
+				  model.modificaLavoro(codiceLavoro, nome, inizio, fine); 
+				  return true;
+			  }else{
+				  return false;
+			  }
+			  
+		  }else{
+			  model.modificaLavoro(codiceLavoro, nome, inizio, fine);
+			  return true;
+		  }
 	}
 	
 	/**

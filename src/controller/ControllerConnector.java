@@ -242,8 +242,7 @@ public class ControllerConnector implements ControllerInterface{
 	@Override
 	public boolean modificaLavoro(int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
-		canCtrl.modificaLavoro(codiceLavoro, nome, inizio, fine);
-		return true;
+		return canCtrl.modificaLavoro(codiceLavoro, nome, inizio, fine);
 	}
 
 	/* (non-Javadoc)

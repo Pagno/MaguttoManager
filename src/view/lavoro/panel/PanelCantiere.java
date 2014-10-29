@@ -175,20 +175,14 @@ public class PanelCantiere extends JPanel {
 	 *
 	 * @param v dati del cantiere
 	 */
-	private void setDatiCantiere(Object[] v){
-		
-		txtNomeCantiere.setText(v[1].toString());
-		txtIndirizzo.setText(v[2].toString());
-		//dc.setText(v[3].toString());
-		String[] tokens = ((String)v[3]).split("/");
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		try{
-			dataInizioCantiere.setDate(df.parse((String)(v[3])));
-			dataFineCantiere.setDate(df.parse((String)v[4]));
-		}catch(ParseException error){
-			System.out.println("Formato date errato.");
+	public void setRangeDate(GregorianCalendar inizio,GregorianCalendar fine,boolean hasLavoro){
+		if(hasLavoro==false){
+			dataInizioCantiere.setMaxSelectableDate(fine.getTime());
+			dataFineCantiere.setMinSelectableDate(inizio.getTime());
+		}else{
+			dataInizioCantiere.setMaxSelectableDate(inizio.getTime());
+			dataFineCantiere.setMinSelectableDate(fine.getTime());
 		}
-		priorita.setSelectedItem(v[5]);
 	}
 	/**
 	 * Ritoena la priorita cantiere.
