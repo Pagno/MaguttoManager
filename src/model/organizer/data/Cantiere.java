@@ -255,13 +255,13 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	public String toString(){
 		String priStr;
 		if(priorita==Priorita.ALTA){
-			priStr="Priorit� Alta";
+			priStr="Priorità Alta";
 		}
 		else if(priorita==Priorita.MEDIA){
-			priStr="Priorit� Media";
+			priStr="Priorità Media";
 		}
 		else{
-			priStr="Priorit� Bassa";
+			priStr="Priorità Bassa";
 		}
 		return this.getCodice() + " " + this.getNomeCantiere() + " " + this.getIndirizzo() + " " + this.getStrDataApertura() + " " + this.getStrDataChiusura() + " - " + priStr;
 	}
