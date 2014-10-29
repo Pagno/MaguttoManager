@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 import model.ModelInterface;
+import model.organizer.ModelCantiere;
 import model.organizer.ModelMacchina;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Priorita;
@@ -265,11 +266,12 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 				 
 				  Macchina m=richiesta.getMacchina();
 				  codiceMacchina=m.getCodice();
-				  
+				  model.liberaRichiesta(richiesta.getCodice());
 				  if(!m.isLibera(inizio, fine)){
 					  codiceRichieste.add(richiesta.getCodice());
 				  }
-				  model.soddisfaRichiesta(richiesta.getCodice(), codiceMacchina);
+				  soddisfaRichiesta(richiesta.getCodice(), codiceMacchina);
+				  
 			  }
 		  }
 		  

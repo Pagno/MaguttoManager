@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import model.ModelConnector;
 import model.organizer.ModelCantiere;
 import model.organizer.ModelGru;
+import model.organizer.ModelRuspa;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Gru;
 import model.organizer.data.Lavoro;
@@ -15,6 +16,8 @@ import model.organizer.data.Macchina;
 import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaGru;
+import model.organizer.data.RichiestaRuspa;
+import model.organizer.data.Ruspa;
 
 import org.fest.util.Arrays;
 import org.junit.Test;
@@ -107,12 +110,15 @@ public class ControllerCantiereTest {
 		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2013, 12, 22), Priorita.BASSA);
 		
 		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2016, 12, 22), Priorita.BASSA);
-		
+		canCtrl.aggiungiLavoro(12, "Scavi", new GregorianCalendar(2015, 1, 1), new GregorianCalendar(2015, 12, 22));
+		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 3, 22), Priorita.BASSA);
+		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 15),new GregorianCalendar(2015, 3, 22), Priorita.BASSA);
 		
 		Cantiere m=canCtrl.getCantiere(12);
 
-		
+		System.out.println(m.getNomeCantiere());
 		assertEquals("Chignolo",m.getNomeCantiere());
+		
 		assertEquals("via Vittorio Alfieri",m.getIndirizzo());
 		assertEquals(new GregorianCalendar(2015, 0, 1),m.getDataApertura());
 		assertEquals(new GregorianCalendar(2016, 12, 22),m.getDataChiusura());
@@ -125,6 +131,9 @@ public class ControllerCantiereTest {
 
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		canCtrl.aggiungiLavoro(21, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
+		canCtrl.aggiungiLavoro(21, "", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
+		canCtrl.aggiungiLavoro(21, "Scavi", new GregorianCalendar(2013, 0, 1),new GregorianCalendar(2015, 1, 28));
+		canCtrl.aggiungiLavoro(21, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2018, 1, 28));
 		
 		Lavoro lavoro=ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(1);
 		
@@ -213,18 +222,44 @@ public class ControllerCantiereTest {
 	@Test
 	public void testModificaLavoro() {
 		model.ResetAllForTest();
-
+		ModelRuspa.getModelRuspa().caricaRuspa(7, "Ruspa", "R", 100, 100, 100);
+		ModelCantiere.getModelCantiere().caricaCantiere(22,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
+		ModelCantiere.getModelCantiere().caricaLavoro(22,16, "Scavi", new GregorianCalendar(2015, 2, 1),new GregorianCalendar(2015, 2, 26));
+		RichiestaRuspa rRuspa=new RichiestaRuspa(70, 110, -1, -1, -1, -1) ;
+		ModelCantiere.getModelCantiere().caricaRichiesta(22, 16, 9, rRuspa, ModelRuspa.getModelRuspa().getRuspa(7));
+		
+		
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(21,15, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
+		RichiestaRuspa rRuspa2=new RichiestaRuspa(70, 110, -1, -1, -1, -1) ;
+		canCtrl.modificaLavoro(15, "Pilastri",new GregorianCalendar(2015, 0, 3), new GregorianCalendar(2015, 1, 25));
 		
 		
+		ModelCantiere.getModelCantiere().caricaRichiesta(21, 15, 8, rRuspa2, ModelRuspa.getModelRuspa().getRuspa(7));
+		
+		
+		
+		//SE CLICCO NO PER ELIMINARE LA RICHIESTA la richiesta non deve essere liberata ed il lavoro non deve essere modificato
 		canCtrl.modificaLavoro(15, "Fondamenta", new GregorianCalendar(2015, 2, 15), new GregorianCalendar(2015, 4, 1));
 		Lavoro lavoro=ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(15);
+				
+		assertEquals(21,lavoro.getCantiere().getCodice());
+		assertEquals("Pilastri",lavoro.getNome());
+		assertEquals( new GregorianCalendar(2015, 0, 3),lavoro.getDataInizio());
+		assertEquals(new GregorianCalendar(2015, 1, 25),lavoro.getDataFine());
 		
+		assertTrue(ModelCantiere.getModelCantiere().getRichiesta(8).isSoddisfatta());
+		
+		//SE CLICCO YES PER ELIMINARE LA RICHIESTA la richiesta deve essere liberata
+		canCtrl.modificaLavoro(15, "Fondamenta", new GregorianCalendar(2015, 2, 15), new GregorianCalendar(2015, 4, 1));
+			
 		assertEquals(21,lavoro.getCantiere().getCodice());
 		assertEquals("Fondamenta",lavoro.getNome());
 		assertEquals( new GregorianCalendar(2015, 2, 15),lavoro.getDataInizio());
 		assertEquals(new GregorianCalendar(2015, 4, 1),lavoro.getDataFine());
+		assertFalse(ModelCantiere.getModelCantiere().getRichiesta(8).isSoddisfatta());
+		
+
 	}
 
 }
