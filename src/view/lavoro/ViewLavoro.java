@@ -350,7 +350,9 @@ public class ViewLavoro extends JDialog implements Observer{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				cCtr.liberaRichiesta(codiceRichiesta);
+				
 				aggiornaRichiesta();
+				reloadModel();
 			}
 		};
 	}
@@ -384,7 +386,9 @@ public class ViewLavoro extends JDialog implements Observer{
 			public void actionPerformed(ActionEvent arg0) {
 				int codiceMacchina=am.getCodiceMacchinaSelezionata();
 				cCtr.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
+				
 				aggiornaRichiesta();
+				reloadModel();
 				am.dispose();
 			}
 		};
@@ -542,7 +546,9 @@ public class ViewLavoro extends JDialog implements Observer{
 	 * Reload model.
 	 */
 	private void reloadModel(){
+		TreePath tp=tree.getSelectionPath();
 		treeModel.reload();
+		tree.expandPath(tp.getParentPath());
 	}
 	
 	/**
