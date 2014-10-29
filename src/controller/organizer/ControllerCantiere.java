@@ -254,18 +254,26 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 		
 		
 		  ArrayList<Richiesta> richieste=model.getElencoRichieste(codiceLavoro);
+		  int codiceMacchina;
+		  
+		  
 		  
 		  ArrayList<Integer> codiceRichieste=new ArrayList<Integer>();
 		  
 		  for(Richiesta richiesta:richieste){
 			  if(richiesta.isSoddisfatta()){
-				  if(!richiesta.getMacchina().isLibera(inizio, fine)){
+				 
+				  Macchina m=richiesta.getMacchina();
+				  codiceMacchina=m.getCodice();
+				  
+				  if(!m.isLibera(inizio, fine)){
 					  codiceRichieste.add(richiesta.getCodice());
 				  }
+				  model.soddisfaRichiesta(richiesta.getCodice(), codiceMacchina);
 			  }
 		  }
 		  
-		  if(codiceRichieste.size()!=0){
+		   if(codiceRichieste.size()!=0){
 			  int i=JOptionPane.showConfirmDialog(null, "La macchina è occupata da altre richieste.", "",JOptionPane.YES_NO_OPTION);
 			  if(i==JOptionPane.YES_OPTION){
 				  for(Integer codice:codiceRichieste){

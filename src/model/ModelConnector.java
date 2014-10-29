@@ -281,7 +281,7 @@ public class ModelConnector implements ModelInterface{
 						if(richiesta.getCaratteristiche() instanceof RichiestaCamion ){
 							RichiestaCamion camion=(RichiestaCamion)richiesta.getCaratteristiche();
 							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,CapacitaMin,CapacitaMax,PortataMin,PortataMax,LunghezzaMin,LunghezzaMax)"+
-								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+",'Camion'," +
+								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+"'Camion'," +
 								camion.getMinCapacita() + "," + camion.getMaxCapacita() + "," + camion.getMinPortata() + "," +  camion.getMaxPortata() + "," + 
 								camion.getMinLunghezza() + "," + camion.getMaxLunghezza() + ")" ;
 							db.update(qry);

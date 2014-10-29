@@ -440,9 +440,9 @@ public class ViewLavoro extends JDialog implements Observer{
 					fine.setTime(pnlLavoro.getDataFineLavoro());
 					
 					//Aggiungi il lavoro
-					cCtr.modificaLavoro(codiceLavoro,nome, inizio, fine);
-					JOptionPane.showMessageDialog(null,"Lavoro Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
-					
+					if(cCtr.modificaLavoro(codiceLavoro,nome, inizio, fine)){
+						JOptionPane.showMessageDialog(null,"Lavoro Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
+					}
 					//ricarico il modello
 					reloadModel();
 				}
