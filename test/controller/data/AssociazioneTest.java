@@ -16,6 +16,8 @@ import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
+import controller.greedy.data.Associazione;
+
 public class AssociazioneTest {
 	Associazione a;
 	Richiesta richiesta;

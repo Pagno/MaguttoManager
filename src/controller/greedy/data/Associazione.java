@@ -1,4 +1,4 @@
-package controller.data;
+package controller.greedy.data;
 
 import java.util.GregorianCalendar;
 

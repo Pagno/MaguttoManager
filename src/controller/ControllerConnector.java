@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Observer;
 
-
 import model.ModelInterface;
 import model.organizer.data.Cantiere;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priorita;
 import model.organizer.data.RichiestaMacchina;
-import controller.data.Associazione;
+import controller.greedy.data.Associazione;
 import controller.organizer.*;
 
 

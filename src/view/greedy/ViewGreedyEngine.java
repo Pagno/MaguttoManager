@@ -18,7 +18,7 @@ import javax.swing.JList;
 
 import controller.ControllerConnector;
 import controller.ControllerInterface;
-import controller.data.Associazione;
+import controller.greedy.data.Associazione;
 
 public class ViewGreedyEngine extends JDialog {
 

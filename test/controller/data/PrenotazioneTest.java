@@ -14,6 +14,9 @@ import model.organizer.data.Ruspa;
 
 import org.junit.Test;
 
+import controller.greedy.data.Associazione;
+import controller.greedy.data.Prenotazione;
+
 public class PrenotazioneTest {
 	Prenotazione prenotazione;
 	Associazione a;

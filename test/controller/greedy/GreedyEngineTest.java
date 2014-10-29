@@ -28,8 +28,8 @@ import org.junit.Test;
 
 import view.MainView;
 import controller.ControllerConnector;
-import controller.data.Associazione;
-import controller.data.Prenotazione;
+import controller.greedy.data.Associazione;
+import controller.greedy.data.Prenotazione;
 import database.Database;
 
 public class GreedyEngineTest {

@@ -13,7 +13,7 @@ import model.organizer.data.Priorita;
 import model.organizer.data.Macchina;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
-import controller.data.Associazione;
+import controller.greedy.data.Associazione;
 
 /**
  * 

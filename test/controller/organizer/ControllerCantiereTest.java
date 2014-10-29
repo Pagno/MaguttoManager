@@ -22,7 +22,7 @@ import model.organizer.data.Ruspa;
 import org.fest.util.Arrays;
 import org.junit.Test;
 
-import controller.data.Associazione;
+import controller.greedy.data.Associazione;
 import database.Database;
 
 public class ControllerCantiereTest {
