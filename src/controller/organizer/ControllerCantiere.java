@@ -91,6 +91,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 			return false;
 		}
 		model.modificaCantiere(codiceCantiere,nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
+		
 		return true;
 	}
 
