@@ -28,6 +28,7 @@ import javax.swing.tree.TreePath;
 
 import model.organizer.data.Cantiere;
 import model.organizer.data.Lavoro;
+import model.organizer.data.Priorita;
 import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaCamion;
 import model.organizer.data.RichiestaEscavatore;
@@ -145,6 +146,7 @@ public class ViewLavoro extends JDialog implements Observer{
 		pnlCantiere.setDataInizioCantiere(cantiere.getDataApertura());
 		pnlCantiere.setDataFineCantiere(cantiere.getDataChiusura());
 		pnlCantiere.setName("pnlCantiere");
+		pnlCantiere.addModificaCantiereListener(modificaCantiere());
 		
 		//pnlCantiere.setDatiCantiere(datiCantiere);
 		pnlLavoro= new PanelLavoro(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
@@ -197,6 +199,26 @@ public class ViewLavoro extends JDialog implements Observer{
 		setVisible(true);
 	}
 	
+	private ActionListener modificaCantiere() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GregorianCalendar dataInizio=new GregorianCalendar();
+				dataInizio.setTime(pnlCantiere.getDataInizioCantiere());
+				GregorianCalendar dataFine=new GregorianCalendar();
+				dataFine.setTime(pnlCantiere.getDataFineCantiere());
+				if(cCtr.modificaCantiere(codiceCantiere, pnlCantiere.getNomeCantiere(), 
+						pnlCantiere.getIndirizzoCantiere(), 
+						dataInizio,dataFine, 
+						Priorita.valueOf(pnlCantiere.getPrioritaCantiere())))
+				{
+					JOptionPane.showMessageDialog(null,"Cantiere Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
+					reloadModel();
+				}
+			}
+		};
+	}
+
 	/** The codice lavoro. */
 	private int codiceLavoro;
 	//Aggiornamento dei pannelli
@@ -269,7 +291,7 @@ public class ViewLavoro extends JDialog implements Observer{
 					if(richiesta.isSoddisfatta()){
 						pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
 						pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta.getCodice()));
-						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
+						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getCodice()+" "+richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
 					}else{
 						pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener(richiesta.getCodice()));
 						pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
@@ -418,6 +440,7 @@ public class ViewLavoro extends JDialog implements Observer{
 					
 					//Aggiungi il lavoro
 					cCtr.modificaLavoro(codiceLavoro,nome, inizio, fine);
+					JOptionPane.showMessageDialog(null,"Lavoro Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
 					
 					//ricarico il modello
 					reloadModel();
@@ -541,7 +564,7 @@ public class ViewLavoro extends JDialog implements Observer{
 		if(richiesta.isSoddisfatta()){
 			pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
 			pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta.getCodice()));
-			pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
+			pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getCodice()+" "+richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
 		}else{
 			pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener(richiesta.getCodice()));
 			pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");

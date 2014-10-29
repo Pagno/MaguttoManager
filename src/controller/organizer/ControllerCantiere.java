@@ -75,6 +75,8 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 			String indirizzo, GregorianCalendar dataApertura,
 			GregorianCalendar dataChiusura, Priorita priorita) {
 		
+		
+		
 		if(nomeCantiere=="" || indirizzo==""){
 			JOptionPane
 			.showMessageDialog(
@@ -89,7 +91,25 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 					"La data di inizio deve essere inferiore alla data di chiusura. ",
 					"Alert", JOptionPane.ERROR_MESSAGE);
 			return false;
+		}else if(model.getCantiere(codiceCantiere).getElencoLavori().size()!=0){
+			//Se il cantiere ha lavori non puo restringere le date ma solo allargarle
+			GregorianCalendar inizio=model.getCantiere(codiceCantiere).getDataApertura();
+			GregorianCalendar fine=model.getCantiere(codiceCantiere).getDataChiusura();
+			if(dataApertura.after(inizio) || dataChiusura.before(fine)){
+				System.out.println("Inizio cantiere"+inizio.getTime().toGMTString());
+				System.out.println("Fine cantiere"+fine.getTime().toGMTString());
+
+				System.out.println("Inizio nuovo cantiere"+dataApertura.getTime().toGMTString());
+				System.out.println("Fine nuovo cantiere"+dataChiusura.getTime().toGMTString());
+				JOptionPane
+				.showMessageDialog(
+						null,
+						"Se il cantiere ha gia dei lavori non si possono restringere le date. ",
+						"Alert", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
 		}
+			
 		model.modificaCantiere(codiceCantiere,nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 		
 		return true;

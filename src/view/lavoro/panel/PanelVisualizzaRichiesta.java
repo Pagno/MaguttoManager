@@ -65,11 +65,11 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	public void loadData(ArrayList<String> dati){
 		data=dati;
 		lblTipo.setText(data.get(1));
-		lblCapacita.setText(data.get(2)+" <Capacita< "+data.get(3));
+		lblCapacita.setText(data.get(2)+" <Capacit\u00E0< "+data.get(3));
 		lblPortata.setText(data.get(4)+" <Portata< "+data.get(5));
 		lblLunghezza.setText(data.get(6)+" <Lunghezza< "+data.get(7));
 		lblAltezza.setText(data.get(8)+" <Altezza< "+data.get(9));
-		lblProfondita.setText(data.get(10)+" <Profondita< "+data.get(11));
+		lblProfondita.setText(data.get(10)+" <Profondit\u00E0< "+data.get(11));
 		lblRotazione.setText(data.get(12)+" <Rotazione< "+data.get(13));
 		if(data.get(1)=="Camion"){
 			lblCapacita.setVisible(true);

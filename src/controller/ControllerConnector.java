@@ -240,10 +240,10 @@ public class ControllerConnector implements ControllerInterface{
 	 * @see controller.ControllerInterface#modificaLavoro(int, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
 	@Override
-	public void modificaLavoro(int codiceLavoro, String nome,
+	public boolean modificaLavoro(int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
 		canCtrl.modificaLavoro(codiceLavoro, nome, inizio, fine);
-		
+		return true;
 	}
 
 	/* (non-Javadoc)

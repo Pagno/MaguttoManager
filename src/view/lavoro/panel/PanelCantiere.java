@@ -163,6 +163,12 @@ public class PanelCantiere extends JPanel {
 		txtNomeCantiere.setText("");
 		btnAdd.setText("Inserisci");
 	}
+	public void addModificaCantiereListener(ActionListener action){
+		for(ActionListener act:btnAdd.getActionListeners() ){
+			btnAdd.removeActionListener(act);
+		}
+		btnAdd.addActionListener(action);
+	}
 	
 	/**
 	 * Imposta i dati del cantiere
@@ -184,7 +190,14 @@ public class PanelCantiere extends JPanel {
 		}
 		priorita.setSelectedItem(v[5]);
 	}
-
+	/**
+	 * Ritoena la priorita cantiere.
+	 *
+	 * @return priorita priorita cantiere
+	 */
+	public String getPrioritaCantiere() {return (String)priorita.getSelectedItem();}; 
+	
+	public String getNomeCantiere() {return txtNomeCantiere.getText();}
 	/**
 	 * Ritorna indirizzo cantiere.
 	 *
