@@ -66,7 +66,7 @@ public class MainView extends JFrame {
 	private JMenuItem itemAddCantiere, itemGreedyEngine;
 
 	/** item file esci. */
-	private JMenuItem itemFileSalva, itemFileCarica, itemFileEsci;
+	private JMenuItem itemFileSalva, itemFileCarica;
 
 	/** The controller. */
 	private ControllerInterface controller;
@@ -214,8 +214,6 @@ public class MainView extends JFrame {
 		menuFile.add(itemFileCarica);
 		itemFileSalva = new JMenuItem("Salva");
 		menuFile.add(itemFileSalva);
-		itemFileEsci = new JMenuItem("Esci");
-		menuFile.add(itemFileEsci);
 
 		// AGGIUNGI
 		itemAddGru = new JMenuItem("Aggiungi Gru");
