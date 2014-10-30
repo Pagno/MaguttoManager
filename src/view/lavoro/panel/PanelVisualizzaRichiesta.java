@@ -65,12 +65,102 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	public void loadData(ArrayList<String> dati){
 		data=dati;
 		lblTipo.setText(data.get(1));
-		lblCapacita.setText(data.get(2)+" <Capacit\u00E0< "+data.get(3));
-		lblPortata.setText(data.get(4)+" <Portata< "+data.get(5));
-		lblLunghezza.setText(data.get(6)+" <Lunghezza< "+data.get(7));
-		lblAltezza.setText(data.get(8)+" <Altezza< "+data.get(9));
-		lblProfondita.setText(data.get(10)+" <Profondit\u00E0< "+data.get(11));
-		lblRotazione.setText(data.get(12)+" <Rotazione< "+data.get(13));
+		if(data.get(2)=="-1"&&data.get(3)=="-1"){
+			lblCapacita.setText("Capacit\u00E0 non vincolata.");
+		}
+		else{
+			if(data.get(2)=="-1"){
+				lblCapacita.setText("Capacit\u00E0 < "+data.get(3));
+			}
+			else{
+				if(data.get(3)=="-1"){
+					lblCapacita.setText("Capacit\u00E0 > "+data.get(2));
+				}
+				else{
+					lblCapacita.setText(data.get(2)+" < Capacit\u00E0 < "+data.get(3));
+				}
+			}
+		}
+		if(data.get(4)=="-1"&&data.get(5)=="-1"){
+			lblPortata.setText("Portata non vincolata.");
+		}
+		else{
+			if(data.get(4)=="-1"){
+				lblPortata.setText("Portata < "+data.get(5));
+			}
+			else{
+				if(data.get(5)=="-1"){
+					lblPortata.setText("Portata > "+data.get(4));
+				}
+				else{
+					lblPortata.setText(data.get(4)+" < Portata < "+data.get(5));
+				}
+			}
+		}
+		if(data.get(6)=="-1"&&data.get(7)=="-1"){
+			lblLunghezza.setText("Lunghezza non vincolata.");
+		}
+		else{
+			if(data.get(6)=="-1"){
+				lblLunghezza.setText("Lunghezza < "+data.get(7));
+			}
+			else{
+				if(data.get(7)=="-1"){
+					lblLunghezza.setText("Lunghezza > "+data.get(6));
+				}
+				else{
+					lblLunghezza.setText(data.get(6)+" < Lunghezza < "+data.get(7));
+				}
+			}
+		}
+		if(data.get(8)=="-1"&&data.get(9)=="-1"){
+			lblAltezza.setText("Altezza non vincolata.");
+		}
+		else{
+			if(data.get(8)=="-1"){
+				lblAltezza.setText("Altezza < "+data.get(9));
+			}
+			else{
+				if(data.get(9)=="-1"){
+					lblAltezza.setText("Altezza > "+data.get(8));
+				}
+				else{
+					lblAltezza.setText(data.get(8)+" < Altezza < "+data.get(9));
+				}
+			}
+		}
+		if(data.get(10)=="-1"&&data.get(11)=="-1"){
+			lblProfondita.setText("Profondit\u00E0 non vincolata.");
+		}
+		else{
+			if(data.get(10)=="-1"){
+				lblProfondita.setText("Profondit\u00E0 < "+data.get(11));
+			}
+			else{
+				if(data.get(11)=="-1"){
+					lblProfondita.setText("Profondit\u00E0 > "+data.get(10));
+				}
+				else{
+					lblProfondita.setText(data.get(10)+" < Profondit\u00E0 < "+data.get(11));
+				}
+			}
+		}
+		if(data.get(12)=="-1"&&data.get(13)=="-1"){
+			lblRotazione.setText("Rotazione non vincolata.");
+		}
+		else{
+			if(data.get(12)=="-1"){
+				lblRotazione.setText("Rotazione < "+data.get(13));
+			}
+			else{
+				if(data.get(13)=="-1"){
+					lblRotazione.setText("Rotazione > "+data.get(12));
+				}
+				else{
+					lblRotazione.setText(data.get(12)+" < Rotazione < "+data.get(13));
+				}
+			}
+		}
 		if(data.get(1)=="Camion"){
 			lblCapacita.setVisible(true);
 			lblPortata.setVisible(true);

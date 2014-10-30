@@ -353,22 +353,73 @@ public class RichiestaTest {
 		Richiesta ric1=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro,1);
 		Richiesta ric2=new Richiesta(new RichiestaRuspa(7,12,7,12,7,12),lavoro,2);
 		assertTrue(ric1.inConflitto(ric2));
-		
-		ric1=new Richiesta(new RichiestaCamion(5,10,5,10,5,10),lavoro,1);
-		ric2=new Richiesta(new RichiestaCamion(7,12,7,12,7,12),lavoro,2);
-		assertTrue(ric1.inConflitto(ric2));
-		
-		ric1=new Richiesta(new RichiestaGru(5,10,5,10,5,10,5,10),lavoro,1);
-		ric2=new Richiesta(new RichiestaGru(7,12,7,12,7,12,7,12),lavoro,2);
-		assertTrue(ric1.inConflitto(ric2));
-		
-		ric1=new Richiesta(new RichiestaEscavatore(5,10,5,10,5,10,5,10),lavoro,1);
-		ric2=new Richiesta(new RichiestaEscavatore(7,12,7,12,7,12,7,12),lavoro,2);
-		assertTrue(ric1.inConflitto(ric2));
-		
-		ric1=new Richiesta(new RichiestaEscavatore(5,10,5,10,5,10,5,10),lavoro,1);
-		ric2=new Richiesta(new RichiestaEscavatore(17,112,17,112,17,112,17,112),lavoro,2);
+		assertTrue(ric2.inConflitto(ric1));
+		ric2=new Richiesta(new RichiestaRuspa(20,30,7,12,7,12),lavoro,2);
 		assertFalse(ric1.inConflitto(ric2));
+		assertFalse(ric2.inConflitto(ric1));
+		ric2=new Richiesta(new RichiestaRuspa(7,12,20,30,7,12),lavoro,2);
+		assertFalse(ric1.inConflitto(ric2));
+		assertFalse(ric2.inConflitto(ric1));
+		ric2=new Richiesta(new RichiestaRuspa(7,12,7,12,20,30),lavoro,2);
+		assertFalse(ric1.inConflitto(ric2));
+		assertFalse(ric2.inConflitto(ric1));
+		
+		Richiesta ric3=new Richiesta(new RichiestaCamion(5,10,5,10,5,10),lavoro,1);
+		Richiesta ric4=new Richiesta(new RichiestaCamion(7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric3.inConflitto(ric4));
+		assertTrue(ric4.inConflitto(ric3));
+		ric4=new Richiesta(new RichiestaCamion(20,30,7,12,7,12),lavoro,2);
+		assertFalse(ric3.inConflitto(ric4));
+		assertFalse(ric4.inConflitto(ric3));
+		ric4=new Richiesta(new RichiestaCamion(7,12,20,30,7,12),lavoro,2);
+		assertFalse(ric3.inConflitto(ric4));
+		assertFalse(ric4.inConflitto(ric3));
+		ric4=new Richiesta(new RichiestaCamion(7,12,7,12,20,30),lavoro,2);
+		assertFalse(ric3.inConflitto(ric4));
+		assertFalse(ric4.inConflitto(ric3));
+		assertFalse(ric1.inConflitto(ric3));
+		assertFalse(ric3.inConflitto(ric1));
+		
+		Richiesta ric5=new Richiesta(new RichiestaGru(5,10,5,10,5,10,5,10),lavoro,1);
+		Richiesta ric6=new Richiesta(new RichiestaGru(7,12,7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric5.inConflitto(ric6));
+		assertTrue(ric6.inConflitto(ric5));
+		ric6=new Richiesta(new RichiestaGru(20,30,7,12,7,12,7,12),lavoro,2);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		ric6=new Richiesta(new RichiestaGru(7,12,20,30,7,12,7,12),lavoro,2);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		ric6=new Richiesta(new RichiestaGru(7,12,7,12,20,30,7,12),lavoro,2);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		ric6=new Richiesta(new RichiestaGru(7,12,7,12,7,12,20,30),lavoro,2);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		
+		Richiesta ric7=new Richiesta(new RichiestaEscavatore(5,10,5,10,5,10,5,10),lavoro,1);
+		Richiesta ric8=new Richiesta(new RichiestaEscavatore(7,12,7,12,7,12,7,12),lavoro,2);
+		assertTrue(ric7.inConflitto(ric8));
+		assertTrue(ric7.inConflitto(ric8));
+		ric8=new Richiesta(new RichiestaEscavatore(20,30,7,12,7,12,7,12),lavoro,2);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		ric8=new Richiesta(new RichiestaEscavatore(7,12,20,30,7,12,7,12),lavoro,2);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		ric8=new Richiesta(new RichiestaEscavatore(7,12,7,12,20,30,7,12),lavoro,2);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		ric8=new Richiesta(new RichiestaEscavatore(7,12,7,12,7,12,20,30),lavoro,2);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric5.inConflitto(ric7));
+		assertFalse(ric7.inConflitto(ric5));
+		
+		Richiesta ric9=new Richiesta(new RichiestaEscavatore(5,10,5,10,5,10,5,10),lavoro,1);
+		Richiesta ric10=new Richiesta(new RichiestaEscavatore(17,112,17,112,17,112,17,112),lavoro,2);
+		assertFalse(ric9.inConflitto(ric10));
+		assertFalse(ric10.inConflitto(ric9));
 		
 	}
 	@Test
@@ -380,10 +431,53 @@ public class RichiestaTest {
 		Lavoro lavoro2=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta ric2=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro2,12);
 		assertTrue(ric1.collide(ric2));
+		assertTrue(ric2.collide(ric1));
 		
 		Lavoro lavoro3=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2015, 9, 01),new GregorianCalendar(2015, 11, 1));
 		Richiesta ric3=new Richiesta(new RichiestaRuspa(5,10,5,10,5,10),lavoro3,12);
 		
 		assertFalse(ric1.collide(ric3));
+		assertFalse(ric3.collide(ric1));
+	}
+	
+	@Test
+	public void testGestisciLimiti(){
+		int aMin, aMax, bMin, bMax;
+		aMin=5;
+		aMax=10;
+		bMin=15;
+		bMax=20;
+		assertFalse(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertFalse(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		aMax=15;
+		bMin=10;
+		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		aMin=-1;
+		aMax=-1;
+		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		aMax=15;
+		bMin=-1;
+		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		bMin=10;
+		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		bMin=17;
+		assertFalse(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertFalse(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		aMin=10;
+		aMax=-1;
+		bMax=-1;
+		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		bMax=20;
+		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
+		bMin=6;
+		bMax=7;
+		assertFalse(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
+		assertFalse(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
 	}
 }
