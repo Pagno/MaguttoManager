@@ -239,9 +239,9 @@ public class ControllerConnector implements ControllerInterface{
 	 * @see controller.ControllerInterface#modificaLavoro(int, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
 	@Override
-	public boolean modificaLavoro(int codiceLavoro, String nome,
+	public boolean modificaLavoro(int codiceCantiere,int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
-		return canCtrl.modificaLavoro(codiceLavoro, nome, inizio, fine);
+		return canCtrl.modificaLavoro(codiceCantiere,codiceLavoro, nome, inizio, fine);
 	}
 
 	/* (non-Javadoc)

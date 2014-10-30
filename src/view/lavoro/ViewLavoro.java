@@ -444,7 +444,7 @@ public class ViewLavoro extends JDialog implements Observer{
 					fine.setTime(pnlLavoro.getDataFineLavoro());
 					
 					//Aggiungi il lavoro
-					if(cCtr.modificaLavoro(codiceLavoro,nome, inizio, fine)){
+					if(cCtr.modificaLavoro(codiceCantiere,codiceLavoro,nome, inizio, fine)){
 						JOptionPane.showMessageDialog(null,"Lavoro Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
 					}
 					//ricarico il modello
@@ -546,9 +546,13 @@ public class ViewLavoro extends JDialog implements Observer{
 	 * Reload model.
 	 */
 	private void reloadModel(){
+		try{
 		TreePath tp=tree.getSelectionPath();
 		treeModel.reload();
 		tree.expandPath(tp.getParentPath());
+		}catch(NullPointerException ex){
+			
+		}
 	}
 	
 	/**

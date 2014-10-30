@@ -250,8 +250,14 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	 * @param inizio Nuova data di inizio
 	 * @param fine Nuova data di fine
 	 */
-	public boolean modificaLavoro(int codiceLavoro, String nome,
+	public boolean modificaLavoro(int codiceCantiere,int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
+		
+		Cantiere c=model.getCantiere(codiceCantiere);
+		if(inizio.before(c.getDataApertura()) || fine.after(c.getDataChiusura())){
+			JOptionPane.showMessageDialog(null, "Le date del Lavoro non possono uscire dai limiti del cantiere.");
+			return false;
+		}
 		
 		
 		  ArrayList<Richiesta> richieste=model.getElencoRichieste(codiceLavoro);

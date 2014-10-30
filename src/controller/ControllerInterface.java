@@ -198,7 +198,7 @@ public interface ControllerInterface {
 	 * @param inizio the inizio
 	 * @param fine the fine
 	 */
-	public  boolean modificaLavoro(int codiceLavoro, String nome,GregorianCalendar inizio, GregorianCalendar fine);
+	public  boolean modificaLavoro(int codiceCantiere,int codiceLavoro, String nome,GregorianCalendar inizio, GregorianCalendar fine);
 
 	//Insert Interface
 	/**
