@@ -65,15 +65,15 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	public void loadData(ArrayList<String> dati){
 		data=dati;
 		lblTipo.setText(data.get(1));
-		if(data.get(2)=="-1"&&data.get(3)=="-1"){
+		if(data.get(2).equals("-1")&&data.get(3).equals("-1")){
 			lblCapacita.setText("Capacit\u00E0 non vincolata.");
 		}
 		else{
-			if(data.get(2)=="-1"){
+			if(data.get(2).equals("-1")){
 				lblCapacita.setText("Capacit\u00E0 < "+data.get(3));
 			}
 			else{
-				if(data.get(3)=="-1"){
+				if(data.get(3).equals("-1")){
 					lblCapacita.setText("Capacit\u00E0 > "+data.get(2));
 				}
 				else{
@@ -81,15 +81,15 @@ public class PanelVisualizzaRichiesta extends JPanel {
 				}
 			}
 		}
-		if(data.get(4)=="-1"&&data.get(5)=="-1"){
+		if(data.get(4).equals("-1")&&data.get(5).equals("-1")){
 			lblPortata.setText("Portata non vincolata.");
 		}
 		else{
-			if(data.get(4)=="-1"){
+			if(data.get(4).equals("-1")){
 				lblPortata.setText("Portata < "+data.get(5));
 			}
 			else{
-				if(data.get(5)=="-1"){
+				if(data.get(5).equals("-1")){
 					lblPortata.setText("Portata > "+data.get(4));
 				}
 				else{
@@ -97,15 +97,15 @@ public class PanelVisualizzaRichiesta extends JPanel {
 				}
 			}
 		}
-		if(data.get(6)=="-1"&&data.get(7)=="-1"){
+		if(data.get(6).equals("-1")&&data.get(7).equals("-1")){
 			lblLunghezza.setText("Lunghezza non vincolata.");
 		}
 		else{
-			if(data.get(6)=="-1"){
+			if(data.get(6).equals("-1")){
 				lblLunghezza.setText("Lunghezza < "+data.get(7));
 			}
 			else{
-				if(data.get(7)=="-1"){
+				if(data.get(7).equals("-1")){
 					lblLunghezza.setText("Lunghezza > "+data.get(6));
 				}
 				else{
@@ -113,15 +113,15 @@ public class PanelVisualizzaRichiesta extends JPanel {
 				}
 			}
 		}
-		if(data.get(8)=="-1"&&data.get(9)=="-1"){
+		if(data.get(8).equals("-1")&&data.get(9).equals("-1")){
 			lblAltezza.setText("Altezza non vincolata.");
 		}
 		else{
-			if(data.get(8)=="-1"){
+			if(data.get(8).equals("-1")){
 				lblAltezza.setText("Altezza < "+data.get(9));
 			}
 			else{
-				if(data.get(9)=="-1"){
+				if(data.get(9).equals("-1")){
 					lblAltezza.setText("Altezza > "+data.get(8));
 				}
 				else{
@@ -129,15 +129,15 @@ public class PanelVisualizzaRichiesta extends JPanel {
 				}
 			}
 		}
-		if(data.get(10)=="-1"&&data.get(11)=="-1"){
+		if(data.get(10).equals("-1")&&data.get(11).equals("-1")){
 			lblProfondita.setText("Profondit\u00E0 non vincolata.");
 		}
 		else{
-			if(data.get(10)=="-1"){
+			if(data.get(10).equals("-1")){
 				lblProfondita.setText("Profondit\u00E0 < "+data.get(11));
 			}
 			else{
-				if(data.get(11)=="-1"){
+				if(data.get(11).equals("-1")){
 					lblProfondita.setText("Profondit\u00E0 > "+data.get(10));
 				}
 				else{
@@ -145,15 +145,15 @@ public class PanelVisualizzaRichiesta extends JPanel {
 				}
 			}
 		}
-		if(data.get(12)=="-1"&&data.get(13)=="-1"){
+		if(data.get(12).equals("-1")&&data.get(13).equals("-1")){
 			lblRotazione.setText("Rotazione non vincolata.");
 		}
 		else{
-			if(data.get(12)=="-1"){
+			if(data.get(12).equals("-1")){
 				lblRotazione.setText("Rotazione < "+data.get(13));
 			}
 			else{
-				if(data.get(13)=="-1"){
+				if(data.get(13).equals("-1")){
 					lblRotazione.setText("Rotazione > "+data.get(12));
 				}
 				else{
@@ -161,7 +161,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 				}
 			}
 		}
-		if(data.get(1)=="Camion"){
+		if(data.get(1).equals("Camion")){
 			lblCapacita.setVisible(true);
 			lblPortata.setVisible(true);
 			lblLunghezza.setVisible(true);
@@ -169,7 +169,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 			lblProfondita.setVisible(false);
 			lblRotazione.setVisible(false);
 		}
-		if(data.get(1)=="Escavatore"){
+		if(data.get(1).equals("Escavatore")){
 			lblCapacita.setVisible(true);
 			lblPortata.setVisible(true);
 			lblLunghezza.setVisible(false);
@@ -177,7 +177,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 			lblProfondita.setVisible(true);
 			lblRotazione.setVisible(false);
 		}
-		if(data.get(1)=="Gru"){
+		if(data.get(1).equals("Gru")){
 			lblCapacita.setVisible(false);
 			lblPortata.setVisible(true);
 			lblLunghezza.setVisible(true);
@@ -185,7 +185,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 			lblProfondita.setVisible(false);
 			lblRotazione.setVisible(true);
 		}
-		if(data.get(1)=="Ruspa"){
+		if(data.get(1).equals("Ruspa")){
 			lblCapacita.setVisible(true);
 			lblPortata.setVisible(true);
 			lblLunghezza.setVisible(false);
