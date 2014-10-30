@@ -134,7 +134,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 					"I campi:\n - Nome cantiere\n devono essere compilati. ",
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
-		if(dataInizio.before(c.getDataApertura()) ||  dataInizio.after(c.getDataChiusura())){
+		if(dataInizio.before(c.getDataApertura()) ||  dataFine.after(c.getDataChiusura())){
 			JOptionPane
 			.showMessageDialog(
 					null,

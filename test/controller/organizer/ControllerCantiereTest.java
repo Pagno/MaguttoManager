@@ -106,13 +106,15 @@ public class ControllerCantiereTest {
 
 		ModelCantiere.getModelCantiere().caricaCantiere(12,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		canCtrl.modificaCantiere(12,"", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2016, 12, 22), Priorita.BASSA);
+		canCtrl.modificaCantiere(12,"Bottanuco", "", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2016, 12, 22), Priorita.BASSA);
 		
 		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2013, 12, 22), Priorita.BASSA);
 		
 		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2016, 12, 22), Priorita.BASSA);
 		canCtrl.aggiungiLavoro(12, "Scavi", new GregorianCalendar(2015, 1, 1), new GregorianCalendar(2015, 12, 22));
-		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 3, 22), Priorita.BASSA);
-		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 0, 15),new GregorianCalendar(2015, 3, 22), Priorita.BASSA);
+		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 1, 1),new GregorianCalendar(2017, 12, 22), Priorita.BASSA);
+		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2014, 0, 1),new GregorianCalendar(2015, 3, 22), Priorita.BASSA);
+		canCtrl.modificaCantiere(12,"Chignolo", "via Vittorio Alfieri", new GregorianCalendar(2015, 2, 1),new GregorianCalendar(2015, 3, 22), Priorita.BASSA);
 		
 		Cantiere m=canCtrl.getCantiere(12);
 
@@ -232,6 +234,9 @@ public class ControllerCantiereTest {
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(21,15, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
 		RichiestaRuspa rRuspa2=new RichiestaRuspa(70, 110, -1, -1, -1, -1) ;
+		canCtrl.modificaLavoro(21,15, "Pilastri",new GregorianCalendar(2014, 0, 3), new GregorianCalendar(2015, 1, 25));
+		canCtrl.modificaLavoro(21,15, "Pilastri",new GregorianCalendar(2015, 0, 3), new GregorianCalendar(2016, 3, 25));
+		
 		canCtrl.modificaLavoro(21,15, "Pilastri",new GregorianCalendar(2015, 0, 3), new GregorianCalendar(2015, 1, 25));
 		
 		
