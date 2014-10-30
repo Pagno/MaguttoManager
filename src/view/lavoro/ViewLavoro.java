@@ -507,40 +507,68 @@ public class ViewLavoro extends JDialog implements Observer {
 				if (controlloCorrettezzaDati()) {
 					if (pnlAddRichiesta.getTipoMacchina() == "Gru") {
 						richiesta = new RichiestaGru(
-								pnlAddRichiesta.getMinLunghezza()==0?-1:pnlAddRichiesta.getMinLunghezza(),
-								pnlAddRichiesta.getMaxLunghezza()==0?-1:pnlAddRichiesta.getMaxLunghezza(),
-								pnlAddRichiesta.getMinAltezza()==0?-1:pnlAddRichiesta.getMinAltezza(),
-								pnlAddRichiesta.getMaxAltezza()==0?-1:pnlAddRichiesta.getMaxAltezza(),
-								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
-								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
-								pnlAddRichiesta.getMinRotazione()==0?-1:pnlAddRichiesta.getMinRotazione(),
-								pnlAddRichiesta.getMaxRotazione()==0?-1:pnlAddRichiesta.getMaxRotazione());
+								pnlAddRichiesta.getMinLunghezza() == 0 ? -1
+										: pnlAddRichiesta.getMinLunghezza(),
+								pnlAddRichiesta.getMaxLunghezza() == 0 ? -1
+										: pnlAddRichiesta.getMaxLunghezza(),
+								pnlAddRichiesta.getMinAltezza() == 0 ? -1
+										: pnlAddRichiesta.getMinAltezza(),
+								pnlAddRichiesta.getMaxAltezza() == 0 ? -1
+										: pnlAddRichiesta.getMaxAltezza(),
+								pnlAddRichiesta.getMinPortata() == 0 ? -1
+										: pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata() == 0 ? -1
+										: pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinRotazione() == 0 ? -1
+										: pnlAddRichiesta.getMinRotazione(),
+								pnlAddRichiesta.getMaxRotazione() == 0 ? -1
+										: pnlAddRichiesta.getMaxRotazione());
 					} else if (pnlAddRichiesta.getTipoMacchina() == "Ruspa") {
 						richiesta = new RichiestaRuspa(
-								pnlAddRichiesta.getMinCapacita()==0?-1:pnlAddRichiesta.getMinCapacita(),
-								pnlAddRichiesta.getMaxCapacita()==0?-1:pnlAddRichiesta.getMaxCapacita(),
-								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
-								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
-								pnlAddRichiesta.getMinAltezza()==0?-1:pnlAddRichiesta.getMinAltezza(),
-								pnlAddRichiesta.getMaxAltezza()==0?-1:pnlAddRichiesta.getMaxAltezza());
+								pnlAddRichiesta.getMinCapacita() == 0 ? -1
+										: pnlAddRichiesta.getMinCapacita(),
+								pnlAddRichiesta.getMaxCapacita() == 0 ? -1
+										: pnlAddRichiesta.getMaxCapacita(),
+								pnlAddRichiesta.getMinPortata() == 0 ? -1
+										: pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata() == 0 ? -1
+										: pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinAltezza() == 0 ? -1
+										: pnlAddRichiesta.getMinAltezza(),
+								pnlAddRichiesta.getMaxAltezza() == 0 ? -1
+										: pnlAddRichiesta.getMaxAltezza());
 					} else if (pnlAddRichiesta.getTipoMacchina() == "Camion") {
 						richiesta = new RichiestaCamion(
-								pnlAddRichiesta.getMinCapacita()==0?-1:pnlAddRichiesta.getMinCapacita(),
-								pnlAddRichiesta.getMaxCapacita()==0?-1:pnlAddRichiesta.getMaxCapacita(),
-								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
-								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
-								pnlAddRichiesta.getMinLunghezza()==0?-1:pnlAddRichiesta.getMinLunghezza(),
-								pnlAddRichiesta.getMaxLunghezza()==0?-1:pnlAddRichiesta.getMaxLunghezza());
+								pnlAddRichiesta.getMinCapacita() == 0 ? -1
+										: pnlAddRichiesta.getMinCapacita(),
+								pnlAddRichiesta.getMaxCapacita() == 0 ? -1
+										: pnlAddRichiesta.getMaxCapacita(),
+								pnlAddRichiesta.getMinPortata() == 0 ? -1
+										: pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata() == 0 ? -1
+										: pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinLunghezza() == 0 ? -1
+										: pnlAddRichiesta.getMinLunghezza(),
+								pnlAddRichiesta.getMaxLunghezza() == 0 ? -1
+										: pnlAddRichiesta.getMaxLunghezza());
 					} else if (pnlAddRichiesta.getTipoMacchina() == "Escavatore") {
 						richiesta = new RichiestaEscavatore(
-								pnlAddRichiesta.getMinCapacita()==0?-1:pnlAddRichiesta.getMinCapacita(),
-								pnlAddRichiesta.getMaxCapacita()==0?-1:pnlAddRichiesta.getMaxCapacita(),
-								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
-								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
-								pnlAddRichiesta.getMinAltezza()==0?-1:pnlAddRichiesta.getMinAltezza(),
-								pnlAddRichiesta.getMaxAltezza()==0?-1:pnlAddRichiesta.getMaxAltezza(),
-								pnlAddRichiesta.getMinProfondita()==0?-1:pnlAddRichiesta.getMinProfondita(),
-								pnlAddRichiesta.getMaxProfondita()==0?-1:pnlAddRichiesta.getMaxProfondita());
+								pnlAddRichiesta.getMinCapacita() == 0 ? -1
+										: pnlAddRichiesta.getMinCapacita(),
+								pnlAddRichiesta.getMaxCapacita() == 0 ? -1
+										: pnlAddRichiesta.getMaxCapacita(),
+								pnlAddRichiesta.getMinPortata() == 0 ? -1
+										: pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata() == 0 ? -1
+										: pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinAltezza() == 0 ? -1
+										: pnlAddRichiesta.getMinAltezza(),
+								pnlAddRichiesta.getMaxAltezza() == 0 ? -1
+										: pnlAddRichiesta.getMaxAltezza(),
+								pnlAddRichiesta.getMinProfondita() == 0 ? -1
+										: pnlAddRichiesta.getMinProfondita(),
+								pnlAddRichiesta.getMaxProfondita() == 0 ? -1
+										: pnlAddRichiesta.getMaxProfondita());
 					}
 					cCtr.aggiungiRichiesta(codiceCantiere, codiceLavoro,
 							richiesta);
@@ -553,43 +581,58 @@ public class ViewLavoro extends JDialog implements Observer {
 
 	private boolean controlloCorrettezzaDati() {
 		boolean correttezza = true;
-		if (pnlAddRichiesta.getMinCapacita() > pnlAddRichiesta.getMaxCapacita())
-			correttezza = false;
-		if (pnlAddRichiesta.getMinLunghezza() > pnlAddRichiesta
-				.getMaxLunghezza())
-			correttezza = false;
-		if (pnlAddRichiesta.getMinAltezza() > pnlAddRichiesta.getMaxAltezza())
-			correttezza = false;
-		if (pnlAddRichiesta.getMinRotazione() > pnlAddRichiesta
-				.getMaxRotazione())
-			correttezza = false;
-		if (pnlAddRichiesta.getMinPortata() > pnlAddRichiesta.getMaxPortata())
-			correttezza = false;
-		if (pnlAddRichiesta.getMinProfondita() > pnlAddRichiesta
-				.getMaxProfondita())
-			correttezza = false;
+		if (pnlAddRichiesta.getMaxCapacita() != 0) {
+			if (pnlAddRichiesta.getMinCapacita() > pnlAddRichiesta
+					.getMaxCapacita())
+				correttezza = false;
+		}
+		if (pnlAddRichiesta.getMaxLunghezza() != 0) {
+			if (pnlAddRichiesta.getMinLunghezza() > pnlAddRichiesta
+					.getMaxLunghezza())
+				correttezza = false;
+		}
+		if (pnlAddRichiesta.getMaxAltezza() != 0) {
+			if (pnlAddRichiesta.getMinAltezza() > pnlAddRichiesta
+					.getMaxAltezza())
+				correttezza = false;
+		}
+		if (pnlAddRichiesta.getMaxRotazione() != 0) {
+			if (pnlAddRichiesta.getMinRotazione() > pnlAddRichiesta
+					.getMaxRotazione())
+				correttezza = false;
+		}
+		if (pnlAddRichiesta.getMaxPortata() != 0) {
+			if (pnlAddRichiesta.getMinPortata() > pnlAddRichiesta
+					.getMaxPortata())
+				correttezza = false;
+		}
+		if (pnlAddRichiesta.getMaxProfondita() != 0) {
+			if (pnlAddRichiesta.getMinProfondita() > pnlAddRichiesta
+					.getMaxProfondita())
+				correttezza = false;
+		}
 		if (!correttezza)
 			JOptionPane.showMessageDialog(this,
 					"Verificare la correttezza dei dati inseriti.",
 					"Attenzione", JOptionPane.ERROR_MESSAGE);
 		if (correttezza) {
-			if (pnlAddRichiesta.getMinCapacita() <0 || pnlAddRichiesta
-					.getMaxCapacita()<0)
+			if (pnlAddRichiesta.getMinCapacita() < 0
+					|| pnlAddRichiesta.getMaxCapacita() < 0)
 				correttezza = false;
-			if (pnlAddRichiesta.getMinLunghezza() <0|| pnlAddRichiesta
-					.getMaxLunghezza()<0)
+			if (pnlAddRichiesta.getMinLunghezza() < 0
+					|| pnlAddRichiesta.getMaxLunghezza() < 0)
 				correttezza = false;
-			if (pnlAddRichiesta.getMinAltezza() <0|| pnlAddRichiesta
-					.getMaxAltezza()<0)
+			if (pnlAddRichiesta.getMinAltezza() < 0
+					|| pnlAddRichiesta.getMaxAltezza() < 0)
 				correttezza = false;
-			if (pnlAddRichiesta.getMinRotazione() <0|| pnlAddRichiesta
-					.getMaxRotazione()<0)
+			if (pnlAddRichiesta.getMinRotazione() < 0
+					|| pnlAddRichiesta.getMaxRotazione() < 0)
 				correttezza = false;
-			if (pnlAddRichiesta.getMinPortata() <0|| pnlAddRichiesta
-					.getMaxPortata()<0)
+			if (pnlAddRichiesta.getMinPortata() < 0
+					|| pnlAddRichiesta.getMaxPortata() < 0)
 				correttezza = false;
-			if (pnlAddRichiesta.getMinProfondita() <0|| pnlAddRichiesta
-					.getMaxProfondita()<0)
+			if (pnlAddRichiesta.getMinProfondita() < 0
+					|| pnlAddRichiesta.getMaxProfondita() < 0)
 				correttezza = false;
 			if (!correttezza)
 				JOptionPane.showMessageDialog(this,
