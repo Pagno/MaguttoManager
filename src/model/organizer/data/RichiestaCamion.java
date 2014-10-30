@@ -159,10 +159,44 @@ public class RichiestaCamion extends RichiestaMacchina {
 	 */
 	@Override
 	public String toString() {
-		return  "Richiesta:Camion " + minCapacita + "-"
-				+  maxCapacita + " "  + minPortata
-				+ "-" + maxPortata + " " + minLunghezza
-				+ "-" + maxLunghezza ;
+		String value="Richiesta:Camion ";
+		if(minCapacita==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minCapacita + "-";
+		}
+		if(maxCapacita==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxCapacita + " ";
+		}
+		if(minPortata==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minPortata + "-";
+		}
+		if(maxPortata==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxPortata + " ";
+		}
+		if(minLunghezza==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minLunghezza + "-";
+		}
+		if(maxLunghezza==-1){
+			value=value+"*";
+		}
+		else{
+			value=value+ maxLunghezza;
+		}
+		return  value ;
 	}
 
 	/* (non-Javadoc)

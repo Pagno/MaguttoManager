@@ -236,11 +236,57 @@ public class RichiestaGru extends RichiestaMacchina {
 	 */
 	@Override
 	public String toString() {
-		return "Richiesta:Gru " + minLunghezza + "-"
-				+ maxLunghezza + " " + minAltezza + "-"
-				+ maxAltezza + " " + minPortata + "-"
-				+ maxPortata + " " + minAngoloRotazione
-				+ "-" + maxAngoloRotazione ;
+		
+		String value="Richiesta:Gru ";
+		if(minLunghezza==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minLunghezza + "-";
+		}
+		if(maxLunghezza==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxLunghezza + " ";
+		}
+		if(minAltezza==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minAltezza + "-";
+		}
+		if(maxAltezza==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxAltezza + " ";
+		}
+		if(minPortata==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minPortata + "-";
+		}
+		if(maxPortata==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxPortata + " ";
+		}
+		if(minAngoloRotazione==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minAngoloRotazione + "-";
+		}
+		if(maxAngoloRotazione==-1){
+			value=value+"*";
+		}
+		else{
+			value=value+ maxAngoloRotazione;
+		}
+		return  value ;
 	}
 
 	/* (non-Javadoc)

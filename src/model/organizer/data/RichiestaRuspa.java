@@ -185,10 +185,45 @@ public class RichiestaRuspa extends RichiestaMacchina {
 	 */
 	@Override
 	public String toString() {
-		return "Richiesta:Ruspa " + minCapacita + "-"
-				+ maxCapacita + " " + minPortata + "-"
-				+ maxPortata + " " + minAltezza + "-"
-				+ maxAltezza;
+		
+		String value="Richiesta:Ruspa ";
+		if(minCapacita==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minCapacita + "-";
+		}
+		if(maxCapacita==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxCapacita + " ";
+		}
+		if(minPortata==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minPortata + "-";
+		}
+		if(maxPortata==-1){
+			value=value+"* ";
+		}
+		else{
+			value=value+ maxPortata + " ";
+		}
+		if(minAltezza==-1){
+			value=value+"*-";
+		}
+		else{
+			value=value+ minAltezza + "-";
+		}
+		if(maxAltezza==-1){
+			value=value+"*";
+		}
+		else{
+			value=value+ maxAltezza;
+		}
+		return  value ;
 	}
 
 	/* (non-Javadoc)
