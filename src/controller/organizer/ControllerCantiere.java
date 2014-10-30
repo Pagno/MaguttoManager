@@ -282,7 +282,8 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 		  }
 		  
 		   if(codiceRichieste.size()!=0){
-			  int i=JOptionPane.showConfirmDialog(null, "La macchina è occupata da altre richieste.", "",JOptionPane.YES_NO_OPTION);
+			  int i=JOptionPane.showConfirmDialog(null, "Modificando le date del lavoro corrente, le associazioni delle sue richieste entrano in conflitto con quelle di altri lavori.\n"
+			  		+ "Confermando la modifica, le richieste in conflitto verranno liberate.\nContinuare?", "",JOptionPane.YES_NO_OPTION);
 			  if(i==JOptionPane.YES_OPTION){
 				  for(Integer codice:codiceRichieste){
 					  model.liberaRichiesta(codice);
