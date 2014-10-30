@@ -102,5 +102,22 @@ public class RichiestaRuspaTest {
 	@Test
 	public void testToString(){
 		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 300-500 10-15");
+		rRuspa.setMinAltezza(-1);
+		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 300-500 *-15");
+		rRuspa.setMinAltezza(10);
+		rRuspa.setMaxAltezza(-1);
+		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 300-500 10-*");
+		rRuspa.setMaxAltezza(15);
+		rRuspa.setMinCapacita(-1);
+		assertEquals(rRuspa.toString(),"Richiesta:Ruspa *-200 300-500 10-15");
+		rRuspa.setMinCapacita(100);
+		rRuspa.setMaxCapacita(-1);
+		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-* 300-500 10-15");
+		rRuspa.setMaxCapacita(200);
+		rRuspa.setMinPortata(-1);
+		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 *-500 10-15");
+		rRuspa.setMinPortata(300);
+		rRuspa.setMaxPortata(-1);
+		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 300-* 10-15");
 	}
 }

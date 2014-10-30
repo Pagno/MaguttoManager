@@ -117,5 +117,28 @@ public class RichiestaEscavatoreTest {
 	@Test
 	public void testToString(){
 		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 10-15 5-8");
+		rEscavatore.setMinCapacita(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore *-40 120-130 10-15 5-8");
+		rEscavatore.setMinCapacita(30);
+		rEscavatore.setMaxCapacita(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-* 120-130 10-15 5-8");
+		rEscavatore.setMaxCapacita(40);
+		rEscavatore.setMinPortata(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 *-130 10-15 5-8");
+		rEscavatore.setMinPortata(120);
+		rEscavatore.setMaxPortata(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-* 10-15 5-8");
+		rEscavatore.setMaxPortata(130);
+		rEscavatore.setMinAltezza(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 *-15 5-8");
+		rEscavatore.setMinAltezza(10);
+		rEscavatore.setMaxAltezza(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 10-* 5-8");
+		rEscavatore.setMaxAltezza(15);
+		rEscavatore.setMinProfondita(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 10-15 *-8");
+		rEscavatore.setMinProfondita(5);
+		rEscavatore.setMaxProfondita(-1);
+		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 10-15 5-*");
 	}
 }

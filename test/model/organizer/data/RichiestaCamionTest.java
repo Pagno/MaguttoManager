@@ -97,5 +97,22 @@ public class RichiestaCamionTest {
 	@Test
 	public void testToString(){
 		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 3000-4000 10-20");
+		rCamion.setMinCapacita(-1);
+		assertEquals(rCamion.toString(),"Richiesta:Camion *-500 3000-4000 10-20");
+		rCamion.setMinCapacita(300);
+		rCamion.setMaxCapacita(-1);
+		assertEquals(rCamion.toString(),"Richiesta:Camion 300-* 3000-4000 10-20");
+		rCamion.setMaxCapacita(500);
+		rCamion.setMinPortata(-1);
+		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 *-4000 10-20");
+		rCamion.setMinPortata(3000);
+		rCamion.setMaxPortata(-1);
+		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 3000-* 10-20");
+		rCamion.setMaxPortata(4000);
+		rCamion.setMinLunghezza(-1);
+		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 3000-4000 *-20");
+		rCamion.setMinLunghezza(10);
+		rCamion.setMaxLunghezza(-1);
+		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 3000-4000 10-*");
 	}
 }

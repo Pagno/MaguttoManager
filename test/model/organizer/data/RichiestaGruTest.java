@@ -109,5 +109,28 @@ public class RichiestaGruTest {
 	@Test
 	public void testToString(){
 		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-4000 90-120");
+		rGru.setMinLunghezza(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru *-40 20-30 3000-4000 90-120");
+		rGru.setMinLunghezza(30);
+		rGru.setMaxLunghezza(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-* 20-30 3000-4000 90-120");
+		rGru.setMaxLunghezza(40);
+		rGru.setMinAltezza(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 *-30 3000-4000 90-120");
+		rGru.setMinAltezza(20);
+		rGru.setMaxAltezza(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-* 3000-4000 90-120");
+		rGru.setMaxAltezza(30);
+		rGru.setMinPortata(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 *-4000 90-120");
+		rGru.setMinPortata(3000);
+		rGru.setMaxPortata(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-* 90-120");
+		rGru.setMaxPortata(4000);
+		rGru.setMinAngoloRotazione(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-4000 *-120");
+		rGru.setMinAngoloRotazione(90);
+		rGru.setMaxAngoloRotazione(-1);
+		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-4000 90-*");
 	}
 }
