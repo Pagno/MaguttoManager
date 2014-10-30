@@ -48,78 +48,80 @@ import javax.swing.JCheckBox;
 
 import controller.ControllerInterface;
 
-
 /**
  * The Class ViewLavoro.
  */
-public class ViewLavoro extends JDialog implements Observer{
+public class ViewLavoro extends JDialog implements Observer {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2004768729465641055L;
-	
+
 	/** The card panel. */
-	private JPanel contentPane,cardPanel;
-	
+	private JPanel contentPane, cardPanel;
+
 	/** The pnl add richiesta. */
 	public PanelRichiesta pnlAddRichiesta;
-	
+
 	/** The pnl lavoro. */
 	private PanelLavoro pnlLavoro;
-	
+
 	/** The pnl cantiere. */
 	private PanelCantiere pnlCantiere;
-	
+
 	/** The pnl visualizza panel. */
 	private PanelVisualizzaRichiesta pnlVisualizzaPanel;
-	
+
 	/** The btn delete. */
 	private JButton btnDelete;
-	//MODELLI TABELLA JTREE
+	// MODELLI TABELLA JTREE
 	/** The tree model. */
 	public TreeNodeModel treeModel;
-	
+
 	/** The tree. */
 	private JTree tree;
-	
+
 	/** The scrollpane. */
 	private JScrollPane scrollpane;
-	
+
 	/** The codice cantiere. */
 	private int codiceCantiere;
-	
+
 	/** The chckbx new check box. */
 	private JCheckBox chckbxNewCheckBox;
-	
+
 	/** The renderer. */
 	private NodeRendererAdder renderer;
-	
+
 	/** The edit lavoro. */
 	private ViewLavoro editLavoro;
-	//LAVORO PANEL
+	// LAVORO PANEL
 	/**
 	 * Create the dialog.
 	 */
 	private ControllerInterface cCtr;
-	
+
 	/**
 	 * Instantiates a new view lavoro.
 	 *
-	 * @param view the view
-	 * @param cantiere the cantiere
-	 * @param aCtr the a ctr
+	 * @param view
+	 *            the view
+	 * @param cantiere
+	 *            the cantiere
+	 * @param aCtr
+	 *            the a ctr
 	 */
-	public ViewLavoro(JFrame view,Cantiere cantiere,ControllerInterface aCtr) {
+	public ViewLavoro(JFrame view, Cantiere cantiere, ControllerInterface aCtr) {
 		super(view);
-		editLavoro=this;
-		cCtr=aCtr;
+		editLavoro = this;
+		cCtr = aCtr;
 		setTitle("Edit Cantiere");
-		codiceCantiere=cantiere.getCodice();
-		//this.datiCantiere=datiCantiere;
+		codiceCantiere = cantiere.getCodice();
+		// this.datiCantiere=datiCantiere;
 		setBounds(0, 0, 900, 500);
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-	
+
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -134,64 +136,65 @@ public class ViewLavoro extends JDialog implements Observer{
 				dispose();
 			}
 		});
-		
 
-		
-		//CARICO I PANNELLI
-		cardPanel= new JPanel(new CardLayout());
-		pnlCantiere= new PanelCantiere();
+		// CARICO I PANNELLI
+		cardPanel = new JPanel(new CardLayout());
+		pnlCantiere = new PanelCantiere();
 		pnlCantiere.setNomeCantiere(cantiere.getNomeCantiere());
 		pnlCantiere.setIndirizzoCantiere(cantiere.getIndirizzo());
 		pnlCantiere.setPrioritaCantiere(cantiere.getPrioritaString());
 		pnlCantiere.setDataInizioCantiere(cantiere.getDataApertura());
 		pnlCantiere.setDataFineCantiere(cantiere.getDataChiusura());
-		//pnlCantiere.setRangeDate(cantiere.getDataApertura(), cantiere.getDataChiusura(),cantiere.getElencoLavori().size()!=0);
+		// pnlCantiere.setRangeDate(cantiere.getDataApertura(),
+		// cantiere.getDataChiusura(),cantiere.getElencoLavori().size()!=0);
 		pnlCantiere.setName("pnlCantiere");
 		pnlCantiere.addModificaCantiereListener(modificaCantiere());
-		
-		//pnlCantiere.setDatiCantiere(datiCantiere);
-		pnlLavoro= new PanelLavoro(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
+
+		// pnlCantiere.setDatiCantiere(datiCantiere);
+		pnlLavoro = new PanelLavoro(pnlCantiere.getDataInizioCantiere(),
+				pnlCantiere.getDataFineCantiere());
 		pnlLavoro.setName("pnlLavoro");
-		pnlAddRichiesta= new PanelRichiesta();
+		pnlAddRichiesta = new PanelRichiesta();
 		pnlAddRichiesta.setName("pnlAddRichiesta");
 		pnlAddRichiesta.btnAdd.addActionListener(aggiungiRichiestaListener());
-		pnlVisualizzaPanel=new PanelVisualizzaRichiesta();
+		pnlVisualizzaPanel = new PanelVisualizzaRichiesta();
 		pnlVisualizzaPanel.setName("pnlVisualizzaPanel");
-		
-		cardPanel.add(pnlLavoro,"lavoro");
-		cardPanel.add(pnlAddRichiesta,"richiesta");
-		cardPanel.add(pnlCantiere,"cantiere");
-		cardPanel.add(pnlVisualizzaPanel,"visualizza");
 
-		contentPane.add(cardPanel,BorderLayout.CENTER);
-		
-		treeModel = new TreeNodeModel(cantiere); 
+		cardPanel.add(pnlLavoro, "lavoro");
+		cardPanel.add(pnlAddRichiesta, "richiesta");
+		cardPanel.add(pnlCantiere, "cantiere");
+		cardPanel.add(pnlVisualizzaPanel, "visualizza");
+
+		contentPane.add(cardPanel, BorderLayout.CENTER);
+
+		treeModel = new TreeNodeModel(cantiere);
 		treeModel.reload(cantiere);
-		tree=new JTree(treeModel);
+		tree = new JTree(treeModel);
 		tree.setSize(200, 500);
 
 		renderer = new NodeRendererAdder();
-	    tree.setCellRenderer(renderer);
-	    tree.setName("tree");
-	    
-	    chckbxNewCheckBox = new JCheckBox("Nascondi Richieste Soddisfatte");
-	    chckbxNewCheckBox.addItemListener(check());
-		scrollpane = new JScrollPane(tree,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollpane.setBounds(0,0,200, 500);
-		
-		JPanel pnlWest=new JPanel(new BorderLayout(0,0));
-		pnlWest.add(chckbxNewCheckBox,BorderLayout.NORTH);
-		pnlWest.add(scrollpane,BorderLayout.CENTER);
-		
-		
+		tree.setCellRenderer(renderer);
+		tree.setName("tree");
+
+		chckbxNewCheckBox = new JCheckBox("Nascondi Richieste Soddisfatte");
+		chckbxNewCheckBox.addItemListener(check());
+		scrollpane = new JScrollPane(tree,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollpane.setBounds(0, 0, 200, 500);
+
+		JPanel pnlWest = new JPanel(new BorderLayout(0, 0));
+		pnlWest.add(chckbxNewCheckBox, BorderLayout.NORTH);
+		pnlWest.add(scrollpane, BorderLayout.CENTER);
+
 		scrollpane.setColumnHeaderView(chckbxNewCheckBox);
-		btnDelete=new JButton("Delete");
-		pnlWest.add(btnDelete,BorderLayout.SOUTH);
-		contentPane.add(pnlWest,BorderLayout.WEST);
-		CardLayout cl = (CardLayout)(cardPanel.getLayout());
-		
-		cl.show(cardPanel,"cantiere");
-	
+		btnDelete = new JButton("Delete");
+		pnlWest.add(btnDelete, BorderLayout.SOUTH);
+		contentPane.add(pnlWest, BorderLayout.WEST);
+		CardLayout cl = (CardLayout) (cardPanel.getLayout());
+
+		cl.show(cardPanel, "cantiere");
+
 		tree.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
 				doMouseClicked(me);
@@ -199,21 +202,23 @@ public class ViewLavoro extends JDialog implements Observer{
 		});
 		setVisible(true);
 	}
-	
+
 	private ActionListener modificaCantiere() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GregorianCalendar dataInizio=new GregorianCalendar();
+				GregorianCalendar dataInizio = new GregorianCalendar();
 				dataInizio.setTime(pnlCantiere.getDataInizioCantiere());
-				GregorianCalendar dataFine=new GregorianCalendar();
+				GregorianCalendar dataFine = new GregorianCalendar();
 				dataFine.setTime(pnlCantiere.getDataFineCantiere());
-				if(cCtr.modificaCantiere(codiceCantiere, pnlCantiere.getNomeCantiere(), 
-						pnlCantiere.getIndirizzoCantiere(), 
-						dataInizio,dataFine, 
-						Priorita.valueOf(pnlCantiere.getPrioritaCantiere())))
-				{
-					JOptionPane.showMessageDialog(null,"Cantiere Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
+				if (cCtr.modificaCantiere(codiceCantiere,
+						pnlCantiere.getNomeCantiere(),
+						pnlCantiere.getIndirizzoCantiere(), dataInizio,
+						dataFine,
+						Priorita.valueOf(pnlCantiere.getPrioritaCantiere()))) {
+					JOptionPane.showMessageDialog(null,
+							"Cantiere Modificato correttamente.", "OK",
+							JOptionPane.INFORMATION_MESSAGE);
 					reloadModel();
 				}
 			}
@@ -222,32 +227,37 @@ public class ViewLavoro extends JDialog implements Observer{
 
 	/** The codice lavoro. */
 	private int codiceLavoro;
-	//Aggiornamento dei pannelli
+
+	// Aggiornamento dei pannelli
 	/**
 	 * Do mouse clicked.
 	 *
-	 * @param me the me
+	 * @param me
+	 *            the me
 	 */
 	void doMouseClicked(MouseEvent me) {
 		TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
-		CardLayout  cl = (CardLayout)(cardPanel.getLayout());
-		try{
-			if(tp.getPathCount()==1){ //Seleziono il cantiere e mostro il pannello del cantiere
-				cl.show(cardPanel,"cantiere");
+		CardLayout cl = (CardLayout) (cardPanel.getLayout());
+		try {
+			if (tp.getPathCount() == 1) { // Seleziono il cantiere e mostro il
+											// pannello del cantiere
+				cl.show(cardPanel, "cantiere");
 				btnDelete.setEnabled(false);
-			}else if(tp.getPathCount()==2){
-				cl.show(cardPanel,"lavoro");
-				pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),pnlCantiere.getDataFineCantiere());
-				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuovo Lavoro")){
+			} else if (tp.getPathCount() == 2) {
+				cl.show(cardPanel, "lavoro");
+				pnlLavoro.setRangeDate(pnlCantiere.getDataInizioCantiere(),
+						pnlCantiere.getDataFineCantiere());
+				if (tp.getPathComponent(tp.getPathCount() - 1).toString()
+						.equals("Aggiungi nuovo Lavoro")) {
 					btnDelete.setEnabled(false);
 					pnlLavoro.clear();
 					pnlLavoro.btnAddActionListener(aggiungiLavoroListener());
 					pnlLavoro.btnLavoro.setText("Inserisci");
-				}else{
-					Lavoro lavoro=((Lavoro)tp.getPath()[tp.getPathCount()-1]);
-					codiceLavoro=lavoro.getCodice();
-					
-					ArrayList<String> l=new ArrayList<String>();
+				} else {
+					Lavoro lavoro = ((Lavoro) tp.getPath()[tp.getPathCount() - 1]);
+					codiceLavoro = lavoro.getCodice();
+
+					ArrayList<String> l = new ArrayList<String>();
 					l.add(Integer.toString(lavoro.getCodice()));
 					l.add(lavoro.getNome());
 					SimpleDateFormat df = new SimpleDateFormat();
@@ -256,62 +266,75 @@ public class ViewLavoro extends JDialog implements Observer{
 					l.add(df.format(lavoro.getDataFine().getTime()));
 					pnlLavoro.fill(l);
 
-
 					pnlLavoro.btnAddActionListener(modificaLavoroListener());
-					btnDelete.setEnabled(true);				
-					for( ActionListener al : btnDelete.getActionListeners() ) {
-						btnDelete.removeActionListener( al );
+					btnDelete.setEnabled(true);
+					for (ActionListener al : btnDelete.getActionListeners()) {
+						btnDelete.removeActionListener(al);
 					}
 
-					btnDelete.addActionListener(deleteLavoroListener(lavoro.getCodice()));
+					btnDelete.addActionListener(deleteLavoroListener(lavoro
+							.getCodice()));
 
 					pnlLavoro.btnLavoro.setText("Modifica");
 				}
-			}else if(tp.getPathCount()==3){
-				if(tp.getPathComponent(tp.getPathCount()-1).toString().equals("Aggiungi nuova Richiesta")){
+			} else if (tp.getPathCount() == 3) {
+				if (tp.getPathComponent(tp.getPathCount() - 1).toString()
+						.equals("Aggiungi nuova Richiesta")) {
 					pnlAddRichiesta.clearData();
-					cl.show(cardPanel,"richiesta");
-					NodeAdder addNode=(NodeAdder)tp.getPath()[tp.getPath().length-1];
-					Lavoro lavoro=(Lavoro)addNode.getParent();
-					codiceLavoro=lavoro.getCodice();
-				}else{
+					cl.show(cardPanel, "richiesta");
+					NodeAdder addNode = (NodeAdder) tp.getPath()[tp.getPath().length - 1];
+					Lavoro lavoro = (Lavoro) addNode.getParent();
+					codiceLavoro = lavoro.getCodice();
+				} else {
 					btnDelete.setEnabled(true);
-					for( ActionListener al : btnDelete.getActionListeners() ) {
-						btnDelete.removeActionListener( al );
+					for (ActionListener al : btnDelete.getActionListeners()) {
+						btnDelete.removeActionListener(al);
 					}
-					
-					
-					Richiesta richiesta=(Richiesta)tp.getPath()[tp.getPath().length-1];
 
-					btnDelete.addActionListener(deleteRichiestaListener(richiesta.getCodice()));
-					codiceLavoro=richiesta.getCodiceLavoro();
+					Richiesta richiesta = (Richiesta) tp.getPath()[tp.getPath().length - 1];
 
-					ArrayList<String> data=richiesta.getData();
+					btnDelete
+							.addActionListener(deleteRichiestaListener(richiesta
+									.getCodice()));
+					codiceLavoro = richiesta.getCodiceLavoro();
+
+					ArrayList<String> data = richiesta.getData();
 					pnlVisualizzaPanel.loadData(data);
-					
-					if(richiesta.isSoddisfatta()){
-						pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
-						pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta.getCodice()));
-						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getCodice()+" "+richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
-					}else{
-						pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener(richiesta.getCodice()));
-						pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
+
+					if (richiesta.isSoddisfatta()) {
+						pnlVisualizzaPanel.btnAssociaMacchina
+								.setText("Rimuovi Associazione");
+						pnlVisualizzaPanel
+								.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta
+										.getCodice()));
+						pnlVisualizzaPanel.setMacchina(richiesta.getMacchina()
+								.getCodice()
+								+ " "
+								+ richiesta.getMacchina().getProduttore()
+								+ " "
+								+ richiesta.getMacchina().getModello());
+					} else {
+						pnlVisualizzaPanel
+								.addLiberaRichiestaListener(associaMacchinaListener(richiesta
+										.getCodice()));
+						pnlVisualizzaPanel.btnAssociaMacchina
+								.setText("Aggiungi Associazione");
 					}
-					cl.show(cardPanel,"visualizza");
-				}	
+					cl.show(cardPanel, "visualizza");
+				}
 			}
-			
-		}catch(java.lang.NullPointerException ex){
-			
+
+		} catch (java.lang.NullPointerException ex) {
+
 		}
-	}	
-	
+	}
+
 	/**
 	 * Check.
 	 *
 	 * @return the item listener
 	 */
-	private ItemListener check(){
+	private ItemListener check() {
 		return new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -319,141 +342,158 @@ public class ViewLavoro extends JDialog implements Observer{
 				treeModel.reload();
 			}
 		};
-	}	
-	
+	}
+
 	/**
 	 * Adds the lavoro.
 	 *
-	 * @param work the work
+	 * @param work
+	 *            the work
 	 */
-	private void addLavoro(ArrayList<String> work){
+	private void addLavoro(ArrayList<String> work) {
 		treeModel.addWork(work);
 	}
-	
+
 	/**
 	 * Adds the richiesta.
 	 *
-	 * @param associazione the associazione
+	 * @param associazione
+	 *            the associazione
 	 */
-	private void addRichiesta(ArrayList<String> associazione){
+	private void addRichiesta(ArrayList<String> associazione) {
 		treeModel.addRichiesta(associazione);
 	}
-	
+
 	/**
 	 * Libera richiesta listener.
 	 *
-	 * @param codiceRichiesta the codice richiesta
+	 * @param codiceRichiesta
+	 *            the codice richiesta
 	 * @return the action listener
 	 */
-	public ActionListener liberaRichiestaListener(final int codiceRichiesta){
+	public ActionListener liberaRichiestaListener(final int codiceRichiesta) {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				cCtr.liberaRichiesta(codiceRichiesta);
-				
+
 				aggiornaRichiesta();
 				reloadModel();
 			}
 		};
 	}
-	
+
 	/**
 	 * Associa macchina listener.
 	 *
-	 * @param codiceRichiesta the codice richiesta
+	 * @param codiceRichiesta
+	 *            the codice richiesta
 	 * @return the action listener
 	 */
-	public ActionListener associaMacchinaListener(final int codiceRichiesta){
+	public ActionListener associaMacchinaListener(final int codiceRichiesta) {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				AssociaMacchina am=new AssociaMacchina(editLavoro, cCtr.getElencoMacchineDisponibili(codiceRichiesta));
-				am.addBtnAssociaListener(aggiungiAssociazioneMacchinaListener( am,codiceRichiesta));
+				AssociaMacchina am = new AssociaMacchina(editLavoro,
+						cCtr.getElencoMacchineDisponibili(codiceRichiesta));
+				am.addBtnAssociaListener(aggiungiAssociazioneMacchinaListener(
+						am, codiceRichiesta));
 			}
 		};
 	}
-	
+
 	/**
 	 * Aggiungi associazione macchina listener.
 	 *
-	 * @param am the am
-	 * @param codiceRichiesta the codice richiesta
+	 * @param am
+	 *            the am
+	 * @param codiceRichiesta
+	 *            the codice richiesta
 	 * @return the action listener
 	 */
-	public ActionListener aggiungiAssociazioneMacchinaListener(final AssociaMacchina am,final int codiceRichiesta){
+	public ActionListener aggiungiAssociazioneMacchinaListener(
+			final AssociaMacchina am, final int codiceRichiesta) {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int codiceMacchina=am.getCodiceMacchinaSelezionata();
+				int codiceMacchina = am.getCodiceMacchinaSelezionata();
 				cCtr.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
-				
+
 				aggiornaRichiesta();
 				reloadModel();
 				am.dispose();
 			}
 		};
 	}
-	
+
 	/**
 	 * Aggiungi lavoro listener.
 	 *
 	 * @return the action listener
 	 */
-	public ActionListener aggiungiLavoroListener(){
+	public ActionListener aggiungiLavoroListener() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(pnlLavoro.getDataInizioLavoro()==null || pnlLavoro.getDataFineLavoro()==null
-						|| pnlLavoro.getNomeLavoro()==""){
-					JOptionPane.showMessageDialog(null,"Compilare tutti campi.","Error", JOptionPane.ERROR_MESSAGE);
-				}
-				else{
-					String nome=pnlLavoro.getNomeLavoro();
-					GregorianCalendar inizio=new GregorianCalendar();
+				if (pnlLavoro.getDataInizioLavoro() == null
+						|| pnlLavoro.getDataFineLavoro() == null
+						|| pnlLavoro.getNomeLavoro() == "") {
+					JOptionPane.showMessageDialog(null,
+							"Compilare tutti campi.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					String nome = pnlLavoro.getNomeLavoro();
+					GregorianCalendar inizio = new GregorianCalendar();
 					inizio.setTime(pnlLavoro.getDataInizioLavoro());
-					GregorianCalendar fine=new GregorianCalendar();
+					GregorianCalendar fine = new GregorianCalendar();
 					fine.setTime(pnlLavoro.getDataFineLavoro());
-					
-					//Aggiungi il lavoro
-					cCtr.aggiungiLavoro(codiceCantiere,nome, inizio, fine);
-					
-					//ricarico il modello
+
+					// Aggiungi il lavoro
+					cCtr.aggiungiLavoro(codiceCantiere, nome, inizio, fine);
+
+					// ricarico il modello
 					reloadModel();
 				}
 			}
 		};
 	}
-	
+
 	/**
 	 * Modifica lavoro listener.
 	 *
 	 * @return the action listener
 	 */
-	public ActionListener modificaLavoroListener(){
+	public ActionListener modificaLavoroListener() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(pnlLavoro.getDataInizioLavoro()==null || pnlLavoro.getDataFineLavoro()==null
-						|| pnlLavoro.getNomeLavoro()==""){
-					JOptionPane.showMessageDialog(null,"Compilare tutti campi.","Error", JOptionPane.ERROR_MESSAGE);
-				}else{
-					String nome=pnlLavoro.getNomeLavoro();
-					GregorianCalendar inizio=new GregorianCalendar();
+				if (pnlLavoro.getDataInizioLavoro() == null
+						|| pnlLavoro.getDataFineLavoro() == null
+						|| pnlLavoro.getNomeLavoro() == "") {
+					JOptionPane.showMessageDialog(null,
+							"Compilare tutti campi.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					String nome = pnlLavoro.getNomeLavoro();
+					GregorianCalendar inizio = new GregorianCalendar();
 					inizio.setTime(pnlLavoro.getDataInizioLavoro());
-					GregorianCalendar fine=new GregorianCalendar();
+					GregorianCalendar fine = new GregorianCalendar();
 					fine.setTime(pnlLavoro.getDataFineLavoro());
-					
-					//Aggiungi il lavoro
-					if(cCtr.modificaLavoro(codiceCantiere,codiceLavoro,nome, inizio, fine)){
-						JOptionPane.showMessageDialog(null,"Lavoro Modificato correttamente.","OK", JOptionPane.INFORMATION_MESSAGE);
+
+					// Aggiungi il lavoro
+					if (cCtr.modificaLavoro(codiceCantiere, codiceLavoro, nome,
+							inizio, fine)) {
+						JOptionPane.showMessageDialog(null,
+								"Lavoro Modificato correttamente.", "OK",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
-					//ricarico il modello
+					// ricarico il modello
 					reloadModel();
 				}
 			}
 		};
 	}
-	
+
 	/**
 	 * Aggiungi richiesta listener.
 	 *
@@ -464,53 +504,107 @@ public class ViewLavoro extends JDialog implements Observer{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				RichiestaMacchina richiesta = null;
+				if (controlloCorrettezzaDati()) {
+					if (pnlAddRichiesta.getTipoMacchina() == "Gru") {
+						richiesta = new RichiestaGru(
+								pnlAddRichiesta.getMinLunghezza()==0?-1:pnlAddRichiesta.getMinLunghezza(),
+								pnlAddRichiesta.getMaxLunghezza()==0?-1:pnlAddRichiesta.getMaxLunghezza(),
+								pnlAddRichiesta.getMinAltezza()==0?-1:pnlAddRichiesta.getMinAltezza(),
+								pnlAddRichiesta.getMaxAltezza()==0?-1:pnlAddRichiesta.getMaxAltezza(),
+								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinRotazione()==0?-1:pnlAddRichiesta.getMinRotazione(),
+								pnlAddRichiesta.getMaxRotazione()==0?-1:pnlAddRichiesta.getMaxRotazione());
+					} else if (pnlAddRichiesta.getTipoMacchina() == "Ruspa") {
+						richiesta = new RichiestaRuspa(
+								pnlAddRichiesta.getMinCapacita()==0?-1:pnlAddRichiesta.getMinCapacita(),
+								pnlAddRichiesta.getMaxCapacita()==0?-1:pnlAddRichiesta.getMaxCapacita(),
+								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinAltezza()==0?-1:pnlAddRichiesta.getMinAltezza(),
+								pnlAddRichiesta.getMaxAltezza()==0?-1:pnlAddRichiesta.getMaxAltezza());
+					} else if (pnlAddRichiesta.getTipoMacchina() == "Camion") {
+						richiesta = new RichiestaCamion(
+								pnlAddRichiesta.getMinCapacita()==0?-1:pnlAddRichiesta.getMinCapacita(),
+								pnlAddRichiesta.getMaxCapacita()==0?-1:pnlAddRichiesta.getMaxCapacita(),
+								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinLunghezza()==0?-1:pnlAddRichiesta.getMinLunghezza(),
+								pnlAddRichiesta.getMaxLunghezza()==0?-1:pnlAddRichiesta.getMaxLunghezza());
+					} else if (pnlAddRichiesta.getTipoMacchina() == "Escavatore") {
+						richiesta = new RichiestaEscavatore(
+								pnlAddRichiesta.getMinCapacita()==0?-1:pnlAddRichiesta.getMinCapacita(),
+								pnlAddRichiesta.getMaxCapacita()==0?-1:pnlAddRichiesta.getMaxCapacita(),
+								pnlAddRichiesta.getMinPortata()==0?-1:pnlAddRichiesta.getMinPortata(),
+								pnlAddRichiesta.getMaxPortata()==0?-1:pnlAddRichiesta.getMaxPortata(),
+								pnlAddRichiesta.getMinAltezza()==0?-1:pnlAddRichiesta.getMinAltezza(),
+								pnlAddRichiesta.getMaxAltezza()==0?-1:pnlAddRichiesta.getMaxAltezza(),
+								pnlAddRichiesta.getMinProfondita()==0?-1:pnlAddRichiesta.getMinProfondita(),
+								pnlAddRichiesta.getMaxProfondita()==0?-1:pnlAddRichiesta.getMaxProfondita());
+					}
+					cCtr.aggiungiRichiesta(codiceCantiere, codiceLavoro,
+							richiesta);
 
-				if (pnlAddRichiesta.getTipoMacchina() == "Gru") {
-					richiesta = new RichiestaGru(pnlAddRichiesta.getMinLunghezza(),
-							pnlAddRichiesta.getMaxLunghezza(),
-							pnlAddRichiesta.getMinAltezza(),
-							pnlAddRichiesta.getMaxAltezza(),
-							pnlAddRichiesta.getMinPortata(),
-							pnlAddRichiesta.getMaxPortata(),
-							pnlAddRichiesta.getMinRotazione(),
-							pnlAddRichiesta.getMaxRotazione());
-				} else if (pnlAddRichiesta.getTipoMacchina() == "Ruspa") {
-					richiesta = new RichiestaRuspa(pnlAddRichiesta.getMinCapacita(),
-							pnlAddRichiesta.getMaxCapacita(),
-							pnlAddRichiesta.getMinPortata(),
-							pnlAddRichiesta.getMaxPortata(),
-							pnlAddRichiesta.getMinAltezza(),
-							pnlAddRichiesta.getMaxAltezza());
-				} else if (pnlAddRichiesta.getTipoMacchina() == "Camion") {
-					richiesta = new RichiestaCamion(
-							pnlAddRichiesta.getMinCapacita(),
-							pnlAddRichiesta.getMaxCapacita(),
-							pnlAddRichiesta.getMinPortata(),
-							pnlAddRichiesta.getMaxPortata(),
-							pnlAddRichiesta.getMinLunghezza(),
-							pnlAddRichiesta.getMaxLunghezza());
-				} else if (pnlAddRichiesta.getTipoMacchina() == "Escavatore") {
-					richiesta = new RichiestaEscavatore(
-							pnlAddRichiesta.getMinCapacita(),
-							pnlAddRichiesta.getMaxCapacita(),
-							pnlAddRichiesta.getMinPortata(),
-							pnlAddRichiesta.getMaxPortata(),
-							pnlAddRichiesta.getMinAltezza(),
-							pnlAddRichiesta.getMaxAltezza(),
-							pnlAddRichiesta.getMinProfondita(),
-							pnlAddRichiesta.getMaxProfondita());
+					reloadModel();
 				}
-				cCtr.aggiungiRichiesta(codiceCantiere,codiceLavoro, richiesta);
-
-				reloadModel();
 			}
 		};
 	}
-	
+
+	private boolean controlloCorrettezzaDati() {
+		boolean correttezza = true;
+		if (pnlAddRichiesta.getMinCapacita() > pnlAddRichiesta.getMaxCapacita())
+			correttezza = false;
+		if (pnlAddRichiesta.getMinLunghezza() > pnlAddRichiesta
+				.getMaxLunghezza())
+			correttezza = false;
+		if (pnlAddRichiesta.getMinAltezza() > pnlAddRichiesta.getMaxAltezza())
+			correttezza = false;
+		if (pnlAddRichiesta.getMinRotazione() > pnlAddRichiesta
+				.getMaxRotazione())
+			correttezza = false;
+		if (pnlAddRichiesta.getMinPortata() > pnlAddRichiesta.getMaxPortata())
+			correttezza = false;
+		if (pnlAddRichiesta.getMinProfondita() > pnlAddRichiesta
+				.getMaxProfondita())
+			correttezza = false;
+		if (!correttezza)
+			JOptionPane.showMessageDialog(this,
+					"Verificare la correttezza dei dati inseriti.",
+					"Attenzione", JOptionPane.ERROR_MESSAGE);
+		if (correttezza) {
+			if (pnlAddRichiesta.getMinCapacita() <0 || pnlAddRichiesta
+					.getMaxCapacita()<0)
+				correttezza = false;
+			if (pnlAddRichiesta.getMinLunghezza() <0|| pnlAddRichiesta
+					.getMaxLunghezza()<0)
+				correttezza = false;
+			if (pnlAddRichiesta.getMinAltezza() <0|| pnlAddRichiesta
+					.getMaxAltezza()<0)
+				correttezza = false;
+			if (pnlAddRichiesta.getMinRotazione() <0|| pnlAddRichiesta
+					.getMaxRotazione()<0)
+				correttezza = false;
+			if (pnlAddRichiesta.getMinPortata() <0|| pnlAddRichiesta
+					.getMaxPortata()<0)
+				correttezza = false;
+			if (pnlAddRichiesta.getMinProfondita() <0|| pnlAddRichiesta
+					.getMaxProfondita()<0)
+				correttezza = false;
+			if (!correttezza)
+				JOptionPane.showMessageDialog(this,
+						"Sono ammessi solamento valori positivi.",
+						"Attenzione", JOptionPane.ERROR_MESSAGE);
+		}
+
+		return correttezza;
+	}
+
 	/**
 	 * Delete richiesta listener.
 	 *
-	 * @param codiceRichiesta the codice richiesta
+	 * @param codiceRichiesta
+	 *            the codice richiesta
 	 * @return the action listener
 	 */
 	private ActionListener deleteRichiestaListener(final int codiceRichiesta) {
@@ -522,11 +616,12 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
-	
+
 	/**
 	 * Delete lavoro listener.
 	 *
-	 * @param codiceLavoro the codice lavoro
+	 * @param codiceLavoro
+	 *            the codice lavoro
 	 * @return the action listener
 	 */
 	public ActionListener deleteLavoroListener(final int codiceLavoro) {
@@ -538,60 +633,68 @@ public class ViewLavoro extends JDialog implements Observer{
 			}
 		};
 	}
-	
-	
-	
 
 	/**
 	 * Reload model.
 	 */
-	private void reloadModel(){
-		try{
-		TreePath tp=tree.getSelectionPath();
-		treeModel.reload();
-		tree.expandPath(tp.getParentPath());
-		}catch(NullPointerException ex){
-			
+	private void reloadModel() {
+		try {
+			TreePath tp = tree.getSelectionPath();
+			treeModel.reload();
+			tree.expandPath(tp.getParentPath());
+		} catch (NullPointerException ex) {
+
 		}
 	}
-	
+
 	/**
 	 * Aggiorna richiesta.
 	 */
-	private void aggiornaRichiesta(){
-		TreePath tp=tree.getSelectionPath();
+	private void aggiornaRichiesta() {
+		TreePath tp = tree.getSelectionPath();
 		btnDelete.setEnabled(true);
-		for( ActionListener al : btnDelete.getActionListeners() ) {
-			btnDelete.removeActionListener( al );
+		for (ActionListener al : btnDelete.getActionListeners()) {
+			btnDelete.removeActionListener(al);
 		}
-		
-		
-		Richiesta richiesta=(Richiesta)tp.getPath()[tp.getPath().length-1];
-		btnDelete.addActionListener(deleteRichiestaListener(richiesta.getCodice()));
-		
-		ArrayList<String> data=richiesta.getData();
+
+		Richiesta richiesta = (Richiesta) tp.getPath()[tp.getPath().length - 1];
+		btnDelete.addActionListener(deleteRichiestaListener(richiesta
+				.getCodice()));
+
+		ArrayList<String> data = richiesta.getData();
 		pnlVisualizzaPanel.loadData(data);
-		
-		if(richiesta.isSoddisfatta()){
-			pnlVisualizzaPanel.btnAssociaMacchina.setText("Rimuovi Associazione");
-			pnlVisualizzaPanel.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta.getCodice()));
-			pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getCodice()+" "+richiesta.getMacchina().getProduttore()+" "+richiesta.getMacchina().getModello());
-		}else{
-			pnlVisualizzaPanel.addLiberaRichiestaListener(associaMacchinaListener(richiesta.getCodice()));
-			pnlVisualizzaPanel.btnAssociaMacchina.setText("Aggiungi Associazione");
+
+		if (richiesta.isSoddisfatta()) {
+			pnlVisualizzaPanel.btnAssociaMacchina
+					.setText("Rimuovi Associazione");
+			pnlVisualizzaPanel
+					.addSoddisfaRichiestaListener(liberaRichiestaListener(richiesta
+							.getCodice()));
+			pnlVisualizzaPanel.setMacchina(richiesta.getMacchina().getCodice()
+					+ " " + richiesta.getMacchina().getProduttore() + " "
+					+ richiesta.getMacchina().getModello());
+		} else {
+			pnlVisualizzaPanel
+					.addLiberaRichiestaListener(associaMacchinaListener(richiesta
+							.getCodice()));
+			pnlVisualizzaPanel.btnAssociaMacchina
+					.setText("Aggiungi Associazione");
 		}
-		
+
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		ArrayList<String> arg=new ArrayList<String>(Arrays.asList((String[])arg1));
-		if(arg.size()==4){
+		ArrayList<String> arg = new ArrayList<String>(
+				Arrays.asList((String[]) arg1));
+		if (arg.size() == 4) {
 			addLavoro(arg);
-		}else{
+		} else {
 			addRichiesta(arg);
 		}
 	}

@@ -311,7 +311,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return portata minima
 	 */
 	public int getMinPortata() {
-		return txtMinPortata.getText().equals("")?-1:Integer.parseInt(txtMinPortata.getText());
+		return txtMinPortata.getText().equals("")?0:Integer.parseInt(txtMinPortata.getText());
 	}
 	
 	/**
@@ -320,7 +320,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return capacita minima
 	 */
 	public int getMinCapacita() {
-		return txtMinCapacita.getText().equals("")?-1:Integer.parseInt(txtMinCapacita.getText());
+		return txtMinCapacita.getText().equals("")?0:Integer.parseInt(txtMinCapacita.getText());
 	}
 	
 	/**
@@ -329,7 +329,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return lunghezza minima
 	 */
 	public int getMinLunghezza() {
-		return txtMinLunghezza.getText().equals("")?-1:Integer.parseInt(txtMinLunghezza.getText());
+		return txtMinLunghezza.getText().equals("")?0:Integer.parseInt(txtMinLunghezza.getText());
 	}
 	
 	/**
@@ -338,7 +338,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return altezza minima
 	 */
 	public int getMinAltezza() {
-		return txtMinAltezza.getText().equals("")?-1:Integer.parseInt(txtMinAltezza.getText());
+		return txtMinAltezza.getText().equals("")?0:Integer.parseInt(txtMinAltezza.getText());
 	}
 	
 	/**
@@ -347,7 +347,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return profondita minima
 	 */
 	public int getMinProfondita() {
-		return txtMinProfondita.getText().equals("")?-1:Integer.parseInt(txtMinProfondita.getText());
+		return txtMinProfondita.getText().equals("")?0:Integer.parseInt(txtMinProfondita.getText());
 	}
 	
 	/**
@@ -356,7 +356,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return rotazione minima
 	 */
 	public int getMinRotazione() {
-		return txtMinRotazione.getText().equals("")?-1:Integer.parseInt(txtMinRotazione.getText());
+		return txtMinRotazione.getText().equals("")?0:Integer.parseInt(txtMinRotazione.getText());
 	}
 	
 	/**
@@ -375,7 +375,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return portata massima.
 	 */
 	public int getMaxPortata() {
-		return txtMaxPortata.getText().equals("")?-1:Integer.parseInt(txtMaxPortata.getText());
+		return txtMaxPortata.getText().equals("")?0:Integer.parseInt(txtMaxPortata.getText());
 	}
 	
 	/**
@@ -384,7 +384,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return capacita massima.
 	 */
 	public int getMaxCapacita() {
-		return txtMaxCapacita.getText().equals("")?-1:Integer.parseInt(txtMaxCapacita.getText());
+		return txtMaxCapacita.getText().equals("")?0:Integer.parseInt(txtMaxCapacita.getText());
 	}
 	
 	/**
@@ -393,7 +393,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return lunghezza massima.
 	 */
 	public int getMaxLunghezza() {
-		return txtMaxLunghezza.getText().equals("")?-1:Integer.parseInt(txtMaxLunghezza.getText());
+		return txtMaxLunghezza.getText().equals("")?0:Integer.parseInt(txtMaxLunghezza.getText());
 	}
 	
 	/**
@@ -402,7 +402,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return altezza massima.
 	 */
 	public int getMaxAltezza() {
-		return txtMaxAltezza.getText().equals("")?-1:Integer.parseInt(txtMaxAltezza.getText());
+		return txtMaxAltezza.getText().equals("")?0:Integer.parseInt(txtMaxAltezza.getText());
 	}
 	
 	/**
@@ -411,7 +411,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return profondita massima.
 	 */
 	public int getMaxProfondita() {
-		return txtMaxProfondita.getText().equals("")?-1:Integer.parseInt(txtMaxProfondita.getText());
+		return txtMaxProfondita.getText().equals("")?0:Integer.parseInt(txtMaxProfondita.getText());
 	}
 	
 	/**
@@ -420,7 +420,7 @@ public class PanelRichiesta extends JPanel {
 	 * @return rotazione massima.
 	 */
 	public int getMaxRotazione() {
-		return txtMaxRotazione.getText().equals("")?-1:Integer.parseInt(txtMaxRotazione.getText());
+		return txtMaxRotazione.getText().equals("")?0:Integer.parseInt(txtMaxRotazione.getText());
 	}
 	
 	/**
