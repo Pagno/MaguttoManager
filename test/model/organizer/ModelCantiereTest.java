@@ -71,6 +71,12 @@ public class ModelCantiereTest {
 	 */
 	@Test
 	public void testGetModelCantiere() {
+		mc.resetForTest();
+		mc=ModelCantiere.getModelCantiere();
+		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
+	mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA);
+	mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priorita.BASSA);
+	
 		ArrayList<Cantiere>lista=mc.getListaCantieri();
 		assertEquals(lista.size(),3);
 		assertTrue(lista.contains(new Cantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA)));
@@ -91,7 +97,6 @@ public class ModelCantiereTest {
 		assertEquals(mc.getProssimoCodiceLavoro(),1);
 		assertTrue(mc.getListaCantieri().isEmpty());
 	}
-
 	/**
 	 * Test aggiungi cantiere.
 	 */
@@ -471,4 +476,16 @@ public class ModelCantiereTest {
 		assertTrue(test.isEmpty());
 	}
 	
+
+	@Test
+	public void testSvuotaCantieriForTest(){
+		mc.resetForTest();
+		mc=ModelCantiere.getModelCantiere();
+		mc.caricaCantiere(7,"MoSe","Venezia",new GregorianCalendar(2014,02,22),new GregorianCalendar(2015,02,22),Priorita.ALTA);
+		mc.caricaCantiere(16,"Pedemontana","Osio Sotto",new GregorianCalendar(2014,01,01),new GregorianCalendar(2016,01,01),Priorita.MEDIA);
+		mc.caricaCantiere(20,"Circonvallazione","Stezzano",new GregorianCalendar(2014,05,05),new GregorianCalendar(2017,05,05),Priorita.BASSA);
+		assertEquals(3,mc.getListaCantieri().size());
+		mc.svuotaCantieriForTest();
+		assertEquals(0,mc.getListaCantieri().size());
+	}
 }
