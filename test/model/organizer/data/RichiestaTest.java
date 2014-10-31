@@ -45,6 +45,12 @@ public class RichiestaTest {
 		Richiesta.initCodice();
 		assertEquals(Richiesta.getNextCodice(),1);
 	}
+	
+	/*@Test
+	public void testSetCaratteristiche() {
+		r.setCaratteristiche(new RichiestaCamion(10,20,10,20,10,20));
+		assertEquals(r.getCaratteristiche(),new RichiestaCamion(10,20,10,20,10,20));
+	}*/
 
 	@Test
 	public void testIsSoddisfatta() {

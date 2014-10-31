@@ -387,6 +387,45 @@ public class LavoroTest {
 		assertEquals(lavoro.getRichiesta(52).getMacchina(),null);
 		assertEquals(lavoro.getRichiesta(53).getMacchina(),null);
 	}
+	
+	/*@Test
+	public void testLiberaMacchina() {
+		Richiesta.initCodice();
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		Camion m=new Camion(3,"Yamaha","Camion",6,6,6);
+		Camion c=new Camion(5,"Yamaha","Camion grande",9,9,9);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, m);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.aggiungiRichiesta(rc);
+		lavoro.soddisfaRichiesta(52, m);
+		lavoro.soddisfaRichiesta(53, c);
+		lavoro.soddisfaRichiesta(50, m);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.liberaMacchina(99);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),m);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.liberaMacchina(3);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.liberaMacchina(99);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),c);
+		lavoro.liberaMacchina(5);
+		assertEquals(lavoro.getRichiesta(50).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(51).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(52).getMacchina(),null);
+		assertEquals(lavoro.getRichiesta(53).getMacchina(),null);
+	}*/
 
 	@Test
 	public void testIsScoperto() {
@@ -407,6 +446,20 @@ public class LavoroTest {
 		lavoro.soddisfaRichiesta(51, new Camion(3,"Yamaha","Camion",6,6,6));
 		assertFalse(lavoro.isScoperto());
 	}
+	
+	/*@Test
+	public void testWhereScoperto() {
+		Richiesta.initCodice();
+		assertTrue(lavoro.whereScoperto().isEmpty());
+		RichiestaCamion rc=new RichiestaCamion(5, 10, 5, 10, 5, 10);
+		lavoro.caricaRichiesta(rc, 50, null);
+		lavoro.caricaRichiesta(rc, 51, new Camion(3,"Yamaha","Camion",6,6,6));
+		lavoro.aggiungiRichiesta(rc);
+		ArrayList<Richiesta>test=new ArrayList<Richiesta>();
+		test.add(lavoro.getRichiesta(50));
+		test.add(lavoro.getRichiesta(52));
+		assertEquals(lavoro.whereScoperto(),test);
+	}*/
 
 	@Test
 	public void testGetListaRichieste() {
