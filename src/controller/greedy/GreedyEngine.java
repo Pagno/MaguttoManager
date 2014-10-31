@@ -40,8 +40,6 @@ public class GreedyEngine {
 			Associazione a=GreedyEngine.selezionaPrenotazionePiuPromettente(associazioni, sortedRichieste.get(i));
 			//Se ha generato un'associazione
 			if(a!=null){
-				//Allora setta a true il campo confermata
-				a.setConfermata(true);
 				//Aggiunge l'associazione all'arraylist di output
 				associazioni.add(a);
 			}
@@ -301,7 +299,7 @@ public class GreedyEngine {
 			else{
 				//In tal caso temp contiene una prenotazione valida, in particolare la prenotazione valida pi� promettente.
 				//Il risultato di questa funzione sar� quindi l'associazione contenuta nella prenotazione temp.
-				return temp.getAssociazione();
+				return temp.select();
 			}
 		}
 

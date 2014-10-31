@@ -87,8 +87,8 @@ public class Associazione {
 		return this.ric.collide(other);
 	}
 	
-	public boolean collide(Associazione other){
+	/*public boolean collide(Associazione other){
 		return this.ric.collide(other.getRichiesta());
-	}
+	}*/
 	
 }

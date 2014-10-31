@@ -32,6 +32,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	private int codiceLavoro;
 	/** istanza. */
 	private static ModelCantiere istanza;
+	
 	/**
 	 * Instantiates a new model cantiere.
 	 */
@@ -41,6 +42,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		codice=0;
 		codiceLavoro=0;
 	}
+	
 	/**
 	 * Getter che permette l'adozione del pattern singleton.
 	 *
@@ -52,7 +54,9 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 		return istanza;
 	}
+	
 	//OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
+	
 	/**
 	 * Aggiungi cantiere.
 	 *
@@ -77,6 +81,7 @@ public class ModelCantiere extends DefaultTreeModel{
 			insertNodeInto(add, c, 0);
 		}
 	}
+	
 	/**
 	 * Carica cantiere.
 	 *
@@ -103,6 +108,7 @@ public class ModelCantiere extends DefaultTreeModel{
 			insertNodeInto(add, c, 0);
 		}
 	}
+	
 	/**
 	 * Modifica cantiere.
 	 *
@@ -132,17 +138,15 @@ public class ModelCantiere extends DefaultTreeModel{
 			}
 		}
 	}
-	/**
+	
+	/*/**
 	 * Rimuovi cantiere.
 	 *
 	 * @param nomeCantiere nome del cantiere
 	 * @return true, if successful
 	 */
-	public boolean rimuoviCantiere(String nomeCantiere){
-		/*TODO controllare se viene utilizzato:
-		 * se non viene utilizzato eliminarlo
-		 * se viene utilizzato fare in modo che la stringa sia univoca in inserimenti, caricamenti e modifiche
-		 */
+	/*public boolean rimuoviCantiere(String nomeCantiere){
+		
 		for(Cantiere item:listaCantieri){
 			if(item.getNomeCantiere().equals(nomeCantiere)){
 				item.svuotaLavori();
@@ -151,7 +155,8 @@ public class ModelCantiere extends DefaultTreeModel{
 			}
 		}
 		return false;
-	}
+	}*/
+	
 	/**
 	 * Rimuovi cantiere.
 	 *
@@ -168,6 +173,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 		return false;
 	}
+	
 	/**
 	 * Gets the lista cantieri.
 	 *
@@ -176,6 +182,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	public ArrayList<Cantiere> getListaCantieri(){
 		return listaCantieri;
 	}
+	
 	/**
 	 * Gets the cantiere.
 	 *
@@ -190,7 +197,9 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 		return null;
 	}
+	
 	//OPERAZIONI SUI LAVORI----------------------------------------------------------------------------------------------------------------
+	
 	/**
 	 * Gets the lavoro.
 	 *
@@ -205,6 +214,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 		return null;
 	}
+	
 	/**
 	 * Aggiungi lavoro.
 	 *
@@ -224,11 +234,12 @@ public class ModelCantiere extends DefaultTreeModel{
 		insertNodeInto(add, lavoro, 0);
 		DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
 		/*ArrayList<String> lav=new ArrayList<String>(Arrays.asList(
-Integer.toString(codiceLavoro),nome,df.format(dataInizio.getTime()),df.format(dataFine.getTime())
-));
-lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
+		Integer.toString(codiceLavoro),nome,df.format(dataInizio.getTime()),df.format(dataFine.getTime())
+		));
+		lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		 */
 	}
+	
 	/**
 	 * Carica lavoro presente nel database.
 	 *
@@ -250,18 +261,20 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		NodeAdder add=new NodeAdder("Aggiungi nuova Richiesta");
 		insertNodeInto(add, lavoro, 0);
 	}
-	/**
+	
+	/*/**
 	 * Elimina lavoro.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @param codiceLavoro codice del lavoro
 	 */
-	public void eliminaLavoro(int codiceCantiere,int codiceLavoro){
+	/*public void eliminaLavoro(int codiceCantiere,int codiceLavoro){
 		Cantiere cantiere=getCantiere(codiceCantiere);
 		if(cantiere!=null){
 			cantiere.rimuoviLavoro(codiceLavoro);
 		}
-	}
+	}*/
+	
 	/**
 	 * Elimina lavoro.
 	 *
@@ -278,6 +291,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return false;
 	}
+	
 	/**
 	 * Modifica lavoro.
 	 *
@@ -297,7 +311,8 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 	}
-	/**
+	
+	/*/**
 	 * Modifica lavoro.
 	 *
 	 * @param codiceCantiere codice del cantiere
@@ -306,7 +321,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	 * @param dataInizio data inizio del lavoro
 	 * @param dataFine data fine del lavoro
 	 */
-	public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
+	/*public void modificaLavoro(int codiceCantiere, int codiceLavoro,String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -316,26 +331,28 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				lav.setDataFine(dataFine);
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista lavori.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @return lista dei lavori
 	 */
-	public ArrayList<Lavoro> getListaLavori(int codiceCantiere){
+	/*public ArrayList<Lavoro> getListaLavori(int codiceCantiere){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			return can.getElencoLavori();
 		}
 		else return new ArrayList<Lavoro>();
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets lista dei lavori.
 	 *
 	 * @return lista dei lavori
 	 */
-	public ArrayList<Lavoro> getListaLavori(){
+	/*public ArrayList<Lavoro> getListaLavori(){
 		ArrayList<Lavoro>totLavori=new ArrayList<Lavoro>();
 		for(Cantiere item:listaCantieri){
 			for(Lavoro l:item.getElencoLavori()){
@@ -343,14 +360,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totLavori;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets lista dei lavori scoperti.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @return lista dei lavori scoperti del cantiere
 	 */
-	public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
+	/*public ArrayList<Lavoro> getListaScoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -361,13 +379,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return temp;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista scoperti.
 	 *
 	 * @return lista dei lavori scoperti
 	 */
-	public ArrayList<Lavoro> getListaScoperti(){
+	/*public ArrayList<Lavoro> getListaScoperti(){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		for(Cantiere item:listaCantieri){
 			for(Lavoro l:item.getElencoLavori()){
@@ -377,14 +396,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return temp;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista coperti.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @return lista dei lavori coperti del cantiere
 	 */
-	public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
+	/*public ArrayList<Lavoro> getListaCoperti(int codiceCantiere){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -395,13 +415,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return temp;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista coperti.
 	 *
 	 * @return lista dei lavori coperti
 	 */
-	public ArrayList<Lavoro> getListaCoperti(){
+	/*public ArrayList<Lavoro> getListaCoperti(){
 		ArrayList<Lavoro>temp=new ArrayList<Lavoro>();
 		for(Cantiere item:listaCantieri){
 			for(Lavoro l:item.getElencoLavori()){
@@ -411,7 +432,8 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return temp;
-	}
+	}*/
+	
 	/**
 	 * Gets the prossimo codice lavoro.
 	 *
@@ -421,7 +443,9 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		int code=this.codiceLavoro+1;
 		return code;
 	}
+	
 	//OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
+	
 	/**
 	 * Gets the richiesta.
 	 *
@@ -438,6 +462,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return null;
 	}
+	
 	/**
 	 * Aggiunge una nuova richiesta, che quindi non � soddisfatta
 	 *
@@ -456,13 +481,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return false;
 	}
-	/**
+	
+	/*/**
 	 * Aggiunge una nuova richiesta, che quindi non � soddisfatta
 	 *
 	 * @param codiceLavoro codice del lavoro
 	 * @param caratteristiche caratteristiche
 	 */
-	public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
+	/*public void aggiungiRichiesta(int codiceLavoro,RichiestaMacchina caratteristiche){
 		for(Cantiere item:listaCantieri){
 			if(item.hasLavoro(codiceLavoro)){
 				Lavoro l=item.getLavoro(codiceLavoro);
@@ -470,8 +496,9 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				break;
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
 	 *
 	 * @param codiceCantiere codice del cantiere
@@ -480,7 +507,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	 * @param caratteristiche caratteristiche richieste
 	 * @param macchina la macchina che soddisfa la richiesta
 	 */
-	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
+	/*public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
 		Cantiere item=getCantiere(codiceCantiere);
 		if(item!=null){
 			if(item.hasLavoro(codiceLavoro)){
@@ -488,7 +515,8 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				l.caricaRichiesta(caratteristiche,codiceRichiesta,macchina);
 			}
 		}
-	}
+	}*/
+	
 	/**
 	 * Soddisfa richiesta.
 	 *
@@ -506,14 +534,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return false;
 	}
-	/**
+	
+	/*/**
 	 * Soddisfa richiesta.
 	 *
 	 * @param codiceLavoro codice del lavoro
 	 * @param codiceRichiesta codice della richiesta
 	 * @param m la macchina
 	 */
-	public void soddisfaRichiesta(int codiceLavoro,int codiceRichiesta, Macchina m){
+	/*public void soddisfaRichiesta(int codiceLavoro,int codiceRichiesta, Macchina m){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
 				Lavoro l=getLavoro(codiceLavoro);
@@ -523,8 +552,9 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Soddisfa richiesta.
 	 *
 	 * @param codiceCantiere codice del cantiere
@@ -532,7 +562,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	 * @param codiceRichiesta codice della richiesta
 	 * @param m la macchina
 	 */
-	public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
+	/*public void soddisfaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta, Macchina m){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -542,14 +572,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Modifica richiesta.
 	 *
 	 * @param codiceRichiesta codice della richiesta
 	 * @param caratteristiche caratteristiche richieste
 	 */
-	public void modificaRichiesta(int codiceRichiesta, RichiestaMacchina caratteristiche){
+	/*public void modificaRichiesta(int codiceRichiesta, RichiestaMacchina caratteristiche){
 		ciclo:for(Cantiere can:listaCantieri){
 			for(Lavoro lav:can.getElencoLavori()){
 				if(lav.hasRichiesta(codiceRichiesta)){
@@ -559,15 +590,16 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Modifica richiesta.
 	 *
 	 * @param codiceLavoro codice del lavoro
 	 * @param codiceRichiesta codice della richiesta
 	 * @param caratteristiche caratteristiche richieste
 	 */
-	public void modificaRichiesta(int codiceLavoro,int codiceRichiesta, RichiestaMacchina caratteristiche){
+	/*public void modificaRichiesta(int codiceLavoro,int codiceRichiesta, RichiestaMacchina caratteristiche){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
 				Lavoro l=getLavoro(codiceLavoro);
@@ -578,8 +610,9 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Modifica richiesta.
 	 *
 	 * @param codiceCantiere codice del cantiere
@@ -587,7 +620,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	 * @param codiceRichiesta codice della richiesta
 	 * @param caratteristiche caratteristiche richieste
 	 */
-	public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
+	/*public void modificaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta,RichiestaMacchina caratteristiche){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -598,7 +631,8 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
+	}*/
+	
 	/**
 	 * Libera richiesta.
 	 *
@@ -616,13 +650,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return false;
 	}
-	/**
+	
+	/*/**
 	 * Libera richiesta.
 	 *
 	 * @param codiceLavoro codice del lavoro
 	 * @param codiceRichiesta codice della richiesta
 	 */
-	public void liberaRichiesta(int codiceLavoro,int codiceRichiesta){
+	/*public void liberaRichiesta(int codiceLavoro,int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
 				Lavoro l=getLavoro(codiceLavoro);
@@ -632,15 +667,16 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Libera richiesta.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @param codiceLavoro codice del lavoro
 	 * @param codiceRichiesta codice della richiesta
 	 */
-	public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
+	/*public void liberaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -650,7 +686,8 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
+	}*/
+	
 	/**
 	 * Elimina richiesta.
 	 *
@@ -667,13 +704,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return false;
 	}
-	/**
+	
+	/*/**
 	 * Elimina richiesta.
 	 *
 	 * @param codiceLavoro codice del lavoro
 	 * @param codiceRichiesta codice della richiesta
 	 */
-	public void eliminaRichiesta(int codiceLavoro,int codiceRichiesta){
+	/*public void eliminaRichiesta(int codiceLavoro,int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
 			if(can.hasLavoro(codiceLavoro)){
 				Lavoro l=getLavoro(codiceLavoro);
@@ -683,15 +721,16 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Elimina richiesta.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @param codiceLavoro codice del lavoro
 	 * @param codiceRichiesta codice della richiesta
 	 */
-	public void eliminaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
+	/*public void eliminaRichiesta(int codiceCantiere, int codiceLavoro,int codiceRichiesta){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -701,15 +740,16 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 				}
 			}
 		}
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista soddisfatte.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @param codiceLavoro codice del lavoro
 	 * @return lista delle richieste soddisfatte
 	 */
-	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere, int codiceLavoro){
+	/*public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere, int codiceLavoro){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null) {
@@ -722,14 +762,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista soddisfatte.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @return lista delle richieste soddisfatte
 	 */
-	public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere){
+	/*public ArrayList<Richiesta> getListaSoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -742,13 +783,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista soddisfatte.
 	 *
 	 * @return the lista delle richieste soddisfatte
 	 */
-	public ArrayList<Richiesta> getListaSoddisfatte(){
+	/*public ArrayList<Richiesta> getListaSoddisfatte(){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		for(Cantiere c:listaCantieri){
 			for(Lavoro l:c.getElencoLavori()){
@@ -760,15 +802,16 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista insoddisfatte.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @param codiceLavoro codice del lavoro
 	 * @return lista delle richieste insoddisfatte
 	 */
-	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
+	/*public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere, int codiceLavoro){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -781,14 +824,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista insoddisfatte.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @return lista delle richieste insoddisfatte
 	 */
-	public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere){
+	/*public ArrayList<Richiesta> getListaInsoddisfatte(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -801,7 +845,8 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
+	}*/
+	
 	/**
 	 * Gets the lista insoddisfatte.
 	 *
@@ -820,14 +865,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return totRichieste;
 	}
-	/**
+	
+	/*/**
 	 * Gets the lista richieste.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @param codiceLavoro codice del lavoro
 	 * @return lista delle richieste soddisfatte
 	 */
-	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere, int codiceLavoro){
+	/*public ArrayList<Richiesta> getListaRichieste(int codiceCantiere, int codiceLavoro){
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
 			if(can.hasLavoro(codiceLavoro)){
@@ -835,14 +881,15 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return new ArrayList<Richiesta>();
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista richieste.
 	 *
 	 * @param codiceCantiere codice del cantiere
 	 * @return lista delle richieste
 	 */
-	public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
+	/*public ArrayList<Richiesta> getListaRichieste(int codiceCantiere){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		Cantiere can=getCantiere(codiceCantiere);
 		if(can!=null){
@@ -853,13 +900,14 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Gets the lista richieste.
 	 *
 	 * @return lista delle richieste
 	 */
-	public ArrayList<Richiesta> getListaRichieste(){
+	/*public ArrayList<Richiesta> getListaRichieste(){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
 		for(Cantiere c:listaCantieri){
 			for(Lavoro l:c.getElencoLavori()){
@@ -869,8 +917,10 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			}
 		}
 		return totRichieste;
-	}
+	}*/
+	
 	//OPERAZIONI GENERICHE---------------------------------------------------------------------------------------------------------------
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -881,6 +931,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 		}
 		return tmp;
 	}
+	
 	/**
 	 * Aggiungi observer.
 	 *
@@ -889,7 +940,9 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	public void aggiungiObserver(Observer ob) {
 		this.cantiereObserver=ob;
 	}
+	
 	//Metodi realizzati appositamente per il testing della classe.
+	
 	/**
 	 * Gets the prossimo codice.
 	 *
@@ -898,6 +951,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 	int getProssimoCodice(){
 		return codice+1;
 	}
+	
 	/**
 	 * Reset for test.
 	 */
@@ -906,6 +960,7 @@ lavoroObserver.update(null, lav.toArray());//notifyObservers(v1);
 			istanza=null;
 		}
 	}
+	
 	/**
 	 * Svuota cantieri for test.
 	 */

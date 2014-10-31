@@ -2,13 +2,33 @@ package model.organizer.data;
 import java.util.ArrayList;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.GregorianCalendar;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class Richiesta.
+ */
 public final class Richiesta extends DefaultMutableTreeNode implements Comparable<Richiesta>{
+	
+	/** The caratteristiche. */
 	private RichiestaMacchina caratteristiche;
+	
+	/** The macchina. */
 	private Macchina macchina;
+	
+	/** The lavoro. */
 	private Lavoro lavoro;
 	/** codice. */
 	private static int ultimoCodice;
+	
+	/** The codice. */
 	private int codice;
+	
+	/**
+	 * Instantiates a new richiesta.
+	 *
+	 * @param caratteristiche the caratteristiche
+	 * @param lavoro the lavoro
+	 */
 	public Richiesta(RichiestaMacchina caratteristiche, Lavoro lavoro) {
 		super();
 		assignCodice();
@@ -16,6 +36,14 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		this.lavoro=lavoro;
 		this.setMacchina(null);
 	}
+	
+	/**
+	 * Instantiates a new richiesta.
+	 *
+	 * @param caratteristiche the caratteristiche
+	 * @param lavoro the lavoro
+	 * @param codiceRichiesta the codice richiesta
+	 */
 	public Richiesta(RichiestaMacchina caratteristiche,Lavoro lavoro, int codiceRichiesta) {
 		super();
 		if(codiceRichiesta>ultimoCodice){
@@ -32,6 +60,10 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	public static void initCodice(){
 		ultimoCodice=0;
 	}
+	
+	/**
+	 * Assign codice.
+	 */
 	private void assignCodice(){
 		ultimoCodice++;
 		codice=ultimoCodice;
@@ -44,15 +76,33 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	public int getCodice(){
 		return codice;
 	}
+	
+	/**
+	 * Gets the caratteristiche.
+	 *
+	 * @return the caratteristiche
+	 */
 	public RichiestaMacchina getCaratteristiche() {
 		return caratteristiche;
 	}
-	public void setCaratteristiche(RichiestaMacchina caratteristiche) {
+	
+	/*/**
+	 * Sets the caratteristiche.
+	 *
+	 * @param caratteristiche the new caratteristiche
+	 */
+	/*public void setCaratteristiche(RichiestaMacchina caratteristiche) {
 		this.caratteristiche = caratteristiche;
 		if(!caratteristiche.rispettaRichiesta(macchina)){
 			this.setMacchina(null);
 		}
-	}
+	}*/
+	
+	/**
+	 * Checks if is soddisfatta.
+	 *
+	 * @return true, if is soddisfatta
+	 */
 	public boolean isSoddisfatta() {
 		if(macchina==null){
 			return false;
@@ -61,6 +111,12 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			return true;
 		}
 	}
+	
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public ArrayList<String> getData() {
 		ArrayList<String> l=new ArrayList<String>();
 		l.add(Integer.toString(getCodice()));
@@ -104,6 +160,10 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		}
 		return l;
 	}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.tree.DefaultMutableTreeNode#toString()
+	 */
 	@Override
 	public String toString() {
 		String s;
@@ -116,6 +176,10 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		}
 		return s;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -144,6 +208,13 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			return false;
 		return true;
 	}
+	
+	/**
+	 * Rispetta richiesta.
+	 *
+	 * @param m the m
+	 * @return true, if successful
+	 */
 	public boolean rispettaRichiesta(Macchina m){
 		return caratteristiche.rispettaRichiesta(m);
 	}
@@ -156,9 +227,21 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	static int getNextCodice(){
 		return ultimoCodice+1;
 	}
+	
+	/**
+	 * Gets the macchina.
+	 *
+	 * @return the macchina
+	 */
 	public Macchina getMacchina() {
 		return macchina;
 	}
+	
+	/**
+	 * Sets the macchina.
+	 *
+	 * @param macchina the new macchina
+	 */
 	public void setMacchina(Macchina macchina) {
 		if(this.macchina!=null){
 			this.macchina.rimuoviRichiesta(this);
@@ -176,6 +259,10 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			}
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	@Override
 	public int compareTo(Richiesta r) {
 		if(this.equals(r)) {return 0;}
@@ -184,30 +271,85 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		}
 		else return this.codice-r.getCodice();
 	}
+	
+	/**
+	 * Gets the data inizio.
+	 *
+	 * @return the data inizio
+	 */
 	public GregorianCalendar getDataInizio(){
 		return lavoro.getDataInizio();
 	}
+	
+	/**
+	 * Gets the data fine.
+	 *
+	 * @return the data fine
+	 */
 	public GregorianCalendar getDataFine(){
 		return lavoro.getDataFine();
 	}
+	
+	/**
+	 * Gets the priorita.
+	 *
+	 * @return the priorita
+	 */
 	public Priorita getPriorita(){
 		return lavoro.getPriorita();
 	}
+	
+	/**
+	 * Gets the codice lavoro.
+	 *
+	 * @return the codice lavoro
+	 */
 	public int getCodiceLavoro(){
 		return lavoro.getCodice();
 	}
+	
+	/**
+	 * Gets the codice cantiere.
+	 *
+	 * @return the codice cantiere
+	 */
 	public int getCodiceCantiere(){
 		return lavoro.getCodiceCantiere();
 	}
+	
+	/**
+	 * Gets the lavoro.
+	 *
+	 * @return the lavoro
+	 */
 	public Lavoro getLavoro(){
 		return lavoro;
 	}
+	
+	/**
+	 * Gets the lavori connessi.
+	 *
+	 * @return the lavori connessi
+	 */
 	public ArrayList<Lavoro> getLavoriConnessi(){
 		return lavoro.getLavoriConnessi();
 	}
+	
+	/**
+	 * Gets the durata.
+	 *
+	 * @return the durata
+	 */
 	public int getDurata(){
 		return lavoro.getDurata();
 	}
+	
+	/**
+	 * Collide.
+	 *
+	 * @param other the other
+	 * @return true, if successful
+	 */
 	public boolean collide(Richiesta other){
 		if(this.getDataInizio().after(other.getDataFine())||this.getDataFine().before(other.getDataInizio())){
 			return false;
@@ -216,6 +358,13 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			return true;
 		}
 	}
+	
+	/**
+	 * In conflitto.
+	 *
+	 * @param other the other
+	 * @return true, if successful
+	 */
 	public boolean inConflitto(Richiesta other){
 		if(this.caratteristiche instanceof RichiestaCamion){
 			if(other.getCaratteristiche() instanceof RichiestaCamion){
@@ -311,6 +460,15 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		return false;
 	}
 	
+	/**
+	 * Gestisci limiti.
+	 *
+	 * @param aMin the a min
+	 * @param aMax the a max
+	 * @param bMin the b min
+	 * @param bMax the b max
+	 * @return true, if successful
+	 */
 	static boolean gestisciLimiti(int aMin,int aMax,int bMin, int bMax){
 		boolean conflitto=false;
 		//Caso caratteristiche illimitate per una delle due richieste

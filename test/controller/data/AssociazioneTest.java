@@ -157,9 +157,9 @@ public class AssociazioneTest {
 			Richiesta richiesta2=new Richiesta(new RichiestaGru(-1, -1, -1, -1, 300, 400, -1, -1), lavoro);
 		assertTrue(a.collide(richiesta2));
 		
-		Gru g=new Gru(34, "Gru", "G", 360, 350, 45, 50);
+		/*Gru g=new Gru(34, "Gru", "G", 360, 350, 45, 50);
 		Associazione a2=new Associazione(richiesta2, g);
-		assertTrue(a.collide(a2));
+		assertTrue(a.collide(a2));*/
 	}
 	
 	@Test

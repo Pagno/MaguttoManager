@@ -20,6 +20,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	private ArrayList<Richiesta> macchinariRichiesti;
 	/** Cantiere. */
 	private Cantiere cantiere;
+	
 	/**
 	 * Crea un nuovo lavoro.
 	 *
@@ -39,6 +40,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		this.macchinariRichiesti=new ArrayList<Richiesta>();
 		this.cantiere=cantiere;
 	}
+	
 	/**
 	 * Ritorna il cantiere.
 	 *
@@ -47,6 +49,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public Cantiere getCantiere() {
 		return cantiere;
 	}
+	
 	/**
 	 * Sets the cantiere.
 	 *
@@ -55,6 +58,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void setCantiere(Cantiere cantiere) {
 		this.cantiere = cantiere;
 	}
+	
 	/**
 	 * Gets the codice.
 	 *
@@ -63,6 +67,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public int getCodice() {
 		return codice;
 	}
+	
 	/**
 	 * Sets the codice.
 	 *
@@ -71,6 +76,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void setCodice(int codice) {
 		this.codice = codice;
 	}
+	
 	/**
 	 * Gets the nome.
 	 *
@@ -79,6 +85,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public String getNome() {
 		return nome;
 	}
+	
 	/**
 	 * Sets the nome.
 	 *
@@ -87,6 +94,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	/**
 	 * Gets the data inizio.
 	 *
@@ -95,6 +103,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public GregorianCalendar getDataInizio() {
 		return dataInizio;
 	}
+	
 	/**
 	 * Sets the data inizio.
 	 *
@@ -103,6 +112,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void setDataInizio(GregorianCalendar dataInizio) {
 		this.dataInizio = dataInizio;
 	}
+	
 	/**
 	 * Gets the str data inizio.
 	 *
@@ -113,6 +123,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		df.applyPattern("yyyy-MM-dd");
 		return df.format(dataInizio.getTime());
 	}
+	
 	/**
 	 * Gets the data fine.
 	 *
@@ -121,6 +132,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public GregorianCalendar getDataFine() {
 		return dataFine;
 	}
+	
 	/**
 	 * Gets the str data fine.
 	 *
@@ -131,6 +143,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		df.applyPattern("yyyy-MM-dd");
 		return df.format(dataFine.getTime());
 	}
+	
 	/**
 	 * Sets the data fine.
 	 *
@@ -139,6 +152,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public void setDataFine(GregorianCalendar dataFine) {
 		this.dataFine = dataFine;
 	}
+	
 	/* (non-Javadoc)
 	 * @see javax.swing.tree.DefaultMutableTreeNode#toString()
 	 */
@@ -147,6 +161,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		return codice + " " + nome + " "
 				+ getStrDataInizio() + " " + getStrDataFine();
 	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -185,6 +200,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 			return false;
 		return true;
 	}
+	
 	/**
 	 * Aggiungi richiesta macchina al lavoro.
 	 *
@@ -197,34 +213,37 @@ public class Lavoro extends DefaultMutableTreeNode{
 		add(r);
 		return r.getCodice();
 	}
-	/**
+	
+	/*/**
 	 * Carica richiesta.
 	 *
 	 * @param caratteristiche Caratteristiche della macchina richieste per il lavoro
 	 * @param codice Codice della richeista
 	 * @param m macchinada associare
 	 */
-	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
+	/*public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
 		Richiesta r=new Richiesta(caratteristiche,this,codice);
 		if(r.rispettaRichiesta(m)){
 			r.setMacchina(m);
 		}
 		add(r);
 		macchinariRichiesti.add(r);
-	}
-	/**
+	}*/
+	
+	/*/**
 	 * Modifica richiesta.
 	 *
 	 * @param codice Codice della richiesta da modificare.
 	 * @param caratteristiche Caratteristiche della macchina richieste per il lavoro
 	 */
-	public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche){
+	/*public void modificaRichiesta(Integer codice,RichiestaMacchina caratteristiche){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
 				item.setCaratteristiche(caratteristiche);
 			}
 		}
-	}
+	}*/
+	
 	/**
 	 * Controlla se il lavoro contiere una richiesta con quel dato codice.
 	 *
@@ -239,6 +258,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
+	
 	/**
 	 * Gets the richiesta.
 	 *
@@ -253,6 +273,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return null;
 	}
+	
 	/**
 	 * Elimina richiesta.
 	 *
@@ -270,6 +291,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
+	
 	/**
 	 * Libera tutte le richiesta legate al lavoro.
 	 */
@@ -279,6 +301,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		macchinariRichiesti.clear();
 	}
+	
 	/**
 	 * Associa un macchina ad una richiesta.
 	 *
@@ -298,9 +321,9 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
-	//vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente
+	
 	/**
-	 * Libera richiesta.
+	 * vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente.
 	 *
 	 * @param codiceRichiesta Codice richiesta
 	 */
@@ -311,13 +334,13 @@ public class Lavoro extends DefaultMutableTreeNode{
 			}
 		}
 	}
-	//Libera le richieste con associata una data macchina
-	/**
-	 * Libera macchina.
+	
+	/*/**
+	 *Libera le richieste con associata una data macchina.
 	 *
 	 * @param codiceMacchina Codice macchina
 	 */
-	public void liberaMacchina(int codiceMacchina){
+	/*public void liberaMacchina(int codiceMacchina){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getMacchina()!=null){
 				if(item.getMacchina().getCodice()==codiceMacchina){
@@ -325,7 +348,8 @@ public class Lavoro extends DefaultMutableTreeNode{
 				}
 			}
 		}
-	}
+	}*/
+	
 	//Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
 	/**
 	 * Controlla se la richiesta è scoperta.
@@ -340,12 +364,13 @@ public class Lavoro extends DefaultMutableTreeNode{
 		}
 		return false;
 	}
-	/**
+	
+	/*/**
 	 * Where scoperto.
 	 *
 	 * @return the array list
 	 */
-	public ArrayList<Richiesta> whereScoperto(){
+	/*public ArrayList<Richiesta> whereScoperto(){
 		ArrayList<Richiesta>richScoperte=new ArrayList<Richiesta>();
 		for(Richiesta item:macchinariRichiesti){
 			if(!item.isSoddisfatta()){
@@ -353,7 +378,8 @@ public class Lavoro extends DefaultMutableTreeNode{
 			}
 		}
 		return richScoperte;
-	}
+	}*/
+	
 	/**
 	 * Ritorna Lista richieste.
 	 *
@@ -362,6 +388,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public ArrayList<Richiesta> getListaRichieste(){
 		return macchinariRichiesti;
 	}
+	
 	/**
 	 * Gets the priorita.
 	 *
@@ -370,6 +397,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public Priorita getPriorita(){
 		return cantiere.getPriorita();
 	}
+	
 	/**
 	 * Gets the codice cantiere.
 	 *
@@ -378,6 +406,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public int getCodiceCantiere(){
 		return cantiere.getCodice();
 	}
+	
 	/**
 	 * Gets the lavori connessi.
 	 *
@@ -386,6 +415,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	public ArrayList<Lavoro> getLavoriConnessi(){
 		return cantiere.getElencoLavori();
 	}
+	
 	/**
 	 * Gets the durata.
 	 *
