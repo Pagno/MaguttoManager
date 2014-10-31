@@ -90,13 +90,13 @@ public class ControllerCantiereTest {
 		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
 
 		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
-		ModelCantiere.getModelCantiere().caricaRichiesta(21, 45, 17, richiestaGru, null);
+		ModelCantiere.getModelCantiere().aggiungiRichiesta(21, 45,richiestaGru);
 		
-		ArrayList<Macchina> arr=canCtrl.getElencoMacchineDisponibili(17);
+		ArrayList<Macchina> arr=canCtrl.getElencoMacchineDisponibili(1);
 		ArrayList<Macchina> arr2=new ArrayList<Macchina>(java.util.Arrays.asList(g));
 		assertEquals(arr, arr2);
-		canCtrl.soddisfaRichiesta(17,17);
-		arr=canCtrl.getElencoMacchineDisponibili(17);
+		canCtrl.soddisfaRichiesta(1,17);
+		arr=canCtrl.getElencoMacchineDisponibili(1);
 		assertNotEquals(arr, arr2);
 	}
 	
@@ -152,13 +152,13 @@ public class ControllerCantiereTest {
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
 		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
-		ModelCantiere.getModelCantiere().caricaRichiesta(21, 45, 3, richiestaGru, null);
+		ModelCantiere.getModelCantiere().aggiungiRichiesta(21, 45, richiestaGru);
 		
-		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(3).isSoddisfatta());
+		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(1).isSoddisfatta());
 		
-		canCtrl.soddisfaRichiesta(3, 17);
+		canCtrl.soddisfaRichiesta(1, 17);
 		
-		assertTrue(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(3).isSoddisfatta());
+		assertTrue(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(1).isSoddisfatta());
 	}
 
 	@Test
@@ -180,11 +180,11 @@ public class ControllerCantiereTest {
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
 		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
-		ModelCantiere.getModelCantiere().caricaRichiesta(21, 45, 3, richiestaGru, null);
+		ModelCantiere.getModelCantiere().aggiungiRichiesta(21, 45,richiestaGru);
 		
-		assertTrue(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).hasRichiesta(3));
+		assertTrue(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).hasRichiesta(1));
 		
-		canCtrl.eliminaRichiesta(3);
+		canCtrl.eliminaRichiesta(1);
 		
 		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).hasRichiesta(3));
 		
@@ -197,15 +197,15 @@ public class ControllerCantiereTest {
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(21, 45, "Scavi", new GregorianCalendar(2015, 0, 1),new GregorianCalendar(2015, 1, 28));
 		RichiestaGru richiestaGru=new RichiestaGru(25, 35, -1, -1, -1, -1, -1, -1);
-		ModelCantiere.getModelCantiere().caricaRichiesta(21, 45, 3, richiestaGru, null);
+		ModelCantiere.getModelCantiere().aggiungiRichiesta(21, 45, richiestaGru);
 		
-		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(3).isSoddisfatta());
+		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(1).isSoddisfatta());
 		
-		canCtrl.soddisfaRichiesta(3, 17);
+		canCtrl.soddisfaRichiesta(1, 17);
 		
-		assertTrue(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(3).isSoddisfatta());
-		canCtrl.liberaRichiesta(3);
-		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(3).isSoddisfatta());
+		assertTrue(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(1).isSoddisfatta());
+		canCtrl.liberaRichiesta(1);
+		assertFalse(ModelCantiere.getModelCantiere().getCantiere(21).getLavoro(45).getRichiesta(1).isSoddisfatta());
 		
 	}
 
@@ -228,7 +228,8 @@ public class ControllerCantiereTest {
 		ModelCantiere.getModelCantiere().caricaCantiere(22,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
 		ModelCantiere.getModelCantiere().caricaLavoro(22,16, "Scavi", new GregorianCalendar(2015, 2, 1),new GregorianCalendar(2015, 2, 26));
 		RichiestaRuspa rRuspa=new RichiestaRuspa(70, 110, -1, -1, -1, -1) ;
-		ModelCantiere.getModelCantiere().caricaRichiesta(22, 16, 9, rRuspa, ModelRuspa.getModelRuspa().getRuspa(7));
+		ModelCantiere.getModelCantiere().aggiungiRichiesta(22, 16, rRuspa);
+		ModelCantiere.getModelCantiere().soddisfaRichiesta(1, ModelRuspa.getModelRuspa().getRuspa(7));
 		
 		
 		ModelCantiere.getModelCantiere().caricaCantiere(21,"Bottanuco", "via Chiusa", new GregorianCalendar(2014, 11, 1),new GregorianCalendar(2015, 12, 22), Priorita.ALTA);
@@ -240,7 +241,8 @@ public class ControllerCantiereTest {
 		canCtrl.modificaLavoro(21,15, "Pilastri",new GregorianCalendar(2015, 0, 3), new GregorianCalendar(2015, 1, 25));
 		
 		
-		ModelCantiere.getModelCantiere().caricaRichiesta(21, 15, 8, rRuspa2, ModelRuspa.getModelRuspa().getRuspa(7));
+		ModelCantiere.getModelCantiere().aggiungiRichiesta(21, 15, rRuspa2);
+		ModelCantiere.getModelCantiere().soddisfaRichiesta(2, ModelRuspa.getModelRuspa().getRuspa(7));
 		
 		
 		
@@ -253,7 +255,7 @@ public class ControllerCantiereTest {
 		assertEquals( new GregorianCalendar(2015, 0, 3),lavoro.getDataInizio());
 		assertEquals(new GregorianCalendar(2015, 1, 25),lavoro.getDataFine());
 		
-		assertTrue(ModelCantiere.getModelCantiere().getRichiesta(8).isSoddisfatta());
+		assertTrue(ModelCantiere.getModelCantiere().getRichiesta(2).isSoddisfatta());
 		
 		//SE CLICCO YES PER ELIMINARE LA RICHIESTA la richiesta deve essere liberata
 		canCtrl.modificaLavoro(21,15, "Fondamenta", new GregorianCalendar(2015, 2, 15), new GregorianCalendar(2015, 4, 1));
@@ -262,7 +264,7 @@ public class ControllerCantiereTest {
 		assertEquals("Fondamenta",lavoro.getNome());
 		assertEquals( new GregorianCalendar(2015, 2, 15),lavoro.getDataInizio());
 		assertEquals(new GregorianCalendar(2015, 4, 1),lavoro.getDataFine());
-		assertFalse(ModelCantiere.getModelCantiere().getRichiesta(8).isSoddisfatta());
+		assertFalse(ModelCantiere.getModelCantiere().getRichiesta(2).isSoddisfatta());
 		
 
 	}

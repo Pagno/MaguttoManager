@@ -35,7 +35,7 @@ public class RichiestaTest {
 	public void testRichiestaRichiestaMacchinaInt() {
 		assertEquals(r.getCaratteristiche(),new RichiestaRuspa(5,10,5,10,5,10));
 		assertEquals(r.getCodice(),22);
-		assertEquals(Richiesta.getNextCodice(),101);
+		assertEquals(Richiesta.getNextCodice(),105);
 		assertEquals(r.getMacchina(),null);
 		assertFalse(r.isSoddisfatta());
 	}
@@ -166,13 +166,14 @@ public class RichiestaTest {
 		Lavoro lavoro2=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 9, 01),new GregorianCalendar(2014, 11, 1));
 		Richiesta r2=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro2,22);
 		
-		System.out.println(r.compareTo(r2));
+		assertEquals(-10,r.compareTo(r2));
 		
 		lavoro2=new Lavoro(5,"Scavi",cantiere, new GregorianCalendar(2014, 10, 01),new GregorianCalendar(2014, 11, 1));
 		r2=new Richiesta(new RichiestaCamion(10,20,10,20,10,20),lavoro2,22);
 		
 
 		assertEquals(-1,r.compareTo(r2));
+		
 		
 		}
 
@@ -271,7 +272,7 @@ public class RichiestaTest {
 		RichiestaRuspa rr=new RichiestaRuspa(1,2,3,4,5,6);
 		r=new Richiesta(rr, lavoro);
 		test=r.getData();
-		assertEquals(test.get(0),"22");
+		assertEquals(test.get(0),"101");
 		assertEquals(test.get(1),"Ruspa");
 		assertEquals(test.get(2),"1");//MinCapacita
 		assertEquals(test.get(3),"2");//MaxCapacita
@@ -289,7 +290,7 @@ public class RichiestaTest {
 		RichiestaCamion rc=new RichiestaCamion(1, 2, 3, 4, 5, 6);
 		r=new Richiesta(rc, lavoro);
 		test=r.getData();
-		assertEquals(test.get(0),"22");
+		assertEquals(test.get(0),"102");
 		assertEquals(test.get(1),"Camion");
 		assertEquals(test.get(2),"1");//MinCapacita
 		assertEquals(test.get(3),"2");//MaxCapacita
@@ -307,7 +308,7 @@ public class RichiestaTest {
 		RichiestaGru rg=new RichiestaGru(1, 2, 3, 4, 5, 6, 7, 8);
 		r=new Richiesta(rg, lavoro);
 		test=r.getData();
-		assertEquals(test.get(0),"22");
+		assertEquals(test.get(0),"103");
 		assertEquals(test.get(1),"Gru");
 		assertEquals(test.get(2),"0");//MinCapacita
 		assertEquals(test.get(3),"0");//MaxCapacita
@@ -325,7 +326,7 @@ public class RichiestaTest {
 		RichiestaEscavatore re=new RichiestaEscavatore(1, 2, 3, 4, 5, 6, 7, 8);
 		r=new Richiesta(re, lavoro);
 		test=r.getData();
-		assertEquals(test.get(0),"22");
+		assertEquals(test.get(0),"104");
 		assertEquals(test.get(1),"Escavatore");
 		assertEquals(test.get(2),"1");//MinCapacita
 		assertEquals(test.get(3),"2");//MaxCapacita

@@ -479,6 +479,7 @@ public class ModelCantiere extends DefaultTreeModel{
 			return true;
 			}
 		}
+		
 		return false;
 	}
 	
@@ -498,7 +499,7 @@ public class ModelCantiere extends DefaultTreeModel{
 		}
 	}*/
 	
-	/*/**
+	/*
 	 * Quando voglio caricare una richiesta da DB, devo impostare il codice secondo quanto inserito in precedenza e inserire l'eventuale macchina
 	 *
 	 * @param codiceCantiere codice del cantiere
@@ -506,8 +507,8 @@ public class ModelCantiere extends DefaultTreeModel{
 	 * @param codiceRichiesta codice della richiesta
 	 * @param caratteristiche caratteristiche richieste
 	 * @param macchina la macchina che soddisfa la richiesta
-	 */
-	/*public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
+	 *
+	public void caricaRichiesta(int codiceCantiere, int codiceLavoro, int codiceRichiesta, RichiestaMacchina caratteristiche, Macchina macchina){
 		Cantiere item=getCantiere(codiceCantiere);
 		if(item!=null){
 			if(item.hasLavoro(codiceLavoro)){
