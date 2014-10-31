@@ -51,7 +51,7 @@ import controller.ControllerInterface;
 /**
  * The Class ViewLavoro.
  */
-public class ViewLavoro extends JDialog implements Observer {
+public class ViewLavoro extends JDialog{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2004768729465641055L;
@@ -342,26 +342,6 @@ public class ViewLavoro extends JDialog implements Observer {
 				treeModel.reload();
 			}
 		};
-	}
-
-	/**
-	 * Adds the lavoro.
-	 *
-	 * @param work
-	 *            the work
-	 */
-	private void addLavoro(ArrayList<String> work) {
-		treeModel.addWork(work);
-	}
-
-	/**
-	 * Adds the richiesta.
-	 *
-	 * @param associazione
-	 *            the associazione
-	 */
-	private void addRichiesta(ArrayList<String> associazione) {
-		treeModel.addRichiesta(associazione);
 	}
 
 	/**
@@ -726,19 +706,4 @@ public class ViewLavoro extends JDialog implements Observer {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		ArrayList<String> arg = new ArrayList<String>(
-				Arrays.asList((String[]) arg1));
-		if (arg.size() == 4) {
-			addLavoro(arg);
-		} else {
-			addRichiesta(arg);
-		}
-	}
 }

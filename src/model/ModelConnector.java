@@ -294,8 +294,8 @@ public class ModelConnector implements ModelInterface{
 							db.update(qry);
 						}else if(richiesta.getCaratteristiche() instanceof RichiestaEscavatore ){
 							RichiestaEscavatore escavatore=(RichiestaEscavatore)richiesta.getCaratteristiche();
-							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,AltezzaMin,AltezzaMin,PortataMin,PortataMax,CapacitaMin,CapacitaMax,ProfonditaMin,ProfonditaMax)"+
-								"values(" + richiesta.getCodice() + ",'" + lavoro.getCodice() + ","+codice+"'Escavatore'," +
+							qry = "insert into APP.Richiesta (Codice,CodiceLavoro,"+codiceMacchina+"Tipo,AltezzaMin,AltezzaMax,PortataMin,PortataMax,CapacitaMin,CapacitaMax,ProfonditaMin,ProfonditaMax)"+
+								"values(" + richiesta.getCodice() + "," + lavoro.getCodice() + ","+codice+"'Escavatore'," +
 								escavatore.getMinAltezza() + "," + escavatore.getMaxAltezza() + "," + escavatore.getMinPortata() + "," +  escavatore.getMaxPortata() + "," + 
 								escavatore.getMinCapacita() + "," + escavatore.getMaxCapacita() + "," + escavatore.getMinProfondita() +"," + escavatore.getMaxProfondita() +")" ;
 							db.update(qry);
