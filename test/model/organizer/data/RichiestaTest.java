@@ -47,12 +47,6 @@ public class RichiestaTest {
 	}
 
 	@Test
-	public void testSetCaratteristiche() {
-		r.setCaratteristiche(new RichiestaCamion(10,20,10,20,10,20));
-		assertEquals(r.getCaratteristiche(),new RichiestaCamion(10,20,10,20,10,20));
-	}
-
-	@Test
 	public void testIsSoddisfatta() {
 		assertFalse(r.isSoddisfatta());
 		r.setMacchina(new Ruspa(10,"Pippo","Pippo",7,7,7));
@@ -275,7 +269,7 @@ public class RichiestaTest {
 		assertEquals(test.get(13),"0");//MaxAngoloRotazione
 		assertEquals(test.size(),14);
 		RichiestaRuspa rr=new RichiestaRuspa(1,2,3,4,5,6);
-		r.setCaratteristiche(rr);
+		r=new Richiesta(rr, lavoro);
 		test=r.getData();
 		assertEquals(test.get(0),"22");
 		assertEquals(test.get(1),"Ruspa");
@@ -293,7 +287,7 @@ public class RichiestaTest {
 		assertEquals(test.get(13),"0");//MaxAngoloRotazione
 		assertEquals(test.size(),14);
 		RichiestaCamion rc=new RichiestaCamion(1, 2, 3, 4, 5, 6);
-		r.setCaratteristiche(rc);
+		r=new Richiesta(rc, lavoro);
 		test=r.getData();
 		assertEquals(test.get(0),"22");
 		assertEquals(test.get(1),"Camion");
@@ -311,7 +305,7 @@ public class RichiestaTest {
 		assertEquals(test.get(13),"0");//MaxAngoloRotazione
 		assertEquals(test.size(),14);
 		RichiestaGru rg=new RichiestaGru(1, 2, 3, 4, 5, 6, 7, 8);
-		r.setCaratteristiche(rg);
+		r=new Richiesta(rg, lavoro);
 		test=r.getData();
 		assertEquals(test.get(0),"22");
 		assertEquals(test.get(1),"Gru");
@@ -329,7 +323,7 @@ public class RichiestaTest {
 		assertEquals(test.get(13),"8");//MaxAngoloRotazione
 		assertEquals(test.size(),14);
 		RichiestaEscavatore re=new RichiestaEscavatore(1, 2, 3, 4, 5, 6, 7, 8);
-		r.setCaratteristiche(re);
+		r=new Richiesta(re, lavoro);
 		test=r.getData();
 		assertEquals(test.get(0),"22");
 		assertEquals(test.get(1),"Escavatore");
