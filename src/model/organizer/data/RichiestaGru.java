@@ -312,7 +312,32 @@ public class RichiestaGru extends RichiestaMacchina {
 		return soddisfa;
 	}
 	
-	
+	@Override
+	public boolean inConflitto(RichiestaMacchina other){
+		if(other instanceof RichiestaGru){
+			RichiestaGru ro;
+			ro=(RichiestaGru)other;
+			
+			boolean conflitto=gestisciLimiti(this.getMinLunghezza(),this.getMaxLunghezza(),ro.getMinLunghezza(),ro.getMaxLunghezza());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinPortata(),this.getMaxPortata(),ro.getMinPortata(),ro.getMaxPortata());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinAngoloRotazione(),this.getMaxAngoloRotazione(),ro.getMinAngoloRotazione(),ro.getMaxAngoloRotazione());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinAltezza(),this.getMaxAltezza(),ro.getMinAltezza(),ro.getMaxAltezza());
+			if(!conflitto){
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	
 }

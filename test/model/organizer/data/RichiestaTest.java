@@ -441,44 +441,5 @@ public class RichiestaTest {
 		assertFalse(ric3.collide(ric1));
 	}
 	
-	@Test
-	public void testGestisciLimiti(){
-		int aMin, aMax, bMin, bMax;
-		aMin=5;
-		aMax=10;
-		bMin=15;
-		bMax=20;
-		assertFalse(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertFalse(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		aMax=15;
-		bMin=10;
-		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		aMin=-1;
-		aMax=-1;
-		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		aMax=15;
-		bMin=-1;
-		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		bMin=10;
-		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		bMin=17;
-		assertFalse(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertFalse(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		aMin=10;
-		aMax=-1;
-		bMax=-1;
-		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		bMax=20;
-		assertTrue(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertTrue(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-		bMin=6;
-		bMax=7;
-		assertFalse(Richiesta.gestisciLimiti(aMin, aMax, bMin, bMax));
-		assertFalse(Richiesta.gestisciLimiti(bMin, bMax, aMin, aMax));
-	}
+	
 }

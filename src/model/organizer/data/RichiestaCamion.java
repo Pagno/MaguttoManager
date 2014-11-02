@@ -248,6 +248,28 @@ public class RichiestaCamion extends RichiestaMacchina {
 		return soddisfa;
 	}
 	
+	@Override
+	public boolean inConflitto(RichiestaMacchina other){
+		if(other instanceof RichiestaCamion){
+			RichiestaCamion ro;
+			ro=(RichiestaCamion)other;
+			boolean conflitto=gestisciLimiti(this.getMinCapacita(),this.getMaxCapacita(),ro.getMinCapacita(),ro.getMaxCapacita());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinPortata(),this.getMaxPortata(),ro.getMinPortata(),ro.getMaxPortata());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinLunghezza(),this.getMaxLunghezza(),ro.getMinLunghezza(),ro.getMaxLunghezza());
+			if(!conflitto){
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
 	
 	
 	

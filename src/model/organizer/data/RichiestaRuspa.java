@@ -246,4 +246,28 @@ public class RichiestaRuspa extends RichiestaMacchina {
 		soddisfa=soddisfa && ((maxAltezza==-1)?soddisfa:ruspa.getAltezzaMassima() <= maxAltezza);
 		return soddisfa;
 	}
+	
+	@Override
+	public boolean inConflitto(RichiestaMacchina other){
+		if(other instanceof RichiestaRuspa){
+			RichiestaRuspa ro;
+			ro=(RichiestaRuspa)other;
+			
+			boolean conflitto=gestisciLimiti(this.getMinCapacita(),this.getMaxCapacita(),ro.getMinCapacita(),ro.getMaxCapacita());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinPortata(),this.getMaxPortata(),ro.getMinPortata(),ro.getMaxPortata());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinAltezza(),this.getMaxAltezza(),ro.getMinAltezza(),ro.getMaxAltezza());
+			if(!conflitto){
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
 }

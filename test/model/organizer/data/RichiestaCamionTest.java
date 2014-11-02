@@ -115,4 +115,23 @@ public class RichiestaCamionTest {
 		rCamion.setMaxLunghezza(-1);
 		assertEquals(rCamion.toString(),"Richiesta:Camion 300-500 3000-4000 10-*");
 	}
+	
+	@Test
+	public void testInConflitto(){
+		RichiestaRuspa ric1=new RichiestaRuspa(5,10,5,10,5,10);
+		RichiestaCamion ric3=new RichiestaCamion(5,10,5,10,5,10);
+		RichiestaCamion ric4=new RichiestaCamion(7,12,7,12,7,12);
+		assertTrue(ric3.inConflitto(ric4));
+		assertTrue(ric4.inConflitto(ric3));
+		ric4=new RichiestaCamion(20,30,7,12,7,12);
+		assertFalse(ric3.inConflitto(ric4));
+		assertFalse(ric4.inConflitto(ric3));
+		ric4=new RichiestaCamion(7,12,20,30,7,12);
+		assertFalse(ric3.inConflitto(ric4));
+		assertFalse(ric4.inConflitto(ric3));
+		ric4=new RichiestaCamion(7,12,7,12,20,30);
+		assertFalse(ric3.inConflitto(ric4));
+		assertFalse(ric4.inConflitto(ric3));
+		assertFalse(ric3.inConflitto(ric1));
+	}
 }

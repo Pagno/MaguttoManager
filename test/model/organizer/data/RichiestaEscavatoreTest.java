@@ -141,4 +141,26 @@ public class RichiestaEscavatoreTest {
 		rEscavatore.setMaxProfondita(-1);
 		assertEquals(rEscavatore.toString(),"Richiesta:Escavatore 30-40 120-130 10-15 5-*");
 	}
+	
+	@Test
+	public void testInConflitto(){
+		RichiestaGru ric5=new RichiestaGru(5,10,5,10,5,10,5,10);
+		RichiestaEscavatore ric7=new RichiestaEscavatore(5,10,5,10,5,10,5,10);
+		RichiestaEscavatore ric8=new RichiestaEscavatore(7,12,7,12,7,12,7,12);
+		assertTrue(ric7.inConflitto(ric8));
+		assertTrue(ric7.inConflitto(ric8));
+		ric8=new RichiestaEscavatore(20,30,7,12,7,12,7,12);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		ric8=new RichiestaEscavatore(7,12,20,30,7,12,7,12);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		ric8=new RichiestaEscavatore(7,12,7,12,20,30,7,12);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		ric8=new RichiestaEscavatore(7,12,7,12,7,12,20,30);
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric8));
+		assertFalse(ric7.inConflitto(ric5));
+	}
 }

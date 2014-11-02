@@ -2,10 +2,6 @@ package model.organizer.data;
 
 import static org.junit.Assert.*;
 
-
-
-
-
 import org.junit.Test;
 
 // 
@@ -119,5 +115,24 @@ public class RichiestaRuspaTest {
 		rRuspa.setMinPortata(300);
 		rRuspa.setMaxPortata(-1);
 		assertEquals(rRuspa.toString(),"Richiesta:Ruspa 100-200 300-* 10-15");
+	}
+	
+	@Test
+	public void testInConflitto(){
+		RichiestaRuspa ric1=new RichiestaRuspa(5,10,5,10,5,10);
+		RichiestaRuspa ric2=new RichiestaRuspa(7,12,7,12,7,12);
+		RichiestaCamion ric3=new RichiestaCamion(5,10,5,10,5,10);
+		assertTrue(ric1.inConflitto(ric2));
+		assertTrue(ric2.inConflitto(ric1));
+		ric2=new RichiestaRuspa(20,30,7,12,7,12);
+		assertFalse(ric1.inConflitto(ric2));
+		assertFalse(ric2.inConflitto(ric1));
+		ric2=new RichiestaRuspa(7,12,20,30,7,12);
+		assertFalse(ric1.inConflitto(ric2));
+		assertFalse(ric2.inConflitto(ric1));
+		ric2=new RichiestaRuspa(7,12,7,12,20,30);
+		assertFalse(ric1.inConflitto(ric2));
+		assertFalse(ric2.inConflitto(ric1));
+		assertFalse(ric1.inConflitto(ric3));
 	}
 }

@@ -317,7 +317,32 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 	}
 	
 	
-	
+	@Override
+	public boolean inConflitto(RichiestaMacchina other){
+		if(other instanceof RichiestaEscavatore){
+			RichiestaEscavatore ro;
+			ro=(RichiestaEscavatore)other;
+			
+			boolean conflitto=gestisciLimiti(this.getMinCapacita(),this.getMaxCapacita(),ro.getMinCapacita(),ro.getMaxCapacita());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinPortata(),this.getMaxPortata(),ro.getMinPortata(),ro.getMaxPortata());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinProfondita(),this.getMaxProfondita(),ro.getMinProfondita(),ro.getMaxProfondita());
+			if(!conflitto){
+				return false;
+			}
+			conflitto=gestisciLimiti(this.getMinAltezza(),this.getMaxAltezza(),ro.getMinAltezza(),ro.getMaxAltezza());
+			if(!conflitto){
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	
 }

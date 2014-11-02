@@ -133,4 +133,26 @@ public class RichiestaGruTest {
 		rGru.setMaxAngoloRotazione(-1);
 		assertEquals(rGru.toString(),"Richiesta:Gru 30-40 20-30 3000-4000 90-*");
 	}
+	
+	@Test
+	public void testInConflitto(){
+		RichiestaGru ric5=new RichiestaGru(5,10,5,10,5,10,5,10);
+		RichiestaGru ric6=new RichiestaGru(7,12,7,12,7,12,7,12);
+		RichiestaEscavatore ric7=new RichiestaEscavatore(5,10,5,10,5,10,5,10);
+		assertTrue(ric5.inConflitto(ric6));
+		assertTrue(ric6.inConflitto(ric5));
+		ric6=new RichiestaGru(20,30,7,12,7,12,7,12);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		ric6=new RichiestaGru(7,12,20,30,7,12,7,12);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		ric6=new RichiestaGru(7,12,7,12,20,30,7,12);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		ric6=new RichiestaGru(7,12,7,12,7,12,20,30);
+		assertFalse(ric5.inConflitto(ric6));
+		assertFalse(ric6.inConflitto(ric5));
+		assertFalse(ric5.inConflitto(ric7));
+	}
 }
