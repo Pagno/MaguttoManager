@@ -1,8 +1,9 @@
 package model.organizer.data;
 
 /**
- *   Questa classe astratta rappresenta l'interfaccia delle caratteristiche richieste dalle macchine. Definisce quindi 
- *   i metodi che devono essere implementati dalle sue specializzazioni, una specializzazione per ciascun tipo di macchina.
+ *   Questa classe astratta indica i metodi comuni che devono esser posseduti dalle caratteristiche richieste dalle macchine. 
+ *   Definisce quindi i metodi che devono essere implementati dalle sue specializzazioni, una specializzazione per ciascun tipo 
+ *   di macchina.
  *   <p>
  *   Definisce inoltre il metodo statico usato per confrontare gli intervalli di caratteristiche.
  *   

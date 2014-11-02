@@ -4,32 +4,37 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import model.organizer.data.Gru;
-import model.organizer.data.Ruspa;
 
 
-// 
 /**
- *   Class ModelGru.
+ *   La classe ModelGru permette di gestire tutte le istanze della classe Gru.
+ *   <p>
+ *   Permette quindi di inserire, modificare o eliminare gru.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ModelGru extends ModelMacchina{
 	
-	/**   lista gru. */
+	/**   Lista delle gru. */
 	private ArrayList<Gru> listaGru;
 	
-	/**   istanza. */
+	/**   Istanza di ModelGru. */
 	private static ModelGru istanza;
 
 	/**
-	 * Instantiates a new model gru.
+	 * Istanzia un nuovo ModelGru.
 	 */
 	private ModelGru(){
 		listaGru=new ArrayList<Gru>();
 	}
 
 	/**
-	 * Gets   model gru.
+	 * Restituisce una nuova istanza di ModelGru se non ne &egrave; stata istanziata una in precedenza, altrimenti restituisce
+	 * l'istanza realizzata in precedenza.<p>
+	 * Questo metodo permette di adottare il pattern Singleton.
 	 *
-	 * @return   model gru
+	 * @return L'istanza di ModelCamion
 	 */
 	public static synchronized ModelGru getModelGru(){
 		if(istanza==null){
@@ -39,14 +44,14 @@ public class ModelGru extends ModelMacchina{
 	}
 
 	/**
-	 * Aggiungi gru.
+	 * Aggiunge una gru alla lista.
 	 *
-	 * @param produttore   produttore
-	 * @param modello   modello
-	 * @param rotazione   rotazione
-	 * @param portata   portata
-	 * @param lunghezza   lunghezza
-	 * @param altezza   altezza
+	 * @param produttore Il produttore della gru
+	 * @param modello Il modello della gru
+	 * @param rotazione L'angolo di rotazione della gru
+	 * @param portata La portata della gru
+	 * @param lunghezza La lunghezza della gru
+	 * @param altezza L'altezza della gru
 	 */
 	public void aggiungiGru(String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		incrementaCodice();
@@ -60,15 +65,16 @@ public class ModelGru extends ModelMacchina{
 	}
 	
 	/**
-	 * Carica gru.
+	 * Carica una gru nella lista.<p>
+	 * Da usare esclusivamente quando si caricano le gru da database.
 	 *
-	 * @param codice   codice
-	 * @param produttore   produttore
-	 * @param modello   modello
-	 * @param rotazione   rotazione
-	 * @param portata   portata
-	 * @param lunghezza   lunghezza
-	 * @param altezza   altezza
+	 * @param codice Il codice della gru
+	 * @param produttore Il produttore della gru
+	 * @param modello Il modello della gru
+	 * @param rotazione L'angolo di rotazione della gru
+	 * @param portata La portata della gru
+	 * @param lunghezza La lunghezza della gru
+	 * @param altezza L'altezza della gru
 	 */
 	public void caricaGru(int codice, String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		aggiornaCodice(codice);
@@ -82,15 +88,15 @@ public class ModelGru extends ModelMacchina{
 	}
 
 	/**
-	 * Modifica gru.
+	 * Modifica la gru identificata dal codice inserito.
 	 *
-	 * @param codice   codice
-	 * @param produttore   produttore
-	 * @param modello   modello
-	 * @param rotazione   rotazione
-	 * @param portata   portata
-	 * @param lunghezza   lunghezza
-	 * @param altezza   altezza
+	 * @param codice Il codice della gru
+	 * @param produttore Il produttore della gru
+	 * @param modello Il modello della gru
+	 * @param rotazione L'angolo di rotazione della gru
+	 * @param portata La portata della gru
+	 * @param lunghezza La lunghezza della gru
+	 * @param altezza L'altezza della gru
 	 */
 	public void modificaGru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		for(Gru item:listaGru){
@@ -109,10 +115,10 @@ public class ModelGru extends ModelMacchina{
 	}
 
 	/**
-	 * Elimina gru.
+	 * Elimina la gru identificata dal codice inserito.
 	 *
-	 * @param codice   codice
-	 * @return true, if successful
+	 * @param codice Il codice della gru
+	 * @return true, se la gru viene eliminata correttamente
 	 */
 	public boolean eliminaGru(int codice){
 		for(Gru item:listaGru){
@@ -125,19 +131,19 @@ public class ModelGru extends ModelMacchina{
 	}
 	
 	/**
-	 * Gets   lista.
+	 * Restituisce la lista delle ruspe.
 	 *
-	 * @return   lista
+	 * @return La lista delle ruspe
 	 */
 	public ArrayList<Gru> getLista(){
 		return listaGru;
 	}
 
 	/**
-	 * Checks if is gru.
+	 * Verifica se la macchina che possiede il codice indicato è effettivamente una gru.
 	 *
-	 * @param codice   codice
-	 * @return true, if is gru
+	 * @param codice Il codice della macchina desiderata
+	 * @return true, se il codice indicato appartiene a una gru
 	 */
 	public boolean isGru(Integer codice){
 		for(Gru item:listaGru){
@@ -149,10 +155,10 @@ public class ModelGru extends ModelMacchina{
 	}
 
 	/**
-	 * Gets   gru.
+	 * Restituisce la gru indentificata dal codice inserito.
 	 *
-	 * @param codice   codice
-	 * @return   gru
+	 * @param codice Il codice della gru desiderata
+	 * @return La gru desiderata
 	 */
 	public Gru getGru(Integer codice){
 		for(Gru item:listaGru){
@@ -163,6 +169,13 @@ public class ModelGru extends ModelMacchina{
 		return null;
 	}
 	
+	/**
+	 * Restituisce la lista contenente le gru disponibili nel periodo indicato dalle due date.
+	 *
+	 * @param dataInizio La data d'inizio del periodo
+	 * @param dataFine La data di fine del periodo
+	 * @return La lista delle gru disponibili nel periodo indicato
+	 */
 	public ArrayList<Gru> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		ArrayList<Gru> listaLibera=new ArrayList<Gru>();
 		
@@ -189,7 +202,7 @@ public class ModelGru extends ModelMacchina{
 	
 
 	/**
-	 * Reset for test.
+	 * Resetta la lista e il codice per effettuare i test.
 	 */
 	public void resetForTest(){
 		/*if(istanza!=null){
@@ -199,12 +212,22 @@ public class ModelGru extends ModelMacchina{
 		ModelMacchina.initCodice();
 		listaGru.clear();
 	}
+	
+	/**
+	 * Distrugge l'istanza per eseguire i test.
+	 */
 	public void initForTest(){
 		if(istanza!=null){
 			ModelMacchina.initCodice();
 			istanza=null;
 		}
 	}
+	
+	/**
+	 * Aggiunge una Gru per effettuare i test.
+	 * 
+	 * @param gru La gru da inserire
+	 */
 	public void aggiungiGruForTest(Gru gru){
 		aggiornaCodice(gru.getCodice());
 		listaGru.add(gru);

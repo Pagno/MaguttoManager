@@ -6,29 +6,35 @@ import java.util.GregorianCalendar;
 import model.organizer.data.Camion;
 
 
-// 
 /**
- *   Class ModelCamion.
+ *   La classe ModelCamion permette di gestire tutte le istanze della classe Camion.
+ *   <p>
+ *   Permette quindi di inserire, modificare o eliminare camion.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ModelCamion extends ModelMacchina{
 	
-	/**   lista camion. */
+	/**   Lista di camion. */
 	private ArrayList<Camion> listaCamion;
 	
-	/**   istanza. */
+	/**   Istanza di ModelCamion. */
 	private static ModelCamion istanza;
 
 	/**
-	 * Instantiates a new model camion.
+	 * Istanzia un nuovo ModelCamion.
 	 */
 	private ModelCamion(){
 		listaCamion=new ArrayList<Camion>();
 	}
 	
 	/**
-	 * Gets   model camion.
+	 * Restituisce una nuova istanza di ModelCamion se non ne &egrave; stata istanziata una in precedenza, altrimenti restituisce
+	 * l'istanza realizzata in precedenza.<p>
+	 * Questo metodo permette di adottare il pattern Singleton.
 	 *
-	 * @return   model camion
+	 * @return L'istanza di ModelCamion
 	 */
 	public static synchronized ModelCamion getModelCamion(){
 		if(istanza==null){
@@ -38,73 +44,74 @@ public class ModelCamion extends ModelMacchina{
 	}
 
 	/**
-	 * Aggiungi camion.
+	 * Aggiunge un camion alla lista.
 	 *
-	 * @param produttore   produttore
-	 * @param Modello   modello
-	 * @param capacita   capacita
-	 * @param portata   portata
-	 * @param lunghezza   lunghezza
+	 * @param produttore Il produttore del camion
+	 * @param modello Il modello del camion
+	 * @param capacita La capacit&agrave; del camion
+	 * @param portata La portata del camion
+	 * @param lunghezza La lunghezza del camion
 	 */
-	public void aggiungiCamion(String produttore,String Modello,int capacita,int portata,int lunghezza){
+	public void aggiungiCamion(String produttore,String modello,int capacita,int portata,int lunghezza){
 		incrementaCodice();
-		Camion cm= new Camion(getCodice(),produttore,Modello,capacita,portata,lunghezza);
+		Camion cm= new Camion(getCodice(),produttore,modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
 		
-		Object[] v1={cm.getCodice(),produttore,Modello,lunghezza,capacita,portata};
+		Object[] v1={cm.getCodice(),produttore,modello,lunghezza,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
 	}
 	
 	/**
-	 * Carica camion.
+	 * Carica un camion nella lista.<p>
+	 * Da usare esclusivamente quando si caricano i camion da database.
 	 *
-	 * @param codice   codice
-	 * @param produttore   produttore
-	 * @param Modello   modello
-	 * @param capacita   capacita
-	 * @param portata   portata
-	 * @param lunghezza   lunghezza
+	 * @param codice Il codice del camion
+	 * @param produttore Il produttore del camion
+	 * @param modello Il modello del camion
+	 * @param capacita La capacit&agrave; del camion
+	 * @param portata La portata del camion
+	 * @param lunghezza La lunghezza del camion
 	 */
-	public void caricaCamion(int codice, String produttore,String Modello,int capacita,int portata,int lunghezza){
+	public void caricaCamion(int codice, String produttore,String modello,int capacita,int portata,int lunghezza){
 		aggiornaCodice(codice);
-		Camion cm= new Camion(codice,produttore,Modello,capacita,portata,lunghezza);
+		Camion cm= new Camion(codice,produttore,modello,capacita,portata,lunghezza);
 		listaCamion.add(cm);
-		Object[] v1={cm.getCodice(),produttore,Modello,lunghezza,capacita,portata};
+		Object[] v1={cm.getCodice(),produttore,modello,lunghezza,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
 	}
 	
 	/**
-	 * Modifica camion.
+	 * Modifica il camion identificato dal codice inserito.
 	 *
-	 * @param codice   codice
-	 * @param produttore   produttore
-	 * @param Modello   modello
-	 * @param capacita   capacita
-	 * @param portata   portata
-	 * @param lunghezza   lunghezza
+	 * @param codice Il codice del camion
+	 * @param produttore Il produttore del camion
+	 * @param modello Il modello del camion
+	 * @param capacita La capacit&agrave; del camion
+	 * @param portata La portata del camion
+	 * @param lunghezza La lunghezza del camion
 	 */
-	public void modificaCamion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
+	public void modificaCamion(int codice,String produttore,String modello,int capacita,int portata,int lunghezza){
 		for(Camion item:listaCamion){
 			if(item.getCodice()==codice){
 				item.setProduttore(produttore);
-				item.setModello(Modello);
+				item.setModello(modello);
 				item.setCapacitaMassima(capacita);
 				item.setPortataMassima( portata);
 				item.setLunghezza(lunghezza);
 			}
 		}
-		Object[] v1={codice,produttore,Modello,lunghezza,capacita,portata};
+		Object[] v1={codice,produttore,modello,lunghezza,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
 	}
 
 	/**
-	 * Elimina camion.
+	 * Elimina il camion identificato dal codice inserito.
 	 *
-	 * @param codice   codice
-	 * @return true, if successful
+	 * @param codice Il codice del camion
+	 * @return true, se il camion viene eliminato correttamente
 	 */
 	public boolean eliminaCamion(int codice){
 		for(Camion item:listaCamion){
@@ -117,19 +124,19 @@ public class ModelCamion extends ModelMacchina{
 	}
 
 	/**
-	 * Gets   lista.
+	 * Restituisce la lista dei camion.
 	 *
-	 * @return   lista
+	 * @return La lista dei camion
 	 */
 	public ArrayList<Camion> getLista(){
 		return listaCamion;
 	}
 
 	/**
-	 * Checks if is camion.
+	 * Verifica se la macchina che possiede il codice indicato è effettivamente un camion.
 	 *
-	 * @param codice   codice
-	 * @return true, if is camion
+	 * @param codice Il codice della macchina desiderata
+	 * @return true, se il codice indicato appartiene a un camion
 	 */
 	public boolean isCamion(Integer codice){
 		for(Camion item:listaCamion){
@@ -141,10 +148,10 @@ public class ModelCamion extends ModelMacchina{
 	}
 
 	/**
-	 * Gets   camion.
+	 * Restituisce il camion indentificato dal codice inserito.
 	 *
-	 * @param codice   codice
-	 * @return   camion
+	 * @param codice Il codice del camion desiderato
+	 * @return Il camion desiderato
 	 */
 	public Camion getCamion(Integer codice){
 		for(Camion item:listaCamion){
@@ -155,6 +162,13 @@ public class ModelCamion extends ModelMacchina{
 		return null;
 	}
 	
+	/**
+	 * Restituisce la lista contenente i camion disponibili nel periodo indicato dalle due date.
+	 *
+	 * @param dataInizio La data d'inizio del periodo
+	 * @param dataFine La data di fine del periodo
+	 * @return La lista dei camion disponibili nel periodo indicato
+	 */
 	public ArrayList<Camion> getDisponibili(GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		ArrayList<Camion> listaLibera=new ArrayList<Camion>();
 		
@@ -180,7 +194,7 @@ public class ModelCamion extends ModelMacchina{
 	
 
 	/**
-	 * Reset for test.
+	 * Resetta la lista e il codice per effettuare i test.
 	 */
 	public void resetForTest(){
 		/*if(istanza!=null){
@@ -191,12 +205,18 @@ public class ModelCamion extends ModelMacchina{
 	}
 	
 	/**
-	 * Add Camion for Test.
+	 * Aggiunge un Camion per effettuare i test.
+	 * 
+	 * @param camion Il camion da inserire
 	 */
 	public void aggiungiCamionForTest(Camion camion){
 		aggiornaCodice(camion.getCodice());
 		listaCamion.add(camion);
 	}
+	
+	/**
+	 * Distrugge l'istanza per eseguire i test.
+	 */
 	public void initForTest(){
 		if(istanza!=null){
 			ModelMacchina.initCodice();

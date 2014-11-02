@@ -12,29 +12,34 @@ import model.organizer.data.Richiesta;
 import model.organizer.data.RichiestaMacchina;
 import model.organizer.data.Macchina;
 import model.organizer.data.Priorita;
+
 /**
- * The Class ModelCantiere.
- * Questa classe permette di gestire i cantieri, i lavori e le richieste
+ * La classe ModelCantiere permette di gestire i cantieri, i lavori e le richieste.<p>
+ * Questa classe crea in pratica un albero di istanze di Cantiere, Lavoro e Richiesta, e definisce quindi i metodi necessari a 
+ * gestire tali istanze.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class ModelCantiere extends DefaultTreeModel{
-	/** The lista cantieri. */
+	/** Lista dei cantieri. */
 	private ArrayList<Cantiere> listaCantieri;
 	
-	/** The lavoro observer. */
+	/** Observer del lavoro. */
 	private Observer lavoroObserver;
-	/** The richiesta observer. */
+	/** Observer della richiesta. */
 	private Observer richiestaObserver;
-	/** The cantiere observer. */
+	/** Observer del cantiere. */
 	private Observer cantiereObserver;
-	/** codice. */
+	/** Ultimo codice usato dai cantieri. */
 	private int codice;
-	/** codice lavoro. */
+	/** Ultimo codice usato dai lavori. */
 	private int codiceLavoro;
-	/** istanza. */
+	/** Istanza della classe ModelCantiere. */
 	private static ModelCantiere istanza;
 	
 	/**
-	 * Instantiates a new model cantiere.
+	 * Istanzia un nuovo ModelCantiere.
 	 */
 	private ModelCantiere(){
 		super(null);
@@ -44,9 +49,11 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Getter che permette l'adozione del pattern singleton.
+	 * Restituisce una nuova istanza di ModelCantiere se non ne &egrave; stata istanziata una in precedenza, altrimenti restituisce
+	 * l'istanza realizzata in precedenza.<p>
+	 * Questo metodo permette di adottare il pattern Singleton.
 	 *
-	 * @return model cantiere
+	 * @return L'istanza di ModelCantiere
 	 */
 	public static synchronized ModelCantiere getModelCantiere(){
 		if(istanza==null){
@@ -58,13 +65,13 @@ public class ModelCantiere extends DefaultTreeModel{
 	//OPERAZIONI SUI CANTIERI-------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Aggiungi cantiere.
+	 * Aggiunge un cantiere alla lista dei cantieri.
 	 *
-	 * @param nomeCantiere nome del cantiere
-	 * @param indirizzo indirizzo
-	 * @param dataApertura data apertura
-	 * @param dataChiusura data chiusura
-	 * @param priorita priorita del cantiere
+	 * @param nomeCantiere Il nome del cantiere
+	 * @param indirizzo L'indirizzo del cantiere
+	 * @param dataApertura La data di apertura del cantiere
+	 * @param dataChiusura La data di chiusura del cantiere
+	 * @param priorita La priorit&agrave; del cantiere
 	 */
 	public void aggiungiCantiere(String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		codice++;
@@ -83,14 +90,15 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Carica cantiere.
+	 * Carica un cantiere nella lista.<p>
+	 * Da usare esclusivamente quando si caricano i cantieri da database.
 	 *
-	 * @param codice codice del cantiere
-	 * @param nomeCantiere nome cantiere
-	 * @param indirizzo indirizzo
-	 * @param dataApertura data apertura
-	 * @param dataChiusura data chiusura
-	 * @param priorita priorita del cantiere
+	 * @param codice Il codice del cantiere
+	 * @param nomeCantiere Il nome del cantiere
+	 * @param indirizzo L'indirizzo del cantiere
+	 * @param dataApertura La data di apertura del cantiere
+	 * @param dataChiusura La data di chiusura del cantiere
+	 * @param priorita La priorit&agrave; del cantiere
 	 */
 	public void caricaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		if(this.codice<codice){
@@ -110,14 +118,14 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Modifica cantiere.
+	 * Modifica il cantiere identificato dal codice inserito.
 	 *
-	 * @param codice codice del cantiere
-	 * @param nomeCantiere nome del cantiere
-	 * @param indirizzo indirizzo
-	 * @param dataApertura data apertura
-	 * @param dataChiusura data chiusura
-	 * @param priorita priorita
+	 * @param codice Il codice del cantiere
+	 * @param nomeCantiere Il nome del cantiere
+	 * @param indirizzo L'indirizzo del cantiere
+	 * @param dataApertura La data di apertura del cantiere
+	 * @param dataChiusura La data di chiusura del cantiere
+	 * @param priorita La priorit&agrave; del cantiere
 	 */
 	public void modificaCantiere(Integer codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita){
 		for(Cantiere item:listaCantieri){
@@ -158,10 +166,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Rimuovi cantiere.
+	 * Elimina il cantiere identificato dal codice inserito.
 	 *
-	 * @param codice codice del cantiere
-	 * @return true, if successful
+	 * @param codice Il codice del cantiere
+	 * @return true, se il cantiere viene eliminato correttamente
 	 */
 	public boolean rimuoviCantiere(int codice){
 		for(Cantiere cantiere:listaCantieri){
@@ -175,19 +183,19 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Gets the lista cantieri.
+	 * Restituisce la lista dei cantieri.
 	 *
-	 * @return lista dei cantieri
+	 * @return La lista dei cantieri
 	 */
 	public ArrayList<Cantiere> getListaCantieri(){
 		return listaCantieri;
 	}
 	
 	/**
-	 * Gets the cantiere.
+	 * Restituisce il cantiere indentificato dal codice inserito.
 	 *
-	 * @param codice the codice
-	 * @return the cantiere
+	 * @param codice Il codice del cantiere desiderato
+	 * @return Il cantiere desiderato
 	 */
 	public Cantiere getCantiere(Integer codice){
 		for(Cantiere item:listaCantieri){
@@ -201,10 +209,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	//OPERAZIONI SUI LAVORI----------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Gets the lavoro.
+	 * Restituisce il lavoro indentificato dal codice inserito.
 	 *
-	 * @param codiceLavoro codice del lavoro
-	 * @return lavoro
+	 * @param codice Il codice del lavoro desiderato
+	 * @return Il lavoro desiderato
 	 */
 	public Lavoro getLavoro(Integer codiceLavoro){
 		for(Cantiere item:listaCantieri){
@@ -216,12 +224,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Aggiungi lavoro.
+	 * Aggiunge un lavoro alla lista.
 	 *
-	 * @param codiceCantiere codice del cantiere
-	 * @param nome nome del lavoro
-	 * @param dataInizio data inizio del lavoro
-	 * @param dataFine data fine del lavoro
+	 * @param codiceCantiere Il codice del cantiere cui appartiene il lavoro
+	 * @param nome Il nome del lavoro
+	 * @param dataInizio La data di inizio del lavoro
+	 * @param dataFine La data di fine del lavoro
 	 */
 	public void aggiungiLavoro(int codiceCantiere, String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		this.codiceLavoro++;
@@ -241,13 +249,14 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Carica lavoro presente nel database.
+	 * Carica un lavoro nella lista.<p>
+	 * Da usare esclusivamente quando si caricano i lavori da database.
 	 *
-	 * @param codiceCantiere codice del cantiere
+	 * @param codiceCantiere Il codice del cantiere cui appartiene il lavoro
 	 * @param codiceLavoro codice del lavoro
-	 * @param nome nomedel lavoro
-	 * @param dataInizio data inizio del lavoro
-	 * @param dataFine data fine del lavoro
+	 * @param nome Il nome del lavoro
+	 * @param dataInizio La data di inizio del lavoro
+	 * @param dataFine La data di fine del lavoro
 	 */
 	public void caricaLavoro(int codiceCantiere,int codiceLavoro,String nome, GregorianCalendar dataInizio, GregorianCalendar dataFine){
 		if(this.codiceLavoro<codiceLavoro){
@@ -276,10 +285,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Elimina lavoro.
+	 * Elimina il lavoro identificato dal codice inserito.
 	 *
-	 * @param codiceLavoro codice del lavoro
-	 * @return true, if successful
+	 * @param codice Il codice del lavoro
+	 * @return true, se il lavoro viene eliminato correttamente
 	 */
 	public boolean eliminaLavoro(int codiceLavoro){
 		for(Cantiere item:listaCantieri){
@@ -293,12 +302,12 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Modifica lavoro.
+	 * Modifica il lavoro identificato dal codice inserito.
 	 *
-	 * @param codiceLavoro codice del lavoro
-	 * @param nome nome del lavoro
-	 * @param dataInizio data inizio del lavoro
-	 * @param dataFine data fine del lavoro
+	 * @param codiceLavoro Il codice del lavoro da modificare
+	 * @param nome Il nome del lavoro
+	 * @param dataInizio La data di inizio del lavoro
+	 * @param dataFine La data di fine del lavoro
 	 */
 	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		for(Cantiere item:listaCantieri){
@@ -435,9 +444,9 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Gets the prossimo codice lavoro.
+	 * Restituisce il prossimo codice da assegnare a un lavoro.
 	 *
-	 * @return il prossimo codice lavoro da assegnare
+	 * @return il prossimo codice da assegnare a un lavoro
 	 */
 	int getProssimoCodiceLavoro(){
 		int code=this.codiceLavoro+1;
@@ -447,10 +456,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	//OPERAZIONI SULLE RICHIESTE---------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Gets the richiesta.
+	 * Restituisce una richiesta.
 	 *
-	 * @param codiceRichiesta codice della richiesta
-	 * @return richiesta
+	 * @param codiceRichiesta Il codice della richiesta desiderata
+	 * @return La richiesta desiderata
 	 */
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Cantiere can:listaCantieri){
@@ -464,12 +473,13 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Aggiunge una nuova richiesta, che quindi non ï¿½ soddisfatta
+	 * Aggiunge una nuova richiesta.<p>
+	 * Inizialmente la richiesta non &egrave; soddisfatta, la macchina quindi &egrave; impostata a null.
 	 *
-	 * @param codiceCantiere codice del cantiere
-	 * @param codiceLavoro codice del lavoro
-	 * @param caratteristiche caratteristiche richieste
-	 * @return true, if successful
+	 * @param codiceCantiere Il codice del cantiere cui appartiene il lavoro
+	 * @param codiceLavoro Il codice del lavoro cui appartiene la richiesta
+	 * @param caratteristiche Le caratteristiche che devono esser rispettate dalla macchina
+	 * @return true, se la richiesta è stata inserita correttamente
 	 */
 	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,RichiestaMacchina caratteristiche){
 		Cantiere item=getCantiere(codiceCantiere);
@@ -519,11 +529,11 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Soddisfa richiesta.
+	 * Associa la macchina a una richiesta.
 	 *
-	 * @param codiceRichiesta codice della richiesta
-	 * @param m la macchina
-	 * @return true, if successful
+	 * @param codiceRichiesta Il codice della richiesta
+	 * @param m La macchina da associare alla richiesta
+	 * @return true, se la macchina viene associata correttamente alla richiesta
 	 */
 	public boolean soddisfaRichiesta(int codiceRichiesta, Macchina m){
 		for(Cantiere can:listaCantieri){
@@ -635,10 +645,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Libera richiesta.
+	 * Libera la richiesta dall'associazione alla macchina.
 	 *
-	 * @param codiceRichiesta codice della richiesta
-	 * @return true, if successful
+	 * @param codiceRichiesta Il codice della richiesta
+	 * @return true, se la richiesta viene liberata correttamente
 	 */
 	public boolean liberaRichiesta(int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
@@ -690,10 +700,10 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Elimina richiesta.
+	 * Elimina la richiesta indicata dal codice.
 	 *
-	 * @param codiceRichiesta codice della richiesta
-	 * @return true, if successful
+	 * @param codiceRichiesta Il codice della richiesta da eliminare
+	 * @return true, se la richiesta viene eliminata correttamente
 	 */
 	public boolean eliminaRichiesta(int codiceRichiesta){
 		for(Cantiere can:listaCantieri){
@@ -849,9 +859,9 @@ public class ModelCantiere extends DefaultTreeModel{
 	}*/
 	
 	/**
-	 * Gets the lista insoddisfatte.
+	 * Restituisce la lista delle richieste insoddisfatte.
 	 *
-	 * @return lista delle richieste insoddisfatte
+	 * @return La lista delle richieste insoddisfatte
 	 */
 	public ArrayList<Richiesta> getListaInsoddisfatte(){
 		ArrayList<Richiesta>totRichieste=new ArrayList<Richiesta>();
@@ -934,9 +944,9 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Aggiungi observer.
+	 * Aggiunge un observer.
 	 *
-	 * @param ob the observer
+	 * @param ob L'observer da aggiungere
 	 */
 	public void aggiungiObserver(Observer ob) {
 		this.cantiereObserver=ob;
@@ -945,16 +955,16 @@ public class ModelCantiere extends DefaultTreeModel{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	/**
-	 * Gets the prossimo codice.
+	 * Restituisce il prossimo codice da assegnare a un cantiere.
 	 *
-	 * @return il prossimo codice da assegnare
+	 * @return Il prossimo codice da assegnare a un cantiere
 	 */
 	int getProssimoCodice(){
 		return codice+1;
 	}
 	
 	/**
-	 * Reset for test.
+	 * Distrugge l'istanza per effettuare i test.
 	 */
 	static void resetForTest(){
 		if(istanza!=null){
@@ -963,7 +973,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	}
 	
 	/**
-	 * Svuota cantieri for test.
+	 * Elimina tutti i cantieri per effettuare i test.
 	 */
 	public void svuotaCantieriForTest(){
 		codice=0;

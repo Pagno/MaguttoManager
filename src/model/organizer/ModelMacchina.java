@@ -2,19 +2,25 @@ package model.organizer;
 
 import java.util.Observable;
 
-// 
 /**
- *   Class ModelMacchina.
+ *   La classe astratta ModelMacchina indica i metodi che devono esser condivisi dalle sue specializzazioni.
+ *   <p>
+ *   In particolare contiene i metodi per la gestione dei codici, che è condivisa fra tutti i tipi di macchina.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public abstract class ModelMacchina extends Observable{
 	
-	/**   codice. */
+	/**   Ultimo codice utilizzato da una macchina. */
 	private static int codice;
 	
 	/**
-	 * Aggiorna codice.
+	 * Aggiorna l'ultimo codice assegnato ad una macchina.<p>
+	 * Caricando le macchine da database, potrebbe essere necessario aggiornare tale codice con un meccanismo diverso da quello
+	 * usato nel normale inserimento delle macchine
 	 *
-	 * @param code   code
+	 * @param code Il codice caricato 
 	 */
 	protected void aggiornaCodice(int code){
 		if(codice<code){
@@ -23,23 +29,23 @@ public abstract class ModelMacchina extends Observable{
 	}
 	
 	/**
-	 * Incrementa codice.
+	 * Incrementa l'ultimo codice utilizzato.
 	 */
 	protected void incrementaCodice(){
 		codice++;
 	}
 	
 	/**
-	 * Inits   codice.
+	 * Resetta il codice, settandolo a 0.
 	 */
 	public static void initCodice(){
 		codice=0;
 	}
 	
 	/**
-	 * Gets   codice.
+	 * Restituisce l'ultimo codice utilizzato.
 	 *
-	 * @return   codice
+	 * @return L'ultimo codice utilizzato
 	 */
 	protected int getCodice(){
 		return codice;
@@ -48,9 +54,9 @@ public abstract class ModelMacchina extends Observable{
 	//Metodi realizzati appositamente per il testing della classe.
 	
 	/**
-	 * Gets   next codice.
+	 * Restituisce il prossimo codice da assegnare a una macchina.
 	 *
-	 * @return   next codice
+	 * @return Il prossimo codice da assegnare
 	 */
 	int getProssimoCodice(){
 		return getCodice()+1;
