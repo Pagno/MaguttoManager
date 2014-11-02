@@ -2,45 +2,51 @@ package model.organizer.data;
 
 
 /**
- * The Class RichiestaGru.
+ *   Questa classe rappresenta le caratteristiche richieste nel caso di richiesta di gru. 
+ *   <p>
+ *   Definisce quindi gli intervalli di valori entro cui devono rientrare le caratteristiche della gru, fornendo poi i metodi 
+ *   necessari a controllare che le caratteristiche siano soddisfatte.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class RichiestaGru extends RichiestaMacchina {
 	
-	/** The min lunghezza. */
+	/** Lunghezza minima. */
 	private int minLunghezza;
 	
-	/** The max lunghezza. */
+	/** Lunghezza massima. */
 	private int maxLunghezza;
 	
-	/** The min altezza. */
+	/** Altezza minima. */
 	private int minAltezza;
 	
-	/** The max altezza. */
+	/** Altezza massima. */
 	private int maxAltezza;
 	
-	/** The min portata. */
+	/** Portata minima. */
 	private int minPortata;
 	
-	/** The max portata. */
+	/** Portata massima. */
 	private int maxPortata;
 	
-	/** The min angolo rotazione. */
+	/** Angolo di rotazione minimo. */
 	private int minAngoloRotazione;
 	
-	/** The max angolo rotazione. */
+	/** Angolo di rotazione massimo. */
 	private int maxAngoloRotazione;
 	
 	/**
-	 * Crea una nuova richiesta per le Gru.
+	 * Crea un nuovo set di requisiti per una richiesta di gru.
 	 *
-	 * @param minLunghezza the min lunghezza
-	 * @param maxLunghezza the max lunghezza
-	 * @param minAltezza the min altezza
-	 * @param maxAltezza the max altezza
-	 * @param minPortata the min portata
-	 * @param maxPortata the max portata
-	 * @param minAngoloRotazione the min angolo rotazione
-	 * @param maxAngoloRotazione the max angolo rotazione
+	 * @param minLunghezza La lunghezza minima
+	 * @param maxLunghezza La lunghezza
+	 * @param minAltezza L'altezza minima
+	 * @param maxAltezza L'altezza massima
+	 * @param minPortata La portata minima
+	 * @param maxPortata La portata massima
+	 * @param minAngoloRotazione L'angolo di rotazione minima
+	 * @param maxAngoloRotazione L'angolo di rotazione massima
 	 */
 	public RichiestaGru(int minLunghezza, int maxLunghezza, int minAltezza,
 			int maxAltezza, int minPortata, int maxPortata,
@@ -57,144 +63,144 @@ public class RichiestaGru extends RichiestaMacchina {
 	}
 
 	/**
-	 * Ritorna minima lunghezza.
+	 * Restituisce la lunghezza minima.
 	 *
-	 * @return minima lunghezza
+	 * @return La lunghezza minima
 	 */
 	public int getMinLunghezza() {
 		return minLunghezza;
 	}
 
 	/**
-	 * Assegna minima lunghezza.
+	 * Modifica la lunghezza minima.
 	 *
-	 * @param minLunghezza minima lunghezza
+	 * @param minLunghezza La nuova lunghezza minima
 	 */
 	public void setMinLunghezza(int minLunghezza) {
 		this.minLunghezza = minLunghezza;
 	}
 
 	/**
-	 * Ritorna massima lunghezza.
+	 * Restituisce la lunghezza massima.
 	 *
-	 * @return massima lunghezza
+	 * @return La lunghezza massima
 	 */
 	public int getMaxLunghezza() {
 		return maxLunghezza;
 	}
 
 	/**
-	 * Assegna massima lunghezza.
+	 * Modifica la lunghezza massima.
 	 *
-	 * @param maxLunghezza massima lunghezza
+	 * @param maxLunghezza La lunghezza massima
 	 */
 	public void setMaxLunghezza(int maxLunghezza) {
 		this.maxLunghezza = maxLunghezza;
 	}
 
 	/**
-	 * Ritorna minima altezza.
+	 * Restituisce l'altezza minima.
 	 *
-	 * @return minima altezza
+	 * @return L'altezza minima
 	 */
 	public int getMinAltezza() {
 		return minAltezza;
 	}
 
 	/**
-	 * Assegna minima altezza.
+	 * Modifica l'altezza minima.
 	 *
-	 * @param minPortata minima altezza
+	 * @param minAltezza La nuova altezza minima
 	 */
 	public void setMinAltezza(int minAltezza) {
 		this.minAltezza = minAltezza;
 	}
 
 	/**
-	 * Ritorna massima altezza.
+	 * Restituisce l'altezza massima.
 	 *
-	 * @return massima altezza
+	 * @return L'altezza massima
 	 */
 	public int getMaxAltezza() {
 		return maxAltezza;
 	}
 
 	/**
-	 * Assegna massima altezza.
+	 * Modifica l'altezza massima
 	 *
-	 * @param maxPortata massima altezza
+	 * @param maxAltezza L'altezza massima
 	 */
 	public void setMaxAltezza(int maxAltezza) {
 		this.maxAltezza = maxAltezza;
 	}
 
 	/**
-	 * Ritorna minima portata.
+	 * Restituisce la portata minima.
 	 *
-	 * @return minima portata
+	 * @return La portata minima
 	 */
 	public int getMinPortata() {
 		return minPortata;
 	}
 
 	/**
-	 * Assegna minima portata.
+	 * Modifica la portata minima.
 	 *
-	 * @param minPortata minima portata
+	 * @param minPortata La nuova portata minima
 	 */
 	public void setMinPortata(int minPortata) {
 		this.minPortata = minPortata;
 	}
 
 	/**
-	 * Ritorna massima portata.
+	 * Restituisce la portata massima.
 	 *
-	 * @return massima portata
+	 * @return La portata massima
 	 */
 	public int getMaxPortata() {
 		return maxPortata;
 	}
 
 	/**
-	 * Assegna massima portata.
+	 * Modifica la portata massima.
 	 *
-	 * @param maxPortata massima portata
+	 * @param maxPortata La nuova portata massima
 	 */
 	public void setMaxPortata(int maxPortata) {
 		this.maxPortata = maxPortata;
 	}
 
 	/**
-	 * Ritorna minimo angolo di rotazione.
+	 * Restituisce l'angolo di rotazione minimo.
 	 *
-	 * @return minimo angolo di rotazione
+	 * @return L'angolo di rotazione minimo
 	 */
 	public int getMinAngoloRotazione() {
 		return minAngoloRotazione;
 	}
 
 	/**
-	 * Assegna minimo angolo di rotazione.
+	 * Modifica l'angolo di rotazione minimo.
 	 *
-	 * @param minAngoloRotazione minimo angolo di rotazione
+	 * @param minAngoloRotazione Il nuovo angolo di rotazione minimo
 	 */
 	public void setMinAngoloRotazione(int minAngoloRotazione) {
 		this.minAngoloRotazione = minAngoloRotazione;
 	}
 
 	/**
-	 * Ritorna massimo angolo di rotazione.
+	 * Restituisce l'angolo di rotazione massimo.
 	 *
-	 * @return massimo angolo di rotazione
+	 * @return L'angolo di rotazione massimo
 	 */
 	public int getMaxAngoloRotazione() {
 		return maxAngoloRotazione;
 	}
 
 	/**
-	 * Assegna massimo angolo di rotazione.
+	 * Modifica l'angolo di rotazione massimo.
 	 *
-	 * @param maxAngoloRotazione massimo angolo di rotazione
+	 * @param maxAngoloRotazione Il nuovo angolo di rotazione massimo
 	 */
 	public void setMaxAngoloRotazione(int maxAngoloRotazione) {
 		this.maxAngoloRotazione = maxAngoloRotazione;
@@ -312,6 +318,9 @@ public class RichiestaGru extends RichiestaMacchina {
 		return soddisfa;
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.organizer.data.RichiestaMacchina#inConflitto(model.organizer.data.RichiestaMacchina)
+	 */
 	@Override
 	public boolean inConflitto(RichiestaMacchina other){
 		if(other instanceof RichiestaGru){

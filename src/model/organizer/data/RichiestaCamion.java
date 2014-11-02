@@ -3,37 +3,43 @@ package model.organizer.data;
 
 
 /**
- * The Class RichiestaCamion.
+ *   Questa classe rappresenta le caratteristiche richieste nel caso di richiesta di camion. 
+ *   <p>
+ *   Definisce quindi gli intervalli di valori entro cui devono rientrare le caratteristiche del camion, fornendo poi i metodi 
+ *   necessari a controllare che le caratteristiche siano soddisfatte.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class RichiestaCamion extends RichiestaMacchina {
 	
-	/** The min capacita. */
+	/** Capacit&agrave; minima accettabile. */
 	public int minCapacita;
 	
-	/** The min portata. */
+	/** Portata minima accettabile. */
 	public int minPortata;
 	
-	/** The min lunghezza. */
+	/** Lunghezza minima accettabile. */
 	public int minLunghezza;
 	
-	/** The max capacita. */
+	/** Capacit&agrave; massima accettabile. */
 	public int maxCapacita;
 	
-	/** The max portata. */
+	/** Portata massima accettabile. */
 	public int maxPortata;
 	
-	/** The max lunghezza. */
+	/** Lunghezza massima accettabile. */
 	public int maxLunghezza;
 	
 	/**
-	 * Crea una nuova richiesta per i camion.
+	 * Crea un nuovo set di requisiti per una richiesta di camion.
 	 *
-	 * @param minCapacita Minima capacita richiesta
-	 * @param maxCapacita the Massima capacita richiesta
-	 * @param minPortata the Minima portata richiesta
-	 * @param maxPortata the Massima portata richiesta
-	 * @param minLunghezza the Minima lunghezza richiesta
-	 * @param maxLunghezza the Massima lunghezza richiesta
+	 * @param minCapacita La minima capacit&agrave; richiesta
+	 * @param maxCapacita La massima capacit&agrave; richiesta
+	 * @param minPortata La minima portata richiesta
+	 * @param maxPortata La massima portata richiesta
+	 * @param minLunghezza La minima lunghezza richiesta
+	 * @param maxLunghezza La massima lunghezza richiesta
 	 */
 	public RichiestaCamion(int minCapacita, int maxCapacita, int minPortata, int maxPortata, int minLunghezza, int maxLunghezza) {
 		super();
@@ -47,108 +53,108 @@ public class RichiestaCamion extends RichiestaMacchina {
 	}
 
 	/**
-	 * Ritorna minima capacita.
+	 * Restituisce la capacit&grave; minima.
 	 *
-	 * @return minima capacita
+	 * @return La capacit&grave; minima
 	 */
 	public int getMinCapacita() {
 		return minCapacita;
 	}
 
 	/**
-	 * Assegna minima capacita.
+	 * Modifica la capacit&grave; minima.
 	 *
-	 * @param minCapacita minima capacita
+	 * @param minCapacita La nuova capacit&grave; minima
 	 */
 	public void setMinCapacita(int minCapacita) {
 		this.minCapacita = minCapacita;
 	}
 
 	/**
-	 * Ritorna minima portata.
+	 * Restituisce la portata minima.
 	 *
-	 * @return minima portata
+	 * @return La portata minima
 	 */
 	public int getMinPortata() {
 		return minPortata;
 	}
 
 	/**
-	 * Assegna minima portata.
+	 * Modifica la portata minima.
 	 *
-	 * @param minPortata minima portata
+	 * @param minPortata La nuova portata minima
 	 */
 	public void setMinPortata(int minPortata) {
 		this.minPortata = minPortata;
 	}
 
 	/**
-	 * Ritorna minima lunghezza.
+	 * Restituisce la lunghezza minima.
 	 *
-	 * @return minima lunghezza
+	 * @return La lunghezza minima
 	 */
 	public int getMinLunghezza() {
 		return minLunghezza;
 	}
 
 	/**
-	 * Assegna minima lunghezza.
+	 * Modifica la lunghezza minima.
 	 *
-	 * @param minLunghezza minima lunghezza
+	 * @param minLunghezza La nuova lunghezza minima
 	 */
 	public void setMinLunghezza(int minLunghezza) {
 		this.minLunghezza = minLunghezza;
 	}
 
 	/**
-	 * Ritorna massima capacita.
+	 * Restituisce la capacit&agrave; massima.
 	 *
-	 * @return massima capacita
+	 * @return La capacit&agrave; massima
 	 */
 	public int getMaxCapacita() {
 		return maxCapacita;
 	}
 
 	/**
-	 * Assegna massima capacita.
+	 * Modifica la capacit&agrave; massima.
 	 *
-	 * @param maxCapacita massima capacita
+	 * @param maxCapacita La nuova capacit&agrave; massima
 	 */
 	public void setMaxCapacita(int maxCapacita) {
 		this.maxCapacita = maxCapacita;
 	}
 
 	/**
-	 * Ritorna massima portata.
+	 * Restituisce la portata massima.
 	 *
-	 * @return massima portata
+	 * @return La portata massima
 	 */
 	public int getMaxPortata() {
 		return maxPortata;
 	}
 
 	/**
-	 * Assegna massima portata.
+	 * Modifica la portata massima.
 	 *
-	 * @param maxPortata massima portata
+	 * @param maxPortata La nuova portata massima
 	 */
 	public void setMaxPortata(int maxPortata) {
 		this.maxPortata = maxPortata;
 	}
 
 	/**
-	 * Ritorna massima lunghezza.
+	 * Restituisce la lunghezza massima.
 	 *
-	 * @return massima lunghezza
+	 * @return La lunghezza massima
 	 */
 	public int getMaxLunghezza() {
 		return maxLunghezza;
 	}
 
 	/**
-	 * Assegna massima lunghezza.
+	 * Modifica la lunghezza massima.
 	 *
-	 * @param maxLunghezza massima lunghezza
+	 * @param maxLunghezza La nuova lunghezza massima
 	 */
 	public void setMaxLunghezza(int maxLunghezza) {
 		this.maxLunghezza = maxLunghezza;
@@ -248,6 +254,9 @@ public class RichiestaCamion extends RichiestaMacchina {
 		return soddisfa;
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.organizer.data.RichiestaMacchina#inConflitto(model.organizer.data.RichiestaMacchina)
+	 */
 	@Override
 	public boolean inConflitto(RichiestaMacchina other){
 		if(other instanceof RichiestaCamion){

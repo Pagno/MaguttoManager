@@ -1,32 +1,38 @@
 package model.organizer.data;
 
 /**
- * The Class RichiestaMacchina.
+ *   Questa classe astratta rappresenta l'interfaccia delle caratteristiche richieste dalle macchine. Definisce quindi 
+ *   i metodi che devono essere implementati dalle sue specializzazioni, una specializzazione per ciascun tipo di macchina.
+ *   <p>
+ *   Definisce inoltre il metodo statico usato per confrontare gli intervalli di caratteristiche.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public abstract class RichiestaMacchina{
 	
 	/**
-	 * Instantiates a new richiesta macchina.
+	 * Istanzia una nuova richiesta macchina.
 	 */
 	public RichiestaMacchina() {
 		super();
 	}
 	
 	/**
-	 * True se la macchina rispetta la richiesta.
+	 * Verifica se la macchina rispetta le caratteristiche richieste.
 	 *
-	 * @param m La macchina
-	 * @return true, if successful
+	 * @param m La macchina proposta
+	 * @return true, se la macchina soddisfa i requisiti richiesti
 	 */
 	public abstract boolean rispettaRichiesta(Macchina m);
 	
 	/**
-	 * Verifica se la richiesta inserita potrebbe potenzialmente occupare la una macchina in grado di soddisfare 
-	 * la richiesta corrente.<BR>
+	 * Verifica se le caratteristiche inserite potrebbero potenzialmente essere soddisfatte da una macchina in grado di 
+	 * soddisfare anche le caratteristiche correnti.<BR>
 	 * Ci&ograve; significa che le due richieste esigono lo stesso tipo di macchina, e che tutti gli intervalli delle 
 	 * caratteristiche tipiche di tali macchine sono almeno parzialmente sovrapposti.
 	 *
-	 * @param other L'altra richiesta
+	 * @param other L'altro set di caratteristiche richieste
 	 * @return true, se le due richieste potrebbero potenzialmente contendersi una particolare macchina
 	 */
 	public abstract boolean inConflitto(RichiestaMacchina other);

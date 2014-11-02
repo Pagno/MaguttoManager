@@ -2,45 +2,51 @@ package model.organizer.data;
 
 
 /**
- * The Class RichiestaEscavatore.
+ *   Questa classe rappresenta le caratteristiche richieste nel caso di richiesta di escavatori. 
+ *   <p>
+ *   Definisce quindi gli intervalli di valori entro cui devono rientrare le caratteristiche dell'escavatore, fornendo poi i metodi 
+ *   necessari a controllare che le caratteristiche siano soddisfatte.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class RichiestaEscavatore extends RichiestaMacchina {
 	
-	/** The min capacita. */
+	/** Capacit&agrave; minima. */
 	int minCapacita;
 	
-	/** The max capacita. */
+	/** Capacit&agrave; massima. */
 	int maxCapacita;
 	
-	/** The min portata. */
+	/** Portata minima. */
 	int minPortata;
 	
-	/** The max portata. */
+	/** Portata massima. */
 	int maxPortata;
 	
-	/** The min altezza. */
+	/** Altezza minima. */
 	int minAltezza;
 	
-	/** The max altezza. */
+	/** Altezza massima. */
 	int maxAltezza;
 	
-	/** The min profondita. */
+	/** Profondit&agrave; minima. */
 	int minProfondita;
 	
-	/** The max profondita. */
+	/** Profondit&agrave; massima. */
 	int maxProfondita;
 	
 	/**
-	 *Crea una nuova richiesta per gli escavatori.
+	 * Crea un nuovo set di requisiti per una richiesta di escavatori.
 	 *
-	 * @param minCapacita the min capacita
-	 * @param maxCapacita the max capacita
-	 * @param minPortata the min portata
-	 * @param maxPortata the max portata
-	 * @param minAltezza the min altezza
-	 * @param maxAltezza the max altezza
-	 * @param minProfondita the min profondita
-	 * @param maxProfondita the max profondita
+	 * @param minCapacita La capacit&agrave; minima
+	 * @param maxCapacita La capacit&agrave; massima
+	 * @param minPortata La portata minima
+	 * @param maxPortata La portata massima
+	 * @param minAltezza L'altezza minima
+	 * @param maxAltezza L'altezza massima
+	 * @param minProfondita La profondit&agrave; minima
+	 * @param maxProfondita La profondit&agrave; massima
 	 */
 	public RichiestaEscavatore(int minCapacita, int maxCapacita,
 			int minPortata, int maxPortata, int minAltezza, int maxAltezza,
@@ -57,144 +63,144 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 	}
 
 	/**
-	 * Ritorna minima capacita.
+	 * Restituisce la capacit&agrave; minima.
 	 *
-	 * @return minima capacita
+	 * @return La capacit&agrave; minima
 	 */
 	public int getMinCapacita() {
 		return minCapacita;
 	}
 
 	/**
-	 * Assegna minima capacita.
+	 * Modifica la capacit&agrave; minima.
 	 *
-	 * @param minCapacita minima capacita
+	 * @param minCapacita La nuova capacit&agrave; minima
 	 */
 	public void setMinCapacita(int minCapacita) {
 		this.minCapacita = minCapacita;
 	}
 
 	/**
-	 * Ritorna massima capacita.
+	 * Restituisce la capacit&agrave; massima.
 	 *
-	 * @return massima capacita
+	 * @return La capacit&agrave; massima
 	 */
 	public int getMaxCapacita() {
 		return maxCapacita;
 	}
 
 	/**
-	 * Assegna massima capacita.
+	 * Modifica la capacit&agrave; massima.
 	 *
-	 * @param maxCapacita massima capacita
+	 * @param maxCapacita La nuova capacit&agrave; massima
 	 */
 	public void setMaxCapacita(int maxCapacita) {
 		this.maxCapacita = maxCapacita;
 	}
 
 	/**
-	 * Ritorna minima portata.
+	 * Restituisce la portata minima.
 	 *
-	 * @return minima portata
+	 * @return La portata minima
 	 */
 	public int getMinPortata() {
 		return minPortata;
 	}
 
 	/**
-	 * Assegna minima portata.
+	 * Modifica la portata minima.
 	 *
-	 * @param minPortata minima portata
+	 * @param minPortata La nuova portata minima
 	 */
 	public void setMinPortata(int minPortata) {
 		this.minPortata = minPortata;
 	}
 
 	/**
-	 * Ritorna massima portata.
+	 * Restituisce la portata massima.
 	 *
-	 * @return massima portata
+	 * @return La portata massima
 	 */
 	public int getMaxPortata() {
 		return maxPortata;
 	}
 
 	/**
-	 * Assegna massima portata.
+	 * Modifica la portata massima.
 	 *
-	 * @param maxPortata massima portata
+	 * @param maxPortata La nuova massima portata
 	 */
 	public void setMaxPortata(int maxPortata) {
 		this.maxPortata = maxPortata;
 	}
 
 	/**
-	 * Ritorna minima altezza.
+	 * Restituisce l'altezza minima.
 	 *
-	 * @return minima altezza
+	 * @return L'altezza minima
 	 */
 	public int getMinAltezza() {
 		return minAltezza;
 	}
 
 	/**
-	 * Assegna minima altezza.
+	 * Modifica l'altezza minima.
 	 *
-	 * @param minAltezza minima altezza
+	 * @param minAltezza La nuova altezza minima
 	 */
 	public void setMinAltezza(int minAltezza) {
 		this.minAltezza = minAltezza;
 	}
 
 	/**
-	 * Ritorna massima altezza.
+	 * Restituisce l'altezza massima.
 	 *
-	 * @return massima altezza
+	 * @return L'altezza massima
 	 */
 	public int getMaxAltezza() {
 		return maxAltezza;
 	}
 
 	/**
-	 * Assegna massima altezza.
+	 * Modifica l'altezza massima.
 	 *
-	 * @param maxPortata massima altezza
+	 * @param maxPortata La nuova massima altezza
 	 */
 	public void setMaxAltezza(int maxAltezza) {
 		this.maxAltezza = maxAltezza;
 	}
 
 	/**
-	 * Ritorna minima profondita.
+	 * Restituisce la profondit&agrave; minima.
 	 *
-	 * @return minima profondita
+	 * @return La profondit&agrave; minima
 	 */
 	public int getMinProfondita() {
 		return minProfondita;
 	}
 
 	/**
-	 * Assegna minima profondita.
+	 * Modifica la profondit&agrave; minima.
 	 *
-	 * @param minPortata minima profondita
+	 * @param minPortata La nuova profondit&agrave; minima
 	 */
 	public void setMinProfondita(int minProfondita) {
 		this.minProfondita = minProfondita;
 	}
 
 	/**
-	 * Ritorna massima profondita.
+	 * Restituisce la profondit&agrave; massima.
 	 *
-	 * @return massima profondita
+	 * @return La profondit&agrave; massima
 	 */
 	public int getMaxProfondita() {
 		return maxProfondita;
 	}
 
 	/**
-	 * Assegna massima profondita.
+	 * Modifica la profondit&agrave; massima.
 	 *
-	 * @param maxPortata massima profondita
+	 * @param maxProfondita the new max profondita
 	 */
 	public void setMaxProfondita(int maxProfondita) {
 		this.maxProfondita = maxProfondita;
@@ -316,7 +322,9 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 		return soddisfa;
 	}
 	
-	
+	/* (non-Javadoc)
+	 * @see model.organizer.data.RichiestaMacchina#inConflitto(model.organizer.data.RichiestaMacchina)
+	 */
 	@Override
 	public boolean inConflitto(RichiestaMacchina other){
 		if(other instanceof RichiestaEscavatore){
