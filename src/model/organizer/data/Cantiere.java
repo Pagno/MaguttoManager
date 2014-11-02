@@ -3,41 +3,48 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 /**
- *   Class Cantiere.
+ *   Questa classe rappresenta un cantiere. Permette di gestire le caratteristiche principali cioè il codice del cantiere, 
+ *   il nome del cantiere, il suo indirizzo, le date di apertura e chiusura del cantiere e la sua priorit&agrave;.
+ *   <p>
+ *   Ogni istanza contiene l'elenco dei lavori associati al particolare cantiere.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Cantiere extends DefaultMutableTreeNode  {
 	
-	/**   codiceCantiere. */
+	/**   Codice del cantiere. */
 	private int codice;
 		
-	/**   nome cantiere. */
+	/**   Nome del cantiere. */
 	private String nomeCantiere;
 	
-	/**   indirizzo. */
+	/**   Indirizzo. */
 	private String indirizzo;
 	
-	/**   data apertura. */
+	/**   Data di apertura. */
 	private GregorianCalendar dataApertura;
 	
-	/**   data chiusura. */
+	/**   Data di chiusura. */
 	private GregorianCalendar dataChiusura;
 	
-	/**   Elenco richieste macchine.  */
+	/**   Elenco dei lavori collegati al cantiere.  */
 	private ArrayList<Lavoro> lavori;
 	
+	/**   Priorit&agrave; del cantiere.  */
 	private Priorita priorita;
 	
 	/**
-	 * Instantiates a new cantiere.
+	 * Istanzia un nuovo cantiere.
 	 *
-	 * @param codice codice del Cantiere
-	 * @param nomeCantiere nome cantiere del Cantiere
-	 * @param indirizzo indirizzo del Cantiere
-	 * @param dataApertura data apertura del Cantiere
-	 * @param dataChiusura data chiusura del Cantiere
+	 * @param codice Il codice del cantiere
+	 * @param nomeCantiere Il nome del cantiere
+	 * @param indirizzo L'indirizzo del cantiere
+	 * @param dataApertura La data di apertura del cantiere
+	 * @param dataChiusura La data di chiusura del cantiere
+	 * @param priorita the priorita
 	 */
 	public Cantiere(int codice,String nomeCantiere,String indirizzo,GregorianCalendar dataApertura,GregorianCalendar dataChiusura,Priorita priorita ){
 		super(null);
@@ -52,18 +59,19 @@ public class Cantiere extends DefaultMutableTreeNode  {
 
 	
 	/**
-	 * Aggiungi una nuova richiesta di macchina.
+	 * Associa un nuovo lavoro al cantiere.
 	 *
-	 * @param Richiesta richiesta
+	 * @param l Il lavoro da associare al cantiere
 	 */
-	public void aggiungiLavoro(Lavoro r) {
-		lavori.add(r);
+	public void aggiungiLavoro(Lavoro l) {
+		lavori.add(l);
 	}
 	
 	/**
-	 * Rimuove un lavoro dato il codice.
+	 * Rimuove un lavoro dato il suo codice.
 	 *
-	 * @return true se il lavoro ï¿½ stato rimosso.
+	 * @param codiceLavoro Il codice del lavoro da rimuovere
+	 * @return true se il lavoro &egrave; stato rimosso
 	 */
 	public boolean rimuoviLavoro(int codiceLavoro) {
 		for(int i=0;i<lavori.size();i++){
@@ -77,7 +85,7 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 	
 	/**
-	 * Rimuove tutti i lavori.
+	 * Rimuove tutti i lavori associati a questo cantiere.
 	 *
 	 */
 	public void svuotaLavori(){
@@ -88,9 +96,10 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 	
 	/**
-	 * Verifica se un certo lavoro ï¿½ contenuto in questo cantiere
+	 * Verifica se un certo lavoro &egrave; associato a questo cantiere.
 	 *
-	 * @return true se contiene il lavoro
+	 * @param codiceLavoro Il codice del lavoro
+	 * @return true se il lavoro è associato a questo cantiere
 	 */
 	public boolean hasLavoro(int codiceLavoro) {
 		for(int i=0;i<lavori.size();i++){
@@ -101,9 +110,10 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 	
 	/**
-	 * Restituisce il lavoro richiesto
+	 * Restituisce il lavoro richiesto.
 	 *
-	 * @return lavoro
+	 * @param codiceLavoro Il codice del lavoro richiesto
+	 * @return Il lavoro richiesto
 	 */
 	public Lavoro getLavoro(int codiceLavoro) {
 		for(int i=0;i<lavori.size();i++){
@@ -114,63 +124,63 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 	
 	/**
-	 * Gets elenco richieste.
+	 * Restituisce l'elenco dei lavori.
 	 *
-	 * @return elenco richieste
+	 * @return L'elenco dei lavori associati al cantiere
 	 */
 	public ArrayList<Lavoro> getElencoLavori() {
 		return lavori;
 	}
 	
 	/**
-	 * Gets nome cantiere.
+	 * Restituisce il nome del cantiere.
 	 *
-	 * @return nome cantiere
+	 * @return Il nome del cantiere
 	 */
 	public String getNomeCantiere() {
 		return nomeCantiere;
 	}
 
 	/**
-	 * Sets nome cantiere.
+	 * Modifica il nome del cantiere.
 	 *
-	 * @param nomeCantiere new nome cantiere
+	 * @param nomeCantiere Il nuovo nome del cantiere
 	 */
 	public void setNomeCantiere(String nomeCantiere) {
 		this.nomeCantiere = nomeCantiere;
 	}
 
 	/**
-	 * Gets indirizzo.
+	 * Restituisce l'indirizzo del cantiere.
 	 *
-	 * @return indirizzo
+	 * @return L'indirizzo del cantiere
 	 */
 	public String getIndirizzo() {
 		return indirizzo;
 	}
 
 	/**
-	 * Sets indirizzo.
+	 * Modifica l'indirizzo del cantiere.
 	 *
-	 * @param indirizzo new indirizzo
+	 * @param indirizzo Il nuovo indirizzo del cantiere
 	 */
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
 
 	/**
-	 * Gets   data apertura.
+	 * Restituisce la data di apertura del cantiere.
 	 *
-	 * @return   data apertura
+	 * @return La data di apertura del cantiere
 	 */
 	public GregorianCalendar getDataApertura() {
 		return dataApertura;
 	}
 	
 	/**
-	 * Gets str data apertura.
+	 * Restituisce una stringa rappresentante la data di apertura del cantiere.
 	 *
-	 * @return str data apertura
+	 * @return La data di apertura sotto forma di stringa
 	 */
 	public String getStrDataApertura() {
 
@@ -181,27 +191,27 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 
 	/**
-	 * Sets data apertura.
+	 * Modifica la data di apertura.
 	 *
-	 * @param dataApertura new data apertura
+	 * @param dataApertura La nuova data di apertura
 	 */
 	public void setDataApertura(GregorianCalendar dataApertura) {
 		this.dataApertura = dataApertura;
 	}
 
 	/**
-	 * Gets data chiusura.
+	 * Restituisce la data di chiusura del cantiere.
 	 *
-	 * @return data chiusura
+	 * @return La data di chiusura del cantiere
 	 */
 	public GregorianCalendar getDataChiusura() {
 		return dataChiusura;
 	}
 	
 	/**
-	 * Gets str data chiusura.
+	 * Restituisce una stringa rappresentante la data di chiusura del cantiere.
 	 *
-	 * @return str data chiusura
+	 * @return La data di chiusura sotto forma di stringa
 	 */
 	public String getStrDataChiusura() {
 		
@@ -214,16 +224,16 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 
 	/**
-	 * Sets data chiusura.
+	 * Modifica la data di chiusura.
 	 *
-	 * @param dataChiusura new data chiusura
+	 * @param dataChiusura La nuova data di chiusura
 	 */
 	public void setDataChiusura(GregorianCalendar dataChiusura) {
 		this.dataChiusura = dataChiusura;
 	}
 
 	/**
-	 * Gets codice.
+	 * Restituisce il codice del cantiere.
 	 *
 	 * @return codice
 	 */
@@ -232,14 +242,19 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 
 	/**
-	 * Sets codice.
+	 * Modifica il codice del cantiere.
 	 *
-	 * @param codice new codice
+	 * @param codice Il nuovo codice del cantiere
 	 */
 	public void setCodice(Integer codice) {
 		this.codice = codice;
 	}
 
+	/**
+	 * Verifica se il cantiere ha dei lavori scoperti.
+	 *
+	 * @return true se almeno uno dei lavori possiede delle richieste scoperte
+	 */
 	public boolean isScoperto(){
 		for(Lavoro lav:lavori){
 			if(lav.isScoperto()){
@@ -272,6 +287,9 @@ public class Cantiere extends DefaultMutableTreeNode  {
 
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -311,14 +329,29 @@ public class Cantiere extends DefaultMutableTreeNode  {
 	}
 
 
+	/**
+	 * Restituisce la priorit&agrave; del cantiere.
+	 *
+	 * @return La priorit&agrave; del cantiere
+	 */
 	public Priorita getPriorita() {
 		return priorita;
 	}
 	
+	/**
+	 * Restituisce la priorit&agrave; del cantiere sotto forma di stringa.
+	 *
+	 * @return Stringa rappresentante la priorit&agrave; del cantiere
+	 */
 	public String getPrioritaString() {
 		return priorita.toString();
 	}
 
+	/**
+	 * Modifica la priorit&agrave; del cantiere.
+	 *
+	 * @param priorita La nuova priorit&agrave;
+	 */
 	public void setPriorita(Priorita priorita) {
 		this.priorita = priorita;
 	}

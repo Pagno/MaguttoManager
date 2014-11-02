@@ -1,37 +1,41 @@
 package model.organizer.data;
 
-// 
 /**
- *   Class Escavatore.
+ *   La classe Escavatore rappresenta le caratteristiche di un escavatore.
+ *   
+ *   Permette di gestire le quattro caratteristiche principali di tale tipo di macchina, cioè la capacit&agrave;, la profondit&agrave;, la portata e l'altezza.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Escavatore extends Macchina{
 	
-	/**   capacita max. */
+	/**   Capacit&agrave; massima. */
 	private int capacitaMax;
 	
-	/**   profondita max. */
+	/**   Profondit&agrave; massima. */
 	private int profonditaMax;
 	
-	/**   portata max. */
+	/**   Portata massima. */
 	private int portataMax;
 	
-	/**   altezza max. */
+	/**   Altezza massima. */
 	private int altezzaMax;
 	
 	
 	/**
-	 * Instantiates a new escavatore.
+	 * Istanzia un nuovo escavatore.
 	 *
-	 * @param codice codice dell'Escavatore
-	 * @param produttore produttore dell'Escavatore
-	 * @param Modello modello dell'Escavatore
-	 * @param capacita capacita dell'Escavatore
-	 * @param portata portata dell'Escavatore
-	 * @param altezza altezza dell'Escavatore
-	 * @param profondita profondita dell'Escavatore
+	 * @param codice Il codice dell'Escavatore
+	 * @param produttore Il produttore dell'Escavatore
+	 * @param modello Il modello dell'Escavatore
+	 * @param capacita La capacit&agrave; dell'Escavatore
+	 * @param portata La portata dell'Escavatore
+	 * @param altezza L'altezza dell'Escavatore
+	 * @param profondita La profondit&agrave; dell'Escavatore
 	 */
-	public Escavatore(int codice, String produttore, String Modello,int capacita,int portata,int altezza,int profondita) {
-		super(codice, produttore, Modello);
+	public Escavatore(int codice, String produttore, String modello,int capacita,int portata,int altezza,int profondita) {
+		super(codice, produttore, modello);
 	
 		this.capacitaMax=capacita;
 		this.altezzaMax=altezza;
@@ -42,60 +46,60 @@ public class Escavatore extends Macchina{
 	
 	//GET
 	/**
-	 * Gets   capacita massima.
+	 * Restituisce la capacit&agrave; massima dell'escavatore.
 	 *
-	 * @return   capacita massima
+	 * @return La capacit&agrave; massima
 	 */
 	public int getCapacitaMassima(){		return this.capacitaMax;	}
 	
 	/**
-	 * Gets   portata massima.
+	 * Restituisce la portata massima dell'escavatore.
 	 *
-	 * @return   portata massima
+	 * @return La portata massima
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets   altezza massima.
+	 * Restituisce l'altezza massima dell'escavatore.
 	 *
-	 * @return   altezza massima
+	 * @return L'altezza massima
 	 */
 	public int getAltezzaMassima(){		return this.altezzaMax;	}
 	
 	/**
-	 * Gets   profondita massima.
+	 * Restituisce la profondit&agrave; massima dell'escavatore.
 	 *
-	 * @return   profondita massima
+	 * @return La profondit&agrave; massima
 	 */
 	public int getProfonditaMassima(){		return this.profonditaMax;	}
 	
 	
 	//SET
 	/**
-	 * Sets   capacita massima.
+	 * Modifica la capacit&agrave; massima dell'escavatore.
 	 *
-	 * @param capacita   new capacita massima
+	 * @param capacita La nuova capacit&agrave; massima dell'escavatore
 	 */
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	
 	/**
-	 * Sets   portata massima.
+	 * Modifica la portata massima dell'escavatore.
 	 *
-	 * @param portata   new portata massima
+	 * @param portata La nuova portata massima dell'escavatore
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets   profondita massima.
+	 * Modifica la profondit&agrave; massima dell'escavatore.
 	 *
-	 * @param profondita   new profondita massima
+	 * @param profondita La nuova profondit&agrave; massima dell'escavatore
 	 */
 	public void setProfonditaMassima(int profondita){		this.profonditaMax=profondita;	}
 	
 	/**
-	 * Sets   altezza massima.
+	 * Modifica l'altezza massima dell'escavatore.
 	 *
-	 * @param altezza   new altezza massima
+	 * @param altezza La nuova altezza massima dell'escavatore
 	 */
 	public void setAltezzaMassima(int altezza){		this.altezzaMax=altezza;	}
 	

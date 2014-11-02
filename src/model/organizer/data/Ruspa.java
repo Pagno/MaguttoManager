@@ -1,33 +1,37 @@
 package model.organizer.data;
 
-// 
 /**
- *   Class Ruspa.
+ *   La classe Ruspa rappresenta le caratteristiche di una ruspa.
+ *   
+ *   Permette di gestire le tre caratteristiche principali di tale tipo di macchina, cioè la capacit&agrave;, la portata e l'altezza.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Ruspa extends Macchina{
 	
-	/**   capacita max. */
+	/**   Capacit&agrave; massima. */
 	private int capacitaMax;
 	
-	/**   portata max. */
+	/**   Portata massima. */
 	private int portataMax;
 	
-	/**   altezza max. */
+	/**   Altezza massima. */
 	private int altezzaMax;
 
 
 	/**
-	 * Instantiates a new ruspa.
+	 * Istanzia una nuova ruspa.
 	 *
-	 * @param codice   codice della Ruspa
-	 * @param produttore   produttore della Ruspa
-	 * @param Modello   modello della Ruspa
-	 * @param capacita   capacita della Ruspa
-	 * @param portata   portata della Ruspa
-	 * @param altezza   altezza della Ruspa
+	 * @param codice Il codice della Ruspa
+	 * @param produttore Il produttore della Ruspa
+	 * @param modello Il modello della Ruspa
+	 * @param capacita La capacit&agrave; della Ruspa
+	 * @param portata La portata della Ruspa
+	 * @param altezza L'altezza della Ruspa
 	 */
-	public Ruspa(int codice, String produttore, String Modello,int capacita,int portata,int altezza) {
-		super(codice, produttore, Modello);
+	public Ruspa(int codice, String produttore, String modello,int capacita,int portata,int altezza) {
+		super(codice, produttore, modello);
 
 		this.capacitaMax=capacita;
 		this.altezzaMax=altezza;
@@ -36,46 +40,46 @@ public class Ruspa extends Macchina{
 	
 	//GET
 	/**
-	 * Gets   capacita massima.
+	 * Restituisce la capacit&agrave; massima della ruspa.
 	 *
-	 * @return   capacita massima
+	 * @return La capacit&agrave; massima della ruspa
 	 */
 	public int getCapacitaMassima(){	return this.capacitaMax; }
 	
 	/**
-	 * Gets   portata massima.
+	 * Restituisce la portata massima della ruspa.
 	 *
-	 * @return   portata massima
+	 * @return La portata massima della ruspa
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets   altezza massima.
+	 * Restituisce l'altezza massima della ruspa.
 	 *
-	 * @return   altezza massima
+	 * @return L'altezza massima della ruspa
 	 */
 	public int getAltezzaMassima(){		return this.altezzaMax;	}
 	
 	
 	//SET
 	/**
-	 * Sets   capacita massima.
+	 * Modifica la capacit&agrave; massima della ruspa.
 	 *
-	 * @param capacita   new capacita massima
+	 * @param capacita La nuova capacit&agrave; massima della ruspa
 	 */
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	
 	/**
-	 * Sets   portata massima.
+	 * Modifica la portata massima della ruspa.
 	 *
-	 * @param portata   new portata massima
+	 * @param portata La nuova portata massima della ruspa
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets   altezza massima.
+	 * Modifica l'altezza massima della ruspa.
 	 *
-	 * @param altezza   new altezza massima
+	 * @param altezza La nuova altezza massima della ruspa
 	 */
 	public void setAltezzaMassima(int altezza){		this.altezzaMax=altezza;	}
 	

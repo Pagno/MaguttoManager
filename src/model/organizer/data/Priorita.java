@@ -2,14 +2,14 @@ package model.organizer.data;
 
 
 /**
- * The Enum Priorita.
+ * L'enumerativo Priorita rappresenta i livelli di priorit&agrave; assegnabili ai diversi cantieri.
  */
 public enum Priorita {
 
-	/** Priorità bassa. */
+	/** Priorit&agrave; bassa. */
 	BASSA,
-	/** Priorità media. */
+	/** Priorit&agrave; media. */
 	MEDIA,
-	/** Priorità alta. */
+	/** Priorit&agrave; alta. */
 	ALTA
 }

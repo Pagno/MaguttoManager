@@ -4,31 +4,41 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
 
-// 
 /**
- *   Class Macchina.
+ *   La classe Macchina rappresenta le caratteristiche comuni di tutte le tipologie di macchine.
+ *   Permette di gestire le tre caratteristiche fondamentali, cioè il modello della macchina, il codice ad essa associato 
+ *   e il produttore della macchina.
+ *   <p>
+ *   Poich&eacute; tutte le macchine possono soddisfare delle richieste, l'elenco delle richieste viene gestito attraverso
+ *   la classe padre.
+ *   <p>
+ *   Essendo una classe astratta, non &egrave; possibile creare delle istanze della classe macchina, ma è necessario 
+ *   utilizzare una delle classi figlie che la specializzano.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public abstract class Macchina{
 	
-	/**   modello. 		*/
+	/**   Modello della macchina. 		*/
 	private String modello;
 	
-	/**   codice. 		*/
+	/**   Codice della macchina. 		*/
 	private int codice;
 	
-	/**   produttore. 	*/
+	/**   Produttore della macchina. 	*/
 	private String produttore;
 	
 
-	/**	  Richiesta 	*/
+	/**	  Elenco delle richieste soddisfatte dalla macchina. 	*/
 	private TreeSet<Richiesta> elencoRichiesta;
 
 	/**
-	 * Instantiates a new macchina.
+	 * Istanzia una nuova macchina.
 	 *
-	 * @param codice   codice
-	 * @param produttore   produttore
-	 * @param modello   modello
+	 * @param codice Il codice della macchina
+	 * @param produttore Il produttore della macchina
+	 * @param modello Il modello della macchina
 	 */
 	public Macchina(int codice,String produttore,String modello){
 		this.codice=codice;
@@ -38,44 +48,44 @@ public abstract class Macchina{
 	}
 	
 	/**
-	 * Gets   codice.
+	 * Restituisce il codice della macchina.
 	 *
-	 * @return   codice
+	 * @return Il codice della macchina
 	 */
 	public int getCodice(){		return this.codice;	}
 	
 	/**
-	 * Gets   produttore.
+	 * Restituisce il produttore della macchina.
 	 *
-	 * @return   produttore
+	 * @return Il produttore della macchina
 	 */
 	public String getProduttore(){		return this.produttore;	}
 	
 	/**
-	 * Gets   modello.
+	 * Restituisce il modello della macchina.
 	 *
-	 * @return   modello
+	 * @return Il modello della macchina
 	 */
 	public String getModello(){		return this.modello;	}
 	
 	/**
-	 * Sets   produttore.
+	 * Modifica il produttore della macchina.
 	 *
-	 * @param produttore   new produttore
+	 * @param produttore Il nuovo produttore della macchina
 	 */
 	public void setProduttore(String produttore){		this.produttore=produttore;	}
 	
 	/**
-	 * Sets   modello.
+	 * Modifica il modello della macchina.
 	 *
-	 * @param Modello   new modello
+	 * @param modello Il nuovo modello della macchina
 	 */
-	public void setModello(String Modello){		this.modello=Modello;	}
+	public void setModello(String modello){		this.modello=modello;	}
 	
 	/**
-	 * Aggiunge una richiesta.
+	 * Aggiunge una richiesta all'elenco delle soddisfatte da questa macchinaq.
 	 *
-	 * @param r   richiesta da aggiungere
+	 * @param r La richiesta da aggiungere
 	 */
 	public void aggiungiRichiesta(Richiesta r){
 		elencoRichiesta.add(r);
@@ -124,9 +134,10 @@ public abstract class Macchina{
 	}
 
 	/**
-	 * Gets richiesta.
+	 * Restituisce la richiesta cui appartiene il codice indicato.
 	 *
-	 * @param codiceRichiesta il codice della richiesta desiderata
+	 * @param codiceRichiesta Il codice della richiesta desiderata
+	 * @return La richiesta desiderata se essa è soddisfatta da questa macchina, altrimenti null
 	 */
 	public Richiesta getRichiesta(int codiceRichiesta){
 		for(Richiesta item:elencoRichiesta){
@@ -138,7 +149,7 @@ public abstract class Macchina{
 	}
 	
 	/**
-	 * Delete richiesta.
+	 * Cancella la richiesta dall'elenco delle soddisfatte.
 	 *
 	 * @param La richiesta da eliminare
 	 */
@@ -147,10 +158,11 @@ public abstract class Macchina{
 	}
 	
 	/**
-	 * Ritorna true se la macchina è libera nel periodo indicato dalle due date.
+	 * Verifica se la macchina è libera nel periodo indicato dalle due date.
 	 *
-	 * @param inizio la data iniziale
-	 * @param fine la data finale
+	 * @param inizio La data iniziale del periodo da verificare
+	 * @param fine La data finale del periodo da verificare
+	 * @return true se la macchina non è associata ad alcuna richiesta in questo periodo
 	 */
 	public boolean isLibera(GregorianCalendar inizio,GregorianCalendar fine){
 		for(Richiesta richiesta:elencoRichiesta){

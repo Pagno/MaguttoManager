@@ -1,32 +1,36 @@
 package model.organizer.data;
 
-// 
 /**
- *   Class Camion.
+ *   La classe Camion rappresenta le caratteristiche di un camion.
+ *   
+ *   Permette di gestire le tre caratteristiche principali di tale tipo di macchina, cioè la capacit&agrave;, la portata e la lunghezza.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Camion extends Macchina {
 	
-	/**   capacita max. */
+	/**   Capacit&agrave; massima. */
 	private int capacitaMax;
 	
-	/**   portata max. */
+	/**   Cortata massima. */
 	private int portataMax;
 	
-	/**   lunghezza. */
+	/**   Lunghezza. */
 	private int lunghezza;
 
 	/**
-	 * Instantiates a new camion.
+	 * Istanzia un nuovo camion.
 	 *
-	 * @param codice codice del camion
-	 * @param produttore produttore del camion
-	 * @param Modello modello del camion
-	 * @param capacita capacita del camion
-	 * @param portata portata del camion
-	 * @param lunghezza lunghezza del camion
+	 * @param codice Il codice del camion
+	 * @param produttore Il produttore del camion
+	 * @param modello Il modello del camion
+	 * @param capacita La capacit&agrave; del camion
+	 * @param portata La portata del camion
+	 * @param lunghezza La lunghezza del camion
 	 */
-	public Camion(int codice,String produttore,String Modello,int capacita,int portata,int lunghezza){
-		super(codice,produttore,Modello);
+	public Camion(int codice,String produttore,String modello,int capacita,int portata,int lunghezza){
+		super(codice,produttore,modello);
 		this.capacitaMax=capacita;
 		this.portataMax=portata;
 		this.lunghezza=lunghezza;
@@ -36,46 +40,46 @@ public class Camion extends Macchina {
 	
 	//GET
 	/**
-	 * Gets   capacita massima.
+	 * Restituisce la capacit&agrave; massima del camion.
 	 *
-	 * @return capacita massima
+	 * @return La capacit&agrave; massima
 	 */
 	public int getCapacitaMassima(){	return this.capacitaMax; }
 	
 	/**
-	 * Gets portata massima.
+	 * Restituisce la portata massima del camion.
 	 *
-	 * @return portata massima
+	 * @return La portata massima
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets lunghezza.
+	 * Restituisce la lunghezza del camion.
 	 *
-	 * @return lunghezza
+	 * @return La lunghezza
 	 */
 	public int getLunghezza(){		return this.lunghezza;	}
 	
 	
 	//SET
 	/**
-	 * Sets capacita massima.
+	 * Modifica la capacit&agrave; massima del camion.
 	 *
-	 * @param capacita new capacita massima
+	 * @param capacita La nuova capacit&agrave; del camion
 	 */
 	public void setCapacitaMassima(int capacita){	this.capacitaMax=capacita;	}
 	
 	/**
-	 * Sets portata massima.
+	 * Modifica la portata massima del camion.
 	 *
-	 * @param portata new portata massima
+	 * @param portata La nuova portata massima del camion
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets lunghezza.
+	 * Modifica la lunghezza del camion.
 	 *
-	 * @param lunghezza new lunghezza
+	 * @param lunghezza La nuova lunghezza del camion
 	 */
 	public void setLunghezza(int lunghezza){		this.lunghezza=lunghezza;	}
 	

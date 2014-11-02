@@ -30,7 +30,7 @@ import model.organizer.data.Priorita;
 import database.DatabaseException;
 import database.DatabaseInterface;
 
-// 
+
 /**
  *   Class ModelConnector.
  */

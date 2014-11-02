@@ -1,33 +1,37 @@
 package model.organizer.data;
 
-// 
 /**
- *   Class Gru.
+ *   La classe Gru rappresenta le caratteristiche di una gru.
+ *   
+ *   Permette di gestire le quattro caratteristiche principali di tale tipo di macchina, cioè la lunghezza, l'altezza,la portata e l'angolo di rotazione.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Gru extends Macchina{
 	
-	/**   lunghezza. */
+	/**   Lunghezza. */
 	private int lunghezza;
 	
-	/**   altezza. */
+	/**   Altezza. */
 	private int altezza;
 	
-	/**   portata max. */
+	/**   Portata massima. */
 	private int portataMax;
 	
-	/**   angolo rotazione. */
+	/**   Angolo di rotazione. */
 	private int angoloRotazione;
 	
 	/**
-	 * Instantiates a new gru.
+	 * Istanzia una nuova gru.
 	 *
-	 * @param codice   codice della Gru
-	 * @param produttore   produttore della Gru
-	 * @param modello   modello della Gru
-	 * @param rotazione   rotazione della Gru
-	 * @param portata   portata della Gru
-	 * @param lunghezza   lunghezza della Gru
-	 * @param altezza   altezza della Gru
+	 * @param codice Il codice della Gru
+	 * @param produttore Il produttore della Gru
+	 * @param modello Il modello della Gru
+	 * @param rotazione L'angolo di rotazione della Gru
+	 * @param portata La portata della Gru
+	 * @param lunghezza La lunghezza della Gru
+	 * @param altezza L'altezza della Gru
 	 */
 	public Gru(int codice,String produttore,String modello, int rotazione, int portata,int lunghezza,int altezza){
 		super(codice,produttore,modello);
@@ -40,60 +44,60 @@ public class Gru extends Macchina{
 	
 	//GET
 	/**
-	 * Gets   lunghezza.
+	 * Restituisce la lunghezza della gru.
 	 *
-	 * @return   lunghezza
+	 * @return La lunghezza della gru
 	 */
 	public int getLunghezza(){		return this.lunghezza;	}
 	
 	/**
-	 * Gets   portata massima.
+	 * Restituisce la portata massima della gru.
 	 *
-	 * @return   portata massima
+	 * @return La portata massima della gru
 	 */
 	public int getPortataMassima(){		return this.portataMax;	}
 	
 	/**
-	 * Gets   altezza.
+	 * Restituisce l'altezza della gru.
 	 *
-	 * @return   altezza
+	 * @return L'altezza della gru
 	 */
 	public int getAltezza(){		return this.altezza;	}
 	
 	/**
-	 * Gets   angolo rotazione.
+	 * Restituisce l'angolo di rotazione della gru.
 	 *
-	 * @return   angolo rotazione
+	 * @return L'angolo di rotazione della gru
 	 */
 	public int getAngoloRotazione(){		return this.angoloRotazione;	}
 	
 	
 	//SET
 	/**
-	 * Sets   lunghezza massima.
+	 * Modifica la lunghezza massima della gru.
 	 *
-	 * @param lunghezza   new lunghezza massima
+	 * @param lunghezza La nuova lunghezza massima della gru
 	 */
 	public void setLunghezzaMassima(int lunghezza){	this.lunghezza=lunghezza;	}
 	
 	/**
-	 * Sets   portata massima.
+	 * Modifica la portata massima della gru.
 	 *
-	 * @param portata   new portata massima
+	 * @param portata La nuova portata massima della gru
 	 */
 	public void setPortataMassima( int portata){		this.portataMax=portata;	}
 	
 	/**
-	 * Sets   altezza.
+	 * Modifica l'altezza della gru.
 	 *
-	 * @param altezza   new altezza
+	 * @param altezza La nuova altezza della gru
 	 */
 	public void setAltezza(int altezza){		this.altezza=altezza;	}
 	
 	/**
-	 * Sets   angolo rotazione.
+	 * Modifica l'angolo di rotazione della gru.
 	 *
-	 * @param rotazione   new angolo rotazione
+	 * @param rotazione Il nuovo angolo di rotazione della gru
 	 */
 	public void setAngoloRotazione(int rotazione){	this.angoloRotazione=rotazione;	}
 	

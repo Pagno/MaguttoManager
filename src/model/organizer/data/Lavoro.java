@@ -4,31 +4,38 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 /**
- * The Class Lavoro.
+ *   Questa classe rappresenta un lavoro. Permette di gestire le caratteristiche principali cioè il codice del lavoro, 
+ *   il suo nome e le date di inizio e fine del lavoro.
+ *   <p>
+ *   Ogni istanza contiene l'elenco delle richieste associate al lavoro rappresentato e il cantiere cui si riferisce il lavoro.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Lavoro extends DefaultMutableTreeNode{
-	/** Codice Lavoro. */
+	/** Codice del lavoro. */
 	private int codice;
-	/** Nome Lavoro. */
+	/** Nome del lavoro. */
 	private String nome;
-	/** Dnizio lavoro. */
+	/** Data di inizio del lavoro. */
 	private GregorianCalendar dataInizio;
-	/** Data fine lavoro. */
+	/** Data di fine del lavoro. */
 	private GregorianCalendar dataFine;
-	/** Macchinari richiesti. */
+	/** Macchinari richiesti dal lavoro. */
 	private ArrayList<Richiesta> macchinariRichiesti;
-	/** Cantiere. */
+	/** Cantiere a cui appartiene il lavoro. */
 	private Cantiere cantiere;
 	
 	/**
-	 * Crea un nuovo lavoro.
+	 * Istanzia un nuovo lavoro.
 	 *
-	 * @param codice Codice Lavoro
-	 * @param nome Nome Lavoro
-	 * @param cantiere Cantiere Lavoro
-	 * @param dataInizio Data inizio del Lavoro
-	 * @param dataFine Data fine del Lavoro
+	 * @param codice Codice del lavoro
+	 * @param nome Nome del lavoro
+	 * @param cantiere Cantiere cui appartiene il lavoro
+	 * @param dataInizio Data di inizio del lavoro
+	 * @param dataFine Data di fine del lavoro
 	 */
 	public Lavoro(int codice, String nome, Cantiere cantiere, GregorianCalendar dataInizio,
 			GregorianCalendar dataFine) {
@@ -42,81 +49,81 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Ritorna il cantiere.
+	 * Restituisce il cantiere di appartenenza del lavoro.
 	 *
-	 * @return il cantiere
+	 * @return Il cantiere cui appartiene il lavoro
 	 */
 	public Cantiere getCantiere() {
 		return cantiere;
 	}
 	
 	/**
-	 * Sets the cantiere.
+	 * Modifica il cantiere cui appartiene il lavoro.
 	 *
-	 * @param cantiere the new cantiere
+	 * @param cantiere Il nuovo cantiere
 	 */
 	public void setCantiere(Cantiere cantiere) {
 		this.cantiere = cantiere;
 	}
 	
 	/**
-	 * Gets the codice.
+	 * Restituisce il codice del lavoro.
 	 *
-	 * @return the codice
+	 * @return Il codice del lavoro
 	 */
 	public int getCodice() {
 		return codice;
 	}
 	
 	/**
-	 * Sets the codice.
+	 * Modifica il codice del lavoro.
 	 *
-	 * @param codice the new codice
+	 * @param codice Il nuovo codice
 	 */
 	public void setCodice(int codice) {
 		this.codice = codice;
 	}
 	
 	/**
-	 * Gets the nome.
+	 * Restituisce il nome del lavoro.
 	 *
-	 * @return the nome
+	 * @return Il nome del lavoro
 	 */
 	public String getNome() {
 		return nome;
 	}
 	
 	/**
-	 * Sets the nome.
+	 * Modifica il nome del lavoro.
 	 *
-	 * @param Assegna un nuovo nome
+	 * @param nome Il nuovo nome del lavoro
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
 	/**
-	 * Gets the data inizio.
+	 * Restituisce la data di inizio del lavoro.
 	 *
-	 * @return the data inizio
+	 * @return La data di inizio del lavoro
 	 */
 	public GregorianCalendar getDataInizio() {
 		return dataInizio;
 	}
 	
 	/**
-	 * Sets the data inizio.
+	 * Modifica la data di inizio del lavoro.
 	 *
-	 * @param Assegna un nuovo data inizio
+	 * @param dataInizio La nuova data di inizio del lavoro
 	 */
 	public void setDataInizio(GregorianCalendar dataInizio) {
 		this.dataInizio = dataInizio;
 	}
 	
 	/**
-	 * Gets the str data inizio.
+	 * Restituisce la data di inizio del lavoro sotto forma di stringa.
 	 *
-	 * @return the str data inizio
+	 * @return La stringa rappresentante la data di inizio del lavoro
 	 */
 	public String getStrDataInizio() {
 		SimpleDateFormat df = new SimpleDateFormat();
@@ -125,18 +132,18 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Gets the data fine.
+	 * Restituisce la data di fine del lavoro.
 	 *
-	 * @return the data fine
+	 * @return La data di fine del lavoro
 	 */
 	public GregorianCalendar getDataFine() {
 		return dataFine;
 	}
 	
 	/**
-	 * Gets the str data fine.
+	 * Restituisce la data di fine del lavoro sotto forma di stringa.
 	 *
-	 * @return the str data fine
+	 * @return La stringa rappresentante la data di fine del lavoro
 	 */
 	public String getStrDataFine() {
 		SimpleDateFormat df = new SimpleDateFormat();
@@ -145,9 +152,9 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Sets the data fine.
+	 * Modifica la data di fine del lavoro.
 	 *
-	 * @param Assegna una nuova data fine
+	 * @param dataFine La nuova data di fine del lavoro
 	 */
 	public void setDataFine(GregorianCalendar dataFine) {
 		this.dataFine = dataFine;
@@ -202,10 +209,10 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Aggiungi richiesta macchina al lavoro.
+	 * Aggiunge la richiesta di una macchina al lavoro.
 	 *
-	 * @param caratteristiche Caratteristiche della macchina richieste per il lavoro
-	 * @return codice della appena inserita
+	 * @param caratteristiche Le caratteristiche della macchina richiesta per il lavoro corrente
+	 * @return Il codice della richiesta appena inserita
 	 */
 	public int aggiungiRichiesta(RichiestaMacchina caratteristiche){
 		Richiesta r=new Richiesta(caratteristiche,this);
@@ -215,11 +222,11 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Carica richiesta.
+	 * Carica la richiesta di una macchina necessaria al lavoro.
 	 *
-	 * @param caratteristiche Caratteristiche della macchina richieste per il lavoro
-	 * @param codice Codice della richeista
-	 * @param m macchinada associare
+	 * @param caratteristiche Le caratteristiche della macchina richiesta per il lavoro
+	 * @param codice Il codice della richiesta caricata
+	 * @param m La macchina associata alla richiesta caricata
 	 */
 	public void caricaRichiesta(RichiestaMacchina caratteristiche,Integer codice, Macchina m){
 		Richiesta r=new Richiesta(caratteristiche,this,codice);
@@ -245,10 +252,10 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}*/
 	
 	/**
-	 * Controlla se il lavoro contiere una richiesta con quel dato codice.
+	 * Controlla se il lavoro contiene la richiesta che possiede il codice indicato.
 	 *
-	 * @param codice Codice della richiesta
-	 * @return true se il lavoro contiere una richiesta con quel dato codice.
+	 * @param codice Il codice della richiesta
+	 * @return true se il lavoro contiere la richiesta cui si riferisce il codice
 	 */
 	public boolean hasRichiesta(Integer codice){
 		for(Richiesta item:macchinariRichiesti){
@@ -260,10 +267,10 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Gets the richiesta.
+	 * Restituisce la richiesta cui si riferisce il codice indicato.
 	 *
-	 * @param codiceRichiesta Codice richiesta
-	 * @return Richiesta
+	 * @param codiceRichiesta Il codice della richiesta
+	 * @return La richiesta desiderata
 	 */
 	public Richiesta getRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
@@ -275,10 +282,10 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Elimina richiesta.
+	 * Elimina la richiesta cui si riferisce il codice indicato.
 	 *
-	 * @param codiceRichiesta Codice richiesta da elimianre
-	 * @return true, se la richiesta ï¿½ stata correttamente eliminata.
+	 * @param codiceRichiesta Il codice della richiesta da eliminare
+	 * @return true, se la richiesta &egrave; stata correttamente eliminata
 	 */
 	public boolean eliminaRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
@@ -293,7 +300,7 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * Libera tutte le richiesta legate al lavoro.
+	 * Libera tutte le richieste appartenenti al lavoro.
 	 */
 	public void svuotaRichieste(){
 		for(Richiesta item:macchinariRichiesti){
@@ -305,16 +312,15 @@ public class Lavoro extends DefaultMutableTreeNode{
 	/**
 	 * Associa un macchina ad una richiesta.
 	 *
-	 * @param codice Codice della richiesta.
-	 * @param mac Macchina da associare alla richiesta.
-	 * @return true se la richiesta viene correttamente associata.
+	 * @param codice Il codice della richiesta desiderata
+	 * @param mac La macchina da associare alla richiesta
+	 * @return true se la richiesta viene correttamente associata alla macchina
 	 */
 	public boolean soddisfaRichiesta(Integer codice,Macchina mac){
 		for(Richiesta item:macchinariRichiesti){
 			if(item.getCodice()==codice){
 				if(item.rispettaRichiesta(mac)){
 					item.setMacchina(mac);
-					//mac.addRichiesta(item);//TODO mac.addRichiesta ?? gia presente in setMacchina()
 					return true;
 				}
 			}
@@ -323,9 +329,9 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}
 	
 	/**
-	 * vogliamo cancellare la richiesta, quindi inseriamo null al posto dell'associazione precedente.
+	 * Rimuove l'associazione tra la richiesta indicata dal codice e la sua macchina.
 	 *
-	 * @param codiceRichiesta Codice richiesta
+	 * @param codiceRichiesta Il codice della richiesta da liberare
 	 */
 	public void liberaRichiesta(Integer codiceRichiesta){
 		for(Richiesta item:macchinariRichiesti){
@@ -349,12 +355,11 @@ public class Lavoro extends DefaultMutableTreeNode{
 			}
 		}
 	}*/
-	
-	//Permette di vedere se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine
+
 	/**
-	 * Controlla se la richiesta ï¿½ scoperta.
+	 * Verifica se il lavoro ha ancora delle richieste non soddisfatte, e necessita quindi di macchine.
 	 *
-	 * @return true, se ï¿½ scoperta
+	 * @return true, se almeno una richiesta del lavoro &egrave; scoperta
 	 */
 	public boolean isScoperto(){
 		for(Richiesta item:macchinariRichiesti){
@@ -381,45 +386,47 @@ public class Lavoro extends DefaultMutableTreeNode{
 	}*/
 	
 	/**
-	 * Ritorna Lista richieste.
+	 * Restituisce la lista delle richieste del lavoro.
 	 *
-	 * @return Lista richieste
+	 * @return La lista delle richieste
 	 */
 	public ArrayList<Richiesta> getListaRichieste(){
 		return macchinariRichiesti;
 	}
 	
 	/**
-	 * Gets the priorita.
+	 * Restituisce la priorit&agrave; del cantiere cui appartiene il lavoro.
 	 *
-	 * @return the priorita
+	 * @return La priorit&agrave; del cantiere cui appartiene il lavoro
 	 */
 	public Priorita getPriorita(){
 		return cantiere.getPriorita();
 	}
 	
 	/**
-	 * Gets the codice cantiere.
+	 * Restituisce il codice del cantiere cui appartiene il lavoro.
 	 *
-	 * @return the codice cantiere
+	 * @return Il codice del cantiere cui appartiene il lavoro
 	 */
 	public int getCodiceCantiere(){
 		return cantiere.getCodice();
 	}
 	
 	/**
-	 * Gets the lavori connessi.
+	 * Restituisce la lista dei lavori connessi a quest'ultimo, cioè la lista dei lavori appartenenti al cantiere 
+	 * cui appartiene anche il lavoro corrente.<br>
+	 * Ogni lavoro è connesso a se stesso, ed è quindi compreso nella lista.
 	 *
-	 * @return the lavori connessi
+	 * @return La lista dei lavori connessi
 	 */
 	public ArrayList<Lavoro> getLavoriConnessi(){
 		return cantiere.getElencoLavori();
 	}
 	
 	/**
-	 * Gets the durata.
+	 * Restituisce la durata in giorni del lavoro.
 	 *
-	 * @return the durata
+	 * @return La durata del lavoro
 	 */
 	public int getDurata(){
 		int d;

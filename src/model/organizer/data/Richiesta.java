@@ -2,32 +2,39 @@ package model.organizer.data;
 import java.util.ArrayList;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.GregorianCalendar;
-// TODO: Auto-generated Javadoc
 
 /**
- * The Class Richiesta.
+ *   Questa classe rappresenta la richiesta di una particolare macchina. Permette di definire le caratteristiche che devono
+ *   essere soddisfatte da una macchina per poterla soddisfare; quando è soddisfatta inoltre memorizza la macchina che permette 
+ *   di considerarla coperta.
+ *   <p>
+ *   Ogni istanza contiene il lavoro cui appartiene la richiesta, la macchina ad essa eventualmente associata e un codice 
+ *   identificativo numerico.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public final class Richiesta extends DefaultMutableTreeNode implements Comparable<Richiesta>{
 	
-	/** The caratteristiche. */
+	/** Caratteristiche che devono esser rispettate dalla macchina. */
 	private RichiestaMacchina caratteristiche;
 	
-	/** The macchina. */
+	/** Macchina associata. */
 	private Macchina macchina;
 	
-	/** The lavoro. */
+	/** Lavoro cui appartiene la richiesta. */
 	private Lavoro lavoro;
-	/** codice. */
+	/** Ultimo codice associato a una richiesta in precedenza. */
 	private static int ultimoCodice;
 	
-	/** The codice. */
+	/** Codice della richiesta. */
 	private int codice;
 	
 	/**
-	 * Instantiates a new richiesta.
+	 * Istanzia una nuova richiesta.
 	 *
-	 * @param caratteristiche the caratteristiche
-	 * @param lavoro the lavoro
+	 * @param caratteristiche Le caratteristiche della richiesta
+	 * @param lavoro Il lavoro cui appartiene la richiesta
 	 */
 	public Richiesta(RichiestaMacchina caratteristiche, Lavoro lavoro) {
 		super();
@@ -38,11 +45,13 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	
 	/**
-	 * Instantiates a new richiesta.
+	 * Istanzia una nuova richiesta, permettendo di deciderne il codice.<BR>
+	 * Per rispettare l'univocit&agrave; dei codici, il costruttore deve essere utilizzato solamente in fase di caricamento 
+	 * dei dati dal database.
 	 *
-	 * @param caratteristiche the caratteristiche
-	 * @param lavoro the lavoro
-	 * @param codiceRichiesta the codice richiesta
+	 * @param caratteristiche Le caratteristiche della richiesta
+	 * @param lavoro Il lavoro cui appartiene la richiesta
+	 * @param codiceRichiesta Il codice identificativo della richiesta
 	 */
 	public Richiesta(RichiestaMacchina caratteristiche,Lavoro lavoro, int codiceRichiesta) {
 		super();
@@ -55,32 +64,33 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 		this.setMacchina(null);
 	}
 	/**
-	 * Inits codice.
+	 * Inizializza i codici delle richieste.
 	 */
 	public static void initCodice(){
 		ultimoCodice=0;
 	}
 	
 	/**
-	 * Assign codice.
+	 * Assegna automaticamente il codice alla richiesta inserita.<BR>
+	 * Il codice assegnato &egrave; quello successivo all'ultimo utilizzato in precedenza.
 	 */
 	private void assignCodice(){
 		ultimoCodice++;
 		codice=ultimoCodice;
 	}
 	/**
-	 * Gets codice.
+	 * Restituisce il codice della richiesta.
 	 *
-	 * @return codice
+	 * @return Il codice della richiesta
 	 */
 	public int getCodice(){
 		return codice;
 	}
 	
 	/**
-	 * Gets the caratteristiche.
+	 * Restituisce le caratteristiche che devono esser soddisfatte dalla macchina per rispettare la richiesta.
 	 *
-	 * @return the caratteristiche
+	 * @return Le caratteristiche desiderate
 	 */
 	public RichiestaMacchina getCaratteristiche() {
 		return caratteristiche;
@@ -99,9 +109,9 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}*/
 	
 	/**
-	 * Checks if is soddisfatta.
+	 * Controlla se alla richiesta &egrave; stata associata una macchina.
 	 *
-	 * @return true, if is soddisfatta
+	 * @return true, se la richiesta &egrave; stata associata a una macchina
 	 */
 	public boolean isSoddisfatta() {
 		if(macchina==null){
@@ -113,9 +123,9 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	
 	/**
-	 * Gets the data.
+	 * Restituisce una lista di stringhe rappresentante la richiesta corrente.
 	 *
-	 * @return the data
+	 * @return La lista di stringhe rappresentante la richiesta corrente
 	 */
 	public ArrayList<String> getData() {
 		ArrayList<String> l=new ArrayList<String>();
@@ -210,37 +220,33 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	
 	/**
-	 * Rispetta richiesta.
+	 * Verifica se la macchina proposta ha le caratteristiche necessarie per soddisfare la richiesta.
 	 *
-	 * @param m the m
-	 * @return true, if successful
+	 * @param m La macchina proposta
+	 * @return true, se la macchina proposta &egrave; adatta a soddisfare la richiesta
 	 */
 	public boolean rispettaRichiesta(Macchina m){
 		return caratteristiche.rispettaRichiesta(m);
 	}
-	//Metodi realizzati appositamente per il testing della classe.
-	/**
-	 * Gets next codice.
-	 *
-	 * @return next codice
-	 */
-	static int getNextCodice(){
-		return ultimoCodice+1;
-	}
 	
 	/**
-	 * Gets the macchina.
+	 * Restituisce la macchina associata a questa richiesta.
 	 *
-	 * @return the macchina
+	 * @return La macchina associata a questa richiesta, oppure null se la richiesta non &egrave; soddisfatta
 	 */
 	public Macchina getMacchina() {
 		return macchina;
 	}
 	
 	/**
-	 * Sets the macchina.
+	 * Associa una macchina alla richiesta corrente.<BR>
+	 * Se la macchina proposta non &egrave; adatta a soddisfare la richiesta, la richiesta resta scoperta; nel caso in cui in precedenza
+	 * fosse gi&agrave; stata associata essa viene liberata.<BR>
+	 * Il metodo si occupa anche dell'aggiornamento della lista delle richieste per la macchina proposta e per l'eventuale 
+	 * macchina precedentemente associata.<BR>
+	 * Se il parametro in input ha valore null l'eventuale macchina associata viene liberata.
 	 *
-	 * @param macchina the new macchina
+	 * @param macchina La macchina da associare alla richiesta
 	 */
 	public void setMacchina(Macchina macchina) {
 		if(this.macchina!=null){
@@ -273,82 +279,81 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	
 	/**
-	 * Gets the data inizio.
+	 * Restituisce la data d'inizio del lavoro cui appartiene la richiesta.
 	 *
-	 * @return the data inizio
+	 * @return La data d'inizio del lavoro cui appartiene la richiesta
 	 */
 	public GregorianCalendar getDataInizio(){
 		return lavoro.getDataInizio();
 	}
 	
 	/**
-	 * Gets the data fine.
+	 * Restituisce la data di fine del lavoro cui appartiene la richiesta.
 	 *
-	 * @return the data fine
+	 * @return La data di fine del lavoro cui appartiene la richiesta
 	 */
 	public GregorianCalendar getDataFine(){
 		return lavoro.getDataFine();
 	}
 	
 	/**
-	 * Gets the priorita.
+	 * Restituisce la priorit&agrave; del cantiere cui appartiene il lavoro proprietario della richiesta.
 	 *
-	 * @return the priorita
+	 * @return La priorit&agrave; del cantiere
 	 */
 	public Priorita getPriorita(){
 		return lavoro.getPriorita();
 	}
 	
 	/**
-	 * Gets the codice lavoro.
+	 * Restituisce il codice del lavoro proprietario della richiesta.
 	 *
-	 * @return the codice lavoro
+	 * @return Il codice del lavoro proprietario della richiesta
 	 */
 	public int getCodiceLavoro(){
 		return lavoro.getCodice();
 	}
 	
 	/**
-	 * Gets the codice cantiere.
+	 * Restituisce il codice del cantiere cui appartiene il lavoro proprietario della richiesta.
 	 *
-	 * @return the codice cantiere
+	 * @return Il codice del cantiere cui appartiene il lavoro proprietario della richiesta
 	 */
 	public int getCodiceCantiere(){
 		return lavoro.getCodiceCantiere();
 	}
 	
 	/**
-	 * Gets the lavoro.
-	 *
-	 * @return the lavoro
+	 * Restituisce il lavoro proprietario della richiesta.
+	 * @return Il lavoro proprietario della richiesta
 	 */
 	public Lavoro getLavoro(){
 		return lavoro;
 	}
 	
 	/**
-	 * Gets the lavori connessi.
+	 * Restituisce la lista dei lavori connessi a quello cui appartiene la richiesta.
 	 *
-	 * @return the lavori connessi
+	 * @return La lista dei lavori connessi a quello cui appartiene la richiesta
 	 */
 	public ArrayList<Lavoro> getLavoriConnessi(){
 		return lavoro.getLavoriConnessi();
 	}
 	
 	/**
-	 * Gets the durata.
+	 * Restituisce la durata del lavoro proprietario della richiesta.
 	 *
-	 * @return the durata
+	 * @return La durata del lavoro proprietario della richiesta
 	 */
 	public int getDurata(){
 		return lavoro.getDurata();
 	}
 	
 	/**
-	 * Collide.
+	 * Verifica se la richiesta inserita è cronologicamente sovrapposta alla richiesta corrente.
 	 *
-	 * @param other the other
-	 * @return true, if successful
+	 * @param other L'altra richiesta
+	 * @return true, se le due richieste si riferiscono a periodi cronologicamente sovrapposti
 	 */
 	public boolean collide(Richiesta other){
 		if(this.getDataInizio().after(other.getDataFine())||this.getDataFine().before(other.getDataInizio())){
@@ -360,10 +365,13 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	
 	/**
-	 * In conflitto.
+	 * Verifica se la richiesta inserita potrebbe potenzialmente occupare la una macchina in grado di soddisfare 
+	 * la richiesta corrente.<BR>
+	 * Ci&ograve; significa che le due richieste esigono lo stesso tipo di macchina, e che tutti gli intervalli delle 
+	 * caratteristiche tipiche di tali macchine sono almeno parzialmente sovrapposti.
 	 *
-	 * @param other the other
-	 * @return true, if successful
+	 * @param other L'altra richiesta
+	 * @return true, se le due richieste potrebbero potenzialmente contendersi una particolare macchina
 	 */
 	public boolean inConflitto(Richiesta other){
 		if(this.caratteristiche instanceof RichiestaCamion){
@@ -461,13 +469,17 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 	}
 	
 	/**
-	 * Gestisci limiti.
+	 * Indica se due intervalli di valori interi sono sovrapposti almeno parzialmente.<BR>
+	 * Riceve in input l'estremo sinistro e destro di ciascuno dei due intervalli, e verifica se almeno uno degli interi è 
+	 * condiviso da entrambi gli intervalli.<BR>
+	 * Permette inoltre di gestire il caso in cui uno o più dei quattro estremi non sia definito, tali situazioni vengono 
+	 * indicati con il valore convenzionale -1.
 	 *
-	 * @param aMin the a min
-	 * @param aMax the a max
-	 * @param bMin the b min
-	 * @param bMax the b max
-	 * @return true, if successful
+	 * @param aMin L'estremo sinistro dell'intervallo a
+	 * @param aMax L'estremo destro dell'intervallo a
+	 * @param bMin L'estremo sinistro dell'intervallo b
+	 * @param bMax L'estremo destro dell'intervallo b
+	 * @return true, se gli intervalli a e b sono sovrapposti
 	 */
 	static boolean gestisciLimiti(int aMin,int aMax,int bMin, int bMax){
 		boolean conflitto=false;
@@ -491,5 +503,16 @@ public final class Richiesta extends DefaultMutableTreeNode implements Comparabl
 			return false;
 		}
 		else return true;
+	}
+
+	//Metodi realizzati appositamente per il testing della classe.
+
+	/**
+	 * Restituisce il prossimo codice che verrà assegnato a una richiesta.
+	 *
+	 * @return Il prossimo codice da assegnare
+	 */
+	static int getNextCodice(){
+		return ultimoCodice+1;
 	}
 }
