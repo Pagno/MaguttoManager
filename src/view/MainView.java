@@ -274,7 +274,8 @@ public class MainView extends JFrame {
 	}
 
 	/**
-	 * Adds button gru listener.
+	 * Restituisce L'ActionLisener per gestire il click la visualizzazione dei dati caricati nell'
+	 * applicazione.
 	 *
 	 * @param visualizza i dati caricati nell'applicazione.
 	 * @return ActionListener

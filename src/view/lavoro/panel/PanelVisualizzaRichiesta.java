@@ -8,8 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+// TODO: Auto-generated Javadoc
 /**
- * Panello necessario per la visualizzazione dei dati della richiesta.
+ * Panello usato per la visualizzazione dei dati della richiesta.
  */
 public class PanelVisualizzaRichiesta extends JPanel {
 
@@ -25,14 +26,18 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	
 	/** The btn associa macchina. */
 	public JButton btnAssociaMacchina;
+	
 	/**
-	 * Istanzia il nuovo pannello
+	 * Istanzia il nuovo pannello.
 	 */
 	public PanelVisualizzaRichiesta() {
 		super();
 		createPanel();
 	}
 
+	/**
+	 * Inizializza il nuovo pannello.
+	 */
 	private void createPanel(){
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		lblTipo=new JLabel();
@@ -197,7 +202,7 @@ public class PanelVisualizzaRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna i dati della richiesta visualizzata
+	 * Ritorna i dati della richiesta visualizzata.
 	 *
 	 * @return dati della richiesta visualizzata
 	 */
@@ -215,6 +220,11 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		lblMacchina.setText("Macchina Associata: "+string);		
 	}
 
+	/**
+	 * Aggiunge l'ActionListener per liberare richiesta.
+	 *
+	 * @param associaMacchinaListener Associa macchina listener
+	 */
 	public void addLiberaRichiestaListener(ActionListener associaMacchinaListener) {
 		for(ActionListener act:btnAssociaMacchina.getActionListeners()){
 			btnAssociaMacchina.removeActionListener(act);
@@ -222,6 +232,11 @@ public class PanelVisualizzaRichiesta extends JPanel {
 		btnAssociaMacchina.addActionListener(associaMacchinaListener);
 	}
 
+	/**
+	 *Aggiunge l'ActionListener per soddisfare la richiesta.
+	 *
+	 * @param liberaRichiestaListener Libera richiesta listener
+	 */
 	public void addSoddisfaRichiestaListener(
 			ActionListener liberaRichiestaListener) {
 		for(ActionListener act:btnAssociaMacchina.getActionListeners()){

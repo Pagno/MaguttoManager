@@ -49,7 +49,7 @@ public class PanelCantiere extends JPanel {
 	private JComboBox<String> priorita=new JComboBox<String>(priority);
 	
 	/**
-	 * Instanzia il pannello.
+	 * Istanzia il pannello.
 	 */
 	public PanelCantiere() {
 		setLayout(new BorderLayout());
@@ -58,7 +58,7 @@ public class PanelCantiere extends JPanel {
 	}
 
 	/**
-	 * Creates the panel.
+	 * Inizializza il nuovo pannello.
 	 */
 	private void createPanel(){
 		lblNomeCantiere = new JLabel("Nome:");
@@ -185,7 +185,7 @@ public class PanelCantiere extends JPanel {
 		}
 	}
 	/**
-	 * Ritoena la priorita cantiere.
+	 * Ritorna la priorita cantiere.
 	 *
 	 * @return priorita priorita cantiere
 	 */

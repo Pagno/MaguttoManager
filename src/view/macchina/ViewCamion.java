@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import controller.ControllerInterface;
 
+// TODO: Auto-generated Javadoc
 /**
 *   View per inserimento e modifica degli Escavatori.
  */
@@ -39,10 +40,12 @@ public class ViewCamion extends JDialog {
 
 	/** ok button. */
 	private JButton okButton;
+	
+	/** The ins ctr. */
 	private ControllerInterface insCtr;
 
 	/**
-	 * Inizializza il frame
+	 * Inizializza il frame.
 	 *
 	 * @param view view principale.
 	 * @param obj dati dei Camion da modificare.
@@ -79,6 +82,11 @@ public class ViewCamion extends JDialog {
 
 	}
 
+	/**
+	 * Modifica i dati del Camion
+	 *
+	 * @param v the new text box
+	 */
 	private void setTextBox(Object[] v) {
 		txtProduttore.setText(v[1].toString());
 		txtModello.setText(v[2].toString());
@@ -125,6 +133,9 @@ public class ViewCamion extends JDialog {
 
 	}
 
+	/**
+	 * Istanzia gli oggetti della view.
+	 */
 	private void createLayout() {
 		setResizable(true);
 		setBounds(100, 100, 332, 282);

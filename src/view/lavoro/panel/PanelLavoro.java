@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+// TODO: Auto-generated Javadoc
 /**
  * Panello necessario per l'inserimento dei dati del lavoro.
  */
@@ -27,10 +28,8 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4417739288868546177L;
-	/**
-	 * Create the panel.
-	 */
 
+	/** The txt nome lavoro. */
 	public JTextField txtNomeLavoro;
 	
 	/** The lbl data fine lavoro. */
@@ -46,7 +45,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 	Date minDataInizio, maxDataFine;
 
 	/**
-	 * iIstanzia il panel lavoro.
+	 * Istanzia il panel lavoro.
 	 *
 	 * @param inizio minima data di inizio del lavoro
 	 * @param fine massima data di fine del lavoro
@@ -69,7 +68,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 	}
 
 	/**
-	 * Crea il panelllo.
+	 * Crea il pannello.
 	 */
 	private void createPanel() {
 		lblNomeLavoro = new JLabel("NomeLavoro:");
@@ -155,7 +154,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 	}
 
 	/**
-	 * Assegna il la minima e massina data per la creazione di una lavoro.
+	 * Assegna la minima e massina data per la creazione di una lavoro.
 	 *
 	 * @param inizio minima data di inizio del lavoro
 	 * @param fine massima data di fine del lavoro
@@ -168,7 +167,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 	}
 
 	/**
-	 * Pulisce i dati inseriti nei campi
+	 * Pulisce i dati inseriti nei campi.
 	 */
 	public void clear() {
 		dataInizioLavoro.setDate(null);
@@ -177,7 +176,7 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 	}
 
 	/**
-	 * Carica i dati del cantiere
+	 * Carica i dati del cantiere.
 	 *
 	 * @param data i dati del cantiere
 	 */
@@ -252,6 +251,11 @@ public class PanelLavoro extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	/**
+	 * Aggiunge un ActionLister per la modifica del lavoro.
+	 *
+	 * @param aggiungiLavoroListener ActionListener da aggiungere al bottone
+	 */
 	public void btnAddActionListener(ActionListener aggiungiLavoroListener) {
 		for(ActionListener act:btnLavoro.getActionListeners()){
 			btnLavoro.removeActionListener(act);

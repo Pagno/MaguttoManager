@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Panello necessario per l'inserimento dei dati della richiesta.
  */
@@ -20,11 +21,6 @@ public class PanelRichiesta extends JPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6633814599841251596L;
-	/**
-	 * Create the panel.
-	 */
-	
-
 
 	private JLabel lblTipo,lblPortata,lblCapacita,lblLunghezza,lblAltezza,lblProfondita,lblRotazione;
 	
@@ -44,7 +40,7 @@ public class PanelRichiesta extends JPanel {
 	public JComboBox<String> Type=new JComboBox<String>(str);
 	
 	/**
-	 * Istanzia il nuovo pannello
+	 * Istanzia il nuovo pannello.
 	 */
 	public PanelRichiesta() {
 		setLayout(new BorderLayout());
@@ -65,6 +61,10 @@ public class PanelRichiesta extends JPanel {
 		Type.setName("tipoMacchina");
 		
 	}
+	
+	/**
+	 * Inizializza il nuovo pannello
+	 */
 	private void createPanel(){
 		lblTipo = new JLabel("Tipo Macchina: ");
 		lblPortata = new JLabel("Portata: ");
@@ -227,6 +227,11 @@ public class PanelRichiesta extends JPanel {
 		
 	}
 	
+	/**
+	 * Gestisce l'evento legato alla selezione del della JComboBox.
+	 *
+	 * @return ActionListener
+	 */
 	private ActionListener TypeListener(){
 		return new ActionListener() {
 			@Override
@@ -266,33 +271,66 @@ public class PanelRichiesta extends JPanel {
 		};
 	}
 	
+	/**
+	 * Modifica visibilita della JTextField della capacita.
+	 *
+	 * @param vis visibilita capacita
+	 */
 	private void setVisibilitaCapacita(Boolean vis){
 		lblCapacita.setVisible(vis);
 		txtMinCapacita.setVisible(vis);
 		txtMaxCapacita.setVisible(vis);
 	}
+	
+	/**
+	 * Modifica visibilita della JTextField della Portata.
+	 *
+	 * @param vis visibilita Portata
+	 */
 	private void setVisibilitaPortata(Boolean vis){
 		lblPortata.setVisible(vis);
 		txtMinPortata.setVisible(vis);
 		txtMaxPortata.setVisible(vis);
 	}
+	
+	/**
+	 * Modifica visibilita della JTextField della Lunghezza.
+	 *
+	 * @param vis visibilita Lunghezza
+	 */
 	private void setVisibilitaLunghezza(Boolean vis){
 		lblLunghezza.setVisible(vis);
 		txtMinLunghezza.setVisible(vis);
 		txtMaxLunghezza.setVisible(vis);
 	}
+	
+	/**
+	 * Modifica visibilita della JTextField della Altezza.
+	 *
+	 * @param vis visibilita Altezza
+	 */
 	private void setVisibilitaAltezza(Boolean vis){
 		lblAltezza.setVisible(vis);
 		txtMinAltezza.setVisible(vis);
 		txtMaxAltezza.setVisible(vis);
 	}
 
+	/**
+	 * Modifica visibilita della JTextField della Profondita.
+	 *
+	 * @param vis visibilita Profondita
+	 */
 	private void setVisibilitaProfondita(Boolean vis){
 		lblProfondita.setVisible(vis);
 		txtMinProfondita.setVisible(vis);
 		txtMaxProfondita.setVisible(vis);
 	}
 
+	/**
+	 * Modifica visibilita della JTextField della Rotazione.
+	 *
+	 * @param vis visibilita Rotazione
+	 */
 	private void setVisibilitaRotazione(Boolean vis){
 		lblRotazione.setVisible(vis);
 		txtMinRotazione.setVisible(vis);
@@ -306,7 +344,7 @@ public class PanelRichiesta extends JPanel {
 	}*/
 	
 	/**
-	 * Ritorna   portata minima.
+	 * Restituisce la portata minima.
 	 *
 	 * @return portata minima
 	 */
@@ -315,7 +353,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna capacita minima.
+	 * Restituisce la  capacita minima.
 	 *
 	 * @return capacita minima
 	 */
@@ -324,7 +362,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna lunghezza minima.
+	 * Restituisce la lunghezza minima.
 	 *
 	 * @return lunghezza minima
 	 */
@@ -333,7 +371,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna altezza minima.
+	 * Restituisce la altezza minima.
 	 *
 	 * @return altezza minima
 	 */
@@ -342,7 +380,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna profondita minima.
+	 * Restituisce la profondita minima.
 	 *
 	 * @return profondita minima
 	 */
@@ -351,7 +389,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna rotazione minima.
+	 * Restituisce la rotazione minima.
 	 *
 	 * @return rotazione minima
 	 */
@@ -360,9 +398,9 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna tipo macchina.
+	 * Restituisce il tipo della macchina.
 	 *
-	 * @return tipo macchina
+	 * @return tipo della macchina
 	 */
 	public String getTipoMacchina() {
 		return (String)Type.getSelectedItem();
@@ -370,7 +408,7 @@ public class PanelRichiesta extends JPanel {
 	
 	
 	/**
-	 * Ritorna portata.
+	 * Restituisce la portata Massima.
 	 *
 	 * @return portata massima.
 	 */
@@ -379,7 +417,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna capacita.
+	 * Restituisce la capacita massima.
 	 *
 	 * @return capacita massima.
 	 */
@@ -388,7 +426,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna lunghezza.
+	 * Restituisce la lunghezza massima.
 	 *
 	 * @return lunghezza massima.
 	 */
@@ -397,7 +435,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna altezza.
+	 * Restituisce la altezza massima.
 	 *
 	 * @return altezza massima.
 	 */
@@ -406,7 +444,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna profondita.
+	 * Restituisce la profondita massima.
 	 *
 	 * @return profondita massima.
 	 */
@@ -415,7 +453,7 @@ public class PanelRichiesta extends JPanel {
 	}
 	
 	/**
-	 * Ritorna rotazione.
+	 * Restituisce la rotazione massima.
 	 *
 	 * @return rotazione massima.
 	 */

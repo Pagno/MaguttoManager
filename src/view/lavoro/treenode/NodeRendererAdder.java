@@ -32,7 +32,7 @@ public class NodeRendererAdder implements TreeCellRenderer {
 		showSoddisfatta=bo;
 	}
 	/**
-	 * Crea la view
+	 * Costruttore della classe
 	 */
 	public NodeRendererAdder(){
 		lblAdd=new JLabel();

@@ -48,6 +48,7 @@ import javax.swing.JCheckBox;
 
 import controller.ControllerInterface;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ViewLavoro.
  */
@@ -101,14 +102,11 @@ public class ViewLavoro extends JDialog{
 	private ControllerInterface cCtr;
 
 	/**
-	 * Instantiates a new view lavoro.
+	 * Crea un nuovo frame per la gestione di un cantiere.
 	 *
-	 * @param view
-	 *            the view
-	 * @param cantiere
-	 *            the cantiere
-	 * @param aCtr
-	 *            the a ctr
+	 * @param view view padre
+	 * @param cantiere Cantiere da modificare
+	 * @param aCtr the a ctr
 	 */
 	public ViewLavoro(JFrame view, Cantiere cantiere, ControllerInterface aCtr) {
 		super(view);
@@ -203,6 +201,11 @@ public class ViewLavoro extends JDialog{
 		setVisible(true);
 	}
 
+	/**
+	 * Evento legato alla modifica del cantiere.
+	 *
+	 * @return ActionListener
+	 */
 	private ActionListener modificaCantiere() {
 		return new ActionListener() {
 			@Override
@@ -230,10 +233,9 @@ public class ViewLavoro extends JDialog{
 
 	// Aggiornamento dei pannelli
 	/**
-	 * Do mouse clicked.
+	 * Evento legto al click del mouse sull'elenco dei lavoro.
 	 *
-	 * @param me
-	 *            the me
+	 * @return me Gestore del click del mouse
 	 */
 	void doMouseClicked(MouseEvent me) {
 		TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
@@ -345,11 +347,11 @@ public class ViewLavoro extends JDialog{
 	}
 
 	/**
-	 * Libera richiesta listener.
+	 *  Evento legato alla pressione del bottone "Libera Richiesta".
 	 *
-	 * @param codiceRichiesta
-	 *            the codice richiesta
-	 * @return the action listener
+	 * @return ActionListener
+	 *
+	 * @param codiceRichiesta Codice della richiesta
 	 */
 	public ActionListener liberaRichiestaListener(final int codiceRichiesta) {
 		return new ActionListener() {
@@ -364,11 +366,11 @@ public class ViewLavoro extends JDialog{
 	}
 
 	/**
-	 * Associa macchina listener.
+	 * Evento legato alla pressione del bottone "Associa Macchina".
 	 *
-	 * @param codiceRichiesta
-	 *            the codice richiesta
-	 * @return the action listener
+	 * 
+	 * @param codiceRichiesta Codice della richiesta
+	 * @return ActionLister
 	 */
 	public ActionListener associaMacchinaListener(final int codiceRichiesta) {
 		return new ActionListener() {
@@ -383,13 +385,13 @@ public class ViewLavoro extends JDialog{
 	}
 
 	/**
-	 * Aggiungi associazione macchina listener.
+	 * Aggiungi associazione macchina..
 	 *
 	 * @param am
 	 *            the am
 	 * @param codiceRichiesta
 	 *            the codice richiesta
-	 * @return the action listener
+	 * @return ActionListener
 	 */
 	public ActionListener aggiungiAssociazioneMacchinaListener(
 			final AssociaMacchina am, final int codiceRichiesta) {
@@ -409,7 +411,7 @@ public class ViewLavoro extends JDialog{
 	/**
 	 * Aggiungi lavoro listener.
 	 *
-	 * @return the action listener
+	 * @return ActionListener
 	 */
 	public ActionListener aggiungiLavoroListener() {
 		return new ActionListener() {
@@ -439,9 +441,9 @@ public class ViewLavoro extends JDialog{
 	}
 
 	/**
-	 * Modifica lavoro listener.
+	 * Modifica il lavoro .
 	 *
-	 * @return the action listener
+	 * @return ActionListener
 	 */
 	public ActionListener modificaLavoroListener() {
 		return new ActionListener() {
@@ -475,9 +477,9 @@ public class ViewLavoro extends JDialog{
 	}
 
 	/**
-	 * Aggiungi richiesta listener.
+	 * Aggiungi una nuova richiesta.
 	 *
-	 * @return the action listener
+	 * @return ActionListener
 	 */
 	public ActionListener aggiungiRichiestaListener() {
 		return new ActionListener() {
@@ -559,6 +561,11 @@ public class ViewLavoro extends JDialog{
 		};
 	}
 
+	/**
+	 * Controllo se i dati della nuova richeista sono corretti.
+	 *
+	 * @return true, Se i dati della nuova richiesta sono corretti
+	 */
 	private boolean controlloCorrettezzaDati() {
 		boolean correttezza = true;
 		if (pnlAddRichiesta.getMaxCapacita() != 0) {

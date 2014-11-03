@@ -15,10 +15,10 @@ public class MainViewTableModel extends AbstractTableModel implements Observer{
 	/**   Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**   column names. */
+	/**   Nomi delle colonne. */
 	private String[] columnNames;
 	
-	/**   data. */
+	/**   Dati da visualizzare nella tabella */
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
 			
     /**

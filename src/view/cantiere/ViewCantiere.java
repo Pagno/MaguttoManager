@@ -26,8 +26,9 @@ import controller.ControllerInterface;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Frame dedicato all'inserimento e modifica dei Cantieri
+ * Frame dedicato all'inserimento e modifica dei Cantieri.
  */
 public class ViewCantiere extends JDialog implements PropertyChangeListener {
 
@@ -228,22 +229,47 @@ public class ViewCantiere extends JDialog implements PropertyChangeListener {
 		dataFine.addPropertyChangeListener(this);
 	}
 
+	/**
+	 * Restituisce la data di inizio.
+	 *
+	 * @return Data di inizio
+	 */
 	private Date getDataInizio() {
 		return dataInizio.getDate();
 	}
 
+	/**
+	 * Restituisce la data di fine.
+	 *
+	 * @return Data di fine
+	 */
 	private Date getDataFine() {
 		return dataFine.getDate();
 	}
 
+	/**
+	 * Modifica la minima data di fine.
+	 *
+	 * @param d Minima data di fine
+	 */
 	private void setMinimaDataFine(Date d) {
 		dataFine.setMinSelectableDate(d);
 	}
 
+	/**
+	 * Modifica la massima data di inizio.
+	 *
+	 * @param d Massima data di inizio
+	 */
 	private void setMassimaDataInizio(Date d) {
 		dataInizio.setMaxSelectableDate(d);
 	}
-
+	
+	/**
+	 * Sets the data inizio changed listener.
+	 *
+	 * @param list the new data inizio changed listener
+	 */
 	private void setDataInizioChangedListener(PropertyChangeListener list) {
 		dataInizio.addPropertyChangeListener(list);
 	}
