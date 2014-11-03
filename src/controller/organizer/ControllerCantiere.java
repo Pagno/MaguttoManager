@@ -20,20 +20,21 @@ import controller.greedy.data.Associazione;
  * Questa Classe permette di gestire gli eventi,
  * legati all'interazione con le view per la gestione dei Cantieri
  * 
- * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class ControllerCantiere{// implements AbstractCantieriController{
 
-	/**   model. */
+	/**   Model. */
 	ModelInterface model;
 
-	/** The istanza. */
+	/** Istanza. */
 	private static ControllerCantiere istanza;
 
 	/**
-	 * Ritorna l'istanza di ControllerCantiere. Se non era ancora instanziato la crea.
+	 * Restituisce l'istanza di ControllerCantiere. Se non era ancora instanziato la crea, implementando il pattern Singleton.
 	 *
-	 * @param ModelInterface per manipolare i dati gestiti dall'applicazione
+	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
 	 * @return  Istanza di ControllerCantiere
 	 */
 	public static synchronized ControllerCantiere getControllerCantiere(ModelInterface modelConnector){
@@ -45,7 +46,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	/**
 	 * Istanzia un nuovo controllore.
 	 *
-	 * @param ModelInterface per manipolare i dati inseriti nell'applicazione
+	 * @param ModelInterface Interfaccia per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
 	private ControllerCantiere(ModelInterface modelConnector) {
@@ -53,9 +54,9 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}
 
 	/**
-	 * Gets the cantiere.
+	 * Restituisce il cantiere.
 	 *
-	 * @param codiceCantiere codice del cantiere che si sta cercando
+	 * @param codiceCantiere Il codice del cantiere che si sta cercando
 	 * @return il cantiere con il dato codice, null se non esiste un cantiere con quel codice
 	 */
 	public Cantiere getCantiere(int codiceCantiere) {
@@ -64,15 +65,15 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 
 	/**
-	 * Modifica cantiere.
+	 * Modifica il cantiere.
 	 *
-	 * @param codiceCantiere Codice del cantiere
-	 * @param nomeCantiere Nome del cantiere
-	 * @param indirizzo Indirizzo del cantiere
-	 * @param dataApertura Data di apertura del cantiere
-	 * @param dataChiusura Data di chiusura del cantiere
-	 * @param priorita Priorita  legata al cantiere
-	 * @return true se il cantiere è stato correttamente modificato.
+	 * @param codiceCantiere Il codice del cantiere
+	 * @param nomeCantiere Il nome del cantiere
+	 * @param indirizzo L'indirizzo del cantiere
+	 * @param dataApertura La data di apertura del cantiere
+	 * @param dataChiusura La data di chiusura del cantiere
+	 * @param priorita La priorit&agrave; legata al cantiere
+	 * @return true se il cantiere &egrave; stato correttamente modificato.
 	 */
 	public boolean modificaCantiere(int codiceCantiere, String nomeCantiere,
 			String indirizzo, GregorianCalendar dataApertura,
@@ -115,13 +116,13 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 
 	/**
-	 * Aggiungi nuovo lavoro al Cantiere.
+	 * Aggiunge un nuovo lavoro al Cantiere.
 	 *
-	 * @param codiceCantiere Codice del cantiere dove inserire il Lavoro
-	 * @param nomeLavoro Nome lavoro
-	 * @param dataInizio Data inizio dellavoro
-	 * @param dataFine Data fine del lavoro
-	 * @return true se il lavoro è stato correttamente inserito.
+	 * @param codiceCantiere Il codice del cantiere dove inserire il Lavoro
+	 * @param nomeLavoro Il nome lavoro
+	 * @param dataInizio La data d'inizio del lavoro
+	 * @param dataFine La data di fine del lavoro
+	 * @return true se il lavoro &egrave; stato correttamente inserito.
 	 */
 	public boolean aggiungiLavoro(int codiceCantiere, String nomeLavoro,
 			GregorianCalendar dataInizio, GregorianCalendar dataFine) {
@@ -151,11 +152,11 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 
 	/**
-	 * Collega una richiesta scoperta con una macchina
+	 * Collega una richiesta scoperta con una macchina.
 	 *
-	 * @param codiceRichiesta Codice richiesta da soddisfare
-	 * @param codiceMacchina Codice macchina da associare alla richiesta
-	 * @return true se la macchina è stata correttamente assegnata alla richiesta
+	 * @param codiceRichiesta Il codice della richiesta da soddisfare
+	 * @param codiceMacchina Il codice della macchina da associare alla richiesta
+	 * @return true se la macchina &egrave; stata correttamente assegnata alla richiesta
 	 */
 	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
 		return model.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
@@ -166,19 +167,19 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}*/
 
 	/**
-	 * Elimina lavoro.
+	 * Elimina il lavoro.
 	 *
-	 * @param codiceLavoro Codice lavoro da eliminare
-	 * @return true se correttamente eliminato
+	 * @param codiceLavoro Il codice del lavoro da eliminare
+	 * @return true se il lavoro viene correttamente eliminato
 	 */
 	public boolean eliminaLavoro(int codiceLavoro) {
 		return model.eliminaLavoro(codiceLavoro);
 	}
 
 	/**
-	 * Elimina richiesta.
+	 * Elimina la richiesta.
 	 *
-	 * @param codiceRichiesta Codice richiesta da eliminare
+	 * @param codiceRichiesta Il codice della richiesta da eliminare
 	 * @return true se correttamente eliminata.
 	 */
 	public boolean eliminaRichiesta(int codiceRichiesta) {
@@ -186,10 +187,10 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}
 
 	/**
-	 * Elenco macchine disponibili per una richiesta.
+	 * Elenco delle macchine disponibili per una richiesta.
 	 *
-	 * @param codiceRichiesta Codice richiesta
-	 * @return Elenco macchine disponibili
+	 * @param codiceRichiesta Il codice della richiesta
+	 * @return Elenco delle macchine disponibili
 	 */
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta) {
 		return model.getElencoMacchineDisponibili(codiceRichiesta);
@@ -199,8 +200,8 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	/**
 	 * Elimina l'associazione tra la richiesta identificata dal codiceRichiesta e la macchina ad essa colllegata
 	 *
-	 * @param codiceRichiesta Codice richiesta da liberare
-	 * @return true se la richiesta è stata correttamente liberata.
+	 * @param codiceRichiesta Il codice della richiesta da liberare
+	 * @return true se la richiesta &egrave; stata correttamente liberata.
 	 */
 	public boolean liberaRichiesta(int codiceRichiesta){
 		return model.liberaRichiesta(codiceRichiesta);
@@ -208,11 +209,11 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 	 
 	/**
-	 * Aggiungi una nuova richiesta.
+	 * Aggiunge una nuova richiesta.
 	 *
-	 * @param codiceCantiere Codice cantiere da associare alla richiesta
-	 * @param codiceLavoro Codice lavoro da associare alla richiesta
-	 * @param richiesta Tipo di macchina richiesta con le relative caratteristiche
+	 * @param codiceCantiere Il codice del cantiere da associare alla richiesta
+	 * @param codiceLavoro Il codice del lavoro da associare alla richiesta
+	 * @param richiesta Il tipo di macchina richiesta con le relative caratteristiche
 	 * @return true se la richiesta viene correttamente inserita
 	 */
 	public boolean aggiungiRichiesta(int codiceCantiere,int codiceLavoro,RichiestaMacchina richiesta){
@@ -221,9 +222,9 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	
 
 	/**
-	 * Genera le migliori associazioni automaticamente dall'algoritmo greedy.
+	 * Genera le migliori associazioni automaticamente utilizzando l'algoritmo greedy.
 	 *
-	 * @return associazioni generata dall'algoritmo Greedy.
+	 * @return Le associazioni generate dall'algoritmo Greedy.
 	 */
 	public ArrayList<Associazione> generaAssociazioni(){
 		return controller.greedy.GreedyEngine.generaAssociazioni(model);
@@ -233,7 +234,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	/**
 	 * Conferma le associazioni generate dall'algoritmo Greedy
 	 *
-	 * @param data elenco delle associazioni generate dall'algoritmo Greedy
+	 * @param data L'elenco delle associazioni generate dall'algoritmo Greedy
 	 */
 	public void confermaAssociazioniListener(ArrayList<Associazione> data) {
 		for(Associazione associazione:data){
@@ -243,12 +244,12 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	
 	 
 	/**
-	 * Modifica lavoro.
+	 * Modifica il lavoro.
 	 *
-	 * @param codiceLavoro Codice lavoro da modificare
-	 * @param nome Nuovo nome del lavoro
-	 * @param inizio Nuova data di inizio
-	 * @param fine Nuova data di fine
+	 * @param codiceLavoro Il codice del lavoro da modificare
+	 * @param nome Il nuovo nome del lavoro
+	 * @param inizio La nuova data di inizio
+	 * @param fine La nuova data di fine
 	 */
 	public boolean modificaLavoro(int codiceCantiere,int codiceLavoro, String nome,
 			GregorianCalendar inizio, GregorianCalendar fine) {
@@ -301,7 +302,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	}
 	
 	/**
-	 * Inits the for test.
+	 * Inizializza per effettuare i test.
 	 */
 	public void initForTest(){
 		if(istanza!=null){

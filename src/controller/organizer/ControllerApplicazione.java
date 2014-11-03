@@ -8,12 +8,12 @@ import model.organizer.ModelMacchina;
 
 
 /**
- * 
- * Questa Classe permette di gestire gli eventi,
+ * La classe ControllerApplicazione permette di gestire gli eventi,
  * legati all'interazione con le view,
  * provenienti dalla View Principale.
  * 
- * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class ControllerApplicazione{// implements AbstractApplicationController{
 
@@ -24,9 +24,9 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	private static ControllerApplicazione istanza;
 
 	/**
-	 * Ritorna l'istanza di ControllerApplicazione. Se non era ancora instanziato la crea.
+	 * Ritorna l'istanza di ControllerApplicazione. Se non era ancora instanziato la crea, implementando il pattern Singleton.
 	 *
-	 * @param ModelInterface per manipolare i dati gestiti dall'applicazione
+	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
 	 * @return  Istanza di ControllerApplicazione
 	 */
 	public static synchronized ControllerApplicazione getControllerApplicazione(ModelInterface modelConnector){
@@ -39,7 +39,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	/**
 	 * Istanzia un nuovo controllore MainController.
 	 *
-	 * @param ModelInterface per manipolare i dati gestiti dall'applicazione
+	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
 	 */
 	private ControllerApplicazione(ModelInterface modelConnector){
 		model = modelConnector;
@@ -229,7 +229,6 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 * Elimina una macchina.Tutte le richieste ad essa associate vengono liberate.
 	 *
 	 * @param codiceMacchina Codice della macchina da eliminare
-	 * 
 	 * @return <strong>True</strong> Se la macchina viene correttamente eliminata,
 	 * <strong>False</strong> Se non viene eliminata.
 	 *
@@ -243,7 +242,6 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 * Elimina un cantiere.
 	 *
 	 * @param codiceCantiere Codice del cantiere da eliminare
-	 * 
 	 * @return <strong>True</strong> Se il cantiere viene correttamente eliminato,
 	 * <strong>False</strong> Se non viene eliminato.
 	 *
@@ -287,6 +285,11 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 			
 		};
 	}*/
+	
+	/**
+	 * Inizializza per i test.
+	 *
+	 */
 	public void initForTest(){
 		if(istanza!=null){
 			ModelMacchina.initCodice();
