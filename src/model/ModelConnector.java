@@ -2,7 +2,6 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,35 +31,49 @@ import database.DatabaseInterface;
 
 
 /**
- *   Class ModelConnector.
+ *   La classe ModelCamion permette agli altri componenti di interfacciarsi con il componente model.
+ *   <p>
+ *   Permette di inserire, modificare o eliminare tutti i tipi di macchina, i cantieri, i lavori e le richieste sfruttando
+ *   le funzionalità delle classi contenute nel package model.organizer.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ModelConnector implements ModelInterface{
 
-	/**   mg. */
+	
+	/** Istanza di ModelGru. */
 	private ModelGru mg;
 	
-	/**   mc. */
+	
+	/** Istanza di ModelCamion. */
 	private ModelCamion mc;
 	
-	/**   mr. */
+	
+	/** Istanza di ModelRuspa. */
 	private ModelRuspa mr;
 	
-	/**   me. */
+	
+	/** Istanza di ModelEscavatore. */
 	private ModelEscavatore me;
 	
-	/**   lc. */
+	
+	/** Istanza di ModelCantiere. */
 	private ModelCantiere lc;
 	
-	/**   db. */
+	
+	/** Interfaccia del database. */
 	private DatabaseInterface db;
 	
-	/**   istanza. */
+	
+	/** Istanza di ModelConnector. */
 	private static ModelConnector istanza;
 
+	
 	/**
-	 * Instantiates a new model connector.
+	 * Istanzia un nuovo ModelConnector.
 	 *
-	 * @param data   data
+	 * @param data L'interfaccia del database
 	 */
 	private ModelConnector(DatabaseInterface data){
 		db=data;
@@ -68,11 +81,14 @@ public class ModelConnector implements ModelInterface{
 		//refreshData();
 	}
 	
+	
 	/**
-	 * Gets   model connector.
+	 * Restituisce una nuova istanza di ModelConnector se non ne &egrave; stata istanziata una in precedenza, altrimenti restituisce
+	 * l'istanza realizzata in precedenza.<p>
+	 * Questo metodo permette di adottare il pattern Singleton.
 	 *
-	 * @param data   data
-	 * @return   model connector
+	 * @param L'interfaccia del database
+	 * @return L'istanza di ModelConnector
 	 */
 	public static synchronized ModelConnector getModelConnector(DatabaseInterface data){
 		if(istanza==null){
@@ -81,46 +97,40 @@ public class ModelConnector implements ModelInterface{
 		return istanza;
 	}
 	
-	/**
-	 * Adds   gru observer.
-	 *
-	 * @param observer   observer
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiGruObserver(java.util.Observer)
 	 */
 	public void aggiungiGruObserver(Observer observer){
 		mg.addObserver(observer);
 	}
-	/**
-	 * Adds   ruspa observer.
-	 *
-	 * @param observer   observer
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiRuspaObserver(java.util.Observer)
 	 */
 	public void aggiungiRuspaObserver(Observer observer){
 		mr.addObserver(observer);
 	}
 	
-	/**
-	 * Adds   camion observer.
-	 *
-	 * @param observer   observer
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiCamionObserver(java.util.Observer)
 	 */
 	public void aggiungiCamionObserver(Observer observer){
 		mc.addObserver(observer);
 	}
 	
-	/**
-	 * Adds   escavatore observer.
-	 *
-	 * @param observer   observer
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiEscavatoreObserver(java.util.Observer)
 	 */
 	public void aggiungiEscavatoreObserver(Observer observer){
 		me.addObserver(observer);
 	}
 	
 	
-	/**
-	 * Adds   cantiere observer.
-	 *
-	 * @param observer   observer
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiCantiereObserver(java.util.Observer)
 	 */
 	public void aggiungiCantiereObserver(Observer observer){
 		lc.aggiungiObserver(observer);
@@ -137,6 +147,7 @@ public class ModelConnector implements ModelInterface{
 		lc.aggiungiRichiestaObserver(observer);
 	}*/
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#refreshData()
 	 */
@@ -216,6 +227,7 @@ public class ModelConnector implements ModelInterface{
 		}
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#storeData()
 	 */
@@ -318,6 +330,7 @@ public class ModelConnector implements ModelInterface{
 		}
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#eliminaMacchina(int)
 	 */
@@ -339,6 +352,7 @@ public class ModelConnector implements ModelInterface{
 		return found;
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#aggiungiGru(java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -346,6 +360,7 @@ public class ModelConnector implements ModelInterface{
 		mg.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#modificaGru(int, java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -353,6 +368,7 @@ public class ModelConnector implements ModelInterface{
 	public void modificaGru(int codice, String produttore, String modello,int rotazione, int portata, int lunghezza, int altezza) {
 		mg.modificaGru(codice, produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#aggiungiCamion(java.lang.String, java.lang.String, int, int, int)
@@ -362,6 +378,7 @@ public class ModelConnector implements ModelInterface{
 		mc.aggiungiCamion(produttore, Modello, capacita, portata, lunghezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#modificaCamion(int, java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -370,6 +387,7 @@ public class ModelConnector implements ModelInterface{
 		mc.modificaCamion(codice, produttore, Modello, capacita, portata, lunghezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#aggiungiRuspa(java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -378,6 +396,7 @@ public class ModelConnector implements ModelInterface{
 		mr.aggiungiRuspa(produttore, Modello, capacita, portata, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#modificaRuspa(int, java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -386,6 +405,7 @@ public class ModelConnector implements ModelInterface{
 		mr.modificaRuspa(codice, produttore, Modello, capacita, portata, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#aggiungiEscavatore(java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -395,6 +415,7 @@ public class ModelConnector implements ModelInterface{
 		
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#modificaEscavatore(int, java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -403,22 +424,25 @@ public class ModelConnector implements ModelInterface{
 		me.modificaEscavatore(codice, produttore, Modello, capacita, portata, altezza, profondita);		
 	}
 
+	
 	/* (non-Javadoc)
-	 * @see model.ModelInterface#aggiungiCantiere(java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 * @see model.ModelInterface#aggiungiCantiere(java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar, model.organizer.data.Priorita)
 	 */
 	@Override
 	public void aggiungiCantiere(String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura, Priorita priorita) {
 		lc.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura,priorita);
 	}
 
+	
 	/* (non-Javadoc)
-	 * @see model.ModelInterface#modificaCantiere(int, java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 * @see model.ModelInterface#modificaCantiere(int, java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar, model.organizer.data.Priorita)
 	 */
 	@Override
 	public void modificaCantiere(int codice, String nomeCantiere, String indirizzo, GregorianCalendar dataApertura, GregorianCalendar dataChiusura, Priorita priorita) {
 			lc.modificaCantiere(codice, nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#eliminaCantiere(int)
 	 */
@@ -427,8 +451,9 @@ public class ModelConnector implements ModelInterface{
 		return lc.rimuoviCantiere(codice);
 	}
 	
+	
 	/**
-	 * Load db.
+	 * Carica le macchine, i cantieri, i lavori e le richieste dal database.
 	 */
 	private void loadDB(){
 
@@ -447,8 +472,9 @@ public class ModelConnector implements ModelInterface{
 
 	}
 
+	
 	/**
-	 * Load camion.
+	 * Carica i camion dal database.
 	 */
 	private void loadCamion(){
 		//carica i camion
@@ -469,8 +495,9 @@ public class ModelConnector implements ModelInterface{
 
 	}
 
+	
 	/**
-	 * Load escavatori.
+	 * Carica gli escavatori dal database.
 	 */
 	private void loadEscavatori(){
 		//carica gli escavatori
@@ -491,8 +518,9 @@ public class ModelConnector implements ModelInterface{
 
 	}
 
+	
 	/**
-	 * Load ruspe.
+	 * Carica Le ruspe dal database.
 	 */
 	private void loadRuspe(){
 		//carica le ruspe
@@ -513,8 +541,9 @@ public class ModelConnector implements ModelInterface{
 
 	}
 
+	
 	/**
-	 * Load gru.
+	 * Carica le gru dal database.
 	 */
 	private void loadGru(){
 		//carica le gru
@@ -535,8 +564,9 @@ public class ModelConnector implements ModelInterface{
 
 	}
 
+	
 	/**
-	 * Load cantieri.
+	 * Carica i cantieri dal database.
 	 */
 	private void loadCantieri(){
 		//carica i cantieri
@@ -556,8 +586,9 @@ public class ModelConnector implements ModelInterface{
 
 
 	}
+	
 	/**
-	 * Load lavoro.
+	 * Carica i lavori dal database.
 	 */
 	private void loadLavori(){
 		//carica le associazioni
@@ -577,8 +608,9 @@ public class ModelConnector implements ModelInterface{
 
 
 	}
+	
 	/**
-	 * Load richieste.
+	 * Carica le richieste dal database.
 	 */
 	private void loadRichieste(){
 		//carica le associazioni
@@ -621,13 +653,14 @@ public class ModelConnector implements ModelInterface{
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Gets   macchina.
+	
+	/*/**
+	 * Gets the macchina.
 	 *
-	 * @param mCode   m code
-	 * @return   macchina
+	 * @param mCode the m code
+	 * @return the macchina
 	 */
-	private Macchina getMacchina(Integer mCode){
+	/*private Macchina getMacchina(Integer mCode){
 		if(mc.isCamion(mCode)){
 			return mc.getCamion(mCode);
 		}
@@ -641,13 +674,14 @@ public class ModelConnector implements ModelInterface{
 			return mr.getRuspa(mCode);
 		}
 		return null;
-	}
+	}*/
 
+	
 	/**
-	 * Convert to date.
+	 * Converte una stringa rappresentante una data nella corrispondente istanza di GregorianCalendar.
 	 *
-	 * @param datestr   datestr
-	 * @return   gregorian calendar
+	 * @param datestr La stringa rappresentante la data
+	 * @return La data in formato GregorianCalendar
 	 */
 	private GregorianCalendar convertToDate(String datestr){
 		String year = datestr.substring(0,4);
@@ -671,8 +705,9 @@ public class ModelConnector implements ModelInterface{
 		return new GregorianCalendar(yint,mint,dint);
 	}
 
+	
 	/**
-	 * Inizializza.
+	 * Inizializza tutte le istanze delle classi utilizzate da ModelConnector.
 	 */
 	private void inizializza() {
 		ModelMacchina.initCodice();
@@ -683,9 +718,9 @@ public class ModelConnector implements ModelInterface{
 		lc = ModelCantiere.getModelCantiere();
 	}
 
-	//da rimuovere
-	/**
-	 * Pubblica contenuto.
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#pubblicaContenuto()
 	 */
 	public void pubblicaContenuto(){
 		System.out.println("---CAMION-------------------");
@@ -708,12 +743,10 @@ public class ModelConnector implements ModelInterface{
 			}
 		}
 	}
-	/**
-	 * Elenco ruspe disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
+	
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getElencoRuspeDisponibili(int, int)
 	 */
 	public ArrayList<Ruspa> getElencoRuspeDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
@@ -728,12 +761,9 @@ public class ModelConnector implements ModelInterface{
 		return ruspe;
 	}
 	
-	/**
-	 * Elenco gru disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getElencoGruDisponibili(int, int)
 	 */
 	public ArrayList<Gru> getElencoGruDisponibili(int codiceRichiesta,int codiceLavoro){
 		
@@ -748,12 +778,9 @@ public class ModelConnector implements ModelInterface{
 		}
 		return gru;
 	}
-	/**
-	 * Elenco camion disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getElencoCamionDisponibili(int, int)
 	 */
 	public ArrayList<Camion> getElencoCamionDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
@@ -768,12 +795,9 @@ public class ModelConnector implements ModelInterface{
 		return camion;
 	}
 	
-	/**
-	 * Elenco escavatore disponibili.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getElencoEscavatoriDisponibili(int, int)
 	 */
 	public ArrayList<Escavatore> getElencoEscavatoriDisponibili(int codiceRichiesta,int codiceLavoro){
 		Lavoro lavoro=lc.getLavoro(codiceLavoro);
@@ -788,7 +812,7 @@ public class ModelConnector implements ModelInterface{
 		return escavatore;
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<ArrayList<String>> getLavoriCantiereList(int codiceCantiere) {ArrayList<String> work1=new ArrayList<>();work1.add("1");work1.add("Scavi");work1.add("Scavicchi");
 		ArrayList<ArrayList<String>> elencoLavori=new ArrayList<ArrayList<String>>();
 		ArrayList<String> l;
@@ -805,19 +829,26 @@ public class ModelConnector implements ModelInterface{
 			elencoLavori.add(l);
 		}
 		return elencoLavori;
-	}
+	}*/
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiLavoro(java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar, int)
+	 */
 	@Override
 	public void aggiungiLavoro(String nome, GregorianCalendar inizio,
 			GregorianCalendar fine, int idCantiere) {
 		 lc.aggiungiLavoro(idCantiere, nome, inizio, fine);
 	}
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#modificaLavoro(int, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 */
 	@Override
 	public void modificaLavoro(int codiceLavoro, String nome, GregorianCalendar dataInizio,GregorianCalendar dataFine){
 		lc.modificaLavoro(codiceLavoro, nome, dataInizio, dataFine);
 	}
 	
-	@Override
+	/*@Override
 	public ArrayList<ArrayList<String>> getRichiesteLavoroList(int codiceCantiere) {
 		ArrayList<ArrayList<String>> elencoRichieste=new ArrayList<ArrayList<String>>();
 		ArrayList<String> l=null;
@@ -864,7 +895,11 @@ public class ModelConnector implements ModelInterface{
 			}
 		}
 		return elencoRichieste;
-	}
+	}*/
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getCantiere(int)
+	 */
 	public Cantiere  getCantiere(int codiceCantiere){
 		for(Cantiere cantiere:lc.getListaCantieri()){
 			if(cantiere.getCodice()==codiceCantiere)
@@ -872,32 +907,42 @@ public class ModelConnector implements ModelInterface{
 		}
 		return null;
 	}
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getListaCantieri()
+	 */
 	@Override
 	public ArrayList<Cantiere> getListaCantieri() {
 		return lc.getListaCantieri();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#aggiungiRichiesta(int, int, model.organizer.data.RichiestaMacchina)
+	 */
 	@Override
 	public boolean aggiungiRichiesta(int codiceCantiere, int codiceLavoro,
 			RichiestaMacchina richiesta) {
 		return lc.aggiungiRichiesta(codiceCantiere, codiceLavoro,richiesta);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#eliminaRichiesta(int)
+	 */
 	@Override
 	public boolean eliminaRichiesta(int codiceRichiesta) {
 		return lc.eliminaRichiesta(codiceRichiesta);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#eliminaLavoro(int)
+	 */
 	@Override
 	public boolean eliminaLavoro(int codiceLavoro) {
 		return lc.eliminaLavoro(codiceLavoro);
 	}
-	/**
-	 * Elenco macchine disponibili per una data richiesta.
-	 *
-	 * @param inizio   inizio
-	 * @param fine   fine
-	 * @return   array list
+	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getElencoMacchineDisponibili(int)
 	 */
 	public ArrayList<Macchina> getElencoMacchineDisponibili(int codiceRichiesta){
 		Richiesta richiesta=lc.getRichiesta(codiceRichiesta);
@@ -932,31 +977,49 @@ public class ModelConnector implements ModelInterface{
 		return elencoMacchineDisponibili;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#liberaRichiesta(int)
+	 */
 	@Override
 	public boolean liberaRichiesta(int codiceRichiesta) {
 		return lc.liberaRichiesta(codiceRichiesta);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#soddisfaRichiesta(int, int)
+	 */
 	@Override
 	public boolean soddisfaRichiesta(int codiceRichiesta, int codiceMacchina){
 		Macchina macchina=getMacchina(codiceMacchina);
 		return lc.soddisfaRichiesta(codiceRichiesta, macchina);
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getElencoRichieste(int)
+	 */
 	@Override
 	public ArrayList<Richiesta> getElencoRichieste(int codicelavoro){
 		return lc.getLavoro(codicelavoro).getListaRichieste();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getRichiesteScoperte()
+	 */
 	@Override
 	public ArrayList<Richiesta> getRichiesteScoperte(){
 		return lc.getListaInsoddisfatte();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getRichiesta(int)
+	 */
 	public Richiesta getRichiesta(int codiceRichiesta){
 		return lc.getRichiesta(codiceRichiesta);
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getMacchina(int)
+	 */
 	public Macchina getMacchina(int codice){
 		if(mc.isCamion(codice)){
 			return mc.getCamion(codice);
@@ -974,6 +1037,10 @@ public class ModelConnector implements ModelInterface{
 	}
 	
 	//Metodi realizzati appositamente per il testing della classe.
+	
+	/**
+	 * Elimina tutte le istanze di macchine, cantieri, lavori e richieste per effettuare i test.
+	 */
 	public void ResetAllForTest(){
 		mc.resetForTest();
 		mr.resetForTest();
