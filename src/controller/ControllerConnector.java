@@ -15,7 +15,7 @@ import controller.organizer.*;
 
 
 /**
- * The Class ControllerConnector.
+ * Classe ControllerConnector.
  */
 public class ControllerConnector implements ControllerInterface{
 	
@@ -33,10 +33,11 @@ public class ControllerConnector implements ControllerInterface{
 
 
 	/**
-	 * Gets   model gru.
+	 * Restituisce l'istanzia della classe ControllerConnector
 	 *
-	 * @param modelInterface the model interface
-	 * @return   model gru
+	 * @param modelInterface riferimento alla classe modelInterface per comunicare con
+	 * il modello dei dati dell'applicazione
+	 * @return istanzia della classe ControllerConnector
 	 */
 	public static synchronized ControllerConnector getControllerConnector(ModelInterface modelInterface){
 		if(istanza==null){
@@ -46,9 +47,10 @@ public class ControllerConnector implements ControllerInterface{
 	}
 	
 	/**
-	 * Instantiates a new controller connector.
+	 * Costruttore della classe
 	 *
-	 * @param modelConnector the model connector
+	 * @param modelConnector  riferimento alla classe modelInterface per comunicare con
+	 * il modello dei dati dell'applicazione
 	 */
 	private ControllerConnector(ModelInterface modelConnector) {
 		appCtrl=ControllerApplicazione.getControllerApplicazione(modelConnector);

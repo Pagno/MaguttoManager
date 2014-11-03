@@ -92,9 +92,9 @@ public interface ControllerInterface {
 	
 	//CantieriInterface
 	/**
-	 * Gets the cantiere.
+	 * Ritorna il cantiere avente quel dato codie.
 	 *
-	 * @param codiceCantiere codice del antiere
+	 * @param codiceCantiere codice del cantiere
 	 * @return the cantiere
 	 */
 	public  Cantiere getCantiere(int codiceCantiere);
@@ -142,7 +142,7 @@ public interface ControllerInterface {
 	public  boolean eliminaRichiesta(int codiceRichiesta);
 	
 	/**
-	 * Gets the elenco macchine disponibili.
+	 * Restituisce l'elenco delle macchine disponibili.
 	 *
 	 * @param codiceRichiesta codice della richiesta
 	 * @return elenco delle macchine disponibili
