@@ -1,17 +1,14 @@
 package view.lavoro.treenode;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import model.organizer.data.Cantiere;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TreeNodeModel.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class TreeNodeModel extends DefaultTreeModel{
 

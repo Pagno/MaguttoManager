@@ -5,6 +5,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 	/**
 	 * Classe usate nella JTree.
+	 * 
+	 * @author Matteo Pagnoncelli
+     * @author Mauro Valota
 	 */
 	public class NodeAdder extends DefaultMutableTreeNode {
 		

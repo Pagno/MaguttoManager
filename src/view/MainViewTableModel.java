@@ -9,6 +9,9 @@ import javax.swing.table.AbstractTableModel;
 /**
  *   Classe dedicata alla visualizzazione dei dati nella tabella nella view Principale
  *   @see MainView
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class MainViewTableModel extends AbstractTableModel implements Observer{ 
  	

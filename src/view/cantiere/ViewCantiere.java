@@ -24,11 +24,11 @@ import model.organizer.data.Priorita;
 import com.toedter.calendar.JDateChooser;
 import controller.ControllerInterface;
 
-
-
-// TODO: Auto-generated Javadoc
 /**
  * Frame dedicato all'inserimento e modifica dei Cantieri.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class ViewCantiere extends JDialog implements PropertyChangeListener {
 

@@ -21,7 +21,10 @@ import controller.ControllerInterface;
 
 
 /**
-*   View per inserimento e modifica delle Gru.
+ *   View per inserimento e modifica delle Gru.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ViewGru extends JDialog {
 

@@ -14,18 +14,28 @@ import javax.swing.JPanel;
 
 import model.organizer.data.Macchina;
 
+
+/**
+ * View usata per l'associazione di una richiesta ad una macchina.
+ */
 public class AssociaMacchina extends JDialog {
-	/**
-	 *  View usata per l'associazione di una richiesta ad una macchina.
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
+	/** The btn cancel. */
 	private JButton btnAssocia, btnCancel;
+	
+	/** The cmb lista macchine. */
 	private JComboBox<String> cmbListaMacchine;
+	
+	/** The lista macchine. */
 	private ArrayList<Macchina> listaMacchine = null;
+	
+	/** The view. */
 	private JDialog view;
 
 	/**
-	 * Inizializza il frame
+	 * Inizializza il frame.
 	 *
 	 * @param v view principale.
 	 * @param macchine Elenco delle macchina disponibili per una data richiesta.

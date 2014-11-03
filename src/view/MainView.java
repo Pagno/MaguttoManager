@@ -26,13 +26,15 @@ import view.macchina.ViewGru;
 import view.macchina.ViewRuspa;
 import controller.ControllerConnector;
 import controller.ControllerInterface;
-import controller.organizer.ControllerCantiere;
 
 import java.awt.event.WindowAdapter;
 import java.lang.reflect.Method;
 
 /**
  * Class MainView.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class MainView extends JFrame {
 

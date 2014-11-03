@@ -21,6 +21,9 @@ import controller.ControllerInterface;
 
 /**
  *   View per inserimento e modifica delle Ruspe.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ViewRuspa extends JDialog {
 

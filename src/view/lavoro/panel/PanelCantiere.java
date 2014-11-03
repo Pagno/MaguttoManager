@@ -3,10 +3,6 @@ package view.lavoro.panel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -22,6 +18,9 @@ import com.toedter.calendar.JDateChooser;
 
 /**
  * Panello necessario per l'inserimento dei dati del cantiere.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class PanelCantiere extends JPanel {
 

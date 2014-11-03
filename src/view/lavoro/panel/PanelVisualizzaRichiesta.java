@@ -8,9 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-// TODO: Auto-generated Javadoc
 /**
  * Panello usato per la visualizzazione dei dati della richiesta.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class PanelVisualizzaRichiesta extends JPanel {
 
