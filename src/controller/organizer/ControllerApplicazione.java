@@ -175,7 +175,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 		};
 	}
 	*/
-	/**
+	/*/**
 	 * Visualizza la view per modificare i dati di un Escavatore.
 	 *
 	 * @param codiceMacchina the codice macchina

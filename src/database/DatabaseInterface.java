@@ -2,28 +2,30 @@ package database;
 
 import java.sql.ResultSet;
 
-// 
 /**
- *   Interface DatabaseInterface.
+ *   L'interfaccia DatabaseInterface permette di accedere alle funzionalit&agrave; del database.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public interface DatabaseInterface {
 	
 	/**
-	 * Connect.
+	 * Connette il DB.
 	 *
 	 * @throws DatabaseException   DB exception
 	 */
 	public void connect() throws DatabaseException;
 	
 	/**
-	 * Disconnect.
+	 * Disconnette il DB.
 	 *
 	 * @throws DatabaseException   DB exception
 	 */
 	public void disconnect() throws DatabaseException;
 	
 	/**
-	 * Interrogate.
+	 * Interroga in DB.
 	 *
 	 * @param qry   qry
 	 * @return   result set
@@ -32,7 +34,7 @@ public interface DatabaseInterface {
 	public ResultSet interrogate(String qry) throws DatabaseException;
 	
 	/**
-	 * Update.
+	 * Aggiorna il DB.
 	 *
 	 * @param qry   qry
 	 * @throws DatabaseException   DB exception
@@ -40,7 +42,7 @@ public interface DatabaseInterface {
 	public void update(String qry) throws DatabaseException;
 	
 	/**
-	 * Empty table.
+	 * Svuota una tabella del DB.
 	 *
 	 * @param tableName   table name
 	 * @throws DatabaseException   DB exception
@@ -48,7 +50,7 @@ public interface DatabaseInterface {
 	public void emptyTable(String tableName) throws DatabaseException;
 	
 	/**
-	 * Checks if is empty.
+	 * Verifica se il DB è vuoto.
 	 *
 	 * @return true, if is empty
 	 * @throws DatabaseException   DB exception

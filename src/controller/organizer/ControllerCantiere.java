@@ -231,9 +231,9 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 
 	 
 	/**
-	 * Conferma le associazioni generate dall'algoritmo Greddy
+	 * Conferma le associazioni generate dall'algoritmo Greedy
 	 *
-	 * @param data elenco delle associazioni generate dall'algoritmo Greddy
+	 * @param data elenco delle associazioni generate dall'algoritmo Greedy
 	 */
 	public void confermaAssociazioniListener(ArrayList<Associazione> data) {
 		for(Associazione associazione:data){
