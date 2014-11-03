@@ -18,7 +18,10 @@ import controller.greedy.data.Prenotazione;
 
 
 /**
- * The Class GreedyEngine.
+ *   La classe GreedyEngine genera le associazioni necessarie a soddisfare le richieste libere inserite.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class GreedyEngine {
 
@@ -27,7 +30,7 @@ public class GreedyEngine {
 	 * Genera le associazioni.
 	 *
 	 * @param model L'interfaccia del modello
-	 * @return ArrayList contenente le associazioni generate
+	 * @return L'arrayList contenente le associazioni generate
 	 */
 	public static ArrayList<Associazione>generaAssociazioni(ModelInterface model){
 		//Ordina le richieste in ordine decrescente di priorit�, partendo dalle richieste ottenute dal model
@@ -70,8 +73,8 @@ public class GreedyEngine {
 	 * @param model L'interfaccia del modello
 	 * @param sortedRichieste Le richieste ordinate
 	 * @param alreadySelected L'array contenente le associazioni gi� generate
-	 * @param i indice della richiesta attuale
-	 * @return l'associazione generata
+	 * @param i L'indice della richiesta attuale
+	 * @return L'associazione generata
 	 */
 	static Associazione selezionaMacchinaLibera(ModelInterface model,ArrayList<Richiesta>sortedRichieste,ArrayList<Associazione>alreadySelected,int i){
 		//Prelevo la richiesta corrente
@@ -103,8 +106,8 @@ public class GreedyEngine {
 	 * @param ric La richiesta attuale
 	 * @param sortedRichieste L'array di richieste ordinate
 	 * @param disp Le macchine disponibili per questa richiesta
-	 * @param i l'indice della richiesta attuale
-	 * @return l'associazione generata
+	 * @param i L'indice della richiesta attuale
+	 * @return L'associazione generata
 	 */
 	static <T extends Macchina> Associazione selezionaMacchinaSenzaPrenotazioni(Richiesta ric, ArrayList<Richiesta>sortedRichieste,ArrayList<T>disp,int i){
 		//Se ho macchine disponibili non faccio nulla, cerco quella pi� promettente
@@ -169,7 +172,7 @@ public class GreedyEngine {
 	 * @param <T> the generic type
 	 * @param ric La richiesta attuale
 	 * @param disp Le macchine disponibili
-	 * @return l'associazione generata
+	 * @return L'associazione generata
 	 */
 	static <T extends Macchina> Associazione selezionaMacchinaSenzaPrenotazioni(Richiesta ric, ArrayList<T>disp){
 		//Questa funzione viene lanciata solo nel caso in cui si stia analizzando l'ultima richiesta dell'array
@@ -233,8 +236,8 @@ public class GreedyEngine {
 	 * Seleziona la prenotazione piu promettente tra quelle generate per la richiesta corrente.
 	 *
 	 * @param alreadySelected Le associazioni generate in precedenza
-	 * @param ric la richiesta attuale
-	 * @return l'associazione generata
+	 * @param ric La richiesta attuale
+	 * @return L'associazione generata
 	 */
 	static Associazione selezionaPrenotazionePiuPromettente(ArrayList<Associazione>alreadySelected, Richiesta ric){
 		//Se la richiesta � soddisfatta, non seleziono alcuna prenotazione
@@ -309,8 +312,8 @@ public class GreedyEngine {
 	/**
 	 * Genera le prenotazioni.
 	 *
-	 * @param ric la richiesta attuale
-	 * @return l'HashMap contenente le prenotazioni per la richiesta attuale
+	 * @param ric La richiesta attuale
+	 * @return L'HashMap contenente le prenotazioni per la richiesta attuale
 	 */
 	static HashMap<Macchina,Prenotazione> generaPrenotazioni(Richiesta ric){
 
@@ -391,9 +394,9 @@ public class GreedyEngine {
 	/**
 	 * Verifica se il lavoro element finisce meno di una settimana prima rispetto a base.
 	 *
-	 * @param element il lavoro di cui valutare la compatibilit�
-	 * @param base il lavoro considerato
-	 * @return true, if successful
+	 * @param element Il lavoro di cui valutare la compatibilit&agrave;
+	 * @param base Il lavoro considerato
+	 * @return true, se il lavoro &egrave; adatto a generare una prenotazione
 	 */
 	static boolean lavoroFinisceMenoDiUnaSettimanaPrima(Lavoro element, Lavoro base){
 		//Verifico prima di tutto che i due lavori non siano lo stesso lavoro
@@ -443,9 +446,9 @@ public class GreedyEngine {
 	/**
 	 * Verifica se il lavoro element inizia meno di una settimana dopo rispetto a base.
 	 *
-	 * @param element il lavoro di cui valutare la compatibilit�
+	 * @param element il lavoro di cui valutare la compatibilit&agrave;
 	 * @param base il lavoro considerato
-	 * @return true, if successful
+	 * @return true, se il lavoro &egrave; adatto a generare una prenotazione
 	 */
 	static boolean lavoroIniziaMenoDiUnaSettimanaDopo(Lavoro element, Lavoro base){
 		//Verifico prima di tutto che i due lavori non siano lo stesso lavoro
@@ -498,8 +501,8 @@ public class GreedyEngine {
 	/**
 	 * Ordina le richieste nell'array.
 	 *
-	 * @param richieste l'array delle richieste non ordinate
-	 * @return l'array ordinato
+	 * @param richieste L'array delle richieste non ordinate
+	 * @return L'array ordinato
 	 */
 	static ArrayList<Richiesta> ordinaRichieste(ArrayList<Richiesta> richieste){
 		//Ordino le richieste per priorit� decrescenti
@@ -518,13 +521,13 @@ public class GreedyEngine {
 
 	/**
 	 *Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
-	 *se la priorità del cantiere di ins è superiore a quella del cantiere di arr, restituisce true.
-	 *se tale priorità è minore, restituisce false.
-	 *se le priorità sono uguali, passo al confronto della durata dei lavori.
+	 *se la priorit&agrave;� del cantiere di ins &egrave; superiore a quella del cantiere di arr, restituisce true.
+	 *se tale priorit&agrave;� &egrave; minore, restituisce false.
+	 *se le priorit&agrave;� sono uguali, passo al confronto della durata dei lavori.
 	 *
 	 * @param ins l'elemento da inserire nell'array
 	 * @param arr l'elemento dell'array con cui confrontare l'elemento da inserire
-	 * @return true, if successful
+	 * @return true, se l'elemento ins ha priorit&agrave; superiore all'elemento arr
 	 */
 	static boolean ordinaPerPriorita(Richiesta ins, Richiesta arr){
 		//Valuto nel caso di priorit� alta della richiesta da inserire
@@ -568,13 +571,13 @@ public class GreedyEngine {
 
 	/**
 	 *Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
-	 *se la durata del lavoro di ins è minore a quella del lavoro di arr, restituisce true.
-	 *se tale durata è maggiore, restituisce false.
+	 *se la durata del lavoro di ins &egrave; minore a quella del lavoro di arr, restituisce true.
+	 *se tale durata &egrave; maggiore, restituisce false.
 	 *se le durate sono uguali, passo al confronto della data d'inizio del lavoro.
 	 *
 	 * @param ins L'elemento da inserire nell'array
 	 * @param arr l'elemento dell'array con cui confrontare l'elemento da inserire
-	 * @return true, if successful
+	 * @return true, se l'elemento ins ha priorit&agrave; superiore all'elemento arr
 	 */
 	static boolean ordinaPerDurata(Richiesta ins, Richiesta arr){
 		//Devo valutare le durate dei due lavori, quindi le inserisco in queste due variabili
@@ -597,13 +600,13 @@ public class GreedyEngine {
 
 	/**
 	 *Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
-	 *se la data d'inizio del lavoro di ins è minore a quella del lavoro di arr, restituisce true.
-	 *se tale data d'inizio è maggiore, restituisce false.
+	 *se la data d'inizio del lavoro di ins &egrave; minore a quella del lavoro di arr, restituisce true.
+	 *se tale data d'inizio &egrave; maggiore, restituisce false.
 	 *se le data d'inizio sono uguali, passo al confronto dei codici.
 	 *
 	 * @param ins L'elemento da inserire nell'array
 	 * @param arr l'elemento dell'array con cui confrontare l'elemento da inserire
-	 * @return true, if successful
+	 * @return true, se l'elemento ins ha priorit&agrave; superiore all'elemento arr
 	 */
 	static boolean ordinaPerDataIniziale(Richiesta ins, Richiesta arr){
 		//Se il lavoro di ins inizia prima del lavoro di arr, restituisco true
@@ -623,19 +626,19 @@ public class GreedyEngine {
 
 	/**
 	 *Restituisce true se la richiesta ins va inserita subito prima della richiesta arr.
-	 *se il codice del cantiere di ins è minore del codice del cantiere di arr, restituisco true.
-	 *se tale codice è maggiore, restituisco false.
-	 *se il cantiere è lo stesso, passo al confronto dei codici dei lavori.
-	 *se il codice del lavoro di ins è minore del codice del lavoro di arr, restituisco true.
-	 *se tale codice è maggiore, restituisco false.
-	 *se il lavoro è lo stesso, passo al confronto dei codici delle richieste.
-	 *Il codice delle richieste è per forza diverso da richiesta a richiesta, quindi escludo l'uguaglianza.
-	 *se il codice di ins è minore del codice di arr, restituisco true.
-	 *se tale codice è maggiore, restituisco false.
+	 *se il codice del cantiere di ins &egrave; minore del codice del cantiere di arr, restituisco true.
+	 *se tale codice &egrave; maggiore, restituisco false.
+	 *se il cantiere &egrave; lo stesso, passo al confronto dei codici dei lavori.
+	 *se il codice del lavoro di ins &egrave; minore del codice del lavoro di arr, restituisco true.
+	 *se tale codice &egrave; maggiore, restituisco false.
+	 *se il lavoro &egrave; lo stesso, passo al confronto dei codici delle richieste.
+	 *Il codice delle richieste &egrave; per forza diverso da richiesta a richiesta, quindi escludo l'uguaglianza.
+	 *se il codice di ins &egrave; minore del codice di arr, restituisco true.
+	 *se tale codice &egrave; maggiore, restituisco false.
 	 *
 	 * @param ins L'elemento da inserire nell'array
 	 * @param arr l'elemento dell'array con cui confrontare l'elemento da inserire
-	 * @return true, if successful
+	 * @return true, se l'elemento ins ha priorit&agrave; superiore all'elemento arr
 	 */
 	static boolean ordinaPerCodice(Richiesta ins, Richiesta arr){
 		//A codice minore corrisponde elemento inserito prima
@@ -686,7 +689,7 @@ public class GreedyEngine {
 		 *
 		 * @param r1 Richiesta 1
 		 * @param r2 Richiesta 2
-		 * @return -1 se r1 ha priorit� maggiore di r2, 1 se r1 ha priorit� minore di r2, 0 se r1 e r2 sono la stessa richiesta
+		 * @return -1 se r1 ha priorit&agrave; maggiore di r2, 1 se r1 ha priorit&agrave; minore di r2, 0 se r1 e r2 sono la stessa richiesta
 		 */
 		@Override
 		public int compare(Richiesta r1, Richiesta r2){
