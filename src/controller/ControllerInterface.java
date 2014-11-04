@@ -37,27 +37,16 @@ public interface ControllerInterface {
 	 * @return true, se il cantiere viene eliminato
 	 */
 	public boolean eliminaCantiere(Integer codiceCantiere);	
-	
-	/**
-	 * Gestisce la chiusura dell'applicazione salvando tutti i dati caricati dall'utente.
-	 */
-	public void exitManager();
-	
+
 	/**
 	 * Carica i dati dell'applicazione.
 	 */
-	public void caricaDatiListener();
+	public void caricaDati();
 	
 	/**
 	 * Salva i dati dell'applicazione.
 	 */
-	public void salvaDatiListener();
-	
-	/**
-	 * Gestisce la chiusura del programma.
-	 */
-	public void chiusuraProgramma();
-	//
+	public void salvaDati();
 	/**
 	 * Aggiungi gru observer.
 	 *
