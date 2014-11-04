@@ -134,7 +134,7 @@ public class MainView extends JFrame {
 		contentPane.add(center, BorderLayout.CENTER);
 		listener();
 		setObserver();
-		controller.caricaDatiListener();
+		controller.caricaDati();
 		setVisible(true);
 	}
 	
@@ -157,7 +157,7 @@ public class MainView extends JFrame {
 	private WindowAdapter addWindowClosingListener() {
 		return new WindowAdapter() {
 			public void windowClosing(WindowEvent w) {
-				controller.exitManager();
+				controller.salvaDati();
 				dispose();
 			}
 		};
@@ -398,7 +398,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.salvaDatiListener();
+				controller.salvaDati();
 			}
 		};
 	}
@@ -417,7 +417,7 @@ public class MainView extends JFrame {
 				dataModelEscavatore.resetData();
 				dataModelGru.resetData();
 				dataModelCantiere.resetData();
-				controller.caricaDatiListener();
+				controller.caricaDati();
 			}
 		};
 	}
@@ -431,7 +431,7 @@ public class MainView extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.exitManager();
+				controller.salvaDati();
 			}
 		};
 	}

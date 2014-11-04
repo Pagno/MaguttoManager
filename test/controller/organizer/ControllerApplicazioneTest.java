@@ -55,37 +55,7 @@ public class ControllerApplicazioneTest {
 		ModelGru.getModelGru().caricaGru(1, "Gru", "G67", 360, 3000, 35, 45);
 		assertArrayEquals(observer.s, v1);
 	}
-	
-	@Test
-	public void testExitManager(){
-		model.ResetAllForTest();
 
-		ModelCamion.getModelCamion().caricaCamion(1, "Camion", "C101", 200,
-				150, 220);
-		Camion c = new Camion(1, "Camion", "C101", 200, 150, 220);
-		ModelRuspa.getModelRuspa().caricaRuspa(2, "Ruspa", "R101", 200, 150,
-				220);
-		Ruspa r = new Ruspa(2, "Ruspa", "R101", 200, 150, 220);
-		appCtrl.exitManager();
-		model.refreshData();
-		assertEquals(c, model.getMacchina(1));
-		assertEquals(r, model.getMacchina(2));
-	}	
-	@Test
-	public void testChiusuraProgramma(){
-		model.ResetAllForTest();
-
-		ModelCamion.getModelCamion().caricaCamion(1, "Camion", "C101", 200,
-				150, 220);
-		Camion c = new Camion(1, "Camion", "C101", 200, 150, 220);
-		ModelRuspa.getModelRuspa().caricaRuspa(2, "Ruspa", "R101", 200, 150,
-				220);
-		Ruspa r = new Ruspa(2, "Ruspa", "R101", 200, 150, 220);
-		appCtrl.chiusuraProgramma();
-		model.refreshData();
-		assertEquals(c, model.getMacchina(1));
-		assertEquals(r, model.getMacchina(2));
-	}
 	@Test
 	public void testAggiungiRuspaObserver() {
 		model.ResetAllForTest();	
@@ -148,7 +118,7 @@ public class ControllerApplicazioneTest {
 		ModelRuspa.getModelRuspa().caricaRuspa(2, "Ruspa", "R101", 200, 150,
 				220);
 		Ruspa r = new Ruspa(2, "Ruspa", "R101", 200, 150, 220);
-		appCtrl.salvaDatiListener();
+		appCtrl.salvaDati();
 		model.refreshData();
 		assertEquals(c, model.getMacchina(1));
 		assertEquals(r, model.getMacchina(2));
@@ -165,8 +135,8 @@ public class ControllerApplicazioneTest {
 		Ruspa r = new Ruspa(2, "Ruspa", "R101", 200, 150, 220);
 		ModelRuspa.getModelRuspa().aggiungiRuspaForTest(r);
 
-		appCtrl.salvaDatiListener();
-		appCtrl.caricaDatiListener();
+		appCtrl.salvaDati();
+		appCtrl.caricaDati();
 
 		assertEquals(c, model.getMacchina(1));
 		assertEquals(r, model.getMacchina(2));

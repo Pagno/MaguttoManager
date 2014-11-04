@@ -90,20 +90,11 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 		model.aggiungiCantiereObserver(observer);
 	}
 	
-	//MENU FILE LISTENER
-	/**
-	 * Gestisce la chiusura dell'applicazione salvando tutti i dati caricati dall'utente.
-	 *
-	 */
-	public void exitManager(){
-		model.storeData();
-	}
-	
 	/**
 	 * Salva tutti i dati caricati dall'utente.
 	 *
 	 */
-	public void salvaDatiListener(){
+	public void salvaDati(){
 		model.storeData();
 	}
 	
@@ -112,17 +103,9 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	 *
 	 *
 	 */
-	public void caricaDatiListener(){
+	public void caricaDati(){
 		model.refreshData();
 		model.pubblicaContenuto();
-	}
-	
-	/**
-	 * Gestisce la chiusura dell'applicazione salvando tutti i dati caricati dall'utente.
-	 *
-	 */
-	public void chiusuraProgramma(){
-		model.storeData();
 	}
 	
 	/*

@@ -111,37 +111,23 @@ public class ControllerConnector implements ControllerInterface{
 		return appCtrl.eliminaCantiere(codiceCantiere);
 	}
 
-	/* (non-Javadoc)
-	 * @see controller.ControllerInterface#exitManager()
-	 */
-	@Override
-	public void exitManager() {
-		appCtrl.exitManager();
-	}
 
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#caricaDatiListener()
 	 */
 	@Override
-	public void caricaDatiListener() {
-		appCtrl.caricaDatiListener();
+	public void caricaDati() {
+		appCtrl.caricaDati();
 	}
 
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#salvaDatiListener()
 	 */
 	@Override
-	public void salvaDatiListener() {
-		appCtrl.salvaDatiListener();
+	public void salvaDati() {
+		appCtrl.salvaDati();
 	}
 
-	/* (non-Javadoc)
-	 * @see controller.ControllerInterface#chiusuraProgramma()
-	 */
-	@Override
-	public void chiusuraProgramma() {
-		appCtrl.chiusuraProgramma();
-	}
 
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#getCantiere(int)

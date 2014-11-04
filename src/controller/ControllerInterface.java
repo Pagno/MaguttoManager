@@ -34,26 +34,16 @@ public interface ControllerInterface {
 	 * @return true, if successful
 	 */
 	public boolean eliminaCantiere(Integer codiceCantiere);	
-	
-	/**
-	 * Exit manager.
-	 */
-	public void exitManager();
-	
+
 	/**
 	 * Carica dati listener.
 	 */
-	public void caricaDatiListener();
+	public void caricaDati();
 	
 	/**
 	 * Salva dati listener.
 	 */
-	public void salvaDatiListener();
-	
-	/**
-	 * Chiusura programma.
-	 */
-	public void chiusuraProgramma();
+	public void salvaDati();
 	//
 	/**
 	 * Aggiungi gru observer.
