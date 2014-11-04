@@ -20,9 +20,12 @@ import controller.ControllerConnector;
 import controller.ControllerInterface;
 import controller.greedy.data.Associazione;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ViewGreedyEngine.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class ViewGreedyEngine extends JDialog {
 

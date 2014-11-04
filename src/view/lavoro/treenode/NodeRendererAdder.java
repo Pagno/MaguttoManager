@@ -15,6 +15,9 @@ import model.organizer.data.Richiesta;
 /**
  * Classe usate per definire uno stile di visualizzazione della 
  * JTree nella view {@link view.lavoro.ViewLavoro}
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class NodeRendererAdder implements TreeCellRenderer {
 	Boolean showSoddisfatta=true;

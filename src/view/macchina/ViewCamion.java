@@ -18,9 +18,12 @@ import javax.swing.JTextField;
 
 import controller.ControllerInterface;
 
-// TODO: Auto-generated Javadoc
+
 /**
-*   View per inserimento e modifica degli Escavatori.
+ *   View per inserimento e modifica dei Camion.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ViewCamion extends JDialog {
 

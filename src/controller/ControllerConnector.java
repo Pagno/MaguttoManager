@@ -14,30 +14,38 @@ import controller.organizer.*;
 
 
 
+
 /**
- * Classe ControllerConnector.
+ *   La classe ControllerConnector permette al componente view di interfacciarsi con il componente controller.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ControllerConnector implements ControllerInterface{
+	
 	
 	/** The app ctrl. */
 	private ControllerApplicazione appCtrl;
 	
+	
 	/** The ins ctrl. */
 	private ControllerInserimento insCtrl;
 	
+	
 	/** The can ctrl. */
 	private ControllerCantiere canCtrl;
+	
 	
 	/** The istanza. */
 	private static ControllerConnector istanza;
 
 
+	
 	/**
-	 * Restituisce l'istanzia della classe ControllerConnector
+	 * Restituisce l'istanza di ControllerConnector, implementando il pattern Singleton.
 	 *
-	 * @param modelInterface riferimento alla classe modelInterface per comunicare con
-	 * il modello dei dati dell'applicazione
-	 * @return istanzia della classe ControllerConnector
+	 * @param modelInterface La model interface
+	 * @return Il controller connector
 	 */
 	public static synchronized ControllerConnector getControllerConnector(ModelInterface modelInterface){
 		if(istanza==null){
@@ -46,11 +54,11 @@ public class ControllerConnector implements ControllerInterface{
 		return istanza;
 	}
 	
+	
 	/**
-	 * Costruttore della classe
+	 * Istanzia un nuovo ControllerConnector.
 	 *
-	 * @param modelConnector  riferimento alla classe modelInterface per comunicare con
-	 * il modello dei dati dell'applicazione
+	 * @param modelConnector Il model connector
 	 */
 	private ControllerConnector(ModelInterface modelConnector) {
 		appCtrl=ControllerApplicazione.getControllerApplicazione(modelConnector);
@@ -59,12 +67,14 @@ public class ControllerConnector implements ControllerInterface{
 	}
 	
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiGruObserver(java.util.Observer)
 	 */
 	public void aggiungiGruObserver(Observer observer){
 		appCtrl.aggiungiGruObserver(observer);
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiRuspaObserver(java.util.Observer)
@@ -73,12 +83,14 @@ public class ControllerConnector implements ControllerInterface{
 		appCtrl.aggiungiRuspaObserver(observer);
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiCamionObserver(java.util.Observer)
 	 */
 	public void aggiungiCamionObserver(Observer observer){
 		appCtrl.aggiungiCamionObserver(observer);
 	}	
+	
 	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiEscavatoreObserver(java.util.Observer)
@@ -87,12 +99,14 @@ public class ControllerConnector implements ControllerInterface{
 		appCtrl.aggiungiEscavatoreObserver(observer);
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiCantiereObserver(java.util.Observer)
 	 */
 	public void aggiungiCantiereObserver(Observer observer){
 		appCtrl.aggiungiCantiereObserver(observer);
 	}
+	
 	
 	
 	/* (non-Javadoc)
@@ -103,6 +117,7 @@ public class ControllerConnector implements ControllerInterface{
 		return appCtrl.eliminaMacchina(codiceMacchina);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#eliminaCantiere(java.lang.Integer)
 	 */
@@ -110,7 +125,6 @@ public class ControllerConnector implements ControllerInterface{
 	public boolean eliminaCantiere(Integer codiceCantiere) {
 		return appCtrl.eliminaCantiere(codiceCantiere);
 	}
-
 
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#caricaDatiListener()
@@ -120,6 +134,7 @@ public class ControllerConnector implements ControllerInterface{
 		appCtrl.caricaDati();
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#salvaDatiListener()
 	 */
@@ -127,8 +142,7 @@ public class ControllerConnector implements ControllerInterface{
 	public void salvaDati() {
 		appCtrl.salvaDati();
 	}
-
-
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#getCantiere(int)
 	 */
@@ -137,6 +151,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.getCantiere(codiceCantiere);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#modificaCantiere(int, java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar, model.organizer.data.Priorita)
 	 */
@@ -148,6 +163,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.modificaCantiere(codiceCantiere, nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiLavoro(int, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
@@ -165,6 +181,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.eliminaLavoro(codiceLavoro);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#eliminaRichiesta(int)
 	 */
@@ -173,6 +190,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.eliminaRichiesta(codiceRichiesta);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#getElencoMacchineDisponibili(int)
 	 */
@@ -181,6 +199,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.getElencoMacchineDisponibili(codiceRichiesta);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#liberaRichiesta(int)
 	 */
@@ -189,6 +208,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.liberaRichiesta(codiceRichiesta);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiRichiesta(int, int, model.organizer.data.RichiestaMacchina)
 	 */
@@ -199,6 +219,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.aggiungiRichiesta(codiceCantiere, codiceLavoro, richiesta);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#soddisfaRichiesta(int, int)
 	 */
@@ -207,6 +228,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.soddisfaRichiesta(codiceRichiesta, codiceMacchina);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#generaAssociazioni()
 	 */
@@ -215,6 +237,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.generaAssociazioni();
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#confermaAssociazioniListener(java.util.ArrayList)
 	 */
@@ -223,8 +246,9 @@ public class ControllerConnector implements ControllerInterface{
 		canCtrl.confermaAssociazioniListener(data);
 	}
 
+	
 	/* (non-Javadoc)
-	 * @see controller.ControllerInterface#modificaLavoro(int, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
+	 * @see controller.ControllerInterface#modificaLavoro(int, int, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar)
 	 */
 	@Override
 	public boolean modificaLavoro(int codiceCantiere,int codiceLavoro, String nome,
@@ -232,6 +256,7 @@ public class ControllerConnector implements ControllerInterface{
 		return canCtrl.modificaLavoro(codiceCantiere,codiceLavoro, nome, inizio, fine);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiGru(java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -242,6 +267,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.aggiungiGru(produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiRuspa(java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -252,6 +278,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.aggiungiRuspa(produttore, modello, capacita, portata, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiEscavatore(java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -261,6 +288,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.aggiungiEscavatore(produttore, modello, capacita, portata, altezza, profondita);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiCamion(java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -271,6 +299,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.aggiungiCamion(produttore, modello, capacita, portata, lunghezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#aggiungiCantiere(java.lang.String, java.lang.String, java.util.GregorianCalendar, java.util.GregorianCalendar, model.organizer.data.Priorita)
 	 */
@@ -282,6 +311,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.aggiungiCantiere(nomeCantiere, indirizzo, dataApertura, dataChiusura, priorita);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#modificaCamion(int, java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -291,6 +321,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.modificaCamion(codiceCamion, produttore, modello, capacita, portata, lunghezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#modificaGru(int, java.lang.String, java.lang.String, int, int, int, int)
 	 */
@@ -302,6 +333,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.modificaGru(codiceGru, produttore, modello, rotazione, portata, lunghezza, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#modificaRuspa(int, java.lang.String, java.lang.String, int, int, int)
 	 */
@@ -312,6 +344,7 @@ public class ControllerConnector implements ControllerInterface{
 		return insCtrl.modificaRuspa(codiceRuspa, produttore, modello, capacita, portata, altezza);
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see controller.ControllerInterface#modificaEscavatore(int, java.lang.String, java.lang.String, int, int, int, int)
 	 */

@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-// 
+
 /**
- * Classe che gestisce le connessioni, le interrogazioni, le modifiche e le disconnessioni al database.
+ * La classe Database gestisce le connessioni, le interrogazioni, le modifiche e le disconnessioni al database.
  * 
- * @author Mauro
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class Database implements DatabaseInterface{
 
@@ -44,9 +45,9 @@ public class Database implements DatabaseInterface{
 	}
 	
 	/**
-	 * Gets   database.
+	 * Restituisce l'istanza della classe Database, implementando il pattern Singleton.
 	 *
-	 * @return   database
+	 * @return L'istanza della classe Database
 	 */
 	public static synchronized Database getDatabase(){
 		if(istanza==null){
@@ -58,7 +59,7 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Connessione al DB.
 	 *
-	 * @throws DatabaseException   java db exception
+	 * @throws DatabaseException java db exception
 	 */
 	@Override
 	public void connect() throws DatabaseException{
@@ -91,8 +92,8 @@ public class Database implements DatabaseInterface{
 	/**
 	 * Controlla se esistono le tabelle nel DB.
 	 *
-	 * @return true, if is empty
-	 * @throws DatabaseException   java db exception
+	 * @return true, se il database è vuoto
+	 * @throws DatabaseException java db exception
 	 */
 	@Override
 	public boolean isEmpty() throws DatabaseException{
@@ -110,10 +111,10 @@ public class Database implements DatabaseInterface{
 
 
 	/**
-	 * Interrogazione al DB.
+	 * Interroga il DB.
 	 *
-	 * @param qry   qry
-	 * @return   result set
+	 * @param qry qry
+	 * @return result set
 	 * @throws DatabaseException   java db exception
 	 */
 	@Override
@@ -132,10 +133,10 @@ public class Database implements DatabaseInterface{
 
 
 	/**
-	 * Update table into DB.
+	 * Aggiorna la tabella del DB.
 	 *
-	 * @param qry   qry
-	 * @throws DatabaseException   java db exception
+	 * @param qry qry
+	 * @throws DatabaseException java db exception
 	 */
 	@Override
 	public void update(String qry) throws DatabaseException {
@@ -150,7 +151,7 @@ public class Database implements DatabaseInterface{
 
 
 	/**
-	 * Disconnect from DB.
+	 * Disconnette il DB.
 	 *
 	 * @throws DatabaseException   java db exception
 	 */

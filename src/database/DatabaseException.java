@@ -1,10 +1,11 @@
 package database;
 
-// 
+
 /**
  * Classe che rappresenta le eccezioni che possono essere sollevate dal database.
  * 
- * @author Mauro
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class DatabaseException extends Exception {
 

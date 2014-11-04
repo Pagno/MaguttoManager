@@ -20,9 +20,11 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-// TODO: Auto-generated Javadoc
 /**
  * Panello necessario per l'inserimento dei dati del lavoro.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class PanelLavoro extends JPanel implements PropertyChangeListener {
 

@@ -48,9 +48,11 @@ import javax.swing.JCheckBox;
 
 import controller.ControllerInterface;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ViewLavoro.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class ViewLavoro extends JDialog{
 

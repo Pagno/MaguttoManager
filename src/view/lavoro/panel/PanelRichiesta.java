@@ -12,10 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * Panello necessario per l'inserimento dei dati della richiesta.
+ * 
+ * @author Matteo Pagnoncelli
+ * @author Mauro Valota
  */
 public class PanelRichiesta extends JPanel {
 

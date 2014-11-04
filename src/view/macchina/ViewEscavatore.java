@@ -21,7 +21,10 @@ import controller.ControllerInterface;
 
 
 /**
-*   View per inserimento e modifica degli Escavatori.
+ *   View per inserimento e modifica degli Escavatori.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class ViewEscavatore extends JDialog {
 

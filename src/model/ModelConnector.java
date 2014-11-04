@@ -31,7 +31,7 @@ import database.DatabaseInterface;
 
 
 /**
- *   La classe ModelCamion permette agli altri componenti di interfacciarsi con il componente model.
+ *   La classe ModelConnector permette agli altri componenti di interfacciarsi con il componente model.
  *   <p>
  *   Permette di inserire, modificare o eliminare tutti i tipi di macchina, i cantieri, i lavori e le richieste sfruttando
  *   le funzionalità delle classi contenute nel package model.organizer.
