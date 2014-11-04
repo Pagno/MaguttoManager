@@ -57,7 +57,7 @@ public class ViewGreedyEngine extends JDialog {
 	 * Crea un nuovo frame per la generazione automatica delle associazioni.
 	 *
 	 * @param view view padre
-	 * @param insCtr Interfaccia del componente controller necessario per comunicare con i dati dell'applicazione
+	 * @param aCtr Interfaccia del componente controller necessario per comunicare con i dati dell'applicazione
 	*/
 	public ViewGreedyEngine(JFrame view,ControllerInterface aCtr) {
 		super(view);

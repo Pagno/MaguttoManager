@@ -28,7 +28,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	/**
 	 * Restituisce l'istanza di ControllerInserimento. Se non era ancora instanziato la crea, implementando il pattern Singleton.
 	 *
-	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
+	 * @param modelConnector Interfaccia per manipolare i dati gestiti dall'applicazione
 	 * @return  Istanza di ControllerInserimento
 	 */
 	public static synchronized ControllerInserimento getControllerInserimento(ModelInterface modelConnector){
@@ -40,7 +40,7 @@ public class ControllerInserimento{// implements AbstractInsertController{
 	/**
 	 * Istanzia un nuovo controllore InsertController.
 	 *
-	 * @param ModelInterface Interfaccia per manipolare i dati inseriti nell'applicazione
+	 * @param modelConnector Interfaccia per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
 	private ControllerInserimento(ModelInterface modelConnector) {

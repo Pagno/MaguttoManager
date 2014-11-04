@@ -279,7 +279,7 @@ public class MainView extends JFrame {
 	 * Restituisce L'ActionLisener per gestire il click la visualizzazione dei dati caricati nell'
 	 * applicazione.
 	 *
-	 * @param visualizza i dati caricati nell'applicazione.
+	 * @param mainView Visualizza i dati caricati nell'applicazione.
 	 * @return ActionListener
 	 */
 	public ActionListener visualizzaElenco(final MainView mainView) {

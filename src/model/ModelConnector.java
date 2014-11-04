@@ -87,7 +87,7 @@ public class ModelConnector implements ModelInterface{
 	 * l'istanza realizzata in precedenza.<p>
 	 * Questo metodo permette di adottare il pattern Singleton.
 	 *
-	 * @param L'interfaccia del database
+	 * @param data L'interfaccia del database
 	 * @return L'istanza di ModelConnector
 	 */
 	public static synchronized ModelConnector getModelConnector(DatabaseInterface data){

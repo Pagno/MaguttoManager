@@ -170,9 +170,11 @@ public class PanelCantiere extends JPanel {
 	}
 	
 	/**
-	 * Imposta i dati del cantiere
+	 * Imposta le date del cantiere
 	 *
-	 * @param v dati del cantiere
+	 * @param inizio La data di inizio del cantiere
+	 * @param fine La data di fine del cantiere
+	 * @param hasLavoro Booleano settato a true se il cantiere ha almeno un lavoro
 	 */
 	public void setRangeDate(GregorianCalendar inizio,GregorianCalendar fine,boolean hasLavoro){
 		if(hasLavoro==false){

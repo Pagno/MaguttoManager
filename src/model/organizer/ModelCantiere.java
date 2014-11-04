@@ -211,7 +211,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	/**
 	 * Restituisce il lavoro indentificato dal codice inserito.
 	 *
-	 * @param codice Il codice del lavoro desiderato
+	 * @param codiceLavoro Il codice del lavoro desiderato
 	 * @return Il lavoro desiderato
 	 */
 	public Lavoro getLavoro(Integer codiceLavoro){
@@ -287,7 +287,7 @@ public class ModelCantiere extends DefaultTreeModel{
 	/**
 	 * Elimina il lavoro identificato dal codice inserito.
 	 *
-	 * @param codice Il codice del lavoro
+	 * @param codiceLavoro Il codice del lavoro
 	 * @return true, se il lavoro viene eliminato correttamente
 	 */
 	public boolean eliminaLavoro(int codiceLavoro){

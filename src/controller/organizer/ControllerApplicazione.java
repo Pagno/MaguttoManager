@@ -26,7 +26,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	/**
 	 * Ritorna l'istanza di ControllerApplicazione. Se non era ancora instanziato la crea, implementando il pattern Singleton.
 	 *
-	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
+	 * @param modelConnector Interfaccia per manipolare i dati gestiti dall'applicazione
 	 * @return  Istanza di ControllerApplicazione
 	 */
 	public static synchronized ControllerApplicazione getControllerApplicazione(ModelInterface modelConnector){
@@ -39,7 +39,7 @@ public class ControllerApplicazione{// implements AbstractApplicationController{
 	/**
 	 * Istanzia un nuovo controllore MainController.
 	 *
-	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
+	 * @param modelConnector Interfaccia per manipolare i dati gestiti dall'applicazione
 	 */
 	private ControllerApplicazione(ModelInterface modelConnector){
 		model = modelConnector;

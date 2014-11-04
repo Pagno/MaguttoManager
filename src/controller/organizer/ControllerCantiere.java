@@ -34,7 +34,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	/**
 	 * Restituisce l'istanza di ControllerCantiere. Se non era ancora instanziato la crea, implementando il pattern Singleton.
 	 *
-	 * @param ModelInterface Interfaccia per manipolare i dati gestiti dall'applicazione
+	 * @param modelConnector Interfaccia per manipolare i dati gestiti dall'applicazione
 	 * @return  Istanza di ControllerCantiere
 	 */
 	public static synchronized ControllerCantiere getControllerCantiere(ModelInterface modelConnector){
@@ -46,7 +46,7 @@ public class ControllerCantiere{// implements AbstractCantieriController{
 	/**
 	 * Istanzia un nuovo controllore.
 	 *
-	 * @param ModelInterface Interfaccia per manipolare i dati inseriti nell'applicazione
+	 * @param modelConnector Interfaccia per manipolare i dati inseriti nell'applicazione
 	 * 
 	 */
 	private ControllerCantiere(ModelInterface modelConnector) {

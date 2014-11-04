@@ -237,7 +237,7 @@ public class ViewLavoro extends JDialog{
 	/**
 	 * Evento legto al click del mouse sull'elenco dei lavoro.
 	 *
-	 * @return me Gestore del click del mouse
+	 * @param me Gestore del click del mouse
 	 */
 	void doMouseClicked(MouseEvent me) {
 		TreePath tp = tree.getPathForLocation(me.getX(), me.getY());

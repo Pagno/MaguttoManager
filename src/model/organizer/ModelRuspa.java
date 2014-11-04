@@ -94,18 +94,18 @@ public class ModelRuspa extends ModelMacchina{
 	 * @param portata La portata della ruspa
 	 * @param altezza L'altezza della ruspa
 	 */
-	public void modificaRuspa(int codice, String produttore, String Modello,int capacita,int portata,int altezza){
+	public void modificaRuspa(int codice, String produttore, String modello,int capacita,int portata,int altezza){
 		for(Ruspa item:listaRuspe){
 			if(item.getCodice()==codice){
 				item.setProduttore(produttore);
-		    	item.setModello(Modello);
+		    	item.setModello(modello);
 		    	item.setCapacitaMassima(capacita);
 		    	item.setPortataMassima(portata);
 		    	item.setAltezzaMassima(altezza);
 			}
 		}
 
-		Object[] v1={codice,produttore,Modello,altezza,capacita,portata};
+		Object[] v1={codice,produttore,modello,altezza,capacita,portata};
 		setChanged();
 		notifyObservers(v1);
 	}

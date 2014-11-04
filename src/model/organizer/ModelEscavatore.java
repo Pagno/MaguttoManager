@@ -90,7 +90,7 @@ public class ModelEscavatore extends ModelMacchina{
 	 *
 	 * @param codice Il codice dell'escavatore
 	 * @param produttore Il produttore dell'escavatore
-	 * @param Modello Il modello dell'escavatore
+	 * @param modello Il modello dell'escavatore
 	 * @param capacita La capacit&agrave; dell'escavatore
 	 * @param portata La portata dell'escavatore
 	 * @param altezza L'altezza dell'escavatore

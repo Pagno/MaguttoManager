@@ -151,7 +151,7 @@ public abstract class Macchina{
 	/**
 	 * Cancella la richiesta dall'elenco delle soddisfatte.
 	 *
-	 * @param La richiesta da eliminare
+	 * @param r La richiesta da eliminare
 	 */
 	public void rimuoviRichiesta(Richiesta r){
 		elencoRichiesta.remove(r);

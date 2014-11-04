@@ -164,7 +164,7 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 	/**
 	 * Modifica l'altezza massima.
 	 *
-	 * @param maxPortata La nuova massima altezza
+	 * @param maxAltezza La nuova massima altezza
 	 */
 	public void setMaxAltezza(int maxAltezza) {
 		this.maxAltezza = maxAltezza;
@@ -182,7 +182,7 @@ public class RichiestaEscavatore extends RichiestaMacchina {
 	/**
 	 * Modifica la profondit&agrave; minima.
 	 *
-	 * @param minPortata La nuova profondit&agrave; minima
+	 * @param minProfondita La nuova profondit&agrave; minima
 	 */
 	public void setMinProfondita(int minProfondita) {
 		this.minProfondita = minProfondita;

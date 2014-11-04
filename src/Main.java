@@ -14,11 +14,16 @@ import database.DatabaseException;
 
 
 /**
- *   Class Main.
+ *   La classe Main è la classe principale del programma, e si occupa di caricare e inizializzare i componenti in cui esso è 
+ *   suddiviso.
+ *   
+ *   @author Matteo Pagnoncelli
+ *   @author Mauro Valota
  */
 public class Main {
+	
 	/**
-	 *   main method.
+	 * Metodo main.
 	 *
 	 * @param args   arguments
 	 * @throws DatabaseException   DB exception
